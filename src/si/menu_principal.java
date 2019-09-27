@@ -50,7 +50,7 @@ Statement sent;
           boolean suficientespiezas=true, block_unlock=true,tablaventaactiva=false, primerproducto=true, productoagregado=false, productorepetido=false;
       int suma=0,resta=0;  //variables creadas para los botones de adicionar o quitar en 1 la cantidad de articulos
        // String  usuarioname=SI_Inicio.text_user.getText(); //variable para obtener el nombre del usuario o administrador que ingreso al sistema
-            String estadoinactivo="Inactivo", estadoactivo="Activo", NoP="",estadocancelado= "Cancelada",estadorealizado="Realizada", fechayhora="",fechasinhora="", usuarioname=SI_Inicio.text_user.getText(); //variable para obtener el nombre del usuario o administrador que ingreso al sistema
+            String estadoinactivo="Inactivo", estadoactivo="Activo", NoP="",estadocancelado= "Cancelada",estadorealizado="Realizada", estadoenturno="En turno", fechayhora="",fechasinhora="", usuarioname=SI_Inicio.text_user.getText(); //variable para obtener el nombre del usuario o administrador que ingreso al sistema
     public menu_principal() {
         initComponents();
         setIconImage(getIconImage());  //La variable que le manda la imagen (DataMax) al proyecto 
@@ -410,7 +410,7 @@ Statement sent;
         id_max_de_venta();
              sent = ca.createStatement();   
                                //      rs = sent.executeQuery("select * from descripcion_de_venta where id_venta= '"+id_de_la_venta_incrementable+"'");
-                       rs= sent.executeQuery("select * from  descripcion_de_venta where id_venta= '"+id_de_la_venta_incrementable+"' and  estado = '"+estadorealizado+"'"); // se ejecuta la sentencia dentro del parentesis
+                       rs= sent.executeQuery("select * from  descripcion_de_venta where id_venta= '"+id_de_la_venta_incrementable+"' and  estado = '"+estadoenturno+"'"); // se ejecuta la sentencia dentro del parentesis
 
             while(rs.next()){        
             datos[0]=rs.getString(2);
@@ -520,7 +520,7 @@ Statement sent;
                 pst.setFloat(5,importe);
                 id_max_de_venta();
                 pst.setInt(6,(id_de_la_venta_incrementable));
-                pst.setString(7, estadorealizado);
+                pst.setString(7, estadoenturno);
                 int a=pst.executeUpdate();
                 if(a>0){
                     descontardeinventario();
@@ -547,7 +547,8 @@ Statement sent;
 
             
                 public void regresarproductos_a_inventario(){ // este metodo devuelve los productos que fueron agregados a la venta y posteriormente fueron cancelados
-                block_unlock=true;
+                  id_max_de_venta();
+                    block_unlock=true;
                 for(int n=0;n<=storage.size()-1;n++){
                     //pendiente la restauracion de venta a inventario
                     aux1=(int) storage.get(n);
@@ -555,7 +556,8 @@ Statement sent;
                     }
                     try{ //obteniendo la cantidad en la tabla de descripcion_de_venta
                         sent  =(Statement)ca.createStatement();
-                        rs = sent.executeQuery("select * from descripcion_de_venta where id_producto= '"+storage.get(n)+"'");
+                             rs = sent.executeQuery("select * from descripcion_de_venta where id_producto= '"+storage.get(n)+"'AND estado='"+estadoenturno+"'and id_venta='"+id_de_la_venta_incrementable+"'");
+                    
                         while(rs.next()){
                             cantidadenventa =Integer.parseInt(rs.getString("cantidad"));
                         }
@@ -573,10 +575,10 @@ Statement sent;
                             PreparedStatement ps = ca.prepareStatement ("UPDATE productos SET cantidad='"+cantidadeninventario+"'WHERE id_producto='"+storage.get(n)+"'");
                             ps.executeUpdate();
                         }catch(Exception s){
-JOptionPane.showMessageDialog(null, "Error en venta" + s.getMessage());
+JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
                         }
                     }catch(Exception e){///obteniendo la cantidad en la tabla de descripcion_de_venta
-                        JOptionPane.showMessageDialog(null, "Error en venta" + e.getMessage());
+                        JOptionPane.showMessageDialog(null, "Error en venta aqui otra vez" + e.getMessage());
                     } //obteniendo la cantidad en la tabla de descripcion_de_venta
                 }//fin del ciclo for
 }
@@ -590,11 +592,40 @@ JOptionPane.showMessageDialog(null, "Error en venta" + s.getMessage());
                JOptionPane.showMessageDialog(null, "Error en venta" + e.getMessage());
             }
         
+         // SEPARACION DE LA FECHA Y HORA DEL TIMESTAMP
+                 try{ 
+              sent  =(Statement)ca.createStatement();
+                                           rs = sent.executeQuery("select * from venta where id_venta= '"+id_de_la_venta_incrementable+"'");
+                                            while(rs.next()){
+                                                      fechayhora =rs.getString("fecha_y_hora");
+                                                      }
+                                            SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        Date date = dt.parse(fechayhora);
+
+        SimpleDateFormat dt1 = new SimpleDateFormat("yyyy-MM-dd");
+        ///System.out.println(dt1.format(date));   ---------  dt1.format(date) es donde se almacena solo la fecha
+                                            fechasinhora=dt1.format(date);
+                 }//fin del try-fechasin
+                                                      catch (Exception e){
+                                                      }// fin del fechasin
+                
+
+                // FIN DE LA SEPARACION DE FECHA Y HORA DEL TIMESTAMP
+                
+                //INSERTANDO SOLO LA FECHA EN LA TABLA VENTA
+                 try{
+                            PreparedStatement ps1 = ca.prepareStatement ("UPDATE venta SET fecha_reporte='"+fechasinhora+"'WHERE id_venta='"+id_de_la_venta_incrementable+"'");
+                            ps1.executeUpdate();
+                        }catch(Exception s){
+JOptionPane.showMessageDialog(null, "Error en venta" + s.getMessage());
+                        }
+                  //INSERTANDO SOLO LA FECHA EN LA TABLA VENTA
         try{
             id_max_de_venta();
                 PreparedStatement ps = ca.prepareStatement ("UPDATE descripcion_de_venta SET estado= '"+estadocancelado+"' WHERE id_venta='"+id_de_la_venta_incrementable+"'");
                 ps.executeUpdate();
         JOptionPane.showMessageDialog(null, "Venta cancelada","                  Aviso",JOptionPane.WARNING_MESSAGE);
+         storage.clear();
         }
         catch(Exception ex){
                            JOptionPane.showMessageDialog(null, "Error en venta" + ex.getMessage());
@@ -3093,7 +3124,22 @@ JOptionPane.showMessageDialog(null, "Error en venta" + s.getMessage());
                         }
                 
                 //FIN DE INSERTAR LA FECHA EN LA TABLA VENTA
-              
+         //ACTUALIZACION EN LA TABLA DESCRIPCION DE VENTA A REALIZADA
+  
+       id_max_de_venta();
+        try{
+            id_max_de_venta();
+                PreparedStatement ps2 = ca.prepareStatement ("UPDATE descripcion_de_venta SET estado= '"+estadorealizado+"' WHERE id_venta='"+id_de_la_venta_incrementable+"'");
+                ps2.executeUpdate();
+        JOptionPane.showMessageDialog(null, "Venta cancelada","                  Aviso",JOptionPane.WARNING_MESSAGE);
+
+        }
+        catch(Exception ex){
+                           JOptionPane.showMessageDialog(null, "Error en venta" + ex.getMessage());
+        }
+   
+          //ACTUALIZACION EN LA TABLA DESCRIPCION DE VENTA A REALIZADA
+  
                 get_id_usuario();
                             block_unlock=true;
                                                 JOptionPane.showMessageDialog(null,"Venta realizada");
