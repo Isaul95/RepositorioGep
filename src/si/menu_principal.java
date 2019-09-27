@@ -622,6 +622,7 @@ JOptionPane.showMessageDialog(null, "Error en venta" + s.getMessage());
                   //INSERTANDO SOLO LA FECHA EN LA TABLA VENTA
         try{
             id_max_de_venta();
+            id_max_de_venta();
                 PreparedStatement ps = ca.prepareStatement ("UPDATE descripcion_de_venta SET estado= '"+estadocancelado+"' WHERE id_venta='"+id_de_la_venta_incrementable+"'");
                 ps.executeUpdate();
         JOptionPane.showMessageDialog(null, "Venta cancelada","                  Aviso",JOptionPane.WARNING_MESSAGE);
