@@ -16,22 +16,24 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import si.Gastos;
+import ticket.TikectGasto;
 import static si.menu_principal.venta; // DANDO ACCESOO ALA INTERFAZ PRINCIPAL
 
 public class Pantalla_Gastos extends javax.swing.JFrame {        
    
-    Calendar fecha_actual = new GregorianCalendar();
-    String fechahoy=""; 
-    Gastos gastos;
-    String id_usuario; 
-    String usuarioname=SI_Inicio.text_user.getText(); //variable para obtener el nombre del usuario o administrador que ingreso al sistema
+                Calendar fecha_actual = new GregorianCalendar();
+                String fechahoy=""; 
+                Gastos gastos;
+                String id_usuario; 
+                TikectGasto tikectGastos;
+                String usuarioname=SI_Inicio.text_user.getText(); //variable para obtener el nombre del usuario o administrador que ingreso al sistema
     public Pantalla_Gastos() {
         initComponents();
         this.setLocationRelativeTo(null); // CENTRAR FORMULARIO
         jDateChooserFecha.setCalendar(fecha_actual);       
     }
         
-     public boolean validarFormulario(String gastos) {
+     public boolean validarFormulario(String gastos) { // VALIDACION DE TXT MONTO
         boolean next = false;
         Pattern patGastos = Pattern.compile("^[0-9]+([.])?([0-9]+)?$");
         Matcher matGastos = patGastos.matcher(gastos);
@@ -46,7 +48,7 @@ public class Pantalla_Gastos extends javax.swing.JFrame {
         return next;
     }
                                
-             public boolean validarFormulariotexto(String gastos) {
+             public boolean validarFormulariotexto(String gastos) { // VALIDACION DE TXTDESCRIPCION
         boolean next = false;
         Pattern patGastos = Pattern.compile("^([a-zA-ZÁÉÍÓÚ]{1}[a-zñáéíóú]{1,24}[\\s]*)+$");// ^([a-zA-ZÁÉÍÓÚ]{1}[a-zñáéíóú]{1,24}[\\s]*)+$
         Matcher matGastos = patGastos.matcher(gastos);
@@ -94,10 +96,10 @@ public class Pantalla_Gastos extends javax.swing.JFrame {
         tablaD.setModel(modeloT);  // add modelo ala tabla 
         
         modeloT.addColumn("Idegreso");    // add al modelo las 5 columnas con los nombrs
-        modeloT.addColumn("Descripcion");
+        modeloT.addColumn("Tipo");
         modeloT.addColumn("Fecha");
         modeloT.addColumn("Total");
-        modeloT.addColumn("Turno");
+        modeloT.addColumn("Usuario");
         
         Object[] columna = new Object[5];  //crear un obj con el nombre de colunna
         
@@ -133,10 +135,10 @@ public class Pantalla_Gastos extends javax.swing.JFrame {
                   tablaD.setModel(modeloT);  // add modelo ala tabla 
         
         modeloT.addColumn("Idegreso");    // add al modelo las 5 columnas con los nombrs TABLA
-        modeloT.addColumn("Descripcion");        
-        modeloT.addColumn("Total");
+        modeloT.addColumn("Tipo");        
         modeloT.addColumn("Fecha");
-       modeloT.addColumn("Turno");               
+        modeloT.addColumn("Total");
+       modeloT.addColumn("Usuario");               
          /* SELECT `idegreso`, `tipo`, `total`, `fecha`, turno FROM `egreso` \n" + "  INNER JOIN empleado\n" + "WHERE egreso.`empleado_idempleado` = empleado.idempleado";     */    
         try {
          String sSQL = "SELECT `idegreso`,`tipo`,`fecha`,`total`,`usuario` FROM `egreso` WHERE fecha = '"+llenarfechadehoy()+"'";
@@ -151,7 +153,7 @@ public class Pantalla_Gastos extends javax.swing.JFrame {
                 columna[1] = rs.getString("tipo");
                 columna[2] = rs.getString("total");
                 columna[3] = rs.getString("fecha");
-                columna[4] = rs.getString("Turno");                
+                columna[4] = rs.getString("usuario");                
                 modeloT.addRow(columna);
             }
         }
@@ -195,6 +197,7 @@ public class Pantalla_Gastos extends javax.swing.JFrame {
         B_cancelar = new javax.swing.JButton();
         btnRegistrarGasto = new javax.swing.JButton();
         btnImprimirticket = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -211,7 +214,7 @@ public class Pantalla_Gastos extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Idegreso", "Descripcion", "Total", "Fecha", "Turno"
+                "Idegreso", "Tipo", "Total", "Fecha", "Usuario"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -287,7 +290,7 @@ public class Pantalla_Gastos extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Idegreso", "Descripcion", "Total", "Fecha", "Turno"
+                "Idegreso", "Tipo", "Total", "Fecha", "Usuario"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -303,7 +306,6 @@ public class Pantalla_Gastos extends javax.swing.JFrame {
         jPanel2.add(jScrollPane2);
         jScrollPane2.setBounds(680, 150, 600, 170);
 
-        jDateXUnaFecha.setDateFormatString("yyyy/MM/d");
         jDateXUnaFecha.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jDateXUnaFecha.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
             public void propertyChange(java.beans.PropertyChangeEvent evt) {
@@ -347,6 +349,15 @@ public class Pantalla_Gastos extends javax.swing.JFrame {
         });
         jPanel2.add(btnImprimirticket);
         btnImprimirticket.setBounds(910, 340, 200, 50);
+
+        jButton1.setText("jButton1");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButton1);
+        jButton1.setBounds(1160, 70, 73, 23);
 
         jPanel1.add(jPanel2);
         jPanel2.setBounds(10, 50, 1290, 480);
@@ -402,10 +413,10 @@ public class Pantalla_Gastos extends javax.swing.JFrame {
                             JOptionPane.showMessageDialog(null,"id_usuario" + usuarioname);
                             JOptionPane.showMessageDialog(null, "Gastos Registrados con Exito");
                             limpiar();
-                            //JOptionPane.showMessageDialog(null, "Generando Ticket de Gastos");
+                            JOptionPane.showMessageDialog(null, "Generando Ticket de Gastos");
                             LlenarTabla(jTableGastos); // LLENANDO LA TABLA AL INSERTAR CORRECTAMEBTE
-                            //tikectGastos = new TikectGasto();
-                            //tikectGastos.TikectGasto(tipo, total);
+                            tikectGastos = new TikectGasto();
+                            tikectGastos.TikectGasto(tipo, total);
 
                         } else {
                             JOptionPane.showMessageDialog(null, "error", "ERROR", JOptionPane.ERROR_MESSAGE);
@@ -417,16 +428,39 @@ public class Pantalla_Gastos extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRegistrarGastoActionPerformed
 
     private void btnImprimirticketActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirticketActionPerformed
-        // ABRE NUEVA VENTANA PARA Registro de Gastos
+        // BOTON EN LA  BUSKEDA DE IMPRIMIR TICKET
+         int fila;
+                try {
+                    fila = jTableGastosFechaActual.getSelectedRow();
+                    if (fila == -1) {
+                        JOptionPane.showMessageDialog(null, "No ha seleccionado ninguna fila.", "ERROR", JOptionPane.ERROR_MESSAGE);
+                    } else {
+                        String tipo = (String) jTableGastosFechaActual.getValueAt(fila, 1);
+                        String total = (String) jTableGastosFechaActual.getValueAt(fila, 2);
+                        JOptionPane.showMessageDialog(null, "Ticket Generado Exitosamente");
+                        tikectGastos = new TikectGasto();
+                        tikectGastos.TikectGasto(tipo, total);
+                    }
+                } catch (Exception ex) {
+                } 
         
     }//GEN-LAST:event_btnImprimirticketActionPerformed
 
     private void jDateXUnaFechaPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jDateXUnaFechaPropertyChange
         //  ME HACE LA BUSKEDA AL PONER UNA FECJA EN EL CHOOSERDATE
+         
+            /* String fechahoy= jDateXUnaFecha.toString();
+          
+            LlenarTablaBusquedaFecha(jTableGastosFechaActual, llenarfechadehoy());  */
+
+    }//GEN-LAST:event_jDateXUnaFechaPropertyChange
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+      // BOTON PARA LA CONSULTA DE  GASTOS 
         String fechahoy= jDateXUnaFecha.toString();
           
             LlenarTablaBusquedaFecha(jTableGastosFechaActual, llenarfechadehoy());
-    }//GEN-LAST:event_jDateXUnaFechaPropertyChange
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -474,6 +508,7 @@ public class Pantalla_Gastos extends javax.swing.JFrame {
     private javax.swing.JButton btnImprimirticket;
     private javax.swing.JButton btnListar;
     public javax.swing.JButton btnRegistrarGasto;
+    private javax.swing.JButton jButton1;
     public com.toedter.calendar.JDateChooser jDateChooserFecha;
     public com.toedter.calendar.JDateChooser jDateXUnaFecha;
     private javax.swing.JLabel jLabel1;

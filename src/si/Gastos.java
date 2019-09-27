@@ -2,19 +2,22 @@
 package si;
 
 import com.mysql.jdbc.Statement;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import static si.SI_Inicio.text_user;
+import si.Pantalla_Gastos;
 
 public class Gastos {
     int idegreso;
@@ -23,6 +26,8 @@ public class Gastos {
      String fecha;
      Calendar fechahoy;
      String usuario;
+     
+    
      
      java.sql.Statement sent;  
   ResultSet rs;
@@ -138,8 +143,7 @@ public class Gastos {
        return true;
     }    
     
-         
-}
+    }
 
 
 
