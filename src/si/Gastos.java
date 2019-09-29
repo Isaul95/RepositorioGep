@@ -81,11 +81,9 @@ public class Gastos {
     public int getCantidad() {
         return cantidad;
     }
-
     public void setCantidad(int cantidad) {
         this.cantidad = cantidad;
-    }
-    
+    }    
     public int getIdegreso() {
         return idegreso;
     }
@@ -93,11 +91,9 @@ public class Gastos {
     public void setIdegreso(int idegreso) {
         this.idegreso = idegreso;
     }
-
     public String getTipo() {
         return tipo;
     }
-
     public void setTipo(String tipo) {
         this.tipo = tipo;
     }
