@@ -32,6 +32,7 @@ import net.sf.jasperreports.engine.util.JRLoader;
 import net.sf.jasperreports.view.JasperViewer;
 import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 import javax.imageio.ImageIO;
+import javax.swing.JTextField;
 
 public final class menu_principal extends javax.swing.JFrame implements Runnable{
                   private final String logotipo = "/Reportes/logo1.jpeg"; // icono de DATAMAX
@@ -4403,7 +4404,7 @@ SI cc= new SI();
     private javax.swing.JMenuItem modificarusuarios;
     private javax.swing.JMenuItem modify;
     private javax.swing.JButton mostrar;
-    private javax.swing.JTextField namep;
+    public javax.swing.JTextField namep;
     public static javax.swing.JTextField pagocombobox;
     private javax.swing.JTextField preciop;
     public static javax.swing.JTextField proem;

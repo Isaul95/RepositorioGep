@@ -8,7 +8,7 @@ import javax.swing.JOptionPane;
 
 public class TikectGasto {
    
-    public void TikectGasto(String descripcion, String total){
+    public void TikectGasto(int cantidad, String descripcion, String total){
        
         Date date = new Date();
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -32,7 +32,7 @@ public class TikectGasto {
         //impServicio.printCadena(impra, "Folio: " + folio + "\n");
          auxs+= "Fecha: " + dateFormat.format(date) + " Hora: " + hourFormat.format(date) + "\n";
          auxs+= "==========================================\n";
-         auxs+= "Descripcion          Total\n";
+         auxs+= "Cantidad   Descripcion          Total\n";
          auxs+= "==========================================\n";
 
         
@@ -42,12 +42,12 @@ public class TikectGasto {
                 descripcion = descripcion.substring(0, 17);
             }
             // Se formatea la cadena a imprimir con String.format para varios string
-             auxs+= String.format("%-20s" + " " + "$%-8s", descripcion, total);
+             auxs+= String.format("%-10s" + "$%-10s" + "$%-10s", cantidad, descripcion, total);
              auxs+= "\n";
         
         
          auxs+= "\n==========================================\n";
-         auxs+= "    Gasto      \n Farmacia gi\n\n\n\n\n";// Varios saltos para no cortar antes
+         auxs+= "    Gasto      \n MCS Developer \n\n\n\n\n";// Varios saltos para no cortar antes
          
          try {
             impServicio.printCadena(impra, auxs);

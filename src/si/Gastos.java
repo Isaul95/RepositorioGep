@@ -21,6 +21,7 @@ import si.Pantalla_Gastos;
 
 public class Gastos {
     int idegreso;
+     int cantidad;
      String tipo;
      String total;
      String fecha;
@@ -52,26 +53,37 @@ public class Gastos {
     
      public Gastos(){
    //  idegreso = 0;
+     cantidad =0;
      tipo = "";
      total = "";
      fecha = "";
      usuario = "";
     }
 
-   public Gastos(String descripcion, String total, String nombre, String fecha) {
-        this.tipo = descripcion; // tipo lo almaceno en descirpcion 
+   public Gastos(int cantidad, String descripcion, String total, String nombre, String fecha) {
+       this.cantidad = cantidad; 
+       this.tipo = descripcion; // tipo lo almaceno en descirpcion 
         this.total = total;      
          this.usuario = nombre;  //empleado_idempleado lo almaceno en turno asi se usa en controlador
         this.fecha = fecha;
     }
    
-   public Calendar Gastos(String descripcion, String total, String nombre, Calendar fechahoy) {
-        this.tipo = descripcion; // tipo lo almaceno en descirpcion
+   public Calendar Gastos(int cantidad, String descripcion, String total, String nombre, Calendar fechahoy) {
+       this.cantidad = cantidad;  
+       this.tipo = descripcion; // tipo lo almaceno en descirpcion
         this.total = total;      
         this.usuario = nombre; 
         
         this.fecha_actual = fechahoy;
         return null;
+    }
+
+    public int getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(int cantidad) {
+        this.cantidad = cantidad;
     }
     
     public int getIdegreso() {
@@ -124,13 +136,14 @@ public class Gastos {
         try {
             
            sent = ca.createStatement(); 
-          sql = "INSERT INTO egreso (tipo,fecha, total, usuario)  VALUES (?,?,?,?)";
+          sql = "INSERT INTO egreso (cantidad, tipo, fecha, total, usuario)  VALUES (?,?,?,?,?)";
          PreparedStatement pst = ca.prepareCall(sql);
            // sql = "INSERT INTO egreso (tipo,fecha, total, user_id_usuario)  VALUES (?,?,?,?)";
-            pst.setString(1, getTipo());
-             pst.setString(2, getFecha());
-            pst.setString(3, getTotal());
-            pst.setString(4, getUsuario());
+           pst.setInt(1, getCantidad());
+           pst.setString(2, getTipo());
+           pst.setString(3, getFecha());
+           pst.setString(4, getTotal());
+           pst.setString(5, getUsuario());
                       
             pst.executeUpdate();
 
