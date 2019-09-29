@@ -142,7 +142,6 @@ public class Gastos {
            pst.setString(5, getUsuario());
                       
             pst.executeUpdate();
-
             pst.close();
              
         } catch (SQLException ex) {
@@ -151,6 +150,7 @@ public class Gastos {
         } 
        return true;
     }    
+    
     
     }
 
