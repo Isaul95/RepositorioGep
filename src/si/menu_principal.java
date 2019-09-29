@@ -511,7 +511,7 @@ Statement sent;
                     total_venta_enturno();
                     totalf=sumadeimportes;
                     total.setText(String.valueOf(totalf));
-                    if(descuentoactivo=true){
+                    if(descuentoactivo==true){
                    JOptionPane.showMessageDialog(null, "descuento aplicado");
                if(Float.parseFloat(total.getText())>0){
                totalfinalcondescuento =  Float.parseFloat(total.getText()) - Float.parseFloat(descuentocombo.getText());
@@ -550,7 +550,7 @@ Statement sent;
                     primerproducto=false;
                     productorepetido=true;
                     productoagregado=true;
-                    if(descuentoactivo=true){
+                    if(descuentoactivo==true){
                    JOptionPane.showMessageDialog(null, "descuento aplicado");
                if(Float.parseFloat(total.getText())>0){
                totalfinalcondescuento =  Float.parseFloat(total.getText()) - Float.parseFloat(descuentocombo.getText());
@@ -571,12 +571,18 @@ Statement sent;
     }
             
             public  void descuentos(){
-                 total_venta_enturno();
-                 totalf=sumadeimportes;
-                
-                      porcentaje = Float.parseFloat(JOptionPane.showInputDialog(null, "Porcentaje a descontar", JOptionPane.INFORMATION_MESSAGE));
-               float totalparadescuentos = totalf;
+            
+             
+                   float totalparadescuentos = Float.parseFloat(total.getText());
+                      JOptionPane.showMessageDialog(null, "EL TOTAL ES "+totalparadescuentos);
                if(totalparadescuentos>0){
+                   do{
+                        porcentaje = Float.parseFloat(JOptionPane.showInputDialog(null, "Porcentaje a descontar", JOptionPane.INFORMATION_MESSAGE));
+                        if(porcentaje==100){
+                            JOptionPane.showMessageDialog(null, "No se puede aplicar el 100% de descuento, lo siento, vuelve a intentarlo");
+                        }
+                   }while(porcentaje>=100);
+                  
                 descuentoactivo=true;
                descuentocantidad=(totalparadescuentos * porcentaje)/100;
                descuentocombo.setText(String.valueOf(descuentocantidad));
@@ -589,6 +595,9 @@ Statement sent;
                 labeldescuento.setVisible(true);
     descuentocombo.setVisible(true);
  
+               }
+               else{
+                   JOptionPane.showMessageDialog(null, "Aún no hay productos para hacer descuento");
                }
                  
             }
@@ -960,6 +969,7 @@ JOptionPane.showMessageDialog(null, "Error en venta" + s.getMessage());
         jLabel61 = new javax.swing.JLabel();
         descuentolabel = new javax.swing.JLabel();
         jSeparator20 = new javax.swing.JSeparator();
+        jSeparator22 = new javax.swing.JSeparator();
         jPanel2 = new javax.swing.JPanel();
         user = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
@@ -975,7 +985,6 @@ JOptionPane.showMessageDialog(null, "Error en venta" + s.getMessage());
         descuentocombo = new javax.swing.JLabel();
         total1 = new javax.swing.JLabel();
         total2 = new javax.swing.JLabel();
-        jSeparator8 = new javax.swing.JSeparator();
         jSeparator21 = new javax.swing.JSeparator();
         agregar_proveedor = new javax.swing.JPanel();
         agregarpro = new javax.swing.JButton();
@@ -1356,7 +1365,7 @@ JOptionPane.showMessageDialog(null, "Error en venta" + s.getMessage());
         totalcondescuento.setForeground(new java.awt.Color(255, 255, 255));
         totalcondescuento.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         totalcondescuento.setText("00.00");
-        jPanel10.add(totalcondescuento, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 230, 140, 28));
+        jPanel10.add(totalcondescuento, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 210, 140, 28));
 
         jLabel61.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
         jLabel61.setForeground(new java.awt.Color(255, 255, 255));
@@ -1371,7 +1380,8 @@ JOptionPane.showMessageDialog(null, "Error en venta" + s.getMessage());
         descuentolabel.setText("Descuento :");
         descuentolabel.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         jPanel10.add(descuentolabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 230, 190, -1));
-        jPanel10.add(jSeparator20, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 180, 140, 10));
+        jPanel10.add(jSeparator20, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 250, 140, 10));
+        jPanel10.add(jSeparator22, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 180, 140, 10));
 
         venta.add(jPanel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 400, 570, 270));
 
@@ -1513,7 +1523,6 @@ JOptionPane.showMessageDialog(null, "Error en venta" + s.getMessage());
         total2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         total2.setText("00.00");
         venta.add(total2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1080, 430, 140, 28));
-        venta.add(jSeparator8, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 510, 140, 10));
         venta.add(jSeparator21, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 510, 140, 10));
 
         Proveedores9.addTab("   Venta   ", venta);
@@ -3199,9 +3208,9 @@ actualizarpro.setEnabled(false);
             float variablepagocondescuento =  Float.parseFloat(totalcondescuento.getText());
             
         if(!total.getText().isEmpty()&&!pagocombobox.getText().isEmpty()&&!cantidad.getText().isEmpty()){
-           if(descuentoactivo=true){ //CUANDO EL DESCUENTO ESTÁ ACTIVO
+           if(descuentoactivo==true){ //CUANDO EL DESCUENTO ESTÁ ACTIVO
                
-               if(variablepago<variablepagocondescuento){ // comprueba que la cantidad recibida sea mayor al total
+               if(variablepago<=variablepagocondescuento){ // comprueba que la cantidad recibida sea mayor al total
                     JOptionPane.showMessageDialog(null,"El pago es menor a la cantidad a pagar, por favor, verifique","Advertencia",JOptionPane.INFORMATION_MESSAGE);
             }
             else {
@@ -3210,7 +3219,7 @@ actualizarpro.setEnabled(false);
             block_unlock=true;
             try{// el id del usuario
                 id_max_de_venta();
-                if(descuentoactivo=true){
+                if(descuentoactivo==true){
                     PreparedStatement ps = ca.prepareStatement ("UPDATE venta SET total='"+Float.parseFloat(totalcondescuento.getText())+"',porcentajedescontado='"+porcentaje+"',descuento='"+ Float.parseFloat(descuentocombo.getText())+"',pago='"+pagocombobox.getText()+"',cambio='"+cambiocombobox.getText()+"'WHERE id_venta='"+id_de_la_venta_incrementable+"'");
                 ps.executeUpdate();
                 }
@@ -3268,8 +3277,8 @@ JOptionPane.showMessageDialog(null, "Error en venta" + s.getMessage());
   
                 get_id_usuario();
                             block_unlock=true;
-                                                JOptionPane.showMessageDialog(null,"Venta realizada");
-
+                                                JOptionPane.showMessageDialog(null,"Venta realizada con descuento");
+descuentoactivo=false;
             }//fin del id del usuario
             catch(Exception w){
                 JOptionPane.showMessageDialog(null,"error en id usuario"+w);
@@ -3282,7 +3291,7 @@ JOptionPane.showMessageDialog(null, "Error en venta" + s.getMessage());
            
            else{ //CUANDO EL DESCUENTO NO ESTÁ ACTIVO
                
-               if(variablepago<variabletotal){ // comprueba que la cantidad recibida sea mayor al total
+               if(variablepago<=variabletotal){ // comprueba que la cantidad recibida sea mayor al total
                     JOptionPane.showMessageDialog(null,"El pago es menor a la cantidad a pagar, por favor, verifique","Advertencia",JOptionPane.INFORMATION_MESSAGE);
             }
             else {
@@ -3291,7 +3300,7 @@ JOptionPane.showMessageDialog(null, "Error en venta" + s.getMessage());
             block_unlock=true;
             try{// el id del usuario
                 id_max_de_venta();
-                if(descuentoactivo=true){
+                if(descuentoactivo==true){
                     PreparedStatement ps = ca.prepareStatement ("UPDATE venta SET total='"+Float.parseFloat(totalcondescuento.getText())+"',porcentajedescontado='"+porcentaje+"',descuento='"+ Float.parseFloat(descuentocombo.getText())+"',pago='"+pagocombobox.getText()+"',cambio='"+cambiocombobox.getText()+"'WHERE id_venta='"+id_de_la_venta_incrementable+"'");
                 ps.executeUpdate();
                 }
@@ -3350,7 +3359,7 @@ JOptionPane.showMessageDialog(null, "Error en venta" + s.getMessage());
                 get_id_usuario();
                             block_unlock=true;
                                                 JOptionPane.showMessageDialog(null,"Venta realizada");
-
+descuentoactivo=false;
             }//fin del id del usuario
             catch(Exception w){
                 JOptionPane.showMessageDialog(null,"error en id usuario"+w);
@@ -4382,12 +4391,12 @@ SI cc= new SI();
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator20;
     private javax.swing.JSeparator jSeparator21;
+    private javax.swing.JSeparator jSeparator22;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator5;
     private javax.swing.JSeparator jSeparator6;
     private javax.swing.JSeparator jSeparator7;
-    private javax.swing.JSeparator jSeparator8;
     private javax.swing.JSeparator jSeparator9;
     private javax.swing.JLabel labeldescuento;
     private javax.swing.JMenuItem modificar;
