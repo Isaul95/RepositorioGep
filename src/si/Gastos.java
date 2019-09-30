@@ -127,7 +127,7 @@ public class Gastos {
  
  
     
-    public boolean Gastosinsert() {
+    public boolean Gastosinsert() /*throws SQLException*/ {
         String sql = null;
         try {
             
@@ -147,7 +147,9 @@ public class Gastos {
         } catch (SQLException ex) {
             System.err.print(ex);
             return false;
-        } 
+        } /*finally{
+            ca.close();
+        }  */
        return true;
     }    
     

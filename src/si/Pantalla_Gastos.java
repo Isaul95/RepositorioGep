@@ -108,10 +108,47 @@ public class Pantalla_Gastos extends javax.swing.JFrame {
           } catch (Exception e) {
           }
           return listaGastos;
-      }                                
+      }           
+     
+      public void LlenarTabla(JTable tablaD){ // recibe como parametro 
+         Object[] columna = new Object[6];  //crear un obj con el nombre de colunna
+            Connection ca= cc.conexion(); // CONEXION DB 
+              DefaultTableModel modeloT = new DefaultTableModel(); 
+                  tablaD.setModel(modeloT);  // add modelo ala tabla 
+        
+        modeloT.addColumn("Idegreso");    // add al modelo las 5 columnas con los nombrs TABLA
+        modeloT.addColumn("Cantidad");
+        modeloT.addColumn("Tipo");        
+        modeloT.addColumn("Fecha");
+        modeloT.addColumn("Total");
+       modeloT.addColumn("Usuario");               
+         /* SELECT `idegreso`, `tipo`, `total`, `fecha`, turno FROM `egreso` \n" + "  INNER JOIN empleado\n" + "WHERE egreso.`empleado_idempleado` = empleado.idempleado";     */    
+        try {
+         String sSQL = "SELECT `idegreso`,`cantidad`,`tipo`,`fecha`,`total`,`usuario` FROM `egreso`";
+         
+  // String sSQL = "SELECT * FROM egreso\n" + "WHERE fecha = '"+llenarfechadehoy()+"'";
+         
+         //   "SELECT *FROM egreso\n" + "WHERE fecha = '2019-07-20'";            
+        PreparedStatement ps = ca.prepareStatement(sSQL);       
+        try (ResultSet rs = ps.executeQuery(sSQL)) {
+            while (rs.next()) {
+                columna[0] = rs.getString("idegreso");  /* === LA DB == */
+                columna[1] = rs.getString("cantidad");
+                columna[2] = rs.getString("tipo");
+                columna[3] = rs.getString("fecha");
+                columna[4] = rs.getString("total");
+                columna[5] = rs.getString("usuario");                
+                modeloT.addRow(columna);
+            }
+        }
+        ps.close();
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(null, e, "Advertencia", JOptionPane.PLAIN_MESSAGE);    
+    }
+}
      
       /* ********************** LLENDO DE LA TABLA DE GASTOS  ******************************** */    
-     public DefaultTableModel LlenarTabla(JTable tablaD){ // recibe como parametro 
+    /* public DefaultTableModel LlenarTabla(JTable tablaD){ // recibe como parametro 
         DefaultTableModel modeloT = new DefaultTableModel();
         tablaD.setModel(modeloT);  // add modelo ala tabla 
         
@@ -136,7 +173,7 @@ public class Pantalla_Gastos extends javax.swing.JFrame {
               modeloT.addRow(columna); // add una fila alas colimnas
         }                
         return modeloT;
-    }  
+    }  */
      
      
      public void limpiar(){     /*====  VACIAR CAMPOS */
