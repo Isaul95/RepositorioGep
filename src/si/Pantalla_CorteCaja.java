@@ -29,7 +29,7 @@ public class Pantalla_CorteCaja extends javax.swing.JFrame {
         Corte_btncancelar = new javax.swing.JButton();
         Corte_btnImprimirticket = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
-        Corte_txtmonto = new javax.swing.JTextField();
+        montoaentregar = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -104,10 +104,10 @@ public class Pantalla_CorteCaja extends javax.swing.JFrame {
         jPanel2.add(jLabel3);
         jLabel3.setBounds(10, 80, 160, 29);
 
-        Corte_txtmonto.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        Corte_txtmonto.setEnabled(false);
-        jPanel2.add(Corte_txtmonto);
-        Corte_txtmonto.setBounds(10, 110, 210, 40);
+        montoaentregar.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        montoaentregar.setEnabled(false);
+        jPanel2.add(montoaentregar);
+        montoaentregar.setBounds(10, 110, 210, 40);
 
         jPanel1.add(jPanel2);
         jPanel2.setBounds(10, 50, 650, 480);
@@ -138,7 +138,7 @@ public class Pantalla_CorteCaja extends javax.swing.JFrame {
 
     private void Corte_btnImprimirticketActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Corte_btnImprimirticketActionPerformed
         // ABRE NUEVA VENTANA PARA Registro de Gastos
-        new Pantalla_Gastos().setVisible(true);
+        new Apertura().setVisible(true);
     }//GEN-LAST:event_Corte_btnImprimirticketActionPerformed
 
     /**
@@ -180,12 +180,12 @@ public class Pantalla_CorteCaja extends javax.swing.JFrame {
     public com.toedter.calendar.JDateChooser Corte_Fecha;
     private javax.swing.JButton Corte_btnImprimirticket;
     private javax.swing.JButton Corte_btncancelar;
-    public javax.swing.JTextField Corte_txtmonto;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     public javax.swing.JTable jTableGastos;
+    public javax.swing.JTextField montoaentregar;
     // End of variables declaration//GEN-END:variables
 }

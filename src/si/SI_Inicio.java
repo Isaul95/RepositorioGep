@@ -10,6 +10,7 @@ import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import java.io.*;
 import java.awt.Toolkit;
+import java.text.SimpleDateFormat;
 
 public class SI_Inicio extends javax.swing.JFrame {
       int timer; //variable conteo de los intentos de acceso
@@ -18,6 +19,7 @@ public class SI_Inicio extends javax.swing.JFrame {
      */
     public SI_Inicio() {
         initComponents();
+        fechadehoy=fecha();
         setIconImage(getIconImage());  //La variable que le manda la imagen (DataMax) al proyecto 
         this.setLocationRelativeTo(null);
     }
@@ -43,8 +45,9 @@ public class SI_Inicio extends javax.swing.JFrame {
     
     
       String user,estadoinactivo="Inactivo", pass;
-      
+      int resultopen, aperturahecha;
       int id_usuario=0;
+      String fechadehoy;
     String []datos = new String[4];
 
     @SuppressWarnings("unchecked")
@@ -63,6 +66,9 @@ public class SI_Inicio extends javax.swing.JFrame {
         jSeparator2 = new javax.swing.JSeparator();
         jLabel5 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        pass_user1 = new javax.swing.JPasswordField();
+        text_user1 = new javax.swing.JTextField();
+        iduser = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -181,15 +187,120 @@ public class SI_Inicio extends javax.swing.JFrame {
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/User.png"))); // NOI18N
         jLabel5.setText("U");
-        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 20, 260, -1));
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 20, 260, -1));
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/imagenes/F22.jpg"))); // NOI18N
         jLabel4.setText("jLabel3");
         getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 480, 490));
 
+        pass_user1.setBackground(new java.awt.Color(0, 0, 51));
+        pass_user1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        pass_user1.setForeground(new java.awt.Color(255, 255, 255));
+        pass_user1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        pass_user1.setText("**********");
+        pass_user1.setBorder(null);
+        pass_user1.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                pass_user1FocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                pass_user1FocusLost(evt);
+            }
+        });
+        pass_user1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                pass_user1MouseClicked(evt);
+            }
+        });
+        getContentPane().add(pass_user1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 350, 200, -1));
+
+        text_user1.setBackground(new java.awt.Color(0, 0, 51));
+        text_user1.setFont(new java.awt.Font("Tahoma", 3, 18)); // NOI18N
+        text_user1.setForeground(new java.awt.Color(255, 255, 255));
+        text_user1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        text_user1.setText("Ingresa Usuario");
+        text_user1.setBorder(null);
+        text_user1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        text_user1.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                text_user1FocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                text_user1FocusLost(evt);
+            }
+        });
+        text_user1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                text_user1MouseClicked(evt);
+            }
+        });
+        text_user1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                text_user1ActionPerformed(evt);
+            }
+        });
+        text_user1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                text_user1KeyPressed(evt);
+            }
+        });
+        getContentPane().add(text_user1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 310, 200, -1));
+
+        iduser.setBackground(new java.awt.Color(0, 0, 51));
+        iduser.setFont(new java.awt.Font("Tahoma", 3, 18)); // NOI18N
+        iduser.setForeground(new java.awt.Color(255, 255, 255));
+        iduser.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        iduser.setText("Ingresa Usuario");
+        iduser.setBorder(null);
+        iduser.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        iduser.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                iduserFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                iduserFocusLost(evt);
+            }
+        });
+        iduser.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                iduserMouseClicked(evt);
+            }
+        });
+        iduser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                iduserActionPerformed(evt);
+            }
+        });
+        iduser.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                iduserKeyPressed(evt);
+            }
+        });
+        getContentPane().add(iduser, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 310, 200, -1));
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+public static String fecha(){ /* SE DECARA LA FECHA DEL SISTEMA */
+        java.util.Date fecha=new java.util.Date();
+        SimpleDateFormat formatoFecha= new SimpleDateFormat("dd/MM/YYYY");
+        return formatoFecha.format(fecha);
+    }
+    public void yaseabriosistema(){
+             //metodo agregado 11 septiembre 2018
+             try {
+             Statement sent = ca.createStatement();   
+              ResultSet rs = sent.executeQuery("select * from apertura where fecha='"+fechadehoy+"' ");
+            while(rs.next()){        
+            resultopen=Integer.parseInt(rs.getString(1)); //Obtiene el id de la venta
+            }
+            if(resultopen!=0){ //si el id resultante de la consulta es diferente de 0 quiere decir que ya hay por lo menos una venta en el sistema
+            aperturahecha=1; //entonces el valor de "primerventa" se convertirá en 1, indicando que ya hay por lo menos una venta
+            }
+        } 
+             catch (SQLException ex) {
+            Logger.getLogger(menu_principal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     private void usuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usuarioActionPerformed
         
         // BOTON DE INGRESO PARA LOS USUARIOS
@@ -208,7 +319,7 @@ public class SI_Inicio extends javax.swing.JFrame {
             datos[1]=rs.getString("contraseña");
             datos[2]=rs.getString("estado_activo_inactivo");
             id_usuario=rs.getInt("id_usuario");
-            
+            iduser.setText(String.valueOf(id_usuario));
             }
                 if(datos[2].equals("Inactivo")){
                 JOptionPane.showMessageDialog(null,"Usuario Inactivo, por favor comunicate con tu administrador para recuperar tu usuario","               Lo sentimos",JOptionPane.WARNING_MESSAGE);
@@ -217,12 +328,22 @@ public class SI_Inicio extends javax.swing.JFrame {
             else{
                 if(user.equals(datos[0])&&pass.equals(datos[1])){ //comparacion entre lo escrito por el usuario y lo almacenado en la base de datos
                 JOptionPane.showMessageDialog(null,"Bienvenido Usuario: \n" +user," Acceso Concedido",JOptionPane.INFORMATION_MESSAGE); //Msg de bienvenida                                                                     
-                JOptionPane.showMessageDialog(null,"id_usuario" + id_usuario);
-             //new menu_principal().setVisible(true);
+             yaseabriosistema();
+             JOptionPane.showMessageDialog(null, aperturahecha);
+             if(aperturahecha==0){
+                 
+                 this.setVisible(false);  
+                                     // HERE 
+                              new Apertura().setVisible(true);
+                               this.setIconImage(null);
+             }else{
+                  //new menu_principal().setVisible(true);
              this.setVisible(false);  
                                      // HERE 
                               menu_principal m= new menu_principal();
                                this.setIconImage(null);
+             }
+            
                 }else{
                     JOptionPane.showMessageDialog(null,"Usuario o Contraseña incorrecto \n Intentelo Nuevamente \n Resta " + (3 - timer) + " Intentos","Error",JOptionPane.WARNING_MESSAGE); //Msg de error
                      text_user.setText("");
@@ -345,6 +466,58 @@ public class SI_Inicio extends javax.swing.JFrame {
            pass_user.setForeground(new Color(236, 240, 241));
     }//GEN-LAST:event_pass_userFocusLost
 
+    private void pass_user1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_pass_user1FocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_pass_user1FocusGained
+
+    private void pass_user1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_pass_user1FocusLost
+        // TODO add your handling code here:
+    }//GEN-LAST:event_pass_user1FocusLost
+
+    private void pass_user1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pass_user1MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_pass_user1MouseClicked
+
+    private void text_user1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_text_user1FocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_text_user1FocusGained
+
+    private void text_user1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_text_user1FocusLost
+        // TODO add your handling code here:
+    }//GEN-LAST:event_text_user1FocusLost
+
+    private void text_user1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_text_user1MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_text_user1MouseClicked
+
+    private void text_user1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_text_user1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_text_user1ActionPerformed
+
+    private void text_user1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_text_user1KeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_text_user1KeyPressed
+
+    private void iduserFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_iduserFocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_iduserFocusGained
+
+    private void iduserFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_iduserFocusLost
+        // TODO add your handling code here:
+    }//GEN-LAST:event_iduserFocusLost
+
+    private void iduserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_iduserMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_iduserMouseClicked
+
+    private void iduserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_iduserActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_iduserActionPerformed
+
+    private void iduserKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_iduserKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_iduserKeyPressed
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -381,6 +554,7 @@ SI cc= new SI();
   
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton admin;
+    public static javax.swing.JTextField iduser;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -390,7 +564,9 @@ SI cc= new SI();
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JPasswordField pass_user;
+    private javax.swing.JPasswordField pass_user1;
     public static javax.swing.JTextField text_user;
+    public static javax.swing.JTextField text_user1;
     public static javax.swing.JButton usuario;
     // End of variables declaration//GEN-END:variables
 }
