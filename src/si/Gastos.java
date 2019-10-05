@@ -28,6 +28,41 @@ public class Gastos {
      Calendar fechahoy;
      String usuario;
      
+     
+     //String nombre_producto;
+     float precioxpieza;
+    int totalpiezaspollo;
+    
+    
+    public float getPrecioxpieza() {
+        return precioxpieza;
+    }
+
+    public void setPrecioxpieza(float precioxpieza) {
+        this.precioxpieza = precioxpieza;
+    }
+
+    public int getTotalpiezaspollo() {
+        return totalpiezaspollo;
+    }
+
+    public void setTotalpiezaspollo(int totalpiezaspollo) {
+        this.totalpiezaspollo = totalpiezaspollo;
+    }
+     
+
+   
+/*
+    public String getNombre_producto() {
+        return nombre_producto;
+    }
+
+    public void setNombre_producto(String nombre_producto) {
+        this.nombre_producto = nombre_producto;
+    } */
+
+    
+     
     
      
      java.sql.Statement sent;  
@@ -59,6 +94,14 @@ public class Gastos {
      fecha = "";
      usuario = "";
     }
+     
+      Gastos(String descripcion, float precioxpieza, int totalpiezaspollo) {
+         this.tipo = descripcion;
+          this.precioxpieza = precioxpieza;
+         this.totalpiezaspollo = totalpiezaspollo;
+        //this.fecha = fecha;
+    }
+     
 
    public Gastos(int cantidad, String descripcion, String total, String nombre, String fecha) {
        this.cantidad = cantidad; 
@@ -152,6 +195,39 @@ public class Gastos {
         }  */
        return true;
     }    
+    
+    
+    
+    
+     public boolean GastosinsertProductos() /*throws SQLException*/ {
+        String sql = null;
+        try {
+            
+           sent = ca.createStatement(); 
+          sql = "INSERT INTO productos (nombre_producto, precio, cantidad)  VALUES (?,?,?)";
+         PreparedStatement pst = ca.prepareCall(sql);
+           // sql = "INSERT INTO egreso (tipo,fecha, total, user_id_usuario)  VALUES (?,?,?,?)";
+           
+           pst.setString(1, getTipo());
+           pst.setFloat(2, getPrecioxpieza());
+           pst.setInt(3, getTotalpiezaspollo());
+          // pst.setString(4, getFecha());
+                      
+            pst.executeUpdate();
+            pst.close();
+             
+        } catch (SQLException ex) {
+            System.err.print(ex);
+            return false;
+        } /*finally{
+            ca.close();
+        }  */
+       return true;
+    } 
+    
+    
+    
+    
     
     
     }

@@ -24,10 +24,12 @@ public class Pantalla_Gastos extends javax.swing.JFrame {
                 Calendar fecha_actual = new GregorianCalendar();
                 String fechahoy=""; 
                 Gastos gastos;
-               // int cantidad; 
+                int cantidad;
+                int  piezasxunpollo=6, divideellpollo=3;
                 String id_usuario; 
                 TikectGasto tikectGastos;
                 String usuarioname=SI_Inicio.text_user.getText(); //variable para obtener el nombre del usuario o administrador que ingreso al sistema
+    private Object rs;
     public Pantalla_Gastos() {
         initComponents();
         this.setLocationRelativeTo(null); // CENTRAR FORMULARIO
@@ -82,33 +84,7 @@ public class Pantalla_Gastos extends javax.swing.JFrame {
         return next;
     }                                       
              
-    /*========      LISTAR  GASTOS    ===========*/
-     public ArrayList<Gastos> listGastos() {
-          ArrayList  listaGastos = new ArrayList();
-          Gastos gastos; // obj de tipo persona 
-          try {              
-               Connection ca= cc.conexion();
-              
-             String sql = "SELECT * FROM egreso";            
-            PreparedStatement pst = (PreparedStatement) ca.prepareStatement(sql);
-            ResultSet resultado = pst.executeQuery();     // valo devuelto se almaena en resultado                                      
-           
-            while (resultado.next()) {
-                
-                gastos = new Gastos();
-               gastos.setIdegreso(resultado.getInt(1));
-               gastos.setCantidad(resultado.getInt(2));
-                gastos.setTipo(resultado.getString(3));                
-                gastos.setTotal(resultado.getString(4));
-                gastos.setFecha(resultado.getString(5));
-                gastos.setUsuario(resultado.getString(6));
-                listaGastos.add(gastos);                
-            }     
-            pst.close();                                              
-          } catch (Exception e) {
-          }
-          return listaGastos;
-      }           
+    
      
       public void LlenarTabla(JTable tablaD){ // recibe como parametro 
          Object[] columna = new Object[6];  //crear un obj con el nombre de colunna
@@ -147,44 +123,12 @@ public class Pantalla_Gastos extends javax.swing.JFrame {
     }
 }
      
-      /* ********************** LLENDO DE LA TABLA DE GASTOS  ******************************** */    
-    /* public DefaultTableModel LlenarTabla(JTable tablaD){ // recibe como parametro 
-        DefaultTableModel modeloT = new DefaultTableModel();
-        tablaD.setModel(modeloT);  // add modelo ala tabla 
-        
-        modeloT.addColumn("Idegreso");    // add al modelo las 5 columnas con los nombrs
-        modeloT.addColumn("Cantidad");
-        modeloT.addColumn("Tipo");
-        modeloT.addColumn("Fecha");
-        modeloT.addColumn("Total");
-        modeloT.addColumn("Usuario");
-        
-        Object[] columna = new Object[6];  //crear un obj con el nombre de colunna
-        
-        int numResgistros = listGastos().size(); // crear una varibal de tipo int k almacena con el numero de regitrsos k se recupera de la db
-        
-        for (int i = 0; i < numResgistros; i++ ) { // de cero a uno antes del total de numero de resgitros
-            columna[0] = listGastos().get(i).getIdegreso();
-            columna[1] = listGastos().get(i).getCantidad();
-            columna[2] = listGastos().get(i).getTipo();
-            columna[3] = listGastos().get(i).getFecha(); //  llenado de las columnas de la tbla
-            columna[4] = listGastos().get(i).getTotal();
-            columna[5] = listGastos().get(i).getUsuario();
-              modeloT.addRow(columna); // add una fila alas colimnas
-        }                
-        return modeloT;
-    }  */
-     
-     
      public void limpiar(){     /*====  VACIAR CAMPOS */
             txtdescripcion.setText(null);
             txtmonto.setText(null);
             txtpiezas.setText(null);
            // vistaGastos.jDateChooserFecha.setDate(null);
          }        
-     
-     
-     
      
      
       /*  ======   HACIENDO UNA CONSULTA DE LOS GASTOS A BUSCAR CON -- ((UNA)) -- FECHA DETERINADA =======A*/          
@@ -471,32 +415,79 @@ public class Pantalla_Gastos extends javax.swing.JFrame {
                 } else {             
                     boolean pass = validarFormulario(txtmonto.getText());
                     boolean pass2 = validarFormulariotexto(txtdescripcion.getText());
-                   // boolean pass3 = validarFormulariopiezas(txtpiezas.getText());
+                  //  boolean pass3 = validarFormulariopiezas(txtpiezas.getText());
 
                     if (pass && pass2 /*&& pass3*/) {
+    float totalmonto = Integer.parseInt(txtmonto.getText()); //puse otro de tipo float xq total no me reconoce como string a float
                         int cantidad = Integer.parseInt(txtpiezas.getText());
                          String tipo = txtdescripcion.getText();                                                                                                                                     
                          String total = txtmonto.getText();
                          SimpleDateFormat formatoFecha = new SimpleDateFormat("yyy-MM-dd");  // formato de la fecha e instanciando y darle formato de la fecha 
-                         String fecha = formatoFecha.format(jDateChooserFecha.getDate());     
-                     gastos = new Gastos(cantidad, tipo, total, usuarioname, fecha);
-                        if (gastos.Gastosinsert()) {                                                       
+                         String fecha = formatoFecha.format(jDateChooserFecha.getDate()); 
+                         
+                         
+                         
+                   //  gastos = new Gastos(cantidad, tipo, total, usuarioname, fecha);
+                     //   if (gastos.Gastosinsert()) {                                                       
                             
  //========================================  ================================================================================
                            
- int  piezasxunpollo=6; //  PIEZAS DEL CUAL SE DIVIDE UN POLLO ENTERO, SALE 6 PIEZAS DE UN POLLO ENTERO BB                            
-    //String pollospiezas = txtdescripcion.getText();
-    int totalmonto = Integer.parseInt(txtmonto.getText());
-        JOptionPane.showMessageDialog(null, "lo k ingrese->"+tipo+"MONTO TOTAL->"+total); // imprime lo k inserto en descirpcion
-             if("pollo".equals(txtdescripcion.getText())){
-                // txtpiezas.setEnabled(true);
-                    JOptionPane.showMessageDialog(null,"descripcion->"+tipo +"Piezas ingresadas->"+ cantidad); // imprime lo k inserto en cantidadtxt
-            int totalpiezaspollo = (cantidad*piezasxunpollo);
-                   JOptionPane.showMessageDialog(null,"total de piezas x un pollo"+totalpiezaspollo);
-            int precioxpieza = (totalpiezaspollo/totalmonto);      
-                   JOptionPane.showMessageDialog(null,"precio x un pollo"+precioxpieza);
+  //  PIEZAS DEL CUAL SE DIVIDE UN POLLO ENTERO, SALE 6 PIEZAS DE UN POLLO ENTERO BB   
+  
+  
+                         
+       
+ 
+ if("pollo".equals(txtdescripcion.getText())){/*1*/
+              //txtpiezas.setEnabled(true);
+              
+      JOptionPane.showMessageDialog(null, "lo k ingrese->"+tipo+"\n MONTO TOTAL->"+total); // imprime lo k inserto en descirpcion  
+        int totalpiezaspollo = (cantidad*piezasxunpollo);
+           JOptionPane.showMessageDialog(null,"total de piezas x un pollo"+" "+totalpiezaspollo);
+      float precioxpieza = (totalmonto/totalpiezaspollo);   
+      
+        
+      int pollosdivididos = (totalpiezaspollo/divideellpollo);
+      JOptionPane.showMessageDialog(null,"dividiendo pechuga-pierna-alas"+" "+pollosdivididos);
+            
+     String[] piezas = new String[3];       
+         piezas[0] = ("Pierna");
+         piezas[1] = ("Pechuga");
+         piezas[2] = ("Ala");
+              
+       
+       
+      
+      //String pierna = "Pierna", "Pechuga", "Ala";
+     // String pierna1 = "Pechuga";
+     // String pierna2 = "Ala";
+      
+          
+                                 JOptionPane.showMessageDialog(null, "obteniendo las piezas k se ingresaron de pollos enteros");
+                              //int cantidadpiezas = Integer.parseInt(txtpiezas.getText());                           
+                    JOptionPane.showMessageDialog(null,"descripcion->"+tipo +"\n Piezas ingresadas->"+ cantidad); // imprime lo k inserto en cantidadtxt
+            
+                   JOptionPane.showMessageDialog(null,"precio x una pieza de pollo "+precioxpieza);
                    
-                   }
+                   gastos = new Gastos(tipo, precioxpieza, pollosdivididos);
+                  // gastos = new Gastos(cantidad, tipo, total, usuarioname, fecha);
+                   if (gastos.GastosinsertProductos() /* && gastos.Gastosinsert() */) {/*2*/ 
+                       JOptionPane.showMessageDialog(null, "en tabla PRODUCTOS productos Registrados...");
+                       
+                       JOptionPane.showMessageDialog(null, "INSERTANDO EN TABLA DB GASTOS.....");
+                       gastos = new Gastos(cantidad, tipo, total, usuarioname, fecha);
+                         gastos.Gastosinsert();
+                   }  /*2*/                                                             
+        
+        }/*1*/ else if(!"pollo".equals(txtdescripcion.getText())){/*3*/
+           // txtpiezas.setEnabled(false);  // ME ACTIVA EL TXT
+            txtpiezas.setText("0");
+            JOptionPane.showMessageDialog(null, "aki no entra para piezas de cantidad... NO CONVERSIONES");
+            
+         
+                                gastos = new Gastos(cantidad, tipo, total, usuarioname, fecha);
+                       if (gastos.Gastosinsert()) { //  aki me insertar en una de las dos tablas mas no en las dos
+       
                             
                             
   //======================================== ============================================================================= /
@@ -504,20 +495,21 @@ public class Pantalla_Gastos extends javax.swing.JFrame {
                             
                             
                             
-                            JOptionPane.showMessageDialog(null,"id_usuario->" + usuarioname+ "/n piezas->"+cantidad);
+                            JOptionPane.showMessageDialog(null,"id_usuario->" + usuarioname+ "\n piezas->"+cantidad);
                             JOptionPane.showMessageDialog(null, "Gastos Registrados con Exito");
                             limpiar();
                             JOptionPane.showMessageDialog(null, "Generando Ticket de Gastos");
-                            //txtpiezas.setText("0");
+                           // txtpiezas.setText("0");
                             LlenarTabla(jTableGastos); // LLENANDO LA TABLA AL INSERTAR CORRECTAMEBTE
                             tikectGastos = new TikectGasto();
                             tikectGastos.TikectGasto(cantidad ,tipo, total);
 
-                        } else {
+                       }/*0*/ else { /*4*/
                             JOptionPane.showMessageDialog(null, "error", "ERROR", JOptionPane.ERROR_MESSAGE);
-                        }
-                    }
-                }
+                        }/*4*/
+        }/*3*/ 
+                    }//
+                } //
             
         
     }//GEN-LAST:event_btnRegistrarGastoActionPerformed
