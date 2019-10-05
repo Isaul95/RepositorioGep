@@ -32,6 +32,7 @@ import net.sf.jasperreports.engine.util.JRLoader;
 import net.sf.jasperreports.view.JasperViewer;
 import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 import javax.imageio.ImageIO;
+import javax.swing.JTextField;
 
 public final class menu_principal extends javax.swing.JFrame implements Runnable{
                   private final String logotipo = "/Reportes/logo1.jpeg"; // icono de DATAMAX
@@ -53,6 +54,9 @@ Statement sent;
             String estadoinactivo="Inactivo", estadoactivo="Activo", NoP="",estadocancelado= "Cancelada",estadorealizado="Realizada", estadoenturno="En turno", fechayhora="",fechasinhora="", usuarioname=SI_Inicio.text_user.getText(); //variable para obtener el nombre del usuario o administrador que ingreso al sistema
     public menu_principal() {
         initComponents();
+        
+      //  this.setExtendedState(MAXIMIZED_BOTH);// MAXIMIZED_BOTH=6 se puede asi o pornerle directo 6 para k sea FULLSCREEN TODA LA PANTALLA SE ADAPTA
+        
         setIconImage(getIconImage());  //La variable que le manda la imagen (DataMax) al proyecto 
         quienentroalsistema();//Dependiendo quien entre al sistema serán las opciones que se le activarán
      Fecha.setText(fecha()); // SE OBTIENE LA FECHA DEL SISTEMA PARA MOSTAR EN PANTALLA
@@ -4404,7 +4408,7 @@ SI cc= new SI();
     private javax.swing.JMenuItem modificarusuarios;
     private javax.swing.JMenuItem modify;
     private javax.swing.JButton mostrar;
-    private javax.swing.JTextField namep;
+    public javax.swing.JTextField namep;
     public static javax.swing.JTextField pagocombobox;
     private javax.swing.JTextField preciop;
     public static javax.swing.JTextField proem;

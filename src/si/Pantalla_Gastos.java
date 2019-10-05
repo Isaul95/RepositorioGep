@@ -24,13 +24,18 @@ public class Pantalla_Gastos extends javax.swing.JFrame {
                 Calendar fecha_actual = new GregorianCalendar();
                 String fechahoy=""; 
                 Gastos gastos;
+                int cantidad;
+                int  piezasxunpollo=6, divideellpollo=3;
                 String id_usuario; 
                 TikectGasto tikectGastos;
                 String usuarioname=SI_Inicio.text_user.getText(); //variable para obtener el nombre del usuario o administrador que ingreso al sistema
+    private Object rs;
     public Pantalla_Gastos() {
         initComponents();
         this.setLocationRelativeTo(null); // CENTRAR FORMULARIO
-        jDateChooserFecha.setCalendar(fecha_actual);       
+        jDateChooserFecha.setCalendar(fecha_actual);
+        //txtpiezas.setEnabled(false);
+       // txtpiezas.setText("0");
     }
         
      public boolean validarFormulario(String gastos) { // VALIDACION DE TXT MONTO
@@ -47,6 +52,22 @@ public class Pantalla_Gastos extends javax.swing.JFrame {
         }
         return next;
     }
+     
+      public boolean validarFormulariopiezas(String gastos) { // VALIDACION DE TXT cantidad
+        boolean next = false;
+        Pattern patGastos = Pattern.compile("^[0-9]+([.])?([0-9]+)?$");
+        Matcher matGastos = patGastos.matcher(gastos);
+
+        if (matGastos.matches()) {
+            next = true;
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Solo Numeros");
+            txtpiezas.setBackground(Color.red);
+        }
+        return next;
+    }
+     
                                
              public boolean validarFormulariotexto(String gastos) { // VALIDACION DE TXTDESCRIPCION
         boolean next = false;
@@ -63,85 +84,23 @@ public class Pantalla_Gastos extends javax.swing.JFrame {
         return next;
     }                                       
              
-    /*========      LISTAR  GASTOS    ===========*/
-     public ArrayList<Gastos> listGastos() {
-          ArrayList  listaGastos = new ArrayList();
-          Gastos gastos; // obj de tipo persona 
-          try {              
-               Connection ca= cc.conexion();
-              
-             String sql = "SELECT * FROM egreso";            
-            PreparedStatement pst = (PreparedStatement) ca.prepareStatement(sql);
-            ResultSet resultado = pst.executeQuery();     // valo devuelto se almaena en resultado                                      
-           
-            while (resultado.next()) {
-                
-                gastos = new Gastos();
-               gastos.setIdegreso(resultado.getInt(1));
-                gastos.setTipo(resultado.getString(2));                
-                gastos.setTotal(resultado.getString(3));
-                gastos.setFecha(resultado.getString(4));
-                gastos.setUsuario(resultado.getString(5));
-                listaGastos.add(gastos);                
-            }     
-            pst.close();                                              
-          } catch (Exception e) {
-          }
-          return listaGastos;
-      }                                
+    
      
-      /* ********************** LLENDO DE LA TABLA DE GASTOS  ******************************** */    
-     public DefaultTableModel LlenarTabla(JTable tablaD){ // recibe como parametro 
-        DefaultTableModel modeloT = new DefaultTableModel();
-        tablaD.setModel(modeloT);  // add modelo ala tabla 
-        
-        modeloT.addColumn("Idegreso");    // add al modelo las 5 columnas con los nombrs
-        modeloT.addColumn("Tipo");
-        modeloT.addColumn("Fecha");
-        modeloT.addColumn("Total");
-        modeloT.addColumn("Usuario");
-        
-        Object[] columna = new Object[5];  //crear un obj con el nombre de colunna
-        
-        int numResgistros = listGastos().size(); // crear una varibal de tipo int k almacena con el numero de regitrsos k se recupera de la db
-        
-        for (int i = 0; i < numResgistros; i++ ) { // de cero a uno antes del total de numero de resgitros
-            columna[0] = listGastos().get(i).getIdegreso();
-            columna[1] = listGastos().get(i).getTipo();
-            columna[2] = listGastos().get(i).getFecha(); //  llenado de las columnas de la tbla
-            columna[3] = listGastos().get(i).getTotal();
-            columna[4] = listGastos().get(i).getUsuario();
-              modeloT.addRow(columna); // add una fila alas colimnas
-        }                
-        return modeloT;
-    }  
-     
-     
-     public void limpiar(){     /*====  VACIAR CAMPOS */
-            txtdescripcion.setText(null);
-            txtmonto.setText(null);
-           // vistaGastos.jDateChooserFecha.setDate(null);
-         }        
-     
-     
-     
-     
-     
-      /*  ======   HACIENDO UNA CONSULTA DE LOS GASTOS A BUSCAR CON -- ((UNA)) -- FECHA DETERINADA =======A*/          
-          public void LlenarTablaBusquedaFecha(JTable tablaD, String jDateXUnaFecha){ // recibe como parametro 
-         Object[] columna = new Object[5];  //crear un obj con el nombre de colunna
+      public void LlenarTabla(JTable tablaD){ // recibe como parametro 
+         Object[] columna = new Object[6];  //crear un obj con el nombre de colunna
             Connection ca= cc.conexion(); // CONEXION DB 
-              DefaultTableModel modeloT = new DefaultTableModel();
+              DefaultTableModel modeloT = new DefaultTableModel(); 
                   tablaD.setModel(modeloT);  // add modelo ala tabla 
         
         modeloT.addColumn("Idegreso");    // add al modelo las 5 columnas con los nombrs TABLA
+        modeloT.addColumn("Cantidad");
         modeloT.addColumn("Tipo");        
         modeloT.addColumn("Fecha");
         modeloT.addColumn("Total");
        modeloT.addColumn("Usuario");               
          /* SELECT `idegreso`, `tipo`, `total`, `fecha`, turno FROM `egreso` \n" + "  INNER JOIN empleado\n" + "WHERE egreso.`empleado_idempleado` = empleado.idempleado";     */    
         try {
-         String sSQL = "SELECT `idegreso`,`tipo`,`fecha`,`total`,`usuario` FROM `egreso` WHERE fecha = '"+llenarfechadehoy()+"'";
+         String sSQL = "SELECT `idegreso`,`cantidad`,`tipo`,`fecha`,`total`,`usuario` FROM `egreso`";
          
   // String sSQL = "SELECT * FROM egreso\n" + "WHERE fecha = '"+llenarfechadehoy()+"'";
          
@@ -150,10 +109,57 @@ public class Pantalla_Gastos extends javax.swing.JFrame {
         try (ResultSet rs = ps.executeQuery(sSQL)) {
             while (rs.next()) {
                 columna[0] = rs.getString("idegreso");  /* === LA DB == */
-                columna[1] = rs.getString("tipo");
-                columna[2] = rs.getString("total");
+                columna[1] = rs.getString("cantidad");
+                columna[2] = rs.getString("tipo");
                 columna[3] = rs.getString("fecha");
-                columna[4] = rs.getString("usuario");                
+                columna[4] = rs.getString("total");
+                columna[5] = rs.getString("usuario");                
+                modeloT.addRow(columna);
+            }
+        }
+        ps.close();
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(null, e, "Advertencia", JOptionPane.PLAIN_MESSAGE);    
+    }
+}
+     
+     public void limpiar(){     /*====  VACIAR CAMPOS */
+            txtdescripcion.setText(null);
+            txtmonto.setText(null);
+            txtpiezas.setText(null);
+           // vistaGastos.jDateChooserFecha.setDate(null);
+         }        
+     
+     
+      /*  ======   HACIENDO UNA CONSULTA DE LOS GASTOS A BUSCAR CON -- ((UNA)) -- FECHA DETERINADA =======A*/          
+          public void LlenarTablaBusquedaFecha(JTable tablaD, String jDateXUnaFecha){ // recibe como parametro 
+         Object[] columna = new Object[6];  //crear un obj con el nombre de colunna
+            Connection ca= cc.conexion(); // CONEXION DB 
+              DefaultTableModel modeloT = new DefaultTableModel(); 
+                  tablaD.setModel(modeloT);  // add modelo ala tabla 
+        
+        modeloT.addColumn("Idegreso");    // add al modelo las 5 columnas con los nombrs TABLA
+        modeloT.addColumn("Cantidad");
+        modeloT.addColumn("Tipo");        
+        modeloT.addColumn("Fecha");
+        modeloT.addColumn("Total");
+       modeloT.addColumn("Usuario");               
+         /* SELECT `idegreso`, `tipo`, `total`, `fecha`, turno FROM `egreso` \n" + "  INNER JOIN empleado\n" + "WHERE egreso.`empleado_idempleado` = empleado.idempleado";     */    
+        try {
+         String sSQL = "SELECT `idegreso`,`cantidad`,`tipo`,`fecha`,`total`,`usuario` FROM `egreso` WHERE fecha = '"+llenarfechadehoy()+"'";
+         
+  // String sSQL = "SELECT * FROM egreso\n" + "WHERE fecha = '"+llenarfechadehoy()+"'";
+         
+         //   "SELECT *FROM egreso\n" + "WHERE fecha = '2019-07-20'";            
+        PreparedStatement ps = ca.prepareStatement(sSQL);       
+        try (ResultSet rs = ps.executeQuery(sSQL)) {
+            while (rs.next()) {
+                columna[0] = rs.getString("idegreso");  /* === LA DB == */
+                columna[1] = rs.getString("cantidad");
+                columna[2] = rs.getString("tipo");
+                columna[3] = rs.getString("fecha");
+                columna[4] = rs.getString("total");
+                columna[5] = rs.getString("usuario");                
                 modeloT.addRow(columna);
             }
         }
@@ -198,12 +204,14 @@ public class Pantalla_Gastos extends javax.swing.JFrame {
         btnRegistrarGasto = new javax.swing.JButton();
         btnImprimirticket = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
+        txtpiezas = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "GASTOS DE FARMACIA GI", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Serif", 1, 36))); // NOI18N
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "GASTOS", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Serif", 1, 36))); // NOI18N
         jPanel1.setLayout(null);
 
         jPanel2.setBackground(new java.awt.Color(0, 51, 102));
@@ -214,11 +222,11 @@ public class Pantalla_Gastos extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Idegreso", "Tipo", "Total", "Fecha", "Usuario"
+                "Idegreso", "Cantidad", "Tipo", "Total", "Fecha", "Usuario"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -233,9 +241,9 @@ public class Pantalla_Gastos extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 17)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Fecha:");
+        jLabel1.setText("Cantidad/Piezas:");
         jPanel2.add(jLabel1);
-        jLabel1.setBounds(10, 150, 90, 29);
+        jLabel1.setBounds(250, 80, 150, 29);
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 17)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
@@ -290,11 +298,11 @@ public class Pantalla_Gastos extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Idegreso", "Tipo", "Total", "Fecha", "Usuario"
+                "Idegreso", "Cantidad", "Tipo", "Total", "Fecha", "Usuario"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -358,6 +366,14 @@ public class Pantalla_Gastos extends javax.swing.JFrame {
         });
         jPanel2.add(jButton1);
         jButton1.setBounds(1160, 70, 73, 23);
+        jPanel2.add(txtpiezas);
+        txtpiezas.setBounds(250, 110, 150, 40);
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 17)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setText("Fecha:");
+        jPanel2.add(jLabel5);
+        jLabel5.setBounds(10, 150, 90, 29);
 
         jPanel1.add(jPanel2);
         jPanel2.setBounds(10, 50, 1290, 480);
@@ -394,35 +410,106 @@ public class Pantalla_Gastos extends javax.swing.JFrame {
 
     private void btnRegistrarGastoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarGastoActionPerformed
         // ABRE NUEVA VENTANA PARA Registro de Gastos
-          if (txtdescripcion.getText().isEmpty() || txtmonto.getText().isEmpty()) {
+          if (txtdescripcion.getText().isEmpty() || txtmonto.getText().isEmpty() /* || txtpiezas.getText().isEmpty()*/) {
                     JOptionPane.showMessageDialog(null, "No dejar campos en blanco");
-
-                } else {
+                } else {             
                     boolean pass = validarFormulario(txtmonto.getText());
                     boolean pass2 = validarFormulariotexto(txtdescripcion.getText());
+                  //  boolean pass3 = validarFormulariopiezas(txtpiezas.getText());
 
-                    if (pass && pass2) {
-                         String tipo = txtdescripcion.getText();
+                    if (pass && pass2 /*&& pass3*/) {
+    float totalmonto = Integer.parseInt(txtmonto.getText()); //puse otro de tipo float xq total no me reconoce como string a float
+                        int cantidad = Integer.parseInt(txtpiezas.getText());
+                         String tipo = txtdescripcion.getText();                                                                                                                                     
                          String total = txtmonto.getText();
                          SimpleDateFormat formatoFecha = new SimpleDateFormat("yyy-MM-dd");  // formato de la fecha e instanciando y darle formato de la fecha 
-                         String fecha = formatoFecha.format(jDateChooserFecha.getDate());  
-   
-                         gastos = new Gastos(tipo, total, usuarioname, fecha);
-
-                        if (gastos.Gastosinsert()) {
-                            JOptionPane.showMessageDialog(null,"id_usuario" + usuarioname);
+                         String fecha = formatoFecha.format(jDateChooserFecha.getDate()); 
+                         
+                         
+                         
+                   //  gastos = new Gastos(cantidad, tipo, total, usuarioname, fecha);
+                     //   if (gastos.Gastosinsert()) {                                                       
+                            
+ //========================================  ================================================================================
+                           
+  //  PIEZAS DEL CUAL SE DIVIDE UN POLLO ENTERO, SALE 6 PIEZAS DE UN POLLO ENTERO BB   
+  
+  
+                         
+       
+ 
+ if("pollo".equals(txtdescripcion.getText())){/*1*/
+              //txtpiezas.setEnabled(true);
+              
+      JOptionPane.showMessageDialog(null, "lo k ingrese->"+tipo+"\n MONTO TOTAL->"+total); // imprime lo k inserto en descirpcion  
+        int totalpiezaspollo = (cantidad*piezasxunpollo);
+           JOptionPane.showMessageDialog(null,"total de piezas x un pollo"+" "+totalpiezaspollo);
+      float precioxpieza = (totalmonto/totalpiezaspollo);   
+      
+        
+      int pollosdivididos = (totalpiezaspollo/divideellpollo);
+      JOptionPane.showMessageDialog(null,"dividiendo pechuga-pierna-alas"+" "+pollosdivididos);
+            
+     String[] piezas = new String[3];       
+         piezas[0] = ("Pierna");
+         piezas[1] = ("Pechuga");
+         piezas[2] = ("Ala");
+              
+       
+       
+      
+      //String pierna = "Pierna", "Pechuga", "Ala";
+     // String pierna1 = "Pechuga";
+     // String pierna2 = "Ala";
+      
+          
+                                 JOptionPane.showMessageDialog(null, "obteniendo las piezas k se ingresaron de pollos enteros");
+                              //int cantidadpiezas = Integer.parseInt(txtpiezas.getText());                           
+                    JOptionPane.showMessageDialog(null,"descripcion->"+tipo +"\n Piezas ingresadas->"+ cantidad); // imprime lo k inserto en cantidadtxt
+            
+                   JOptionPane.showMessageDialog(null,"precio x una pieza de pollo "+precioxpieza);
+                   
+                   gastos = new Gastos(tipo, precioxpieza, pollosdivididos);
+                  // gastos = new Gastos(cantidad, tipo, total, usuarioname, fecha);
+                   if (gastos.GastosinsertProductos() /* && gastos.Gastosinsert() */) {/*2*/ 
+                       JOptionPane.showMessageDialog(null, "en tabla PRODUCTOS productos Registrados...");
+                       
+                       JOptionPane.showMessageDialog(null, "INSERTANDO EN TABLA DB GASTOS.....");
+                       gastos = new Gastos(cantidad, tipo, total, usuarioname, fecha);
+                         gastos.Gastosinsert();
+                   }  /*2*/                                                             
+        
+        }/*1*/ else if(!"pollo".equals(txtdescripcion.getText())){/*3*/
+           // txtpiezas.setEnabled(false);  // ME ACTIVA EL TXT
+            txtpiezas.setText("0");
+            JOptionPane.showMessageDialog(null, "aki no entra para piezas de cantidad... NO CONVERSIONES");
+            
+         
+                                gastos = new Gastos(cantidad, tipo, total, usuarioname, fecha);
+                       if (gastos.Gastosinsert()) { //  aki me insertar en una de las dos tablas mas no en las dos
+       
+                            
+                            
+  //======================================== ============================================================================= /
+                            
+                            
+                            
+                            
+                            JOptionPane.showMessageDialog(null,"id_usuario->" + usuarioname+ "\n piezas->"+cantidad);
                             JOptionPane.showMessageDialog(null, "Gastos Registrados con Exito");
                             limpiar();
                             JOptionPane.showMessageDialog(null, "Generando Ticket de Gastos");
+                           // txtpiezas.setText("0");
                             LlenarTabla(jTableGastos); // LLENANDO LA TABLA AL INSERTAR CORRECTAMEBTE
                             tikectGastos = new TikectGasto();
-                            tikectGastos.TikectGasto(tipo, total);
+                            tikectGastos.TikectGasto(cantidad ,tipo, total);
 
-                        } else {
+                       }/*0*/ else { /*4*/
                             JOptionPane.showMessageDialog(null, "error", "ERROR", JOptionPane.ERROR_MESSAGE);
-                        }
-                    }
-                }
+                        }/*4*/
+        }/*3*/ 
+                    }//
+                } //
             
         
     }//GEN-LAST:event_btnRegistrarGastoActionPerformed
@@ -435,11 +522,12 @@ public class Pantalla_Gastos extends javax.swing.JFrame {
                     if (fila == -1) {
                         JOptionPane.showMessageDialog(null, "No ha seleccionado ninguna fila.", "ERROR", JOptionPane.ERROR_MESSAGE);
                     } else {
-                        String tipo = (String) jTableGastosFechaActual.getValueAt(fila, 1);
-                        String total = (String) jTableGastosFechaActual.getValueAt(fila, 2);
+                        int cantidad = (int) jTableGastosFechaActual.getValueAt(fila, 1);
+                        String tipo = (String) jTableGastosFechaActual.getValueAt(fila, 2);
+                        String total = (String) jTableGastosFechaActual.getValueAt(fila, 3);
                         JOptionPane.showMessageDialog(null, "Ticket Generado Exitosamente");
                         tikectGastos = new TikectGasto();
-                        tikectGastos.TikectGasto(tipo, total);
+                        tikectGastos.TikectGasto(cantidad, tipo, total);
                     }
                 } catch (Exception ex) {
                 } 
@@ -515,6 +603,7 @@ public class Pantalla_Gastos extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -524,5 +613,6 @@ public class Pantalla_Gastos extends javax.swing.JFrame {
     public javax.swing.JTable jTableGastosFechaActual;
     public javax.swing.JTextField txtdescripcion;
     public javax.swing.JTextField txtmonto;
+    private javax.swing.JTextField txtpiezas;
     // End of variables declaration//GEN-END:variables
 }

@@ -21,11 +21,47 @@ import si.Pantalla_Gastos;
 
 public class Gastos {
     int idegreso;
+     int cantidad;
      String tipo;
      String total;
      String fecha;
      Calendar fechahoy;
      String usuario;
+     
+     
+     //String nombre_producto;
+     float precioxpieza;
+    int totalpiezaspollo;
+    
+    
+    public float getPrecioxpieza() {
+        return precioxpieza;
+    }
+
+    public void setPrecioxpieza(float precioxpieza) {
+        this.precioxpieza = precioxpieza;
+    }
+
+    public int getTotalpiezaspollo() {
+        return totalpiezaspollo;
+    }
+
+    public void setTotalpiezaspollo(int totalpiezaspollo) {
+        this.totalpiezaspollo = totalpiezaspollo;
+    }
+     
+
+   
+/*
+    public String getNombre_producto() {
+        return nombre_producto;
+    }
+
+    public void setNombre_producto(String nombre_producto) {
+        this.nombre_producto = nombre_producto;
+    } */
+
+    
      
     
      
@@ -52,28 +88,45 @@ public class Gastos {
     
      public Gastos(){
    //  idegreso = 0;
+     cantidad =0;
      tipo = "";
      total = "";
      fecha = "";
      usuario = "";
     }
+     
+      Gastos(String descripcion, float precioxpieza, int totalpiezaspollo) {
+         this.tipo = descripcion;
+          this.precioxpieza = precioxpieza;
+         this.totalpiezaspollo = totalpiezaspollo;
+        //this.fecha = fecha;
+    }
+     
 
-   public Gastos(String descripcion, String total, String nombre, String fecha) {
-        this.tipo = descripcion; // tipo lo almaceno en descirpcion 
+   public Gastos(int cantidad, String descripcion, String total, String nombre, String fecha) {
+       this.cantidad = cantidad; 
+       this.tipo = descripcion; // tipo lo almaceno en descirpcion 
         this.total = total;      
          this.usuario = nombre;  //empleado_idempleado lo almaceno en turno asi se usa en controlador
         this.fecha = fecha;
     }
    
-   public Calendar Gastos(String descripcion, String total, String nombre, Calendar fechahoy) {
-        this.tipo = descripcion; // tipo lo almaceno en descirpcion
+   public Calendar Gastos(int cantidad, String descripcion, String total, String nombre, Calendar fechahoy) {
+       this.cantidad = cantidad;  
+       this.tipo = descripcion; // tipo lo almaceno en descirpcion
         this.total = total;      
         this.usuario = nombre; 
         
         this.fecha_actual = fechahoy;
         return null;
     }
-    
+
+    public int getCantidad() {
+        return cantidad;
+    }
+    public void setCantidad(int cantidad) {
+        this.cantidad = cantidad;
+    }    
     public int getIdegreso() {
         return idegreso;
     }
@@ -81,11 +134,9 @@ public class Gastos {
     public void setIdegreso(int idegreso) {
         this.idegreso = idegreso;
     }
-
     public String getTipo() {
         return tipo;
     }
-
     public void setTipo(String tipo) {
         this.tipo = tipo;
     }
@@ -119,29 +170,65 @@ public class Gastos {
  
  
     
-    public boolean Gastosinsert() {
+    public boolean Gastosinsert() /*throws SQLException*/ {
         String sql = null;
         try {
             
            sent = ca.createStatement(); 
-          sql = "INSERT INTO egreso (tipo,fecha, total, usuario)  VALUES (?,?,?,?)";
+          sql = "INSERT INTO egreso (cantidad, tipo, fecha, total, usuario)  VALUES (?,?,?,?,?)";
          PreparedStatement pst = ca.prepareCall(sql);
            // sql = "INSERT INTO egreso (tipo,fecha, total, user_id_usuario)  VALUES (?,?,?,?)";
-            pst.setString(1, getTipo());
-             pst.setString(2, getFecha());
-            pst.setString(3, getTotal());
-            pst.setString(4, getUsuario());
+           pst.setInt(1, getCantidad());
+           pst.setString(2, getTipo());
+           pst.setString(3, getFecha());
+           pst.setString(4, getTotal());
+           pst.setString(5, getUsuario());
                       
             pst.executeUpdate();
-
             pst.close();
              
         } catch (SQLException ex) {
             System.err.print(ex);
             return false;
-        } 
+        } /*finally{
+            ca.close();
+        }  */
        return true;
     }    
+    
+    
+    
+    
+     public boolean GastosinsertProductos() /*throws SQLException*/ {
+        String sql = null;
+        try {
+            
+           sent = ca.createStatement(); 
+          sql = "INSERT INTO productos (nombre_producto, precio, cantidad)  VALUES (?,?,?)";
+         PreparedStatement pst = ca.prepareCall(sql);
+           // sql = "INSERT INTO egreso (tipo,fecha, total, user_id_usuario)  VALUES (?,?,?,?)";
+           
+           pst.setString(1, getTipo());
+           pst.setFloat(2, getPrecioxpieza());
+           pst.setInt(3, getTotalpiezaspollo());
+          // pst.setString(4, getFecha());
+                      
+            pst.executeUpdate();
+            pst.close();
+             
+        } catch (SQLException ex) {
+            System.err.print(ex);
+            return false;
+        } /*finally{
+            ca.close();
+        }  */
+       return true;
+    } 
+    
+    
+    
+    
+    
     
     }
 
