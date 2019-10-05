@@ -4202,6 +4202,7 @@ descuentoactivo=false;
 
     private void CortedecajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CortedecajaActionPerformed
         // TODO add your handling code here:
+
         new Pantalla_CorteCaja().setVisible(true);
     }//GEN-LAST:event_CortedecajaActionPerformed
 

@@ -282,7 +282,7 @@ public class SI_Inicio extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 public static String fecha(){ /* SE DECARA LA FECHA DEL SISTEMA */
         java.util.Date fecha=new java.util.Date();
-        SimpleDateFormat formatoFecha= new SimpleDateFormat("dd/MM/YYYY");
+        SimpleDateFormat formatoFecha= new SimpleDateFormat("YYYY/MM/dd");
         return formatoFecha.format(fecha);
     }
     public void yaseabriosistema(){

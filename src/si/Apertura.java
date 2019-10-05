@@ -20,7 +20,7 @@ Thread hilo;
     Calendar fecha_actual = new GregorianCalendar();
     public Apertura() {
         initComponents();
-        usuario.setText(usuarioname);
+        user.setText(usuarioname);
          hilo=new Thread(this);
      hilo.start();
         this.setLocationRelativeTo(null); // CENTRAR FORMULARIO
@@ -33,7 +33,7 @@ Thread hilo;
     
 public static String fecha(){ /* SE DECARA LA FECHA DEL SISTEMA */
         Date fecha=new Date();
-        SimpleDateFormat formatoFecha= new SimpleDateFormat("dd/MM/YYYY");
+        SimpleDateFormat formatoFecha= new SimpleDateFormat("YYYY/MM/dd");
         return formatoFecha.format(fecha);
     }
 public void hora(){
@@ -61,10 +61,11 @@ public void hora(){
         jLabel1 = new javax.swing.JLabel();
         Corte_btnImprimirticket = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
-        usuario = new javax.swing.JTextField();
         Fecha = new javax.swing.JLabel();
         Reloj = new javax.swing.JLabel();
         monto = new javax.swing.JTextField();
+        Corte_btncancelar = new javax.swing.JButton();
+        user = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -93,18 +94,13 @@ public void hora(){
             }
         });
         jPanel2.add(Corte_btnImprimirticket);
-        Corte_btnImprimirticket.setBounds(210, 350, 250, 60);
+        Corte_btnImprimirticket.setBounds(50, 400, 250, 60);
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Usuario");
         jPanel2.add(jLabel3);
         jLabel3.setBounds(10, 120, 350, 30);
-
-        usuario.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        usuario.setEnabled(false);
-        jPanel2.add(usuario);
-        usuario.setBounds(300, 120, 210, 40);
 
         Fecha.setFont(new java.awt.Font("Times New Roman", 1, 27)); // NOI18N
         Fecha.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -139,6 +135,21 @@ public void hora(){
         });
         jPanel2.add(monto);
         monto.setBounds(300, 220, 210, 29);
+
+        Corte_btncancelar.setBackground(new java.awt.Color(242, 38, 19));
+        Corte_btncancelar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        Corte_btncancelar.setText("Cancelar");
+        Corte_btncancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Corte_btncancelarActionPerformed(evt);
+            }
+        });
+        jPanel2.add(Corte_btncancelar);
+        Corte_btncancelar.setBounds(370, 400, 250, 60);
+
+        user.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
+        jPanel2.add(user);
+        user.setBounds(300, 120, 180, 50);
 
         jPanel1.add(jPanel2);
         jPanel2.setBounds(10, 50, 650, 480);
@@ -222,6 +233,14 @@ else{//CUANDO EL MONTO ESTA VACIO
         // TODO add your handling code here:
     }//GEN-LAST:event_montoActionPerformed
 
+    private void Corte_btncancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Corte_btncancelarActionPerformed
+        // BOTON DE CANCELAR LA INSERCION DE NUEVO USUARIO
+        int dialogButton = JOptionPane.YES_NO_OPTION;
+        int result = JOptionPane.showConfirmDialog(null, "¿Regresar a pagina anterior?","                    Aviso",dialogButton);
+        if(result == 0){
+            dispose();   }
+    }//GEN-LAST:event_Corte_btncancelarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -261,6 +280,7 @@ SI cc= new SI();
  Connection ca= cc.conexion();
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Corte_btnImprimirticket;
+    private javax.swing.JButton Corte_btncancelar;
     private javax.swing.JLabel Fecha;
     private javax.swing.JLabel Reloj;
     private javax.swing.JLabel jLabel1;
@@ -268,6 +288,6 @@ SI cc= new SI();
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     public static javax.swing.JTextField monto;
-    public javax.swing.JTextField usuario;
+    private javax.swing.JLabel user;
     // End of variables declaration//GEN-END:variables
 }
