@@ -17,7 +17,7 @@ import static si.Apertura.monto;
 public class Pantalla_CorteCaja extends javax.swing.JFrame  implements Runnable{
     Thread hilo;
     String hora,minutos,segundos;
-float ventasdeldia, gastosdeldia, montodeapertura, diferencia;
+float ventasdeldia, gastosdeldia, montodeapertura, diferencia, diferenciafinal;
 int apertura;
 String  usuarioname=SI_Inicio.text_user.getText();
 int  id_usuario=Integer.parseInt(SI_Inicio.iduser.getText());
@@ -257,12 +257,9 @@ public void gastosdeldia(){
                JOptionPane.showMessageDialog(null, "montoentregado"+variablemontoentregado);
                ventasmenosgastos=ventasdeldia-gastosdeldia;
                    JOptionPane.showMessageDialog(null, "VENTAS-{GASTOS"+ventasmenosgastos);
-               menosapertura=ventasmenosgastos-montodeapertura;
-                JOptionPane.showMessageDialog(null, "VENTAS-GASTOS-APERTURA"+menosapertura);
-               diferencia=variablemontoentregado-menosapertura;
+                  diferencia=ventasmenosgastos-variablemontoentregado;
                JOptionPane.showMessageDialog(null, "DIFERENCIA=VENTAS-GASTOS-APERTURA"+diferencia);
-               
-          
+               diferenciafinal=diferencia-montodeapertura;
     String sql = "INSERT INTO  cortes(id_apertura, monto_entregado, gastos, ventas, diferencia, fecha, hora, usuario)  VALUES (?,?,?,?,?,?,?,?)";
                 PreparedStatement pst = ca.prepareCall(sql); //hasta aqui vamos
                
@@ -282,7 +279,6 @@ public void gastosdeldia(){
                                      // HERE 
                               new menu_principal().setVisible(true);
                                this.setIconImage(null);
-                           
                 }
             }catch(SQLException e)  { //fin de la insersion a la tabla ventas
                 JOptionPane.showMessageDialog(null,"Error de datos por id vacio "+e);
