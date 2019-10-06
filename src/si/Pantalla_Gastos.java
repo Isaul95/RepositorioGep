@@ -32,10 +32,13 @@ public class Pantalla_Gastos extends javax.swing.JFrame {
                 Gastos gastos;
                 int cantidad;
                 int  piezasxunpollo=6, divideellpollo=3;
-                String id_usuario; 
+               // String id_usuario; 
                 TikectGasto tikectGastos;
                   int cantidadpolloenDB, pollosdivididos, addpiezas;
-                String usuarioname=SI_Inicio.text_user.getText(); //variable para obtener el nombre del usuario o administrador que ingreso al sistema
+                String  usuarioname=SI_Inicio.text_user.getText();
+               int  id_usuario=Integer.parseInt(SI_Inicio.iduser.getText());
+                  
+              //  String usuarioname=SI_Inicio.text_user.getText(); //variable para obtener el nombre del usuario o administrador que ingreso al sistema
     //private Object rs;
                 ResultSet rs;
     public Pantalla_Gastos() {
@@ -111,10 +114,11 @@ public class Pantalla_Gastos extends javax.swing.JFrame {
         modeloT.addColumn("Tipo");        
         modeloT.addColumn("Fecha");
         modeloT.addColumn("Total");
-       modeloT.addColumn("Usuario");               
+       modeloT.addColumn("nombre");               
          /* SELECT `idegreso`, `tipo`, `total`, `fecha`, turno FROM `egreso` \n" + "  INNER JOIN empleado\n" + "WHERE egreso.`empleado_idempleado` = empleado.idempleado";     */    
         try {
-         String sSQL = "SELECT `idegreso`,`cantidad`,`tipo`,`fecha`,`total`,`usuario` FROM `egreso`";
+         String sSQL = "SELECT `idegreso`,`cantidad`,`tipo`,`fecha`,`total`,`nombre` FROM `egreso` INNER JOIN user WHERE egreso.`id_usuario` = user.id_usuario";
+ // SELECT `idegreso`, `tipo`, `fecha`, `total`, nombre FROM `egreso` INNER JOIN user WHERE egreso.`id_usuario` = user.id_usuario
          
   // String sSQL = "SELECT * FROM egreso\n" + "WHERE fecha = '"+llenarfechadehoy()+"'";
          
@@ -127,7 +131,7 @@ public class Pantalla_Gastos extends javax.swing.JFrame {
                 columna[2] = rs.getString("tipo");
                 columna[3] = rs.getString("fecha");
                 columna[4] = rs.getString("total");
-                columna[5] = rs.getString("usuario");                
+                columna[5] = rs.getString("nombre");                
                 modeloT.addRow(columna);
             }
         }
@@ -223,10 +227,10 @@ public class Pantalla_Gastos extends javax.swing.JFrame {
         modeloT.addColumn("Tipo");        
         modeloT.addColumn("Fecha");
         modeloT.addColumn("Total");
-       modeloT.addColumn("Usuario");               
+       modeloT.addColumn("nombre");               
          /* SELECT `idegreso`, `tipo`, `total`, `fecha`, turno FROM `egreso` \n" + "  INNER JOIN empleado\n" + "WHERE egreso.`empleado_idempleado` = empleado.idempleado";     */    
         try {
-         String sSQL = "SELECT `idegreso`,`cantidad`,`tipo`,`fecha`,`total`,`usuario` FROM `egreso` WHERE fecha = '"+llenarfechadehoy()+"'";
+         String sSQL = "SELECT `idegreso`,`cantidad`,`tipo`,`fecha`,`total`,`nombre` FROM `egreso` INNER JOIN user WHERE egreso.`id_usuario` = user.id_usuario AND fecha = '"+llenarfechadehoy()+"'";
          
   // String sSQL = "SELECT * FROM egreso\n" + "WHERE fecha = '"+llenarfechadehoy()+"'";
          
@@ -239,7 +243,7 @@ public class Pantalla_Gastos extends javax.swing.JFrame {
                 columna[2] = rs.getString("tipo");
                 columna[3] = rs.getString("fecha");
                 columna[4] = rs.getString("total");
-                columna[5] = rs.getString("usuario");                
+                columna[5] = rs.getString("nombre");                
                 modeloT.addRow(columna);
             }
         }
@@ -284,8 +288,8 @@ public class Pantalla_Gastos extends javax.swing.JFrame {
         btnRegistrarGasto = new javax.swing.JButton();
         btnImprimirticket = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
-        txtpiezas = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
+        txtpiezas = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -446,14 +450,34 @@ public class Pantalla_Gastos extends javax.swing.JFrame {
         });
         jPanel2.add(jButton1);
         jButton1.setBounds(1160, 70, 73, 23);
-        jPanel2.add(txtpiezas);
-        txtpiezas.setBounds(250, 110, 150, 40);
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 17)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Fecha:");
         jPanel2.add(jLabel5);
         jLabel5.setBounds(10, 150, 90, 29);
+
+        txtpiezas.setBackground(new java.awt.Color(0, 148, 204));
+        txtpiezas.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
+        txtpiezas.setForeground(new java.awt.Color(255, 255, 255));
+        txtpiezas.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtpiezas.setText("00.00");
+        txtpiezas.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        txtpiezas.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtpiezasFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtpiezasFocusLost(evt);
+            }
+        });
+        txtpiezas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtpiezasActionPerformed(evt);
+            }
+        });
+        jPanel2.add(txtpiezas);
+        txtpiezas.setBounds(240, 120, 150, 40);
 
         jPanel1.add(jPanel2);
         jPanel2.setBounds(10, 50, 1290, 480);
@@ -521,7 +545,7 @@ public class Pantalla_Gastos extends javax.swing.JFrame {
  if("pollo".equals(txtdescripcion.getText())){/*1*/
               //txtpiezas.setEnabled(true);
               JOptionPane.showMessageDialog(null, "INSERTANDO EN TABLA DB GASTOS.....");
-                       gastos = new Gastos(cantidad, tipo, total, usuarioname, fecha);
+                       gastos = new Gastos(cantidad, tipo, total, id_usuario, fecha);
                          gastos.Gastosinsert();
       JOptionPane.showMessageDialog(null, "lo k ingrese->"+tipo+"\n MONTO TOTAL->"+total); // imprime lo k inserto en descirpcion  
         int totalpiezaspollo = (cantidad*piezasxunpollo);
@@ -606,7 +630,7 @@ public class Pantalla_Gastos extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "aki no entra para piezas de cantidad... NO CONVERSIONES");
             
          
-                                gastos = new Gastos(cantidad, tipo, total, usuarioname, fecha);
+                                gastos = new Gastos(cantidad, tipo, total, id_usuario, fecha);
                        if (gastos.Gastosinsert()) { //  aki me insertar en una de las dos tablas mas no en las dos
        
                             
@@ -616,7 +640,7 @@ public class Pantalla_Gastos extends javax.swing.JFrame {
                             
                             
                             
-                            JOptionPane.showMessageDialog(null,"id_usuario->" + usuarioname+ "\n piezas->"+cantidad);
+                            JOptionPane.showMessageDialog(null,"id_usuario->" + id_usuario+ "\n piezas->"+cantidad);
                             JOptionPane.showMessageDialog(null, "Gastos Registrados con Exito");
                             limpiar();
                             JOptionPane.showMessageDialog(null, "Generando Ticket de Gastos");
@@ -670,6 +694,27 @@ public class Pantalla_Gastos extends javax.swing.JFrame {
           
             LlenarTablaBusquedaFecha(jTableGastosFechaActual, llenarfechadehoy());
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void txtpiezasFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtpiezasFocusGained
+        // *********************   CAJA DE TEXTO DE PAGOO *********
+        if(txtpiezas.getText().trim().equals("00.00")){
+            txtpiezas.setText("");
+            //user_usuario.setForeground(Color.red);
+        }
+        txtpiezas.setForeground(Color.blue);
+    }//GEN-LAST:event_txtpiezasFocusGained
+
+    private void txtpiezasFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtpiezasFocusLost
+        // *********************   CAJA DE TEXTO DE PAGOO *********
+        if(txtpiezas.getText().trim().equals("")){
+            txtpiezas.setText("00.00");
+        }
+        txtpiezas.setForeground(new Color(236, 240, 241));
+    }//GEN-LAST:event_txtpiezasFocusLost
+
+    private void txtpiezasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtpiezasActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtpiezasActionPerformed
 
     /**
      * @param args the command line arguments
@@ -734,6 +779,6 @@ public class Pantalla_Gastos extends javax.swing.JFrame {
     public javax.swing.JTable jTableGastosFechaActual;
     public javax.swing.JTextField txtdescripcion;
     public javax.swing.JTextField txtmonto;
-    private javax.swing.JTextField txtpiezas;
+    public static javax.swing.JTextField txtpiezas;
     // End of variables declaration//GEN-END:variables
 }

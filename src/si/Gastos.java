@@ -26,13 +26,21 @@ public class Gastos {
      String total;
      String fecha;
      Calendar fechahoy;
-     String usuario;
+     int id_usuario;
      
      
      //String nombre_producto;
      String[] piezas;
      float precioxpieza;
      int totalpiezaspollo;
+
+    public int getId_usuario() {
+        return id_usuario;
+    }
+
+    public void setId_usuario(int id_usuario) {
+        this.id_usuario = id_usuario;
+    }
 
      
     public String[] getPiezas() {
@@ -110,7 +118,7 @@ public class Gastos {
      tipo = "";
      total = "";
      fecha = "";
-     usuario = "";
+     //id_usuario = "";
     }
      
       Gastos(/*String descripcion,*/String[] piezaspollo, float precioxpieza, int totalpiezaspollo) {
@@ -125,19 +133,19 @@ public class Gastos {
     }
      
 
-   public Gastos(int cantidad, String descripcion, String total, String nombre, String fecha) {
+   public Gastos(int cantidad, String descripcion, String total, int nombre, String fecha) {
        this.cantidad = cantidad; 
        this.tipo = descripcion; // tipo lo almaceno en descirpcion 
         this.total = total;      
-         this.usuario = nombre;  //empleado_idempleado lo almaceno en turno asi se usa en controlador
+         this.id_usuario = nombre;  //empleado_idempleado lo almaceno en turno asi se usa en controlador
         this.fecha = fecha;
     }
    
-   public Calendar Gastos(int cantidad, String descripcion, String total, String nombre, Calendar fechahoy) {
+   public Calendar Gastos(int cantidad, String descripcion, String total, int nombre, Calendar fechahoy) {
        this.cantidad = cantidad;  
        this.tipo = descripcion; // tipo lo almaceno en descirpcion
         this.total = total;      
-        this.usuario = nombre; 
+        this.id_usuario = nombre; 
         
         this.fecha_actual = fechahoy;
         return null;
@@ -179,13 +187,13 @@ public class Gastos {
         this.fecha = fecha;
     }
 
-    public String getUsuario() {
-        return usuario;
+   /* public String getUsuario() {
+        return id_usuario;
     }
 
     public void setUsuario(String usuario) {
-        this.usuario = usuario;
-    }                                        
+        this.id_usuario = usuario;
+    } */                                       
     
     SI cc= new SI(); // CONEXION ALA DB
  Connection ca= cc.conexion();
@@ -204,7 +212,7 @@ public class Gastos {
            pst.setString(2, getTipo());
            pst.setString(3, getFecha());
            pst.setString(4, getTotal());
-           pst.setString(5, getUsuario());
+           pst.setInt(5, getId_usuario());
                       
             pst.executeUpdate();
             pst.close();
