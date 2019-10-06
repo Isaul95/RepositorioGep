@@ -30,8 +30,26 @@ public class Gastos {
      
      
      //String nombre_producto;
+     String[] piezas;
      float precioxpieza;
-    int totalpiezaspollo;
+     int totalpiezaspollo;
+
+     
+    public String[] getPiezas() {
+        return piezas;
+    }
+
+    public void setPiezas(String[] piezas) {
+        this.piezas = piezas;
+    }
+     
+     
+    
+
+    /*
+    Gastos(String[] piezas, float precioxpieza, int pollosdivididos) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }*/
     
     
     public float getPrecioxpieza() {
@@ -95,8 +113,12 @@ public class Gastos {
      usuario = "";
     }
      
-      Gastos(String descripcion, float precioxpieza, int totalpiezaspollo) {
-         this.tipo = descripcion;
+      Gastos(/*String descripcion,*/String[] piezaspollo, float precioxpieza, int totalpiezaspollo) {
+         //this.tipo = descripcion;
+         this.piezas[0] = piezaspollo[0];
+         this.piezas[1] = piezaspollo[1];
+         this.piezas[2] = piezaspollo[2];
+         
           this.precioxpieza = precioxpieza;
          this.totalpiezaspollo = totalpiezaspollo;
         //this.fecha = fecha;
@@ -199,7 +221,7 @@ public class Gastos {
     
     
     
-     public boolean GastosinsertProductos() /*throws SQLException*/ {
+   /*  public boolean GastosinsertProductos()  {
         String sql = null;
         try {
             
@@ -208,7 +230,7 @@ public class Gastos {
          PreparedStatement pst = ca.prepareCall(sql);
            // sql = "INSERT INTO egreso (tipo,fecha, total, user_id_usuario)  VALUES (?,?,?,?)";
            
-           pst.setString(1, getTipo());
+           pst.setString(1, getPiezas());
            pst.setFloat(2, getPrecioxpieza());
            pst.setInt(3, getTotalpiezaspollo());
           // pst.setString(4, getFecha());
@@ -222,11 +244,38 @@ public class Gastos {
         } /*finally{
             ca.close();
         }  */
-       return true;
-    } 
+      /* return true;
+    } */
     
     
+    /*
+     
+     public class Program {
+    public static void main(String[] args) {
     
+    int piezasxpollo  = 3;
+    int precioxunapieza = 18;
+    int ttpiezasxuno =  (precioxunapieza/piezasxpollo);
+    
+    System.out.println(ttpiezasxuno); 
+    
+     String[] piezas = new String [3];
+           piezas [0] = ("pechuga");
+           piezas [1] = ("ala");
+           piezas [2] = ("pierna");
+     
+  //    Scanner teclado = new Scanner(System.in);
+         for(int i=0; i<piezas.length; i++) {
+          System.out.println(piezas [i] +" "+ "precio x piezas -- " + ttpiezasxuno); 
+          } 
+        
+    }
+} */
+     
+     
+     
+     
+     
     
     
     

@@ -2992,7 +2992,8 @@ actualizarpro.setEnabled(false);
                 pst.setString(1,namep.getText());
                 pst.setString(2,tipodeproducto.getSelectedItem().toString());
                 pst.setString(3,preciop.getText());
-                pst.setString(4,cantp.getText());
+                pst.setString(4,
+                        cantp.getText());
                 pst.setString(5,llenarfecha());
                 pst.setString(6,proveedorarticulo.getSelectedItem().toString());
 
@@ -4219,7 +4220,7 @@ descuentoactivo=false;
      */
     public static String fecha(){ /* SE DECARA LA FECHA DEL SISTEMA */
         Date fecha=new Date();
-        SimpleDateFormat formatoFecha= new SimpleDateFormat("dd/MM/YYYY");
+        SimpleDateFormat formatoFecha= new SimpleDateFormat("YYYY/MM/dd");
         return formatoFecha.format(fecha);
     }
     public static void main(String args[]) {

@@ -56,9 +56,6 @@
         </Property>
         <Property name="toolTipText" type="java.lang.String" value="APERTURA DE CAJA"/>
       </Properties>
-      <AccessibilityProperties>
-        <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="APERTURA DE CAJA"/>
-      </AccessibilityProperties>
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout">
         <Property name="useNullLayout" type="boolean" value="true"/>

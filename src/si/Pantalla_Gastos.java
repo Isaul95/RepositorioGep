@@ -6,9 +6,12 @@ import java.beans.PropertyChangeListener;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -19,17 +22,22 @@ import si.Gastos;
 import ticket.TikectGasto;
 import static si.menu_principal.venta; // DANDO ACCESOO ALA INTERFAZ PRINCIPAL
 
+
 public class Pantalla_Gastos extends javax.swing.JFrame {        
    
                 Calendar fecha_actual = new GregorianCalendar();
                 String fechahoy=""; 
+                int tt;
+                Statement sent;  
                 Gastos gastos;
                 int cantidad;
                 int  piezasxunpollo=6, divideellpollo=3;
                 String id_usuario; 
                 TikectGasto tikectGastos;
+                  int cantidadpolloenDB, pollosdivididos, addpiezas;
                 String usuarioname=SI_Inicio.text_user.getText(); //variable para obtener el nombre del usuario o administrador que ingreso al sistema
-    private Object rs;
+    //private Object rs;
+                ResultSet rs;
     public Pantalla_Gastos() {
         initComponents();
         this.setLocationRelativeTo(null); // CENTRAR FORMULARIO
@@ -82,7 +90,13 @@ public class Pantalla_Gastos extends javax.swing.JFrame {
             txtdescripcion.setBackground(Color.red);
         }
         return next;
-    }                                       
+    }             
+             
+             public static String fecha(){ /* SE DECARA LA FECHA DEL SISTEMA */
+        Date fecha=new Date();
+        SimpleDateFormat formatoFecha= new SimpleDateFormat("YYYY/MM/dd");
+        return formatoFecha.format(fecha);
+    }
              
     
      
@@ -128,7 +142,73 @@ public class Pantalla_Gastos extends javax.swing.JFrame {
             txtmonto.setText(null);
             txtpiezas.setText(null);
            // vistaGastos.jDateChooserFecha.setDate(null);
-         }        
+         }         
+     
+     
+     
+     
+     
+     boolean comprobarpollo(){ //1
+         
+     boolean resultado=false;
+         String pechuga="pechuga"; // meterle nomnre directo
+         String buscap = "";     
+         
+         String[] piezas = new String [3];
+           piezas [0] = ("pechuga");
+           piezas [1] = ("ala");
+           piezas [2] = ("pierna");
+           
+           for(int i=0; i<piezas.length; i++) {
+          //System.out.println(piezas [i]); 
+         //JOptionPane.showMessageDialog(null,"PIEZASS de POLLO k se insertaran..."+" "+piezas [i]);
+           
+           
+
+            try{
+                       sent  = (Statement)ca.createStatement();
+                                           rs = sent.executeQuery("select * from productos  where nombre_producto='"+piezas[i]+"' and fecha= '"+fecha()+"'");
+                                            while(rs.next()){
+                                                      buscap =rs.getString("nombre_producto");
+                                                      cantidadpolloenDB =rs.getInt("cantidad"); // piezas en la db
+                                                      }
+                                            
+   if(buscap.equals(piezas[i])){ //Si el nombre del producto es diferente del estado vacio, en palabras más sencillas; si se encuentra el producto que se quiere agregar para que no se asigne nuevamente  
+        try{// el id del usuario
+                
+                addpiezas=cantidadpolloenDB+pollosdivididos;
+                
+                
+                
+                 PreparedStatement ps = ca.prepareStatement ("UPDATE productos SET cantidad='"+addpiezas+"'WHERE nombre_producto='"+piezas[i]+"' and fecha= '"+fecha()+"'");
+               int ty = ps.executeUpdate();
+                
+                 if(ty>0){
+                     resultado = true;
+                 }else{
+                     resultado = false;
+                 }
+                     
+                 
+        }//fin del id del usuario
+                 catch(Exception w){
+                     JOptionPane.showMessageDialog(null, "Error" + w.getMessage());
+                 }//fin del id del usuario
+               }
+ 
+         }catch (Exception f){
+                    JOptionPane.showMessageDialog(null, "Error, nombre de producto no registrado" + f.getMessage());
+                
+         }
+     
+         
+           }//2
+        return resultado;
+     } //1
+     
+     
+     
+     
      
      
       /*  ======   HACIENDO UNA CONSULTA DE LOS GASTOS A BUSCAR CON -- ((UNA)) -- FECHA DETERINADA =======A*/          
@@ -440,27 +520,22 @@ public class Pantalla_Gastos extends javax.swing.JFrame {
  
  if("pollo".equals(txtdescripcion.getText())){/*1*/
               //txtpiezas.setEnabled(true);
-              
+              JOptionPane.showMessageDialog(null, "INSERTANDO EN TABLA DB GASTOS.....");
+                       gastos = new Gastos(cantidad, tipo, total, usuarioname, fecha);
+                         gastos.Gastosinsert();
       JOptionPane.showMessageDialog(null, "lo k ingrese->"+tipo+"\n MONTO TOTAL->"+total); // imprime lo k inserto en descirpcion  
         int totalpiezaspollo = (cantidad*piezasxunpollo);
            JOptionPane.showMessageDialog(null,"total de piezas x un pollo"+" "+totalpiezaspollo);
       float precioxpieza = (totalmonto/totalpiezaspollo);   
       
         
-      int pollosdivididos = (totalpiezaspollo/divideellpollo);
+       pollosdivididos = (totalpiezaspollo/divideellpollo);
       JOptionPane.showMessageDialog(null,"dividiendo pechuga-pierna-alas"+" "+pollosdivididos);
             
-     String[] piezas = new String[3];       
-         piezas[0] = ("Pierna");
-         piezas[1] = ("Pechuga");
-         piezas[2] = ("Ala");
-              
+     
        
        
       
-      //String pierna = "Pierna", "Pechuga", "Ala";
-     // String pierna1 = "Pechuga";
-     // String pierna2 = "Ala";
       
           
                                  JOptionPane.showMessageDialog(null, "obteniendo las piezas k se ingresaron de pollos enteros");
@@ -469,15 +544,61 @@ public class Pantalla_Gastos extends javax.swing.JFrame {
             
                    JOptionPane.showMessageDialog(null,"precio x una pieza de pollo "+precioxpieza);
                    
-                   gastos = new Gastos(tipo, precioxpieza, pollosdivididos);
+             
+            String[] piezas = new String [3];
+           piezas [0] = ("pechuga");
+           piezas [1] = ("ala");
+           piezas [2] = ("pierna");
+           
+          
+          //String[] piezass = {"pechuga","ala","pierna"};
+          
+  if(comprobarpollo()){
+   JOptionPane.showMessageDialog(null," CANTIDAD ACTUALIZADA DE PRODUCTOS ");
+  }
+  else{
+      
+  
+          
+          for(int i=0; i<piezas.length; i++) {
+          //System.out.println(piezas [i]); 
+         JOptionPane.showMessageDialog(null,"PIEZASS de POLLO k se insertaran..."+" "+piezas [i]);
+          
+         
+          
+            String sql = null;
+        try {
+            
+          Statement sent = ca.createStatement(); 
+          sql = "INSERT INTO productos (nombre_producto, precio, cantidad, fecha)  VALUES (?,?,?,?)";
+         PreparedStatement pst = ca.prepareCall(sql);
+           // sql = "INSERT INTO egreso (tipo,fecha, total, user_id_usuario)  VALUES (?,?,?,?)";
+           
+           pst.setString(1, piezas[i]);
+           pst.setFloat(2, precioxpieza);
+           pst.setInt(3, pollosdivididos);
+           pst.setString(4, fecha());
+          // pst.setString(4, getFecha());
+                      
+          tt = pst.executeUpdate();
+            pst.close();
+             
+        } catch (SQLException ex) {
+            System.err.print(ex);
+           // return false;
+        }
+          
+          }                                                
+                   
+                  // gastos = new Gastos(piezas, precioxpieza, pollosdivididos);
                   // gastos = new Gastos(cantidad, tipo, total, usuarioname, fecha);
-                   if (gastos.GastosinsertProductos() /* && gastos.Gastosinsert() */) {/*2*/ 
+                   if (tt>0 ) {/*2*/ /* && gastos.Gastosinsert() */
                        JOptionPane.showMessageDialog(null, "en tabla PRODUCTOS productos Registrados...");
                        
-                       JOptionPane.showMessageDialog(null, "INSERTANDO EN TABLA DB GASTOS.....");
-                       gastos = new Gastos(cantidad, tipo, total, usuarioname, fecha);
-                         gastos.Gastosinsert();
-                   }  /*2*/                                                             
+                       
+                   }  /*2*/  
+                   
+ }
         
         }/*1*/ else if(!"pollo".equals(txtdescripcion.getText())){/*3*/
            // txtpiezas.setEnabled(false);  // ME ACTIVA EL TXT
