@@ -45,7 +45,7 @@ public class SI_Inicio extends javax.swing.JFrame {
     
     
       String user,estadoinactivo="Inactivo", pass;
-      int resultopen, aperturahecha;
+      int resultopen, aperturahecha, resultadoclose, cierrehecho;
       int id_usuario=0;
       String fechadehoy;
     String []datos = new String[4];
@@ -67,7 +67,6 @@ public class SI_Inicio extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         pass_user1 = new javax.swing.JPasswordField();
-        text_user1 = new javax.swing.JTextField();
         iduser = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -214,38 +213,6 @@ public class SI_Inicio extends javax.swing.JFrame {
         });
         getContentPane().add(pass_user1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 350, 200, -1));
 
-        text_user1.setBackground(new java.awt.Color(0, 0, 51));
-        text_user1.setFont(new java.awt.Font("Tahoma", 3, 18)); // NOI18N
-        text_user1.setForeground(new java.awt.Color(255, 255, 255));
-        text_user1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        text_user1.setText("Ingresa Usuario");
-        text_user1.setBorder(null);
-        text_user1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        text_user1.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                text_user1FocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                text_user1FocusLost(evt);
-            }
-        });
-        text_user1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                text_user1MouseClicked(evt);
-            }
-        });
-        text_user1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                text_user1ActionPerformed(evt);
-            }
-        });
-        text_user1.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                text_user1KeyPressed(evt);
-            }
-        });
-        getContentPane().add(text_user1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 310, 200, -1));
-
         iduser.setBackground(new java.awt.Color(0, 0, 51));
         iduser.setFont(new java.awt.Font("Tahoma", 3, 18)); // NOI18N
         iduser.setForeground(new java.awt.Color(255, 255, 255));
@@ -276,7 +243,7 @@ public class SI_Inicio extends javax.swing.JFrame {
                 iduserKeyPressed(evt);
             }
         });
-        getContentPane().add(iduser, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 310, 200, -1));
+        getContentPane().add(iduser, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 380, 200, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -295,6 +262,22 @@ public static String fecha(){ /* SE DECARA LA FECHA DEL SISTEMA */
             }
             if(resultopen!=0){ //si el id resultante de la consulta es diferente de 0 quiere decir que ya hay por lo menos una venta en el sistema
             aperturahecha=1; //entonces el valor de "primerventa" se convertirá en 1, indicando que ya hay por lo menos una venta
+            }
+        } 
+             catch (SQLException ex) {
+            Logger.getLogger(menu_principal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    public void yacerrosistema(){
+             //metodo agregado 11 septiembre 2018
+             try {
+             Statement sent = ca.createStatement();   
+              ResultSet rs = sent.executeQuery("select * from cortes where fecha='"+fechadehoy+"' ");
+            while(rs.next()){        
+            resultadoclose=Integer.parseInt(rs.getString(1)); //Obtiene el id de la venta
+            }
+            if(resultadoclose!=0){ //si el id resultante de la consulta es diferente de 0 quiere decir que ya hay por lo menos una venta en el sistema
+            cierrehecho=1; //entonces el valor de "primerventa" se convertirá en 1, indicando que ya hay por lo menos una venta
             }
         } 
              catch (SQLException ex) {
@@ -329,7 +312,6 @@ public static String fecha(){ /* SE DECARA LA FECHA DEL SISTEMA */
                 if(user.equals(datos[0])&&pass.equals(datos[1])){ //comparacion entre lo escrito por el usuario y lo almacenado en la base de datos
                 JOptionPane.showMessageDialog(null,"Bienvenido Usuario: \n" +user," Acceso Concedido",JOptionPane.INFORMATION_MESSAGE); //Msg de bienvenida                                                                     
              yaseabriosistema();
-             JOptionPane.showMessageDialog(null, aperturahecha);
              if(aperturahecha==0){
                  
                  this.setVisible(false);  
@@ -478,26 +460,6 @@ public static String fecha(){ /* SE DECARA LA FECHA DEL SISTEMA */
         // TODO add your handling code here:
     }//GEN-LAST:event_pass_user1MouseClicked
 
-    private void text_user1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_text_user1FocusGained
-        // TODO add your handling code here:
-    }//GEN-LAST:event_text_user1FocusGained
-
-    private void text_user1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_text_user1FocusLost
-        // TODO add your handling code here:
-    }//GEN-LAST:event_text_user1FocusLost
-
-    private void text_user1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_text_user1MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_text_user1MouseClicked
-
-    private void text_user1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_text_user1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_text_user1ActionPerformed
-
-    private void text_user1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_text_user1KeyPressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_text_user1KeyPressed
-
     private void iduserFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_iduserFocusGained
         // TODO add your handling code here:
     }//GEN-LAST:event_iduserFocusGained
@@ -566,7 +528,6 @@ SI cc= new SI();
     private javax.swing.JPasswordField pass_user;
     private javax.swing.JPasswordField pass_user1;
     public static javax.swing.JTextField text_user;
-    public static javax.swing.JTextField text_user1;
     public static javax.swing.JButton usuario;
     // End of variables declaration//GEN-END:variables
 }

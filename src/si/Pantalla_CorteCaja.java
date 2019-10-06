@@ -29,6 +29,7 @@ int  id_usuario=Integer.parseInt(SI_Inicio.iduser.getText());
         this.setLocationRelativeTo(null); // CENTRAR FORMULARIO
         Fecha.setText(fecha());
         ventaseneldia();
+        metodogastosdeldia();
         Ventasfortoday1.setText(String.valueOf(ventasdeldia));
         Gastosfromtoday.setText(String.valueOf(gastosdeldia));
         user.setText(usuarioname);
@@ -69,11 +70,11 @@ public void ventaseneldia(){
                                                       }// fin del precio-catch del producto
     }
 
-public void gastosdeldia(){
+public void metodogastosdeldia(){
         try{ // La suma de todos los importes
     
                                          Statement sent  =(Statement)ca.createStatement();
-                                         ResultSet  rs = sent.executeQuery("select SUM(cantidad) from egreso where fecha= '"+fecha()+"'");
+                                         ResultSet  rs = sent.executeQuery("select SUM(total) from egreso where fecha= '"+fecha()+"'");
                                             while(rs.next()){
                                                       gastosdeldia =Float.parseFloat(rs.getString("SUM(total)"));
                                                       }
@@ -114,7 +115,7 @@ public void gastosdeldia(){
         Reloj = new javax.swing.JLabel();
         user = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
@@ -249,17 +250,11 @@ public void gastosdeldia(){
         if(variablemontoentregado>0){//COMPROBANDO QUE EL MONTO NO ESTE VACIO
              try{ //la insersion a la tabla ventas
               ventaseneldia();
-              gastosdeldia();
+              metodogastosdeldia();
               aperturadeldia();
-              JOptionPane.showMessageDialog(null, "ventas del dia"+ventasdeldia);
-              JOptionPane.showMessageDialog(null, "gastos del dia"+gastosdeldia);
-              JOptionPane.showMessageDialog(null, "monto de apertura"+montodeapertura);
-               JOptionPane.showMessageDialog(null, "montoentregado"+variablemontoentregado);
-               ventasmenosgastos=ventasdeldia-gastosdeldia;
-                   JOptionPane.showMessageDialog(null, "VENTAS-{GASTOS"+ventasmenosgastos);
+               ventasmenosgastos=ventasdeldia-gastosdeldia; 
                   diferencia=ventasmenosgastos-variablemontoentregado;
-               JOptionPane.showMessageDialog(null, "DIFERENCIA=VENTAS-GASTOS-APERTURA"+diferencia);
-               diferenciafinal=diferencia-montodeapertura;
+                   diferenciafinal=diferencia-montodeapertura;
     String sql = "INSERT INTO  cortes(id_apertura, monto_entregado, gastos, ventas, diferencia, fecha, hora, usuario)  VALUES (?,?,?,?,?,?,?,?)";
                 PreparedStatement pst = ca.prepareCall(sql); //hasta aqui vamos
                
@@ -274,11 +269,16 @@ public void gastosdeldia(){
                
                 int a=pst.executeUpdate();
                 if(a>0){
-                   JOptionPane.showMessageDialog(null,"Bienvenido Usuario: \n" +usuarioname," Acceso Concedido",JOptionPane.INFORMATION_MESSAGE); //Msg de bienvenida                                                                     
-                 this.setVisible(false);  
-                                     // HERE 
-                              new menu_principal().setVisible(true);
-                               this.setIconImage(null);
+                    int decision=JOptionPane.showConfirmDialog(null,"¿Desea continuar?","UNA VEZ REALIZADO EL CORTE, SOLO EL ADMIN PUEDE ENTRAR",JOptionPane.CANCEL_OPTION);
+            if(decision==0){
+                JOptionPane.showMessageDialog(null,"Nos vemos pronto","Saliendo del sistema...",JOptionPane.INFORMATION_MESSAGE);
+             /*   new SI_Inicio().setVisible(true);
+                new menu_principal().setVisible(false);
+               this.setVisible(false);
+*/System.exit(0);
+
+            }
+              
                 }
             }catch(SQLException e)  { //fin de la insersion a la tabla ventas
                 JOptionPane.showMessageDialog(null,"Error de datos por id vacio "+e);

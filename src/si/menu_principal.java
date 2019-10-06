@@ -117,7 +117,11 @@ Statement sent;
         }
             }
     
-     
+     public static String fecha(){ /* SE DECARA LA FECHA DEL SISTEMA */
+        Date fecha=new Date();
+        SimpleDateFormat formatoFecha= new SimpleDateFormat("YYYY/MM/dd");
+        return formatoFecha.format(fecha);
+    }
     public void hora(){
         Calendar calendario=new GregorianCalendar();
         Date horaactual=new Date();
@@ -575,10 +579,8 @@ Statement sent;
     }
             
             public  void descuentos(){
-            
-             
                    float totalparadescuentos = Float.parseFloat(total.getText());
-                      JOptionPane.showMessageDialog(null, "EL TOTAL ES "+totalparadescuentos);
+                      
                if(totalparadescuentos>0){
                    do{
                         porcentaje = Float.parseFloat(JOptionPane.showInputDialog(null, "Porcentaje a descontar", JOptionPane.INFORMATION_MESSAGE));
@@ -780,7 +782,7 @@ JOptionPane.showMessageDialog(null, "Error en venta" + s.getMessage());
             sent = ca.createStatement();
              rs= sent.executeQuery("select * from  proveedores");
             while(rs.next()){
-                lista.add(rs.getString("id_proveedor"));
+                lista.add(rs.getString("nombre_de_la_empresa"));
             }
              for(int a=0; a<lista.size(); a++){
             proveedorarticulo.addItem(lista.get(a));
@@ -1214,8 +1216,8 @@ JOptionPane.showMessageDialog(null, "Error en venta" + s.getMessage());
         venta.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 150, 1207, 242));
 
         searchforproducts.setEditable(true);
-        searchforproducts.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        venta.add(searchforproducts, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 100, 230, 30));
+        searchforproducts.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
+        venta.add(searchforproducts, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 100, 410, 30));
 
         jLabel28.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         jLabel28.setForeground(new java.awt.Color(255, 255, 255));
@@ -1231,7 +1233,7 @@ JOptionPane.showMessageDialog(null, "Error en venta" + s.getMessage());
                 s1ActionPerformed(evt);
             }
         });
-        venta.add(s1, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 100, 50, 30));
+        venta.add(s1, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 100, 50, 30));
 
         r1.setBackground(new java.awt.Color(0, 148, 204));
         r1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -1242,16 +1244,16 @@ JOptionPane.showMessageDialog(null, "Error en venta" + s.getMessage());
                 r1ActionPerformed(evt);
             }
         });
-        venta.add(r1, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 100, 50, 30));
+        venta.add(r1, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 100, 50, 30));
 
-        cantidad.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        cantidad.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
         cantidad.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         cantidad.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cantidadActionPerformed(evt);
             }
         });
-        venta.add(cantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 100, 130, 30));
+        venta.add(cantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 100, 130, 30));
 
         agregar2.setBackground(new java.awt.Color(0, 148, 204));
         agregar2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
@@ -1265,12 +1267,12 @@ JOptionPane.showMessageDialog(null, "Error en venta" + s.getMessage());
                 agregar2ActionPerformed(evt);
             }
         });
-        venta.add(agregar2, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 70, 190, 70));
+        venta.add(agregar2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1030, 70, 190, 70));
 
         jLabel29.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         jLabel29.setForeground(new java.awt.Color(255, 255, 255));
         jLabel29.setText("Piezas:");
-        venta.add(jLabel29, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 100, 90, -1));
+        venta.add(jLabel29, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 100, 90, -1));
         venta.add(jSeparator7, new org.netbeans.lib.awtextra.AbsoluteConstraints(1080, 460, 140, 10));
 
         jPanel10.setBackground(new java.awt.Color(0, 51, 102));
@@ -2306,12 +2308,17 @@ JOptionPane.showMessageDialog(null, "Error en venta" + s.getMessage());
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 17)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel6.setText("  Id del proveedor:");
+        jLabel6.setText("Proveedor");
         jPanel11.add(jLabel6);
-        jLabel6.setBounds(10, 280, 170, 30);
+        jLabel6.setBounds(20, 280, 170, 30);
 
         proveedorarticulo.setBackground(new java.awt.Color(0, 153, 204));
         proveedorarticulo.setFont(new java.awt.Font("Tahoma", 0, 17)); // NOI18N
+        proveedorarticulo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                proveedorarticuloActionPerformed(evt);
+            }
+        });
         jPanel11.add(proveedorarticulo);
         proveedorarticulo.setBounds(230, 280, 200, 30);
 
@@ -4215,14 +4222,14 @@ descuentoactivo=false;
      descuentos();       
     }//GEN-LAST:event_descuentoActionPerformed
 
+    private void proveedorarticuloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_proveedorarticuloActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_proveedorarticuloActionPerformed
+
     /**
      * @param args the command line arguments
      */
-    public static String fecha(){ /* SE DECARA LA FECHA DEL SISTEMA */
-        Date fecha=new Date();
-        SimpleDateFormat formatoFecha= new SimpleDateFormat("YYYY/MM/dd");
-        return formatoFecha.format(fecha);
-    }
+    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
