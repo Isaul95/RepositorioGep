@@ -23,8 +23,13 @@ import ticket.TikectGasto;
 import static si.menu_principal.venta; // DANDO ACCESOO ALA INTERFAZ PRINCIPAL
 
 
-public class Pantalla_Gastos extends javax.swing.JFrame {        
-   
+public class Pantalla_Gastos extends javax.swing.JFrame {  
+    
+                 
+              // menu_principal Objeto = menu_principal();
+               //Objeto.
+                       
+               menu_principal menu_principal ;
                 Calendar fecha_actual = new GregorianCalendar();
                 String fechahoy=""; 
                 int tt;
@@ -43,6 +48,8 @@ public class Pantalla_Gastos extends javax.swing.JFrame {
                 ResultSet rs;
     public Pantalla_Gastos() {
         initComponents();
+        //menu_principal.autocompletar();
+       // Actualizar();
         this.setLocationRelativeTo(null); // CENTRAR FORMULARIO
         jDateChooserFecha.setCalendar(fecha_actual);
         //txtpiezas.setEnabled(false);
@@ -100,6 +107,23 @@ public class Pantalla_Gastos extends javax.swing.JFrame {
         SimpleDateFormat formatoFecha= new SimpleDateFormat("YYYY/MM/dd");
         return formatoFecha.format(fecha);
     }
+             
+             public void Actualizar(){ //metodo sin retorno para obtener la lista de campos de la tabla productos la cual obtiene cada uno de los nombres para poder hacer algunas coincidencias al momento que el usuario estÃ¡ escribiendo
+          ArrayList<String> lista = new ArrayList<String>();
+       menu_principal.searchforproducts.removeAllItems(); //Ã‰sta linea es importante ya que cada vez que se llama este metodo se eliminan los item que previamente se cargaron en la llamada anterior, ESTO PARA QUE NO SE VUELVAN AGREGAR LOS MISMOS ITEMS, MÃ�S DE 1 VEZ
+        try{
+            sent  =(Statement)ca.createStatement();
+           rs = sent.executeQuery("select nombre_producto from productos ");
+            while(rs.next()){
+               menu_principal.searchforproducts.addItem(rs.getString("nombre_producto"));
+            }
+            for(int a=0; a<lista.size(); a++){
+            menu_principal.searchforproducts.addItem(lista.get(a)); //Este ciclo lo que hace es ordenarlos de manera de lista descendente
+        }
+        }catch (Exception e){
+            
+        }
+    } 
              
     
      
@@ -257,7 +281,7 @@ public class Pantalla_Gastos extends javax.swing.JFrame {
        int año= jDateXUnaFecha.getCalendar().get(Calendar.YEAR);
        int mes= jDateXUnaFecha.getCalendar().get(Calendar.MONTH)+1;
        int dia= jDateXUnaFecha.getCalendar().get(Calendar.DAY_OF_MONTH);
-       fechahoy= año+"-"+mes+"-"+dia;
+       fechahoy= año+"/"+mes+"/"+dia;
         return fechahoy;
     } 
      
@@ -287,9 +311,9 @@ public class Pantalla_Gastos extends javax.swing.JFrame {
         B_cancelar = new javax.swing.JButton();
         btnRegistrarGasto = new javax.swing.JButton();
         btnImprimirticket = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         txtpiezas = new javax.swing.JTextField();
+        buscargastos = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -405,7 +429,7 @@ public class Pantalla_Gastos extends javax.swing.JFrame {
             }
         });
         jPanel2.add(jDateXUnaFecha);
-        jDateXUnaFecha.setBounds(890, 90, 230, 40);
+        jDateXUnaFecha.setBounds(870, 90, 230, 40);
 
         B_cancelar.setBackground(new java.awt.Color(242, 38, 19));
         B_cancelar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -442,15 +466,6 @@ public class Pantalla_Gastos extends javax.swing.JFrame {
         jPanel2.add(btnImprimirticket);
         btnImprimirticket.setBounds(910, 340, 200, 50);
 
-        jButton1.setText("jButton1");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-        jPanel2.add(jButton1);
-        jButton1.setBounds(1160, 70, 73, 23);
-
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 17)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Fecha:");
@@ -478,6 +493,18 @@ public class Pantalla_Gastos extends javax.swing.JFrame {
         });
         jPanel2.add(txtpiezas);
         txtpiezas.setBounds(240, 120, 150, 40);
+
+        buscargastos.setBackground(new java.awt.Color(0, 148, 204));
+        buscargastos.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        buscargastos.setForeground(new java.awt.Color(255, 255, 255));
+        buscargastos.setText("Buscar");
+        buscargastos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buscargastosActionPerformed(evt);
+            }
+        });
+        jPanel2.add(buscargastos);
+        buscargastos.setBounds(1120, 80, 150, 50);
 
         jPanel1.add(jPanel2);
         jPanel2.setBounds(10, 50, 1290, 480);
@@ -543,9 +570,12 @@ public class Pantalla_Gastos extends javax.swing.JFrame {
  
  if("pollo".equals(txtdescripcion.getText())){/*1*/
               //txtpiezas.setEnabled(true);
-              JOptionPane.showMessageDialog(null, "INSERTANDO EN TABLA DB GASTOS.....");
+              JOptionPane.showMessageDialog(null, "Gastos Registrados con Exito... entrando desde gastos en productos");
                        gastos = new Gastos(cantidad, tipo, total, id_usuario, fecha);
                          gastos.Gastosinsert();
+                         limpiar();
+                         LlenarTabla(jTableGastos);
+                         
       JOptionPane.showMessageDialog(null, "lo k ingrese->"+tipo+"\n MONTO TOTAL->"+total); // imprime lo k inserto en descirpcion  
         float totalpiezaspollo = (cantidad*piezasxunpollo);
            JOptionPane.showMessageDialog(null,"total de piezas x un pollo"+" "+totalpiezaspollo);
@@ -616,9 +646,9 @@ public class Pantalla_Gastos extends javax.swing.JFrame {
                   // gastos = new Gastos(piezas, precioxpieza, pollosdivididos);
                   // gastos = new Gastos(cantidad, tipo, total, usuarioname, fecha);
                    if (tt>0 ) {/*2*/ /* && gastos.Gastosinsert() */
-                       JOptionPane.showMessageDialog(null, "en tabla PRODUCTOS productos Registrados...");
-                       
-                       
+                       JOptionPane.showMessageDialog(null, "Productos Registrados con Exito...");
+                       Actualizar();
+                       limpiar();
                    }  /*2*/  
                    
  }
@@ -640,9 +670,9 @@ public class Pantalla_Gastos extends javax.swing.JFrame {
                             
                             
                             JOptionPane.showMessageDialog(null,"id_usuario->" + id_usuario+ "\n piezas->"+cantidad);
-                            JOptionPane.showMessageDialog(null, "Gastos Registrados con Exito");
+                            JOptionPane.showMessageDialog(null, "Gastos Registrados con Exito...");
                             limpiar();
-                            JOptionPane.showMessageDialog(null, "Generando Ticket de Gastos");
+                            JOptionPane.showMessageDialog(null, "Generando Ticket de Gastos...");
                            // txtpiezas.setText("0");
                             LlenarTabla(jTableGastos); // LLENANDO LA TABLA AL INSERTAR CORRECTAMEBTE
                             tikectGastos = new TikectGasto();
@@ -687,13 +717,6 @@ public class Pantalla_Gastos extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jDateXUnaFechaPropertyChange
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-      // BOTON PARA LA CONSULTA DE  GASTOS 
-        String fechahoy= jDateXUnaFecha.toString();
-          
-            LlenarTablaBusquedaFecha(jTableGastosFechaActual, llenarfechadehoy());
-    }//GEN-LAST:event_jButton1ActionPerformed
-
     private void txtpiezasFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtpiezasFocusGained
         // *********************   CAJA DE TEXTO DE PAGOO *********
         if(txtpiezas.getText().trim().equals("00.00")){
@@ -714,6 +737,13 @@ public class Pantalla_Gastos extends javax.swing.JFrame {
     private void txtpiezasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtpiezasActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtpiezasActionPerformed
+
+    private void buscargastosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscargastosActionPerformed
+        // BOTON PARA LA CONSULTA DE  GASTOS 
+        String fechahoy= jDateXUnaFecha.toString();
+          
+            LlenarTablaBusquedaFecha(jTableGastosFechaActual, llenarfechadehoy());
+    }//GEN-LAST:event_buscargastosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -761,7 +791,7 @@ public class Pantalla_Gastos extends javax.swing.JFrame {
     private javax.swing.JButton btnImprimirticket;
     private javax.swing.JButton btnListar;
     public javax.swing.JButton btnRegistrarGasto;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton buscargastos;
     public com.toedter.calendar.JDateChooser jDateChooserFecha;
     public com.toedter.calendar.JDateChooser jDateXUnaFecha;
     private javax.swing.JLabel jLabel1;
@@ -780,4 +810,6 @@ public class Pantalla_Gastos extends javax.swing.JFrame {
     public javax.swing.JTextField txtmonto;
     public static javax.swing.JTextField txtpiezas;
     // End of variables declaration//GEN-END:variables
+
+    
 }

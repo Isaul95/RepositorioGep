@@ -33,6 +33,7 @@ import net.sf.jasperreports.view.JasperViewer;
 import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 import javax.imageio.ImageIO;
 import javax.swing.JTextField;
+import si.Pantalla_Gastos;
 
 public final class menu_principal extends javax.swing.JFrame implements Runnable{
                   private final String logotipo = "/Reportes/logo1.jpeg"; // icono de DATAMAX
@@ -2703,7 +2704,7 @@ JOptionPane.showMessageDialog(null, "Error en venta" + s.getMessage());
         );
 
         agregar_usuario.add(jPanel5);
-        jPanel5.setBounds(0, 0, 1288, 60);
+        jPanel5.setBounds(0, 0, 1290, 60);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -4445,7 +4446,7 @@ SI cc= new SI();
     private javax.swing.JButton r1;
     private javax.swing.JButton s;
     private javax.swing.JButton s1;
-    private javax.swing.JComboBox<String> searchforproducts;
+    public javax.swing.JComboBox<String> searchforproducts;
     private javax.swing.JTable tabla_agregar;
     private javax.swing.JPopupMenu tabla_articulos;
     private javax.swing.JPopupMenu tabla_proveedores;
