@@ -30,11 +30,11 @@ public class Pantalla_Gastos extends javax.swing.JFrame {
                 int tt;
                 Statement sent;  
                 Gastos gastos;
-                int cantidad;
-                int  piezasxunpollo=6, divideellpollo=3;
+                float cantidad;
+                float  piezasxunpollo=6, divideellpollo=3;
                // String id_usuario; 
                 TikectGasto tikectGastos;
-                  int cantidadpolloenDB, pollosdivididos, addpiezas;
+                  float cantidadpolloenDB, pollosdivididos, addpiezas;
                 String  usuarioname=SI_Inicio.text_user.getText();
                int  id_usuario=Integer.parseInt(SI_Inicio.iduser.getText());
                   
@@ -117,7 +117,7 @@ public class Pantalla_Gastos extends javax.swing.JFrame {
        modeloT.addColumn("nombre");               
          /* SELECT `idegreso`, `tipo`, `total`, `fecha`, turno FROM `egreso` \n" + "  INNER JOIN empleado\n" + "WHERE egreso.`empleado_idempleado` = empleado.idempleado";     */    
         try {
-         String sSQL = "SELECT `idegreso`,`cantidad`,`tipo`,`fecha`,`total`,`nombre` FROM `egreso` INNER JOIN user WHERE egreso.`id_usuario` = user.id_usuario";
+         String sSQL = "SELECT `idegreso`,`cantidad`,`tipo`,`fecha`,`total`,`nombre` FROM `egreso` INNER JOIN user WHERE egreso.`usuario` = user.id_usuario";
  // SELECT `idegreso`, `tipo`, `fecha`, `total`, nombre FROM `egreso` INNER JOIN user WHERE egreso.`id_usuario` = user.id_usuario
          
   // String sSQL = "SELECT * FROM egreso\n" + "WHERE fecha = '"+llenarfechadehoy()+"'";
@@ -230,7 +230,7 @@ public class Pantalla_Gastos extends javax.swing.JFrame {
        modeloT.addColumn("nombre");               
          /* SELECT `idegreso`, `tipo`, `total`, `fecha`, turno FROM `egreso` \n" + "  INNER JOIN empleado\n" + "WHERE egreso.`empleado_idempleado` = empleado.idempleado";     */    
         try {
-         String sSQL = "SELECT `idegreso`,`cantidad`,`tipo`,`fecha`,`total`,`nombre` FROM `egreso` INNER JOIN user WHERE egreso.`id_usuario` = user.id_usuario AND fecha = '"+llenarfechadehoy()+"'";
+         String sSQL = "SELECT `idegreso`,`cantidad`,`tipo`,`fecha`,`total`,`nombre` FROM `egreso` INNER JOIN user WHERE egreso.`usuario` = user.id_usuario AND fecha = '"+llenarfechadehoy()+"'";
          
   // String sSQL = "SELECT * FROM egreso\n" + "WHERE fecha = '"+llenarfechadehoy()+"'";
          
@@ -523,11 +523,10 @@ public class Pantalla_Gastos extends javax.swing.JFrame {
 
                     if (pass && pass2 /*&& pass3*/) {
     float totalmonto = Integer.parseInt(txtmonto.getText()); //puse otro de tipo float xq total no me reconoce como string a float
-                        int cantidad = Integer.parseInt(txtpiezas.getText());
+                        float cantidad = Float.parseFloat(txtpiezas.getText());
                          String tipo = txtdescripcion.getText();                                                                                                                                     
                          String total = txtmonto.getText();
-                         SimpleDateFormat formatoFecha = new SimpleDateFormat("yyy-MM-dd");  // formato de la fecha e instanciando y darle formato de la fecha 
-                         String fecha = formatoFecha.format(jDateChooserFecha.getDate()); 
+                         String fecha = fecha(); 
                          
                          
                          
@@ -548,7 +547,7 @@ public class Pantalla_Gastos extends javax.swing.JFrame {
                        gastos = new Gastos(cantidad, tipo, total, id_usuario, fecha);
                          gastos.Gastosinsert();
       JOptionPane.showMessageDialog(null, "lo k ingrese->"+tipo+"\n MONTO TOTAL->"+total); // imprime lo k inserto en descirpcion  
-        int totalpiezaspollo = (cantidad*piezasxunpollo);
+        float totalpiezaspollo = (cantidad*piezasxunpollo);
            JOptionPane.showMessageDialog(null,"total de piezas x un pollo"+" "+totalpiezaspollo);
       float precioxpieza = (totalmonto/totalpiezaspollo);   
       
@@ -600,7 +599,7 @@ public class Pantalla_Gastos extends javax.swing.JFrame {
            
            pst.setString(1, piezas[i]);
            pst.setFloat(2, precioxpieza);
-           pst.setInt(3, pollosdivididos);
+           pst.setFloat(3, pollosdivididos);
            pst.setString(4, fecha());
           // pst.setString(4, getFecha());
                       

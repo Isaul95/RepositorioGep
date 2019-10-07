@@ -21,7 +21,7 @@ import si.Pantalla_Gastos;
 
 public class Gastos {
     int idegreso;
-     int cantidad;
+     float cantidad;
      String tipo;
      String total;
      String fecha;
@@ -133,7 +133,7 @@ public class Gastos {
     }
      
 
-   public Gastos(int cantidad, String descripcion, String total, int nombre, String fecha) {
+   public Gastos(float cantidad, String descripcion, String total, int nombre, String fecha) {
        this.cantidad = cantidad; 
        this.tipo = descripcion; // tipo lo almaceno en descirpcion 
         this.total = total;      
@@ -151,7 +151,7 @@ public class Gastos {
         return null;
     }
 
-    public int getCantidad() {
+    public float getCantidad() {
         return cantidad;
     }
     public void setCantidad(int cantidad) {
@@ -208,7 +208,7 @@ public class Gastos {
           sql = "INSERT INTO egreso (cantidad, tipo, fecha, total, usuario)  VALUES (?,?,?,?,?)";
          PreparedStatement pst = ca.prepareCall(sql);
            // sql = "INSERT INTO egreso (tipo,fecha, total, user_id_usuario)  VALUES (?,?,?,?)";
-           pst.setInt(1, getCantidad());
+           pst.setFloat(1, getCantidad());
            pst.setString(2, getTipo());
            pst.setString(3, getFecha());
            pst.setString(4, getTotal());

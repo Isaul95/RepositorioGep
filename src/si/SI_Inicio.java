@@ -285,7 +285,7 @@ public static String fecha(){ /* SE DECARA LA FECHA DEL SISTEMA */
         }
     }
     private void usuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usuarioActionPerformed
-        
+         
         // BOTON DE INGRESO PARA LOS USUARIOS
      //if (text_user.getText().isEmpty() || pass_user.getText().isEmpty()) { // si los campos estan vacias
      if (text_user.getText().equals("Ingresa Usuario") || pass_user.getText().equals("********")) { // 
@@ -309,16 +309,25 @@ public static String fecha(){ /* SE DECARA LA FECHA DEL SISTEMA */
             }
             
             else{
-                if(user.equals(datos[0])&&pass.equals(datos[1])){ //comparacion entre lo escrito por el usuario y lo almacenado en la base de datos
+                    yacerrosistema();
+                     if(resultadoclose>0){
+                  JOptionPane.showMessageDialog(null,"Ya se hizo corte de caja, por lo tanto no se puede abrir hasta el día de mañana"," Espera un momento",JOptionPane.INFORMATION_MESSAGE); //Msg de bienvenida                                                                     
+           
+             }
+                     
+              else if(user.equals(datos[0])&&pass.equals(datos[1])){ //comparacion entre lo escrito por el usuario y lo almacenado en la base de datos
                 JOptionPane.showMessageDialog(null,"Bienvenido Usuario: \n" +user," Acceso Concedido",JOptionPane.INFORMATION_MESSAGE); //Msg de bienvenida                                                                     
              yaseabriosistema();
-             if(aperturahecha==0){
+             
+             if(aperturahecha==0){//Si el valor de apertua es mayo a 0, no se abrirá la ventana de apertura
                  
                  this.setVisible(false);  
                                      // HERE 
                               new Apertura().setVisible(true);
                                this.setIconImage(null);
-             }else{
+             }
+            
+             else{
                   //new menu_principal().setVisible(true);
              this.setVisible(false);  
                                      // HERE 

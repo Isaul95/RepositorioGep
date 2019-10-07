@@ -8,7 +8,7 @@ import javax.swing.JOptionPane;
 
 public class TikectGasto {
    
-    public void TikectGasto(int cantidad, String descripcion, String total){
+    public void TikectGasto(float cantidad, String descripcion, String total){
        
         Date date = new Date();
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");

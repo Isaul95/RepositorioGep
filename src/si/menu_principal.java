@@ -3222,7 +3222,7 @@ actualizarpro.setEnabled(false);
         if(!total.getText().isEmpty()&&!pagocombobox.getText().isEmpty()&&!cantidad.getText().isEmpty()){
            if(descuentoactivo==true){ //CUANDO EL DESCUENTO ESTÁ ACTIVO
                
-               if(variablepago<=variablepagocondescuento){ // comprueba que la cantidad recibida sea mayor al total
+               if(variablepago<variablepagocondescuento){ // comprueba que la cantidad recibida sea mayor al total
                     JOptionPane.showMessageDialog(null,"El pago es menor a la cantidad a pagar, por favor, verifique","Advertencia",JOptionPane.INFORMATION_MESSAGE);
             }
             else {
@@ -3303,7 +3303,7 @@ descuentoactivo=false;
            
            else{ //CUANDO EL DESCUENTO NO ESTÁ ACTIVO
                
-               if(variablepago<=variabletotal){ // comprueba que la cantidad recibida sea mayor al total
+               if(variablepago<variabletotal){ // comprueba que la cantidad recibida sea mayor al total
                     JOptionPane.showMessageDialog(null,"El pago es menor a la cantidad a pagar, por favor, verifique","Advertencia",JOptionPane.INFORMATION_MESSAGE);
             }
             else {
