@@ -37,7 +37,7 @@ public class Pantalla_Gastos extends javax.swing.JFrame {
                 Statement sent;  
                 Gastos gastos;
                 float cantidad;
-                float  piezasxunpollo=14;
+                float  piezasxunpollo=14, piezasdepollopares=2, piezasdepollosinpares=1, resultadodepiezaspares,resultadodepiezasinpares;
                // String id_usuario; 
                 TikectGasto tikectGastos;
                   float cantidadpolloenDB, pollosdivididos, addpiezas;
@@ -166,13 +166,18 @@ public class Pantalla_Gastos extends javax.swing.JFrame {
      boolean comprobarpollo(){ //1
          
      boolean resultado=false;
-         String pechuga="pechuga"; // meterle nomnre directo
-         String buscap = "";     
+            String buscap = "";     
          
-         String[] piezas = new String [3];
-           piezas [0] = ("pechuga");
-           piezas [1] = ("ala");
-           piezas [2] = ("pierna");
+        String[] piezas = new String [9];
+           piezas [0] = ("Pechuga");
+           piezas [1] = ("Muslo");
+           piezas [2] = ("Pierna");
+            piezas [3] = ("Ala");
+             piezas [4] = ("Huacal");
+              piezas [5] = ("Cadera");
+               piezas [6] = ("Cabeza");
+                piezas [7] = ("Molleja");
+                piezas [8] = ("Patas");
            
            for(int i=0; i<piezas.length; i++) {
           //System.out.println(piezas [i]); 
@@ -187,15 +192,22 @@ public class Pantalla_Gastos extends javax.swing.JFrame {
                                                       buscap =rs.getString("nombre_producto");
                                                       cantidadpolloenDB =rs.getInt("cantidad"); // piezas en la db
                                                       }
-                                            
+               JOptionPane.showMessageDialog(null, "CANTIDAD DE "+piezas[i]+" EN BASE ES: "+cantidadpolloenDB);
+               
    if(buscap.equals(piezas[i])){ //Si el nombre del producto es diferente del estado vacio, en palabras más sencillas; si se encuentra el producto que se quiere agregar para que no se asigne nuevamente  
         try{// el id del usuario
-                
-                addpiezas=cantidadpolloenDB+pollosdivididos;
-                
-                
-                
-                 PreparedStatement ps = ca.prepareStatement ("UPDATE productos SET cantidad='"+addpiezas+"'WHERE nombre_producto='"+piezas[i]+"' and fecha= '"+fecha()+"'");
+                if(piezas[i].equals("Pechuga")||piezas[i].equals("Muslo")||
+                   piezas[i].equals("Pierna")||
+                   piezas[i].equals("Ala")||
+                   piezas[i].equals("Patas")){
+                    
+               resultadodepiezaspares=cantidad*piezasdepollopares;
+               JOptionPane.showMessageDialog(null, "CANTIDAD"+cantidad);
+               JOptionPane.showMessageDialog(null,"CANTIDAD DE POLLOS POR 2 ES IGUAL "+resultadodepiezaspares);
+                      addpiezas=cantidadpolloenDB+resultadodepiezaspares;
+                        JOptionPane.showMessageDialog(null,"PIEZAS EN BASE MAS PIEZAS PARES "+addpiezas);
+                 
+               PreparedStatement ps = ca.prepareStatement ("UPDATE productos SET cantidad='"+addpiezas+"'WHERE nombre_producto='"+piezas[i]+"' and fecha= '"+fecha()+"'");
                int ty = ps.executeUpdate();
                 
                  if(ty>0){
@@ -203,8 +215,24 @@ public class Pantalla_Gastos extends javax.swing.JFrame {
                  }else{
                      resultado = false;
                  }
-                     
-                 
+           }
+           else if(piezas[i].equals("Huacal")||piezas[i].equals("Cadera")||
+                   piezas[i].equals("Cabeza")||
+                   piezas[i].equals("Molleja")){
+            resultadodepiezasinpares=cantidad*piezasdepollosinpares;
+            JOptionPane.showMessageDialog(null, "CANTIDAD"+cantidad);
+               JOptionPane.showMessageDialog(null,"CANTIDAD DE POLLOS POR 2 ES IGUAL "+resultadodepiezasinpares);
+            addpiezas=cantidadpolloenDB+resultadodepiezasinpares;
+            JOptionPane.showMessageDialog(null,"PIEZAS EN BASE MAS PIEZAS PARES "+addpiezas);
+                  PreparedStatement ps = ca.prepareStatement ("UPDATE productos SET cantidad='"+addpiezas+"'WHERE nombre_producto='"+piezas[i]+"' and fecha= '"+fecha()+"'");
+               int ty = ps.executeUpdate();
+                
+                 if(ty>0){
+                     resultado = true;
+                 }else{
+                     resultado = false;
+                 }
+        }
         }//fin del id del usuario
                  catch(Exception w){
                      JOptionPane.showMessageDialog(null, "Error" + w.getMessage());
@@ -566,7 +594,7 @@ public void obtener_id_del_proveedor(String name){
 
                     if (pass && pass2 /*&& pass3*/) {
     float totalmonto = Integer.parseInt(txtmonto.getText()); //puse otro de tipo float xq total no me reconoce como string a float
-                        float cantidad = Float.parseFloat(txtpiezas.getText());
+                        cantidad = Float.parseFloat(txtpiezas.getText());
                          String tipo = txtdescripcion.getText();                                                                                                                                     
                          String total = txtmonto.getText();
                          String fecha = fecha(); 
@@ -613,16 +641,16 @@ public void obtener_id_del_proveedor(String name){
                    JOptionPane.showMessageDialog(null,"precio x una pieza de pollo "+precioxpieza);
                    
              
-            String[] piezas = new String [3];
-           piezas [0] = ("pechuga");
-           piezas [1] = ("muslo");
-           piezas [2] = ("pierna");
-            piezas [3] = ("ala");
-             piezas [4] = ("huacal");
-              piezas [5] = ("cadera");
-               piezas [6] = ("cabezas");
-                piezas [7] = ("mollejas");
-                piezas [8] = ("patas");
+            String[] piezas = new String [9];
+           piezas [0] = ("Pechuga");
+           piezas [1] = ("Muslo");
+           piezas [2] = ("Pierna");
+            piezas [3] = ("Ala");
+             piezas [4] = ("Huacal");
+              piezas [5] = ("Cadera");
+               piezas [6] = ("Cabeza");
+                piezas [7] = ("Molleja");
+                piezas [8] = ("Patas");
 
              
            
@@ -647,16 +675,31 @@ public void obtener_id_del_proveedor(String name){
         try {
             
           Statement sent = ca.createStatement(); 
-          sql = "INSERT INTO productos (nombre_producto, tipo_producto, precio, cantidad, fecha, id_proveedor)  VALUES (?,?,?,?,?,?)";
+          sql = "INSERT INTO productos (nombre_producto, tipo_producto, precio, cantidad, fecha, id_proveedor, fecha_de_caducidad)  VALUES (?,?,?,?,?,?,?)";
          PreparedStatement pst = ca.prepareCall(sql);
            // sql = "INSERT INTO egreso (tipo,fecha, total, user_id_usuario)  VALUES (?,?,?,?)";
            
            pst.setString(1, piezas[i]);
            pst.setString(2, "Pollos");
            pst.setFloat(3, precioxpieza);
-           pst.setFloat(4, pollosdivididos);
+           //DE ACUERDO A LA PIEZA SON LAS CANTIDADES
+           if(piezas[i].equals("Pechuga")||piezas[i].equals("Muslo")||
+                   piezas[i].equals("Pierna")||
+                   piezas[i].equals("Ala")||
+                   piezas[i].equals("Patas")){
+               resultadodepiezaspares=cantidad*piezasdepollopares;
+               pst.setFloat(4,resultadodepiezaspares);
+           }
+           else if(piezas[i].equals("Huacal")||piezas[i].equals("Cadera")||
+                   piezas[i].equals("Cabeza")||
+                   piezas[i].equals("Molleja")){
+            resultadodepiezasinpares=cantidad*piezasdepollosinpares;
+               pst.setFloat(4,resultadodepiezasinpares);
+        }
+           
            pst.setString(5, fecha());
           pst.setInt(6, id_proveedor);
+          pst.setString(7, "Sin fecha de caducidad");
                       
           tt = pst.executeUpdate();
             pst.close();
