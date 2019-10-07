@@ -18,6 +18,7 @@ import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 import si.Gastos;
 import ticket.TikectGasto;
 import static si.menu_principal.venta; // DANDO ACCESOO ALA INTERFAZ PRINCIPAL
@@ -29,7 +30,7 @@ public class Pantalla_Gastos extends javax.swing.JFrame {
               // menu_principal Objeto = menu_principal();
                //Objeto.
                        
-               menu_principal menu_principal ;
+       
                 Calendar fecha_actual = new GregorianCalendar();
                 String fechahoy=""; 
                 int tt;
@@ -50,7 +51,9 @@ public class Pantalla_Gastos extends javax.swing.JFrame {
         initComponents();
         //menu_principal.autocompletar();
        // Actualizar();
+       autocompletar();
         this.setLocationRelativeTo(null); // CENTRAR FORMULARIO
+         AutoCompleteDecorator.decorate(menu_principal.searchforproducts);
         jDateChooserFecha.setCalendar(fecha_actual);
         //txtpiezas.setEnabled(false);
        // txtpiezas.setText("0");
@@ -107,23 +110,7 @@ public class Pantalla_Gastos extends javax.swing.JFrame {
         SimpleDateFormat formatoFecha= new SimpleDateFormat("YYYY/MM/dd");
         return formatoFecha.format(fecha);
     }
-             
-             public void Actualizar(){ //metodo sin retorno para obtener la lista de campos de la tabla productos la cual obtiene cada uno de los nombres para poder hacer algunas coincidencias al momento que el usuario estÃ¡ escribiendo
-          ArrayList<String> lista = new ArrayList<String>();
-       menu_principal.searchforproducts.removeAllItems(); //Ã‰sta linea es importante ya que cada vez que se llama este metodo se eliminan los item que previamente se cargaron en la llamada anterior, ESTO PARA QUE NO SE VUELVAN AGREGAR LOS MISMOS ITEMS, MÃ�S DE 1 VEZ
-        try{
-            sent  =(Statement)ca.createStatement();
-           rs = sent.executeQuery("select nombre_producto from productos ");
-            while(rs.next()){
-               menu_principal.searchforproducts.addItem(rs.getString("nombre_producto"));
-            }
-            for(int a=0; a<lista.size(); a++){
-            menu_principal.searchforproducts.addItem(lista.get(a)); //Este ciclo lo que hace es ordenarlos de manera de lista descendente
-        }
-        }catch (Exception e){
-            
-        }
-    } 
+
              
     
      
@@ -538,7 +525,23 @@ public class Pantalla_Gastos extends javax.swing.JFrame {
         LlenarTabla(jTableGastos);
         
     }//GEN-LAST:event_btnListarActionPerformed
-
+public void autocompletar(){ //metodo sin retorno para obtener la lista de campos de la tabla productos la cual obtiene cada uno de los nombres para poder hacer algunas coincidencias al momento que el usuario estÃ¡ escribiendo
+          ArrayList<String> lista = new ArrayList<String>();
+      
+       menu_principal.searchforproducts.removeAllItems(); //Ã‰sta linea es importante ya que cada vez que se llama este metodo se eliminan los item que previamente se cargaron en la llamada anterior, ESTO PARA QUE NO SE VUELVAN AGREGAR LOS MISMOS ITEMS, MÃ�S DE 1 VEZ
+        try{
+            sent  =(Statement)ca.createStatement();
+           rs = sent.executeQuery("select nombre_producto from productos ");
+            while(rs.next()){
+              menu_principal.searchforproducts.addItem(rs.getString("nombre_producto"));
+            }
+            for(int a=0; a<lista.size(); a++){
+          menu_principal.searchforproducts.addItem(lista.get(a)); //Este ciclo lo que hace es ordenarlos de manera de lista descendente
+        }
+        }catch (Exception e){
+            
+        }
+    }
     private void btnRegistrarGastoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarGastoActionPerformed
         // ABRE NUEVA VENTANA PARA Registro de Gastos
           if (txtdescripcion.getText().isEmpty() || txtmonto.getText().isEmpty() /* || txtpiezas.getText().isEmpty()*/) {
@@ -568,7 +571,8 @@ public class Pantalla_Gastos extends javax.swing.JFrame {
                          
        
  
- if("pollo".equals(txtdescripcion.getText())){/*1*/
+ if("pollo".equalsIgnoreCase(txtdescripcion.getText())
+         ||"pollos".equalsIgnoreCase(txtdescripcion.getText())){/*1*/
               //txtpiezas.setEnabled(true);
               JOptionPane.showMessageDialog(null, "Gastos Registrados con Exito... entrando desde gastos en productos");
                        gastos = new Gastos(cantidad, tipo, total, id_usuario, fecha);
@@ -647,13 +651,15 @@ public class Pantalla_Gastos extends javax.swing.JFrame {
                   // gastos = new Gastos(cantidad, tipo, total, usuarioname, fecha);
                    if (tt>0 ) {/*2*/ /* && gastos.Gastosinsert() */
                        JOptionPane.showMessageDialog(null, "Productos Registrados con Exito...");
-                       Actualizar();
+                       
                        limpiar();
+                       autocompletar();
                    }  /*2*/  
                    
  }
         
-        }/*1*/ else if(!"pollo".equals(txtdescripcion.getText())){/*3*/
+        }/*1*/ else if(!"pollo".equalsIgnoreCase(txtdescripcion.getText())
+                ||!"pollos".equalsIgnoreCase(txtdescripcion.getText())){/*3*/
            // txtpiezas.setEnabled(false);  // ME ACTIVA EL TXT
             txtpiezas.setText("0");
             JOptionPane.showMessageDialog(null, "aki no entra para piezas de cantidad... NO CONVERSIONES");

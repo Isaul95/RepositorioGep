@@ -2704,7 +2704,7 @@ JOptionPane.showMessageDialog(null, "Error en venta" + s.getMessage());
         );
 
         agregar_usuario.add(jPanel5);
-        jPanel5.setBounds(0, 0, 1290, 60);
+        jPanel5.setBounds(0, 0, 1288, 60);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -2959,6 +2959,7 @@ actualizarpro.setEnabled(false);
 
     private void updateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateActionPerformed
         //codigo para actualizar  TABLA DE PRODUCTOS
+        obtener_id_del_proveedor(proveedorarticulo.getSelectedItem().toString());
         if(namep.getText().isEmpty()||tipodeproducto.getSelectedItem().equals("")||cantp.getText().isEmpty()||cantp.getText().equals("0")||preciop.getText().isEmpty()||fechap.getDate()==null||proveedorarticulo.getSelectedItem().equals("")){
             JOptionPane.showMessageDialog(null,"Llene todos los campos de texto antes de guardar cambios","                              AVISO",JOptionPane.INFORMATION_MESSAGE);
         }
@@ -2966,9 +2967,10 @@ actualizarpro.setEnabled(false);
             try{
                 int fila =tabla_agregar.getSelectedRow();
 
-                PreparedStatement ps = ca.prepareStatement ("UPDATE productos SET tipo_producto='"+tipodeproducto.getSelectedItem().toString()+"',precio='"+preciop.getText()+"',cantidad='"+cantp.getText()+"',fecha_de_caducidad='"+llenarfecha()+"',id_proveedor='"+proveedorarticulo.getSelectedItem().toString()+"',nombre_producto='"+namep.getText()+"'WHERE id_producto='"+tabla_agregar.getValueAt(fila,0).toString()+"'");
+                PreparedStatement ps = ca.prepareStatement ("UPDATE productos SET tipo_producto='"+tipodeproducto.getSelectedItem().toString()+"',precio='"+preciop.getText()+"',cantidad='"+cantp.getText()+"',fecha_de_caducidad='"+llenarfecha()+"',id_proveedor='"+id_proveedor+"',nombre_producto='"+namep.getText()+"'WHERE id_producto='"+tabla_agregar.getValueAt(fila,0).toString()+"'");
                 ps.executeUpdate();
                 JOptionPane.showMessageDialog(null,"Datos modificados");
+                autocompletar();
                 mostrartablaarticulos();
                 update.setEnabled(false);  
                 limpiardatosarticulos();
@@ -4446,7 +4448,7 @@ SI cc= new SI();
     private javax.swing.JButton r1;
     private javax.swing.JButton s;
     private javax.swing.JButton s1;
-    public javax.swing.JComboBox<String> searchforproducts;
+    public static javax.swing.JComboBox<String> searchforproducts;
     private javax.swing.JTable tabla_agregar;
     private javax.swing.JPopupMenu tabla_articulos;
     private javax.swing.JPopupMenu tabla_proveedores;
