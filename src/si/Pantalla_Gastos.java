@@ -37,12 +37,12 @@ public class Pantalla_Gastos extends javax.swing.JFrame {
                 Statement sent;  
                 Gastos gastos;
                 float cantidad;
-                float  piezasxunpollo=6, divideellpollo=3;
+                float  piezasxunpollo=14;
                // String id_usuario; 
                 TikectGasto tikectGastos;
                   float cantidadpolloenDB, pollosdivididos, addpiezas;
                 String  usuarioname=SI_Inicio.text_user.getText();
-               int  id_usuario=Integer.parseInt(SI_Inicio.iduser.getText());
+               int  id_usuario=Integer.parseInt(SI_Inicio.iduser.getText()), id_proveedor;
                   
               //  String usuarioname=SI_Inicio.text_user.getText(); //variable para obtener el nombre del usuario o administrador que ingreso al sistema
     //private Object rs;
@@ -542,6 +542,19 @@ public void autocompletar(){ //metodo sin retorno para obtener la lista de campo
             
         }
     }
+public void obtener_id_del_proveedor(String name){
+    String nombredelaempresa=name;
+        try{
+            sent  =(Statement)ca.createStatement();
+           rs = sent.executeQuery("select * from proveedores where nombre_de_la_empresa= '"+nombredelaempresa+"' ");
+            while(rs.next()){
+               id_proveedor=rs.getInt("id_proveedor");
+            }
+
+        }catch (Exception e){
+            
+        }
+}
     private void btnRegistrarGastoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarGastoActionPerformed
         // ABRE NUEVA VENTANA PARA Registro de Gastos
           if (txtdescripcion.getText().isEmpty() || txtmonto.getText().isEmpty() /* || txtpiezas.getText().isEmpty()*/) {
@@ -581,13 +594,11 @@ public void autocompletar(){ //metodo sin retorno para obtener la lista de campo
                          LlenarTabla(jTableGastos);
                          
       JOptionPane.showMessageDialog(null, "lo k ingrese->"+tipo+"\n MONTO TOTAL->"+total); // imprime lo k inserto en descirpcion  
-        float totalpiezaspollo = (cantidad*piezasxunpollo);
-           JOptionPane.showMessageDialog(null,"total de piezas x un pollo"+" "+totalpiezaspollo);
+      JOptionPane.showMessageDialog(null, "PIEZAS DE UN POLLO"+piezasxunpollo);
+      float totalpiezaspollo = (cantidad*piezasxunpollo);
+           JOptionPane.showMessageDialog(null,"total de piezas "+totalpiezaspollo+" EN "+cantidad+" POLLOS");
       float precioxpieza = (totalmonto/totalpiezaspollo);   
-      
-        
-       pollosdivididos = (totalpiezaspollo/divideellpollo);
-      JOptionPane.showMessageDialog(null,"dividiendo pechuga-pierna-alas"+" "+pollosdivididos);
+       JOptionPane.showMessageDialog(null,"PRECIO POR PIEZA"+" "+precioxpieza);
             
      
        
@@ -604,8 +615,16 @@ public void autocompletar(){ //metodo sin retorno para obtener la lista de campo
              
             String[] piezas = new String [3];
            piezas [0] = ("pechuga");
-           piezas [1] = ("ala");
+           piezas [1] = ("muslo");
            piezas [2] = ("pierna");
+            piezas [3] = ("ala");
+             piezas [4] = ("huacal");
+              piezas [5] = ("cadera");
+               piezas [6] = ("cabezas");
+                piezas [7] = ("mollejas");
+                piezas [8] = ("patas");
+
+             
            
           
           //String[] piezass = {"pechuga","ala","pierna"};
@@ -622,20 +641,22 @@ public void autocompletar(){ //metodo sin retorno para obtener la lista de campo
          JOptionPane.showMessageDialog(null,"PIEZASS de POLLO k se insertaran..."+" "+piezas [i]);
           
          
-          
+          obtener_id_del_proveedor(menu_principal.proveedorarticulo.getSelectedItem().toString());
+    
             String sql = null;
         try {
             
           Statement sent = ca.createStatement(); 
-          sql = "INSERT INTO productos (nombre_producto, precio, cantidad, fecha)  VALUES (?,?,?,?)";
+          sql = "INSERT INTO productos (nombre_producto, tipo_producto, precio, cantidad, fecha, id_proveedor)  VALUES (?,?,?,?,?,?)";
          PreparedStatement pst = ca.prepareCall(sql);
            // sql = "INSERT INTO egreso (tipo,fecha, total, user_id_usuario)  VALUES (?,?,?,?)";
            
            pst.setString(1, piezas[i]);
-           pst.setFloat(2, precioxpieza);
-           pst.setFloat(3, pollosdivididos);
-           pst.setString(4, fecha());
-          // pst.setString(4, getFecha());
+           pst.setString(2, "Pollos");
+           pst.setFloat(3, precioxpieza);
+           pst.setFloat(4, pollosdivididos);
+           pst.setString(5, fecha());
+          pst.setInt(6, id_proveedor);
                       
           tt = pst.executeUpdate();
             pst.close();

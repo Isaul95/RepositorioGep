@@ -255,10 +255,10 @@ public void metodogastosdeldia(){
                ventasmenosgastos=ventasdeldia-gastosdeldia; 
                JOptionPane.showMessageDialog(null,"ventasmenosgasto: "+ventasmenosgastos);
                   diferencia=variablemontoentregado-ventasmenosgastos;
-                  JOptionPane.showMessageDialog(null,"diferencia: "+diferencia);
+                  JOptionPane.showMessageDialog(null,"Se abrio con : "+diferencia);
                  
                    diferenciafinal=montodeapertura-diferencia;
-                    JOptionPane.showMessageDialog(null,"diferenciafinal: "+diferenciafinal);
+                    JOptionPane.showMessageDialog(null,"Diferencia final: "+diferenciafinal);
                
     String sql = "INSERT INTO  cortes(id_apertura, monto_entregado, gastos, ventas, diferencia, fecha, hora, usuario)  VALUES (?,?,?,?,?,?,?,?)";
                 PreparedStatement pst = ca.prepareCall(sql); //hasta aqui vamos

@@ -433,10 +433,10 @@ Statement sent;
                        rs= sent.executeQuery("select * from  descripcion_de_venta where id_venta= '"+id_de_la_venta_incrementable+"' and  estado = '"+estadoenturno+"'"); // se ejecuta la sentencia dentro del parentesis
 
             while(rs.next()){        
-            datos[0]=rs.getString(2);
-            datos[1]=rs.getString(3);
-            datos[2]=rs.getString(4);
-            datos[3]=rs.getString(5);
+            datos[0]=rs.getString(3);
+            datos[1]=rs.getString(4);
+            datos[2]=rs.getString(5);
+            datos[3]=rs.getString(6);
             modelo.addRow(datos); //se asigna el arreglo  entero a todo el objeto llamado modelo  
             }
            tablaventa.setModel(modelo); // Se vuelve a enviar nuevamente el objeto modelo a la tabla
@@ -2760,6 +2760,7 @@ JOptionPane.showMessageDialog(null, "Error en venta" + s.getMessage());
             if(n>0){
                 JOptionPane.showMessageDialog(null,"Datos eliminados");
                 mostrartablaarticulos();
+                autocompletar();
             }
 
         }catch(Exception e){
@@ -4442,7 +4443,7 @@ SI cc= new SI();
     public static javax.swing.JTextField propater;
     public static javax.swing.JTextField prorfc;
     public static javax.swing.JTextField protel;
-    private javax.swing.JComboBox<String> proveedorarticulo;
+    public static javax.swing.JComboBox<String> proveedorarticulo;
     public static javax.swing.JTable proveedores;
     private javax.swing.JButton r;
     private javax.swing.JButton r1;
