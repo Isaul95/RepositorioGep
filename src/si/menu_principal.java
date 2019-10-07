@@ -43,7 +43,7 @@ Statement sent;
   //int id_de_la_venta_incrementable;
        int piezassuficientes, resultadoprimerproveedor, id_de_la_venta_incrementable,totalcomprobacion, primerventa, resultfirstselling,NoPcantidad=0,existencia;   
   //int id_usuario,id_producto,id_venta,productos,cantidadenventa,cantidadeninventario,aux1,aux2;
-         int id_usuario,id_producto,id_venta,productos,cantidadenventa,cantidadeninventario,aux1,aux2,variablede0=0;
+         int id_proveedor,id_usuario,id_producto,id_venta,productos,cantidadenventa,cantidadeninventario,aux1,aux2,variablede0=0;
   //float importe,totalf=0,comprobacion,cambio,precio;
           float porcentaje, importe,totalf=0,comprobacion,cambio,precio, NoPimporte=0,sumadeimportes,descuentocantidad, totalfinalcondescuento;
   ArrayList storage = new ArrayList(); // para guardar los id de cada producto que se ha agregado a la tabla venta
@@ -2982,7 +2982,19 @@ actualizarpro.setEnabled(false);
     private void mostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mostrarActionPerformed
         mostrartablaarticulos();
     }//GEN-LAST:event_mostrarActionPerformed
+public void obtener_id_del_proveedor(String name){
+    String nombredelaempresa=name;
+        try{
+            sent  =(Statement)ca.createStatement();
+           rs = sent.executeQuery("select * from proveedores where nombre_de_la_empresa= '"+nombredelaempresa+"' ");
+            while(rs.next()){
+               id_proveedor=rs.getInt("id_proveedor");
+            }
 
+        }catch (Exception e){
+            
+        }
+}
     private void agregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarActionPerformed
         //codigo para agregar un nuevo articulo
 
@@ -2994,16 +3006,17 @@ actualizarpro.setEnabled(false);
             //  String proveedor=Integer.parseInt(proveedorarticulo.getSelectedIndex());
             //proveedorarticulo.getSelectedItem();
             try{
-                String sql = "INSERT INTO productos(nombre_producto,tipo_producto,precio,cantidad,fecha_de_caducidad,id_proveedor)  VALUES (?,?,?,?,?,?)";
+                String sql = "INSERT INTO productos(nombre_producto,tipo_producto,precio,cantidad,fecha_de_caducidad,id_proveedor, fecha)  VALUES (?,?,?,?,?,?,?)";
                 PreparedStatement pst = ca.prepareCall(sql);
                 pst.setString(1,namep.getText());
                 pst.setString(2,tipodeproducto.getSelectedItem().toString());
                 pst.setString(3,preciop.getText());
-                pst.setString(4,
-                        cantp.getText());
+                pst.setString(4,cantp.getText());
                 pst.setString(5,llenarfecha());
-                pst.setString(6,proveedorarticulo.getSelectedItem().toString());
-
+                obtener_id_del_proveedor(proveedorarticulo.getSelectedItem().toString());
+                 pst.setInt(6,id_proveedor);
+                pst.setString(7,fecha());
+                
                 int a=pst.executeUpdate();
                 if(a>0){
                     JOptionPane.showMessageDialog(null,"Datos guardados correctamente");
