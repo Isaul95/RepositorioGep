@@ -91,8 +91,8 @@ public class Pantalla_Gastos extends javax.swing.JFrame {
      
                                
              public boolean validarFormulariotexto(String gastos) { // VALIDACION DE TXTDESCRIPCION
-        boolean next = false;
-        Pattern patGastos = Pattern.compile("^([a-zA-ZÁÉÍÓÚ]{1}[a-zñáéíóú]{1,24}[\\s]*)+$");// ^([a-zA-ZÁÉÍÓÚ]{1}[a-zñáéíóú]{1,24}[\\s]*)+$
+        boolean next = false;      //"^([a-zA-ZÁÉÍÓÚ]{1}[a-zñáéíóú]{1,24}[\\s]*)+$"
+        Pattern patGastos = Pattern.compile("^[A-Za-z\\s]+$");// ^([a-zA-ZÁÉÍÓÚ]{1}[a-zñáéíóú]{1,24}[\\s]*)+$
         Matcher matGastos = patGastos.matcher(gastos);
 
         if (matGastos.matches()) {
