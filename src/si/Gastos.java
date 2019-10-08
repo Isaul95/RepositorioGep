@@ -23,7 +23,7 @@ public class Gastos {
     int idegreso;
      float cantidad;
      String tipo;
-     String total;
+     float total;
      String fecha;
      Calendar fechahoy;
      int id_usuario;
@@ -116,7 +116,7 @@ public class Gastos {
    //  idegreso = 0;
      cantidad =0;
      tipo = "";
-     total = "";
+     total=0;
      fecha = "";
      //id_usuario = "";
     }
@@ -133,7 +133,7 @@ public class Gastos {
     }
      
 
-   public Gastos(float cantidad, String descripcion, String total, int nombre, String fecha) {
+   public Gastos(float cantidad, String descripcion, float total, int nombre, String fecha) {
        this.cantidad = cantidad; 
        this.tipo = descripcion; // tipo lo almaceno en descirpcion 
         this.total = total;      
@@ -141,7 +141,7 @@ public class Gastos {
         this.fecha = fecha;
     }
    
-   public Calendar Gastos(int cantidad, String descripcion, String total, int nombre, Calendar fechahoy) {
+   public Calendar Gastos(int cantidad, String descripcion, float total, int nombre, Calendar fechahoy) {
        this.cantidad = cantidad;  
        this.tipo = descripcion; // tipo lo almaceno en descirpcion
         this.total = total;      
@@ -171,11 +171,11 @@ public class Gastos {
         this.tipo = tipo;
     }
 
-    public String getTotal() {
+    public float getTotal() {
         return total;
     }
 
-    public void setTotal(String total) {
+    public void setTotal(float total) {
         this.total = total;
     }
 
@@ -211,7 +211,7 @@ public class Gastos {
            pst.setFloat(1, getCantidad());
            pst.setString(2, getTipo());
            pst.setString(3, getFecha());
-           pst.setString(4, getTotal());
+           pst.setFloat(4, getTotal());
            pst.setInt(5, getId_usuario());
                       
             pst.executeUpdate();

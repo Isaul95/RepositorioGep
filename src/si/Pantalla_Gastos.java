@@ -20,6 +20,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 import si.Gastos;
+import static si.menu_principal.searchforproducts;
 import ticket.TikectGasto;
 import static si.menu_principal.venta; // DANDO ACCESOO ALA INTERFAZ PRINCIPAL
 
@@ -43,7 +44,7 @@ public class Pantalla_Gastos extends javax.swing.JFrame {
                   float cantidadpolloenDB, pollosdivididos, addpiezas;
                 String  usuarioname=SI_Inicio.text_user.getText();
                int  id_usuario=Integer.parseInt(SI_Inicio.iduser.getText()), id_proveedor;
-                  
+                  String tipo, total, pollocrudo;
               //  String usuarioname=SI_Inicio.text_user.getText(); //variable para obtener el nombre del usuario o administrador que ingreso al sistema
     //private Object rs;
                 ResultSet rs;
@@ -164,7 +165,7 @@ public class Pantalla_Gastos extends javax.swing.JFrame {
      
      
      boolean comprobarpollo(){ //1
-         
+         actualizar_pollocrudo();
      boolean resultado=false;
             String buscap = "";     
          
@@ -178,7 +179,8 @@ public class Pantalla_Gastos extends javax.swing.JFrame {
                piezas [6] = ("Cabeza");
                 piezas [7] = ("Molleja");
                 piezas [8] = ("Patas");
-           
+          
+            
            for(int i=0; i<piezas.length; i++) {
           //System.out.println(piezas [i]); 
          //JOptionPane.showMessageDialog(null,"PIEZASS de POLLO k se insertaran..."+" "+piezas [i]);
@@ -212,6 +214,7 @@ public class Pantalla_Gastos extends javax.swing.JFrame {
                 
                  if(ty>0){
                      resultado = true;
+            
                  }else{
                      resultado = false;
                  }
@@ -250,7 +253,45 @@ public class Pantalla_Gastos extends javax.swing.JFrame {
      } //1
      
      
-     
+     public void actualizar_pollocrudo(){ //1
+         JOptionPane.showMessageDialog(null, "ENTRO A ACTUALIZAR POLLO CRUDO0", "POLLO CRUDO",JOptionPane.INFORMATION_MESSAGE);
+        
+      String buscap = "";     
+  JOptionPane.showMessageDialog(null, "NOMBRE DE POLLO CRUDO0: "+tipo, "POLLO CRUDO",JOptionPane.INFORMATION_MESSAGE);
+        
+            try{
+                       sent  = (Statement)ca.createStatement();
+                                           rs = sent.executeQuery("select * from productos  where nombre_producto='"+tipo+"' and fecha= '"+fecha()+"'");
+                                            while(rs.next()){
+                                                      buscap =rs.getString("nombre_producto");
+                                                      cantidadpolloenDB =rs.getInt("cantidad"); // piezas en la db
+                                                      }
+               JOptionPane.showMessageDialog(null, "CANTIDAD DE "+tipo+" EN BASE ES: "+cantidadpolloenDB, "POLLO CRUDO",JOptionPane.INFORMATION_MESSAGE);
+           if(buscap.equals(tipo)){
+   try{// el id del usuario
+
+               JOptionPane.showMessageDialog(null, "CANTIDAD DE POLLO CRUDO"+cantidad, "POLLO CRUDO",JOptionPane.INFORMATION_MESSAGE);
+                      addpiezas=cantidadpolloenDB+cantidad;
+                        JOptionPane.showMessageDialog(null,"PIEZAS EN BASE MAS PIEZAS PARES "+addpiezas, "POLLO CRUDO",JOptionPane.INFORMATION_MESSAGE);
+                 
+               PreparedStatement ps = ca.prepareStatement ("UPDATE productos SET cantidad='"+addpiezas+"'WHERE nombre_producto='"+tipo+"' and fecha= '"+fecha()+"'");
+               int ty = ps.executeUpdate();
+                 if(ty>0){
+                   
+         JOptionPane.showMessageDialog(null, "SALIO DE ACTUALIZAR POLLO CRUDO0", "POLLO CRUDO",JOptionPane.INFORMATION_MESSAGE);
+                 }else{
+                   
+                 }
+
+        }//fin del id del usuario
+                 catch(Exception w){
+                     JOptionPane.showMessageDialog(null, "Error" + w.getMessage());
+                 }//fin del id del usuario
+            }        
+         }catch (Exception f){
+                    JOptionPane.showMessageDialog(null, "Error, nombre de producto no registrado" + f.getMessage());
+         }
+     } //1
      
      
      
@@ -583,6 +624,33 @@ public void obtener_id_del_proveedor(String name){
             
         }
 }
+
+public void registrar_pollo_crudo(String name, float precio, float cantidad, int id){
+         String sql = null;
+         float preciodelpollocrudo=precio/cantidad;
+try {
+          Statement sent = ca.createStatement(); 
+          sql = "INSERT INTO productos (nombre_producto, tipo_producto, precio, cantidad, fecha, id_proveedor, fecha_de_caducidad)  VALUES (?,?,?,?,?,?,?)";
+         PreparedStatement pst = ca.prepareCall(sql);
+           // sql = "INSERT INTO egreso (tipo,fecha, total, user_id_usuario)  VALUES (?,?,?,?)";
+           
+           pst.setString(1, name);
+           pst.setString(2, "Pollos");
+           pst.setFloat(3, preciodelpollocrudo);
+          pst.setFloat(4,cantidad);
+          pst.setString(5, fecha());
+          pst.setInt(6, id);
+          pst.setString(7, "Sin fecha de caducidad");
+                      
+          tt = pst.executeUpdate();
+            pst.close();
+             
+        } catch (SQLException ex) {
+            System.err.print(ex);
+           // return false;
+        }
+}
+
     private void btnRegistrarGastoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarGastoActionPerformed
         // ABRE NUEVA VENTANA PARA Registro de Gastos
           if (txtdescripcion.getText().isEmpty() || txtmonto.getText().isEmpty() /* || txtpiezas.getText().isEmpty()*/) {
@@ -593,13 +661,12 @@ public void obtener_id_del_proveedor(String name){
                   //  boolean pass3 = validarFormulariopiezas(txtpiezas.getText());
 
                     if (pass && pass2 /*&& pass3*/) {
+                        
     float totalmonto = Integer.parseInt(txtmonto.getText()); //puse otro de tipo float xq total no me reconoce como string a float
                         cantidad = Float.parseFloat(txtpiezas.getText());
-                         String tipo = txtdescripcion.getText();                                                                                                                                     
-                         String total = txtmonto.getText();
+                          tipo = txtdescripcion.getText();                                                                                                                                    
                          String fecha = fecha(); 
-                         
-                         
+                       pollocrudo= txtdescripcion.getText();                        
                          
                    //  gastos = new Gastos(cantidad, tipo, total, usuarioname, fecha);
                      //   if (gastos.Gastosinsert()) {                                                       
@@ -616,12 +683,12 @@ public void obtener_id_del_proveedor(String name){
          ||"pollos".equalsIgnoreCase(txtdescripcion.getText())){/*1*/
               //txtpiezas.setEnabled(true);
               JOptionPane.showMessageDialog(null, "Gastos Registrados con Exito... entrando desde gastos en productos");
-                       gastos = new Gastos(cantidad, tipo, total, id_usuario, fecha);
+                       gastos = new Gastos(cantidad, tipo, totalmonto, id_usuario, fecha);
                          gastos.Gastosinsert();
                          limpiar();
                          LlenarTabla(jTableGastos);
                          
-      JOptionPane.showMessageDialog(null, "lo k ingrese->"+tipo+"\n MONTO TOTAL->"+total); // imprime lo k inserto en descirpcion  
+      JOptionPane.showMessageDialog(null, "lo k ingrese->"+tipo+"\n MONTO TOTAL->"+totalmonto); // imprime lo k inserto en descirpcion  
       JOptionPane.showMessageDialog(null, "PIEZAS DE UN POLLO"+piezasxunpollo);
       float totalpiezaspollo = (cantidad*piezasxunpollo);
            JOptionPane.showMessageDialog(null,"total de piezas "+totalpiezaspollo+" EN "+cantidad+" POLLOS");
@@ -661,9 +728,9 @@ public void obtener_id_del_proveedor(String name){
    JOptionPane.showMessageDialog(null," CANTIDAD ACTUALIZADA DE PRODUCTOS ");
   }
   else{
-      
-  
-          
+       obtener_id_del_proveedor(menu_principal.proveedorarticulo.getSelectedItem().toString());
+    
+      registrar_pollo_crudo(pollocrudo, totalmonto, cantidad, id_proveedor); //Esto registra 1 pollo o la cantidad de pollos que metas          
           for(int i=0; i<piezas.length; i++) {
           //System.out.println(piezas [i]); 
          JOptionPane.showMessageDialog(null,"PIEZASS de POLLO k se insertaran..."+" "+piezas [i]);
@@ -672,7 +739,7 @@ public void obtener_id_del_proveedor(String name){
           obtener_id_del_proveedor(menu_principal.proveedorarticulo.getSelectedItem().toString());
     
             String sql = null;
-        try {
+               try {
             
           Statement sent = ca.createStatement(); 
           sql = "INSERT INTO productos (nombre_producto, tipo_producto, precio, cantidad, fecha, id_proveedor, fecha_de_caducidad)  VALUES (?,?,?,?,?,?,?)";
@@ -729,7 +796,7 @@ public void obtener_id_del_proveedor(String name){
             JOptionPane.showMessageDialog(null, "aki no entra para piezas de cantidad... NO CONVERSIONES");
             
          
-                                gastos = new Gastos(cantidad, tipo, total, id_usuario, fecha);
+                                gastos = new Gastos(cantidad, tipo, totalmonto, id_usuario, fecha);
                        if (gastos.Gastosinsert()) { //  aki me insertar en una de las dos tablas mas no en las dos
        
                             
