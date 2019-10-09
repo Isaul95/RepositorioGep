@@ -42,7 +42,6 @@ public class Gastos {
         this.id_usuario = id_usuario;
     }
 
-     
     public String[] getPiezas() {
         return piezas;
     }
@@ -50,16 +49,7 @@ public class Gastos {
     public void setPiezas(String[] piezas) {
         this.piezas = piezas;
     }
-     
-     
-    
 
-    /*
-    Gastos(String[] piezas, float precioxpieza, int pollosdivididos) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }*/
-    
-    
     public float getPrecioxpieza() {
         return precioxpieza;
     }
@@ -75,35 +65,17 @@ public class Gastos {
     public void setTotalpiezaspollo(int totalpiezaspollo) {
         this.totalpiezaspollo = totalpiezaspollo;
     }
-     
 
-   
-/*
-    public String getNombre_producto() {
-        return nombre_producto;
-    }
-
-    public void setNombre_producto(String nombre_producto) {
-        this.nombre_producto = nombre_producto;
-    } */
-
-    
-     
-    
-     
      java.sql.Statement sent;  
   ResultSet rs;
-     
-  
+
   private Connection con;
     SI conn = new SI();
    /*  private Connection con;
     SI conectar = new SI();  */
     
     Calendar fecha_actual = new GregorianCalendar();
-
-    
-    
+  
     public Calendar getFechahoy() {
         return fechahoy;
     }
@@ -187,14 +159,6 @@ public class Gastos {
         this.fecha = fecha;
     }
 
-   /* public String getUsuario() {
-        return id_usuario;
-    }
-
-    public void setUsuario(String usuario) {
-        this.id_usuario = usuario;
-    } */                                       
-    
     SI cc= new SI(); // CONEXION ALA DB
  Connection ca= cc.conexion();
  
@@ -225,67 +189,6 @@ public class Gastos {
         }  */
        return true;
     }    
-    
-    
-    
-    
-   /*  public boolean GastosinsertProductos()  {
-        String sql = null;
-        try {
-            
-           sent = ca.createStatement(); 
-          sql = "INSERT INTO productos (nombre_producto, precio, cantidad)  VALUES (?,?,?)";
-         PreparedStatement pst = ca.prepareCall(sql);
-           // sql = "INSERT INTO egreso (tipo,fecha, total, user_id_usuario)  VALUES (?,?,?,?)";
-           
-           pst.setString(1, getPiezas());
-           pst.setFloat(2, getPrecioxpieza());
-           pst.setInt(3, getTotalpiezaspollo());
-          // pst.setString(4, getFecha());
-                      
-            pst.executeUpdate();
-            pst.close();
-             
-        } catch (SQLException ex) {
-            System.err.print(ex);
-            return false;
-        } /*finally{
-            ca.close();
-        }  */
-      /* return true;
-    } */
-    
-    
-    /*
-     
-     public class Program {
-    public static void main(String[] args) {
-    
-    int piezasxpollo  = 3;
-    int precioxunapieza = 18;
-    int ttpiezasxuno =  (precioxunapieza/piezasxpollo);
-    
-    System.out.println(ttpiezasxuno); 
-    
-     String[] piezas = new String [3];
-           piezas [0] = ("pechuga");
-           piezas [1] = ("ala");
-           piezas [2] = ("pierna");
-     
-  //    Scanner teclado = new Scanner(System.in);
-         for(int i=0; i<piezas.length; i++) {
-          System.out.println(piezas [i] +" "+ "precio x piezas -- " + ttpiezasxuno); 
-          } 
-        
-    }
-} */
-     
-     
-     
-     
-     
-    
-    
     
     }
 

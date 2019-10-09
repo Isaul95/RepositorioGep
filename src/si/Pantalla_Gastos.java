@@ -30,10 +30,11 @@ public class Pantalla_Gastos extends javax.swing.JFrame {
                  
               // menu_principal Objeto = menu_principal();
                //Objeto.
+     String[] piezas = {"Pechuga", "Muslo","Pierna","Ala","Huacal","Cadera","Cabeza", "Molleja", "Patas"};
                        
        
                 Calendar fecha_actual = new GregorianCalendar();
-                String fechahoy=""; 
+                String fechahoy="", buscap = "";
                 int tt;
                 Statement sent;  
                 Gastos gastos;
@@ -167,18 +168,9 @@ public class Pantalla_Gastos extends javax.swing.JFrame {
      boolean comprobarpollo(){ //1
          actualizar_pollocrudo();
      boolean resultado=false;
-            String buscap = "";     
+              
          
-        String[] piezas = new String [9];
-           piezas [0] = ("Pechuga");
-           piezas [1] = ("Muslo");
-           piezas [2] = ("Pierna");
-            piezas [3] = ("Ala");
-             piezas [4] = ("Huacal");
-              piezas [5] = ("Cadera");
-               piezas [6] = ("Cabeza");
-                piezas [7] = ("Molleja");
-                piezas [8] = ("Patas");
+       
           
             
            for(int i=0; i<piezas.length; i++) {
@@ -668,60 +660,21 @@ try {
                          String fecha = fecha(); 
                        pollocrudo= txtdescripcion.getText();                        
                          
-                   //  gastos = new Gastos(cantidad, tipo, total, usuarioname, fecha);
-                     //   if (gastos.Gastosinsert()) {                                                       
-                            
- //========================================  ================================================================================
-                           
-  //  PIEZAS DEL CUAL SE DIVIDE UN POLLO ENTERO, SALE 6 PIEZAS DE UN POLLO ENTERO BB   
-  
-  
-                         
-       
- 
  if("pollo".equalsIgnoreCase(txtdescripcion.getText())
-         ||"pollos".equalsIgnoreCase(txtdescripcion.getText())){/*1*/
-              //txtpiezas.setEnabled(true);
-              JOptionPane.showMessageDialog(null, "Gastos Registrados con Exito... entrando desde gastos en productos");
-                       gastos = new Gastos(cantidad, tipo, totalmonto, id_usuario, fecha);
+         ||"pollos".equalsIgnoreCase(txtdescripcion.getText())||"pollo crudo".equalsIgnoreCase(txtdescripcion.getText())
+         ||"pollos crudos".equalsIgnoreCase(txtdescripcion.getText())){/*1*/
+                    gastos = new Gastos(cantidad, tipo, totalmonto, id_usuario, fecha);
                          gastos.Gastosinsert();
                          limpiar();
                          LlenarTabla(jTableGastos);
-                         
-      JOptionPane.showMessageDialog(null, "lo k ingrese->"+tipo+"\n MONTO TOTAL->"+totalmonto); // imprime lo k inserto en descirpcion  
-      JOptionPane.showMessageDialog(null, "PIEZAS DE UN POLLO"+piezasxunpollo);
+                             JOptionPane.showMessageDialog(null, "Gastos Registrados con Exito... entrando desde gastos en productos");
+              
+                         JOptionPane.showMessageDialog(null, "PIEZAS DE UN POLLO"+piezasxunpollo);
       float totalpiezaspollo = (cantidad*piezasxunpollo);
            JOptionPane.showMessageDialog(null,"total de piezas "+totalpiezaspollo+" EN "+cantidad+" POLLOS");
       float precioxpieza = (totalmonto/totalpiezaspollo);   
        JOptionPane.showMessageDialog(null,"PRECIO POR PIEZA"+" "+precioxpieza);
-            
-     
-       
-       
-      
-      
-          
-                                 JOptionPane.showMessageDialog(null, "obteniendo las piezas k se ingresaron de pollos enteros");
-                              //int cantidadpiezas = Integer.parseInt(txtpiezas.getText());                           
-                    JOptionPane.showMessageDialog(null,"descripcion->"+tipo +"\n Piezas ingresadas->"+ cantidad); // imprime lo k inserto en cantidadtxt
-            
-                   JOptionPane.showMessageDialog(null,"precio x una pieza de pollo "+precioxpieza);
-                   
-             
-            String[] piezas = new String [9];
-           piezas [0] = ("Pechuga");
-           piezas [1] = ("Muslo");
-           piezas [2] = ("Pierna");
-            piezas [3] = ("Ala");
-             piezas [4] = ("Huacal");
-              piezas [5] = ("Cadera");
-               piezas [6] = ("Cabeza");
-                piezas [7] = ("Molleja");
-                piezas [8] = ("Patas");
 
-             
-           
-          
           //String[] piezass = {"pechuga","ala","pierna"};
           
   if(comprobarpollo()){
@@ -790,7 +743,8 @@ try {
  }
         
         }/*1*/ else if(!"pollo".equalsIgnoreCase(txtdescripcion.getText())
-                ||!"pollos".equalsIgnoreCase(txtdescripcion.getText())){/*3*/
+                ||!"pollos".equalsIgnoreCase(txtdescripcion.getText())||"pollo crudo".equalsIgnoreCase(txtdescripcion.getText())
+                ||"pollos crudos".equalsIgnoreCase(txtdescripcion.getText())){/*3*/
            // txtpiezas.setEnabled(false);  // ME ACTIVA EL TXT
             txtpiezas.setText("0");
             JOptionPane.showMessageDialog(null, "aki no entra para piezas de cantidad... NO CONVERSIONES");
