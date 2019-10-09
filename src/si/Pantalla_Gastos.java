@@ -258,8 +258,10 @@ public class Pantalla_Gastos extends javax.swing.JFrame {
                                                       buscap =rs.getString("nombre_producto");
                                                       cantidadpolloenDB =rs.getInt("cantidad"); // piezas en la db
                                                       }
+                 JOptionPane.showMessageDialog(null, "NOMBRE DE POLLO CRUDO en base: "+buscap, "POLLO CRUDO",JOptionPane.INFORMATION_MESSAGE);
+                               
                JOptionPane.showMessageDialog(null, "CANTIDAD DE "+tipo+" EN BASE ES: "+cantidadpolloenDB, "POLLO CRUDO",JOptionPane.INFORMATION_MESSAGE);
-           if(buscap.equals(tipo)){
+           if(buscap.equalsIgnoreCase(tipo)){
    try{// el id del usuario
 
                JOptionPane.showMessageDialog(null, "CANTIDAD DE POLLO CRUDO"+cantidad, "POLLO CRUDO",JOptionPane.INFORMATION_MESSAGE);
@@ -660,9 +662,7 @@ try {
                          String fecha = fecha(); 
                        pollocrudo= txtdescripcion.getText();                        
                          
- if("pollo".equalsIgnoreCase(txtdescripcion.getText())
-         ||"pollos".equalsIgnoreCase(txtdescripcion.getText())||"pollo crudo".equalsIgnoreCase(txtdescripcion.getText())
-         ||"pollos crudos".equalsIgnoreCase(txtdescripcion.getText())){/*1*/
+ if("pollo crudo".equalsIgnoreCase(txtdescripcion.getText())){/*1*/
                     gastos = new Gastos(cantidad, tipo, totalmonto, id_usuario, fecha);
                          gastos.Gastosinsert();
                          limpiar();
@@ -742,9 +742,7 @@ try {
                    
  }
         
-        }/*1*/ else if(!"pollo".equalsIgnoreCase(txtdescripcion.getText())
-                ||!"pollos".equalsIgnoreCase(txtdescripcion.getText())||"pollo crudo".equalsIgnoreCase(txtdescripcion.getText())
-                ||"pollos crudos".equalsIgnoreCase(txtdescripcion.getText())){/*3*/
+        }/*1*/ else if(!"pollo crudo".equalsIgnoreCase(txtdescripcion.getText())){/*3*/
            // txtpiezas.setEnabled(false);  // ME ACTIVA EL TXT
             txtpiezas.setText("0");
             JOptionPane.showMessageDialog(null, "aki no entra para piezas de cantidad... NO CONVERSIONES");
