@@ -50,7 +50,7 @@ Statement sent;
   //float importe,totalf=0,comprobacion,cambio,precio;
           float addpiezas, cantidadpolloenDB, porcentaje, importe,totalf=0,comprobacion,cambio,precio, NoPimporte=0,sumadeimportes,descuentocantidad, totalfinalcondescuento;
   ArrayList storage = new ArrayList(); // para guardar los id de cada producto que se ha agregado a la tabla venta
-  // boolean block_unlock=true,tablaventaactiva=false;
+  ArrayList piezasdelpollovendidas = new ArrayList();// guarda cada id de cada pieza de pollo que se vaya registrando
           boolean descuentoactivo=false, suficientespiezas=true, block_unlock=true,tablaventaactiva=false, primerproducto=true, productoagregado=false, productorepetido=false;
       int suma=0,resta=0;  //variables creadas para los botones de adicionar o quitar en 1 la cantidad de articulos
        // String  usuarioname=SI_Inicio.text_user.getText(); //variable para obtener el nombre del usuario o administrador que ingreso al sistema
@@ -148,7 +148,7 @@ Statement sent;
      public void piezassuficientes(){
           try{ //el id del producto
                                                       sent  =(Statement)ca.createStatement();
-                                                      rs = sent.executeQuery("select * from productos where nombre_producto= '"+searchforproducts.getSelectedItem()+"' and fecha= '"+fecha()+"'");
+                                                      rs = sent.executeQuery("select * from productos where nombre_producto= '"+searchforproducts.getSelectedItem()+"'");
                                                       while(rs.next()){
                                                       piezassuficientes =Integer.parseInt(rs.getString("cantidad"));
                                                       }
@@ -686,7 +686,8 @@ JOptionPane.showMessageDialog(null,"ENTRO A REGRESAR POLLO CRUDO");
                totalfinalcondescuento =  Float.parseFloat(total.getText()) - Float.parseFloat(descuentocombo.getText());
                totalcondescuento.setText(String.valueOf(totalfinalcondescuento));
                     }
-                 }
+                 }JOptionPane.showMessageDialog(null,"Articulo agregado correctamente: " +searchforproducts.getSelectedItem().toString(),"             Aviso",JOptionPane.INFORMATION_MESSAGE);
+              cantidad.setText("");
         }//fin del id del usuario
                  catch(Exception w){
                      JOptionPane.showMessageDialog(null, "Error" + w.getMessage());
@@ -728,7 +729,7 @@ JOptionPane.showMessageDialog(null,"ENTRO A REGRESAR POLLO CRUDO");
                     }
                  }
                                         JOptionPane.showMessageDialog(null,"Articulo agregado correctamente: " +searchforproducts.getSelectedItem().toString(),"             Aviso",JOptionPane.INFORMATION_MESSAGE);
-              
+              cantidad.setText("");
                 }
             }catch(SQLException e)  { //fin de la insersion a la tabla ventas
                 JOptionPane.showMessageDialog(null,"Error de datos por id vacio "+e);
@@ -3025,29 +3026,7 @@ actualizarpro.setEnabled(false);
     }//GEN-LAST:event_dropActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-                    //salirrr              
-          if(tablaventaactiva==true){
-            int decision=JOptionPane.showConfirmDialog(null,"¿Desea continuar?","Advertencia: Tiene una venta inconclusa",JOptionPane.CANCEL_OPTION);
-            if(decision==0){ //opción si
-                regresarproductos_a_inventario(); //pone en estatus de cancelada la venta inconclusa
-                status_cancelado();  //pone en estatus de cancelada la venta inconclusa y cada producto que lo compone
-                get_id_usuario(); //vuelve a asiganr otro id_venta para que así no se repita con el id anterior que tuvo una venta cancelada
-                block_unlock=false; //se bloquea la opcion de poder agregar otro id_usuario a la tabla de venta y así abrir una nueva venta
-                limpiardatosdeventa();  //limpia en su mayoria los campos de texto que pertenezcan al apartado venta
-                tablaventa.setVisible(false); //Desaparece la tabla
-                JOptionPane.showMessageDialog(null,"Nos vemos pronto","Saliendo del sistema...",JOptionPane.INFORMATION_MESSAGE);
-                new SI_Inicio().setVisible(true);
-               this.setVisible(false);
-             }
-       }
-       else{
-        int decision=JOptionPane.showConfirmDialog(null,"¿Desea continuar?","Saliendo del sistema",JOptionPane.CANCEL_OPTION);
-            if(decision==0){
-                JOptionPane.showMessageDialog(null,"Nos vemos pronto","Saliendo del sistema...",JOptionPane.INFORMATION_MESSAGE);
-                new SI_Inicio().setVisible(true);
-               this.setVisible(false);
-            }
-       }
+      cerrandosesion();
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void update_usersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_update_usersActionPerformed
@@ -3100,29 +3079,7 @@ actualizarpro.setEnabled(false);
     }//GEN-LAST:event_sActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-            //salirrr              
-          if(tablaventaactiva==true){
-            int decision=JOptionPane.showConfirmDialog(null,"¿Desea continuar?","Advertencia: Tiene una venta inconclusa",JOptionPane.CANCEL_OPTION);
-            if(decision==0){ //opción si
-                regresarproductos_a_inventario(); //pone en estatus de cancelada la venta inconclusa
-                status_cancelado();  //pone en estatus de cancelada la venta inconclusa y cada producto que lo compone
-                get_id_usuario(); //vuelve a asiganr otro id_venta para que así no se repita con el id anterior que tuvo una venta cancelada
-                block_unlock=false; //se bloquea la opcion de poder agregar otro id_usuario a la tabla de venta y así abrir una nueva venta
-                limpiardatosdeventa();  //limpia en su mayoria los campos de texto que pertenezcan al apartado venta
-                tablaventa.setVisible(false); //Desaparece la tabla
-                JOptionPane.showMessageDialog(null,"Nos vemos pronto","Saliendo del sistema...",JOptionPane.INFORMATION_MESSAGE);
-                new SI_Inicio().setVisible(true);
-               this.setVisible(false);
-             }
-       }
-       else{
-        int decision=JOptionPane.showConfirmDialog(null,"¿Desea continuar?","Saliendo del sistema",JOptionPane.CANCEL_OPTION);
-            if(decision==0){
-                JOptionPane.showMessageDialog(null,"Nos vemos pronto","Saliendo del sistema...",JOptionPane.INFORMATION_MESSAGE);
-                new SI_Inicio().setVisible(true);
-               this.setVisible(false);
-            }
-       }
+        cerrandosesion();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void updateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateActionPerformed
@@ -3260,29 +3217,7 @@ public void obtener_id_del_proveedor(String name){
     }//GEN-LAST:event_agregarpro1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-                  //salirrr              
-          if(tablaventaactiva==true){
-            int decision=JOptionPane.showConfirmDialog(null,"¿Desea continuar?","Advertencia: Tiene una venta inconclusa",JOptionPane.CANCEL_OPTION);
-            if(decision==0){ //opción si
-                regresarproductos_a_inventario(); //pone en estatus de cancelada la venta inconclusa
-                status_cancelado();  //pone en estatus de cancelada la venta inconclusa y cada producto que lo compone
-                get_id_usuario(); //vuelve a asiganr otro id_venta para que así no se repita con el id anterior que tuvo una venta cancelada
-                block_unlock=false; //se bloquea la opcion de poder agregar otro id_usuario a la tabla de venta y así abrir una nueva venta
-                limpiardatosdeventa();  //limpia en su mayoria los campos de texto que pertenezcan al apartado venta
-                tablaventa.setVisible(false); //Desaparece la tabla
-                JOptionPane.showMessageDialog(null,"Nos vemos pronto","Saliendo del sistema...",JOptionPane.INFORMATION_MESSAGE);
-                new SI_Inicio().setVisible(true);
-               this.setVisible(false);
-             }
-       }
-       else{
-        int decision=JOptionPane.showConfirmDialog(null,"¿Desea continuar?","Saliendo del sistema",JOptionPane.CANCEL_OPTION);
-            if(decision==0){
-                JOptionPane.showMessageDialog(null,"Nos vemos pronto","Saliendo del sistema...",JOptionPane.INFORMATION_MESSAGE);
-                new SI_Inicio().setVisible(true);
-               this.setVisible(false);
-            }
-       }
+      cerrandosesion();
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void agregarproActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarproActionPerformed
@@ -3640,9 +3575,9 @@ descuentoactivo=false;
             cantidad.setText(Integer.toString(suma));
         }
     }//GEN-LAST:event_s1ActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-            //salirrr              
+//BOTON CERRAR SESION, PERO COMPRUEBA SI HAY UNA VENTA PEN PARA CANCELAR EN CASO DE SALIR
+    public void cerrandosesion(){
+          //salirrr              
           if(tablaventaactiva==true){
             int decision=JOptionPane.showConfirmDialog(null,"¿Desea continuar?","Advertencia: Tiene una venta inconclusa",JOptionPane.CANCEL_OPTION);
             if(decision==0){ //opción si
@@ -3665,6 +3600,10 @@ descuentoactivo=false;
                this.setVisible(false);
             }
        }
+    }//BOTON CERRAR SESION, PERO COMPRUEBA SI HAY UNA VENTA PEN PARA CANCELAR EN CASO DE SALIR
+    
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+          cerrandosesion();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void agregar3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregar3ActionPerformed
