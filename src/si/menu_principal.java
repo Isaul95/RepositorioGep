@@ -44,11 +44,11 @@ public final class menu_principal extends javax.swing.JFrame implements Runnable
 Statement sent;  
   ResultSet rs;                                         
   //int id_de_la_venta_incrementable;
-       int piezassuficientes, resultadoprimerproveedor, id_de_la_venta_incrementable,totalcomprobacion, primerventa, resultfirstselling,NoPcantidad=0,existencia;   
+       int  evaluadordepiezaspares=0, evaluadordepiezasinpares=0, piezassuficientes, resultadoprimerproveedor, id_de_la_venta_incrementable,totalcomprobacion, primerventa, resultfirstselling,NoPcantidad=0,existencia;   
   //int id_usuario,id_producto,id_venta,productos,cantidadenventa,cantidadeninventario,aux1,aux2;
          int id_proveedor,id_usuario,id_producto,id_venta,productos,cantidadenventa,cantidadeninventario,aux1,aux2,variablede0=0;
   //float importe,totalf=0,comprobacion,cambio,precio;
-          float addpiezas, cantidadpolloenDB, porcentaje, importe,totalf=0,comprobacion,cambio,precio, NoPimporte=0,sumadeimportes,descuentocantidad, totalfinalcondescuento;
+          float pollo_crudoeninventario, addpiezas, cantidadpolloenDB, porcentaje, importe,totalf=0,comprobacion,cambio,precio, NoPimporte=0,sumadeimportes,descuentocantidad, totalfinalcondescuento;
   ArrayList storage = new ArrayList(); // para guardar los id de cada producto que se ha agregado a la tabla venta
   ArrayList piezasdepollovendidas = new ArrayList();// guarda cada id de cada pieza de pollo que se vaya registrando
   ArrayList nombredelapiezadepollovendida = new ArrayList();// guarda cada id de cada pieza de pollo que se vaya registrando
@@ -56,7 +56,7 @@ Statement sent;
   boolean descuentoactivo=false, suficientespiezas=true, block_unlock=true,tablaventaactiva=false, primerproducto=true, productoagregado=false, productorepetido=false;
       int suma=0,resta=0;  //variables creadas para los botones de adicionar o quitar en 1 la cantidad de articulos
        // String  usuarioname=SI_Inicio.text_user.getText(); //variable para obtener el nombre del usuario o administrador que ingreso al sistema
-            String estadoinactivo="Inactivo", estadoactivo="Activo", NoP="",estadocancelado= "Cancelada",estadorealizado="Realizada", estadoenturno="En turno", fechayhora="",fechasinhora="", usuarioname=SI_Inicio.text_user.getText(); //variable para obtener el nombre del usuario o administrador que ingreso al sistema
+            String pollo_crudo="pollo crudo", estadoinactivo="Inactivo", estadoactivo="Activo", NoP="",estadocancelado= "Cancelada",estadorealizado="Realizada", estadoenturno="En turno", fechayhora="",fechasinhora="", usuarioname=SI_Inicio.text_user.getText(); //variable para obtener el nombre del usuario o administrador que ingreso al sistema
     public menu_principal() {
         initComponents();
         
@@ -127,6 +127,7 @@ Statement sent;
         SimpleDateFormat formatoFecha= new SimpleDateFormat("YYYY/MM/dd");
         return formatoFecha.format(fecha);
     }
+     
     public void hora(){
         Calendar calendario=new GregorianCalendar();
         Date horaactual=new Date();
@@ -677,23 +678,24 @@ JOptionPane.showMessageDialog(null,"ENTRO A REGRESAR POLLO CRUDO");
                  //LAS PIEZAS DE POLLO :
                  //PECHUGA, ALA, MUSLO, PIERNA, PATAS SEAN PARES
                  //Estos valores corresponden a los id del 1 al 5 en la tabla piezas
-                 float piezas=0;
+                 do{
+                 float piezasinpares=0, piezaspares=0;
                  float pares[]= new float[5];
                  float inpares[]= new float[4];
-                 int evaluadordepiezaspares=0, evaluadordepiezasinpares=0;
-                  for(int a=1; a<=5; a++) {//EVALUANDO PECHUGA, ALA, MUSLO, PIERNA, PATAS SEAN PARES
+                
+                      for(int a=1; a<=5; a++) {//EVALUANDO PECHUGA, ALA, MUSLO, PIERNA, PATAS SEAN PARES
                  JOptionPane.showMessageDialog(null, "ID "+a);
                       try{
                      sent  = (Statement)ca.createStatement();
                                            rs = sent.executeQuery("select * from piezasdepollo where idpieza='"+a+"'");
                                             while(rs.next()){
-                                                      piezas =rs.getFloat("cantidad");//Esto muestra la cantidad actual para compararlo
+                                                      piezaspares =rs.getFloat("cantidad");//Esto muestra la cantidad actual para compararlo
                                                       pares[a-1]=rs.getFloat("cantidad");//Esto guarda todos los valores de cada pieza
                                                       }
-                                            if(piezas>1){
+                                            if(piezaspares>1){
                                                 evaluadordepiezaspares++;
                                             }
-                                 JOptionPane.showMessageDialog(null, "VAR PIEZAS"+piezas);
+                                 JOptionPane.showMessageDialog(null, "VAR PIEZAS PARES "+piezaspares);
                                  
                                  
                                             
@@ -701,56 +703,70 @@ JOptionPane.showMessageDialog(null,"ENTRO A REGRESAR POLLO CRUDO");
                      
                  }
                   }
-                  JOptionPane.showMessageDialog(null, "VAR PIEZAS"+evaluadordepiezaspares);
-                                 
-                  if(evaluadordepiezaspares==5){//Si hay más de 5 en la variable
+                  JOptionPane.showMessageDialog(null, "EVALUA PIEZAS PARES"+evaluadordepiezaspares);
+                 if(evaluadordepiezaspares==5){//Si hay más de 5 en la variable
                        for(int b=6;b<=9;b++) {//Evaluando las piezas, huacal, cadera, molleja y cabeza
                            JOptionPane.showMessageDialog(null, "ID "+b);
                  try{
                      sent  = (Statement)ca.createStatement();
                                            rs = sent.executeQuery("select * from piezasdepollo where idpieza='"+b+"'");
                                             while(rs.next()){
-                                                      piezas =rs.getFloat("cantidad");//Esto muestra la cantidad actual para compararlo
+                                                      piezasinpares =rs.getFloat("cantidad");//Esto muestra la cantidad actual para compararlo
                                                       inpares[b-6]=rs.getFloat("cantidad");//Esto guarda todos los valores de cada pieza
                                                       }
-                                            if(piezas>0){
+                                            if(piezasinpares>0){
                                                 evaluadordepiezasinpares++;
                                             }
                                             
-                                         JOptionPane.showMessageDialog(null, "VAR PIEZAS"+piezas);
+                                         JOptionPane.showMessageDialog(null, "VAR PIEZAS INPARES"+piezasinpares);
                                     
                  }catch(Exception e){
                      
                  }
                   }
-                          JOptionPane.showMessageDialog(null, "VAR PIEZAS"+evaluadordepiezasinpares);
+                          JOptionPane.showMessageDialog(null, "EVALUADOR PIEZAS INPARES"+evaluadordepiezasinpares);
                    
                        if(evaluadordepiezasinpares==4){// Se van a descontar dos piezas a las piezas pares y 1 pieza a las inpares
-                           for(int c=1;c<=5; c++) {
+                           for(int c=1;c<=5; c++){
                            try{
              PreparedStatement ps = ca.prepareStatement ("UPDATE piezasdepollo SET cantidad='"+(pares[c-1]-2)+"'WHERE idpieza='"+c+"'");
                 ps.executeUpdate();
                 JOptionPane.showMessageDialog(null, "DESPUES DE ACTUALIZAR LAS PIEZAS pares SON "+(pares[c-1]-2));
-                                    
+                   
                            }catch(Exception e){
-                               
+                               JOptionPane.showMessageDialog(null,"ERROR ERROR ELIMINACION DE PARES"+e);
                            }
                            }
-                           for(int d=6;d<=9; d++) {
+                           for(int d=6;d<=9; d++){
                            try{
              PreparedStatement ps = ca.prepareStatement ("UPDATE piezasdepollo SET cantidad='"+(inpares[d-6]-1)+"'WHERE idpieza='"+d+"'");
                 ps.executeUpdate();
-                  JOptionPane.showMessageDialog(null, "DESPUES DE ACTUALIZAR LAS PIEZAS inpares SON "+(inpares[d-1]-2));
-                     
+                  JOptionPane.showMessageDialog(null, "DESPUES DE ACTUALIZAR LAS PIEZAS inpares SON "+(inpares[d-6]-1));
+              
                            }catch(Exception e){
                                
+                               JOptionPane.showMessageDialog(null,"ERROR ELIMINACION DE INPARES "+e);
                            }
                            }
                            //DESCONTAR UN POLLO DE INVENTARIO
-                           String pollo_crudo="pollo_crudo";
+                          
                            try{
-             PreparedStatement ps = ca.prepareStatement ("UPDATE productos SET cantidad= ((SELECT cantidad  from productos where nombre_producto = 'pollo crudo')-1) WHERE nombre_producto='"+pollo_crudo+"'");
-                int a = ps.executeUpdate();
+                                try{
+                     sent  = (Statement)ca.createStatement();
+                                             rs = sent.executeQuery("select * from productos  where nombre_producto='"+pollo_crudo+"'");
+                                       while(rs.next()){
+                                                      pollo_crudoeninventario =rs.getFloat("cantidad");//Esto muestra la cantidad actual para compararlo
+                                                        }
+                 }catch(Exception e){  
+                     JOptionPane.showMessageDialog(null,"ERROR EN OBTENER EL POLLO EN INVENTARIO"+e);
+                 }
+                                float nuevopolloeninventario=0;
+                               nuevopolloeninventario=pollo_crudoeninventario-1;
+                               JOptionPane.showMessageDialog(null,"POLLO EN INVENTARIO"+pollo_crudoeninventario);
+                               JOptionPane.showMessageDialog(null, "NUEVO POLLO C EN INVENTARIO"+nuevopolloeninventario);
+           PreparedStatement ps = ca.prepareStatement ("UPDATE productos SET cantidad='"+nuevopolloeninventario+"'WHERE nombre_producto='"+pollo_crudo+"'");
+                  int a = ps.executeUpdate();
+            
                 if(a>0){
                       JOptionPane.showMessageDialog(null, "SE ACTUALIZO MENOS UN POLLO");
                      
@@ -760,7 +776,9 @@ JOptionPane.showMessageDialog(null,"ENTRO A REGRESAR POLLO CRUDO");
                            }
                        }
                   }
+                 }while(evaluadordepiezaspares==5 && evaluadordepiezasinpares==4);
              }
+          
              
             public void comprobar_registro (){
         id_producto();
@@ -1081,7 +1099,7 @@ JOptionPane.showMessageDialog(null, "Error en venta" + s.getMessage());
         try{ // La suma de todos los importes
            id_max_de_venta();
                                           sent  =(Statement)ca.createStatement();
-                                           rs = sent.executeQuery("select SUM(importe) from descripcion_de_venta where id_venta= '"+id_de_la_venta_incrementable+"'");
+                                           rs = sent.executeQuery("select SUM(importe) from descripcion_de_venta where id_venta= '"+id_de_la_venta_incrementable+"' and estado='"+estadoenturno+"'");
                                             while(rs.next()){
                                                       sumadeimportes =Float.parseFloat(rs.getString("SUM(importe)"));
                                                       }
