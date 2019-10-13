@@ -48,7 +48,7 @@ Statement sent;
   //int id_usuario,id_producto,id_venta,productos,cantidadenventa,cantidadeninventario,aux1,aux2;
          int id_proveedor,id_usuario,id_producto,id_venta,productos,cantidadenventa,cantidadeninventario,aux1,aux2,variablede0=0;
   //float importe,totalf=0,comprobacion,cambio,precio;
-          float pollo_crudoeninventario, addpiezas, cantidadpolloenDB, porcentaje, importe,totalf=0,comprobacion,cambio,precio, NoPimporte=0,sumadeimportes,descuentocantidad, totalfinalcondescuento;
+          float minimodelaspiezasinparesdepollocrudoeninventario, pollo_crudoeninventario, addpiezas, cantidadpolloenDB, porcentaje, importe,totalf=0,comprobacion,cambio,precio, NoPimporte=0,sumadeimportes,descuentocantidad, totalfinalcondescuento;
   ArrayList storage = new ArrayList(); // para guardar los id de cada producto que se ha agregado a la tabla venta
   ArrayList piezasdepollovendidas = new ArrayList();// guarda cada id de cada pieza de pollo que se vaya registrando
   ArrayList nombredelapiezadepollovendida = new ArrayList();// guarda cada id de cada pieza de pollo que se vaya registrando
@@ -692,8 +692,10 @@ JOptionPane.showMessageDialog(null,"ENTRO A REGRESAR POLLO CRUDO");
                                                       piezaspares =rs.getFloat("cantidad");//Esto muestra la cantidad actual para compararlo
                                                       pares[a-1]=rs.getFloat("cantidad");//Esto guarda todos los valores de cada pieza
                                                       }
-                                            if(piezaspares>1){
+                                            if(piezaspares>1&&piezaspares!=0){
                                                 evaluadordepiezaspares++;
+                                            }else{
+                                                evaluadordepiezaspares=0;
                                             }
                                  JOptionPane.showMessageDialog(null, "VAR PIEZAS PARES "+piezaspares);
                                  
@@ -704,7 +706,7 @@ JOptionPane.showMessageDialog(null,"ENTRO A REGRESAR POLLO CRUDO");
                  }
                   }
                   JOptionPane.showMessageDialog(null, "EVALUA PIEZAS PARES"+evaluadordepiezaspares);
-                 if(evaluadordepiezaspares==5){//Si hay más de 5 en la variable
+                 if(evaluadordepiezaspares>=5){//Si hay más de 5 en la variable
                        for(int b=6;b<=9;b++) {//Evaluando las piezas, huacal, cadera, molleja y cabeza
                            JOptionPane.showMessageDialog(null, "ID "+b);
                  try{
@@ -717,6 +719,9 @@ JOptionPane.showMessageDialog(null,"ENTRO A REGRESAR POLLO CRUDO");
                                             if(piezasinpares>0){
                                                 evaluadordepiezasinpares++;
                                             }
+                                            else{
+                                                 evaluadordepiezasinpares=0;
+                                            }
                                             
                                          JOptionPane.showMessageDialog(null, "VAR PIEZAS INPARES"+piezasinpares);
                                     
@@ -726,7 +731,7 @@ JOptionPane.showMessageDialog(null,"ENTRO A REGRESAR POLLO CRUDO");
                   }
                           JOptionPane.showMessageDialog(null, "EVALUADOR PIEZAS INPARES"+evaluadordepiezasinpares);
                    
-                       if(evaluadordepiezasinpares==4){// Se van a descontar dos piezas a las piezas pares y 1 pieza a las inpares
+                       if(evaluadordepiezasinpares>=4){// Se van a descontar dos piezas a las piezas pares y 1 pieza a las inpares
                            for(int c=1;c<=5; c++){
                            try{
              PreparedStatement ps = ca.prepareStatement ("UPDATE piezasdepollo SET cantidad='"+(pares[c-1]-2)+"'WHERE idpieza='"+c+"'");
@@ -749,22 +754,24 @@ JOptionPane.showMessageDialog(null,"ENTRO A REGRESAR POLLO CRUDO");
                            }
                            }
                            //DESCONTAR UN POLLO DE INVENTARIO
-                          
-                           try{
-                                try{
-                     sent  = (Statement)ca.createStatement();
-                                             rs = sent.executeQuery("select * from productos  where nombre_producto='"+pollo_crudo+"'");
-                                       while(rs.next()){
-                                                      pollo_crudoeninventario =rs.getFloat("cantidad");//Esto muestra la cantidad actual para compararlo
-                                                        }
-                 }catch(Exception e){  
-                     JOptionPane.showMessageDialog(null,"ERROR EN OBTENER EL POLLO EN INVENTARIO"+e);
-                 }
-                                float nuevopolloeninventario=0;
+                          float nuevopolloeninventario=0;
+                                piezasdepollocrudoeninventario();
                                nuevopolloeninventario=pollo_crudoeninventario-1;
+                           actualizarpollocrudoeninventario(nuevopolloeninventario);
+                       }
+                  }
+                 }while(evaluadordepiezaspares>=5 && evaluadordepiezasinpares>=4);
+                 minimodelaspiezasdepollocrudoquesoninparesentablaproductos();
+                 if(pollo_crudoeninventario!=minimodelaspiezasinparesdepollocrudoeninventario){
+                      actualizarpollocrudoeninventario(minimodelaspiezasinparesdepollocrudoeninventario);
+                 }
+             }
+             public void actualizarpollocrudoeninventario(float actualizaciondepollo){
+                 try{
+                                
                                JOptionPane.showMessageDialog(null,"POLLO EN INVENTARIO"+pollo_crudoeninventario);
-                               JOptionPane.showMessageDialog(null, "NUEVO POLLO C EN INVENTARIO"+nuevopolloeninventario);
-           PreparedStatement ps = ca.prepareStatement ("UPDATE productos SET cantidad='"+nuevopolloeninventario+"'WHERE nombre_producto='"+pollo_crudo+"'");
+                               JOptionPane.showMessageDialog(null, "NUEVO POLLO C EN INVENTARIO"+actualizaciondepollo);
+           PreparedStatement ps = ca.prepareStatement ("UPDATE productos SET cantidad='"+actualizaciondepollo+"'WHERE nombre_producto='"+pollo_crudo+"'");
                   int a = ps.executeUpdate();
             
                 if(a>0){
@@ -774,12 +781,35 @@ JOptionPane.showMessageDialog(null,"ENTRO A REGRESAR POLLO CRUDO");
                            }catch(Exception e){
                                System.err.print(e);
                            }
-                       }
-                  }
-                 }while(evaluadordepiezaspares==5 && evaluadordepiezasinpares==4);
              }
-          
              
+          public void piezasdepollocrudoeninventario(){
+              try{
+                     sent  = (Statement)ca.createStatement();
+                                             rs = sent.executeQuery("select * from productos  where nombre_producto='"+pollo_crudo+"'");
+                                       while(rs.next()){
+                                                      pollo_crudoeninventario =rs.getFloat("cantidad");//Esto muestra la cantidad actual para compararlo
+                                                        }
+                 }catch(Exception e){  
+                     JOptionPane.showMessageDialog(null,"ERROR EN OBTENER EL POLLO CRUDO EN INVENTARIO"+e);
+                 }
+          }
+          
+     
+          public void minimodelaspiezasdepollocrudoquesoninparesentablaproductos(){
+              String consulta="select MIN(cantidad) from productos WHERE nombre_producto IN('Huacal', 'Cadera', 'Cabeza', 'Molleja')";
+              try{
+                     sent  = (Statement)ca.createStatement();
+                                             rs = sent.executeQuery(consulta);
+                                       while(rs.next()){
+                                                      minimodelaspiezasinparesdepollocrudoeninventario =rs.getFloat(1);//Esto muestra la cantidad actual para compararlo
+                                                        }
+                                       JOptionPane.showMessageDialog(null, minimodelaspiezasinparesdepollocrudoeninventario);
+                 }catch(Exception e){  
+                     JOptionPane.showMessageDialog(null,"ERROR EN OBTENER EL MINIMO DE POLLO EN INVENTARIO"+e);
+                 }
+          }
+            
             public void comprobar_registro (){
         id_producto();
     id_max_de_venta();
@@ -3587,6 +3617,7 @@ JOptionPane.showMessageDialog(null, "Error en venta" + s.getMessage());
                             block_unlock=true;
                                                 JOptionPane.showMessageDialog(null,"Venta realizada con descuento");
 descuentoactivo=false;
+autocompletar();
             }//fin del id del usuario
             catch(Exception w){
                 JOptionPane.showMessageDialog(null,"error en id usuario"+w);
@@ -3668,6 +3699,7 @@ JOptionPane.showMessageDialog(null, "Error en venta" + s.getMessage());
                             block_unlock=true;
                                                 JOptionPane.showMessageDialog(null,"Venta realizada");
 descuentoactivo=false;
+autocompletar();
             }//fin del id del usuario
             catch(Exception w){
                 JOptionPane.showMessageDialog(null,"error en id usuario"+w);
@@ -3695,8 +3727,7 @@ descuentoactivo=false;
     }//GEN-LAST:event_venta_listaActionPerformed
 
     private void agregar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregar2ActionPerformed
-      
-        /* ******************** BOTON DE ADD NUEVO PRODUCTO PARA SU VENTA ******************** */
+       /* ******************** BOTON DE ADD NUEVO PRODUCTO PARA SU VENTA ******************** */
       primer_ventadelsistema(); // 482 - 498   Comprueba que ya haya por lo menos un id registrado en la base o en su defecto que no lo haya
  
         if(cantidad.getText().isEmpty()||searchforproducts.getSelectedItem().equals("")&&Integer.parseInt(cantidad.getText())!=0&&Integer.parseInt(cantidad.getText())>0){ // comprobación que los datos estén vacios
