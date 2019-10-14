@@ -13,6 +13,7 @@ import java.util.GregorianCalendar;
 import javax.swing.JOptionPane;
 import static si.Apertura.fecha;
 import static si.Apertura.monto;
+import ticket.ticketcortedecaja;
 
 
 public class Pantalla_CorteCaja extends javax.swing.JFrame  implements Runnable{
@@ -20,6 +21,7 @@ public class Pantalla_CorteCaja extends javax.swing.JFrame  implements Runnable{
     String hora,minutos,segundos;
     Statement sent;  
   ResultSet rs;     
+  ticketcortedecaja tikectcorte;
 float ventasdeldia, gastosdeldia, montodeapertura, diferencia, diferenciafinal;
 int apertura;
 String  usuarioname=SI_Inicio.text_user.getText();
@@ -324,6 +326,10 @@ public void metodogastosdeldia(){
                 //RECUERDA LLAMAR LOS ARRAYLIST PERTENECIENTES A LOS DOS METODOS DE ABAJO
                 sobrantedepollocrudodeldiaparaticket();//SOBRANTE, VA PARA TICKET
                 obteniendolosvaloresdelcortedecajadeldiadehoyparaelticket();//LOS DATOS DEL TICKET CORTE DE CAJA
+              /*
+                tikectcorte = new ticketcortedecaja();
+                tikectcorte.datosdelticketdecorte(datosdelcorteparaelticket);
+                */ 
                 vaciartodoelpollocrudodeinventario();//UNA VEZ IMPRESO EL SOBRANTE SE VACIAN LOS POLLO CRUDIOS
                 
                 JOptionPane.showMessageDialog(null,"Nos vemos pronto","Saliendo del sistema...",JOptionPane.INFORMATION_MESSAGE);
