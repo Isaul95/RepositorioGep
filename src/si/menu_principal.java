@@ -627,6 +627,16 @@ addpiezas=cantidadpolloenDB-(2*Float.parseFloat(cantidad.getText()));
                     primerventa=0; //y por tal la variable primerventa tendra el valor de 0
         }
    } 
+            public void vaciartodoelpollocrudodeinventario(){
+              try{              
+           PreparedStatement ps = ca.prepareStatement ("UPDATE productos SET cantidad= 0 WHERE nombre_producto in ('pollo crudo', 'Pechuga', 'Muslo', 'Ala', 'Pierna', 'Huacal', 'Cadera', 'Cabeza', 'Molleja', 'Patas')");
+                  int a = ps.executeUpdate();
+                if(a>0){    
+                }
+                           }catch(Exception e){
+                               System.err.print(e);
+                           }
+            }
              //METODOS PARA DESCONTAR 1 POLLO  O N POLLOS EN BASE A LAS PIEZAS QUE SE HAN DESCONTADO
              public void descuentodepollo(){
                  minimodelaspiezasdepollocrudoquesoninparesentablaproductos();
@@ -3565,7 +3575,8 @@ autocompletar();
     }//GEN-LAST:event_venta_listaActionPerformed
 
     private void agregar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregar2ActionPerformed
-       /* ******************** BOTON DE ADD NUEVO PRODUCTO PARA SU VENTA ******************** */
+       
+        /* ******************** BOTON DE ADD NUEVO PRODUCTO PARA SU VENTA ******************** */
       primer_ventadelsistema(); // 482 - 498   Comprueba que ya haya por lo menos un id registrado en la base o en su defecto que no lo haya
  
         if(cantidad.getText().isEmpty()||searchforproducts.getSelectedItem().equals("")&&Integer.parseInt(cantidad.getText())!=0&&Integer.parseInt(cantidad.getText())>0){ // comprobación que los datos estén vacios

@@ -766,7 +766,7 @@ try {
                         tikectGastos.TikectGasto(cantidad, tipo, total);
                     }
                 } catch (Exception ex) {
-                } 
+                }  
         
     }//GEN-LAST:event_btnImprimirticketActionPerformed
 
