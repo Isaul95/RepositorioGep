@@ -626,42 +626,7 @@ addpiezas=cantidadpolloenDB-(2*Float.parseFloat(cantidad.getText()));
          catch(NumberFormatException NFE){ // caso contrario que la variable resultfirstselling tuviese un valor null indicaria que no hay ninguna venta en el sistema
                     primerventa=0; //y por tal la variable primerventa tendra el valor de 0
         }
-   }
-        
-            public void sumaralatablapiezas(){//SUMAR TABLA PIEZAS
-               float piezasentablapiezasdepollo=0;
-                 if(searchforproducts.getSelectedItem().toString().equals("Pechuga")||
-                        searchforproducts.getSelectedItem().toString().equals("Muslo")||
-                        searchforproducts.getSelectedItem().toString().equals("Pierna")||
-                        searchforproducts.getSelectedItem().toString().equals("Ala")||
-                        searchforproducts.getSelectedItem().toString().equals("Patas")||
-                        searchforproducts.getSelectedItem().toString().equals("Huacal")||
-                        searchforproducts.getSelectedItem().toString().equals("Cadera")||
-                        searchforproducts.getSelectedItem().toString().equals("Cabeza")||
-                        searchforproducts.getSelectedItem().toString().equals("Molleja")){
-                       try{// el id del usuario
-                try{
-                       sent  = (Statement)ca.createStatement();
-                                           rs = sent.executeQuery("select * from piezasdepollo where pieza='"+searchforproducts.getSelectedItem().toString()+"'");
-                                            while(rs.next()){
-                                                      piezasentablapiezasdepollo =rs.getFloat("cantidad");
-                                                      }
-                }catch (Exception f){
-                }
-                piezasentablapiezasdepollo=piezasentablapiezasdepollo+Integer.parseInt(cantidad.getText());
-                id_producto();
-                 PreparedStatement ps = ca.prepareStatement ("UPDATE piezasdepollo SET cantidad='"+piezasentablapiezasdepollo+"'WHERE pieza='"+searchforproducts.getSelectedItem().toString()+"'");
-                ps.executeUpdate();
-                 }//fin del id del usuario
-                 catch(Exception w){
-                     JOptionPane.showMessageDialog(null, "Error" + w.getMessage());
-                 }//fin del id del usuario
-                    } 
-            }//SUMAR TABLA PIEZAS
-            
-             
-             
-             
+   } 
              //METODOS PARA DESCONTAR 1 POLLO  O N POLLOS EN BASE A LAS PIEZAS QUE SE HAN DESCONTADO
              public void descuentodepollo(){
                  minimodelaspiezasdepollocrudoquesoninparesentablaproductos();
@@ -675,18 +640,19 @@ addpiezas=cantidadpolloenDB-(2*Float.parseFloat(cantidad.getText()));
                  else if(pollo_crudoeninventario!=minimodelaspiezasinparesdepollocrudoeninventario&&minimodelaspiezasparesdepollocrudoeninventario==(minimodelaspiezasinparesdepollocrudoeninventario*2)){
                       actualizarpollocrudoeninventario(minimodelaspiezasinparesdepollocrudoeninventario);
                  }else if(minimodelaspiezasinparesdepollocrudoeninventario!=(minimodelaspiezasparesdepollocrudoeninventario/2)){
-                     actualizarpollocrudoeninventario(minimodelaspiezasparesdepollocrudoeninventario/2);
+                    //ESTO ELIMINA LOS DECIMALES DEL SOBRANTE
+                    //AQUI EL LINK
+                    //https://www.yoelprogramador.com/como-usar-el-formateador-decimal-en-java/
+                     java.text.DecimalFormat formatoSalida = new java.text.DecimalFormat("0");//para ningun decimal
+                     actualizarpollocrudoeninventario(Float.parseFloat(formatoSalida.format(minimodelaspiezasparesdepollocrudoeninventario/2)));
                  }
              }
+             
              public void actualizarpollocrudoeninventario(float actualizaciondepollo){
-                 try{
-                                
-                            
+                 try{              
            PreparedStatement ps = ca.prepareStatement ("UPDATE productos SET cantidad='"+actualizaciondepollo+"'WHERE nombre_producto='"+pollo_crudo+"'");
                   int a = ps.executeUpdate();
-            
-                if(a>0){
-                   
+                if(a>0){    
                 }
                            }catch(Exception e){
                                System.err.print(e);
@@ -749,7 +715,7 @@ addpiezas=cantidadpolloenDB-(2*Float.parseFloat(cantidad.getText()));
                  PreparedStatement ps = ca.prepareStatement ("UPDATE descripcion_de_venta SET cantidad='"+NoPcantidad+"',importe = '"+NoPimporte+"'WHERE id_producto='"+id_producto+"' and id_venta= '"+id_de_la_venta_incrementable+"' and estado= '"+estadoenturno+"'");
                 ps.executeUpdate();
                 descontardeinventario();
-                sumaralatablapiezas();
+                  descuentodepollo();
                     mostrartabladeventas();
                     tablaventaactiva=true;
                     total_venta_enturno();
@@ -790,7 +756,7 @@ addpiezas=cantidadpolloenDB-(2*Float.parseFloat(cantidad.getText()));
                 int a=pst.executeUpdate();
                 if(a>0){
                     descontardeinventario();
-                    sumaralatablapiezas();
+                      descuentodepollo();
                     mostrartabladeventas();
                     tablaventaactiva=true;
                    total_venta_enturno();
@@ -879,33 +845,7 @@ addpiezas=cantidadpolloenDB-(2*Float.parseFloat(cantidad.getText()));
                             ps.executeUpdate();
                         }catch(Exception s){
 JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
-                        }
-                        if(es_pollo_crudo.equals("Pechuga")||
-                        es_pollo_crudo.equals("Muslo")||
-                        es_pollo_crudo.equals("Pierna")||
-                        es_pollo_crudo.equals("Ala")||
-                        es_pollo_crudo.equals("Patas")||
-                        es_pollo_crudo.equals("Huacal")||
-                        es_pollo_crudo.equals("Cadera")||
-                        es_pollo_crudo.equals("Cabeza")||
-                        es_pollo_crudo.equals("Molleja")){
-                       try{
-                            sent  =(Statement)ca.createStatement();
-                            rs = sent.executeQuery("select * from piezasdepollo where pieza='"+es_pollo_crudo+"'");
-                            while(rs.next()){
-                                piezasenlatablapiezas =rs.getFloat("cantidad");
-                            }
-                        }catch (Exception f){
-                            JOptionPane.showMessageDialog(null, "Error en inventario" + f.getMessage());
-                        }
-                        piezasenlatablapiezas-=cantidadenventa;
-                        try{
-                            PreparedStatement ps = ca.prepareStatement ("UPDATE piezasdepollo SET cantidad='"+piezasenlatablapiezas+"'WHERE pieza='"+es_pollo_crudo+"'");
-                            ps.executeUpdate();
-                        }catch(Exception s){
-JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
-                        }
-                    } 
+                        } 
                     }catch(Exception e){///obteniendo la cantidad en la tabla de descripcion_de_venta
                         JOptionPane.showMessageDialog(null, "Error en venta aqui otra vez" + e.getMessage());
                     } //obteniendo la cantidad en la tabla de descripcion_de_venta
@@ -4368,6 +4308,7 @@ autocompletar();
        if(tablaventaactiva==true){
                 regresarproductos_a_inventario(); //pone en estatus de cancelada la venta inconclusa
                //y también el metodo de arriba regresa las piezas a la tabla piezas               
+                  descuentodepollo();
                  status_cancelado();  //pone en estatus de cancelada la venta inconclusa y cada producto que lo compone
                 get_id_usuario(); //vuelve a asiganr otro id_venta para que así no se repita con el id anterior que tuvo una venta cancelada
                 block_unlock=false; //se bloquea la opcion de poder agregar otro id_usuario a la tabla de venta y así abrir una nueva venta

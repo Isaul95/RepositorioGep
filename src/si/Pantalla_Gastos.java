@@ -174,10 +174,7 @@ public class Pantalla_Gastos extends javax.swing.JFrame {
           
             
            for(int i=0; i<piezas.length; i++) {
-          //System.out.println(piezas [i]); 
-         //JOptionPane.showMessageDialog(null,"PIEZASS de POLLO k se insertaran..."+" "+piezas [i]);
-           
-           
+  
 
             try{
                        sent  = (Statement)ca.createStatement();
@@ -186,8 +183,7 @@ public class Pantalla_Gastos extends javax.swing.JFrame {
                                                       buscap =rs.getString("nombre_producto");
                                                       cantidadpolloenDB =rs.getInt("cantidad"); // piezas en la db
                                                       }
-               JOptionPane.showMessageDialog(null, "CANTIDAD DE "+piezas[i]+" EN BASE ES: "+cantidadpolloenDB);
-               
+            
    if(buscap.equals(piezas[i])){ //Si el nombre del producto es diferente del estado vacio, en palabras más sencillas; si se encuentra el producto que se quiere agregar para que no se asigne nuevamente  
         try{// el id del usuario
                 if(piezas[i].equals("Pechuga")||piezas[i].equals("Muslo")||
@@ -196,11 +192,8 @@ public class Pantalla_Gastos extends javax.swing.JFrame {
                    piezas[i].equals("Patas")){
                     
                resultadodepiezaspares=cantidad*piezasdepollopares;
-               JOptionPane.showMessageDialog(null, "CANTIDAD"+cantidad);
-               JOptionPane.showMessageDialog(null,"CANTIDAD DE POLLOS POR 2 ES IGUAL "+resultadodepiezaspares);
-                      addpiezas=cantidadpolloenDB+resultadodepiezaspares;
-                        JOptionPane.showMessageDialog(null,"PIEZAS EN BASE MAS PIEZAS PARES "+addpiezas);
-                 
+                   addpiezas=cantidadpolloenDB+resultadodepiezaspares;
+               
                PreparedStatement ps = ca.prepareStatement ("UPDATE productos SET cantidad='"+addpiezas+"'WHERE nombre_producto='"+piezas[i]+"' and fecha= '"+fecha()+"'");
                int ty = ps.executeUpdate();
                 
@@ -215,11 +208,8 @@ public class Pantalla_Gastos extends javax.swing.JFrame {
                    piezas[i].equals("Cabeza")||
                    piezas[i].equals("Molleja")){
             resultadodepiezasinpares=cantidad*piezasdepollosinpares;
-            JOptionPane.showMessageDialog(null, "CANTIDAD"+cantidad);
-               JOptionPane.showMessageDialog(null,"CANTIDAD DE POLLOS POR 2 ES IGUAL "+resultadodepiezasinpares);
-            addpiezas=cantidadpolloenDB+resultadodepiezasinpares;
-            JOptionPane.showMessageDialog(null,"PIEZAS EN BASE MAS PIEZAS PARES "+addpiezas);
-                  PreparedStatement ps = ca.prepareStatement ("UPDATE productos SET cantidad='"+addpiezas+"'WHERE nombre_producto='"+piezas[i]+"' and fecha= '"+fecha()+"'");
+          addpiezas=cantidadpolloenDB+resultadodepiezasinpares;
+           PreparedStatement ps = ca.prepareStatement ("UPDATE productos SET cantidad='"+addpiezas+"'WHERE nombre_producto='"+piezas[i]+"' and fecha= '"+fecha()+"'");
                int ty = ps.executeUpdate();
                 
                  if(ty>0){
@@ -246,11 +236,9 @@ public class Pantalla_Gastos extends javax.swing.JFrame {
      
      
      public void actualizar_pollocrudo(){ //1
-         JOptionPane.showMessageDialog(null, "ENTRO A ACTUALIZAR POLLO CRUDO0", "POLLO CRUDO",JOptionPane.INFORMATION_MESSAGE);
-        
+    
       String buscap = "";     
-  JOptionPane.showMessageDialog(null, "NOMBRE DE POLLO CRUDO0: "+tipo, "POLLO CRUDO",JOptionPane.INFORMATION_MESSAGE);
-        
+  
             try{
                        sent  = (Statement)ca.createStatement();
                                            rs = sent.executeQuery("select * from productos  where nombre_producto='"+tipo+"' and fecha= '"+fecha()+"'");
@@ -258,16 +246,12 @@ public class Pantalla_Gastos extends javax.swing.JFrame {
                                                       buscap =rs.getString("nombre_producto");
                                                       cantidadpolloenDB =rs.getInt("cantidad"); // piezas en la db
                                                       }
-                 JOptionPane.showMessageDialog(null, "NOMBRE DE POLLO CRUDO en base: "+buscap, "POLLO CRUDO",JOptionPane.INFORMATION_MESSAGE);
-                               
-               JOptionPane.showMessageDialog(null, "CANTIDAD DE "+tipo+" EN BASE ES: "+cantidadpolloenDB, "POLLO CRUDO",JOptionPane.INFORMATION_MESSAGE);
+                  
            if(buscap.equalsIgnoreCase(tipo)){
    try{// el id del usuario
 
-               JOptionPane.showMessageDialog(null, "CANTIDAD DE POLLO CRUDO"+cantidad, "POLLO CRUDO",JOptionPane.INFORMATION_MESSAGE);
-                      addpiezas=cantidadpolloenDB+cantidad;
-                        JOptionPane.showMessageDialog(null,"PIEZAS EN BASE MAS PIEZAS PARES "+addpiezas, "POLLO CRUDO",JOptionPane.INFORMATION_MESSAGE);
-                 
+              addpiezas=cantidadpolloenDB+cantidad;
+            
                PreparedStatement ps = ca.prepareStatement ("UPDATE productos SET cantidad='"+addpiezas+"'WHERE nombre_producto='"+tipo+"' and fecha= '"+fecha()+"'");
                int ty = ps.executeUpdate();
                  if(ty>0){
@@ -668,15 +652,9 @@ try {
                          limpiar();
                          LlenarTabla(jTableGastos);
                              JOptionPane.showMessageDialog(null, "Gastos Registrados con Exito... entrando desde gastos en productos");
-              
-                         JOptionPane.showMessageDialog(null, "PIEZAS DE UN POLLO"+piezasxunpollo);
-      float totalpiezaspollo = (cantidad*piezasxunpollo);
-           JOptionPane.showMessageDialog(null,"total de piezas "+totalpiezaspollo+" EN "+cantidad+" POLLOS");
-      float precioxpieza = (totalmonto/totalpiezaspollo);   
-       JOptionPane.showMessageDialog(null,"PRECIO POR PIEZA"+" "+precioxpieza);
-
-          //String[] piezass = {"pechuga","ala","pierna"};
-          
+   float totalpiezaspollo = (cantidad*piezasxunpollo);
+ float precioxpieza = (totalmonto/totalpiezaspollo);   
+     
   if(comprobarpollo()){
    JOptionPane.showMessageDialog(null," CANTIDAD ACTUALIZADA DE PRODUCTOS ");
   }
@@ -685,9 +663,7 @@ try {
     
       registrar_pollo_crudo(pollocrudo, totalmonto, cantidad, id_proveedor); //Esto registra 1 pollo o la cantidad de pollos que metas          
           for(int i=0; i<piezas.length; i++) {
-          //System.out.println(piezas [i]); 
-         JOptionPane.showMessageDialog(null,"PIEZASS de POLLO k se insertaran..."+" "+piezas [i]);
-          
+ 
          
           obtener_id_del_proveedor(menu_principal.proveedorarticulo.getSelectedItem().toString());
     
@@ -745,9 +721,7 @@ try {
         }/*1*/ else if(!"pollo crudo".equalsIgnoreCase(txtdescripcion.getText())){/*3*/
            // txtpiezas.setEnabled(false);  // ME ACTIVA EL TXT
             txtpiezas.setText("0");
-            JOptionPane.showMessageDialog(null, "aki no entra para piezas de cantidad... NO CONVERSIONES");
-            
-         
+
                                 gastos = new Gastos(cantidad, tipo, totalmonto, id_usuario, fecha);
                        if (gastos.Gastosinsert()) { //  aki me insertar en una de las dos tablas mas no en las dos
        
@@ -758,8 +732,7 @@ try {
                             
                             
                             
-                            JOptionPane.showMessageDialog(null,"id_usuario->" + id_usuario+ "\n piezas->"+cantidad);
-                            JOptionPane.showMessageDialog(null, "Gastos Registrados con Exito...");
+                         JOptionPane.showMessageDialog(null, "Gastos Registrados con Exito...");
                             limpiar();
                             JOptionPane.showMessageDialog(null, "Generando Ticket de Gastos...");
                            // txtpiezas.setText("0");
