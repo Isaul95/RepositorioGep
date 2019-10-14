@@ -202,7 +202,7 @@ Statement sent;
     }
      
      
-      /*  ======   HACIENDO UNA CONSULTA DE LOS GASTOS A BUSCAR CON -- ((UNA)) -- FECHA DETERINADA =======A*/          
+      /*  ======   HACIENDO UNA CONSULTA MAS VENDIDOS RANGO DE FECHAs =======A*/          
           public void LlenarTablaBusquedproMasvendidosfecha(JTable tablaD, String fecha_inicioestadis, String fecha_finalestadis){ // recibe como parametro 
        
                Object[] columna = new Object[4];  //crear un obj con el nombre de colunna
@@ -1634,12 +1634,12 @@ JOptionPane.showMessageDialog(null, "Error en venta" + s.getMessage());
         jButton6 = new javax.swing.JButton();
         jLabel89 = new javax.swing.JLabel();
         jPanel25 = new javax.swing.JPanel();
-        jScrollPane8 = new javax.swing.JScrollPane();
-        Jtable_productosmasven = new javax.swing.JTable();
         fecha_inicioestadis = new com.toedter.calendar.JDateChooser();
         jLabel60 = new javax.swing.JLabel();
         fecha_finalestadis = new com.toedter.calendar.JDateChooser();
         buscarproductosfecha = new javax.swing.JButton();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        Jtable_productosmasven = new rojerusan.RSTableMetro();
 
         tabla_articulos.setComponentPopupMenu(tabla_articulos);
 
@@ -1705,7 +1705,7 @@ JOptionPane.showMessageDialog(null, "Error en venta" + s.getMessage());
         setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        Proveedores9.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        Proveedores9.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
 
         venta.setBackground(new java.awt.Color(0, 51, 102));
         venta.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -2042,7 +2042,7 @@ JOptionPane.showMessageDialog(null, "Error en venta" + s.getMessage());
         venta.add(total2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1080, 430, 140, 28));
         venta.add(jSeparator21, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 510, 140, 10));
 
-        Proveedores9.addTab("   Venta   ", venta);
+        Proveedores9.addTab("      Venta      ", venta);
 
         agregar_proveedor.setBackground(new java.awt.Color(0, 51, 102));
         agregar_proveedor.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -2631,7 +2631,7 @@ JOptionPane.showMessageDialog(null, "Error en venta" + s.getMessage());
         });
         agregar_proveedor.add(Reportes, new org.netbeans.lib.awtextra.AbsoluteConstraints(1110, 340, 130, 97));
 
-        Proveedores9.addTab("   Nuevo  Proveedor   ", agregar_proveedor);
+        Proveedores9.addTab("      Nuevo  Proveedor      ", agregar_proveedor);
 
         agregar_articulo.setBackground(new java.awt.Color(0, 51, 102));
         agregar_articulo.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -2970,7 +2970,7 @@ JOptionPane.showMessageDialog(null, "Error en venta" + s.getMessage());
         jLabel59.setText("*Nota: No puedes agregar ningún producto a menos que ya exista 1 proveedor");
         agregar_articulo.add(jLabel59, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 60, 690, 40));
 
-        Proveedores9.addTab("   Nuevo Producto   ", agregar_articulo);
+        Proveedores9.addTab("      Nuevo Producto      ", agregar_articulo);
 
         agregar_usuario.setBackground(new java.awt.Color(0, 51, 102));
         agregar_usuario.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -3220,7 +3220,7 @@ JOptionPane.showMessageDialog(null, "Error en venta" + s.getMessage());
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1290, Short.MAX_VALUE)
+            .addGap(0, 1288, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -3237,7 +3237,7 @@ JOptionPane.showMessageDialog(null, "Error en venta" + s.getMessage());
                     .addGap(0, 0, Short.MAX_VALUE)))
         );
 
-        Proveedores9.addTab("   Usuarios   ", jPanel1);
+        Proveedores9.addTab("      Usuarios      ", jPanel1);
 
         Administrador.setBackground(new java.awt.Color(0, 51, 102));
         Administrador.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -3313,7 +3313,8 @@ JOptionPane.showMessageDialog(null, "Error en venta" + s.getMessage());
         jLabel93.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel93.setText("                Ventas");
 
-        jLabel94.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/Usuario02.png"))); // NOI18N
+        jLabel94.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel94.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/total.png"))); // NOI18N
 
         jButton8.setBackground(new java.awt.Color(0, 51, 102));
         jButton8.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
@@ -3340,9 +3341,9 @@ JOptionPane.showMessageDialog(null, "Error en venta" + s.getMessage());
                 .addComponent(jLabel95)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
                 .addComponent(jLabel93, javax.swing.GroupLayout.PREFERRED_SIZE, 324, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel94, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(393, 393, 393)
+                .addGap(405, 405, 405)
                 .addComponent(jButton8)
                 .addGap(41, 41, 41))
         );
@@ -3394,7 +3395,7 @@ JOptionPane.showMessageDialog(null, "Error en venta" + s.getMessage());
         });
         jScrollPane9.setViewportView(Jtable_ventasCanceladas);
 
-        jPanel26.add(jScrollPane9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 1240, 200));
+        jPanel26.add(jScrollPane9, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 1240, 200));
 
         jLabel62.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel62.setForeground(new java.awt.Color(255, 0, 0));
@@ -3425,7 +3426,7 @@ JOptionPane.showMessageDialog(null, "Error en venta" + s.getMessage());
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
-        Proveedores9.addTab("     Inventario     ", jPanel12);
+        Proveedores9.addTab("      Ventas      ", jPanel12);
 
         producto_sobrante.setBackground(new java.awt.Color(0, 51, 102));
         producto_sobrante.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -3437,7 +3438,7 @@ JOptionPane.showMessageDialog(null, "Error en venta" + s.getMessage());
         jLabel79.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel79.setText("Agregar Nuevo Usuario ");
 
-        jLabel88.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/Usuario02.png"))); // NOI18N
+        jLabel88.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/portapapeles.png"))); // NOI18N
 
         jButton6.setBackground(new java.awt.Color(0, 51, 102));
         jButton6.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
@@ -3465,8 +3466,8 @@ JOptionPane.showMessageDialog(null, "Error en venta" + s.getMessage());
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
                 .addComponent(jLabel79, javax.swing.GroupLayout.PREFERRED_SIZE, 324, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel88, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(393, 393, 393)
+                .addComponent(jLabel88, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(414, 414, 414)
                 .addComponent(jButton6)
                 .addGap(41, 41, 41))
         );
@@ -3474,51 +3475,24 @@ JOptionPane.showMessageDialog(null, "Error en venta" + s.getMessage());
             jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel20Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel89)
-                    .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jLabel88, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel20Layout.createSequentialGroup()
-                            .addGap(6, 6, 6)
-                            .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(4, 4, 4))
-                        .addComponent(jLabel79, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel79, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel20Layout.createSequentialGroup()
+                        .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel88, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addComponent(jLabel89)
+                            .addGroup(jPanel20Layout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap())))
         );
 
         producto_sobrante.add(jPanel20);
-        jPanel20.setBounds(0, 0, 1290, 60);
+        jPanel20.setBounds(0, 0, 1290, 71);
 
         jPanel25.setBackground(new java.awt.Color(0, 51, 102));
         jPanel25.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "    Productos mas Vendidos   ", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Arial", 1, 18), new java.awt.Color(255, 255, 255))); // NOI18N
         jPanel25.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        Jtable_productosmasven.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        Jtable_productosmasven.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "nombre_producto", "cantidad", "precio_unitario", "fecha_reporte"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        Jtable_productosmasven.setSelectionBackground(new java.awt.Color(255, 255, 255));
-        Jtable_productosmasven.setSelectionForeground(new java.awt.Color(0, 135, 204));
-        Jtable_productosmasven.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                Jtable_productosmasvenMouseClicked(evt);
-            }
-        });
-        jScrollPane8.setViewportView(Jtable_productosmasven);
-
-        jPanel25.add(jScrollPane8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, 1250, 300));
 
         fecha_inicioestadis.setBackground(new java.awt.Color(0, 153, 204));
         fecha_inicioestadis.setForeground(new java.awt.Color(0, 96, 255));
@@ -3539,13 +3513,38 @@ JOptionPane.showMessageDialog(null, "Error en venta" + s.getMessage());
         buscarproductosfecha.setBackground(new java.awt.Color(0, 148, 204));
         buscarproductosfecha.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         buscarproductosfecha.setForeground(new java.awt.Color(255, 255, 255));
+        buscarproductosfecha.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/image/magnifier.png"))); // NOI18N
         buscarproductosfecha.setText("Buscar");
+        buscarproductosfecha.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         buscarproductosfecha.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buscarproductosfechaActionPerformed(evt);
             }
         });
-        jPanel25.add(buscarproductosfecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 70, -1, -1));
+        jPanel25.add(buscarproductosfecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 50, 180, 50));
+
+        Jtable_productosmasven.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "nombre_producto", "cantidad", "precio_unitario", "fecha_reporte"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        Jtable_productosmasven.setGrosorBordeFilas(0);
+        Jtable_productosmasven.setGrosorBordeHead(0);
+        Jtable_productosmasven.setMultipleSeleccion(false);
+        jScrollPane5.setViewportView(Jtable_productosmasven);
+
+        jPanel25.add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, 1220, 300));
 
         producto_sobrante.add(jPanel25);
         jPanel25.setBounds(10, 80, 1270, 510);
@@ -3571,7 +3570,7 @@ JOptionPane.showMessageDialog(null, "Error en venta" + s.getMessage());
                     .addGap(0, 0, Short.MAX_VALUE)))
         );
 
-        Proveedores9.addTab("     Estadisticas     ", jPanel13);
+        Proveedores9.addTab("      Estadisticas      ", jPanel13);
 
         getContentPane().add(Proveedores9, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1290, 700));
 
@@ -5067,10 +5066,6 @@ autocompletar();
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton6ActionPerformed
 
-    private void Jtable_productosmasvenMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Jtable_productosmasvenMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Jtable_productosmasvenMouseClicked
-
     private void buscarproductosfechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarproductosfechaActionPerformed
         // BOTON PARA LA CONSULTA DE  GASTOS
         String fechadesde= fecha_inicioestadis.toString();
@@ -5124,7 +5119,7 @@ SI cc= new SI();
     private javax.swing.JButton Cortedecaja;
     private javax.swing.JLabel Fecha;
     private javax.swing.JLabel IblReloj;
-    public static javax.swing.JTable Jtable_productosmasven;
+    private rojerusan.RSTableMetro Jtable_productosmasven;
     public static javax.swing.JTable Jtable_ventasCanceladas;
     public static javax.swing.JTable Jtable_ventasRealizadas;
     public static javax.swing.JTabbedPane Proveedores9;
@@ -5272,8 +5267,8 @@ SI cc= new SI();
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane7;
-    private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator10;
