@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -17,11 +18,16 @@ import static si.Apertura.monto;
 public class Pantalla_CorteCaja extends javax.swing.JFrame  implements Runnable{
     Thread hilo;
     String hora,minutos,segundos;
+    Statement sent;  
+  ResultSet rs;     
 float ventasdeldia, gastosdeldia, montodeapertura, diferencia, diferenciafinal;
 int apertura;
 String  usuarioname=SI_Inicio.text_user.getText();
 int  id_usuario=Integer.parseInt(SI_Inicio.iduser.getText());
     Calendar fecha_actual = new GregorianCalendar();
+    ArrayList arreglodelaspiezassobranteseninventario = new ArrayList(); // para guardar los id de cada producto que se ha agregado a la tabla venta
+   ArrayList datosdelcorteparaelticket = new ArrayList(); // para guardar los id de cada producto que se ha agregado a la tabla venta
+  
     public Pantalla_CorteCaja() {
         initComponents();
          hilo=new Thread(this);
@@ -33,6 +39,7 @@ int  id_usuario=Integer.parseInt(SI_Inicio.iduser.getText());
         Ventasfortoday1.setText(String.valueOf(ventasdeldia));
         Gastosfromtoday.setText(String.valueOf(gastosdeldia));
         user.setText(usuarioname);
+        
     }
     
     public void hora(){
@@ -244,7 +251,44 @@ public void metodogastosdeldia(){
         if(result == 0){
             dispose();   }
     }//GEN-LAST:event_Corte_btncancelarActionPerformed
-
+     
+    public void vaciartodoelpollocrudodeinventario(){
+              try{              
+           PreparedStatement ps = ca.prepareStatement ("UPDATE productos SET cantidad= 0 WHERE nombre_producto in ('pollo crudo', 'Pechuga', 'Muslo', 'Ala', 'Pierna', 'Huacal', 'Cadera', 'Cabeza', 'Molleja', 'Patas')");
+                  int a = ps.executeUpdate();
+                if(a>0){    
+                }
+                           }catch(Exception e){
+                               System.err.print(e);
+                           }
+            }
+ public void sobrantedepollocrudodeldiaparaticket(){
+      try{//SOLO SE LLAMA A LA CANTIDAD PORQUE EN EL TICKET YA SE DEFINIRÁN LOS NOMBRES DE CADA ARTICULO
+                      sent  = (Statement)ca.createStatement();
+                      rs = sent.executeQuery("select cantidad from productos where nombre_producto in ('pollo crudo', 'Pechuga', 'Muslo', 'Pierna', 'Ala', 'Patas', 'Huacal', 'Cadera', 'Cabeza', 'Molleja')");
+                         while(rs.next()){
+                             arreglodelaspiezassobranteseninventario.add(rs.getFloat(1));
+                         }
+      }catch(Exception e){                                             
+        
+      }
+ }
+ 
+  public void obteniendolosvaloresdelcortedecajadeldiadehoyparaelticket(){
+      try{//SOLO SE LLAMA A LA CANTIDAD PORQUE EN EL TICKET YA SE DEFINIRÁN LOS NOMBRES DE CADA ARTICULO
+                      sent  = (Statement)ca.createStatement();
+                      rs = sent.executeQuery("select monto_entregado, gastos, ventas, diferencia, hora from cortes where fecha=  '"+fecha()+"' ");
+                         while(rs.next()){
+                             datosdelcorteparaelticket.add(0, rs.getFloat(1));
+                             datosdelcorteparaelticket.add(1, rs.getFloat(2));
+                             datosdelcorteparaelticket.add(2, rs.getFloat(3));
+                             datosdelcorteparaelticket.add(3, rs.getFloat(4));
+                             datosdelcorteparaelticket.add(4, rs.getFloat(5));
+                         }
+      }catch(Exception e){                                             
+      }
+ }
+    
     private void Corte_btnImprimirticketActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Corte_btnImprimirticketActionPerformed
         float variablemontoentregado=Float.parseFloat(monto.getText()), ventasmenosgastos, menosapertura;
         if(variablemontoentregado>0){//COMPROBANDO QUE EL MONTO NO ESTE VACIO
@@ -276,6 +320,12 @@ public void metodogastosdeldia(){
                 if(a>0){
                     int decision=JOptionPane.showConfirmDialog(null,"¿Desea continuar?","UNA VEZ REALIZADO EL CORTE, SOLO EL ADMIN PUEDE ENTRAR",JOptionPane.CANCEL_OPTION);
             if(decision==0){
+                //AQUI VA A IR EL CORTE DE CAJA Y EL SOBRANTE DE LOS PRODUCTOS
+                //RECUERDA LLAMAR LOS ARRAYLIST PERTENECIENTES A LOS DOS METODOS DE ABAJO
+                sobrantedepollocrudodeldiaparaticket();//SOBRANTE, VA PARA TICKET
+                obteniendolosvaloresdelcortedecajadeldiadehoyparaelticket();//LOS DATOS DEL TICKET CORTE DE CAJA
+                vaciartodoelpollocrudodeinventario();//UNA VEZ IMPRESO EL SOBRANTE SE VACIAN LOS POLLO CRUDIOS
+                
                 JOptionPane.showMessageDialog(null,"Nos vemos pronto","Saliendo del sistema...",JOptionPane.INFORMATION_MESSAGE);
              /*   new SI_Inicio().setVisible(true);
                 new menu_principal().setVisible(false);
