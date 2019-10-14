@@ -53,8 +53,7 @@ Statement sent;
   //float importe,totalf=0,comprobacion,cambio,precio;
           float minimodelaspiezasparesdepollocrudoeninventario, minimodelaspiezasinparesdepollocrudoeninventario, pollo_crudoeninventario, addpiezas, cantidadpolloenDB, porcentaje, importe,totalf=0,comprobacion,cambio,precio, NoPimporte=0,sumadeimportes,descuentocantidad, totalfinalcondescuento;
   ArrayList storage = new ArrayList(); // para guardar los id de cada producto que se ha agregado a la tabla venta
-  ArrayList piezasdepollovendidas = new ArrayList();// guarda cada id de cada pieza de pollo que se vaya registrando
-  ArrayList nombredelapiezadepollovendida = new ArrayList();// guarda cada id de cada pieza de pollo que se vaya registrando
+ ArrayList datosparaelticketdeventa = new ArrayList();//PARA GUARDAR LOS DATOS DEL TICKET DE VENTA
   
   boolean descuentoactivo=false, suficientespiezas=true, block_unlock=true,tablaventaactiva=false, primerproducto=true, productoagregado=false, productorepetido=false;
       int suma=0,resta=0;  //variables creadas para los botones de adicionar o quitar en 1 la cantidad de articulos
@@ -120,7 +119,6 @@ Statement sent;
                                                       catch (Exception e){
                                                       }// fin del precio-catch del producto
     }
-    
      public void totalventasxdia(){
         try{ // CUENTA EL TODAL DE CUANTAS VENTAS SE REALIZARON
     
@@ -133,7 +131,6 @@ Statement sent;
                                                       catch (Exception e){
                                                       }// fin del precio-catch del producto
     }
-     
       public void ventasCanceladas(){
         try{ // CUENTA EL TODAL DE CUANTAS VENTAS SE CANCELADAS
     
@@ -4004,7 +4001,33 @@ public void obtener_id_del_proveedor(String name){
             }//fin del id del usuario
         }
     }//GEN-LAST:event_venta_listaKeyPressed
-
+public void datosparaelticketdeventa(){
+   //ID_VENTA QUE SEOBTIENE DEL METODO ID_MAX_dE_VENTA()
+   //FECHA DE VENTA, QUE SE OBTIENE DEL METODO FECHA()
+   //HORA DE VENTA QUE SE OBTIENE DE LA VARIABLE RELOJ
+   //NOMBRE DE USUARIO QUE SE OBTIENE DE LA VARIABLE USUARIONAME
+   
+    id_max_de_venta();
+     //PARA ÉSTE TICKET SE OCUPA ÉSTA CONSULTA
+    
+     try{//SOLO SE LLAMA A LA CANTIDAD PORQUE EN EL TICKET YA SE DEFINIRÁN LOS NOMBRES DE CADA ARTICULO
+//select nombre_producto, cantidad, precio_unitario, importe, venta.porcentajedescontado, venta.descuento, venta.total, venta.pago, venta.cambio from descripcion_de_venta INNER JOIN venta ON descripcion_de_venta.id_venta = venta.id_venta where estado = 'Realizada' and descripcion_de_venta.id_venta = 116                      
+         sent  = (Statement)ca.createStatement();
+                        rs = sent.executeQuery("SELECT nombre_producto, cantidad, precio_unitario, importe, venta.porcentajedescontado, venta.descuento, venta.total, venta.pago, venta.cambio FROM descripcion_de_venta  INNER JOIN venta ON descripcion_de_venta.id_venta  = venta.id_venta  WHERE estado=  '"+estadorealizado+"' AND descripcion_de_venta.id_venta = '"+id_de_la_venta_incrementable+"' ");
+                           while(rs.next()){
+                             datosparaelticketdeventa.add(0, rs.getString(1));
+                             datosparaelticketdeventa.add(1, rs.getInt(2));
+                             datosparaelticketdeventa.add(2, rs.getFloat(3));
+                             datosparaelticketdeventa.add(3, rs.getFloat(4));
+                             datosparaelticketdeventa.add(4, rs.getFloat(5));
+                             datosparaelticketdeventa.add(5, rs.getFloat(6));
+                             datosparaelticketdeventa.add(6, rs.getFloat(7));
+                             datosparaelticketdeventa.add(7, rs.getFloat(8));
+                             datosparaelticketdeventa.add(8, rs.getFloat(9));
+                         }
+      }catch(Exception e){                                             
+      }
+}
     private void venta_listaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_venta_listaActionPerformed
          /*   ********************  BOTON DE COBRAR LA VENTA ****************  */
              /*   ******************  BOTON DE COBRAR LA VENTA **************  */

@@ -283,7 +283,7 @@ public void metodogastosdeldia(){
                              datosdelcorteparaelticket.add(1, rs.getFloat(2));
                              datosdelcorteparaelticket.add(2, rs.getFloat(3));
                              datosdelcorteparaelticket.add(3, rs.getFloat(4));
-                             datosdelcorteparaelticket.add(4, rs.getFloat(5));
+                             datosdelcorteparaelticket.add(4, rs.getString(5));
                          }
       }catch(Exception e){                                             
       }
