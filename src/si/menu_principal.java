@@ -424,7 +424,7 @@ Statement sent;
     
     
    public void TablaDatosUsuarios(){  /********* METODOS DE LA TABLA DE LOS USUARIOS  *********/
-       tabla_usuarios.setVisible(true);
+       tabla_usuariosnew.setVisible(true);
               DefaultTableModel modelo = new DefaultTableModel();
     
     modelo.addColumn("Id Usuario");           modelo.addColumn("Nombre");
@@ -434,7 +434,7 @@ Statement sent;
     modelo.addColumn("Telefono");             modelo.addColumn("Estado");
     modelo.addColumn("Fecha y Hora de registro");
     
-     tabla_usuarios.setModel(modelo);
+     tabla_usuariosnew.setModel(modelo);
     String []datos = new String[11];    
     try {
             Statement st = ca.createStatement();
@@ -449,7 +449,7 @@ Statement sent;
         
             modelo.addRow(datos);
             }
-           tabla_usuarios.setModel(modelo);
+           tabla_usuariosnew.setModel(modelo);
         } catch (SQLException ex) {
             Logger.getLogger(menu_principal.class.getName()).log(Level.SEVERE, null, ex);
         } 
@@ -1603,7 +1603,7 @@ JOptionPane.showMessageDialog(null, "Error en venta" + s.getMessage());
         jButton4 = new javax.swing.JButton();
         jLabel58 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        tabla_usuarios = new rojerusan.RSTableMetro();
+        tabla_usuariosnew = new rojerusan.RSTableMetro();
         jPanel12 = new javax.swing.JPanel();
         Administrador = new javax.swing.JPanel();
         jPanel23 = new javax.swing.JPanel();
@@ -3194,31 +3194,31 @@ JOptionPane.showMessageDialog(null, "Error en venta" + s.getMessage());
         agregar_usuario.add(jPanel5);
         jPanel5.setBounds(0, 0, 1290, 60);
 
-        tabla_usuarios.setModel(new javax.swing.table.DefaultTableModel(
+        tabla_usuariosnew.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-
+                "Id Usuario", "Nombre", "Usuario", "Apellido Paterno", "Apellido Materno", "ContraseÃ±a", "Email", "RFC", "Telefono", "Estado", "Fecha y Hora de registro"
             }
         ));
-        tabla_usuarios.setColorFilasForeground1(new java.awt.Color(0, 0, 0));
-        tabla_usuarios.setColorFilasForeground2(new java.awt.Color(0, 0, 0));
-        tabla_usuarios.setColorSelForeground(new java.awt.Color(0, 0, 0));
-        tabla_usuarios.setGrosorBordeFilas(0);
-        tabla_usuarios.setGrosorBordeHead(0);
-        tabla_usuarios.setMultipleSeleccion(false);
-        tabla_usuarios.setRowHeight(25);
-        jScrollPane3.setViewportView(tabla_usuarios);
+        tabla_usuariosnew.setColorFilasForeground1(new java.awt.Color(0, 0, 0));
+        tabla_usuariosnew.setColorFilasForeground2(new java.awt.Color(0, 0, 0));
+        tabla_usuariosnew.setColorSelForeground(new java.awt.Color(0, 0, 0));
+        tabla_usuariosnew.setGrosorBordeFilas(0);
+        tabla_usuariosnew.setGrosorBordeHead(0);
+        tabla_usuariosnew.setMultipleSeleccion(false);
+        tabla_usuariosnew.setRowHeight(25);
+        jScrollPane3.setViewportView(tabla_usuariosnew);
 
         agregar_usuario.add(jScrollPane3);
-        jScrollPane3.setBounds(30, 440, 1220, 220);
+        jScrollPane3.setBounds(10, 452, 1260, 210);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1288, Short.MAX_VALUE)
+            .addGap(0, 1298, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -3227,7 +3227,7 @@ JOptionPane.showMessageDialog(null, "Error en venta" + s.getMessage());
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 674, Short.MAX_VALUE)
+            .addGap(0, 686, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -3557,7 +3557,7 @@ JOptionPane.showMessageDialog(null, "Error en venta" + s.getMessage());
         jPanel13.setLayout(jPanel13Layout);
         jPanel13Layout.setHorizontalGroup(
             jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1288, Short.MAX_VALUE)
+            .addGap(0, 1298, Short.MAX_VALUE)
             .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel13Layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -3566,7 +3566,7 @@ JOptionPane.showMessageDialog(null, "Error en venta" + s.getMessage());
         );
         jPanel13Layout.setVerticalGroup(
             jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 674, Short.MAX_VALUE)
+            .addGap(0, 686, Short.MAX_VALUE)
             .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel13Layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -3716,9 +3716,9 @@ actualizarpro.setEnabled(false);
         }
         else{
             try{
-                int fila =tabla_usuarios.getSelectedRow();
+                int fila =tabla_usuariosnew.getSelectedRow();
                 
-                PreparedStatement ps = ca.prepareStatement ("UPDATE user SET nombre_usuario='"+user_UserUp.getText()+"',contraseña='"+user_ContraUp.getText()+"',email='"+user_EmailUp.getText()+"',Telefono='"+user_TelefonoUp.getText()+"'WHERE id_usuario='"+tabla_usuarios.getValueAt(fila,0).toString()+"'");
+                PreparedStatement ps = ca.prepareStatement ("UPDATE user SET nombre_usuario='"+user_UserUp.getText()+"',contraseña='"+user_ContraUp.getText()+"',email='"+user_EmailUp.getText()+"',Telefono='"+user_TelefonoUp.getText()+"'WHERE id_usuario='"+tabla_usuariosnew.getValueAt(fila,0).toString()+"'");
                 ps.executeUpdate();
               JOptionPane.showMessageDialog(null,"Datos modificados");
                 restaurarmodificacionesregistrousuario();            
@@ -4978,15 +4978,15 @@ autocompletar();
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void modificarusuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modificarusuariosActionPerformed
-        int fila =tabla_usuarios.getSelectedRow();
+        int fila =tabla_usuariosnew.getSelectedRow();
             // RetornaValorUpdateProducts();
       if(fila>=0){
              update_users.setEnabled(true);
              
-          user_UserUp.setText(tabla_usuarios.getValueAt(fila,2).toString());
-                user_ContraUp.setText(tabla_usuarios.getValueAt(fila,5).toString());
-         user_EmailUp.setText(tabla_usuarios.getValueAt(fila,6).toString());
-         user_TelefonoUp.setText(tabla_usuarios.getValueAt(fila,8).toString());
+          user_UserUp.setText(tabla_usuariosnew.getValueAt(fila,2).toString());
+                user_ContraUp.setText(tabla_usuariosnew.getValueAt(fila,5).toString());
+         user_EmailUp.setText(tabla_usuariosnew.getValueAt(fila,6).toString());
+         user_TelefonoUp.setText(tabla_usuariosnew.getValueAt(fila,8).toString());
          
       }
       else
@@ -4995,10 +4995,10 @@ autocompletar();
 
     private void eliminarusuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarusuariosActionPerformed
         //eliminar datos 
-        int fila = tabla_usuarios.getSelectedRow();
+        int fila = tabla_usuariosnew.getSelectedRow();
            if(fila>=0){
               try{
-            String sql = "update user set estado_activo_inactivo='"+estadoinactivo+"'  where id_usuario=" +tabla_usuarios.getValueAt(fila, 0);
+            String sql = "update user set estado_activo_inactivo='"+estadoinactivo+"'  where id_usuario=" +tabla_usuariosnew.getValueAt(fila, 0);
             sent = ca.createStatement();
             int n = sent.executeUpdate(sql);
             if(n>0){
@@ -5018,10 +5018,10 @@ autocompletar();
     private void activarusuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_activarusuarioActionPerformed
         // TODO add your handling code here:
         //Activando usuario 
-        int fila = tabla_usuarios.getSelectedRow();
+        int fila = tabla_usuariosnew.getSelectedRow();
            if(fila>=0){
               try{
-            String sql = "update user set estado_activo_inactivo='"+estadoactivo+"'  where id_usuario=" +tabla_usuarios.getValueAt(fila, 0);
+            String sql = "update user set estado_activo_inactivo='"+estadoactivo+"'  where id_usuario=" +tabla_usuariosnew.getValueAt(fila, 0);
             sent = ca.createStatement();
             int n = sent.executeUpdate(sql);
             if(n>0){
@@ -5337,7 +5337,7 @@ SI cc= new SI();
     private rojerusan.RSTableMetro tabla_agregar;
     private javax.swing.JPopupMenu tabla_articulos;
     private javax.swing.JPopupMenu tabla_proveedores;
-    private rojerusan.RSTableMetro tabla_usuarios;
+    public static rojerusan.RSTableMetro tabla_usuariosnew;
     private javax.swing.JPopupMenu tablausuarios;
     private rojerusan.RSTableMetro tablaventa;
     private javax.swing.JComboBox<String> tipodeproducto;
