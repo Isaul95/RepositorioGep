@@ -148,18 +148,17 @@ Statement sent;
       
     // CONSULTA DE PRODUCTOS MAS DENVIDOS            
      public void LlenarTablaproductosmasvendidos(JTable tablaD){ // recibe como parametro 
-         Object[] columna = new Object[4];  //crear un obj con el nombre de colunna
+         Object[] columna = new Object[3];  //crear un obj con el nombre de colunna
             Connection ca= cc.conexion(); // CONEXION DB 
               DefaultTableModel modeloT = new DefaultTableModel(); 
                   tablaD.setModel(modeloT);  // add modelo ala tabla 
         
         modeloT.addColumn("nombre_producto");
         modeloT.addColumn("cantidad");        
-        modeloT.addColumn("precio_unitario");
-        modeloT.addColumn("fecha_reporte");
+        modeloT.addColumn("fecha");
 
         try {
-         String sSQL = "SELECT `nombre_producto`, `cantidad`, `precio_unitario`, venta.fecha_reporte FROM descripcion_de_venta inner join venta on descripcion_de_venta.`id_venta` = venta.id_venta WHERE estado='Realizada' AND fecha_reporte = CURDATE() ORDER BY `cantidad` DESC";
+         String sSQL = "SELECT nombre_producto, SUM(cantidad), fecha FROM descripcion_de_venta WHERE estado='Realizada' AND fecha = '"+fecha()+"' GROUP BY nombre_producto DESC";
                  //"SELECT `nombre_producto`, `cantidad`, `precio_unitario`, venta.fecha_reporte FROM descripcion_de_venta inner join venta on descripcion_de_venta.`id_venta` = venta.id_venta WHERE fecha_reporte = CURDATE() ORDER BY `cantidad` DESC";
          
          
@@ -167,10 +166,9 @@ Statement sent;
         PreparedStatement ps = ca.prepareStatement(sSQL);       
         try (ResultSet rs = ps.executeQuery(sSQL)) {
             while (rs.next()) {
-                columna[0] = rs.getString("nombre_producto");
-                columna[1] = rs.getString("cantidad");
-                columna[2] = rs.getString("precio_unitario");
-                columna[3] = rs.getString("fecha_reporte");
+                columna[0] = rs.getString(1);
+                columna[1] = rs.getInt(2);
+                 columna[2] = rs.getString(3);
                 //columna[5] = rs.getString("nombre");                
                 modeloT.addRow(columna);
             }
@@ -186,7 +184,7 @@ Statement sent;
        int año= fecha_inicioestadis.getCalendar().get(Calendar.YEAR);
        int mes= fecha_inicioestadis.getCalendar().get(Calendar.MONTH)+1;
        int dia= fecha_inicioestadis.getCalendar().get(Calendar.DAY_OF_MONTH);
-       fechadesde= año+"-"+mes+"-"+dia;
+       fechadesde= año+"/"+mes+"/"+dia;
         return fechadesde;
     }
     
@@ -195,7 +193,7 @@ Statement sent;
        int año= fecha_finalestadis.getCalendar().get(Calendar.YEAR);
        int mes= fecha_finalestadis.getCalendar().get(Calendar.MONTH)+1;
        int dia= fecha_finalestadis.getCalendar().get(Calendar.DAY_OF_MONTH);
-       fechahasta= año+"-"+mes+"-"+dia;
+       fechahasta= año+"/"+mes+"/"+dia;
         return fechahasta;
     }
      
@@ -203,28 +201,25 @@ Statement sent;
       /*  ======   HACIENDO UNA CONSULTA MAS VENDIDOS RANGO DE FECHAs =======A*/          
           public void LlenarTablaBusquedproMasvendidosfecha(JTable tablaD, String fecha_inicioestadis, String fecha_finalestadis){ // recibe como parametro 
        
-               Object[] columna = new Object[4];  //crear un obj con el nombre de colunna
+               Object[] columna = new Object[3];  //crear un obj con el nombre de colunna
             Connection ca= cc.conexion(); // CONEXION DB 
               DefaultTableModel modeloT = new DefaultTableModel(); 
                   tablaD.setModel(modeloT);  // add modelo ala tabla 
         
         modeloT.addColumn("nombre_producto");
         modeloT.addColumn("cantidad");        
-        modeloT.addColumn("precio_unitario"); 
-        modeloT.addColumn("fecha_reporte");
+        modeloT.addColumn("fecha");
 
         try {
-         String sSQL = "SELECT `nombre_producto`, `cantidad`, `precio_unitario` , venta.fecha_reporte FROM descripcion_de_venta inner join venta on descripcion_de_venta.`id_venta` = venta.id_venta where venta.fecha_reporte BETWEEN '"+llenarfechadesde()+"' AND '"+llenarfechahasta()+"' ORDER BY `cantidad` DESC";
+         String sSQL = "SELECT nombre_producto, SUM(cantidad), fecha FROM descripcion_de_venta where estado= 'Realizada' and fecha BETWEEN '"+llenarfechadesde()+"' AND '"+llenarfechahasta()+"' GROUP BY  fecha, nombre_producto DESC";
          
                  
         PreparedStatement ps = ca.prepareStatement(sSQL);       
         try (ResultSet rs = ps.executeQuery(sSQL)) {
             while (rs.next()) {
-                columna[0] = rs.getString("nombre_producto");
-                columna[1] = rs.getString("cantidad");
-                columna[2] = rs.getString("precio_unitario");
-                columna[3] = rs.getString("fecha_reporte");
-                //columna[5] = rs.getString("nombre");                
+                columna[0] = rs.getString(1);
+                columna[1] = rs.getInt(2);
+                columna[2] = rs.getString(3);
                 modeloT.addRow(columna);
             }
         }
@@ -998,7 +993,7 @@ addpiezas=cantidadpolloenDB-(2*Float.parseFloat(cantidad.getText()));
                }
    else{
   try{ //la insersion a la tabla ventas
-                String sql = "INSERT INTO  descripcion_de_venta(id_producto,nombre_producto,cantidad,precio_unitario,importe,id_venta,estado)  VALUES (?,?,?,?,?,?,?)";
+                String sql = "INSERT INTO  descripcion_de_venta(id_producto,nombre_producto,cantidad,precio_unitario,importe,id_venta,estado, fecha)  VALUES (?,?,?,?,?,?,?,?)";
                 PreparedStatement pst = ca.prepareCall(sql); //hasta aqui vamos
                 id_producto(); 
                 pst.setInt(1,id_producto);
@@ -1015,6 +1010,8 @@ addpiezas=cantidadpolloenDB-(2*Float.parseFloat(cantidad.getText()));
                 id_max_de_venta();
                 pst.setInt(6,(id_de_la_venta_incrementable));
                 pst.setString(7, estadoenturno);
+                pst.setString(8, fecha());
+                
                 int a=pst.executeUpdate();
                 if(a>0){
                     descontardeinventario();
@@ -1123,41 +1120,13 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
                 public void status_cancelado(){
        id_max_de_venta();
         try{
-                    PreparedStatement ps = ca.prepareStatement ("UPDATE venta SET total='"+variablede0+"',porcentajedescontado='"+variablede0+"',descuento='"+variablede0+"',pago='"+variablede0+"',cambio='"+variablede0+"'WHERE id_venta='"+id_de_la_venta_incrementable+"'");
+                    PreparedStatement ps = ca.prepareStatement ("UPDATE venta SET total='"+variablede0+"',porcentajedescontado='"+variablede0+"',descuento='"+variablede0+"',pago='"+variablede0+"',cambio='"+variablede0+"',fecha_reporte='"+fecha()+"'WHERE id_venta='"+id_de_la_venta_incrementable+"'");
                 ps.executeUpdate();
         }
             catch (Exception e){
                JOptionPane.showMessageDialog(null, "Error en venta" + e.getMessage());
             }
         
-         // SEPARACION DE LA FECHA Y HORA DEL TIMESTAMP
-                 try{ 
-              sent  =(Statement)ca.createStatement();
-                                           rs = sent.executeQuery("select * from venta where id_venta= '"+id_de_la_venta_incrementable+"'");
-                                            while(rs.next()){
-                                                      fechayhora =rs.getString("fecha_y_hora");
-                                                      }
-                                            SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-        Date date = dt.parse(fechayhora);
-
-        SimpleDateFormat dt1 = new SimpleDateFormat("yyyy-MM-dd");
-        ///System.out.println(dt1.format(date));   ---------  dt1.format(date) es donde se almacena solo la fecha
-                                            fechasinhora=dt1.format(date);
-                 }//fin del try-fechasin
-                                                      catch (Exception e){
-                                                      }// fin del fechasin
-                
-
-                // FIN DE LA SEPARACION DE FECHA Y HORA DEL TIMESTAMP
-                
-                //INSERTANDO SOLO LA FECHA EN LA TABLA VENTA
-                 try{
-                            PreparedStatement ps1 = ca.prepareStatement ("UPDATE venta SET fecha_reporte='"+fechasinhora+"'WHERE id_venta='"+id_de_la_venta_incrementable+"'");
-                            ps1.executeUpdate();
-                        }catch(Exception s){
-JOptionPane.showMessageDialog(null, "Error en venta" + s.getMessage());
-                        }
-                  //INSERTANDO SOLO LA FECHA EN LA TABLA VENTA
         try{
             id_max_de_venta();
             id_max_de_venta();
@@ -3192,7 +3161,7 @@ JOptionPane.showMessageDialog(null, "Error en venta" + s.getMessage());
         );
 
         agregar_usuario.add(jPanel5);
-        jPanel5.setBounds(0, 0, 1290, 60);
+        jPanel5.setBounds(0, 0, 1288, 60);
 
         tabla_usuariosnew.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -3365,7 +3334,7 @@ JOptionPane.showMessageDialog(null, "Error en venta" + s.getMessage());
         );
 
         Administrador.add(jPanel24);
-        jPanel24.setBounds(0, 0, 1290, 60);
+        jPanel24.setBounds(0, 0, 1288, 60);
 
         jPanel26.setBackground(new java.awt.Color(0, 51, 102));
         jPanel26.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "   Ventas del Dia Canceladas   ", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Arial", 1, 18), new java.awt.Color(255, 255, 255))); // NOI18N
@@ -3437,7 +3406,7 @@ JOptionPane.showMessageDialog(null, "Error en venta" + s.getMessage());
         jPanel20.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel79.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel79.setText("Agregar Nuevo Usuario ");
+        jLabel79.setText("Estadisticas");
 
         jLabel88.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/portapapeles.png"))); // NOI18N
 
@@ -3489,7 +3458,7 @@ JOptionPane.showMessageDialog(null, "Error en venta" + s.getMessage());
         );
 
         producto_sobrante.add(jPanel20);
-        jPanel20.setBounds(0, 0, 1290, 71);
+        jPanel20.setBounds(0, 0, 1288, 66);
 
         jPanel25.setBackground(new java.awt.Color(0, 51, 102));
         jPanel25.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "    Productos mas Vendidos   ", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Arial", 1, 18), new java.awt.Color(255, 255, 255))); // NOI18N
@@ -4059,42 +4028,10 @@ public void datosparaelticketdeventa(){
                 ps.executeUpdate();
                 }
                 else{
-                    PreparedStatement ps = ca.prepareStatement ("UPDATE venta SET total='"+totalf+"',porcentajedescontado='"+variablede0+"',descuento='"+ variablede0+"',pago='"+pagocombobox.getText()+"',cambio='"+cambiocombobox.getText()+"'WHERE id_venta='"+id_de_la_venta_incrementable+"'");
+                    PreparedStatement ps = ca.prepareStatement ("UPDATE venta SET total='"+totalf+"',porcentajedescontado='"+variablede0+"',descuento='"+ variablede0+"',pago='"+pagocombobox.getText()+"',cambio='"+cambiocombobox.getText()+"',fecha_reporte='"+fecha()+"'WHERE id_venta='"+id_de_la_venta_incrementable+"'");
                ps.executeUpdate();
                 }
-                    
-                
-                // SEPARACION DE LA FECHA Y HORA DEL TIMESTAMP
-
-                 try{ 
-              sent  =(Statement)ca.createStatement();
-                                           rs = sent.executeQuery("select * from venta where id_venta= '"+id_de_la_venta_incrementable+"'");
-                                            while(rs.next()){
-                                                      fechayhora =rs.getString("fecha_y_hora");
-                                                      }
-                                            SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-        Date date = dt.parse(fechayhora);
-
-        SimpleDateFormat dt1 = new SimpleDateFormat("yyyy-MM-dd");
-        ///System.out.println(dt1.format(date));   ---------  dt1.format(date) es donde se almacena solo la fecha
-                                            fechasinhora=dt1.format(date);
-                 }//fin del try-fechasin
-                                                      catch (Exception e){
-                                                      }// fin del fechasin
-                
-
-                // FIN DE LA SEPARACION DE FECHA Y HORA DEL TIMESTAMP
-                
-                //INSERTANDO SOLO LA FECHA EN LA TABLA VENTA
-                
-                 try{
-                            PreparedStatement ps1 = ca.prepareStatement ("UPDATE venta SET fecha_reporte='"+fechasinhora+"'WHERE id_venta='"+id_de_la_venta_incrementable+"'");
-                            ps1.executeUpdate();
-                        }catch(Exception s){
-JOptionPane.showMessageDialog(null, "Error en venta" + s.getMessage());
-                        }
-                
-                //FIN DE INSERTAR LA FECHA EN LA TABLA VENTA
+               
          //ACTUALIZACION EN LA TABLA DESCRIPCION DE VENTA A REALIZADA
   
        id_max_de_venta();
@@ -4142,42 +4079,10 @@ autocompletar();
                 ps.executeUpdate();
                 }
                 else{
-                    PreparedStatement ps = ca.prepareStatement ("UPDATE venta SET total='"+totalf+"',porcentajedescontado='"+variablede0+"',descuento='"+ variablede0+"',pago='"+pagocombobox.getText()+"',cambio='"+cambiocombobox.getText()+"'WHERE id_venta='"+id_de_la_venta_incrementable+"'");
+                    PreparedStatement ps = ca.prepareStatement ("UPDATE venta SET total='"+totalf+"',porcentajedescontado='"+variablede0+"',descuento='"+ variablede0+"',pago='"+pagocombobox.getText()+"',cambio='"+cambiocombobox.getText()+"',fecha_reporte='"+fecha()+"'WHERE id_venta='"+id_de_la_venta_incrementable+"'");
                ps.executeUpdate();
                 }
-                    
-                
-                // SEPARACION DE LA FECHA Y HORA DEL TIMESTAMP
-
-                 try{ 
-              sent  =(Statement)ca.createStatement();
-                                           rs = sent.executeQuery("select * from venta where id_venta= '"+id_de_la_venta_incrementable+"'");
-                                            while(rs.next()){
-                                                      fechayhora =rs.getString("fecha_y_hora");
-                                                      }
-                                            SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-        Date date = dt.parse(fechayhora);
-
-        SimpleDateFormat dt1 = new SimpleDateFormat("yyyy-MM-dd");
-        ///System.out.println(dt1.format(date));   ---------  dt1.format(date) es donde se almacena solo la fecha
-                                            fechasinhora=dt1.format(date);
-                 }//fin del try-fechasin
-                                                      catch (Exception e){
-                                                      }// fin del fechasin
-                
-
-                // FIN DE LA SEPARACION DE FECHA Y HORA DEL TIMESTAMP
-                
-                //INSERTANDO SOLO LA FECHA EN LA TABLA VENTA
-                
-                 try{
-                            PreparedStatement ps1 = ca.prepareStatement ("UPDATE venta SET fecha_reporte='"+fechasinhora+"'WHERE id_venta='"+id_de_la_venta_incrementable+"'");
-                            ps1.executeUpdate();
-                        }catch(Exception s){
-JOptionPane.showMessageDialog(null, "Error en venta" + s.getMessage());
-                        }
-                
-                //FIN DE INSERTAR LA FECHA EN LA TABLA VENTA
+               
          //ACTUALIZACION EN LA TABLA DESCRIPCION DE VENTA A REALIZADA
   
        id_max_de_venta();
@@ -4231,8 +4136,8 @@ autocompletar();
        
         /* ******************** BOTON DE ADD NUEVO PRODUCTO PARA SU VENTA ******************** */
       primer_ventadelsistema(); // 482 - 498   Comprueba que ya haya por lo menos un id registrado en la base o en su defecto que no lo haya
- 
-        if(cantidad.getText().isEmpty()||searchforproducts.getSelectedItem().equals("")&&Integer.parseInt(cantidad.getText())!=0&&Integer.parseInt(cantidad.getText())>0){ // comprobación que los datos estén vacios
+ try{
+     if(cantidad.getText().isEmpty()||searchforproducts.getSelectedItem().equals("")||Integer.parseInt(cantidad.getText())==0){ // comprobación que los datos estén vacios
             JOptionPane.showMessageDialog(null,"Debe de llenar todos los campos de texto antes de guardar un nuevo articulo","                    AVISO",JOptionPane.INFORMATION_MESSAGE);
 
         }
@@ -4260,6 +4165,10 @@ autocompletar();
                 JOptionPane.showMessageDialog(null,"Las piezas disponibles en inventario son:  "+piezassuficientes);
             }
         }
+ }catch(Exception e){
+     JOptionPane.showMessageDialog(null, "No has seleccionado ningun producto, por favor verifica", "Aviso",   JOptionPane.WARNING_MESSAGE);
+            
+        }        
     }//GEN-LAST:event_agregar2ActionPerformed
 
     private void cantidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cantidadActionPerformed
@@ -5058,11 +4967,11 @@ autocompletar();
     }//GEN-LAST:event_proveedorarticuloActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        // TODO add your handling code here:
+                 cerrandosesion();
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        // TODO add your handling code here:
+ cerrandosesion();
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void buscarproductosfechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarproductosfechaActionPerformed
