@@ -360,7 +360,7 @@ public static String fecha(){ /* SE DECARA LA FECHA DEL SISTEMA */
             Logger.getLogger(SI_Inicio.class.getName()).log(Level.SEVERE, null, ex);
         }
            catch (NullPointerException  NPE){
-               JOptionPane.showMessageDialog(null, "Tranquilo(a), no has escrito correctamente el nombre de usuario ni la contraseña"+NPE,"Tomalo con calma",JOptionPane.WARNING_MESSAGE);
+               JOptionPane.showMessageDialog(null, "Tranquilo(a), no has escrito correctamente el nombre de usuario ni la contraseña \nINTENTE INICIAR SESION COMO ADMIN O REGISTRARSE","Tomalo con calma",JOptionPane.WARNING_MESSAGE);
   
                text_user.setText("");
                     pass_user.setText("");

@@ -1608,12 +1608,12 @@ JOptionPane.showMessageDialog(null, "Error en venta" + s.getMessage());
         Administrador = new javax.swing.JPanel();
         jPanel23 = new javax.swing.JPanel();
         jLabel63 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
         Ventasfortoday1 = new javax.swing.JLabel();
         VentasTotal = new javax.swing.JLabel();
         jLabel90 = new javax.swing.JLabel();
         jScrollPane6 = new javax.swing.JScrollPane();
         Jtable_ventasRealizadas = new rojerusan.RSTableMetro();
+        btnImprimirticket = new javax.swing.JButton();
         jPanel24 = new javax.swing.JPanel();
         jLabel93 = new javax.swing.JLabel();
         jLabel94 = new javax.swing.JLabel();
@@ -3251,13 +3251,6 @@ JOptionPane.showMessageDialog(null, "Error en venta" + s.getMessage());
         jLabel63.setText("Total de Ventas Realizadas:");
         jPanel23.add(jLabel63, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 20, 270, 50));
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
-            }
-        });
-        jPanel23.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 30, 100, 30));
-
         Ventasfortoday1.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
         Ventasfortoday1.setForeground(new java.awt.Color(255, 255, 255));
         Ventasfortoday1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -3302,6 +3295,17 @@ JOptionPane.showMessageDialog(null, "Error en venta" + s.getMessage());
         jScrollPane6.setViewportView(Jtable_ventasRealizadas);
 
         jPanel23.add(jScrollPane6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 1220, 210));
+
+        btnImprimirticket.setBackground(new java.awt.Color(0, 148, 204));
+        btnImprimirticket.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnImprimirticket.setForeground(new java.awt.Color(255, 255, 255));
+        btnImprimirticket.setText("Imprimir Tikect");
+        btnImprimirticket.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnImprimirticketActionPerformed(evt);
+            }
+        });
+        jPanel23.add(btnImprimirticket, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 20, 250, 50));
 
         Administrador.add(jPanel23);
         jPanel23.setBounds(10, 70, 1260, 290);
@@ -5053,25 +5057,6 @@ autocompletar();
         // TODO add your handling code here:
     }//GEN-LAST:event_proveedorarticuloActionPerformed
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-        // TOTAL DE LAS VENTAS REALIZADAS DESDE TABKE->VENTA  ==  SELECT SUM(`total`) FROM venta;
-
-        // CONSULTA DE  VENTAS CANCELADAS  =  SELECT * FROM `descripcion_de_venta` WHERE `estado` = 'Cancelada';
-
-        /*   VENTAS FREALIZADAS
-
-        SELECT venta.`id_venta`, `nombre_producto`,`cantidad`,`importe`, venta.total FROM `descripcion_de_venta`
-        inner join venta
-        on descripcion_de_venta.`id_venta` = venta.id_venta WHERE `estado` = 'Realizada';
-
-        */
-
-        /* VENTAS CANECLADASSS --->   SELECT venta.`id_venta`, `nombre_producto`,`cantidad`,`importe`, venta.total FROM `descripcion_de_venta`
-        inner join venta
-        on descripcion_de_venta.`id_venta` = venta.id_venta WHERE `estado` = 'Cancelada'; */
-
-    }//GEN-LAST:event_jTextField1ActionPerformed
-
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton8ActionPerformed
@@ -5087,6 +5072,26 @@ autocompletar();
 
         LlenarTablaBusquedproMasvendidosfecha(Jtable_productosmasven, llenarfechadesde(),llenarfechahasta());
     }//GEN-LAST:event_buscarproductosfechaActionPerformed
+
+    private void btnImprimirticketActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirticketActionPerformed
+        // BOTON EN LA  BUSKEDA DE IMPRIMIR TICKET
+      /*  int fila;
+        try {
+            fila = jTableGastosFechaActual.getSelectedRow();
+            if (fila == -1) {
+                JOptionPane.showMessageDialog(null, "No ha seleccionado ninguna fila.", "ERROR", JOptionPane.ERROR_MESSAGE);
+            } else {
+                int cantidad = (int) jTableGastosFechaActual.getValueAt(fila, 1);
+                String tipo = (String) jTableGastosFechaActual.getValueAt(fila, 2);
+                String total = (String) jTableGastosFechaActual.getValueAt(fila, 3);
+                JOptionPane.showMessageDialog(null, "Ticket Generado Exitosamente");
+                tikectGastos = new TikectGasto();
+                tikectGastos.TikectGasto(cantidad, tipo, total);
+            }
+        } catch (Exception ex) {
+        }                             */
+
+    }//GEN-LAST:event_btnImprimirticketActionPerformed
 
     /**
      * @param args the command line arguments
@@ -5156,6 +5161,7 @@ SI cc= new SI();
     public static javax.swing.JPanel agregar_usuario;
     private javax.swing.JButton agregarpro;
     public static javax.swing.JButton agregarpro1;
+    private javax.swing.JButton btnImprimirticket;
     private javax.swing.JButton buscarproductosfecha;
     private javax.swing.JLabel cambiocombobox;
     private javax.swing.JTextField cantidad;
@@ -5305,7 +5311,6 @@ SI cc= new SI();
     private javax.swing.JSeparator jSeparator6;
     private javax.swing.JSeparator jSeparator7;
     private javax.swing.JSeparator jSeparator9;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel labeldescuento;
     private javax.swing.JMenuItem modificar;
     private javax.swing.JMenuItem modificarusuarios;
