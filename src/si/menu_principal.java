@@ -159,7 +159,8 @@ Statement sent;
         modeloT.addColumn("fecha_reporte");
 
         try {
-         String sSQL = "SELECT `nombre_producto`, `cantidad`, `precio_unitario`, venta.fecha_reporte FROM descripcion_de_venta inner join venta on descripcion_de_venta.`id_venta` = venta.id_venta WHERE fecha_reporte = CURDATE() ORDER BY `cantidad` DESC";
+         String sSQL = "SELECT `nombre_producto`, `cantidad`, `precio_unitario`, venta.fecha_reporte FROM descripcion_de_venta inner join venta on descripcion_de_venta.`id_venta` = venta.id_venta WHERE estado='Realizada' AND fecha_reporte = CURDATE() ORDER BY `cantidad` DESC";
+                 //"SELECT `nombre_producto`, `cantidad`, `precio_unitario`, venta.fecha_reporte FROM descripcion_de_venta inner join venta on descripcion_de_venta.`id_venta` = venta.id_venta WHERE fecha_reporte = CURDATE() ORDER BY `cantidad` DESC";
          
          
                  
@@ -237,12 +238,12 @@ Statement sent;
    // CONSULTA DE VENTAS  REALIZADAS
             
      public void LlenarTablaventasRe(JTable tablaD){ // recibe como parametro 
-         Object[] columna = new Object[5];  //crear un obj con el nombre de colunna
+         Object[] columna = new Object[4];  //crear un obj con el nombre de colunna
             Connection ca= cc.conexion(); // CONEXION DB 
               DefaultTableModel modeloT = new DefaultTableModel(); 
                   tablaD.setModel(modeloT);  // add modelo ala tabla 
         
-        modeloT.addColumn("id_venta");    // add al modelo las 5 columnas con los nombrs TABLA
+       // modeloT.addColumn("id_venta");    // add al modelo las 5 columnas con los nombrs TABLA
         modeloT.addColumn("nombre_producto");
         modeloT.addColumn("cantidad");        
         modeloT.addColumn("importe");
@@ -250,7 +251,7 @@ Statement sent;
        //modeloT.addColumn("nombre");               
          /* SELECT `idegreso`, `tipo`, `total`, `fecha`, turno FROM `egreso` \n" + "  INNER JOIN empleado\n" + "WHERE egreso.`empleado_idempleado` = empleado.idempleado";     */    
         try {
-         String sSQL = "SELECT venta.`id_venta`, `nombre_producto`,`cantidad`,`importe`, venta.total FROM `descripcion_de_venta` \n" +
+         String sSQL = "SELECT `nombre_producto`,`cantidad`,`importe`, venta.total FROM `descripcion_de_venta` \n" +
 "  inner join venta \n" +
 "  on descripcion_de_venta.`id_venta` = venta.id_venta WHERE `estado` = 'Realizada' AND fecha_reporte = CURDATE()";
          
@@ -268,11 +269,11 @@ Statement sent;
         PreparedStatement ps = ca.prepareStatement(sSQL);       
         try (ResultSet rs = ps.executeQuery(sSQL)) {
             while (rs.next()) {
-                columna[0] = rs.getString("id_venta");  /* === LA DB == */
-                columna[1] = rs.getString("nombre_producto");
-                columna[2] = rs.getString("cantidad");
-                columna[3] = rs.getString("importe");
-                columna[4] = rs.getString("total");
+               // columna[0] = rs.getString("id_venta");  /* === LA DB == */
+                columna[0] = rs.getString("nombre_producto");
+                columna[1] = rs.getString("cantidad");
+                columna[2] = rs.getString("importe");
+                columna[3] = rs.getString("total");
                 //columna[5] = rs.getString("nombre");                
                 modeloT.addRow(columna);
             }
@@ -287,12 +288,12 @@ Statement sent;
       // CONSULTA DE TOTAL DE VENTAS CANCELADAS
             
      public void LlenarTablaventasCance(JTable tablaD){ // recibe como parametro 
-         Object[] columna = new Object[5];  //crear un obj con el nombre de colunna
+         Object[] columna = new Object[4];  //crear un obj con el nombre de colunna
             Connection ca= cc.conexion(); // CONEXION DB 
               DefaultTableModel modeloT = new DefaultTableModel(); 
                   tablaD.setModel(modeloT);  // add modelo ala tabla 
         
-        modeloT.addColumn("id_venta");    // add al modelo las 5 columnas con los nombrs TABLA
+       // modeloT.addColumn("id_venta");    // add al modelo las 5 columnas con los nombrs TABLA
         modeloT.addColumn("nombre_producto");
         modeloT.addColumn("cantidad");        
         modeloT.addColumn("importe");
@@ -300,7 +301,7 @@ Statement sent;
        //modeloT.addColumn("nombre");               
          /* SELECT `idegreso`, `tipo`, `total`, `fecha`, turno FROM `egreso` \n" + "  INNER JOIN empleado\n" + "WHERE egreso.`empleado_idempleado` = empleado.idempleado";     */    
         try {
-         String sSQL = "SELECT venta.`id_venta`, `nombre_producto`,`cantidad`,`importe`, venta.total FROM `descripcion_de_venta` \n" +
+         String sSQL = "SELECT  `nombre_producto`,`cantidad`,`importe`, venta.total FROM `descripcion_de_venta` \n" +
 "  inner join venta \n" +
 "  on descripcion_de_venta.`id_venta` = venta.id_venta WHERE `estado` = 'Cancelada' AND fecha_reporte = CURDATE()";
          
@@ -318,11 +319,11 @@ Statement sent;
         PreparedStatement ps = ca.prepareStatement(sSQL);       
         try (ResultSet rs = ps.executeQuery(sSQL)) {
             while (rs.next()) {
-                columna[0] = rs.getString("id_venta");  /* === LA DB == */
-                columna[1] = rs.getString("nombre_producto");
-                columna[2] = rs.getString("cantidad");
-                columna[3] = rs.getString("importe");
-                columna[4] = rs.getString("total");
+               // columna[0] = rs.getString("id_venta");  /* === LA DB == */
+                columna[0] = rs.getString("nombre_producto");
+                columna[1] = rs.getString("cantidad");
+                columna[2] = rs.getString("importe");
+                columna[3] = rs.getString("total");
                 //columna[5] = rs.getString("nombre");                
                 modeloT.addRow(columna);
             }
@@ -1425,8 +1426,6 @@ JOptionPane.showMessageDialog(null, "Error en venta" + s.getMessage());
         activarusuario = new javax.swing.JMenuItem();
         Proveedores9 = new javax.swing.JTabbedPane();
         venta = new javax.swing.JPanel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        tablaventa = new javax.swing.JTable();
         searchforproducts = new javax.swing.JComboBox<>();
         jLabel28 = new javax.swing.JLabel();
         s1 = new javax.swing.JButton();
@@ -1466,6 +1465,8 @@ JOptionPane.showMessageDialog(null, "Error en venta" + s.getMessage());
         total1 = new javax.swing.JLabel();
         total2 = new javax.swing.JLabel();
         jSeparator21 = new javax.swing.JSeparator();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tablaventa = new rojerusan.RSTableMetro();
         agregar_proveedor = new javax.swing.JPanel();
         agregarpro = new javax.swing.JButton();
         jLabel12 = new javax.swing.JLabel();
@@ -1476,8 +1477,6 @@ JOptionPane.showMessageDialog(null, "Error en venta" + s.getMessage());
         actualizarpro = new javax.swing.JButton();
         tipopro = new javax.swing.JTextField();
         despro = new javax.swing.JTextField();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        proveedores = new javax.swing.JTable();
         jPanel3 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
@@ -1535,10 +1534,10 @@ JOptionPane.showMessageDialog(null, "Error en venta" + s.getMessage());
         jLabel66 = new javax.swing.JLabel();
         jLabel69 = new javax.swing.JLabel();
         Reportes = new javax.swing.JButton();
+        jScrollPane9 = new javax.swing.JScrollPane();
+        proveedores = new rojerusan.RSTableMetro();
         agregar_articulo = new javax.swing.JPanel();
         agregar = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tabla_agregar = new javax.swing.JTable();
         mostrar = new javax.swing.JButton();
         update = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
@@ -1572,10 +1571,10 @@ JOptionPane.showMessageDialog(null, "Error en venta" + s.getMessage());
         ReportesProduct = new javax.swing.JButton();
         ReportesVenta = new javax.swing.JButton();
         jLabel59 = new javax.swing.JLabel();
+        jScrollPane8 = new javax.swing.JScrollPane();
+        tabla_agregar = new rojerusan.RSTableMetro();
         jPanel1 = new javax.swing.JPanel();
         agregar_usuario = new javax.swing.JPanel();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        tabla_usuarios = new javax.swing.JTable();
         jPanel7 = new javax.swing.JPanel();
         user_NombreUp = new javax.swing.JTextField();
         user_UserUp = new javax.swing.JTextField();
@@ -1603,26 +1602,28 @@ JOptionPane.showMessageDialog(null, "Error en venta" + s.getMessage());
         jLabel14 = new javax.swing.JLabel();
         jButton4 = new javax.swing.JButton();
         jLabel58 = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tabla_usuarios = new rojerusan.RSTableMetro();
         jPanel12 = new javax.swing.JPanel();
         Administrador = new javax.swing.JPanel();
         jPanel23 = new javax.swing.JPanel();
-        jScrollPane7 = new javax.swing.JScrollPane();
-        Jtable_ventasRealizadas = new javax.swing.JTable();
         jLabel63 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         Ventasfortoday1 = new javax.swing.JLabel();
         VentasTotal = new javax.swing.JLabel();
         jLabel90 = new javax.swing.JLabel();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        Jtable_ventasRealizadas = new rojerusan.RSTableMetro();
         jPanel24 = new javax.swing.JPanel();
         jLabel93 = new javax.swing.JLabel();
         jLabel94 = new javax.swing.JLabel();
         jButton8 = new javax.swing.JButton();
         jLabel95 = new javax.swing.JLabel();
         jPanel26 = new javax.swing.JPanel();
-        jScrollPane9 = new javax.swing.JScrollPane();
-        Jtable_ventasCanceladas = new javax.swing.JTable();
         jLabel62 = new javax.swing.JLabel();
         VentasTotalCance = new javax.swing.JLabel();
+        jScrollPane7 = new javax.swing.JScrollPane();
+        Jtable_ventasCanceladas = new rojerusan.RSTableMetro();
         jPanel13 = new javax.swing.JPanel();
         producto_sobrante = new javax.swing.JPanel();
         jPanel20 = new javax.swing.JPanel();
@@ -1706,22 +1707,6 @@ JOptionPane.showMessageDialog(null, "Error en venta" + s.getMessage());
 
         venta.setBackground(new java.awt.Color(0, 51, 102));
         venta.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        tablaventa.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        tablaventa.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {},
-                {},
-                {},
-                {}
-            },
-            new String [] {
-
-            }
-        ));
-        jScrollPane2.setViewportView(tablaventa);
-
-        venta.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 150, 1207, 242));
 
         searchforproducts.setEditable(true);
         searchforproducts.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
@@ -2039,6 +2024,25 @@ JOptionPane.showMessageDialog(null, "Error en venta" + s.getMessage());
         venta.add(total2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1080, 430, 140, 28));
         venta.add(jSeparator21, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 510, 140, 10));
 
+        tablaventa.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        tablaventa.setColorFilasForeground1(new java.awt.Color(0, 0, 0));
+        tablaventa.setColorFilasForeground2(new java.awt.Color(0, 0, 0));
+        tablaventa.setColorSelForeground(new java.awt.Color(0, 0, 0));
+        tablaventa.setGrosorBordeFilas(0);
+        tablaventa.setGrosorBordeHead(0);
+        tablaventa.setMultipleSeleccion(false);
+        tablaventa.setRowHeight(25);
+        jScrollPane2.setViewportView(tablaventa);
+
+        venta.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 160, 1200, 230));
+
         Proveedores9.addTab("      Venta      ", venta);
 
         agregar_proveedor.setBackground(new java.awt.Color(0, 51, 102));
@@ -2157,23 +2161,6 @@ JOptionPane.showMessageDialog(null, "Error en venta" + s.getMessage());
             }
         });
         agregar_proveedor.add(despro, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 390, 221, 30));
-
-        proveedores.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        proveedores.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {},
-                {},
-                {},
-                {}
-            },
-            new String [] {
-
-            }
-        ));
-        proveedores.setComponentPopupMenu(tabla_proveedores);
-        jScrollPane3.setViewportView(proveedores);
-
-        agregar_proveedor.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 460, 1240, 200));
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -2628,6 +2615,25 @@ JOptionPane.showMessageDialog(null, "Error en venta" + s.getMessage());
         });
         agregar_proveedor.add(Reportes, new org.netbeans.lib.awtextra.AbsoluteConstraints(1110, 340, 130, 97));
 
+        proveedores.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        proveedores.setColorFilasForeground1(new java.awt.Color(0, 0, 0));
+        proveedores.setColorFilasForeground2(new java.awt.Color(0, 0, 0));
+        proveedores.setColorSelForeground(new java.awt.Color(0, 0, 0));
+        proveedores.setGrosorBordeFilas(0);
+        proveedores.setGrosorBordeHead(0);
+        proveedores.setMultipleSeleccion(false);
+        proveedores.setRowHeight(25);
+        jScrollPane9.setViewportView(proveedores);
+
+        agregar_proveedor.add(jScrollPane9, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 440, 1240, 210));
+
         Proveedores9.addTab("      Nuevo  Proveedor      ", agregar_proveedor);
 
         agregar_articulo.setBackground(new java.awt.Color(0, 51, 102));
@@ -2649,25 +2655,6 @@ JOptionPane.showMessageDialog(null, "Error en venta" + s.getMessage());
             }
         });
         agregar_articulo.add(agregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 330, 95, 97));
-
-        tabla_agregar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        tabla_agregar.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {},
-                {},
-                {},
-                {}
-            },
-            new String [] {
-
-            }
-        ));
-        tabla_agregar.setComponentPopupMenu(tabla_articulos);
-        tabla_agregar.setSelectionBackground(new java.awt.Color(255, 255, 255));
-        tabla_agregar.setSelectionForeground(new java.awt.Color(0, 135, 204));
-        jScrollPane1.setViewportView(tabla_agregar);
-
-        agregar_articulo.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 460, 1240, 200));
 
         mostrar.setBackground(new java.awt.Color(0, 148, 204));
         mostrar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -2967,37 +2954,31 @@ JOptionPane.showMessageDialog(null, "Error en venta" + s.getMessage());
         jLabel59.setText("*Nota: No puedes agregar ningún producto a menos que ya exista 1 proveedor");
         agregar_articulo.add(jLabel59, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 60, 690, 40));
 
+        tabla_agregar.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        tabla_agregar.setColorFilasForeground1(new java.awt.Color(0, 0, 0));
+        tabla_agregar.setColorFilasForeground2(new java.awt.Color(0, 0, 0));
+        tabla_agregar.setColorSelForeground(new java.awt.Color(0, 0, 0));
+        tabla_agregar.setGrosorBordeFilas(0);
+        tabla_agregar.setGrosorBordeHead(0);
+        tabla_agregar.setMultipleSeleccion(false);
+        tabla_agregar.setRowHeight(25);
+        jScrollPane8.setViewportView(tabla_agregar);
+
+        agregar_articulo.add(jScrollPane8, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 460, 1190, 200));
+
         Proveedores9.addTab("      Nuevo Producto      ", agregar_articulo);
 
         agregar_usuario.setBackground(new java.awt.Color(0, 51, 102));
         agregar_usuario.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         agregar_usuario.setDoubleBuffered(false);
         agregar_usuario.setLayout(null);
-
-        tabla_usuarios.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        tabla_usuarios.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {},
-                {},
-                {},
-                {}
-            },
-            new String [] {
-
-            }
-        ));
-        tabla_usuarios.setComponentPopupMenu(tablausuarios);
-        tabla_usuarios.setSelectionBackground(new java.awt.Color(255, 255, 255));
-        tabla_usuarios.setSelectionForeground(new java.awt.Color(0, 135, 204));
-        tabla_usuarios.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tabla_usuariosMouseClicked(evt);
-            }
-        });
-        jScrollPane4.setViewportView(tabla_usuarios);
-
-        agregar_usuario.add(jScrollPane4);
-        jScrollPane4.setBounds(20, 460, 1240, 200);
 
         jPanel7.setBackground(new java.awt.Color(0, 51, 102));
         jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "  Datos a Modificar  ", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Arial", 1, 14), new java.awt.Color(255, 255, 255))); // NOI18N
@@ -3213,6 +3194,26 @@ JOptionPane.showMessageDialog(null, "Error en venta" + s.getMessage());
         agregar_usuario.add(jPanel5);
         jPanel5.setBounds(0, 0, 1290, 60);
 
+        tabla_usuarios.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        tabla_usuarios.setColorFilasForeground1(new java.awt.Color(0, 0, 0));
+        tabla_usuarios.setColorFilasForeground2(new java.awt.Color(0, 0, 0));
+        tabla_usuarios.setColorSelForeground(new java.awt.Color(0, 0, 0));
+        tabla_usuarios.setGrosorBordeFilas(0);
+        tabla_usuarios.setGrosorBordeHead(0);
+        tabla_usuarios.setMultipleSeleccion(false);
+        tabla_usuarios.setRowHeight(25);
+        jScrollPane3.setViewportView(tabla_usuarios);
+
+        agregar_usuario.add(jScrollPane3);
+        jScrollPane3.setBounds(30, 440, 1220, 220);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -3245,34 +3246,6 @@ JOptionPane.showMessageDialog(null, "Error en venta" + s.getMessage());
         jPanel23.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "   Ventas del Dia Realizadas   ", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Arial", 1, 18), new java.awt.Color(255, 255, 255))); // NOI18N
         jPanel23.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        Jtable_ventasRealizadas.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        Jtable_ventasRealizadas.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "id_venta", "nombre_producto", "cantidad", "importe", "total"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        Jtable_ventasRealizadas.setSelectionBackground(new java.awt.Color(255, 255, 255));
-        Jtable_ventasRealizadas.setSelectionForeground(new java.awt.Color(0, 135, 204));
-        Jtable_ventasRealizadas.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                Jtable_ventasRealizadasMouseClicked(evt);
-            }
-        });
-        jScrollPane7.setViewportView(Jtable_ventasRealizadas);
-
-        jPanel23.add(jScrollPane7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 1240, 200));
-
         jLabel63.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel63.setForeground(new java.awt.Color(255, 255, 255));
         jLabel63.setText("Total de Ventas Realizadas:");
@@ -3302,8 +3275,36 @@ JOptionPane.showMessageDialog(null, "Error en venta" + s.getMessage());
         jLabel90.setText("Total de Ventas del Dia : $");
         jPanel23.add(jLabel90, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, 280, 50));
 
+        Jtable_ventasRealizadas.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "nombre_producto", "cantidad", "importe", "total"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        Jtable_ventasRealizadas.setColorFilasForeground1(new java.awt.Color(0, 0, 0));
+        Jtable_ventasRealizadas.setColorFilasForeground2(new java.awt.Color(0, 0, 0));
+        Jtable_ventasRealizadas.setColorSelForeground(new java.awt.Color(0, 0, 0));
+        Jtable_ventasRealizadas.setGrosorBordeFilas(0);
+        Jtable_ventasRealizadas.setGrosorBordeHead(0);
+        Jtable_ventasRealizadas.setMultipleSeleccion(false);
+        Jtable_ventasRealizadas.setRowHeight(25);
+        Jtable_ventasRealizadas.setSelectionBackground(new java.awt.Color(204, 0, 51));
+        jScrollPane6.setViewportView(Jtable_ventasRealizadas);
+
+        jPanel23.add(jScrollPane6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 1220, 210));
+
         Administrador.add(jPanel23);
-        jPanel23.setBounds(0, 70, 1260, 290);
+        jPanel23.setBounds(10, 70, 1260, 290);
 
         jPanel24.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -3366,34 +3367,6 @@ JOptionPane.showMessageDialog(null, "Error en venta" + s.getMessage());
         jPanel26.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "   Ventas del Dia Canceladas   ", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Arial", 1, 18), new java.awt.Color(255, 255, 255))); // NOI18N
         jPanel26.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        Jtable_ventasCanceladas.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        Jtable_ventasCanceladas.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "id_venta", "nombre_producto", "cantidad", "importe", "total"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        Jtable_ventasCanceladas.setSelectionBackground(new java.awt.Color(255, 255, 255));
-        Jtable_ventasCanceladas.setSelectionForeground(new java.awt.Color(0, 135, 204));
-        Jtable_ventasCanceladas.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                Jtable_ventasCanceladasMouseClicked(evt);
-            }
-        });
-        jScrollPane9.setViewportView(Jtable_ventasCanceladas);
-
-        jPanel26.add(jScrollPane9, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 1240, 200));
-
         jLabel62.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel62.setForeground(new java.awt.Color(255, 0, 0));
         jLabel62.setText("Total de Ventas Cancelados :");
@@ -3405,8 +3378,35 @@ JOptionPane.showMessageDialog(null, "Error en venta" + s.getMessage());
         VentasTotalCance.setText("00");
         jPanel26.add(VentasTotalCance, new org.netbeans.lib.awtextra.AbsoluteConstraints(1110, 20, 120, 50));
 
+        Jtable_ventasCanceladas.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "nombre_producto", "cantidad", "importe", "total"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        Jtable_ventasCanceladas.setColorFilasForeground1(new java.awt.Color(0, 0, 0));
+        Jtable_ventasCanceladas.setColorFilasForeground2(new java.awt.Color(0, 0, 0));
+        Jtable_ventasCanceladas.setColorSelForeground(new java.awt.Color(0, 0, 0));
+        Jtable_ventasCanceladas.setGrosorBordeFilas(0);
+        Jtable_ventasCanceladas.setGrosorBordeHead(0);
+        Jtable_ventasCanceladas.setMultipleSeleccion(false);
+        Jtable_ventasCanceladas.setRowHeight(25);
+        jScrollPane7.setViewportView(Jtable_ventasCanceladas);
+
+        jPanel26.add(jScrollPane7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 1210, 210));
+
         Administrador.add(jPanel26);
-        jPanel26.setBounds(10, 390, 1260, 290);
+        jPanel26.setBounds(10, 370, 1260, 290);
 
         javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
         jPanel12.setLayout(jPanel12Layout);
@@ -3536,12 +3536,15 @@ JOptionPane.showMessageDialog(null, "Error en venta" + s.getMessage());
                 return canEdit [columnIndex];
             }
         });
+        Jtable_productosmasven.setColorFilasForeground1(new java.awt.Color(0, 0, 0));
+        Jtable_productosmasven.setColorFilasForeground2(new java.awt.Color(0, 0, 0));
         Jtable_productosmasven.setGrosorBordeFilas(0);
         Jtable_productosmasven.setGrosorBordeHead(0);
         Jtable_productosmasven.setMultipleSeleccion(false);
+        Jtable_productosmasven.setRowHeight(20);
         jScrollPane5.setViewportView(Jtable_productosmasven);
 
-        jPanel25.add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, 1220, 300));
+        jPanel25.add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 1230, 300));
 
         producto_sobrante.add(jPanel25);
         jPanel25.setBounds(10, 80, 1270, 510);
@@ -4191,7 +4194,8 @@ JOptionPane.showMessageDialog(null, "Error en venta" + s.getMessage());
                             block_unlock=true;
                                                 JOptionPane.showMessageDialog(null,"Venta realizada");
 descuentoactivo=false;
- LlenarTablaventasRe(Jtable_ventasRealizadas);
+ LlenarTablaventasRe(Jtable_ventasRealizadas); // CONTAR LAS VENTAS K SE REALIZARON
+ LlenarTablaproductosmasvendidos(Jtable_productosmasven); // CONTABIL.. PRODUCTOS MAS VENDIDOS SOLO LAS VENTAS REALIZADAS 
 autocompletar();
             }//fin del id del usuario
             catch(Exception w){
@@ -4316,11 +4320,6 @@ autocompletar();
     private void user_UserUpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_user_UserUpActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_user_UserUpActionPerformed
-
-    private void tabla_usuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabla_usuariosMouseClicked
-         // TABLA PARA QUE MANDE LOS VALORES A LOS PARAMETROS DE CADA TEXTO DE AREA        
-        
-    }//GEN-LAST:event_tabla_usuariosMouseClicked
 
     private void Reporte_userActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Reporte_userActionPerformed
                             // ***********************    REPORTE DE USUARIOS    **************************
@@ -5054,10 +5053,6 @@ autocompletar();
         // TODO add your handling code here:
     }//GEN-LAST:event_proveedorarticuloActionPerformed
 
-    private void Jtable_ventasRealizadasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Jtable_ventasRealizadasMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Jtable_ventasRealizadasMouseClicked
-
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TOTAL DE LAS VENTAS REALIZADAS DESDE TABKE->VENTA  ==  SELECT SUM(`total`) FROM venta;
 
@@ -5080,10 +5075,6 @@ autocompletar();
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton8ActionPerformed
-
-    private void Jtable_ventasCanceladasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Jtable_ventasCanceladasMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Jtable_ventasCanceladasMouseClicked
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
@@ -5143,8 +5134,8 @@ SI cc= new SI();
     private javax.swing.JLabel Fecha;
     private javax.swing.JLabel IblReloj;
     private rojerusan.RSTableMetro Jtable_productosmasven;
-    public static javax.swing.JTable Jtable_ventasCanceladas;
-    public static javax.swing.JTable Jtable_ventasRealizadas;
+    private rojerusan.RSTableMetro Jtable_ventasCanceladas;
+    private rojerusan.RSTableMetro Jtable_ventasRealizadas;
     public static javax.swing.JTabbedPane Proveedores9;
     private javax.swing.JLabel Reloj;
     private javax.swing.JButton Reporte_user;
@@ -5286,12 +5277,12 @@ SI cc= new SI();
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
+    private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator10;
@@ -5332,18 +5323,18 @@ SI cc= new SI();
     public static javax.swing.JTextField prorfc;
     public static javax.swing.JTextField protel;
     public static javax.swing.JComboBox<String> proveedorarticulo;
-    public static javax.swing.JTable proveedores;
+    private rojerusan.RSTableMetro proveedores;
     private javax.swing.JButton r;
     private javax.swing.JButton r1;
     private javax.swing.JButton s;
     private javax.swing.JButton s1;
     public static javax.swing.JComboBox<String> searchforproducts;
-    private javax.swing.JTable tabla_agregar;
+    private rojerusan.RSTableMetro tabla_agregar;
     private javax.swing.JPopupMenu tabla_articulos;
     private javax.swing.JPopupMenu tabla_proveedores;
-    public static javax.swing.JTable tabla_usuarios;
+    private rojerusan.RSTableMetro tabla_usuarios;
     private javax.swing.JPopupMenu tablausuarios;
-    private javax.swing.JTable tablaventa;
+    private rojerusan.RSTableMetro tablaventa;
     private javax.swing.JComboBox<String> tipodeproducto;
     public static javax.swing.JTextField tipopro;
     private javax.swing.JLabel total;
