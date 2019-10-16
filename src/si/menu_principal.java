@@ -32,6 +32,7 @@ import net.sf.jasperreports.engine.util.JRLoader;
 import net.sf.jasperreports.view.JasperViewer;
 import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 import javax.imageio.ImageIO;
+import javax.swing.JButton;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import si.Pantalla_Gastos;
@@ -61,7 +62,8 @@ Statement sent;
             String pollo_crudo="pollo crudo", estadoinactivo="Inactivo", estadoactivo="Activo", NoP="",estadocancelado= "Cancelada",estadorealizado="Realizada", estadoenturno="En turno", fechayhora="",fechasinhora="", usuarioname=SI_Inicio.text_user.getText(); //variable para obtener el nombre del usuario o administrador que ingreso al sistema
     public menu_principal() {
         initComponents();
-        
+        mostrarpolloscrudos();
+        mostrarpolloscocidos();
               ventaseneldiaREALIZADAS(); // PARA LA SUMA DE LOS TOTALES DE LA VENTA
                     totalventasxdia(); // CUANTAS VENTAS SE REALIZARON? 5 O 60 O XX
                     ventasCanceladas();
@@ -145,6 +147,64 @@ Statement sent;
                                                       }// fin del precio-catch del producto
     }
       
+    public void mostrarpolloscocidos(){
+           pollococido.setVisible(true);    //hace visible la tabla de proveedores 
+              DefaultTableModel modelo = new DefaultTableModel(); // Se crea un objeto para agregar los nombres de las columnas a la tabla
+    modelo.addColumn("Producto");
+    modelo.addColumn("Cantidad");
+     pollococido.setModel(modelo);  // Ya una vez asignado todos los nombres se le envia el objeto a la tabla proveedores
+    String []datos = new String[2];     //Un arreglo con la cantidad de nombres en las columnas
+    try {
+        id_max_de_venta();
+             sent = ca.createStatement();   
+                               //      rs = sent.executeQuery("select * from descripcion_de_venta where id_venta= '"+id_de_la_venta_incrementable+"'");
+                       rs= sent.executeQuery("select nombre_producto, cantidad  from  productos where tipo_producto= 'Cocidos' "); // se ejecuta la sentencia dentro del parentesis
+            while(rs.next()){        
+            datos[0]=rs.getString(1);
+            datos[1]=rs.getString(2);
+            modelo.addRow(datos); //se asigna el arreglo  entero a todo el objeto llamado modelo  
+            }
+           pollococido.setModel(modelo); // Se vuelve a enviar nuevamente el objeto modelo a la tabla
+        } catch (SQLException ex) {
+            Logger.getLogger(menu_principal.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "No se pudo mostrar ningun dato porque tu consulta está mal");
+        } 
+      }
+     public void mostrarpolloscrudos(){
+        pollocrudo.setDefaultRenderer(Object.class, new botonparalatabla());
+        
+        JButton agregar = new JButton();
+        
+           pollocrudo.setVisible(true);    //hace visible la tabla de proveedores 
+              DefaultTableModel modelo = new DefaultTableModel(); // Se crea un objeto para agregar los nombres de las columnas a la tabla
+       
+              modelo.addColumn("Producto");
+    modelo.addColumn("Cantidad");
+    modelo.addColumn("Agregar");
+     pollocrudo.setModel(modelo);  // Ya una vez asignado todos los nombres se le envia el objeto a la tabla proveedores
+    Object []datos = new Object[3];     //Un arreglo con la cantidad de nombres en las columnas
+    try {
+        id_max_de_venta();
+             sent = ca.createStatement();   
+                               //      rs = sent.executeQuery("select * from descripcion_de_venta where id_venta= '"+id_de_la_venta_incrementable+"'");
+                       rs= sent.executeQuery("select nombre_producto, cantidad  from  productos where tipo_producto= 'Pollos' "); // se ejecuta la sentencia dentro del parentesis
+            while(rs.next()){        
+            datos[0]=rs.getString(1);
+            datos[1]=rs.getString(2);
+            datos[2]=agregar;
+            
+            
+            modelo.addRow(datos); //se asigna el arreglo  entero a todo el objeto llamado modelo  
+            }
+            
+          
+            
+           pollocrudo.setModel(modelo); // Se vuelve a enviar nuevamente el objeto modelo a la tabla
+        } catch (SQLException ex) {
+            Logger.getLogger(menu_principal.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "No se pudo mostrar ningun dato porque tu consulta está mal");
+        } 
+      }
       
     // CONSULTA DE PRODUCTOS MAS DENVIDOS            
      public void LlenarTablaproductosmasvendidos(JTable tablaD){ // recibe como parametro 
@@ -810,7 +870,7 @@ addpiezas=cantidadpolloenDB-(2*Float.parseFloat(cantidad.getText()));
              void mostrartabladeventas(){ // solo muestra la tabla de proveedores 
          tablaventa.setVisible(true);    //hace visible la tabla de proveedores 
               DefaultTableModel modelo = new DefaultTableModel(); // Se crea un objeto para agregar los nombres de las columnas a la tabla
-    modelo.addColumn("Nombre del producto");
+    modelo.addColumn("Producto");
     modelo.addColumn("Cantidad");
     modelo.addColumn("Precio");
      modelo.addColumn("Importe");
@@ -1215,7 +1275,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
        int año= fechap.getCalendar().get(Calendar.YEAR);
        int mes= fechap.getCalendar().get(Calendar.MONTH)+1;
        int dia= fechap.getCalendar().get(Calendar.DAY_OF_MONTH);
-       fecha= año+"-"+mes+"-"+dia;
+       fecha= año+"/"+mes+"/"+dia;
         return fecha;
     }
     
@@ -1311,6 +1371,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
      modelo.addColumn("Fecha de caducidad");
     modelo.addColumn("Id del proveedor");
     modelo.addColumn("fecha y hora de registro");
+    
     tabla_agregar.setModel(modelo);
     String []datos = new String[8];    
     try {
@@ -1436,6 +1497,12 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         jSeparator21 = new javax.swing.JSeparator();
         jScrollPane2 = new javax.swing.JScrollPane();
         tablaventa = new rojerusan.RSTableMetro();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        pollocrudo = new rojerusan.RSTableMetro();
+        jScrollPane10 = new javax.swing.JScrollPane();
+        pollococido = new rojerusan.RSTableMetro();
+        jScrollPane11 = new javax.swing.JScrollPane();
+        extras = new rojerusan.RSTableMetro();
         agregar_proveedor = new javax.swing.JPanel();
         agregarpro = new javax.swing.JButton();
         jLabel12 = new javax.swing.JLabel();
@@ -2010,7 +2077,69 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         tablaventa.setRowHeight(25);
         jScrollPane2.setViewportView(tablaventa);
 
-        venta.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 160, 1200, 230));
+        venta.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 140, 610, 230));
+
+        pollocrudo.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        pollocrudo.setColorFilasForeground1(new java.awt.Color(0, 0, 0));
+        pollocrudo.setColorFilasForeground2(new java.awt.Color(0, 0, 0));
+        pollocrudo.setColorSelForeground(new java.awt.Color(0, 0, 0));
+        pollocrudo.setGrosorBordeFilas(0);
+        pollocrudo.setGrosorBordeHead(0);
+        pollocrudo.setMultipleSeleccion(false);
+        pollocrudo.setRowHeight(25);
+        jScrollPane4.setViewportView(pollocrudo);
+
+        venta.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 140, 190, 230));
+
+        pollococido.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        pollococido.setColorFilasForeground1(new java.awt.Color(0, 0, 0));
+        pollococido.setColorFilasForeground2(new java.awt.Color(0, 0, 0));
+        pollococido.setColorSelForeground(new java.awt.Color(0, 0, 0));
+        pollococido.setGrosorBordeFilas(0);
+        pollococido.setGrosorBordeHead(0);
+        pollococido.setMultipleSeleccion(false);
+        pollococido.setRowHeight(25);
+        pollococido.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                pollococidoMouseClicked(evt);
+            }
+        });
+        jScrollPane10.setViewportView(pollococido);
+
+        venta.add(jScrollPane10, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 140, 190, 230));
+
+        extras.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        extras.setColorFilasForeground1(new java.awt.Color(0, 0, 0));
+        extras.setColorFilasForeground2(new java.awt.Color(0, 0, 0));
+        extras.setColorSelForeground(new java.awt.Color(0, 0, 0));
+        extras.setGrosorBordeFilas(0);
+        extras.setGrosorBordeHead(0);
+        extras.setMultipleSeleccion(false);
+        extras.setRowHeight(25);
+        jScrollPane11.setViewportView(extras);
+
+        venta.add(jScrollPane11, new org.netbeans.lib.awtextra.AbsoluteConstraints(1090, 140, 190, 230));
 
         Proveedores9.addTab("      Venta      ", venta);
 
@@ -5002,6 +5131,45 @@ autocompletar();
 
     }//GEN-LAST:event_btnImprimirticketActionPerformed
 
+    private void pollococidoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pollococidoMouseClicked
+ 
+        /* ******************** BOTON DE ADD NUEVO PRODUCTO PARA SU VENTA ******************** */
+      primer_ventadelsistema(); // 482 - 498   Comprueba que ya haya por lo menos un id registrado en la base o en su defecto que no lo haya
+ try{
+     if(cantidad.getText().isEmpty()||searchforproducts.getSelectedItem().equals("")||Integer.parseInt(cantidad.getText())==0){ // comprobación que los datos estén vacios
+            JOptionPane.showMessageDialog(null,"Debe de llenar todos los campos de texto antes de guardar un nuevo articulo","                    AVISO",JOptionPane.INFORMATION_MESSAGE);
+
+        }
+        else{ //en caso que si estuviesen llenos
+            piezassuficientes();//verifica primero que haya las suficientes piezas para agregar un producto a la venta
+            if(suficientespiezas==true){ // si hay piezas suficientes para agregar el articulo a la venta
+                if(primerventa==0){ //indicando que aún no se crea la primer venta del sistema
+              get_id_usuario();        //entonces lo que haría despues será entrar al metodo get_id_usuario, para asignar una venta al usuario que haya iniciado sesión en la maquina
+              block_unlock=false;   //se desactiva la condicion que indica que ya no se agregue otro id venta ya que aún no se ha concluido la primer venta
+            comprobar_registro(); // esto es para agregar los productos a la tabla de descripcion de venta y 
+            // ya una vez concluida la venta el mismo metodo agregará dicho resultado total de la venta (a la tabla venta, bueno solo los resultados 
+            // correspondientes como lo son; total, pago y cambio)
+           }    
+           else if(primerventa!=0){ //indicando que por lo menos ya hay una venta
+        verificar_id_ingresadoalsistema(); //Comprueba que el usuario que acab de iniciar sesion coincida con el usuario anteriormente registrado
+
+               comprobar_venta_resagada();//579 - 605 verifica que no haya una venta cancelada
+              get_id_usuario();// 255 -280
+              block_unlock=false;   
+            comprobar_registro(); //608 - 691 
+           }
+            }
+            else{//No hay piezas suficientes para agregar el articulo a la venta
+                JOptionPane.showMessageDialog(null,"No tiene suficientes piezas para agregar el articulo:  "+searchforproducts.getSelectedItem()+JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null,"Las piezas disponibles en inventario son:  "+piezassuficientes);
+            }
+        }
+ }catch(Exception e){
+     JOptionPane.showMessageDialog(null, "No has seleccionado ningun producto, por favor verifica", "Aviso",   JOptionPane.WARNING_MESSAGE);
+            
+        }    
+    }//GEN-LAST:event_pollococidoMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -5082,6 +5250,7 @@ SI cc= new SI();
     private javax.swing.JMenuItem drop;
     private javax.swing.JMenuItem eliminar;
     private javax.swing.JMenuItem eliminarusuarios;
+    private rojerusan.RSTableMetro extras;
     private com.toedter.calendar.JDateChooser fecha_finalestadis;
     private com.toedter.calendar.JDateChooser fecha_inicioestadis;
     private com.toedter.calendar.JDateChooser fechap;
@@ -5192,8 +5361,11 @@ SI cc= new SI();
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
+    private javax.swing.JScrollPane jScrollPane10;
+    private javax.swing.JScrollPane jScrollPane11;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
@@ -5227,6 +5399,8 @@ SI cc= new SI();
     private javax.swing.JButton mostrar;
     public javax.swing.JTextField namep;
     public static javax.swing.JTextField pagocombobox;
+    private rojerusan.RSTableMetro pollococido;
+    private rojerusan.RSTableMetro pollocrudo;
     private javax.swing.JTextField preciop;
     public static javax.swing.JPanel producto_sobrante;
     public static javax.swing.JTextField proem;

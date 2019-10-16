@@ -130,7 +130,7 @@ public class Pantalla_Gastos extends javax.swing.JFrame {
        modeloT.addColumn("nombre");               
          /* SELECT `idegreso`, `tipo`, `total`, `fecha`, turno FROM `egreso` \n" + "  INNER JOIN empleado\n" + "WHERE egreso.`empleado_idempleado` = empleado.idempleado";     */    
         try {
-         String sSQL = "SELECT `idegreso`,`cantidad`,`tipo`,`fecha`,`total`,`nombre` FROM `egreso` INNER JOIN user WHERE egreso.`usuario` = user.id_usuario";
+         String sSQL = "SELECT `idegreso`,`cantidad`,`tipo`,`fecha`,`total`,`nombre` FROM `egreso` INNER JOIN user WHERE egreso.`usuario` = user.id_usuario and fecha = curdate()";
  // SELECT `idegreso`, `tipo`, `fecha`, `total`, nombre FROM `egreso` INNER JOIN user WHERE egreso.`id_usuario` = user.id_usuario
          
   // String sSQL = "SELECT * FROM egreso\n" + "WHERE fecha = '"+llenarfechadehoy()+"'";
