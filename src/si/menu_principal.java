@@ -109,6 +109,36 @@ Statement sent;
         return formatoFecha.format(fecha);
     }
     
+    public void llenartablaidventasconidrealizados(){
+        Object[] columna = new Object[3];  //crear un obj con el nombre de colunna
+            Connection ca= cc.conexion(); // CONEXION DB 
+              DefaultTableModel modeloT = new DefaultTableModel(); 
+                  idventas.setModel(modeloT);  // add modelo ala tabla 
+        
+       // modeloT.addColumn("id_venta");    // add al modelo las 5 columnas con los nombrs TABLA
+        modeloT.addColumn("Venta");
+        modeloT.addColumn("Total");        
+        modeloT.addColumn("Fecha");
+        
+       try {
+         String sSQL = "SELECT id_venta, total, fecha_y_hora FROM  venta WHERE fecha_reporte = CURDATE() AND total > 0";
+        
+        PreparedStatement ps = ca.prepareStatement(sSQL);       
+        try (ResultSet rs = ps.executeQuery(sSQL)) {
+            while (rs.next()) {
+               // columna[0] = rs.getString("id_venta");  /* === LA DB == */
+                columna[0] = rs.getString(1);
+                columna[1] = rs.getString(2);
+                columna[2] = rs.getString(3);                
+                modeloT.addRow(columna);
+            }
+        }
+        ps.close();
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(null, e, "Advertencia", JOptionPane.PLAIN_MESSAGE);    
+    }
+    }
+    
     public void ventaseneldiaREALIZADAS(){
         try{ // La suma de todos los importes
     
@@ -293,43 +323,28 @@ Statement sent;
    // CONSULTA DE VENTAS  REALIZADAS
             
      public void LlenarTablaventasRe(JTable tablaD){ // recibe como parametro 
-         Object[] columna = new Object[4];  //crear un obj con el nombre de colunna
+         Object[] columna = new Object[3];  //crear un obj con el nombre de colunna
             Connection ca= cc.conexion(); // CONEXION DB 
               DefaultTableModel modeloT = new DefaultTableModel(); 
                   tablaD.setModel(modeloT);  // add modelo ala tabla 
         
        // modeloT.addColumn("id_venta");    // add al modelo las 5 columnas con los nombrs TABLA
-        modeloT.addColumn("nombre_producto");
-        modeloT.addColumn("cantidad");        
+        modeloT.addColumn("Producto");
+        modeloT.addColumn("Cantidad");        
         modeloT.addColumn("importe");
-        modeloT.addColumn("total");
+        
        //modeloT.addColumn("nombre");               
          /* SELECT `idegreso`, `tipo`, `total`, `fecha`, turno FROM `egreso` \n" + "  INNER JOIN empleado\n" + "WHERE egreso.`empleado_idempleado` = empleado.idempleado";     */    
         try {
-         String sSQL = "SELECT `nombre_producto`,`cantidad`,`importe`, venta.total FROM `descripcion_de_venta` \n" +
-"  inner join venta \n" +
-"  on descripcion_de_venta.`id_venta` = venta.id_venta WHERE `estado` = 'Realizada' AND fecha_reporte = CURDATE()";
-         
-         
-         /*   VENTAS FREALIZADAS
+         String sSQL = "SELECT nombre_producto, SUM(cantidad), SUM(importe) FROM  descripcion_de_venta WHERE estado = 'Realizada' AND fecha = CURDATE() GROUP BY nombre_producto";
         
-      SELECT venta.`id_venta`, `nombre_producto`,`cantidad`,`importe`, venta.total FROM `descripcion_de_venta` 
-  inner join venta 
-  on descripcion_de_venta.`id_venta` = venta.id_venta WHERE `estado` = 'Realizada';
-                
-        */
-  
-         
-         //   "SELECT *FROM egreso\n" + "WHERE fecha = '2019-07-20'";            
         PreparedStatement ps = ca.prepareStatement(sSQL);       
         try (ResultSet rs = ps.executeQuery(sSQL)) {
             while (rs.next()) {
                // columna[0] = rs.getString("id_venta");  /* === LA DB == */
-                columna[0] = rs.getString("nombre_producto");
-                columna[1] = rs.getString("cantidad");
-                columna[2] = rs.getString("importe");
-                columna[3] = rs.getString("total");
-                //columna[5] = rs.getString("nombre");                
+                columna[0] = rs.getString(1);
+                columna[1] = rs.getString(2);
+                columna[2] = rs.getString(3);                
                 modeloT.addRow(columna);
             }
         }
@@ -627,10 +642,12 @@ Statement sent;
     }
 
            public void descontardeinventario(){
+               JOptionPane.showMessageDialog(null, "NOMRBE"+searchforproducts.getSelectedItem().toString());
+               id_producto();
             try{// el id del usuario
                 try{
                        sent  = (Statement)ca.createStatement();
-                                           rs = sent.executeQuery("select * from productos where id_producto='"+id_producto+"' and fecha= '"+fecha()+"'");
+                                           rs = sent.executeQuery("select * from productos where id_producto='"+id_producto+"'");
                                             while(rs.next()){
                                                       productos =Integer.parseInt(rs.getString("cantidad"));
                                                       }
@@ -638,7 +655,7 @@ Statement sent;
                 }
                 productos=productos-Integer.parseInt(cantidad.getText());
                 id_producto();
-                 PreparedStatement ps = ca.prepareStatement ("UPDATE productos SET cantidad='"+productos+"'WHERE id_producto='"+id_producto+"' and fecha= '"+fecha()+"'");
+                 PreparedStatement ps = ca.prepareStatement ("UPDATE productos SET cantidad='"+productos+"'WHERE id_producto='"+id_producto+"'");
                 ps.executeUpdate();
                  }//fin del id del usuario
                  catch(Exception w){
@@ -657,7 +674,7 @@ Pantalla_Gastos ven = new Pantalla_Gastos();
     
             try{
                        sent  = (Statement)ca.createStatement();
-                                           rs = sent.executeQuery("select * from productos  where nombre_producto='"+ven.piezas[i]+"' and fecha= '"+fecha()+"'");
+                                           rs = sent.executeQuery("select * from productos  where nombre_producto='"+ven.piezas[i]+"'");
                                             while(rs.next()){
                                                       name =rs.getString("nombre_producto");
                                                      cantidadpolloenDB =rs.getInt("cantidad"); // piezas en la db
@@ -671,7 +688,7 @@ Pantalla_Gastos ven = new Pantalla_Gastos();
                    ven.piezas[i].equals("Patas")){
 addpiezas=cantidadpolloenDB-(2*Float.parseFloat(cantidad.getText()));
             
-               PreparedStatement ps = ca.prepareStatement ("UPDATE productos SET cantidad='"+addpiezas+"'WHERE nombre_producto='"+ven.piezas[i]+"' and fecha= '"+fecha()+"'");
+               PreparedStatement ps = ca.prepareStatement ("UPDATE productos SET cantidad='"+addpiezas+"'WHERE nombre_producto='"+ven.piezas[i]+"'");
                int ty = ps.executeUpdate();
                 
                  if(ty>0){
@@ -686,7 +703,7 @@ addpiezas=cantidadpolloenDB-(2*Float.parseFloat(cantidad.getText()));
                    ven.piezas[i].equals("Molleja")){
        
          addpiezas=cantidadpolloenDB-Float.parseFloat(cantidad.getText());
-          PreparedStatement ps = ca.prepareStatement ("UPDATE productos SET cantidad='"+addpiezas+"'WHERE nombre_producto='"+ven.piezas[i]+"' and fecha= '"+fecha()+"'");
+          PreparedStatement ps = ca.prepareStatement ("UPDATE productos SET cantidad='"+addpiezas+"'WHERE nombre_producto='"+ven.piezas[i]+"' ");
                int ty = ps.executeUpdate();
                 
                  if(ty>0){
@@ -719,7 +736,7 @@ addpiezas=cantidadpolloenDB-(2*Float.parseFloat(cantidad.getText()));
        //AGREGAR EL TRY DE LA CANTIDAD EN VENTA
              
              id_max_de_venta();
-           
+           id_producto();
             try{// 
                 //Cantidad en venta
                 try{
@@ -734,7 +751,7 @@ addpiezas=cantidadpolloenDB-(2*Float.parseFloat(cantidad.getText()));
                     
                 }
                sent  = (Statement)ca.createStatement();
-                                           rs = sent.executeQuery("select * from productos  where nombre_producto='"+ven.piezas[i]+"' and fecha= '"+fecha()+"'");
+                                           rs = sent.executeQuery("select * from productos  where nombre_producto='"+ven.piezas[i]+"' ");
                                             while(rs.next()){
                                                       name =rs.getString("nombre_producto");
                                                      cantidadpolloenDB =rs.getInt("cantidad"); // piezas en la db
@@ -749,7 +766,7 @@ addpiezas=cantidadpolloenDB-(2*Float.parseFloat(cantidad.getText()));
                    
                       addpiezas=cantidadpolloenDB+(2*cantidadenventa);
                
-               PreparedStatement ps = ca.prepareStatement ("UPDATE productos SET cantidad='"+addpiezas+"'WHERE nombre_producto='"+ven.piezas[i]+"' and fecha= '"+fecha()+"'");
+               PreparedStatement ps = ca.prepareStatement ("UPDATE productos SET cantidad='"+addpiezas+"'WHERE nombre_producto='"+ven.piezas[i]+"'");
                int ty = ps.executeUpdate();
                 
                  if(ty>0){
@@ -763,7 +780,7 @@ addpiezas=cantidadpolloenDB-(2*Float.parseFloat(cantidad.getText()));
                    ven.piezas[i].equals("Cabeza")||
                    ven.piezas[i].equals("Molleja")){
         addpiezas=cantidadpolloenDB+cantidadenventa;
-         PreparedStatement ps = ca.prepareStatement ("UPDATE productos SET cantidad='"+addpiezas+"'WHERE nombre_producto='"+ven.piezas[i]+"' and fecha= '"+fecha()+"'");
+         PreparedStatement ps = ca.prepareStatement ("UPDATE productos SET cantidad='"+addpiezas+"'WHERE nombre_producto='"+ven.piezas[i]+"'");
                int ty = ps.executeUpdate();
                 
                  if(ty>0){
@@ -948,12 +965,14 @@ addpiezas=cantidadpolloenDB-(2*Float.parseFloat(cantidad.getText()));
              public void descuentodepollo(){
                  minimodelaspiezasdepollocrudoquesoninparesentablaproductos();
                  minimodelaspiezasdepollocrudoquesonparesentablaproductos();
+                 pollocrudoeninventario();
                  if(minimodelaspiezasinparesdepollocrudoeninventario==0){
                      actualizarpollocrudoeninventario(minimodelaspiezasinparesdepollocrudoeninventario);
                  }
                  else if(minimodelaspiezasparesdepollocrudoeninventario==1){
                       actualizarpollocrudoeninventario(0);
                  }
+                 
                  else if(pollo_crudoeninventario!=minimodelaspiezasinparesdepollocrudoeninventario&&minimodelaspiezasparesdepollocrudoeninventario==(minimodelaspiezasinparesdepollocrudoeninventario*2)){
                       actualizarpollocrudoeninventario(minimodelaspiezasinparesdepollocrudoeninventario);
                  }else if(minimodelaspiezasinparesdepollocrudoeninventario!=(minimodelaspiezasparesdepollocrudoeninventario/2)){
@@ -976,7 +995,17 @@ addpiezas=cantidadpolloenDB-(2*Float.parseFloat(cantidad.getText()));
                            }
              }
              
-     
+     public void pollocrudoeninventario(){
+              String consulta="select cantidad from productos WHERE nombre_producto = 'pollo crudo' ";
+              try{
+                     sent  = (Statement)ca.createStatement();
+                                             rs = sent.executeQuery(consulta);
+                                       while(rs.next()){
+                                                      pollo_crudoeninventario =rs.getFloat(1);//Esto muestra la cantidad actual para compararlo
+                                                        }
+                 }catch(Exception e){  
+                }
+          }
               public void minimodelaspiezasdepollocrudoquesoninparesentablaproductos(){
               String consulta="select MIN(cantidad) from productos WHERE nombre_producto IN('Huacal', 'Cadera', 'Cabeza', 'Molleja')";
               try{
@@ -1649,7 +1678,8 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         jLabel90 = new javax.swing.JLabel();
         jScrollPane6 = new javax.swing.JScrollPane();
         Jtable_ventasRealizadas = new rojerusan.RSTableMetro();
-        btnImprimirticket = new javax.swing.JButton();
+        jScrollPane12 = new javax.swing.JScrollPane();
+        idventas = new rojerusan.RSTableMetro();
         jPanel24 = new javax.swing.JPanel();
         jLabel93 = new javax.swing.JLabel();
         jLabel94 = new javax.swing.JLabel();
@@ -3392,18 +3422,26 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         Jtable_ventasRealizadas.setSelectionBackground(new java.awt.Color(204, 0, 51));
         jScrollPane6.setViewportView(Jtable_ventasRealizadas);
 
-        jPanel23.add(jScrollPane6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 1220, 210));
+        jPanel23.add(jScrollPane6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 350, 210));
 
-        btnImprimirticket.setBackground(new java.awt.Color(0, 148, 204));
-        btnImprimirticket.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        btnImprimirticket.setForeground(new java.awt.Color(255, 255, 255));
-        btnImprimirticket.setText("Imprimir Tikect");
-        btnImprimirticket.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnImprimirticketActionPerformed(evt);
+        idventas.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
             }
-        });
-        jPanel23.add(btnImprimirticket, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 20, 250, 50));
+        ));
+        idventas.setColorFilasForeground1(new java.awt.Color(0, 0, 0));
+        idventas.setColorFilasForeground2(new java.awt.Color(0, 0, 0));
+        idventas.setColorSelForeground(new java.awt.Color(0, 0, 0));
+        idventas.setGrosorBordeFilas(0);
+        idventas.setGrosorBordeHead(0);
+        idventas.setMultipleSeleccion(false);
+        idventas.setRowHeight(25);
+        jScrollPane12.setViewportView(idventas);
+
+        jPanel23.add(jScrollPane12, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 70, 610, 210));
 
         Administrador.add(jPanel23);
         jPanel23.setBounds(10, 70, 1260, 290);
@@ -5111,63 +5149,8 @@ autocompletar();
         LlenarTablaBusquedproMasvendidosfecha(Jtable_productosmasven, llenarfechadesde(),llenarfechahasta());
     }//GEN-LAST:event_buscarproductosfechaActionPerformed
 
-    private void btnImprimirticketActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirticketActionPerformed
-        // BOTON EN LA  BUSKEDA DE IMPRIMIR TICKET
-      /*  int fila;
-        try {
-            fila = jTableGastosFechaActual.getSelectedRow();
-            if (fila == -1) {
-                JOptionPane.showMessageDialog(null, "No ha seleccionado ninguna fila.", "ERROR", JOptionPane.ERROR_MESSAGE);
-            } else {
-                int cantidad = (int) jTableGastosFechaActual.getValueAt(fila, 1);
-                String tipo = (String) jTableGastosFechaActual.getValueAt(fila, 2);
-                String total = (String) jTableGastosFechaActual.getValueAt(fila, 3);
-                JOptionPane.showMessageDialog(null, "Ticket Generado Exitosamente");
-                tikectGastos = new TikectGasto();
-                tikectGastos.TikectGasto(cantidad, tipo, total);
-            }
-        } catch (Exception ex) {
-        }                             */
-
-    }//GEN-LAST:event_btnImprimirticketActionPerformed
-
     private void pollococidoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pollococidoMouseClicked
  
-        /* ******************** BOTON DE ADD NUEVO PRODUCTO PARA SU VENTA ******************** */
-      primer_ventadelsistema(); // 482 - 498   Comprueba que ya haya por lo menos un id registrado en la base o en su defecto que no lo haya
- try{
-     if(cantidad.getText().isEmpty()||searchforproducts.getSelectedItem().equals("")||Integer.parseInt(cantidad.getText())==0){ // comprobación que los datos estén vacios
-            JOptionPane.showMessageDialog(null,"Debe de llenar todos los campos de texto antes de guardar un nuevo articulo","                    AVISO",JOptionPane.INFORMATION_MESSAGE);
-
-        }
-        else{ //en caso que si estuviesen llenos
-            piezassuficientes();//verifica primero que haya las suficientes piezas para agregar un producto a la venta
-            if(suficientespiezas==true){ // si hay piezas suficientes para agregar el articulo a la venta
-                if(primerventa==0){ //indicando que aún no se crea la primer venta del sistema
-              get_id_usuario();        //entonces lo que haría despues será entrar al metodo get_id_usuario, para asignar una venta al usuario que haya iniciado sesión en la maquina
-              block_unlock=false;   //se desactiva la condicion que indica que ya no se agregue otro id venta ya que aún no se ha concluido la primer venta
-            comprobar_registro(); // esto es para agregar los productos a la tabla de descripcion de venta y 
-            // ya una vez concluida la venta el mismo metodo agregará dicho resultado total de la venta (a la tabla venta, bueno solo los resultados 
-            // correspondientes como lo son; total, pago y cambio)
-           }    
-           else if(primerventa!=0){ //indicando que por lo menos ya hay una venta
-        verificar_id_ingresadoalsistema(); //Comprueba que el usuario que acab de iniciar sesion coincida con el usuario anteriormente registrado
-
-               comprobar_venta_resagada();//579 - 605 verifica que no haya una venta cancelada
-              get_id_usuario();// 255 -280
-              block_unlock=false;   
-            comprobar_registro(); //608 - 691 
-           }
-            }
-            else{//No hay piezas suficientes para agregar el articulo a la venta
-                JOptionPane.showMessageDialog(null,"No tiene suficientes piezas para agregar el articulo:  "+searchforproducts.getSelectedItem()+JOptionPane.ERROR_MESSAGE);
-                JOptionPane.showMessageDialog(null,"Las piezas disponibles en inventario son:  "+piezassuficientes);
-            }
-        }
- }catch(Exception e){
-     JOptionPane.showMessageDialog(null, "No has seleccionado ningun producto, por favor verifica", "Aviso",   JOptionPane.WARNING_MESSAGE);
-            
-        }    
     }//GEN-LAST:event_pollococidoMouseClicked
 
     /**
@@ -5238,7 +5221,6 @@ SI cc= new SI();
     public static javax.swing.JPanel agregar_usuario;
     private javax.swing.JButton agregarpro;
     public static javax.swing.JButton agregarpro1;
-    private javax.swing.JButton btnImprimirticket;
     private javax.swing.JButton buscarproductosfecha;
     private javax.swing.JLabel cambiocombobox;
     private javax.swing.JTextField cantidad;
@@ -5255,6 +5237,7 @@ SI cc= new SI();
     private com.toedter.calendar.JDateChooser fecha_inicioestadis;
     private com.toedter.calendar.JDateChooser fechap;
     private javax.swing.Box.Filler filler1;
+    private rojerusan.RSTableMetro idventas;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -5363,6 +5346,7 @@ SI cc= new SI();
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane10;
     private javax.swing.JScrollPane jScrollPane11;
+    private javax.swing.JScrollPane jScrollPane12;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
