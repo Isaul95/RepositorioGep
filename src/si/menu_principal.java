@@ -75,9 +75,14 @@ Statement sent;
                   LlenarTablaventasRe(Jtable_ventasRealizadas);
                   LlenarTablaventasCance(Jtable_ventasCanceladas);
                   LlenarTablaproductosmasvendidos(Jtable_productosmasven);
+<<<<<<< HEAD
                   LlenarTablaproductosExistenciaInven(Jtable_productosExistemcias);
                   TablallenadoparaEntradas(Jtable_ProductosEntradas);
         
+=======
+                  
+        llenartablaidventasconidrealizados();
+>>>>>>> origin/master
       //  this.setExtendedState(MAXIMIZED_BOTH);// MAXIMIZED_BOTH=6 se puede asi o pornerle directo 6 para k sea FULLSCREEN TODA LA PANTALLA SE ADAPTA
         
         setIconImage(getIconImage());  //La variable que le manda la imagen (DataMax) al proyecto 
@@ -124,7 +129,7 @@ Statement sent;
         Object[] columna = new Object[3];  //crear un obj con el nombre de colunna
             Connection ca= cc.conexion(); // CONEXION DB 
               DefaultTableModel modeloT = new DefaultTableModel(); 
-                  idventas.setModel(modeloT);  // add modelo ala tabla 
+                  ventasporid.setModel(modeloT);  // add modelo ala tabla 
         
        // modeloT.addColumn("id_venta");    // add al modelo las 5 columnas con los nombrs TABLA
         modeloT.addColumn("Venta");
@@ -132,8 +137,9 @@ Statement sent;
         modeloT.addColumn("Fecha");
         
        try {
-         String sSQL = "SELECT id_venta, total, fecha_y_hora FROM  venta WHERE fecha_reporte = CURDATE() AND total > 0";
-        
+           
+                 String sSQL = "SELECT id_venta, total, fecha_reporte FROM venta WHERE total>0 AND fecha_reporte = CURDATE() ";
+             
         PreparedStatement ps = ca.prepareStatement(sSQL);       
         try (ResultSet rs = ps.executeQuery(sSQL)) {
             while (rs.next()) {
@@ -142,6 +148,7 @@ Statement sent;
                 columna[1] = rs.getString(2);
                 columna[2] = rs.getString(3);                
                 modeloT.addRow(columna);
+              
             }
         }
         ps.close();
@@ -156,7 +163,7 @@ Statement sent;
                                          Statement sent  =(Statement)ca.createStatement();
                                          ResultSet  rs = sent.executeQuery("select SUM(total) from venta where fecha_reporte= '"+fechaventasrealizadas()+"'");
                                             while(rs.next()){
-                                                      ventasdeldia =Float.parseFloat(rs.getString("SUM(total)"));
+                                                      ventasdeldia =rs.getFloat(1);
                                                       }
                                                       }//fin del try-precio del producto
                                                       catch (Exception e){
@@ -245,9 +252,15 @@ Statement sent;
               DefaultTableModel modeloTE = new DefaultTableModel(); 
                   tablaD.setModel(modeloTE);  // add modelo ala tabla 
         
+<<<<<<< HEAD
         modeloTE.addColumn("nombre_producto");
         modeloTE.addColumn("cantidad");        
         modeloTE.addColumn("fecha");
+=======
+        modeloT.addColumn("Nombre");
+        modeloT.addColumn("Piezas");        
+        modeloT.addColumn("Fecha");
+>>>>>>> origin/master
 
         try {
          String sSQL = "SELECT nombre_producto, SUM(cantidad), fecha FROM descripcion_de_venta WHERE estado='Realizada' AND fecha = '"+fecha()+"' GROUP BY nombre_producto DESC";
@@ -369,9 +382,9 @@ Statement sent;
               DefaultTableModel modeloT = new DefaultTableModel(); 
                   tablaD.setModel(modeloT);  // add modelo ala tabla 
         
-        modeloT.addColumn("nombre_producto");
-        modeloT.addColumn("cantidad");        
-        modeloT.addColumn("fecha");
+        modeloT.addColumn("Nombre");
+        modeloT.addColumn("Piezas");        
+        modeloT.addColumn("Fecha");
 
         try {
          String sSQL = "SELECT nombre_producto, SUM(cantidad), fecha FROM descripcion_de_venta where estado= 'Realizada' and fecha BETWEEN '"+llenarfechadesde()+"' AND '"+llenarfechahasta()+"' GROUP BY  fecha, nombre_producto DESC";
@@ -1307,8 +1320,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
                     
                     //pendiente la restauracion de venta a inventario
                     id_producto(nombredepieza);
-                    JOptionPane.showMessageDialog(null, "ID "+id_producto);
-                    try{ //obteniendo la cantidad en la tabla de descripcion_de_venta
+                   try{ //obteniendo la cantidad en la tabla de descripcion_de_venta
                         sent  =(Statement)ca.createStatement();
                              rs = sent.executeQuery("select * from descripcion_de_venta where id_producto= '"+id_producto+"'AND estado='"+estadoenturno+"'and id_venta='"+id_de_la_venta_incrementable+"'");
                     
@@ -1346,7 +1358,24 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
             sent = ca.createStatement();
             int n = sent.executeUpdate(sql);
             if(n>0){
+                id_producto(nombredepieza);
+                for(int r=0;r<=storage.size()-1;r++){
+                 if(Integer.parseInt(storage.get(r).toString())==id_producto){
+                     storage.remove(r);
+                 }
+             }
                 JOptionPane.showMessageDialog(null,"ARTICULO ELIMANDO DE DESCRIPCIONDEVENTA");
+                total_venta_enturno();
+                JOptionPane.showMessageDialog(null, "SUMA DE IMPORTES CUANDO SE ELIMINA UN ARTICULO"+sumadeimportes);
+                    totalf=sumadeimportes;
+                    total.setText(String.valueOf(totalf));
+                    if(descuentoactivo==true){
+                   JOptionPane.showMessageDialog(null, "descuento aplicado");
+               if(Float.parseFloat(total.getText())>0){
+               totalfinalcondescuento =  Float.parseFloat(total.getText()) - Float.parseFloat(descuentocombo.getText());
+               totalcondescuento.setText(String.valueOf(totalfinalcondescuento));
+                    }
+                 }
                 mostrartablaarticulos();
 //                autocompletar();
             }
@@ -1356,7 +1385,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         }
                        //ELIMINAR DE VENTA EL ARTICULO
                         
-                       }else if(cantidadenventa>1){ // CUANDO AUN HAY UN ARTICULO EN LA TABLA VENTA
+                       }else if(cantidadenventa>1){ // CUANDO AUN HAY MÁS DE UN ARTICULO EN LA TABLA VENTA
                            cantidadeninventario+=1;
                            id_producto(nombredepieza);
                         try{ //SUMANDO A INVENTARIO1 
@@ -1370,10 +1399,21 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
                             try{//RESTA DE DESCRIPCION DE VENTA 1
                             PreparedStatement ps = ca.prepareStatement ("UPDATE descripcion_de_venta SET cantidad='"+cantidadenventa+"'WHERE id_producto='"+id_producto+"'");
                             ps.executeUpdate();
+                            total_venta_enturno();
+                            JOptionPane.showMessageDialog(null, "CUANDO AÚN QUEDAN PRODUCTOS"+sumadeimportes);
+                    totalf=sumadeimportes;
+                    total.setText(String.valueOf(totalf));
+                    if(descuentoactivo==true){
+                   JOptionPane.showMessageDialog(null, "descuento aplicado");
+               if(Float.parseFloat(total.getText())>0){
+               totalfinalcondescuento =  Float.parseFloat(total.getText()) - Float.parseFloat(descuentocombo.getText());
+               totalcondescuento.setText(String.valueOf(totalfinalcondescuento));
+                    }
+                 }
                         }catch(Exception s){
 JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
                         }//RESTA DE DESCRIPCION DE VENTA 1
-                       }// CUANDO AUN HAY UN ARTICULO EN LA TABLA VENTA
+                       }// CUANDO AUN HAY MÁS DE UN ARTICULO EN LA TABLA VENTA
                         
                     }catch(Exception e){///obteniendo la cantidad en la tabla de descripcion_de_venta
                         JOptionPane.showMessageDialog(null, "Error en venta aqui otra vez" + e.getMessage());
@@ -1467,6 +1507,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
                                                       }
                                                       }//fin del try-precio del producto
                                                       catch (Exception e){
+                                                          sumadeimportes=0;
                                                       }// fin del precio-catch del producto
     }
 
@@ -1666,7 +1707,6 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         pagocombobox = new javax.swing.JTextField();
         cambiocombobox = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
-        venta_lista = new javax.swing.JButton();
         jLabel31 = new javax.swing.JLabel();
         jLabel30 = new javax.swing.JLabel();
         jLabel32 = new javax.swing.JLabel();
@@ -1849,7 +1889,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         jScrollPane6 = new javax.swing.JScrollPane();
         Jtable_ventasRealizadas = new rojerusan.RSTableMetro();
         jScrollPane12 = new javax.swing.JScrollPane();
-        idventas = new rojerusan.RSTableMetro();
+        ventasporid = new rojerusan.RSTableMetro();
         jPanel24 = new javax.swing.JPanel();
         jLabel93 = new javax.swing.JLabel();
         jLabel94 = new javax.swing.JLabel();
@@ -1986,9 +2026,9 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
                 pagocomboboxFocusLost(evt);
             }
         });
-        pagocombobox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pagocomboboxActionPerformed(evt);
+        pagocombobox.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                pagocomboboxKeyPressed(evt);
             }
         });
         jPanel10.add(pagocombobox, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 90, 140, 30));
@@ -1999,26 +2039,6 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         cambiocombobox.setText("00.00");
         jPanel10.add(cambiocombobox, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 150, 140, 28));
         jPanel10.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 120, 140, 10));
-
-        venta_lista.setBackground(new java.awt.Color(0, 148, 204));
-        venta_lista.setFont(new java.awt.Font("Tahoma", 1, 22)); // NOI18N
-        venta_lista.setForeground(new java.awt.Color(255, 255, 255));
-        venta_lista.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/dinero.png"))); // NOI18N
-        venta_lista.setText("Cobrar");
-        venta_lista.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        venta_lista.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
-        venta_lista.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        venta_lista.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                venta_listaActionPerformed(evt);
-            }
-        });
-        venta_lista.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                venta_listaKeyPressed(evt);
-            }
-        });
-        jPanel10.add(venta_lista, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 180, -1));
 
         jLabel31.setFont(new java.awt.Font("Trebuchet MS", 1, 22)); // NOI18N
         jLabel31.setForeground(new java.awt.Color(255, 255, 255));
@@ -3537,7 +3557,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         Ventasfortoday1.setForeground(new java.awt.Color(255, 255, 255));
         Ventasfortoday1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         Ventasfortoday1.setText("00.00");
-        jPanel23.add(Ventasfortoday1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 20, 120, 50));
+        jPanel23.add(Ventasfortoday1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 20, 120, 50));
 
         VentasTotal.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
         VentasTotal.setForeground(new java.awt.Color(255, 255, 255));
@@ -3578,7 +3598,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
 
         jPanel23.add(jScrollPane6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 350, 210));
 
-        idventas.setModel(new javax.swing.table.DefaultTableModel(
+        ventasporid.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -3586,14 +3606,14 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
 
             }
         ));
-        idventas.setColorFilasForeground1(new java.awt.Color(0, 0, 0));
-        idventas.setColorFilasForeground2(new java.awt.Color(0, 0, 0));
-        idventas.setColorSelForeground(new java.awt.Color(0, 0, 0));
-        idventas.setGrosorBordeFilas(0);
-        idventas.setGrosorBordeHead(0);
-        idventas.setMultipleSeleccion(false);
-        idventas.setRowHeight(25);
-        jScrollPane12.setViewportView(idventas);
+        ventasporid.setColorFilasForeground1(new java.awt.Color(0, 0, 0));
+        ventasporid.setColorFilasForeground2(new java.awt.Color(0, 0, 0));
+        ventasporid.setColorSelForeground(new java.awt.Color(0, 0, 0));
+        ventasporid.setGrosorBordeFilas(0);
+        ventasporid.setGrosorBordeHead(0);
+        ventasporid.setMultipleSeleccion(false);
+        ventasporid.setRowHeight(25);
+        jScrollPane12.setViewportView(ventasporid);
 
         jPanel23.add(jScrollPane12, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 70, 610, 210));
 
@@ -4502,25 +4522,6 @@ public void obtener_id_del_proveedor(String name){
     private void proemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_proemActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_proemActionPerformed
-
-    private void pagocomboboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pagocomboboxActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_pagocomboboxActionPerformed
-
-    private void venta_listaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_venta_listaKeyPressed
-        if(!total.getText().isEmpty()&&!pagocombobox.getText().isEmpty()){
-            cambiocombobox.setText(String.valueOf(cambio=Float.parseFloat(pagocombobox.getText())-totalf));
-            block_unlock=true;
-            try{// el id del usuario
-                id_max_de_venta();
-                PreparedStatement ps = ca.prepareStatement ("UPDATE venta SET total='"+totalf+"',pago='"+pagocombobox.getText()+"',cambio='"+cambiocombobox.getText()+"'WHERE id_venta='"+id_de_la_venta_incrementable+"'");
-                ps.executeUpdate();
-            }//fin del id del usuario
-            catch(Exception w){
-                JOptionPane.showMessageDialog(null,"error en id usuario"+w);
-            }//fin del id del usuario
-        }
-    }//GEN-LAST:event_venta_listaKeyPressed
 public void datosparaelticketdeventa(){
    //ID_VENTA QUE SEOBTIENE DEL METODO ID_MAX_dE_VENTA()
    //FECHA DE VENTA, QUE SE OBTIENE DEL METODO FECHA()
@@ -4547,145 +4548,16 @@ public void datosparaelticketdeventa(){
                          }
       }catch(Exception e){                                             
       }
-}
-    private void venta_listaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_venta_listaActionPerformed
-         /*   ********************  BOTON DE COBRAR LA VENTA ****************  */
-             /*   ******************  BOTON DE COBRAR LA VENTA **************  */
-           try{ 
-       float variabletotal = Float.parseFloat(total.getText());
-            float variablepago = Float.parseFloat(pagocombobox.getText());
-            float variablepagocondescuento =  Float.parseFloat(totalcondescuento.getText());
-            
-        if(!total.getText().isEmpty()&&!pagocombobox.getText().isEmpty()){
-           if(descuentoactivo==true){ //CUANDO EL DESCUENTO ESTÁ ACTIVO
-               
-               if(variablepago<variablepagocondescuento){ // comprueba que la cantidad recibida sea mayor al total
-                    JOptionPane.showMessageDialog(null,"El pago es menor a la cantidad a pagar, por favor, verifique","Advertencia",JOptionPane.INFORMATION_MESSAGE);
-            }
-            else {
-                tablaventaactiva=false;
-            cambiocombobox.setText(String.valueOf(cambio=Float.parseFloat(pagocombobox.getText())-variablepagocondescuento));
-            block_unlock=true;
-            try{// el id del usuario
-                id_max_de_venta();
-                if(descuentoactivo==true){
-                    PreparedStatement ps = ca.prepareStatement ("UPDATE venta SET total='"+Float.parseFloat(totalcondescuento.getText())+"',porcentajedescontado='"+porcentaje+"',descuento='"+ Float.parseFloat(descuentocombo.getText())+"',pago='"+pagocombobox.getText()+"',cambio='"+cambiocombobox.getText()+"'WHERE id_venta='"+id_de_la_venta_incrementable+"'");
-                ps.executeUpdate();
-                }
-                else{
-                    PreparedStatement ps = ca.prepareStatement ("UPDATE venta SET total='"+totalf+"',porcentajedescontado='"+variablede0+"',descuento='"+ variablede0+"',pago='"+pagocombobox.getText()+"',cambio='"+cambiocombobox.getText()+"',fecha_reporte='"+fecha()+"'WHERE id_venta='"+id_de_la_venta_incrementable+"'");
-               ps.executeUpdate();
-                }
-               
-         //ACTUALIZACION EN LA TABLA DESCRIPCION DE VENTA A REALIZADA
-  
-       id_max_de_venta();
-        try{
-            id_max_de_venta();
-                PreparedStatement ps2 = ca.prepareStatement ("UPDATE descripcion_de_venta SET estado= '"+estadorealizado+"' WHERE id_venta='"+id_de_la_venta_incrementable+"'");
-                ps2.executeUpdate();
-       
-        }
-        catch(Exception ex){
-                           JOptionPane.showMessageDialog(null, "Error en venta" + ex.getMessage());
-        }
-   
-          //ACTUALIZACION EN LA TABLA DESCRIPCION DE VENTA A REALIZADA
-  //evaluartablapiezaspararestar1pollo();
-  descuentodepollo();
-                get_id_usuario();
-                            block_unlock=true;
-                                                JOptionPane.showMessageDialog(null,"Venta realizada con descuento");
-                                                llenartablaidventasconidrealizados();
-                                                 mostrarpolloscocidos();
-descuentoactivo=false;
-//autocompletar();
-            }//fin del id del usuario
-            catch(Exception w){
-                JOptionPane.showMessageDialog(null,"error en id usuario"+w);
-            }
-                   limpiardatosdeventa(); //Los datos que aparecen en la venta se mostraran
-
-            }
-               
-           } //FIN DE CUANDO EL DESCUENTO ESTÁ ACTIVO
-           
-           else{ //CUANDO EL DESCUENTO NO ESTÁ ACTIVO
-               
-               if(variablepago<variabletotal){ // comprueba que la cantidad recibida sea mayor al total
-                    JOptionPane.showMessageDialog(null,"El pago es menor a la cantidad a pagar, por favor, verifique","Advertencia",JOptionPane.INFORMATION_MESSAGE);
-            }
-            else {
-                tablaventaactiva=false;
-            cambiocombobox.setText(String.valueOf(cambio=Float.parseFloat(pagocombobox.getText())-totalf));
-            block_unlock=true;
-            try{// el id del usuario
-                id_max_de_venta();
-                if(descuentoactivo==true){
-                    PreparedStatement ps = ca.prepareStatement ("UPDATE venta SET total='"+Float.parseFloat(totalcondescuento.getText())+"',porcentajedescontado='"+porcentaje+"',descuento='"+ Float.parseFloat(descuentocombo.getText())+"',pago='"+pagocombobox.getText()+"',cambio='"+cambiocombobox.getText()+"'WHERE id_venta='"+id_de_la_venta_incrementable+"'");
-                ps.executeUpdate();
-                }
-                else{
-                    PreparedStatement ps = ca.prepareStatement ("UPDATE venta SET total='"+totalf+"',porcentajedescontado='"+variablede0+"',descuento='"+ variablede0+"',pago='"+pagocombobox.getText()+"',cambio='"+cambiocombobox.getText()+"',fecha_reporte='"+fecha()+"'WHERE id_venta='"+id_de_la_venta_incrementable+"'");
-               ps.executeUpdate();
-                }
-               
-         //ACTUALIZACION EN LA TABLA DESCRIPCION DE VENTA A REALIZADA
-  
-       id_max_de_venta();
-        try{
-            id_max_de_venta();
-                PreparedStatement ps2 = ca.prepareStatement ("UPDATE descripcion_de_venta SET estado= '"+estadorealizado+"' WHERE id_venta='"+id_de_la_venta_incrementable+"'");
-                ps2.executeUpdate();
-       
-        }
-        catch(Exception ex){
-                           JOptionPane.showMessageDialog(null, "Error en venta" + ex.getMessage());
-        }
-   
-          //ACTUALIZACION EN LA TABLA DESCRIPCION DE VENTA A REALIZADA
- // evaluartablapiezaspararestar1pollo();
- descuentodepollo();
-                get_id_usuario();
-                            block_unlock=true;
-                                                JOptionPane.showMessageDialog(null,"Venta realizada");
-                                                llenartablaidventasconidrealizados();
-                                                 mostrarpolloscocidos();
-descuentoactivo=false;
- LlenarTablaventasRe(Jtable_ventasRealizadas); // CONTAR LAS VENTAS K SE REALIZARON
- LlenarTablaproductosmasvendidos(Jtable_productosmasven); // CONTABIL.. PRODUCTOS MAS VENDIDOS SOLO LAS VENTAS REALIZADAS 
-//autocompletar();
-            }//fin del id del usuario
-            catch(Exception w){
-                JOptionPane.showMessageDialog(null,"error en id usuario"+w);
-            }
-                   limpiardatosdeventa(); //Los datos que aparecen en la venta se mostraran
-
-            }
-               
-           } //FIN CUANDO EL DESCUENTO NO ESTÁ ACTIVO
-            
-           
-        }
-        else if(total.getText().isEmpty()){
-            JOptionPane.showMessageDialog(null,"Aún no hay nada por pagar","!Espera!",JOptionPane.INFORMATION_MESSAGE);
-        }
-        else if(pagocombobox.getText().isEmpty()){
-                        JOptionPane.showMessageDialog(null,"Aún no has ingresado la cantidad recibida","!Espera!",JOptionPane.INFORMATION_MESSAGE);
-        }
-        else if(pagocombobox.getText().isEmpty()){
-                        JOptionPane.showMessageDialog(null,"Aún no hay articulos ingresados","!Espera!",JOptionPane.INFORMATION_MESSAGE);
-        }
-      }catch(Exception NFE){//Number format exception para cuando el usuario no ingrese ningun dato en la caja
-                            JOptionPane.showMessageDialog(null,"No tiene valor la cantidad recibida","!Espera!",JOptionPane.INFORMATION_MESSAGE);
-      }
-    }//GEN-LAST:event_venta_listaActionPerformed
-//BOTON CERRAR SESION, PERO COMPRUEBA SI HAY UNA VENTA PEN PARA CANCELAR EN CASO DE SALIR
+}//BOTON CERRAR SESION, PERO COMPRUEBA SI HAY UNA VENTA PEN PARA CANCELAR EN CASO DE SALIR
     public void cerrandosesion(){
           //salirrr              
-          if(tablaventaactiva==true){
+          if(tablaventaactiva==true&&(storage.size())>0){
+              JOptionPane.showMessageDialog(null, "TAMAÑO DEL ARRAY LIST - 1"+(storage.size()-1));
+                   JOptionPane.showMessageDialog(null, "TAMAÑO DEL ARRAY LIST sin el - 1"+(storage.size()));
+         
             int decision=JOptionPane.showConfirmDialog(null,"¿Desea continuar?","Advertencia: Tiene una venta inconclusa",JOptionPane.CANCEL_OPTION);
             if(decision==0){ //opción si
+                
                 regresarproductos_a_inventariodescontandotodaslaspiezas(); //pone en estatus de cancelada la venta inconclusa
                 descuentodepollo();
                 status_cancelado();  //pone en estatus de cancelada la venta inconclusa y cada producto que lo compone
@@ -4699,6 +4571,9 @@ descuentoactivo=false;
              }
        }
        else{
+                JOptionPane.showMessageDialog(null, "ELSE,  TAMAÑO DEL ARRAY LIST - 1"+(storage.size()-1));
+                   JOptionPane.showMessageDialog(null, "ELSE, TAMAÑO DEL ARRAY LIST sin el - 1"+(storage.size()));
+         
         int decision=JOptionPane.showConfirmDialog(null,"¿Desea continuar?","Saliendo del sistema",JOptionPane.CANCEL_OPTION);
             if(decision==0){
                 JOptionPane.showMessageDialog(null,"Nos vemos pronto","Saliendo del sistema...",JOptionPane.INFORMATION_MESSAGE);
@@ -5362,6 +5237,7 @@ descuentoactivo=false;
         // ************************  BTN CANCELARR   ***********************
        //ESTO ELIMINA TODA LA VENTA
         if(tablaventaactiva==true){
+          
                 regresarproductos_a_inventariodescontandotodaslaspiezas(); //pone en estatus de cancelada la venta inconclusa
                //y también el metodo de arriba regresa las piezas a la tabla piezas               
                   descuentodepollo();
@@ -5520,13 +5396,17 @@ descuentoactivo=false;
           int fila =tablaventa.getSelectedRow();
       
       if(fila>=0){// CUANDO UNA CELDA SE SELECCIONO
+            regresarproductos_a_inventario(tablaventa.getValueAt(fila,0).toString()); //pone en estatus de cancelada la venta inconclusa
+             
         if(tablaventaactiva==true){
-                regresarproductos_a_inventario(tablaventa.getValueAt(fila,0).toString()); //pone en estatus de cancelada la venta inconclusa
+          
                //y también el metodo de arriba regresa las piezas a la tabla piezas               
                   descuentodepollo();
                    mostrartabladeventas();
                    mostrarpolloscrudos();
                   mostrarpolloscocidos();
+                //    limpiardatosdeventa();  //limpia en su mayoria los campos de texto que pertenezcan al apartado venta
+              
                 // status_cancelado();  //pone en estatus de cancelada la venta inconclusa y cada producto que lo compone
                 // get_id_usuario(); //vuelve a asiganr otro id_venta para que así no se repita con el id anterior que tuvo una venta cancelada
                // block_unlock=false; //se bloquea la opcion de poder agregar otro id_usuario a la tabla de venta y así abrir una nueva venta
@@ -5544,6 +5424,138 @@ descuentoactivo=false;
     private void jButton5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton5MouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton5MouseClicked
+
+    private void pagocomboboxKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_pagocomboboxKeyPressed
+       /*   ********************  BOTON DE COBRAR LA VENTA ****************  */
+             /*   ******************  BOTON DE COBRAR LA VENTA **************  */
+           try{ 
+       float variabletotal = Float.parseFloat(total.getText());
+            float variablepago = Float.parseFloat(pagocombobox.getText());
+            float variablepagocondescuento =  Float.parseFloat(totalcondescuento.getText());
+            
+        if(!total.getText().isEmpty()&&!pagocombobox.getText().isEmpty()){
+           if(descuentoactivo==true){ //CUANDO EL DESCUENTO ESTÁ ACTIVO
+               
+               if(variablepago<variablepagocondescuento){ // comprueba que la cantidad recibida sea mayor al total
+                    JOptionPane.showMessageDialog(null,"El pago es menor a la cantidad a pagar, por favor, verifique","Advertencia",JOptionPane.INFORMATION_MESSAGE);
+            }
+            else {
+                tablaventaactiva=false;
+            cambiocombobox.setText(String.valueOf(cambio=Float.parseFloat(pagocombobox.getText())-variablepagocondescuento));
+            block_unlock=true;
+            try{// el id del usuario
+                id_max_de_venta();
+                if(descuentoactivo==true){
+                    PreparedStatement ps = ca.prepareStatement ("UPDATE venta SET total='"+Float.parseFloat(totalcondescuento.getText())+"',porcentajedescontado='"+porcentaje+"',descuento='"+ Float.parseFloat(descuentocombo.getText())+"',pago='"+pagocombobox.getText()+"',cambio='"+cambiocombobox.getText()+"',fecha_reporte='"+fecha()+"'WHERE id_venta='"+id_de_la_venta_incrementable+"'");
+                ps.executeUpdate();
+                }
+                else{
+                    PreparedStatement ps = ca.prepareStatement ("UPDATE venta SET total='"+totalf+"',porcentajedescontado='"+variablede0+"',descuento='"+ variablede0+"',pago='"+pagocombobox.getText()+"',cambio='"+cambiocombobox.getText()+"',fecha_reporte='"+fecha()+"'WHERE id_venta='"+id_de_la_venta_incrementable+"'");
+               ps.executeUpdate();
+                }
+               
+         //ACTUALIZACION EN LA TABLA DESCRIPCION DE VENTA A REALIZADA
+  
+       id_max_de_venta();
+        try{
+            id_max_de_venta();
+                PreparedStatement ps2 = ca.prepareStatement ("UPDATE descripcion_de_venta SET estado= '"+estadorealizado+"' WHERE id_venta='"+id_de_la_venta_incrementable+"'");
+                ps2.executeUpdate();
+       
+        }
+        catch(Exception ex){
+                           JOptionPane.showMessageDialog(null, "Error en venta" + ex.getMessage());
+        }
+   
+          //ACTUALIZACION EN LA TABLA DESCRIPCION DE VENTA A REALIZADA
+  //evaluartablapiezaspararestar1pollo();
+  descuentodepollo();
+                get_id_usuario();
+                            block_unlock=true;
+                                                JOptionPane.showMessageDialog(null,"Venta realizada con descuento");
+                                                 LlenarTablaventasRe(Jtable_ventasRealizadas);
+                                                 LlenarTablaproductosmasvendidos(Jtable_productosmasven);
+                                                 llenartablaidventasconidrealizados();
+                                             
+                                                 mostrarpolloscocidos();
+descuentoactivo=false;
+//autocompletar();
+            }//fin del id del usuario
+            catch(Exception w){
+                JOptionPane.showMessageDialog(null,"error en id usuario"+w);
+            }
+                   limpiardatosdeventa(); //Los datos que aparecen en la venta se mostraran
+
+            }
+               
+           } //FIN DE CUANDO EL DESCUENTO ESTÁ ACTIVO
+           
+           else{ //CUANDO EL DESCUENTO NO ESTÁ ACTIVO
+               
+               if(variablepago<variabletotal){ // comprueba que la cantidad recibida sea mayor al total
+                    JOptionPane.showMessageDialog(null,"El pago es menor a la cantidad a pagar, por favor, verifique","Advertencia",JOptionPane.INFORMATION_MESSAGE);
+            }
+            else {
+                tablaventaactiva=false;
+            cambiocombobox.setText(String.valueOf(cambio=Float.parseFloat(pagocombobox.getText())-totalf));
+            block_unlock=true;
+            try{// el id del usuario
+                id_max_de_venta();
+               
+                    PreparedStatement ps = ca.prepareStatement ("UPDATE venta SET total='"+totalf+"',porcentajedescontado='"+variablede0+"',descuento='"+ variablede0+"',pago='"+pagocombobox.getText()+"',cambio='"+cambiocombobox.getText()+"',fecha_reporte='"+fecha()+"'WHERE id_venta='"+id_de_la_venta_incrementable+"'");
+               ps.executeUpdate();
+              
+               
+         //ACTUALIZACION EN LA TABLA DESCRIPCION DE VENTA A REALIZADA
+  
+       id_max_de_venta();
+        try{
+            id_max_de_venta();
+                PreparedStatement ps2 = ca.prepareStatement ("UPDATE descripcion_de_venta SET estado= '"+estadorealizado+"' WHERE id_venta='"+id_de_la_venta_incrementable+"'");
+                ps2.executeUpdate();
+       
+        }
+        catch(Exception ex){
+                           JOptionPane.showMessageDialog(null, "Error en venta" + ex.getMessage());
+        }
+   
+          //ACTUALIZACION EN LA TABLA DESCRIPCION DE VENTA A REALIZADA
+ // evaluartablapiezaspararestar1pollo();
+ descuentodepollo();
+                get_id_usuario();
+                            block_unlock=true;
+                                                JOptionPane.showMessageDialog(null,"Venta realizada");
+                                                llenartablaidventasconidrealizados();
+                                                 mostrarpolloscocidos();
+descuentoactivo=false;
+ LlenarTablaventasRe(Jtable_ventasRealizadas); // CONTAR LAS VENTAS K SE REALIZARON
+ LlenarTablaproductosmasvendidos(Jtable_productosmasven); // CONTABIL.. PRODUCTOS MAS VENDIDOS SOLO LAS VENTAS REALIZADAS 
+//autocompletar();
+            }//fin del id del usuario
+            catch(Exception w){
+                JOptionPane.showMessageDialog(null,"error en id usuario"+w);
+            }
+                   limpiardatosdeventa(); //Los datos que aparecen en la venta se mostraran
+
+            }
+               
+           } //FIN CUANDO EL DESCUENTO NO ESTÁ ACTIVO
+            
+           
+        }
+        else if(total.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null,"Aún no hay nada por pagar","!Espera!",JOptionPane.INFORMATION_MESSAGE);
+        }
+        else if(pagocombobox.getText().isEmpty()){
+                        JOptionPane.showMessageDialog(null,"Aún no has ingresado la cantidad recibida","!Espera!",JOptionPane.INFORMATION_MESSAGE);
+        }
+        else if(pagocombobox.getText().isEmpty()){
+                        JOptionPane.showMessageDialog(null,"Aún no hay articulos ingresados","!Espera!",JOptionPane.INFORMATION_MESSAGE);
+        }
+      }catch(Exception NFE){//Number format exception para cuando el usuario no ingrese ningun dato en la caja
+                            JOptionPane.showMessageDialog(null,"No tiene valor la cantidad recibida","!Espera!",JOptionPane.INFORMATION_MESSAGE);
+      }
+    }//GEN-LAST:event_pagocomboboxKeyPressed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         // TODO add your handling code here:
@@ -5637,7 +5649,6 @@ SI cc= new SI();
     private com.toedter.calendar.JDateChooser fecha_inicioestadis;
     private com.toedter.calendar.JDateChooser fechap;
     private javax.swing.Box.Filler filler1;
-    private rojerusan.RSTableMetro idventas;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -5836,6 +5847,6 @@ SI cc= new SI();
     private javax.swing.JTextField user_TelefonoUp;
     private javax.swing.JTextField user_UserUp;
     public static javax.swing.JPanel venta;
-    private javax.swing.JButton venta_lista;
+    private rojerusan.RSTableMetro ventasporid;
     // End of variables declaration//GEN-END:variables
 }
