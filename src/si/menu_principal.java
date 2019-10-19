@@ -1904,15 +1904,6 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         buscarproductosfecha = new javax.swing.JButton();
         jScrollPane5 = new javax.swing.JScrollPane();
         Jtable_productosmasven = new rojerusan.RSTableMetro();
-        jPanel14 = new javax.swing.JPanel();
-        producto_sobrante1 = new javax.swing.JPanel();
-        jPanel21 = new javax.swing.JPanel();
-        jLabel80 = new javax.swing.JLabel();
-        jLabel91 = new javax.swing.JLabel();
-        jButton7 = new javax.swing.JButton();
-        jLabel92 = new javax.swing.JLabel();
-        jScrollPane13 = new javax.swing.JScrollPane();
-        Jtable_productosExistemcias = new rojerusan.RSTableMetro();
         jPanel15 = new javax.swing.JPanel();
         producto_sobrante2 = new javax.swing.JPanel();
         jPanel22 = new javax.swing.JPanel();
@@ -3890,118 +3881,6 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
 
         Proveedores9.addTab("      Estadisticas      ", jPanel13);
 
-        producto_sobrante1.setBackground(new java.awt.Color(0, 51, 102));
-        producto_sobrante1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        producto_sobrante1.setDoubleBuffered(false);
-        producto_sobrante1.setLayout(null);
-
-        jPanel21.setBackground(new java.awt.Color(255, 255, 255));
-
-        jLabel80.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel80.setText("Existencias");
-
-        jLabel91.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/portapapeles.png"))); // NOI18N
-
-        jButton7.setBackground(new java.awt.Color(0, 51, 102));
-        jButton7.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jButton7.setForeground(new java.awt.Color(255, 0, 0));
-        jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/serrar.png"))); // NOI18N
-        jButton7.setText("Salir");
-        jButton7.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton7ActionPerformed(evt);
-            }
-        });
-
-        jLabel92.setBackground(new java.awt.Color(0, 160, 204));
-        jLabel92.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
-        jLabel92.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel92.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/bloggif_5bd54d091a235.jpeg"))); // NOI18N
-
-        javax.swing.GroupLayout jPanel21Layout = new javax.swing.GroupLayout(jPanel21);
-        jPanel21.setLayout(jPanel21Layout);
-        jPanel21Layout.setHorizontalGroup(
-            jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel21Layout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addComponent(jLabel92)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
-                .addComponent(jLabel80, javax.swing.GroupLayout.PREFERRED_SIZE, 324, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel91, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(414, 414, 414)
-                .addComponent(jButton7)
-                .addGap(41, 41, 41))
-        );
-        jPanel21Layout.setVerticalGroup(
-            jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel21Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel80, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel21Layout.createSequentialGroup()
-                        .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel91, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                            .addComponent(jLabel92)
-                            .addGroup(jPanel21Layout.createSequentialGroup()
-                                .addGap(6, 6, 6)
-                                .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap())))
-        );
-
-        producto_sobrante1.add(jPanel21);
-        jPanel21.setBounds(0, 0, 1288, 66);
-
-        Jtable_productosExistemcias.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "nombre_producto", "tipo_producto", "cantidad"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        Jtable_productosExistemcias.setColorFilasForeground1(new java.awt.Color(0, 0, 0));
-        Jtable_productosExistemcias.setColorFilasForeground2(new java.awt.Color(0, 0, 0));
-        Jtable_productosExistemcias.setGrosorBordeFilas(0);
-        Jtable_productosExistemcias.setGrosorBordeHead(0);
-        Jtable_productosExistemcias.setMultipleSeleccion(false);
-        Jtable_productosExistemcias.setRowHeight(25);
-        jScrollPane13.setViewportView(Jtable_productosExistemcias);
-
-        producto_sobrante1.add(jScrollPane13);
-        jScrollPane13.setBounds(20, 100, 1240, 510);
-
-        javax.swing.GroupLayout jPanel14Layout = new javax.swing.GroupLayout(jPanel14);
-        jPanel14.setLayout(jPanel14Layout);
-        jPanel14Layout.setHorizontalGroup(
-            jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1310, Short.MAX_VALUE)
-            .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel14Layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(producto_sobrante1, javax.swing.GroupLayout.PREFERRED_SIZE, 1288, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
-        );
-        jPanel14Layout.setVerticalGroup(
-            jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 686, Short.MAX_VALUE)
-            .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel14Layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(producto_sobrante1, javax.swing.GroupLayout.PREFERRED_SIZE, 674, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
-        );
-
-        Proveedores9.addTab("     Existencias", jPanel14);
-
         producto_sobrante2.setBackground(new java.awt.Color(0, 51, 102));
         producto_sobrante2.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         producto_sobrante2.setDoubleBuffered(false);
@@ -5558,10 +5437,6 @@ descuentoactivo=false;
       }
     }//GEN-LAST:event_pagocomboboxKeyPressed
 
-    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-       cerrandosesion();
-    }//GEN-LAST:event_jButton7ActionPerformed
-
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
 cerrandosesion();
     }//GEN-LAST:event_jButton9ActionPerformed
@@ -5662,7 +5537,6 @@ SI cc= new SI();
     private javax.swing.JLabel Fecha;
     private javax.swing.JLabel IblReloj;
     private rojerusan.RSTableMetro Jtable_ProductosEntradas;
-    private rojerusan.RSTableMetro Jtable_productosExistemcias;
     private rojerusan.RSTableMetro Jtable_productosmasven;
     private rojerusan.RSTableMetro Jtable_ventasCanceladas;
     private rojerusan.RSTableMetro Jtable_ventasRealizadas;
@@ -5704,7 +5578,6 @@ SI cc= new SI();
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
@@ -5781,14 +5654,11 @@ SI cc= new SI();
     private javax.swing.JLabel jLabel75;
     private javax.swing.JLabel jLabel79;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel80;
     private javax.swing.JLabel jLabel81;
     private javax.swing.JLabel jLabel88;
     private javax.swing.JLabel jLabel89;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel jLabel90;
-    private javax.swing.JLabel jLabel91;
-    private javax.swing.JLabel jLabel92;
     private javax.swing.JLabel jLabel93;
     private javax.swing.JLabel jLabel94;
     private javax.swing.JLabel jLabel95;
@@ -5799,11 +5669,9 @@ SI cc= new SI();
     private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel13;
-    private javax.swing.JPanel jPanel14;
     private javax.swing.JPanel jPanel15;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel20;
-    private javax.swing.JPanel jPanel21;
     private javax.swing.JPanel jPanel22;
     private javax.swing.JPanel jPanel23;
     private javax.swing.JPanel jPanel24;
@@ -5819,7 +5687,6 @@ SI cc= new SI();
     private javax.swing.JScrollPane jScrollPane10;
     private javax.swing.JScrollPane jScrollPane11;
     private javax.swing.JScrollPane jScrollPane12;
-    private javax.swing.JScrollPane jScrollPane13;
     private javax.swing.JScrollPane jScrollPane14;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
@@ -5861,7 +5728,6 @@ SI cc= new SI();
     private rojerusan.RSTableMetro pollocrudo;
     private javax.swing.JTextField preciop;
     public static javax.swing.JPanel producto_sobrante;
-    public static javax.swing.JPanel producto_sobrante1;
     public static javax.swing.JPanel producto_sobrante2;
     public static javax.swing.JTextField proem;
     public static javax.swing.JTextField promail;
