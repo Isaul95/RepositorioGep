@@ -101,6 +101,7 @@ Statement sent;
                    totalcondescuento.setVisible(false);
                jLabel61.setVisible(false);
                descuentolabel.setVisible(false);
+               veridventas.setVisible(false);
 
     }
     
@@ -1798,6 +1799,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         Jtable_ventasRealizadas = new rojerusan.RSTableMetro();
         jScrollPane12 = new javax.swing.JScrollPane();
         ventasporid = new rojerusan.RSTableMetro();
+        veridventas = new javax.swing.JButton();
         jPanel24 = new javax.swing.JPanel();
         jLabel93 = new javax.swing.JLabel();
         jLabel94 = new javax.swing.JLabel();
@@ -3503,9 +3505,22 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         ventasporid.setGrosorBordeHead(0);
         ventasporid.setMultipleSeleccion(false);
         ventasporid.setRowHeight(25);
+        ventasporid.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ventasporidMouseClicked(evt);
+            }
+        });
         jScrollPane12.setViewportView(ventasporid);
 
         jPanel23.add(jScrollPane12, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 70, 610, 210));
+
+        veridventas.setText("Ver ventas");
+        veridventas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                veridventasActionPerformed(evt);
+            }
+        });
+        jPanel23.add(veridventas, new org.netbeans.lib.awtextra.AbsoluteConstraints(1040, 70, -1, -1));
 
         Administrador.add(jPanel23);
         jPanel23.setBounds(10, 70, 1260, 290);
@@ -5223,6 +5238,57 @@ descuentoactivo=false;
       }
     }//GEN-LAST:event_pagocomboboxKeyPressed
 
+    public void descripciondeproductosenbasealnumerodeventa(int numerodeventa){
+        Object[] columna = new Object[4];  //crear un obj con el nombre de colunna
+            Connection ca= cc.conexion(); // CONEXION DB 
+              DefaultTableModel modeloT = new DefaultTableModel(); 
+                  ventasporid.setModel(modeloT);  // add modelo ala tabla 
+        
+       // modeloT.addColumn("id_venta");    // add al modelo las 5 columnas con los nombrs TABLA
+        modeloT.addColumn("Nombre");
+        modeloT.addColumn("Piezas");        
+        modeloT.addColumn("Precio");
+        modeloT.addColumn("Importe");
+        
+       try {
+           
+                 String sSQL = "SELECT nombre_producto, cantidad, precio_unitario, importe FROM descripcion_de_venta WHERE estado='Realizada' AND id_venta = '"+numerodeventa+"' ";
+             
+        PreparedStatement ps = ca.prepareStatement(sSQL);       
+        try (ResultSet rs = ps.executeQuery(sSQL)) {
+            while (rs.next()) {
+               // columna[0] = rs.getString("id_venta");  /* === LA DB == */
+                columna[0] = rs.getString(1);
+                columna[1] = rs.getString(2);
+                columna[2] = rs.getString(3);      
+                columna[3] = rs.getString(4); 
+                modeloT.addRow(columna);
+              
+            }
+        }
+        ps.close();
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(null, e, "Advertencia", JOptionPane.PLAIN_MESSAGE);    
+    }
+    }
+    
+    private void ventasporidMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ventasporidMouseClicked
+        int fila =ventasporid.getSelectedRow();
+             RetornaValorUpdateProducts();
+      if(fila>=0){
+          veridventas.setVisible(true);
+             descripciondeproductosenbasealnumerodeventa(Integer.parseInt(ventasporid.getValueAt(fila,0).toString()));
+           
+      }
+      else
+          JOptionPane.showMessageDialog(null,"Por favor, seleccione una fila primero","Aviso",JOptionPane.INFORMATION_MESSAGE);
+    }//GEN-LAST:event_ventasporidMouseClicked
+
+    private void veridventasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_veridventasActionPerformed
+       llenartablaidventasconidrealizados(); //CARGA NUEVAMENTE LAS VENTAS POR ID
+       veridventas.setVisible(false);
+    }//GEN-LAST:event_veridventasActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -5488,5 +5554,6 @@ SI cc= new SI();
     private javax.swing.JTextField user_UserUp;
     public static javax.swing.JPanel venta;
     private rojerusan.RSTableMetro ventasporid;
+    private javax.swing.JButton veridventas;
     // End of variables declaration//GEN-END:variables
 }
