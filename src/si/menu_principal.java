@@ -1247,32 +1247,51 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
                        JOptionPane.showMessageDialog(null, "CANTIDAD EN INVENTARIO"+cantidadeninventario);
                        
                        JOptionPane.showMessageDialog(null, "CANTIDAD EN INVENTARIO"+cantidadenventa);
-                       if(cantidadenventa>0){
+                       if(cantidadenventa==1){//SI EL ULTIMO PRODUCTO A DESCONTAR ES 1, SE VA A CANCELAR TODA LA VENTA O PORQUE MEJOR AUN, ELIMNAR DICHO PRODUCTO DE LA TABLA VENTA
                            cantidadeninventario+=1;
                            id_producto(nombredepieza);
-                        try{
+                        try{ //SUMANDO A INVENTARIO EL ULTIMO, 
                             PreparedStatement ps = ca.prepareStatement ("UPDATE productos SET cantidad='"+cantidadeninventario+"'WHERE id_producto='"+id_producto+"'");
                             ps.executeUpdate();
                         }catch(Exception s){
 JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
-                        }
-                        cantidadenventa-=1;
+                        }// SUMANDO A INVENTARIO EL ULTIMO, 
+                      
+                        //ELIMINAR DE VENTA EL ARTICULO
+                        id_producto(nombredepieza);
                         try{
+            String sql = "DELETE from descripcion_de_venta where id_producto= '"+id_producto+"' ";
+            sent = ca.createStatement();
+            int n = sent.executeUpdate(sql);
+            if(n>0){
+                JOptionPane.showMessageDialog(null,"ARTICULO ELIMANDO DE DESCRIPCIONDEVENTA");
+                mostrartablaarticulos();
+//                autocompletar();
+            }
+
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, "ERROR" + e.getMessage());
+        }
+                       //ELIMINAR DE VENTA EL ARTICULO
+                        
+                       }else if(cantidadenventa>1){ // CUANDO AUN HAY UN ARTICULO EN LA TABLA VENTA
+                           cantidadeninventario+=1;
+                           id_producto(nombredepieza);
+                        try{ //SUMANDO A INVENTARIO1 
+                            PreparedStatement ps = ca.prepareStatement ("UPDATE productos SET cantidad='"+cantidadeninventario+"'WHERE id_producto='"+id_producto+"'");
+                            ps.executeUpdate();
+                        }catch(Exception s){
+JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
+                        }// SUMANDO A INVENTARIO 1
+                        id_producto(nombredepieza);
+                        cantidadenventa-=1;
+                            try{//RESTA DE DESCRIPCION DE VENTA 1
                             PreparedStatement ps = ca.prepareStatement ("UPDATE descripcion_de_venta SET cantidad='"+cantidadenventa+"'WHERE id_producto='"+id_producto+"'");
                             ps.executeUpdate();
                         }catch(Exception s){
 JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
-                        }
-                        
-                       }else if(cantidadenventa==0){
-                           id_producto(nombredepieza);
-                           try{
-                            PreparedStatement ps = ca.prepareStatement ("UPDATE descripcion_de_venta SET estado='"+estadocancelado+"'WHERE id_producto='"+id_producto+"'");
-                            ps.executeUpdate();
-                        }catch(Exception s){
-JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
-                        } 
-                       }
+                        }//RESTA DE DESCRIPCION DE VENTA 1
+                       }// CUANDO AUN HAY UN ARTICULO EN LA TABLA VENTA
                         
                     }catch(Exception e){///obteniendo la cantidad en la tabla de descripcion_de_venta
                         JOptionPane.showMessageDialog(null, "Error en venta aqui otra vez" + e.getMessage());
