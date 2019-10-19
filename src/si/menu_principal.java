@@ -35,6 +35,8 @@ import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
 import si.Pantalla_Gastos;
 import static si.Pantalla_Gastos.fecha;
 
@@ -73,6 +75,8 @@ Statement sent;
                   LlenarTablaventasRe(Jtable_ventasRealizadas);
                   LlenarTablaventasCance(Jtable_ventasCanceladas);
                   LlenarTablaproductosmasvendidos(Jtable_productosmasven);
+                  LlenarTablaproductosExistenciaInven(Jtable_productosExistemcias);
+                  TablallenadoparaEntradas(Jtable_ProductosEntradas);
         
       //  this.setExtendedState(MAXIMIZED_BOTH);// MAXIMIZED_BOTH=6 se puede asi o pornerle directo 6 para k sea FULLSCREEN TODA LA PANTALLA SE ADAPTA
         
@@ -108,6 +112,13 @@ Statement sent;
         SimpleDateFormat formatoFecha= new SimpleDateFormat("YYYY/MM/dd");
         return formatoFecha.format(fecha);
     }
+    
+    
+    
+    
+    
+    
+    
     
     public void llenartablaidventasconidrealizados(){
         Object[] columna = new Object[3];  //crear un obj con el nombre de colunna
@@ -231,12 +242,12 @@ Statement sent;
      public void LlenarTablaproductosmasvendidos(JTable tablaD){ // recibe como parametro 
          Object[] columna = new Object[3];  //crear un obj con el nombre de colunna
             Connection ca= cc.conexion(); // CONEXION DB 
-              DefaultTableModel modeloT = new DefaultTableModel(); 
-                  tablaD.setModel(modeloT);  // add modelo ala tabla 
+              DefaultTableModel modeloTE = new DefaultTableModel(); 
+                  tablaD.setModel(modeloTE);  // add modelo ala tabla 
         
-        modeloT.addColumn("nombre_producto");
-        modeloT.addColumn("cantidad");        
-        modeloT.addColumn("fecha");
+        modeloTE.addColumn("nombre_producto");
+        modeloTE.addColumn("cantidad");        
+        modeloTE.addColumn("fecha");
 
         try {
          String sSQL = "SELECT nombre_producto, SUM(cantidad), fecha FROM descripcion_de_venta WHERE estado='Realizada' AND fecha = '"+fecha()+"' GROUP BY nombre_producto DESC";
@@ -251,6 +262,36 @@ Statement sent;
                 columna[1] = rs.getInt(2);
                  columna[2] = rs.getString(3);
                 //columna[5] = rs.getString("nombre");                
+                modeloTE.addRow(columna);
+            }
+        }
+        ps.close();
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(null, e, "Advertencia", JOptionPane.PLAIN_MESSAGE);    
+    }
+}
+     
+      // CONSULTA DE PRODUCTOS EN EXITENCIA EN INVENTARIO            
+     public void LlenarTablaproductosExistenciaInven(JTable tablaD){ // recibe como parametro 
+         Object[] columna = new Object[3];  //crear un obj con el nombre de colunna
+            Connection ca= cc.conexion(); // CONEXION DB 
+              DefaultTableModel modeloT = new DefaultTableModel(); 
+                  tablaD.setModel(modeloT);  // add modelo ala tabla 
+        
+        modeloT.addColumn("nombre_producto");
+        modeloT.addColumn("tipo_producto");        
+        modeloT.addColumn("cantidad");
+
+        try {
+         String sSQL = "SELECT nombre_producto, tipo_producto, cantidad FROM productos";
+                 
+        PreparedStatement ps = ca.prepareStatement(sSQL);       
+        try (ResultSet rs = ps.executeQuery(sSQL)) {
+            while (rs.next()) {
+                columna[0] = rs.getString(1);
+                 columna[1] = rs.getString(2);
+                 columna[2] = rs.getInt(3);
+                //columna[5] = rs.getString("nombre");                
                 modeloT.addRow(columna);
             }
         }
@@ -259,6 +300,47 @@ Statement sent;
         JOptionPane.showMessageDialog(null, e, "Advertencia", JOptionPane.PLAIN_MESSAGE);    
     }
 }
+     
+     
+      // CONSULTA DE PRODUCTOS EN EXITENCIA EN INVENTARIO            
+     public void TablallenadoparaEntradas(JTable tablaD){ // recibe como parametro 
+         Object[] columna = new Object[3];  //crear un obj con el nombre de colunna
+            Connection ca= cc.conexion(); // CONEXION DB 
+              DefaultTableModel modeloT = new DefaultTableModel(); 
+                  tablaD.setModel(modeloT);  // add modelo ala tabla 
+        
+        modeloT.addColumn("nombre_producto");
+        modeloT.addColumn("tipo_producto");        
+        modeloT.addColumn("cantidad");
+        try {
+         String sSQL = "SELECT nombre_producto, tipo_producto FROM productos";
+                 
+        PreparedStatement ps = ca.prepareStatement(sSQL);       
+        try (ResultSet rs = ps.executeQuery(sSQL)) {
+            while (rs.next()) {
+                columna[0] = rs.getString(1);
+                 columna[1] = rs.getString(2);
+         //        columna[2] = rs.getInt(3);
+                modeloT.addRow(columna);
+            }
+            
+            modeloT.addTableModelListener(new TableModelListener() {
+                @Override
+                public void tableChanged(TableModelEvent e) {
+                    if(e.getType() == TableModelEvent.UPDATE){
+                        JOptionPane.showMessageDialog(null, "cambio en fila"+e.getFirstRow()+"con la columna"+e.getColumn());
+                    }
+
+                }
+            });
+        }
+        ps.close();
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(null, e, "Advertencia", JOptionPane.PLAIN_MESSAGE);    
+    }
+}
+     
+     
      
      public String llenarfechadesde(){ // Ordena la fecha del componente Jcalendar  que esta de la sig. manera:  dia /mes / aÃ±o, lo cual para la base de datos no es la manera correcta de ingresarlo, sino asÃ­: aÃ±o/mes/dia
         
@@ -1792,6 +1874,24 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         buscarproductosfecha = new javax.swing.JButton();
         jScrollPane5 = new javax.swing.JScrollPane();
         Jtable_productosmasven = new rojerusan.RSTableMetro();
+        jPanel14 = new javax.swing.JPanel();
+        producto_sobrante1 = new javax.swing.JPanel();
+        jPanel21 = new javax.swing.JPanel();
+        jLabel80 = new javax.swing.JLabel();
+        jLabel91 = new javax.swing.JLabel();
+        jButton7 = new javax.swing.JButton();
+        jLabel92 = new javax.swing.JLabel();
+        jScrollPane13 = new javax.swing.JScrollPane();
+        Jtable_productosExistemcias = new rojerusan.RSTableMetro();
+        jPanel15 = new javax.swing.JPanel();
+        producto_sobrante2 = new javax.swing.JPanel();
+        jPanel22 = new javax.swing.JPanel();
+        jLabel81 = new javax.swing.JLabel();
+        jLabel96 = new javax.swing.JLabel();
+        jButton9 = new javax.swing.JButton();
+        jLabel97 = new javax.swing.JLabel();
+        jScrollPane14 = new javax.swing.JScrollPane();
+        Jtable_ProductosEntradas = new rojerusan.RSTableMetro();
 
         tabla_articulos.setComponentPopupMenu(tabla_articulos);
 
@@ -3374,7 +3474,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         );
 
         agregar_usuario.add(jPanel5);
-        jPanel5.setBounds(0, 0, 1288, 60);
+        jPanel5.setBounds(0, 0, 1290, 60);
 
         tabla_usuariosnew.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -3400,7 +3500,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1298, Short.MAX_VALUE)
+            .addGap(0, 1310, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -3555,7 +3655,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         );
 
         Administrador.add(jPanel24);
-        jPanel24.setBounds(0, 0, 1288, 60);
+        jPanel24.setBounds(0, 0, 1290, 60);
 
         jPanel26.setBackground(new java.awt.Color(0, 51, 102));
         jPanel26.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "   Ventas del Dia Canceladas   ", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Arial", 1, 18), new java.awt.Color(255, 255, 255))); // NOI18N
@@ -3679,7 +3779,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         );
 
         producto_sobrante.add(jPanel20);
-        jPanel20.setBounds(0, 0, 1288, 66);
+        jPanel20.setBounds(0, 0, 1290, 71);
 
         jPanel25.setBackground(new java.awt.Color(0, 51, 102));
         jPanel25.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "    Productos mas Vendidos   ", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Arial", 1, 18), new java.awt.Color(255, 255, 255))); // NOI18N
@@ -3747,7 +3847,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         jPanel13.setLayout(jPanel13Layout);
         jPanel13Layout.setHorizontalGroup(
             jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1298, Short.MAX_VALUE)
+            .addGap(0, 1310, Short.MAX_VALUE)
             .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel13Layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -3765,6 +3865,230 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         );
 
         Proveedores9.addTab("      Estadisticas      ", jPanel13);
+
+        producto_sobrante1.setBackground(new java.awt.Color(0, 51, 102));
+        producto_sobrante1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        producto_sobrante1.setDoubleBuffered(false);
+        producto_sobrante1.setLayout(null);
+
+        jPanel21.setBackground(new java.awt.Color(255, 255, 255));
+
+        jLabel80.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel80.setText("Existencias");
+
+        jLabel91.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/portapapeles.png"))); // NOI18N
+
+        jButton7.setBackground(new java.awt.Color(0, 51, 102));
+        jButton7.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jButton7.setForeground(new java.awt.Color(255, 0, 0));
+        jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/serrar.png"))); // NOI18N
+        jButton7.setText("Salir");
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
+
+        jLabel92.setBackground(new java.awt.Color(0, 160, 204));
+        jLabel92.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
+        jLabel92.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel92.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/bloggif_5bd54d091a235.jpeg"))); // NOI18N
+
+        javax.swing.GroupLayout jPanel21Layout = new javax.swing.GroupLayout(jPanel21);
+        jPanel21.setLayout(jPanel21Layout);
+        jPanel21Layout.setHorizontalGroup(
+            jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel21Layout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addComponent(jLabel92)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
+                .addComponent(jLabel80, javax.swing.GroupLayout.PREFERRED_SIZE, 324, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel91, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(414, 414, 414)
+                .addComponent(jButton7)
+                .addGap(41, 41, 41))
+        );
+        jPanel21Layout.setVerticalGroup(
+            jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel21Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel80, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel21Layout.createSequentialGroup()
+                        .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel91, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addComponent(jLabel92)
+                            .addGroup(jPanel21Layout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap())))
+        );
+
+        producto_sobrante1.add(jPanel21);
+        jPanel21.setBounds(0, 0, 1290, 71);
+
+        Jtable_productosExistemcias.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "nombre_producto", "tipo_producto", "cantidad"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        Jtable_productosExistemcias.setColorFilasForeground1(new java.awt.Color(0, 0, 0));
+        Jtable_productosExistemcias.setColorFilasForeground2(new java.awt.Color(0, 0, 0));
+        Jtable_productosExistemcias.setGrosorBordeFilas(0);
+        Jtable_productosExistemcias.setGrosorBordeHead(0);
+        Jtable_productosExistemcias.setMultipleSeleccion(false);
+        Jtable_productosExistemcias.setRowHeight(25);
+        jScrollPane13.setViewportView(Jtable_productosExistemcias);
+
+        producto_sobrante1.add(jScrollPane13);
+        jScrollPane13.setBounds(20, 100, 1240, 510);
+
+        javax.swing.GroupLayout jPanel14Layout = new javax.swing.GroupLayout(jPanel14);
+        jPanel14.setLayout(jPanel14Layout);
+        jPanel14Layout.setHorizontalGroup(
+            jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1310, Short.MAX_VALUE)
+            .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel14Layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(producto_sobrante1, javax.swing.GroupLayout.PREFERRED_SIZE, 1288, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
+        jPanel14Layout.setVerticalGroup(
+            jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 686, Short.MAX_VALUE)
+            .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel14Layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(producto_sobrante1, javax.swing.GroupLayout.PREFERRED_SIZE, 674, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
+
+        Proveedores9.addTab("     Existencias", jPanel14);
+
+        producto_sobrante2.setBackground(new java.awt.Color(0, 51, 102));
+        producto_sobrante2.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        producto_sobrante2.setDoubleBuffered(false);
+        producto_sobrante2.setLayout(null);
+
+        jPanel22.setBackground(new java.awt.Color(255, 255, 255));
+
+        jLabel81.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel81.setText("Entradas");
+
+        jLabel96.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/portapapeles.png"))); // NOI18N
+
+        jButton9.setBackground(new java.awt.Color(0, 51, 102));
+        jButton9.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jButton9.setForeground(new java.awt.Color(255, 0, 0));
+        jButton9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/serrar.png"))); // NOI18N
+        jButton9.setText("Salir");
+        jButton9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton9ActionPerformed(evt);
+            }
+        });
+
+        jLabel97.setBackground(new java.awt.Color(0, 160, 204));
+        jLabel97.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
+        jLabel97.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel97.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/bloggif_5bd54d091a235.jpeg"))); // NOI18N
+
+        javax.swing.GroupLayout jPanel22Layout = new javax.swing.GroupLayout(jPanel22);
+        jPanel22.setLayout(jPanel22Layout);
+        jPanel22Layout.setHorizontalGroup(
+            jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel22Layout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addComponent(jLabel97)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
+                .addComponent(jLabel81, javax.swing.GroupLayout.PREFERRED_SIZE, 324, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel96, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(414, 414, 414)
+                .addComponent(jButton9)
+                .addGap(41, 41, 41))
+        );
+        jPanel22Layout.setVerticalGroup(
+            jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel22Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel81, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel22Layout.createSequentialGroup()
+                        .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel96, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addComponent(jLabel97)
+                            .addGroup(jPanel22Layout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap())))
+        );
+
+        producto_sobrante2.add(jPanel22);
+        jPanel22.setBounds(0, 0, 1290, 71);
+
+        Jtable_ProductosEntradas.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "nombre_producto", "tipo_producto", "cantidad"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        Jtable_ProductosEntradas.setColorFilasForeground1(new java.awt.Color(0, 0, 0));
+        Jtable_ProductosEntradas.setColorFilasForeground2(new java.awt.Color(0, 0, 0));
+        Jtable_ProductosEntradas.setGrosorBordeFilas(0);
+        Jtable_ProductosEntradas.setGrosorBordeHead(0);
+        Jtable_ProductosEntradas.setMultipleSeleccion(false);
+        Jtable_ProductosEntradas.setRowHeight(25);
+        jScrollPane14.setViewportView(Jtable_ProductosEntradas);
+
+        producto_sobrante2.add(jScrollPane14);
+        jScrollPane14.setBounds(750, 80, 530, 220);
+
+        javax.swing.GroupLayout jPanel15Layout = new javax.swing.GroupLayout(jPanel15);
+        jPanel15.setLayout(jPanel15Layout);
+        jPanel15Layout.setHorizontalGroup(
+            jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1310, Short.MAX_VALUE)
+            .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel15Layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(producto_sobrante2, javax.swing.GroupLayout.PREFERRED_SIZE, 1288, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
+        jPanel15Layout.setVerticalGroup(
+            jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 686, Short.MAX_VALUE)
+            .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel15Layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(producto_sobrante2, javax.swing.GroupLayout.PREFERRED_SIZE, 674, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
+
+        Proveedores9.addTab("tab8", jPanel15);
 
         getContentPane().add(Proveedores9, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1290, 700));
 
@@ -5221,6 +5545,14 @@ descuentoactivo=false;
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton5MouseClicked
 
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton9ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -5266,6 +5598,8 @@ SI cc= new SI();
     private javax.swing.JButton Cortedecaja;
     private javax.swing.JLabel Fecha;
     private javax.swing.JLabel IblReloj;
+    private rojerusan.RSTableMetro Jtable_ProductosEntradas;
+    private rojerusan.RSTableMetro Jtable_productosExistemcias;
     private rojerusan.RSTableMetro Jtable_productosmasven;
     private rojerusan.RSTableMetro Jtable_ventasCanceladas;
     private rojerusan.RSTableMetro Jtable_ventasRealizadas;
@@ -5310,7 +5644,9 @@ SI cc= new SI();
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
+    private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -5385,20 +5721,30 @@ SI cc= new SI();
     private javax.swing.JLabel jLabel75;
     private javax.swing.JLabel jLabel79;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel80;
+    private javax.swing.JLabel jLabel81;
     private javax.swing.JLabel jLabel88;
     private javax.swing.JLabel jLabel89;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel jLabel90;
+    private javax.swing.JLabel jLabel91;
+    private javax.swing.JLabel jLabel92;
     private javax.swing.JLabel jLabel93;
     private javax.swing.JLabel jLabel94;
     private javax.swing.JLabel jLabel95;
+    private javax.swing.JLabel jLabel96;
+    private javax.swing.JLabel jLabel97;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel13;
+    private javax.swing.JPanel jPanel14;
+    private javax.swing.JPanel jPanel15;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel20;
+    private javax.swing.JPanel jPanel21;
+    private javax.swing.JPanel jPanel22;
     private javax.swing.JPanel jPanel23;
     private javax.swing.JPanel jPanel24;
     private javax.swing.JPanel jPanel25;
@@ -5413,6 +5759,8 @@ SI cc= new SI();
     private javax.swing.JScrollPane jScrollPane10;
     private javax.swing.JScrollPane jScrollPane11;
     private javax.swing.JScrollPane jScrollPane12;
+    private javax.swing.JScrollPane jScrollPane13;
+    private javax.swing.JScrollPane jScrollPane14;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
@@ -5453,6 +5801,8 @@ SI cc= new SI();
     private rojerusan.RSTableMetro pollocrudo;
     private javax.swing.JTextField preciop;
     public static javax.swing.JPanel producto_sobrante;
+    public static javax.swing.JPanel producto_sobrante1;
+    public static javax.swing.JPanel producto_sobrante2;
     public static javax.swing.JTextField proem;
     public static javax.swing.JTextField promail;
     public static javax.swing.JTextField promater;
