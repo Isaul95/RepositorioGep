@@ -10,9 +10,13 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import static si.Apertura.fecha;
 import static si.Apertura.monto;
+import static si.menu_principal.fecha;
 import ticket.ticketcortedecaja;
 
 
@@ -37,6 +41,7 @@ int  id_usuario=Integer.parseInt(SI_Inicio.iduser.getText());
         this.setLocationRelativeTo(null); // CENTRAR FORMULARIO
         Fecha.setText(fecha());
         user.setText(usuarioname);
+        mostrartodoslosproductosenexistencias();
         
     }
     
@@ -62,6 +67,61 @@ int  id_usuario=Integer.parseInt(SI_Inicio.iduser.getText());
         return formatoFecha.format(fecha);
     }
     
+    public void mostrartodoslosproductosenexistencias(){
+            existenciadeproductos.setVisible(true);    //hace visible la tabla de proveedores 
+              DefaultTableModel modelo = new DefaultTableModel(); // Se crea un objeto para agregar los nombres de las columnas a la tabla
+    modelo.addColumn("Nombre");
+    modelo.addColumn("Piezas");
+     existenciadeproductos.setModel(modelo);  // Ya una vez asignado todos los nombres se le envia el objeto a la tabla proveedores
+    String []datos = new String[2];     //Un arreglo con la cantidad de nombres en las columnas
+    try {
+      
+             sent = ca.createStatement();   
+                               //      rs = sent.executeQuery("select * from descripcion_de_venta where id_venta= '"+id_de_la_venta_incrementable+"'");
+                       rs= sent.executeQuery("select nombre_producto, cantidad  from  productos"); // se ejecuta la sentencia dentro del parentesis
+            while(rs.next()){        
+            datos[0]=rs.getString(1);
+            datos[1]=rs.getString(2);
+            modelo.addRow(datos); //se asigna el arreglo  entero a todo el objeto llamado modelo  
+            }
+           existenciadeproductos.setModel(modelo); // Se vuelve a enviar nuevamente el objeto modelo a la tabla
+        } catch (SQLException ex) {
+            Logger.getLogger(menu_principal.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "No se pudo mostrar ningun dato porque tu consulta está mal");
+        } 
+    }
+    
+    public void mostrartodoslosproductosenexistenciasporbusqueda(String textoabuscar){
+            existenciadeproductos.setVisible(true);    //hace visible la tabla de proveedores 
+              DefaultTableModel modelo = new DefaultTableModel(); // Se crea un objeto para agregar los nombres de las columnas a la tabla
+    modelo.addColumn("Nombre");
+    modelo.addColumn("Piezas");
+     existenciadeproductos.setModel(modelo);  // Ya una vez asignado todos los nombres se le envia el objeto a la tabla proveedores
+    String []datos = new String[2];     //Un arreglo con la cantidad de nombres en las columnas
+    try {
+      
+             sent = ca.createStatement();   
+                               //      rs = sent.executeQuery("select * from descripcion_de_venta where id_venta= '"+id_de_la_venta_incrementable+"'");
+                       if(textoabuscar.equals("")){
+                          rs= sent.executeQuery("select nombre_producto, cantidad  from  productos"); // se ejecuta la sentencia dentro del parentesis
+     
+                       }
+                       else{
+                   
+                           rs= sent.executeQuery("select nombre_producto, cantidad  from  productos where nombre_producto LIKE '%" +textoabuscar+"%' "); // se ejecuta la sentencia dentro del parentesis
+           
+                       }
+             while(rs.next()){        
+            datos[0]=rs.getString(1);
+            datos[1]=rs.getString(2);
+            modelo.addRow(datos); //se asigna el arreglo  entero a todo el objeto llamado modelo  
+            }
+           existenciadeproductos.setModel(modelo); // Se vuelve a enviar nuevamente el objeto modelo a la tabla
+        } catch (SQLException ex) {
+            Logger.getLogger(menu_principal.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "No se pudo mostrar ningun dato porque tu consulta está mal");
+        } 
+    }
 
     
     @SuppressWarnings("unchecked")
@@ -76,7 +136,7 @@ int  id_usuario=Integer.parseInt(SI_Inicio.iduser.getText());
         Reloj = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         existenciadeproductos = new rojerusan.RSTableMetro();
-        pagocombobox = new javax.swing.JTextField();
+        busqueda = new javax.swing.JTextField();
         user = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -138,21 +198,13 @@ int  id_usuario=Integer.parseInt(SI_Inicio.iduser.getText());
         jPanel2.add(jScrollPane2);
         jScrollPane2.setBounds(360, 70, 270, 400);
 
-        pagocombobox.setBackground(new java.awt.Color(0, 148, 204));
-        pagocombobox.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
-        pagocombobox.setForeground(new java.awt.Color(255, 255, 255));
-        pagocombobox.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        pagocombobox.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        pagocombobox.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                pagocomboboxFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                pagocomboboxFocusLost(evt);
+        busqueda.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                busquedaKeyReleased(evt);
             }
         });
-        jPanel2.add(pagocombobox);
-        pagocombobox.setBounds(20, 100, 220, 29);
+        jPanel2.add(busqueda);
+        busqueda.setBounds(20, 100, 220, 30);
 
         jPanel1.add(jPanel2);
         jPanel2.setBounds(10, 50, 650, 480);
@@ -185,22 +237,10 @@ int  id_usuario=Integer.parseInt(SI_Inicio.iduser.getText());
             dispose();   }
     }//GEN-LAST:event_Corte_btncancelarActionPerformed
 
-    private void pagocomboboxFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_pagocomboboxFocusGained
-        // *********************   CAJA DE TEXTO DE PAGOO *********
-        if(pagocombobox.getText().trim().equals("00.00")){
-            pagocombobox.setText("");
-            //user_usuario.setForeground(Color.red);
-        }
-        pagocombobox.setForeground(Color.blue);
-    }//GEN-LAST:event_pagocomboboxFocusGained
-
-    private void pagocomboboxFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_pagocomboboxFocusLost
-        // *********************   CAJA DE TEXTO DE PAGOO *********
-        if(pagocombobox.getText().trim().equals("")){
-            pagocombobox.setText("00.00");
-        }
-        pagocombobox.setForeground(new Color(236, 240, 241));
-    }//GEN-LAST:event_pagocomboboxFocusLost
+    private void busquedaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_busquedaKeyReleased
+       String textobusqueda = busqueda.getText();
+       mostrartodoslosproductosenexistenciasporbusqueda(textobusqueda);
+    }//GEN-LAST:event_busquedaKeyReleased
      
    
  
@@ -247,12 +287,12 @@ SI cc= new SI();
     private javax.swing.JButton Corte_btncancelar;
     private javax.swing.JLabel Fecha;
     private javax.swing.JLabel Reloj;
+    private javax.swing.JTextField busqueda;
     private rojerusan.RSTableMetro existenciadeproductos;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane2;
-    public static javax.swing.JTextField pagocombobox;
     private javax.swing.JLabel user;
     // End of variables declaration//GEN-END:variables
 }
