@@ -20,7 +20,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 import si.Gastos;
-import static si.menu_principal.searchforproducts;
+//import static si.menu_principal.searchforproducts;
 import ticket.TikectGasto;
 import static si.menu_principal.venta; // DANDO ACCESOO ALA INTERFAZ PRINCIPAL
 
@@ -53,9 +53,9 @@ public class Pantalla_Gastos extends javax.swing.JFrame {
         initComponents();
         //menu_principal.autocompletar();
        // Actualizar();
-       autocompletar();
+//       autocompletar();
         this.setLocationRelativeTo(null); // CENTRAR FORMULARIO
-         AutoCompleteDecorator.decorate(menu_principal.searchforproducts);
+         //AutoCompleteDecorator.decorate(menu_principal.searchforproducts);
         jDateChooserFecha.setCalendar(fecha_actual);
         //txtpiezas.setEnabled(false);
        // txtpiezas.setText("0");
@@ -572,7 +572,8 @@ public class Pantalla_Gastos extends javax.swing.JFrame {
         LlenarTabla(jTableGastos);
         
     }//GEN-LAST:event_btnListarActionPerformed
-public void autocompletar(){ //metodo sin retorno para obtener la lista de campos de la tabla productos la cual obtiene cada uno de los nombres para poder hacer algunas coincidencias al momento que el usuario estÃ¡ escribiendo
+/*
+    public void autocompletar(){ //metodo sin retorno para obtener la lista de campos de la tabla productos la cual obtiene cada uno de los nombres para poder hacer algunas coincidencias al momento que el usuario estÃ¡ escribiendo
           ArrayList<String> lista = new ArrayList<String>();
       
        menu_principal.searchforproducts.removeAllItems(); //Ã‰sta linea es importante ya que cada vez que se llama este metodo se eliminan los item que previamente se cargaron en la llamada anterior, ESTO PARA QUE NO SE VUELVAN AGREGAR LOS MISMOS ITEMS, MÃ�S DE 1 VEZ
@@ -589,6 +590,7 @@ public void autocompletar(){ //metodo sin retorno para obtener la lista de campo
             
         }
     }
+    */
 public void obtener_id_del_proveedor(String name){
     String nombredelaempresa=name;
         try{
@@ -713,7 +715,7 @@ try {
                        JOptionPane.showMessageDialog(null, "Productos Registrados con Exito...");
                        
                        limpiar();
-                       autocompletar();
+//                       autocompletar();
                    }  /*2*/  
                    
  }
