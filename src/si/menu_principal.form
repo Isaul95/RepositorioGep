@@ -3567,7 +3567,7 @@
                         </Constraint>
                       </Constraints>
                     </Component>
-                    <Component class="javax.swing.JLabel" name="Ventasfortoday1">
+                    <Component class="javax.swing.JLabel" name="ventaseneldiasumadas">
                       <Properties>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Trebuchet MS" size="24" style="1"/>
@@ -3584,7 +3584,7 @@
                         </Constraint>
                       </Constraints>
                     </Component>
-                    <Component class="javax.swing.JLabel" name="VentasTotal">
+                    <Component class="javax.swing.JLabel" name="conteodelasventasrealizadas">
                       <Properties>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Trebuchet MS" size="24" style="1"/>
@@ -3698,6 +3698,9 @@
                     </Container>
                     <Component class="javax.swing.JButton" name="veridventas">
                       <Properties>
+                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                          <Font name="Dialog" size="18" style="1"/>
+                        </Property>
                         <Property name="text" type="java.lang.String" value="Ver ventas"/>
                       </Properties>
                       <Events>
@@ -3854,7 +3857,7 @@
                         </Constraint>
                       </Constraints>
                     </Component>
-                    <Component class="javax.swing.JLabel" name="VentasTotalCance">
+                    <Component class="javax.swing.JLabel" name="ventascanceladaseneldia">
                       <Properties>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Trebuchet MS" size="24" style="1"/>
