@@ -5,6 +5,7 @@ import java.awt.Font;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -340,10 +341,14 @@ Statement sent;
     }
 }
      
+     
+     
+     
+     
          
       // CONSULTA DE PRODUCTOS EN EXITENCIA EN INVENTARIO            
      public void TablallenadoparaEntradas(JTable tablaD){ // recibe como parametro 
-         Object[] columna = new Object[2];  //crear un obj con el nombre de colunna
+           Object[] columna = new Object[2];  //crear un obj con el nombre de colunna
             Connection ca= cc.conexion(); // CONEXION DB 
               DefaultTableModel modeloT = new DefaultTableModel(); 
                   tablaD.setModel(modeloT);  // add modelo ala tabla 
@@ -363,12 +368,21 @@ Statement sent;
                 //columna[3] = rs.getInt(4);
                 modeloT.addRow(columna);
             }
-                                 
-            
-            
-            
-            
-            modeloT.addTableModelListener(new TableModelListener(){
+                   KeyListener eventos = new KeyListener() {
+                @Override
+                public void keyTyped(KeyEvent e) {
+                    //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                }
+
+                @Override
+                public void keyPressed(KeyEvent e) {
+                   // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                }
+
+                @Override
+                public void keyReleased(KeyEvent ke) {
+                    if(ke.getKeyChar() == '\n'){
+                        modeloT.addTableModelListener(new TableModelListener(){
                 @Override
                 public void tableChanged(TableModelEvent e) {
                     
@@ -408,6 +422,12 @@ Statement sent;
 
                 }
             });
+                        
+                    }
+                }
+            };            
+            
+            
             
             
         }
@@ -415,6 +435,7 @@ Statement sent;
     } catch (Exception e) {
         JOptionPane.showMessageDialog(null, e, "Advertencia", JOptionPane.PLAIN_MESSAGE);    
     }
+        
 }
      
      
@@ -2083,6 +2104,11 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 pagocomboboxFocusLost(evt);
+            }
+        });
+        pagocombobox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pagocomboboxActionPerformed(evt);
             }
         });
         pagocombobox.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -4088,6 +4114,11 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         Jtable_ProductosEntradas.setGrosorBordeHead(0);
         Jtable_ProductosEntradas.setMultipleSeleccion(false);
         Jtable_ProductosEntradas.setRowHeight(25);
+        Jtable_ProductosEntradas.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                Jtable_ProductosEntradasKeyReleased(evt);
+            }
+        });
         jScrollPane15.setViewportView(Jtable_ProductosEntradas);
 
         producto_sobrante2.add(jScrollPane15);
@@ -5630,6 +5661,97 @@ descuentoactivo=false;
       }
       
     }//GEN-LAST:event_pagocomboboxKeyReleased
+
+    private void Jtable_ProductosEntradasKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_Jtable_ProductosEntradasKeyReleased
+        /* TABLA
+           char tecla = evt.getKeyChar();      
+      if(tecla== KeyEvent.VK_ENTER){
+          
+          
+           Object[] columna = new Object[2];  //crear un obj con el nombre de colunna
+            Connection ca= cc.conexion(); // CONEXION DB 
+              DefaultTableModel modeloT = new DefaultTableModel(); 
+                  Jtable_ProductosEntradas.setModel(modeloT);  // add modelo ala tabla 
+         //modeloT.addColumn("id_producto");
+        modeloT.addColumn("nombre_producto");
+        //modeloT.addColumn("tipo_producto");        
+        modeloT.addColumn("cantidad");
+        try {
+         String sSQL = "SELECT  nombre_producto, cantidad FROM productos";
+                 
+        PreparedStatement ps = ca.prepareStatement(sSQL);       
+        try (ResultSet rs = ps.executeQuery(sSQL)) {
+            while (rs.next()) {
+                 //columna[0] = rs.getInt(1);
+                columna[0] = rs.getString(1);
+                 columna[1] = rs.getFloat(2);
+                //columna[3] = rs.getInt(4);
+                modeloT.addRow(columna);
+            }
+                                 
+            
+            
+            modeloT.addTableModelListener(new TableModelListener(){
+                @Override
+                public void tableChanged(TableModelEvent e) {
+                    
+                    int fila =Jtable_ProductosEntradas.getSelectedRow();
+                    int col =Jtable_ProductosEntradas.getSelectedColumn();            
+                    
+                    
+                    if(e.getType() == TableModelEvent.UPDATE){
+                        
+                        if(fila>=0){// CUANDO UNA CELDA SE SELECCIONO
+          JOptionPane.showMessageDialog(null, "cambio en fila"+e.getFirstRow()+"con la columna"+e.getColumn());  
+                                          // String sql = "UPDATE productos SET cantidad='"+modeloT.getValueAt(e.getFirstRow(), e.getColumn())+"' WHERE id_producto="+modeloT.getValueAt(e.getFirstRow(),0);
+                            String valor = Jtable_ProductosEntradas.getValueAt(fila, 0).toString();
+                              JOptionPane.showMessageDialog(null, "valor"+valor); 
+                                    id_producto(valor); 
+                                    
+                                     JOptionPane.showMessageDialog(null, "id del producto"+id_producto);  
+                         String sql = "UPDATE productos SET cantidad='"+modeloT.getValueAt(e.getFirstRow(), e.getColumn())+"' WHERE id_producto="+id_producto;
+                           SI cc= new SI();
+                           Connection ca= cc.conexion();
+                         PreparedStatement pst;
+                           ParaLAVenta(JtablepaLaVenta);  // ***********************
+                          try{
+                               pst = ca.prepareStatement(sql);
+                               int rows = pst.executeUpdate();
+                                
+                          } catch (SQLException ex) {
+                              Logger.getLogger(JTable.class.getName()).log(Level.SEVERE,null, ex);
+                                JOptionPane.showMessageDialog(null, "error actualizar"+ex);    
+                          }
+      }
+                        
+                        
+                                                                                                        
+                          
+                    }
+
+                }
+            });
+            
+            
+        }
+        ps.close();
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(null, e, "Advertencia", JOptionPane.PLAIN_MESSAGE);    
+    }
+          
+          
+         }
+      
+      
+      */
+      
+      
+      
+    }//GEN-LAST:event_Jtable_ProductosEntradasKeyReleased
+
+    private void pagocomboboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pagocomboboxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_pagocomboboxActionPerformed
 
     /**
      * @param args the command line arguments
