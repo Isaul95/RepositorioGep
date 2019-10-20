@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.event.KeyEvent;
 import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -1805,6 +1806,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         jScrollPane11 = new javax.swing.JScrollPane();
         extras = new rojerusan.RSTableMetro();
         jLabel64 = new javax.swing.JLabel();
+        Existencias = new javax.swing.JButton();
         agregar_proveedor = new javax.swing.JPanel();
         agregarpro = new javax.swing.JButton();
         jLabel12 = new javax.swing.JLabel();
@@ -2086,6 +2088,9 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         pagocombobox.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 pagocomboboxKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                pagocomboboxKeyReleased(evt);
             }
         });
         jPanel10.add(pagocombobox, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 90, 140, 30));
@@ -2401,6 +2406,21 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         jLabel64.setForeground(new java.awt.Color(255, 255, 255));
         jLabel64.setText("En venta :");
         venta.add(jLabel64, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 90, 120, -1));
+
+        Existencias.setBackground(new java.awt.Color(0, 148, 204));
+        Existencias.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        Existencias.setForeground(new java.awt.Color(255, 255, 255));
+        Existencias.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/actualizar.png"))); // NOI18N
+        Existencias.setText("Existencias");
+        Existencias.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        Existencias.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        Existencias.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        Existencias.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ExistenciasActionPerformed(evt);
+            }
+        });
+        venta.add(Existencias, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 470, 110, 110));
 
         Proveedores9.addTab("      Venta      ", venta);
 
@@ -5408,15 +5428,83 @@ public void datosparaelticketdeventa(){
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton5MouseClicked
 
+    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+cerrandosesion();
+    }//GEN-LAST:event_jButton9ActionPerformed
+    public void descripciondeproductosenbasealnumerodeventa(int numerodeventa){
+        Object[] columna = new Object[4];  //crear un obj con el nombre de colunna
+            Connection ca= cc.conexion(); // CONEXION DB 
+              DefaultTableModel modeloT = new DefaultTableModel(); 
+                  ventasporid.setModel(modeloT);  // add modelo ala tabla 
+        
+       // modeloT.addColumn("id_venta");    // add al modelo las 5 columnas con los nombrs TABLA
+        modeloT.addColumn("Nombre");
+        modeloT.addColumn("Piezas");        
+        modeloT.addColumn("Precio");
+        modeloT.addColumn("Importe");
+        
+       try {
+           
+                 String sSQL = "SELECT nombre_producto, cantidad, precio_unitario, importe FROM descripcion_de_venta WHERE estado='Realizada' AND id_venta = '"+numerodeventa+"' ";
+             
+        PreparedStatement ps = ca.prepareStatement(sSQL);       
+        try (ResultSet rs = ps.executeQuery(sSQL)) {
+            while (rs.next()) {
+               // columna[0] = rs.getString("id_venta");  /* === LA DB == */
+                columna[0] = rs.getString(1);
+                columna[1] = rs.getString(2);
+                columna[2] = rs.getString(3);      
+                columna[3] = rs.getString(4); 
+                modeloT.addRow(columna);
+              
+            }
+        }
+        ps.close();
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(null, e, "Advertencia", JOptionPane.PLAIN_MESSAGE);    
+    }
+    }
+    
+    private void ventasporidMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ventasporidMouseClicked
+        int fila =ventasporid.getSelectedRow();
+             RetornaValorUpdateProducts();
+      if(fila>=0){
+          veridventas.setVisible(true);
+             descripciondeproductosenbasealnumerodeventa(Integer.parseInt(ventasporid.getValueAt(fila,0).toString()));
+           
+      }
+      else
+          JOptionPane.showMessageDialog(null,"Por favor, seleccione una fila primero","Aviso",JOptionPane.INFORMATION_MESSAGE);
+    }//GEN-LAST:event_ventasporidMouseClicked
+
+    private void veridventasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_veridventasActionPerformed
+       llenartablaidventasconidrealizados(); //CARGA NUEVAMENTE LAS VENTAS POR ID
+       veridventas.setVisible(false);
+    }//GEN-LAST:event_veridventasActionPerformed
+
+    private void ExistenciasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExistenciasActionPerformed
+        new Existencias().setVisible(true);
+    }//GEN-LAST:event_ExistenciasActionPerformed
+
     private void pagocomboboxKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_pagocomboboxKeyPressed
-       /*   ********************  BOTON DE COBRAR LA VENTA ****************  */
+  
+    }//GEN-LAST:event_pagocomboboxKeyPressed
+
+    private void pagocomboboxKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_pagocomboboxKeyReleased
+      char tecla = evt.getKeyChar();
+      
+      if(tecla== KeyEvent.VK_ENTER){
+          
+          
+        
+        /*   ********************  BOTON DE COBRAR LA VENTA ****************  */
              /*   ******************  BOTON DE COBRAR LA VENTA **************  */
            try{ 
        float variabletotal = Float.parseFloat(total.getText());
             float variablepago = Float.parseFloat(pagocombobox.getText());
             float variablepagocondescuento =  Float.parseFloat(totalcondescuento.getText());
             
-        if(!total.getText().isEmpty()&&!pagocombobox.getText().isEmpty()){
+        if(!total.getText().isEmpty()&&!pagocombobox.getText().isEmpty()&&Integer.parseInt(total.getText())>0){
            if(descuentoactivo==true){ //CUANDO EL DESCUENTO ESTÁ ACTIVO
                
                if(variablepago<variablepagocondescuento){ // comprueba que la cantidad recibida sea mayor al total
@@ -5538,61 +5626,10 @@ descuentoactivo=false;
       }catch(Exception NFE){//Number format exception para cuando el usuario no ingrese ningun dato en la caja
                             JOptionPane.showMessageDialog(null,"No tiene valor la cantidad recibida","!Espera!",JOptionPane.INFORMATION_MESSAGE);
       }
-    }//GEN-LAST:event_pagocomboboxKeyPressed
-
-    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
-cerrandosesion();
-    }//GEN-LAST:event_jButton9ActionPerformed
-    public void descripciondeproductosenbasealnumerodeventa(int numerodeventa){
-        Object[] columna = new Object[4];  //crear un obj con el nombre de colunna
-            Connection ca= cc.conexion(); // CONEXION DB 
-              DefaultTableModel modeloT = new DefaultTableModel(); 
-                  ventasporid.setModel(modeloT);  // add modelo ala tabla 
-        
-       // modeloT.addColumn("id_venta");    // add al modelo las 5 columnas con los nombrs TABLA
-        modeloT.addColumn("Nombre");
-        modeloT.addColumn("Piezas");        
-        modeloT.addColumn("Precio");
-        modeloT.addColumn("Importe");
-        
-       try {
-           
-                 String sSQL = "SELECT nombre_producto, cantidad, precio_unitario, importe FROM descripcion_de_venta WHERE estado='Realizada' AND id_venta = '"+numerodeventa+"' ";
-             
-        PreparedStatement ps = ca.prepareStatement(sSQL);       
-        try (ResultSet rs = ps.executeQuery(sSQL)) {
-            while (rs.next()) {
-               // columna[0] = rs.getString("id_venta");  /* === LA DB == */
-                columna[0] = rs.getString(1);
-                columna[1] = rs.getString(2);
-                columna[2] = rs.getString(3);      
-                columna[3] = rs.getString(4); 
-                modeloT.addRow(columna);
-              
-            }
-        }
-        ps.close();
-    } catch (Exception e) {
-        JOptionPane.showMessageDialog(null, e, "Advertencia", JOptionPane.PLAIN_MESSAGE);    
-    }
-    }
-    
-    private void ventasporidMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ventasporidMouseClicked
-        int fila =ventasporid.getSelectedRow();
-             RetornaValorUpdateProducts();
-      if(fila>=0){
-          veridventas.setVisible(true);
-             descripciondeproductosenbasealnumerodeventa(Integer.parseInt(ventasporid.getValueAt(fila,0).toString()));
-           
+          
       }
-      else
-          JOptionPane.showMessageDialog(null,"Por favor, seleccione una fila primero","Aviso",JOptionPane.INFORMATION_MESSAGE);
-    }//GEN-LAST:event_ventasporidMouseClicked
-
-    private void veridventasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_veridventasActionPerformed
-       llenartablaidventasconidrealizados(); //CARGA NUEVAMENTE LAS VENTAS POR ID
-       veridventas.setVisible(false);
-    }//GEN-LAST:event_veridventasActionPerformed
+      
+    }//GEN-LAST:event_pagocomboboxKeyReleased
 
     /**
      * @param args the command line arguments
@@ -5637,6 +5674,7 @@ SI cc= new SI();
     public static javax.swing.JPanel Administrador;
     private javax.swing.JButton AgregarGastos;
     private javax.swing.JButton Cortedecaja;
+    private javax.swing.JButton Existencias;
     private javax.swing.JLabel Fecha;
     private javax.swing.JLabel IblReloj;
     private rojerusan.RSTableMetro Jtable_ProductosEntradas;
