@@ -294,13 +294,14 @@ public void metodogastosdeldia(){
     private void Corte_btnImprimirticketActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Corte_btnImprimirticketActionPerformed
         float variablemontoentregado=Float.parseFloat(monto.getText()), ventasmenosgastos, menosapertura;
         if(variablemontoentregado>0){//COMPROBANDO QUE EL MONTO NO ESTE VACIO
-             try{ //la insersion a la tabla ventas
+               
+          try{ //la insersion a la tabla ventas
               ventaseneldia();
               metodogastosdeldia();
               aperturadeldia();
-               ventasmenosgastos=ventasdeldia-gastosdeldia; 
-               JOptionPane.showMessageDialog(null,"ventasmenosgasto: "+ventasmenosgastos);
-                  diferencia=variablemontoentregado-ventasmenosgastos;
+             ventasmenosgastos=ventasdeldia-gastosdeldia; 
+            JOptionPane.showMessageDialog(null,"ventasmenosgasto: "+ventasmenosgastos);
+                 diferencia=variablemontoentregado-ventasmenosgastos;
                   JOptionPane.showMessageDialog(null,"Se abrio con : "+diferencia);
                  
                    diferenciafinal=montodeapertura-diferencia;
@@ -330,14 +331,11 @@ public void metodogastosdeldia(){
                 tikectcorte = new ticketcortedecaja();
                 tikectcorte.datosdelticketdecorte(datosdelcorteparaelticket);
                 */ 
-              insertaradevoluciondecrudo();
-                vaciartodoelpollocrudodeinventario();//UNA VEZ IMPRESO EL SOBRANTE SE VACIAN LOS POLLO CRUDIOS
+            insertaradevoluciondecrudo();
+           vaciartodoelpollocrudodeinventario();//UNA VEZ IMPRESO EL SOBRANTE SE VACIAN LOS POLLO CRUDIOS
                 
                 JOptionPane.showMessageDialog(null,"Nos vemos pronto","Saliendo del sistema...",JOptionPane.INFORMATION_MESSAGE);
-             /*   new SI_Inicio().setVisible(true);
-                new menu_principal().setVisible(false);
-               this.setVisible(false);
-*/System.exit(0);
+            System.exit(0);
 
             }
               
@@ -345,6 +343,7 @@ public void metodogastosdeldia(){
             }catch(SQLException e)  { //fin de la insersion a la tabla ventas
                 JOptionPane.showMessageDialog(null,"Error de datos por id vacio "+e);
             }//fin de la insersion a la tabla ventas
+             
     }//FIN DE COMPROBANDO QUE EL MONTO NO ESTE VACIO
 else{//CUANDO EL MONTO ESTA VACIO
             JOptionPane.showMessageDialog(null,"El monto no puede estar vacio o en 0");
@@ -361,24 +360,21 @@ double []totales = {35.0, 7.70, 7.70, 5.50};
                       sent  = (Statement)ca.createStatement();
                       rs = sent.executeQuery("select nombre_producto, cantidad from productos where nombre_producto in ('Pechuga', 'Muslo', 'Pierna', 'Ala')");
                          while(rs.next()){
-                             nombres.add(rs.getFloat(1));
+                             nombres.add(rs.getString(1));
                              cantidades.add(rs.getFloat(2));
                               
                        
                          }
       }catch(Exception e){                                             
       }
-        for(int aa =0; aa<=3; aa++){
-                 double total=0;
-        precio_producto(String.valueOf(nombres.get(aa)));
-            total= Double.parseDouble(String.valueOf(cantidades.get(aa)))*precio;
+        for(int aa =0; aa<=nombres.size()-1; aa++){
+            double total=0;   
+            total= Double.parseDouble(String.valueOf(cantidades.get(aa)))*totales[aa];
+             JOptionPane.showMessageDialog(null, "TOTAÑ "+total);
             try{ //la insersion a la tabla ventas
-                PreparedStatement ps = ca.prepareStatement ("UPDATE devolucion_crudo SET piezas='"+cantidades.get(aa)+"',total = '"+total+"',fecha = '"+fecha()+"'WHERE nombre in ('Pechuga', 'Muslo', 'Pierna', 'Ala')");
-            
+                PreparedStatement ps = ca.prepareStatement ("UPDATE devolucion_crudo SET piezas='"+cantidades.get(aa)+"',total = '"+total+"',fecha = '"+fecha()+"'WHERE nombre= '"+nombres.get(aa)+"' ");  
                 int a=ps.executeUpdate();
                 if(a>0){
-                                  JOptionPane.showMessageDialog(null,"Articulo agregado correctamente: " ,"             Aviso",JOptionPane.INFORMATION_MESSAGE);
-             
                  }
                          
 //cantidad.setText("");
@@ -390,18 +386,7 @@ double []totales = {35.0, 7.70, 7.70, 5.50};
         
     }
     
-    public void precio_producto(String nombredepieza){
-       
-        try{ // el precio del producto
-                                sent  =(Statement)ca.createStatement();
-                                           rs = sent.executeQuery("select * from productos where nombre_producto= '"+nombredepieza+"'");
-                                            while(rs.next()){
-                                                      precio =Float.parseFloat(rs.getString("precio"));
-                                                      }
-                                                      }//fin del try-precio del producto
-                                                      catch (Exception e){
-                                                      }// fin del precio-catch del producto
-    }
+   
     
     private void montoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_montoFocusGained
         // *********************   CAJA DE TEXTO DE PAGOO *********

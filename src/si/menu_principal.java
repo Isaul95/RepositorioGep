@@ -5643,6 +5643,7 @@ descuentoactivo=false;
  productosvendidoseneldia(Jtable_ventasRealizadas); // CONTAR LAS VENTAS K SE REALIZARON
  productosmasvendidos(Jtable_productosmasven); // CONTABIL.. PRODUCTOS MAS VENDIDOS SOLO LAS VENTAS REALIZADAS 
 //autocompletar();
+
             }//fin del id del usuario
             catch(Exception w){
                 JOptionPane.showMessageDialog(null,"error en id usuario"+w);
