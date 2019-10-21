@@ -368,22 +368,13 @@ double []totales = {35.0, 7.70, 7.70, 5.50};
       }catch(Exception e){                                             
       }
         for(int aa =0; aa<=nombres.size()-1; aa++){
-            JOptionPane.showMessageDialog(null, "NOMBRES SON "+nombres.get(aa));
-      JOptionPane.showMessageDialog(null, "CANTIDADES SON "+cantidades.get(aa));
-              
-            double total=0;
-       
-          JOptionPane.showMessageDialog(null, "PRECIO "+totales[aa]);
-           
+            double total=0;   
             total= Double.parseDouble(String.valueOf(cantidades.get(aa)))*totales[aa];
              JOptionPane.showMessageDialog(null, "TOTAÑ "+total);
             try{ //la insersion a la tabla ventas
-                PreparedStatement ps = ca.prepareStatement ("UPDATE devolucion_crudo SET piezas='"+cantidades.get(aa)+"',total = '"+total+"',fecha = '"+fecha()+"'WHERE nombre= '"+nombres.get(aa)+"' ");
-            
+                PreparedStatement ps = ca.prepareStatement ("UPDATE devolucion_crudo SET piezas='"+cantidades.get(aa)+"',total = '"+total+"',fecha = '"+fecha()+"'WHERE nombre= '"+nombres.get(aa)+"' ");  
                 int a=ps.executeUpdate();
                 if(a>0){
-                                  JOptionPane.showMessageDialog(null,"Articulo agregado correctamente: " ,"             Aviso",JOptionPane.INFORMATION_MESSAGE);
-             
                  }
                          
 //cantidad.setText("");
@@ -395,18 +386,7 @@ double []totales = {35.0, 7.70, 7.70, 5.50};
         
     }
     
-    public void precio_producto(String nombredepieza){
-       
-        try{ // el precio del producto
-                                sent  =(Statement)ca.createStatement();
-                                           rs = sent.executeQuery("select * from productos where nombre_producto= '"+nombredepieza+"'");
-                                            while(rs.next()){
-                                                      precio =Float.parseFloat(rs.getString("precio"));
-                                                      }
-                                                      }//fin del try-precio del producto
-                                                      catch (Exception e){
-                                                      }// fin del precio-catch del producto
-    }
+   
     
     private void montoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_montoFocusGained
         // *********************   CAJA DE TEXTO DE PAGOO *********
