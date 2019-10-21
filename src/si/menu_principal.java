@@ -366,23 +366,7 @@ Statement sent;
                 //columna[3] = rs.getInt(4);
                 modeloT.addRow(columna);
             }
-               /*    KeyListener eventos = new KeyListener() {
-                @Override
-                public void keyTyped(KeyEvent e) {
-                    //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-                }
-
-                @Override
-                public void keyPressed(KeyEvent e) {
-                   // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-                }
-
-                @Override
-                public void keyReleased(KeyEvent ke) {
-                    if(ke.getKeyChar() == KeyEvent.VK_ENTER){ */
-                        
-                        
-                        
+                  
                         
                         
                         
@@ -430,12 +414,7 @@ Statement sent;
                 }
             });
                         
-               //     }   // enter presiona
-             //   }       // event release
-           // };         // key listerner       
-            
-            
-            
+             
             
         }
         ps.close();
