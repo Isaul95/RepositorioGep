@@ -5585,6 +5585,7 @@ cerrandosesion();
                                              
                                                  mostrarpolloscocidos();
 descuentoactivo=false;
+storage.clear();
 //autocompletar();
             }//fin del id del usuario
             catch(Exception w){
@@ -5643,7 +5644,7 @@ descuentoactivo=false;
  productosvendidoseneldia(Jtable_ventasRealizadas); // CONTAR LAS VENTAS K SE REALIZARON
  productosmasvendidos(Jtable_productosmasven); // CONTABIL.. PRODUCTOS MAS VENDIDOS SOLO LAS VENTAS REALIZADAS 
 //autocompletar();
-
+storage.clear();
             }//fin del id del usuario
             catch(Exception w){
                 JOptionPane.showMessageDialog(null,"error en id usuario"+w);
