@@ -379,7 +379,7 @@ Statement sent;
 
                 @Override
                 public void keyReleased(KeyEvent ke) {
-                    if(ke.getKeyChar() == '\n'){
+                    if(ke.getKeyChar() == KeyEvent.VK_ENTER){
                         modeloT.addTableModelListener(new TableModelListener(){
                 @Override
                 public void tableChanged(TableModelEvent e) {
