@@ -22,7 +22,7 @@ public class Pantalla_CorteCaja extends javax.swing.JFrame  implements Runnable{
     Statement sent;  
   ResultSet rs;     
   ticketcortedecaja tikectcorte;
-float ventasdeldia, gastosdeldia, montodeapertura, diferencia, diferenciafinal;
+float ventasdeldia, gastosdeldia, montodeapertura, diferencia, diferenciafinal, precio;
 int apertura;
 String  usuarioname=SI_Inicio.text_user.getText();
 int  id_usuario=Integer.parseInt(SI_Inicio.iduser.getText());
@@ -330,6 +330,7 @@ public void metodogastosdeldia(){
                 tikectcorte = new ticketcortedecaja();
                 tikectcorte.datosdelticketdecorte(datosdelcorteparaelticket);
                 */ 
+              insertaradevoluciondecrudo();
                 vaciartodoelpollocrudodeinventario();//UNA VEZ IMPRESO EL SOBRANTE SE VACIAN LOS POLLO CRUDIOS
                 
                 JOptionPane.showMessageDialog(null,"Nos vemos pronto","Saliendo del sistema...",JOptionPane.INFORMATION_MESSAGE);
@@ -352,6 +353,56 @@ else{//CUANDO EL MONTO ESTA VACIO
 }// FIN DE CUANDO EL MONTO ESTA VACIO
     }//GEN-LAST:event_Corte_btnImprimirticketActionPerformed
 
+    public void insertaradevoluciondecrudo(){
+         ArrayList cantidades = new  ArrayList();
+         ArrayList nombres = new  ArrayList();
+double []totales = {35.0, 7.70, 7.70, 5.50};
+        try{//SOLO SE LLAMA A LA CANTIDAD PORQUE EN EL TICKET YA SE DEFINIRÁN LOS NOMBRES DE CADA ARTICULO
+                      sent  = (Statement)ca.createStatement();
+                      rs = sent.executeQuery("select nombre_producto, cantidad from productos where nombre_producto in ('Pechuga', 'Muslo', 'Pierna', 'Ala')");
+                         while(rs.next()){
+                             nombres.add(rs.getFloat(1));
+                             cantidades.add(rs.getFloat(2));
+                              
+                       
+                         }
+      }catch(Exception e){                                             
+      }
+        for(int aa =0; aa<=3; aa++){
+                 double total=0;
+        precio_producto(String.valueOf(nombres.get(aa)));
+            total= Double.parseDouble(String.valueOf(cantidades.get(aa)))*precio;
+            try{ //la insersion a la tabla ventas
+                PreparedStatement ps = ca.prepareStatement ("UPDATE devolucion_crudo SET piezas='"+cantidades.get(aa)+"',total = '"+total+"',fecha = '"+fecha()+"'WHERE nombre in ('Pechuga', 'Muslo', 'Pierna', 'Ala')");
+            
+                int a=ps.executeUpdate();
+                if(a>0){
+                                  JOptionPane.showMessageDialog(null,"Articulo agregado correctamente: " ,"             Aviso",JOptionPane.INFORMATION_MESSAGE);
+             
+                 }
+                         
+//cantidad.setText("");
+            
+            }catch(SQLException e)  { //fin de la insersion a la tabla ventas
+                JOptionPane.showMessageDialog(null,"Error de datos por id vacio "+e);
+            }//fin de la insersion a la tabla ventas
+        }
+        
+    }
+    
+    public void precio_producto(String nombredepieza){
+       
+        try{ // el precio del producto
+                                sent  =(Statement)ca.createStatement();
+                                           rs = sent.executeQuery("select * from productos where nombre_producto= '"+nombredepieza+"'");
+                                            while(rs.next()){
+                                                      precio =Float.parseFloat(rs.getString("precio"));
+                                                      }
+                                                      }//fin del try-precio del producto
+                                                      catch (Exception e){
+                                                      }// fin del precio-catch del producto
+    }
+    
     private void montoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_montoFocusGained
         // *********************   CAJA DE TEXTO DE PAGOO *********
         if(monto.getText().trim().equals("00.00")){

@@ -103,11 +103,9 @@ Statement sent;
     TablaDatosUsuarios();   /********* METODO LLAMADO AL INICIAR EL SISTEMA LOS DATOS YA ESTAN CARAGADOS  *********/
     Ocultoetiquetas();
     OcultosProductos();
-    labeldescuento.setVisible(false);
-    descuentocombo.setVisible(false);
-                   totalcondescuento.setVisible(false);
-               jLabel61.setVisible(false);
-               descuentolabel.setVisible(false);
+    labeldescuento.setVisible(true);
+               jLabel61.setVisible(true);
+               descuentolabel.setVisible(true);
                veridventas.setVisible(false);
    
     }
@@ -1004,14 +1002,13 @@ addpiezas=cantidadpolloenDB-2;
    
            public void  limpiardatosdeventa(){
         //cantidad.setText("");
-        total.setText("00.00");
+        totaldeventa.setText("00.00");
         pagocombobox.setText("00.00");
         cambiocombobox.setText("00.00");
         tablaventa.setVisible(false);
         tablaventaactiva=false;
         labeldescuento.setVisible(false);
-    descuentocombo.setVisible(false);
-                   totalcondescuento.setVisible(false);
+
                jLabel61.setVisible(false);
                descuentolabel.setVisible(false);
     } 
@@ -1257,11 +1254,11 @@ addpiezas=cantidadpolloenDB-2;
                     tablaventaactiva=true;
                     total_venta_enturno();
                     totalf=sumadeimportes;
-                    total.setText(String.valueOf(totalf));
+                    totaldeventa.setText(String.valueOf(totalf));
                     if(descuentoactivo==true){
                    JOptionPane.showMessageDialog(null, "descuento aplicado");
-               if(Float.parseFloat(total.getText())>0){
-               totalfinalcondescuento =  Float.parseFloat(total.getText()) - Float.parseFloat(descuentocombo.getText());
+               if(Float.parseFloat(totaldeventa.getText())>0){
+               totalfinalcondescuento =  Float.parseFloat(totaldeventa.getText()) - Float.parseFloat(descuentocombo.getText());
                totalcondescuento.setText(String.valueOf(totalfinalcondescuento));
                     }
                  }JOptionPane.showMessageDialog(null,"Articulo agregado correctamente: " +nombredepieza,"             Aviso",JOptionPane.INFORMATION_MESSAGE);
@@ -1301,14 +1298,14 @@ addpiezas=cantidadpolloenDB-2;
                     tablaventaactiva=true;
                    total_venta_enturno();
                     totalf=sumadeimportes;
-                    total.setText(String.valueOf(totalf));
+                    totaldeventa.setText(String.valueOf(totalf));
                     primerproducto=false;
                     productorepetido=true;
                     productoagregado=true;
                     if(descuentoactivo==true){
                    JOptionPane.showMessageDialog(null, "descuento aplicado");
-               if(Float.parseFloat(total.getText())>0){
-               totalfinalcondescuento =  Float.parseFloat(total.getText()) - Float.parseFloat(descuentocombo.getText());
+               if(Float.parseFloat(totaldeventa.getText())>0){
+               totalfinalcondescuento =  Float.parseFloat(totaldeventa.getText()) - Float.parseFloat(descuentocombo.getText());
                totalcondescuento.setText(String.valueOf(totalfinalcondescuento));
                     }
                  }
@@ -1326,7 +1323,7 @@ addpiezas=cantidadpolloenDB-2;
          }
     }
             public  void descuentos(){
-                   float totalparadescuentos = Float.parseFloat(total.getText());
+                   float totalparadescuentos = Float.parseFloat(totaldeventa.getText());
                       
                if(totalparadescuentos>0){
                    do{
@@ -1345,7 +1342,7 @@ addpiezas=cantidadpolloenDB-2;
                jLabel61.setVisible(true);
                descuentolabel.setVisible(true);
                 labeldescuento.setVisible(true);
-    descuentocombo.setVisible(true);
+
  
                }
                else{
@@ -1407,7 +1404,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
                     id_producto(nombredepieza);
                    try{ //obteniendo la cantidad en la tabla de descripcion_de_venta
                         sent  =(Statement)ca.createStatement();
-                             rs = sent.executeQuery("select * from descripcion_de_venta where id_producto= '"+id_producto+"'AND estado='"+estadoenturno+"'and id_venta='"+id_de_la_venta_incrementable+"'");
+                             rs = sent.executeQuery("select * from descripcion_de_venta where id_producto= '"+id_producto+"'AND estado='"+estadoenturno+"'and id_venta='"+id_de_la_venta_incrementable+"' and fecha= '"+fecha()+"'");
                     
                         while(rs.next()){
                             cantidadenventa =Integer.parseInt(rs.getString("cantidad"));
@@ -1438,8 +1435,9 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
                       
                         //ELIMINAR DE VENTA EL ARTICULO
                         id_producto(nombredepieza);
+                        id_max_de_venta();
                         try{
-            String sql = "DELETE from descripcion_de_venta where id_producto= '"+id_producto+"' ";
+            String sql = "DELETE from descripcion_de_venta where id_producto= '"+id_producto+"' and id_venta= '"+id_de_la_venta_incrementable+"' and fecha= '"+fecha()+"' and estado= '"+estadoenturno+"' ";
             sent = ca.createStatement();
             int n = sent.executeUpdate(sql);
             if(n>0){
@@ -1453,14 +1451,17 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
                 total_venta_enturno();
                 JOptionPane.showMessageDialog(null, "SUMA DE IMPORTES CUANDO SE ELIMINA UN ARTICULO"+sumadeimportes);
                     totalf=sumadeimportes;
-                    total.setText(String.valueOf(totalf));
+                    totaldeventa.setText(String.valueOf(totalf));
                     if(descuentoactivo==true){
                    JOptionPane.showMessageDialog(null, "descuento aplicado");
-               if(Float.parseFloat(total.getText())>0){
-               totalfinalcondescuento =  Float.parseFloat(total.getText()) - Float.parseFloat(descuentocombo.getText());
+               if(Float.parseFloat(totaldeventa.getText())>0){
+               totalfinalcondescuento =  Float.parseFloat(totaldeventa.getText()) - Float.parseFloat(descuentocombo.getText());
                totalcondescuento.setText(String.valueOf(totalfinalcondescuento));
                     }
                  }
+                    descuentocombo.setText("00.00");
+                    totalcondescuento.setText("00.00");
+                   pagocombobox.setText("00.00");
                 mostrartablaarticulos();
 //                autocompletar();
             }
@@ -1480,18 +1481,21 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
 JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
                         }// SUMANDO A INVENTARIO 1
                         id_producto(nombredepieza);
+                        id_max_de_venta();
                         cantidadenventa-=1;
+                precio_producto(nombredepieza);
+                NoPimporte = cantidadenventa*precio;
                             try{//RESTA DE DESCRIPCION DE VENTA 1
-                            PreparedStatement ps = ca.prepareStatement ("UPDATE descripcion_de_venta SET cantidad='"+cantidadenventa+"'WHERE id_producto='"+id_producto+"'");
+                            PreparedStatement ps = ca.prepareStatement ("UPDATE descripcion_de_venta SET cantidad='"+cantidadenventa+"',importe = '"+NoPimporte+"'WHERE id_producto='"+id_producto+"' and id_venta= '"+id_de_la_venta_incrementable+"' and fecha= '"+fecha()+"' and estado= '"+estadoenturno+"'");
                             ps.executeUpdate();
                             total_venta_enturno();
                             JOptionPane.showMessageDialog(null, "CUANDO AÚN QUEDAN PRODUCTOS"+sumadeimportes);
                     totalf=sumadeimportes;
-                    total.setText(String.valueOf(totalf));
+                    totaldeventa.setText(String.valueOf(totalf));
                     if(descuentoactivo==true){
                    JOptionPane.showMessageDialog(null, "descuento aplicado");
-               if(Float.parseFloat(total.getText())>0){
-               totalfinalcondescuento =  Float.parseFloat(total.getText()) - Float.parseFloat(descuentocombo.getText());
+               if(Float.parseFloat(totaldeventa.getText())>0){
+               totalfinalcondescuento =  Float.parseFloat(totaldeventa.getText()) - Float.parseFloat(descuentocombo.getText());
                totalcondescuento.setText(String.valueOf(totalfinalcondescuento));
                     }
                  }
@@ -1796,12 +1800,12 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         jLabel30 = new javax.swing.JLabel();
         jLabel32 = new javax.swing.JLabel();
         jButton5 = new javax.swing.JButton();
-        total = new javax.swing.JLabel();
         totalcondescuento = new javax.swing.JLabel();
         jLabel61 = new javax.swing.JLabel();
         descuentolabel = new javax.swing.JLabel();
         jSeparator20 = new javax.swing.JSeparator();
         jSeparator22 = new javax.swing.JSeparator();
+        totaldeventa = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         user = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
@@ -1814,7 +1818,6 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         Cortedecaja = new javax.swing.JButton();
         descuento = new javax.swing.JButton();
         labeldescuento = new javax.swing.JLabel();
-        descuentocombo = new javax.swing.JLabel();
         total1 = new javax.swing.JLabel();
         total2 = new javax.swing.JLabel();
         jSeparator21 = new javax.swing.JSeparator();
@@ -1828,6 +1831,8 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         extras = new rojerusan.RSTableMetro();
         jLabel64 = new javax.swing.JLabel();
         Existencias = new javax.swing.JButton();
+        total3 = new javax.swing.JLabel();
+        descuentocombo = new javax.swing.JLabel();
         agregar_proveedor = new javax.swing.JPanel();
         agregarpro = new javax.swing.JButton();
         jLabel12 = new javax.swing.JLabel();
@@ -2112,9 +2117,6 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
             }
         });
         pagocombobox.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                pagocomboboxKeyPressed(evt);
-            }
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 pagocomboboxKeyReleased(evt);
             }
@@ -2167,12 +2169,6 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         });
         jPanel10.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, 180, 100));
 
-        total.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
-        total.setForeground(new java.awt.Color(255, 255, 255));
-        total.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        total.setText("00.00");
-        jPanel10.add(total, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 30, 140, 28));
-
         totalcondescuento.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
         totalcondescuento.setForeground(new java.awt.Color(255, 255, 255));
         totalcondescuento.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -2194,6 +2190,12 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         jPanel10.add(descuentolabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 230, 190, -1));
         jPanel10.add(jSeparator20, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 250, 140, 10));
         jPanel10.add(jSeparator22, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 180, 140, 10));
+
+        totaldeventa.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
+        totaldeventa.setForeground(new java.awt.Color(255, 255, 255));
+        totaldeventa.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        totaldeventa.setText("00.00");
+        jPanel10.add(totaldeventa, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 30, 140, 28));
 
         venta.add(jPanel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 400, 570, 270));
 
@@ -2318,12 +2320,6 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         labeldescuento.setText("Descuento:");
         venta.add(labeldescuento, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 470, 170, -1));
 
-        descuentocombo.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
-        descuentocombo.setForeground(new java.awt.Color(255, 255, 255));
-        descuentocombo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        descuentocombo.setText("00.00");
-        venta.add(descuentocombo, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 480, 140, 28));
-
         total1.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
         total1.setForeground(new java.awt.Color(255, 255, 255));
         total1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -2447,6 +2443,18 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
             }
         });
         venta.add(Existencias, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 470, 110, 110));
+
+        total3.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
+        total3.setForeground(new java.awt.Color(255, 255, 255));
+        total3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        total3.setText("00.00");
+        venta.add(total3, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 30, 140, 28));
+
+        descuentocombo.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
+        descuentocombo.setForeground(new java.awt.Color(255, 255, 255));
+        descuentocombo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        descuentocombo.setText("00.00");
+        venta.add(descuentocombo, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 480, 140, 28));
 
         Proveedores9.addTab("      Venta      ", venta);
 
@@ -3597,7 +3605,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         );
 
         agregar_usuario.add(jPanel5);
-        jPanel5.setBounds(0, 0, 1290, 60);
+        jPanel5.setBounds(0, 0, 1288, 60);
 
         tabla_usuariosnew.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -3792,7 +3800,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         );
 
         Administrador.add(jPanel24);
-        jPanel24.setBounds(0, 0, 1290, 60);
+        jPanel24.setBounds(0, 0, 1288, 60);
 
         jPanel26.setBackground(new java.awt.Color(0, 51, 102));
         jPanel26.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "   Ventas del Dia Canceladas   ", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Arial", 1, 18), new java.awt.Color(255, 255, 255))); // NOI18N
@@ -3916,7 +3924,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         );
 
         producto_sobrante.add(jPanel20);
-        jPanel20.setBounds(0, 0, 1290, 71);
+        jPanel20.setBounds(0, 0, 1288, 66);
 
         jPanel25.setBackground(new java.awt.Color(0, 51, 102));
         jPanel25.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "    Productos mas Vendidos   ", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Arial", 1, 18), new java.awt.Color(255, 255, 255))); // NOI18N
@@ -4063,7 +4071,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         );
 
         producto_sobrante2.add(jPanel22);
-        jPanel22.setBounds(0, 0, 1290, 71);
+        jPanel22.setBounds(0, 0, 1288, 66);
 
         JtablepaLaVenta.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -5517,25 +5525,20 @@ cerrandosesion();
         new Existencias().setVisible(true);
     }//GEN-LAST:event_ExistenciasActionPerformed
 
-    private void pagocomboboxKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_pagocomboboxKeyPressed
-  
-    }//GEN-LAST:event_pagocomboboxKeyPressed
-
     private void pagocomboboxKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_pagocomboboxKeyReleased
       char tecla = evt.getKeyChar();
       
       if(tecla== KeyEvent.VK_ENTER){
-          
-          
-        
+
         /*   ********************  BOTON DE COBRAR LA VENTA ****************  */
              /*   ******************  BOTON DE COBRAR LA VENTA **************  */
            try{ 
-       float variabletotal = Float.parseFloat(total.getText());
-            float variablepago = Float.parseFloat(pagocombobox.getText());
-            float variablepagocondescuento =  Float.parseFloat(totalcondescuento.getText());
+      
+        float totaldeventaenturno =  Float.parseFloat(totaldeventa.getText());
+      float variablepago = Float.parseFloat(pagocombobox.getText());
+      float variablepagocondescuento =  Float.parseFloat(totalcondescuento.getText());
             
-        if(!total.getText().isEmpty()&&!pagocombobox.getText().isEmpty()&&Integer.parseInt(total.getText())>0){
+        if(!totaldeventa.getText().isEmpty()&&!pagocombobox.getText().isEmpty()&& Float.parseFloat(totaldeventa.getText())>0){
            if(descuentoactivo==true){ //CUANDO EL DESCUENTO ESTÁ ACTIVO
                
                if(variablepago<variablepagocondescuento){ // comprueba que la cantidad recibida sea mayor al total
@@ -5574,6 +5577,7 @@ cerrandosesion();
   descuentodepollo();
                 get_id_usuario();
                             block_unlock=true;
+                            
                                                 JOptionPane.showMessageDialog(null,"Venta realizada con descuento");
                                                  productosvendidoseneldia(Jtable_ventasRealizadas);
                                                  productosmasvendidos(Jtable_productosmasven);
@@ -5594,7 +5598,7 @@ descuentoactivo=false;
            
            else{ //CUANDO EL DESCUENTO NO ESTÁ ACTIVO
                
-               if(variablepago<variabletotal){ // comprueba que la cantidad recibida sea mayor al total
+               if(variablepago<totaldeventaenturno){ // comprueba que la cantidad recibida sea mayor al total
                     JOptionPane.showMessageDialog(null,"El pago es menor a la cantidad a pagar, por favor, verifique","Advertencia",JOptionPane.INFORMATION_MESSAGE);
             }
             else {
@@ -5626,6 +5630,12 @@ descuentoactivo=false;
  descuentodepollo();
                 get_id_usuario();
                             block_unlock=true;
+                            for(int r=0;r<=storage.size()-1;r++){
+                                JOptionPane.showMessageDialog(null," STORAGE: "+storage.get(r));
+                /* if(Integer.parseInt(storage.get(r).toString())==id_producto){
+                   storage.remove(r);
+                 }*/
+             }
                                                 JOptionPane.showMessageDialog(null,"Venta realizada");
                                                 llenartablaidventasconidrealizados();
                                                  mostrarpolloscocidos();
@@ -5645,7 +5655,7 @@ descuentoactivo=false;
             
            
         }
-        else if(total.getText().isEmpty()){
+        else if(totaldeventa.getText().isEmpty()){
             JOptionPane.showMessageDialog(null,"Aún no hay nada por pagar","!Espera!",JOptionPane.INFORMATION_MESSAGE);
         }
         else if(pagocombobox.getText().isEmpty()){
@@ -6013,10 +6023,11 @@ SI cc= new SI();
     private rojerusan.RSTableMetro tablaventa;
     private javax.swing.JComboBox<String> tipodeproducto;
     public static javax.swing.JTextField tipopro;
-    private javax.swing.JLabel total;
     private javax.swing.JLabel total1;
     private javax.swing.JLabel total2;
+    private javax.swing.JLabel total3;
     private javax.swing.JLabel totalcondescuento;
+    private javax.swing.JLabel totaldeventa;
     private javax.swing.JButton update;
     private javax.swing.JButton update_users;
     private javax.swing.JLabel user;
