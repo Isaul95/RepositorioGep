@@ -255,7 +255,7 @@ Statement sent;
         modeloTE.addColumn("Fecha");
 
         try {
-         String sSQL = "SELECT nombre_producto, SUM(cantidad), fecha FROM descripcion_de_venta WHERE estado='Realizada' AND fecha = '"+fecha()+"' GROUP BY nombre_producto DESC";
+         String sSQL = "SELECT nombre_producto, SUM(cantidad), fecha FROM descripcion_de_venta WHERE estado='Realizada' AND fecha = '"+fecha()+"' GROUP BY nombre_producto ASC";
                  //"SELECT `nombre_producto`, `cantidad`, `precio_unitario`, venta.fecha_reporte FROM descripcion_de_venta inner join venta on descripcion_de_venta.`id_venta` = venta.id_venta WHERE fecha_reporte = CURDATE() ORDER BY `cantidad` DESC";
          
          
@@ -431,7 +431,14 @@ Statement sent;
        int año= fecha_inicioestadis.getCalendar().get(Calendar.YEAR);
        int mes= fecha_inicioestadis.getCalendar().get(Calendar.MONTH)+1;
        int dia= fecha_inicioestadis.getCalendar().get(Calendar.DAY_OF_MONTH);
-       fechadesde= año+"/"+mes+"/"+dia;
+       if(dia<10){
+           String nuevodia= "0"+dia;
+             fechadesde= año+"/"+mes+"/"+nuevodia;
+       }
+       else{
+           fechadesde= año+"/"+mes+"/"+dia;
+       }
+     
         return fechadesde;
     }
     
@@ -440,7 +447,13 @@ Statement sent;
        int año= fecha_finalestadis.getCalendar().get(Calendar.YEAR);
        int mes= fecha_finalestadis.getCalendar().get(Calendar.MONTH)+1;
        int dia= fecha_finalestadis.getCalendar().get(Calendar.DAY_OF_MONTH);
-       fechahasta= año+"/"+mes+"/"+dia;
+      if(dia<10){
+           String newday= "0"+dia;
+             fechahasta= año+"/"+mes+"/"+newday;
+       }
+       else{
+           fechahasta= año+"/"+mes+"/"+dia;
+       }
         return fechahasta;
     }
      
@@ -455,10 +468,9 @@ Statement sent;
         
         modeloT.addColumn("Nombre");
         modeloT.addColumn("Piezas");        
-        modeloT.addColumn("Fecha");
-
+  
         try {
-         String sSQL = "SELECT nombre_producto, SUM(cantidad), fecha FROM descripcion_de_venta where estado= 'Realizada' and fecha BETWEEN '"+llenarfechadesde()+"' AND '"+llenarfechahasta()+"' GROUP BY  fecha, nombre_producto DESC";
+         String sSQL = "SELECT nombre_producto, SUM(cantidad) FROM descripcion_de_venta where estado= 'Realizada' and fecha BETWEEN '"+llenarfechadesde()+"' AND '"+llenarfechahasta()+"' GROUP BY  nombre_producto ASC";
          
                  
         PreparedStatement ps = ca.prepareStatement(sSQL);       
@@ -466,7 +478,6 @@ Statement sent;
             while (rs.next()) {
                 columna[0] = rs.getString(1);
                 columna[1] = rs.getInt(2);
-                columna[2] = rs.getString(3);
                 modeloT.addRow(columna);
             }
         }
@@ -1994,6 +2005,11 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         buscarproductosfecha = new javax.swing.JButton();
         jScrollPane5 = new javax.swing.JScrollPane();
         Jtable_productosmasven = new rojerusan.RSTableMetro();
+        buscarproductospordia = new javax.swing.JButton();
+        jLabel76 = new javax.swing.JLabel();
+        jLabel77 = new javax.swing.JLabel();
+        jLabel78 = new javax.swing.JLabel();
+        jLabel80 = new javax.swing.JLabel();
         jPanel15 = new javax.swing.JPanel();
         producto_sobrante2 = new javax.swing.JPanel();
         jPanel22 = new javax.swing.JPanel();
@@ -3593,7 +3609,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         );
 
         agregar_usuario.add(jPanel5);
-        jPanel5.setBounds(0, 0, 1290, 60);
+        jPanel5.setBounds(0, 0, 1288, 60);
 
         tabla_usuariosnew.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -3722,7 +3738,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         jPanel23.add(jScrollPane12, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 70, 610, 210));
 
         veridventas.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        veridventas.setText("Ver ventas");
+        veridventas.setText("Ver las ventas");
         veridventas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 veridventasActionPerformed(evt);
@@ -3788,7 +3804,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         );
 
         Administrador.add(jPanel24);
-        jPanel24.setBounds(0, 0, 1290, 60);
+        jPanel24.setBounds(0, 0, 1288, 60);
 
         jPanel26.setBackground(new java.awt.Color(0, 51, 102));
         jPanel26.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "   Ventas del Dia Canceladas   ", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Arial", 1, 18), new java.awt.Color(255, 255, 255))); // NOI18N
@@ -3912,7 +3928,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         );
 
         producto_sobrante.add(jPanel20);
-        jPanel20.setBounds(0, 0, 1290, 71);
+        jPanel20.setBounds(0, 0, 1288, 66);
 
         jPanel25.setBackground(new java.awt.Color(0, 51, 102));
         jPanel25.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "    Productos mas Vendidos   ", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Arial", 1, 18), new java.awt.Color(255, 255, 255))); // NOI18N
@@ -3921,13 +3937,13 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         fecha_inicioestadis.setBackground(new java.awt.Color(0, 153, 204));
         fecha_inicioestadis.setForeground(new java.awt.Color(0, 96, 255));
         fecha_inicioestadis.setFont(new java.awt.Font("Tahoma", 1, 17)); // NOI18N
-        jPanel25.add(fecha_inicioestadis, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 60, 210, 40));
+        jPanel25.add(fecha_inicioestadis, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 60, 210, 40));
 
         jLabel60.setFont(new java.awt.Font("Arial Black", 1, 24)); // NOI18N
         jLabel60.setForeground(new java.awt.Color(255, 255, 255));
         jLabel60.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel60.setText(" A");
-        jPanel25.add(jLabel60, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 60, 60, 40));
+        jLabel60.setText("Desde");
+        jPanel25.add(jLabel60, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 60, 130, 40));
 
         fecha_finalestadis.setBackground(new java.awt.Color(0, 153, 204));
         fecha_finalestadis.setForeground(new java.awt.Color(0, 96, 255));
@@ -3945,7 +3961,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
                 buscarproductosfechaActionPerformed(evt);
             }
         });
-        jPanel25.add(buscarproductosfecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 50, 180, 50));
+        jPanel25.add(buscarproductosfecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 50, 180, 50));
 
         Jtable_productosmasven.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -3972,6 +3988,40 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         jScrollPane5.setViewportView(Jtable_productosmasven);
 
         jPanel25.add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 1230, 300));
+
+        buscarproductospordia.setBackground(new java.awt.Color(0, 148, 204));
+        buscarproductospordia.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        buscarproductospordia.setForeground(new java.awt.Color(255, 255, 255));
+        buscarproductospordia.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/image/magnifier.png"))); // NOI18N
+        buscarproductospordia.setText("Del día");
+        buscarproductospordia.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        buscarproductospordia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buscarproductospordiaActionPerformed(evt);
+            }
+        });
+        jPanel25.add(buscarproductospordia, new org.netbeans.lib.awtextra.AbsoluteConstraints(1070, 50, 180, 50));
+
+        jLabel76.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel76.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel76.setText("El día de hoy");
+        jPanel25.add(jLabel76, new org.netbeans.lib.awtextra.AbsoluteConstraints(1070, 20, 270, -1));
+
+        jLabel77.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel77.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel77.setText("Selecciona el rango de fechas que quieres ver");
+        jPanel25.add(jLabel77, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 30, 360, -1));
+
+        jLabel78.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel78.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel78.setText("Por rango de fechas");
+        jPanel25.add(jLabel78, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 20, 270, -1));
+
+        jLabel80.setFont(new java.awt.Font("Arial Black", 1, 24)); // NOI18N
+        jLabel80.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel80.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel80.setText("Hasta");
+        jPanel25.add(jLabel80, new org.netbeans.lib.awtextra.AbsoluteConstraints(497, 60, -1, 40));
 
         producto_sobrante.add(jPanel25);
         jPanel25.setBounds(10, 80, 1270, 510);
@@ -4059,7 +4109,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         );
 
         producto_sobrante2.add(jPanel22);
-        jPanel22.setBounds(0, 0, 1290, 71);
+        jPanel22.setBounds(0, 0, 1288, 66);
 
         JtablepaLaVenta.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -5370,9 +5420,11 @@ public void datosparaelticketdeventa(){
 
     private void buscarproductosfechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarproductosfechaActionPerformed
         // BOTON PARA LA CONSULTA DE  GASTOS
-        String fechadesde= fecha_inicioestadis.toString();
-        String fechahasta= fecha_finalestadis.toString();
+        String fechadesde= llenarfechadesde();
+        String fechahasta= llenarfechahasta();
+JOptionPane.showMessageDialog(null, "FECHA DESDE "+fechadesde);
 
+JOptionPane.showMessageDialog(null, "FECHA HASTA "+fechahasta);
         LlenarTablaBusquedproMasvendidosfecha(Jtable_productosmasven, llenarfechadesde(),llenarfechahasta());
     }//GEN-LAST:event_buscarproductosfechaActionPerformed
 
@@ -5753,6 +5805,14 @@ storage.clear();
         // TODO add your handling code here:
     }//GEN-LAST:event_pagocomboboxActionPerformed
 
+    private void buscarproductospordiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarproductospordiaActionPerformed
+      productosmasvendidos(Jtable_productosmasven);
+      fecha_inicioestadis.cleanup();
+        fecha_inicioestadis.setDate(null);
+      fecha_finalestadis.cleanup();
+        fecha_finalestadis.setDate(null);
+    }//GEN-LAST:event_buscarproductospordiaActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -5821,6 +5881,7 @@ SI cc= new SI();
     private javax.swing.JButton agregarpro;
     public static javax.swing.JButton agregarpro1;
     private javax.swing.JButton buscarproductosfecha;
+    private javax.swing.JButton buscarproductospordia;
     private javax.swing.JLabel cambiocombobox;
     private javax.swing.JTextField cantp;
     private javax.swing.JLabel conteodelasventasrealizadas;
@@ -5916,8 +5977,12 @@ SI cc= new SI();
     private javax.swing.JLabel jLabel73;
     private javax.swing.JLabel jLabel74;
     private javax.swing.JLabel jLabel75;
+    private javax.swing.JLabel jLabel76;
+    private javax.swing.JLabel jLabel77;
+    private javax.swing.JLabel jLabel78;
     private javax.swing.JLabel jLabel79;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel80;
     private javax.swing.JLabel jLabel81;
     private javax.swing.JLabel jLabel88;
     private javax.swing.JLabel jLabel89;
