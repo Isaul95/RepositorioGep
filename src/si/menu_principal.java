@@ -3374,7 +3374,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
 
         agregar_articulo.add(jScrollPane8, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 460, 1190, 200));
 
-        Proveedores9.addTab("      Nuevo Producto      ", agregar_articulo);
+        Proveedores9.addTab("      N.Producto      ", agregar_articulo);
 
         agregar_usuario.setBackground(new java.awt.Color(0, 51, 102));
         agregar_usuario.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -3593,7 +3593,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         );
 
         agregar_usuario.add(jPanel5);
-        jPanel5.setBounds(0, 0, 1288, 60);
+        jPanel5.setBounds(0, 0, 1290, 60);
 
         tabla_usuariosnew.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -3788,7 +3788,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         );
 
         Administrador.add(jPanel24);
-        jPanel24.setBounds(0, 0, 1288, 60);
+        jPanel24.setBounds(0, 0, 1290, 60);
 
         jPanel26.setBackground(new java.awt.Color(0, 51, 102));
         jPanel26.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "   Ventas del Dia Canceladas   ", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Arial", 1, 18), new java.awt.Color(255, 255, 255))); // NOI18N
@@ -3850,7 +3850,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
-        Proveedores9.addTab("      Ventas      ", jPanel12);
+        Proveedores9.addTab("      Inventario Ventas      ", jPanel12);
 
         producto_sobrante.setBackground(new java.awt.Color(0, 51, 102));
         producto_sobrante.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -3912,7 +3912,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         );
 
         producto_sobrante.add(jPanel20);
-        jPanel20.setBounds(0, 0, 1288, 66);
+        jPanel20.setBounds(0, 0, 1290, 71);
 
         jPanel25.setBackground(new java.awt.Color(0, 51, 102));
         jPanel25.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "    Productos mas Vendidos   ", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Arial", 1, 18), new java.awt.Color(255, 255, 255))); // NOI18N
@@ -4059,7 +4059,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         );
 
         producto_sobrante2.add(jPanel22);
-        jPanel22.setBounds(0, 0, 1288, 66);
+        jPanel22.setBounds(0, 0, 1290, 71);
 
         JtablepaLaVenta.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -4141,7 +4141,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
                     .addGap(0, 0, Short.MAX_VALUE)))
         );
 
-        Proveedores9.addTab("tab8", jPanel15);
+        Proveedores9.addTab("      Entradas      ", jPanel15);
 
         getContentPane().add(Proveedores9, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1290, 700));
 
