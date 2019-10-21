@@ -366,7 +366,7 @@ Statement sent;
                 //columna[3] = rs.getInt(4);
                 modeloT.addRow(columna);
             }
-                   KeyListener eventos = new KeyListener() {
+               /*    KeyListener eventos = new KeyListener() {
                 @Override
                 public void keyTyped(KeyEvent e) {
                     //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -379,7 +379,14 @@ Statement sent;
 
                 @Override
                 public void keyReleased(KeyEvent ke) {
-                    if(ke.getKeyChar() == KeyEvent.VK_ENTER){
+                    if(ke.getKeyChar() == KeyEvent.VK_ENTER){ */
+                        
+                        
+                        
+                        
+                        
+                        
+                        
                         modeloT.addTableModelListener(new TableModelListener(){
                 @Override
                 public void tableChanged(TableModelEvent e) {
@@ -402,10 +409,12 @@ Statement sent;
                            SI cc= new SI();
                            Connection ca= cc.conexion();
                          PreparedStatement pst;
-                           ParaLAVenta(JtablepaLaVenta);  // ***********************
+                         
                           try{
                                pst = ca.prepareStatement(sql);
                                int rows = pst.executeUpdate();
+                                 JOptionPane.showMessageDialog(null, "AKI VOY ENTRANDO PARA ACTUALIZAR LA TABLA DE JTABLEPAVENTAS"); 
+                           ParaLAVenta(JtablepaLaVenta);  // ***********************
                                 
                           } catch (SQLException ex) {
                               Logger.getLogger(JTable.class.getName()).log(Level.SEVERE,null, ex);
@@ -421,9 +430,9 @@ Statement sent;
                 }
             });
                         
-                    }
-                }
-            };            
+               //     }   // enter presiona
+             //   }       // event release
+           // };         // key listerner       
             
             
             
