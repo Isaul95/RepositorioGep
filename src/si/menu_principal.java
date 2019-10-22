@@ -56,10 +56,12 @@ Statement sent;
   //int id_usuario,id_producto,id_venta,productos,cantidadenventa,cantidadeninventario,aux1,aux2;
          int id_proveedor,id_usuario,id_producto,id_venta,productos,cantidadenventa,cantidadeninventario,aux1,aux2,variablede0=0;
   //float importe,totalf=0,comprobacion,cambio,precio;
-          float minimodelaspiezasparesdepollocrudoeninventario, minimodelaspiezasinparesdepollocrudoeninventario, pollo_crudoeninventario, addpiezas, cantidadpolloenDB, porcentaje, importe,totalf=0,comprobacion,cambio,precio, NoPimporte=0,sumadeimportes,descuentocantidad, totalfinalcondescuento;
+          float  cantidaddesdelatablaeditable, piezasxunpollo=14, piezasdepollopares=2, piezasdepollosinpares=1, resultadodepiezaspares,resultadodepiezasinpares, minimodelaspiezasparesdepollocrudoeninventario, minimodelaspiezasinparesdepollocrudoeninventario, pollo_crudoeninventario, addpiezas, cantidadpolloenDB, porcentaje, importe,totalf=0,comprobacion,cambio,precio, NoPimporte=0,sumadeimportes,descuentocantidad, totalfinalcondescuento;
   ArrayList storage = new ArrayList(); // para guardar los id de cada producto que se ha agregado a la tabla venta
  ArrayList datosparaelticketdeventa = new ArrayList();//PARA GUARDAR LOS DATOS DEL TICKET DE VENTA
-  
+  String[] piezas = {"Pechuga", "Muslo","Pierna","Ala","Huacal","Cadera","Cabeza", "Molleja", "Patas"};
+                       
+       
   boolean descuentoactivo=false, suficientespiezas=true, block_unlock=true,tablaventaactiva=false, primerproducto=true, productoagregado=false, productorepetido=false;
       int suma=0,resta=0;  //variables creadas para los botones de adicionar o quitar en 1 la cantidad de articulos
        // String  usuarioname=SI_Inicio.text_user.getText(); //variable para obtener el nombre del usuario o administrador que ingreso al sistema
@@ -68,6 +70,7 @@ Statement sent;
         initComponents();
         mostrarpolloscrudos();
         mostrarpolloscocidos();
+        mostraracompañantes();
               totaldelasventasdehoy(); // PARA LA SUMA DE LOS TOTALES DE LA VENTA
                     conteodeventasrealizadasdehoy(); // CUANTAS VENTAS SE REALIZARON? 5 O 60 O XX
                     ventasCanceladas();//CONTEO DE LAS VENTAS CANCELADAS
@@ -196,18 +199,18 @@ Statement sent;
     public void mostrarpolloscocidos(){
            pollococido.setVisible(true);    //hace visible la tabla de proveedores 
               DefaultTableModel modelo = new DefaultTableModel(); // Se crea un objeto para agregar los nombres de las columnas a la tabla
-    modelo.addColumn("Producto");
-    modelo.addColumn("Cantidad");
+    modelo.addColumn("Nombre");
+
      pollococido.setModel(modelo);  // Ya una vez asignado todos los nombres se le envia el objeto a la tabla proveedores
     String []datos = new String[2];     //Un arreglo con la cantidad de nombres en las columnas
     try {
         id_max_de_venta();
              sent = ca.createStatement();   
                                //      rs = sent.executeQuery("select * from descripcion_de_venta where id_venta= '"+id_de_la_venta_incrementable+"'");
-                       rs= sent.executeQuery("select nombre_producto, cantidad  from  productos where tipo_producto= 'Cocidos' "); // se ejecuta la sentencia dentro del parentesis
+                       rs= sent.executeQuery("select nombre_producto from  productos where id_producto in(24, 25, 26, 27, 28, 29, 30, 31)"); // se ejecuta la sentencia dentro del parentesis
             while(rs.next()){        
             datos[0]=rs.getString(1);
-            datos[1]=rs.getString(2);
+           
             modelo.addRow(datos); //se asigna el arreglo  entero a todo el objeto llamado modelo  
             }
            pollococido.setModel(modelo); // Se vuelve a enviar nuevamente el objeto modelo a la tabla
@@ -221,7 +224,7 @@ Statement sent;
            pollocrudo.setVisible(true);    //hace visible la tabla de proveedores 
               DefaultTableModel modelo = new DefaultTableModel(); // Se crea un objeto para agregar los nombres de las columnas a la tabla
        
-              modelo.addColumn("Producto");
+              modelo.addColumn("Nombre");
     
      pollocrudo.setModel(modelo);  // Ya una vez asignado todos los nombres se le envia el objeto a la tabla proveedores
     Object []datos = new Object[1];     //Un arreglo con la cantidad de nombres en las columnas
@@ -229,7 +232,7 @@ Statement sent;
         id_max_de_venta();
              sent = ca.createStatement();   
                                //      rs = sent.executeQuery("select * from descripcion_de_venta where id_venta= '"+id_de_la_venta_incrementable+"'");
-                       rs= sent.executeQuery("select nombre_producto from  productos where tipo_producto= 'Pollos' "); // se ejecuta la sentencia dentro del parentesis
+                       rs= sent.executeQuery("select nombre_producto from  productos where id_producto in(14, 15, 16, 17, 18, 19, 20, 21, 22, 23)"); // se ejecuta la sentencia dentro del parentesis
             while(rs.next()){        
             datos[0]=rs.getString(1);
       
@@ -237,6 +240,33 @@ Statement sent;
             modelo.addRow(datos); //se asigna el arreglo  entero a todo el objeto llamado modelo  
             }
            pollocrudo.setModel(modelo); // Se vuelve a enviar nuevamente el objeto modelo a la tabla
+        } catch (SQLException ex) {
+            Logger.getLogger(menu_principal.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "No se pudo mostrar ningun dato porque tu consulta está mal");
+        } 
+      }
+     
+     public void mostraracompañantes(){
+  
+           acompañantes.setVisible(true);    //hace visible la tabla de proveedores 
+              DefaultTableModel modelo = new DefaultTableModel(); // Se crea un objeto para agregar los nombres de las columnas a la tabla
+       
+              modelo.addColumn("Acompañantes");
+    
+     acompañantes.setModel(modelo);  // Ya una vez asignado todos los nombres se le envia el objeto a la tabla proveedores
+    Object []datos = new Object[1];     //Un arreglo con la cantidad de nombres en las columnas
+    try {
+        id_max_de_venta();
+             sent = ca.createStatement();   
+                               //      rs = sent.executeQuery("select * from descripcion_de_venta where id_venta= '"+id_de_la_venta_incrementable+"'");
+                       rs= sent.executeQuery("select nombre_producto from  productos where id_producto in(32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 54, 55, 56)"); // se ejecuta la sentencia dentro del parentesis
+            while(rs.next()){        
+            datos[0]=rs.getString(1);
+      
+            
+            modelo.addRow(datos); //se asigna el arreglo  entero a todo el objeto llamado modelo  
+            }
+           acompañantes.setModel(modelo); // Se vuelve a enviar nuevamente el objeto modelo a la tabla
         } catch (SQLException ex) {
             Logger.getLogger(menu_principal.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(null, "No se pudo mostrar ningun dato porque tu consulta está mal");
@@ -278,18 +308,17 @@ Statement sent;
      
       // CONSULTA DE PRODUCTOS CON PRECIOS PARA LA VENTA           
      public void ParaLAVenta(JTable tablaD){ // recibe como parametro 
-         Object[] columna = new Object[4];  //crear un obj con el nombre de colunna
+         Object[] columna = new Object[3];  //crear un obj con el nombre de colunna
             Connection ca= cc.conexion(); // CONEXION DB 
               DefaultTableModel modeloT = new DefaultTableModel(); 
                   tablaD.setModel(modeloT);  // add modelo ala tabla         
         
-        modeloT.addColumn("nombre_producto");
-        modeloT.addColumn("tipo_producto");        
+        modeloT.addColumn("nombre_producto");    
         modeloT.addColumn("precio");
         modeloT.addColumn("cantidad");
 
         try {
-         String sSQL = "SELECT nombre_producto, tipo_producto, precio, cantidad FROM productos";
+         String sSQL = "SELECT nombre_producto, precio, cantidad FROM productos";
                  //"SELECT `nombre_producto`, `cantidad`, `precio_unitario`, venta.fecha_reporte FROM descripcion_de_venta inner join venta on descripcion_de_venta.`id_venta` = venta.id_venta WHERE fecha_reporte = CURDATE() ORDER BY `cantidad` DESC";
          
         PreparedStatement ps = ca.prepareStatement(sSQL);       
@@ -298,7 +327,7 @@ Statement sent;
                 columna[0] = rs.getString(1);
                 columna[1] = rs.getString(2);
                  columna[2] = rs.getInt(3);
-                columna[3] = rs.getInt(4);                
+                              
                 modeloT.addRow(columna);
             }
         }
@@ -307,42 +336,6 @@ Statement sent;
         JOptionPane.showMessageDialog(null, e, "Advertencia", JOptionPane.PLAIN_MESSAGE);    
     }
 }
-     
-     
-      // CONSULTA DE PRODUCTOS EN EXITENCIA EN INVENTARIO            
-     public void LlenarTablaproductosExistenciaInven(JTable tablaD){ // recibe como parametro 
-         Object[] columna = new Object[3];  //crear un obj con el nombre de colunna
-            Connection ca= cc.conexion(); // CONEXION DB 
-              DefaultTableModel modeloT = new DefaultTableModel(); 
-                  tablaD.setModel(modeloT);  // add modelo ala tabla 
-        
-        modeloT.addColumn("nombre_producto");
-        modeloT.addColumn("tipo_producto");        
-        modeloT.addColumn("cantidad");
-
-        try {
-         String sSQL = "SELECT nombre_producto, tipo_producto, cantidad FROM productos";
-                 
-        PreparedStatement ps = ca.prepareStatement(sSQL);       
-        try (ResultSet rs = ps.executeQuery(sSQL)) {
-            while (rs.next()) {
-                columna[0] = rs.getString(1);
-                 columna[1] = rs.getString(2);
-                 columna[2] = rs.getInt(3);
-                //columna[5] = rs.getString("nombre");                
-                modeloT.addRow(columna);
-            }
-        }
-        ps.close();
-    } catch (Exception e) {
-        JOptionPane.showMessageDialog(null, e, "Advertencia", JOptionPane.PLAIN_MESSAGE);    
-    }
-}
-     
-     
-     
-     
-     
          
       // CONSULTA DE PRODUCTOS EN EXITENCIA EN INVENTARIO            
      public void TablallenadoparaEntradas(JTable tablaD){ // recibe como parametro 
@@ -366,11 +359,7 @@ Statement sent;
                 //columna[3] = rs.getInt(4);
                 modeloT.addRow(columna);
             }
-                  
-                        
-                        
-                        
-                        
+       
                         modeloT.addTableModelListener(new TableModelListener(){
                 @Override
                 public void tableChanged(TableModelEvent e) {
@@ -382,33 +371,75 @@ Statement sent;
                     if(e.getType() == TableModelEvent.UPDATE){
                         
                         if(fila>=0){// CUANDO UNA CELDA SE SELECCIONO
-          JOptionPane.showMessageDialog(null, "cambio en fila"+e.getFirstRow()+"con la columna"+e.getColumn());  
-                                          // String sql = "UPDATE productos SET cantidad='"+modeloT.getValueAt(e.getFirstRow(), e.getColumn())+"' WHERE id_producto="+modeloT.getValueAt(e.getFirstRow(),0);
-                            String valor = Jtable_ProductosEntradas.getValueAt(fila, 0).toString();
+                   String valor = Jtable_ProductosEntradas.getValueAt(fila, 0).toString();
+                            cantidaddesdelatablaeditable = Float.parseFloat(Jtable_ProductosEntradas.getValueAt(fila, col).toString());
                               JOptionPane.showMessageDialog(null, "valor"+valor); 
                                     id_producto(valor); 
-                                    
-                                     JOptionPane.showMessageDialog(null, "id del producto"+id_producto);  
-                         String sql = "UPDATE productos SET cantidad='"+modeloT.getValueAt(e.getFirstRow(), e.getColumn())+"' WHERE id_producto="+id_producto;
-                           SI cc= new SI();
+                      String sql = "UPDATE productos SET cantidad='"+modeloT.getValueAt(e.getFirstRow(), e.getColumn())+"' WHERE id_producto="+id_producto;
+                        
+if(valor.equals("pollo crudo")){// si estan modificando sobre pollo crudo, se inserta primero en la linea de arriba y luego las otras piezas de pollo a su equivalente
+                         
+                             String sql2 = null;
+                            
+ for(int i=0; i<piezas.length; i++) {//RECORRIENDO EL ARREGLO DE POLLOS
+      try{// el id del usuario
+                if(piezas[i].equals("Muslo")||
+                   piezas[i].equals("Pierna")||
+                   piezas[i].equals("Ala")||
+                   piezas[i].equals("Patas")){
+                    
+               resultadodepiezaspares=cantidaddesdelatablaeditable*piezasdepollopares;
+         
+               PreparedStatement ps = ca.prepareStatement ("UPDATE productos SET cantidad='"+resultadodepiezaspares+"'WHERE nombre_producto='"+piezas[i]+"'");
+               int ty = ps.executeUpdate();
+                
+                 if(ty>0){
+                     ParaLAVenta(JtablepaLaVenta);  // ***********************
+                                
+                 }else{
+                    
+                 }
+           }
+           else if(piezas[i].equals("Huacal")||piezas[i].equals("Cadera")||
+                   piezas[i].equals("Cabeza")||
+                   piezas[i].equals("Molleja")||piezas[i].equals("Pechuga")){
+            resultadodepiezasinpares=cantidaddesdelatablaeditable*piezasdepollosinpares;
+         PreparedStatement ps = ca.prepareStatement ("UPDATE productos SET cantidad='"+resultadodepiezasinpares+"'WHERE nombre_producto='"+piezas[i]+"'");
+               int ty = ps.executeUpdate();
+                
+                 if(ty>0){
+                     ParaLAVenta(JtablepaLaVenta);  // ***********************
+                                
+                 }else{
+
+                 }
+        }
+        }//fin del id del usuario
+                 catch(Exception w){
+                     JOptionPane.showMessageDialog(null, "Error" + w.getMessage());
+                 }//fin del id del usuario
+ }// RECORRIENDO EL ARREGLO DE POLLOS 
+         
+                              
+                             
+}// si estan modificando sobre pollo crudo, se inserta primero en la linea de arriba y luego las otras piezas de pollo a su equivalente
+                         
+                         
+                         SI cc= new SI();
                            Connection ca= cc.conexion();
                          PreparedStatement pst;
                          
                           try{
                                pst = ca.prepareStatement(sql);
                                int rows = pst.executeUpdate();
-                                 JOptionPane.showMessageDialog(null, "AKI VOY ENTRANDO PARA ACTUALIZAR LA TABLA DE JTABLEPAVENTAS"); 
-                           ParaLAVenta(JtablepaLaVenta);  // ***********************
+                       ParaLAVenta(JtablepaLaVenta);  // ***********************
                                 
                           } catch (SQLException ex) {
                               Logger.getLogger(JTable.class.getName()).log(Level.SEVERE,null, ex);
                                 JOptionPane.showMessageDialog(null, "error actualizar"+ex);    
                           }
       }
-                        
-                        
-                                                                                                        
-                          
+  
                     }
 
                 }
@@ -849,7 +880,7 @@ Pantalla_Gastos ven = new Pantalla_Gastos();
          
    if(name.equals(ven.piezas[i])){ //Si el nombre del producto es diferente del estado vacio, en palabras más sencillas; si se encuentra el producto que se quiere agregar para que no se asigne nuevamente  
         try{// el id del usuario
-                if(ven.piezas[i].equals("Pechuga")||ven.piezas[i].equals("Muslo")||
+                if(ven.piezas[i].equals("Muslo")||
                    ven.piezas[i].equals("Pierna")||
                    ven.piezas[i].equals("Ala")||
                    ven.piezas[i].equals("Patas")){
@@ -867,7 +898,7 @@ addpiezas=cantidadpolloenDB-2;
            }
            else if(ven.piezas[i].equals("Huacal")||ven.piezas[i].equals("Cadera")||
                    ven.piezas[i].equals("Cabeza")||
-                   ven.piezas[i].equals("Molleja")){
+                   ven.piezas[i].equals("Molleja")||ven.piezas[i].equals("Pechuga")){
        
          addpiezas=cantidadpolloenDB-1;
           PreparedStatement ps = ca.prepareStatement ("UPDATE productos SET cantidad='"+addpiezas+"'WHERE nombre_producto='"+ven.piezas[i]+"' ");
@@ -926,7 +957,7 @@ addpiezas=cantidadpolloenDB-2;
            
    if(name.equals(ven.piezas[i])){ //Si el nombre del producto es diferente del estado vacio, en palabras más sencillas; si se encuentra el producto que se quiere agregar para que no se asigne nuevamente  
         try{// el id del usuario
-                if(ven.piezas[i].equals("Pechuga")||ven.piezas[i].equals("Muslo")||
+                if(ven.piezas[i].equals("Muslo")||
                    ven.piezas[i].equals("Pierna")||
                    ven.piezas[i].equals("Ala")||
                    ven.piezas[i].equals("Patas")){
@@ -945,7 +976,7 @@ addpiezas=cantidadpolloenDB-2;
            }
            else if(ven.piezas[i].equals("Huacal")||ven.piezas[i].equals("Cadera")||
                    ven.piezas[i].equals("Cabeza")||
-                   ven.piezas[i].equals("Molleja")){
+                   ven.piezas[i].equals("Molleja")||ven.piezas[i].equals("Pechuga")){
         addpiezas=cantidadpolloenDB+cantidadenventa;
          PreparedStatement ps = ca.prepareStatement ("UPDATE productos SET cantidad='"+addpiezas+"'WHERE nombre_producto='"+ven.piezas[i]+"'");
                int ty = ps.executeUpdate();
@@ -1194,7 +1225,7 @@ addpiezas=cantidadpolloenDB-2;
                 }
           }
               public void minimodelaspiezasdepollocrudoquesoninparesentablaproductos(){
-              String consulta="select MIN(cantidad) from productos WHERE nombre_producto IN('Huacal', 'Cadera', 'Cabeza', 'Molleja')";
+              String consulta="select MIN(cantidad) from productos WHERE nombre_producto IN('Huacal', 'Cadera', 'Cabeza', 'Molleja', 'Pechuga')";
               try{
                      sent  = (Statement)ca.createStatement();
                                              rs = sent.executeQuery(consulta);
@@ -1205,7 +1236,7 @@ addpiezas=cantidadpolloenDB-2;
                 }
           }
           public void minimodelaspiezasdepollocrudoquesonparesentablaproductos(){
-              String consulta="select MIN(cantidad) from productos WHERE nombre_producto IN('Pechuga', 'Muslo', 'Pierna', 'Ala', 'Patas')";
+              String consulta="select MIN(cantidad) from productos WHERE nombre_producto IN('Muslo', 'Pierna', 'Ala', 'Patas')";
               try{
                      sent  = (Statement)ca.createStatement();
                                              rs = sent.executeQuery(consulta);
@@ -1827,7 +1858,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         jScrollPane10 = new javax.swing.JScrollPane();
         pollococido = new rojerusan.RSTableMetro();
         jScrollPane11 = new javax.swing.JScrollPane();
-        extras = new rojerusan.RSTableMetro();
+        acompañantes = new rojerusan.RSTableMetro();
         jLabel64 = new javax.swing.JLabel();
         Existencias = new javax.swing.JButton();
         total3 = new javax.swing.JLabel();
@@ -2021,6 +2052,9 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         JtablepaLaVenta = new rojerusan.RSTableMetro();
         jScrollPane15 = new javax.swing.JScrollPane();
         Jtable_ProductosEntradas = new rojerusan.RSTableMetro();
+        jLabel29 = new javax.swing.JLabel();
+        jLabel83 = new javax.swing.JLabel();
+        jLabel82 = new javax.swing.JLabel();
 
         tabla_articulos.setComponentPopupMenu(tabla_articulos);
 
@@ -2409,7 +2443,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
 
         venta.add(jScrollPane10, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 140, 190, 230));
 
-        extras.setModel(new javax.swing.table.DefaultTableModel(
+        acompañantes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -2417,14 +2451,14 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
 
             }
         ));
-        extras.setColorFilasForeground1(new java.awt.Color(0, 0, 0));
-        extras.setColorFilasForeground2(new java.awt.Color(0, 0, 0));
-        extras.setColorSelForeground(new java.awt.Color(0, 0, 0));
-        extras.setGrosorBordeFilas(0);
-        extras.setGrosorBordeHead(0);
-        extras.setMultipleSeleccion(false);
-        extras.setRowHeight(25);
-        jScrollPane11.setViewportView(extras);
+        acompañantes.setColorFilasForeground1(new java.awt.Color(0, 0, 0));
+        acompañantes.setColorFilasForeground2(new java.awt.Color(0, 0, 0));
+        acompañantes.setColorSelForeground(new java.awt.Color(0, 0, 0));
+        acompañantes.setGrosorBordeFilas(0);
+        acompañantes.setGrosorBordeHead(0);
+        acompañantes.setMultipleSeleccion(false);
+        acompañantes.setRowHeight(25);
+        jScrollPane11.setViewportView(acompañantes);
 
         venta.add(jScrollPane11, new org.netbeans.lib.awtextra.AbsoluteConstraints(1090, 140, 190, 230));
 
@@ -4116,11 +4150,11 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
 
             },
             new String [] {
-                "nombre_producto", "tipo_producto", "precio", "cantidad"
+                "nombre_producto", "precio", "cantidad"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -4136,7 +4170,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         jScrollPane14.setViewportView(JtablepaLaVenta);
 
         producto_sobrante2.add(jScrollPane14);
-        jScrollPane14.setBounds(10, 380, 810, 270);
+        jScrollPane14.setBounds(20, 380, 560, 270);
 
         Jtable_ProductosEntradas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -4168,26 +4202,51 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         jScrollPane15.setViewportView(Jtable_ProductosEntradas);
 
         producto_sobrante2.add(jScrollPane15);
-        jScrollPane15.setBounds(670, 80, 610, 220);
+        jScrollPane15.setBounds(660, 120, 610, 220);
+
+        jLabel29.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        jLabel29.setText("<------   Aqui visualizarás lo que se vaya agregando");
+        producto_sobrante2.add(jLabel29);
+        jLabel29.setBounds(600, 380, 600, 40);
+
+        jLabel83.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        jLabel83.setText("Escribe la cantidad de cada producto a agregar al inventario de hoy");
+        producto_sobrante2.add(jLabel83);
+        jLabel83.setBounds(0, 80, 780, 40);
+
+        jLabel82.setFont(new java.awt.Font("Arial Black", 1, 24)); // NOI18N
+        jLabel82.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel82.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel82.setText("Hasta");
 
         javax.swing.GroupLayout jPanel15Layout = new javax.swing.GroupLayout(jPanel15);
         jPanel15.setLayout(jPanel15Layout);
         jPanel15Layout.setHorizontalGroup(
             jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1310, Short.MAX_VALUE)
+            .addGap(0, 1288, Short.MAX_VALUE)
             .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel15Layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
                     .addComponent(producto_sobrante2, javax.swing.GroupLayout.PREFERRED_SIZE, 1288, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(0, 0, Short.MAX_VALUE)))
+            .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel15Layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jLabel82)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
         jPanel15Layout.setVerticalGroup(
             jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 686, Short.MAX_VALUE)
+            .addGap(0, 674, Short.MAX_VALUE)
             .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel15Layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
                     .addComponent(producto_sobrante2, javax.swing.GroupLayout.PREFERRED_SIZE, 674, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+            .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel15Layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jLabel82, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(0, 0, Short.MAX_VALUE)))
         );
 
@@ -5871,6 +5930,7 @@ SI cc= new SI();
     public javax.swing.JButton Reportes;
     public javax.swing.JButton ReportesProduct;
     public javax.swing.JButton ReportesVenta;
+    private rojerusan.RSTableMetro acompañantes;
     private javax.swing.JMenuItem activarusuario;
     public javax.swing.JButton actualizarpro;
     private javax.swing.JButton agregar;
@@ -5892,7 +5952,6 @@ SI cc= new SI();
     private javax.swing.JMenuItem drop;
     private javax.swing.JMenuItem eliminar;
     private javax.swing.JMenuItem eliminarusuarios;
-    private rojerusan.RSTableMetro extras;
     private com.toedter.calendar.JDateChooser fecha_finalestadis;
     private com.toedter.calendar.JDateChooser fecha_inicioestadis;
     private com.toedter.calendar.JDateChooser fechap;
@@ -5926,6 +5985,7 @@ SI cc= new SI();
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
+    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel31;
@@ -5984,6 +6044,8 @@ SI cc= new SI();
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel80;
     private javax.swing.JLabel jLabel81;
+    private javax.swing.JLabel jLabel82;
+    private javax.swing.JLabel jLabel83;
     private javax.swing.JLabel jLabel88;
     private javax.swing.JLabel jLabel89;
     private javax.swing.JLabel jLabel9;
