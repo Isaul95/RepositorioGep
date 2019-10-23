@@ -62,7 +62,7 @@ Statement sent;
   String[] piezas = {"Pechuga", "Muslo","Pierna","Ala","Huacal","Cadera","Cabeza", "Molleja", "Patas"};
                        
        
-  boolean descuentoactivo=false, suficientespiezas=true, block_unlock=true,tablaventaactiva=false, primerproducto=true, productoagregado=false, productorepetido=false;
+  boolean entero= false, medio=false, cuarto=false, descuentoactivo=false, suficientespiezas=true, block_unlock=true,tablaventaactiva=false, primerproducto=true, productoagregado=false, productorepetido=false;
       int suma=0,resta=0;  //variables creadas para los botones de adicionar o quitar en 1 la cantidad de articulos
        // String  usuarioname=SI_Inicio.text_user.getText(); //variable para obtener el nombre del usuario o administrador que ingreso al sistema
             String pollo_crudo="pollo crudo", estadoinactivo="Inactivo", estadoactivo="Activo", NoP="",estadocancelado= "Cancelada",estadorealizado="Realizada", estadoenturno="En turno", fechayhora="",fechasinhora="", usuarioname=SI_Inicio.text_user.getText(); //variable para obtener el nombre del usuario o administrador que ingreso al sistema
@@ -4841,9 +4841,29 @@ public void obtener_id_del_proveedor(String name){
         int fila =pollococido.getSelectedRow();
 
         if(fila>=0){// CUANDO UNA CELDA SE SELECCIONO
-
+                  Object[] options = { "Entero", "Medio", "Cuarto" };
+  int choice = JOptionPane.showOptionDialog(null, 
+      "You really want to quit?", 
+      "Quit?", 
+      JOptionPane.YES_NO_OPTION, 
+      JOptionPane.QUESTION_MESSAGE, 
+      null, 
+      options, 
+      options[0]);
+if (choice == JOptionPane.YES_OPTION)
+  {
+  JOptionPane.showMessageDialog(null, choice);
+  }else if(choice == JOptionPane.NO_OPTION){
+        JOptionPane.showMessageDialog(null, choice);
+  }
+  else if(choice == JOptionPane.CANCEL_OPTION){
+        JOptionPane.showMessageDialog(null, choice);
+  }
+/*
             agregarpiezasaventa(pollococido.getValueAt(fila,0).toString());
-
+               if(pollococido.getValueAt(fila,0).toString().equals("Pollo rostizado")||pollococido.getValueAt(fila,0).toString().equals("Pollo asado")){
+                   }
+               */
         }
 
         else{
