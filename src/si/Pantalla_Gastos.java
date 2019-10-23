@@ -22,7 +22,7 @@ import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 import si.Gastos;
 //import static si.menu_principal.searchforproducts;
 import ticket.TikectGasto;
-import static si.menu_principal.venta; // DANDO ACCESOO ALA INTERFAZ PRINCIPAL
+//import static si.menu_principal.venta; // DANDO ACCESOO ALA INTERFAZ PRINCIPAL
 
 
 public class Pantalla_Gastos extends javax.swing.JFrame {  

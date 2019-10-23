@@ -13,7 +13,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.Timer;
-import static si.menu_principal.Proveedores9;
+//import static si.menu_principal.Proveedores9;
 
 public class Cargainiciodelsistema extends javax.swing.JFrame implements Runnable{
 
