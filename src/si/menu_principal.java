@@ -2245,6 +2245,11 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         venta.add(total2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1080, 430, 140, 28));
         venta.add(jSeparator21, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 510, 140, 10));
 
+        tablaventa = new rojerusan.RSTableMetro(){
+            public boolean isCellEditable(int filas, int columnas){
+                return false;
+            }
+        };
         tablaventa.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -2269,6 +2274,11 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
 
         venta.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 140, 610, 230));
 
+        pollocrudo = new rojerusan.RSTableMetro(){
+            public boolean isCellEditable(int filas, int columnas){
+                return false;
+            }
+        };
         pollocrudo.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -2293,6 +2303,11 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
 
         venta.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 140, 190, 230));
 
+        pollococido = new rojerusan.RSTableMetro(){
+            public boolean isCellEditable(int filas, int columnas){
+                return false;
+            }
+        };
         pollococido.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -2317,6 +2332,11 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
 
         venta.add(jScrollPane10, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 140, 190, 230));
 
+        acompañantes = new rojerusan.RSTableMetro(){
+            public boolean isCellEditable(int filas, int columnas){
+                return false;
+            }
+        };
         acompañantes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -2945,6 +2965,11 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         });
         agregar_proveedor.add(Reportes, new org.netbeans.lib.awtextra.AbsoluteConstraints(1110, 340, 130, 97));
 
+        proveedores = new rojerusan.RSTableMetro(){
+            public boolean isCellEditable(int filas, int columnas){
+                return false;
+            }
+        };
         proveedores.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -3037,6 +3062,11 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         jPanel32.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "   Inventario actualizado", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Arial", 1, 18), new java.awt.Color(255, 255, 255))); // NOI18N
         jPanel32.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        JtablepaLaVenta = new rojerusan.RSTableMetro(){
+            public boolean isCellEditable(int filas, int columnas){
+                return false;
+            }
+        };
         JtablepaLaVenta.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -3070,6 +3100,15 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         jPanel33.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "   Entrada piezas de productos a inventario   ", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Arial", 1, 18), new java.awt.Color(255, 255, 255))); // NOI18N
         jPanel33.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        Jtable_ProductosEntradas = new rojerusan.RSTableMetro(){
+            public boolean isCellEditable(int filas, int columnas){
+                if(columnas==1){
+                    return true;
+                } else{
+                    return false;
+                }
+            }
+        };
         Jtable_ProductosEntradas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -3079,7 +3118,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false
+                true, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -3092,6 +3131,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         Jtable_ProductosEntradas.setGrosorBordeHead(0);
         Jtable_ProductosEntradas.setMultipleSeleccion(false);
         Jtable_ProductosEntradas.setRowHeight(25);
+        Jtable_ProductosEntradas.getTableHeader().setReorderingAllowed(false);
         Jtable_ProductosEntradas.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 Jtable_ProductosEntradasKeyReleased(evt);
@@ -3142,7 +3182,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
 
         agregar_articulo.add(producto_sobrante3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1290, 670));
 
-        Proveedores9.addTab("      N.Producto      ", agregar_articulo);
+        Proveedores9.addTab("      Entradas Productos      ", agregar_articulo);
 
         agregar_usuario.setBackground(new java.awt.Color(0, 51, 102));
         agregar_usuario.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -3363,6 +3403,11 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         agregar_usuario.add(jPanel5);
         jPanel5.setBounds(0, 0, 1290, 60);
 
+        tabla_usuariosnuevo = new rojerusan.RSTableMetro(){
+            public boolean isCellEditable(int filas, int columnas){
+                return false;
+            }
+        };
         tabla_usuariosnuevo.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -3415,6 +3460,11 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         jPanel23.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "   Ventas del Dia Realizadas   ", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Arial", 1, 18), new java.awt.Color(255, 255, 255))); // NOI18N
         jPanel23.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        Jtable_ventasRealizadas = new rojerusan.RSTableMetro(){
+            public boolean isCellEditable(int filas, int columnas){
+                return false;
+            }
+        };
         Jtable_ventasRealizadas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -3443,6 +3493,11 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
 
         jPanel23.add(jScrollPane6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 350, 210));
 
+        ventasporid = new rojerusan.RSTableMetro(){
+            public boolean isCellEditable(int filas, int columnas){
+                return false;
+            }
+        };
         ventasporid.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -3600,6 +3655,11 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         ventascanceladaseneldia.setText("00");
         jPanel26.add(ventascanceladaseneldia, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 30, 120, 50));
 
+        Jtable_ventasCanceladas = new rojerusan.RSTableMetro(){
+            public boolean isCellEditable(int filas, int columnas){
+                return false;
+            }
+        };
         Jtable_ventasCanceladas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -3769,6 +3829,11 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         });
         jPanel25.add(buscarproductosfecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 50, 180, 50));
 
+        Jtable_productosmasven = new rojerusan.RSTableMetro(){
+            public boolean isCellEditable(int filas, int columnas){
+                return false;
+            }
+        };
         Jtable_productosmasven.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 

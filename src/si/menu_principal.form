@@ -758,6 +758,9 @@
                   <Events>
                     <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tablaventaMouseClicked"/>
                   </Events>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="tablaventa = new rojerusan.RSTableMetro(){&#xa;public boolean isCellEditable(int filas, int columnas){&#xa;    return false;&#xa;}&#xa;};"/>
+                  </AuxValues>
                 </Component>
               </SubComponents>
             </Container>
@@ -795,6 +798,9 @@
                   <Events>
                     <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="pollocrudoMouseClicked"/>
                   </Events>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="pollocrudo = new rojerusan.RSTableMetro(){&#xa;public boolean isCellEditable(int filas, int columnas){&#xa;    return false;&#xa;}&#xa;};"/>
+                  </AuxValues>
                 </Component>
               </SubComponents>
             </Container>
@@ -832,6 +838,9 @@
                   <Events>
                     <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="pollococidoMouseClicked"/>
                   </Events>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="pollococido = new rojerusan.RSTableMetro(){&#xa;public boolean isCellEditable(int filas, int columnas){&#xa;    return false;&#xa;}&#xa;};"/>
+                  </AuxValues>
                 </Component>
               </SubComponents>
             </Container>
@@ -869,6 +878,9 @@
                   <Events>
                     <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="acompa&#xf1;antesMouseClicked"/>
                   </Events>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="acompa&#xf1;antes = new rojerusan.RSTableMetro(){&#xa;public boolean isCellEditable(int filas, int columnas){&#xa;    return false;&#xa;}&#xa;};"/>
+                  </AuxValues>
                 </Component>
               </SubComponents>
             </Container>
@@ -2151,6 +2163,9 @@
                     <Property name="multipleSeleccion" type="boolean" value="false"/>
                     <Property name="rowHeight" type="int" value="25"/>
                   </Properties>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="proveedores = new rojerusan.RSTableMetro(){&#xa;public boolean isCellEditable(int filas, int columnas){&#xa;    return false;&#xa;}&#xa;};"/>
+                  </AuxValues>
                 </Component>
               </SubComponents>
             </Container>
@@ -2171,8 +2186,8 @@
           </AuxValues>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-              <JTabbedPaneConstraints tabName="      N.Producto      ">
-                <Property name="tabTitle" type="java.lang.String" value="      N.Producto      "/>
+              <JTabbedPaneConstraints tabName="      Entradas Productos      ">
+                <Property name="tabTitle" type="java.lang.String" value="      Entradas Productos      "/>
               </JTabbedPaneConstraints>
             </Constraint>
           </Constraints>
@@ -2364,6 +2379,9 @@
                             <Property name="multipleSeleccion" type="boolean" value="false"/>
                             <Property name="rowHeight" type="int" value="25"/>
                           </Properties>
+                          <AuxValues>
+                            <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="JtablepaLaVenta = new rojerusan.RSTableMetro(){&#xa;public boolean isCellEditable(int filas, int columnas){&#xa;    return false;&#xa;}&#xa;};"/>
+                          </AuxValues>
                         </Component>
                       </SubComponents>
                     </Container>
@@ -2409,7 +2427,7 @@
                           <Properties>
                             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                               <Table columnCount="2" rowCount="0">
-                                <Column editable="false" title="nombre_producto" type="java.lang.Object"/>
+                                <Column editable="true" title="nombre_producto" type="java.lang.Object"/>
                                 <Column editable="false" title="cantidad" type="java.lang.Object"/>
                               </Table>
                             </Property>
@@ -2423,10 +2441,16 @@
                             <Property name="grosorBordeHead" type="int" value="0"/>
                             <Property name="multipleSeleccion" type="boolean" value="false"/>
                             <Property name="rowHeight" type="int" value="25"/>
+                            <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
+                              <TableHeader reorderingAllowed="false" resizingAllowed="true"/>
+                            </Property>
                           </Properties>
                           <Events>
                             <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="Jtable_ProductosEntradasKeyReleased"/>
                           </Events>
+                          <AuxValues>
+                            <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="Jtable_ProductosEntradas = new rojerusan.RSTableMetro(){&#xa;public boolean isCellEditable(int filas, int columnas){&#xa;  if(columnas==1){&#xa;   return true;&#xa;} else{&#xa;    return false;&#xa;}&#xa;}&#xa;};"/>
+                          </AuxValues>
                         </Component>
                       </SubComponents>
                     </Container>
@@ -3181,6 +3205,7 @@
                         <Property name="rowHeight" type="int" value="25"/>
                       </Properties>
                       <AuxValues>
+                        <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="tabla_usuariosnuevo = new rojerusan.RSTableMetro(){&#xa;public boolean isCellEditable(int filas, int columnas){&#xa;    return false;&#xa;}&#xa;};"/>
                         <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
                       </AuxValues>
                     </Component>
@@ -3299,6 +3324,9 @@
                               <Color blue="33" green="0" red="cc" type="rgb"/>
                             </Property>
                           </Properties>
+                          <AuxValues>
+                            <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="Jtable_ventasRealizadas = new rojerusan.RSTableMetro(){&#xa;public boolean isCellEditable(int filas, int columnas){&#xa;    return false;&#xa;}&#xa;};"/>
+                          </AuxValues>
                         </Component>
                       </SubComponents>
                     </Container>
@@ -3336,6 +3364,9 @@
                           <Events>
                             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="ventasporidMouseClicked"/>
                           </Events>
+                          <AuxValues>
+                            <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="ventasporid = new rojerusan.RSTableMetro(){&#xa;public boolean isCellEditable(int filas, int columnas){&#xa;    return false;&#xa;}&#xa;};"/>
+                          </AuxValues>
                         </Component>
                       </SubComponents>
                     </Container>
@@ -3699,6 +3730,9 @@
                             <Property name="multipleSeleccion" type="boolean" value="false"/>
                             <Property name="rowHeight" type="int" value="25"/>
                           </Properties>
+                          <AuxValues>
+                            <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="Jtable_ventasCanceladas = new rojerusan.RSTableMetro(){&#xa;public boolean isCellEditable(int filas, int columnas){&#xa;    return false;&#xa;}&#xa;};"/>
+                          </AuxValues>
                         </Component>
                       </SubComponents>
                     </Container>
@@ -4068,6 +4102,9 @@
                             <Property name="multipleSeleccion" type="boolean" value="false"/>
                             <Property name="rowHeight" type="int" value="20"/>
                           </Properties>
+                          <AuxValues>
+                            <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="Jtable_productosmasven = new rojerusan.RSTableMetro(){&#xa;public boolean isCellEditable(int filas, int columnas){&#xa;    return false;&#xa;}&#xa;};"/>
+                          </AuxValues>
                         </Component>
                       </SubComponents>
                     </Container>
