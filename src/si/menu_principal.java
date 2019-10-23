@@ -390,8 +390,7 @@ Statement sent;
                         if(fila>=0){// CUANDO UNA CELDA SE SELECCIONO
                    String valor = Jtable_ProductosEntradas.getValueAt(fila, 0).toString();
                             cantidaddesdelatablaeditable = Float.parseFloat(Jtable_ProductosEntradas.getValueAt(fila, col).toString());
-                              JOptionPane.showMessageDialog(null, "valor"+valor); 
-                                    id_producto(valor); 
+                              id_producto(valor); 
                       String sql = "UPDATE productos SET cantidad='"+modeloT.getValueAt(e.getFirstRow(), e.getColumn())+"' WHERE id_producto="+id_producto;
                         
 if(valor.equals("pollo crudo")){// si estan modificando sobre pollo crudo, se inserta primero en la linea de arriba y luego las otras piezas de pollo a su equivalente
@@ -1207,8 +1206,7 @@ addpiezas=cantidadpolloenDB-2;
                          minimodelaspiezasparesdepollocrudoeninventario!=(minimodelaspiezasinparesdepollocrudoeninventario*2)&&
                          pollo_crudoeninventario>minimodelaspiezasinparesdepollocrudoeninventario){
                      
-                     JOptionPane.showMessageDialog(null, "NUEVO POLLO SERA EL MINIMO DE INPARES"+minimodelaspiezasinparesdepollocrudoeninventario);
-                     actualizarpollocrudoeninventario(minimodelaspiezasinparesdepollocrudoeninventario);
+                      actualizarpollocrudoeninventario(minimodelaspiezasinparesdepollocrudoeninventario);
                      //else if(minimodelaspiezasinparesdepollocrudoeninventario!=(minimodelaspiezasparesdepollocrudoeninventario/2)&&(minimodelaspiezasparesdepollocrudoeninventario/2)<pollo_crudoeninventario){
                   
                  }else if(pollo_crudoeninventario==minimodelaspiezasinparesdepollocrudoeninventario&&
@@ -1337,9 +1335,8 @@ addpiezas=cantidadpolloenDB-2;
                totalfinalcondescuento =  Float.parseFloat(totaldeventa.getText()) - Float.parseFloat(descuentocombo.getText());
                totalcondescuento.setText(String.valueOf(totalfinalcondescuento));
                     }
-                 }JOptionPane.showMessageDialog(null,"Articulo agregado correctamente: " +nombredepieza,"             Aviso",JOptionPane.INFORMATION_MESSAGE);
-             mostrarpolloscocidos();
-                 // cantidad.setText("");
+                 } mostrarpolloscocidos();
+                
         }//fin del id del usuario
                  catch(Exception w){
                      JOptionPane.showMessageDialog(null, "Error" + w.getMessage());
@@ -1394,9 +1391,8 @@ addpiezas=cantidadpolloenDB-2;
                totalcondescuento.setText(String.valueOf(totalfinalcondescuento));
                     }
                  }
-                                        JOptionPane.showMessageDialog(null,"Articulo agregado correctamente: " +nombredepieza,"             Aviso",JOptionPane.INFORMATION_MESSAGE);
-                   mostrarpolloscocidos();              
-//cantidad.setText("");
+                                              mostrarpolloscocidos();              
+
                 }
             }catch(SQLException e)  { //fin de la insersion a la tabla ventas
                 JOptionPane.showMessageDialog(null,"Error de datos por id vacio "+e);
@@ -1504,10 +1500,8 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
                         }catch (Exception f){
                             JOptionPane.showMessageDialog(null, "Error en inventario" + f.getMessage());
                         }
-                       JOptionPane.showMessageDialog(null, "CANTIDAD EN INVENTARIO"+cantidadeninventario);
-                       
-                       JOptionPane.showMessageDialog(null, "CANTIDAD EN INVENTARIO"+cantidadenventa);
-                       if(cantidadenventa<=1&&cantidadenventa!=0){//SI EL ULTIMO PRODUCTO A DESCONTAR ES 1, SE VA A CANCELAR TODA LA VENTA O PORQUE MEJOR AUN, ELIMNAR DICHO PRODUCTO DE LA TABLA VENTA
+                    
+                      if(cantidadenventa<=1&&cantidadenventa!=0){//SI EL ULTIMO PRODUCTO A DESCONTAR ES 1, SE VA A CANCELAR TODA LA VENTA O PORQUE MEJOR AUN, ELIMNAR DICHO PRODUCTO DE LA TABLA VENTA
                            if(descontardecimales==true){
                                cantidadeninventario+=cantidadenventa;
                            }else{
@@ -1536,10 +1530,8 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
                      storage.remove(r);
                  }
              }
-                JOptionPane.showMessageDialog(null,"ARTICULO ELIMANDO DE DESCRIPCIONDEVENTA");
                 total_venta_enturno();
-                JOptionPane.showMessageDialog(null, "SUMA DE IMPORTES CUANDO SE ELIMINA UN ARTICULO"+sumadeimportes);
-                    totalf=sumadeimportes;
+                totalf=sumadeimportes;
                     totaldeventa.setText(String.valueOf(totalf));
                     if(descuentoactivo==true){
                    JOptionPane.showMessageDialog(null, "descuento aplicado");
@@ -1578,8 +1570,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
                             PreparedStatement ps = ca.prepareStatement ("UPDATE descripcion_de_venta SET cantidad='"+cantidadenventa+"',importe = '"+NoPimporte+"'WHERE id_producto='"+id_producto+"' and id_venta= '"+id_de_la_venta_incrementable+"' and fecha= '"+fecha()+"' and estado= '"+estadoenturno+"'");
                             ps.executeUpdate();
                             total_venta_enturno();
-                            JOptionPane.showMessageDialog(null, "CUANDO AÚN QUEDAN PRODUCTOS"+sumadeimportes);
-                    totalf=sumadeimportes;
+                             totalf=sumadeimportes;
                     totaldeventa.setText(String.valueOf(totalf));
                     if(descuentoactivo==true){
                    JOptionPane.showMessageDialog(null, "descuento aplicado");
