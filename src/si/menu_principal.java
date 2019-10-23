@@ -67,6 +67,7 @@ Statement sent;
             String pollo_crudo="pollo crudo", estadoinactivo="Inactivo", estadoactivo="Activo", NoP="",estadocancelado= "Cancelada",estadorealizado="Realizada", estadoenturno="En turno", fechayhora="",fechasinhora="", usuarioname=SI_Inicio.text_user.getText(); //variable para obtener el nombre del usuario o administrador que ingreso al sistema
     public menu_principal() {
         initComponents();
+        borrarventasenestadoenturnoporerrordeusuario();//ESTO ES CUANDO EL USUARIO SE EQUIVOCA Y CIERRA SESION DIRECTAMENTE EN LA X
         mostrarpolloscrudos();
         mostrarpolloscocidos();
         mostraracompañantes();
@@ -125,8 +126,18 @@ Statement sent;
     }
     
     
-     public void llenartablaidventasconidrealizadosporrangodefechas(){
-     
+     public void borrarventasenestadoenturnoporerrordeusuario(){
+         id_max_de_venta();
+     try{
+            String sql = "DELETE from descripcion_de_venta where id_venta= '"+id_de_la_venta_incrementable+"' and fecha= '"+fecha()+"' and estado= '"+estadoenturno+"' ";
+            sent = ca.createStatement();
+            int n = sent.executeUpdate(sql);
+            if(n>0){
+               
+             }
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, "ERROR" + e.getMessage());
+        }
      }
     
     
@@ -213,7 +224,7 @@ Statement sent;
         id_max_de_venta();
              sent = ca.createStatement();   
                                //      rs = sent.executeQuery("select * from descripcion_de_venta where id_venta= '"+id_de_la_venta_incrementable+"'");
-                       rs= sent.executeQuery("select nombre_producto from  productos where id_producto in(24, 25, 26, 27, 28, 29, 30, 31)"); // se ejecuta la sentencia dentro del parentesis
+                       rs= sent.executeQuery("select nombre_producto from  productos where id_producto in(24, 25, 26, 27, 28, 29, 30, 31, 49, 50, 51, 52)"); // se ejecuta la sentencia dentro del parentesis
             while(rs.next()){        
             datos[0]=rs.getString(1);
            
@@ -1063,10 +1074,6 @@ addpiezas=cantidadpolloenDB-2;
         cambiocombobox.setText("00.00");
         tablaventa.setVisible(false);
         tablaventaactiva=false;
-        labeldescuento.setVisible(false);
-
-               jLabel61.setVisible(false);
-               descuentolabel.setVisible(false);
     } 
         public void get_id_usuario(){
       try{// el id del usuario para obtener el id del usuario y comprobar si hay o no algun registro
@@ -5009,20 +5016,12 @@ if (choice == JOptionPane.YES_OPTION){
 
             if(tablaventaactiva==true){
 
-                //y también el metodo de arriba regresa las piezas a la tabla piezas
-                descuentodepollo();
+             descuentodepollo();
                 mostrartabladeventas();
                 mostrarpolloscrudos();
                 mostrarpolloscocidos();
-                //    limpiardatosdeventa();  //limpia en su mayoria los campos de texto que pertenezcan al apartado venta
-
-                // status_cancelado();  //pone en estatus de cancelada la venta inconclusa y cada producto que lo compone
-                // get_id_usuario(); //vuelve a asiganr otro id_venta para que así no se repita con el id anterior que tuvo una venta cancelada
-                // block_unlock=false; //se bloquea la opcion de poder agregar otro id_usuario a la tabla de venta y así abrir una nueva venta
-                //limpiardatosdeventa();  //limpia en su mayoria los campos de texto que pertenezcan al apartado venta
-                ventascanceladas(Jtable_ventasCanceladas);
-                // tablaventa.setVisible(false); //Desaparece la tabla
-            }
+          ventascanceladas(Jtable_ventasCanceladas);
+                     }
 
         }else{
             JOptionPane.showMessageDialog(null,"Por favor, seleccione una fila primero","Aviso",JOptionPane.INFORMATION_MESSAGE);
@@ -5183,13 +5182,7 @@ if (choice == JOptionPane.YES_OPTION){
                                 // evaluartablapiezaspararestar1pollo();
                                 descuentodepollo();
                                 get_id_usuario();
-                                block_unlock=true;
-                                for(int r=0;r<=storage.size()-1;r++){
-                                    JOptionPane.showMessageDialog(null," STORAGE: "+storage.get(r));
-                                    /* if(Integer.parseInt(storage.get(r).toString())==id_producto){
-                                        storage.remove(r);
-                                    }*/
-                                }
+                               
                                 JOptionPane.showMessageDialog(null,"Venta realizada");
                                 totaldelasventasdehoy(); // PARA LA SUMA DE LOS TOTALES DE LA VENTA
                                 conteodeventasrealizadasdehoy(); // CUANTAS VENTAS SE REALIZARON? 5 O 60 O XX

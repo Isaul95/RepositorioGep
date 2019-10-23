@@ -38,6 +38,8 @@ int  id_usuario=Integer.parseInt(SI_Inicio.iduser.getText());
         Fecha.setText(fecha());
         ventaseneldia();
         metodogastosdeldia();
+        aperturadeldia();
+        aperturacantidad.setText(String.valueOf(montodeapertura));
         Ventasfortoday1.setText(String.valueOf(ventasdeldia));
         Gastosfromtoday.setText(String.valueOf(gastosdeldia));
         user.setText(usuarioname);
@@ -122,6 +124,8 @@ public void metodogastosdeldia(){
         Ventasfortoday1 = new javax.swing.JLabel();
         Fecha = new javax.swing.JLabel();
         Reloj = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        aperturacantidad = new javax.swing.JLabel();
         user = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -159,9 +163,9 @@ public void metodogastosdeldia(){
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 17)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("Monto entregado:");
+        jLabel3.setText("La apertura de caja fue:");
         jPanel2.add(jLabel3);
-        jLabel3.setBounds(330, 80, 240, 29);
+        jLabel3.setBounds(320, 80, 240, 29);
 
         monto.setBackground(new java.awt.Color(0, 148, 204));
         monto.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
@@ -183,7 +187,7 @@ public void metodogastosdeldia(){
             }
         });
         jPanel2.add(monto);
-        monto.setBounds(330, 110, 210, 40);
+        monto.setBounds(320, 240, 210, 40);
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 17)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
@@ -209,7 +213,7 @@ public void metodogastosdeldia(){
         Ventasfortoday1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         Ventasfortoday1.setText("00.00");
         jPanel2.add(Ventasfortoday1);
-        Ventasfortoday1.setBounds(20, 120, 180, 29);
+        Ventasfortoday1.setBounds(10, 120, 180, 29);
 
         Fecha.setFont(new java.awt.Font("Times New Roman", 1, 27)); // NOI18N
         Fecha.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -222,6 +226,19 @@ public void metodogastosdeldia(){
         Reloj.setText("00:00:00");
         jPanel2.add(Reloj);
         Reloj.setBounds(310, 10, 240, 32);
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 17)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setText("Monto entregado:");
+        jPanel2.add(jLabel5);
+        jLabel5.setBounds(320, 200, 240, 29);
+
+        aperturacantidad.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
+        aperturacantidad.setForeground(new java.awt.Color(255, 255, 255));
+        aperturacantidad.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        aperturacantidad.setText("00.00");
+        jPanel2.add(aperturacantidad);
+        aperturacantidad.setBounds(320, 110, 180, 29);
 
         jPanel1.add(jPanel2);
         jPanel2.setBounds(10, 50, 650, 480);
@@ -256,7 +273,7 @@ public void metodogastosdeldia(){
      
     public void vaciartodoelpollocrudodeinventario(){
               try{              
-           PreparedStatement ps = ca.prepareStatement ("UPDATE productos SET cantidad= 0 WHERE nombre_producto in ('pollo crudo', 'Pechuga', 'Muslo', 'Ala', 'Pierna', 'Huacal', 'Cadera', 'Cabeza', 'Molleja', 'Patas')");
+           PreparedStatement ps = ca.prepareStatement ("UPDATE productos SET cantidad= 0");
                   int a = ps.executeUpdate();
                 if(a>0){    
                 }
@@ -264,17 +281,64 @@ public void metodogastosdeldia(){
                                System.err.print(e);
                            }
             }
- public void sobrantedepollocrudodeldiaparaticket(){
+    
+ public void sobrantedepollocrudodeldiaparaticketcantidadesypiezas(){//TICKET DEVOLUCION CRUDO,  LAS CANTIDADES Y PIEZAS
       try{//SOLO SE LLAMA A LA CANTIDAD PORQUE EN EL TICKET YA SE DEFINIRÁN LOS NOMBRES DE CADA ARTICULO
-                      sent  = (Statement)ca.createStatement();
-                      rs = sent.executeQuery("select cantidad from productos where nombre_producto in ('pollo crudo', 'Pechuga', 'Muslo', 'Pierna', 'Ala', 'Patas', 'Huacal', 'Cadera', 'Cabeza', 'Molleja')");
+          Object columna[]= new Object[3];            
+          sent  = (Statement)ca.createStatement();
+                      rs = sent.executeQuery("select nombre, piezas, total from devolucion_crudo where nombre_producto in ( 'Pechuga', 'Muslo', 'Pierna', 'Ala')");
                          while(rs.next()){
-                             arreglodelaspiezassobranteseninventario.add(rs.getFloat(1));
+                             columna[0]= rs.getString(1);
+                             columna[1]= rs.getFloat(2);
+                             columna[2]= rs.getFloat(3);
                          }
       }catch(Exception e){                                             
         
       }
- }
+ }//TICKET DEVOLUCION CRUDO,  LAS CANTIDADES Y PIEZAS
+ public void sobrantedepollocrudodeldiaparaticketperosolocantidades(){ //TICKET DEVOLUCION CRUDO, SOLO LAS CANTIDADES
+      try{//SOLO SE LLAMA A LA CANTIDAD PORQUE EN EL TICKET YA SE DEFINIRÁN LOS NOMBRES DE CADA ARTICULO
+          Object columna[]= new Object[2];                      
+          sent  = (Statement)ca.createStatement();
+                      rs = sent.executeQuery("select nombre, piezas from devolucion_crudo where nombre_producto in ('Patas', 'Huacal', 'Cadera', 'Cabeza', 'Molleja')");
+                         while(rs.next()){
+                             columna[0]= rs.getString(1);
+                             columna[1]= rs.getFloat(2);
+                         }
+      }catch(Exception e){                                             
+        
+      }
+ }//TICKET DEVOLUCION CRUDO, SOLO LAS CANTIDADES
+ 
+  public void sobrantedepollococidodeldiaparaticketcantidadesypiezas(){//TICKET DEVOLUCION COCIDO,  LAS CANTIDADES Y PIEZAS
+      try{//SOLO SE LLAMA A LA CANTIDAD PORQUE EN EL TICKET YA SE DEFINIRÁN LOS NOMBRES DE CADA ARTICULO
+          Object columna[]= new Object[3];            
+          sent  = (Statement)ca.createStatement();
+                      rs = sent.executeQuery("select nombre, piezas, total from procesados");
+                         while(rs.next()){
+                             columna[0]= rs.getString(1);
+                             columna[1]= rs.getFloat(2);
+                             columna[2]= rs.getFloat(3);
+                         }
+      }catch(Exception e){                                             
+        
+      }
+ }//TICKET DEVOLUCION COCIDO,  LAS CANTIDADES Y PIEZAS
+  
+ public void sobrantedepollococidodeldiaparaticketperosolocantidades(){ //TICKET DEVOLUCION COCIDO, SOLO LAS CANTIDADES
+      try{//SOLO SE LLAMA A LA CANTIDAD PORQUE EN EL TICKET YA SE DEFINIRÁN LOS NOMBRES DE CADA ARTICULO
+          Object columna[]= new Object[2];                      
+          sent  = (Statement)ca.createStatement();
+                      rs = sent.executeQuery("select nombre, piezas from procesados");
+                         while(rs.next()){
+                             columna[0]= rs.getString(1);
+                             columna[1]= rs.getFloat(2);
+                         }
+      }catch(Exception e){                                             
+        
+      }
+ }//TICKET DEVOLUCION COCIDO, SOLO LAS CANTIDADES
+ 
  
   public void obteniendolosvaloresdelcortedecajadeldiadehoyparaelticket(){
       try{//SOLO SE LLAMA A LA CANTIDAD PORQUE EN EL TICKET YA SE DEFINIRÁN LOS NOMBRES DE CADA ARTICULO
@@ -292,7 +356,12 @@ public void metodogastosdeldia(){
  }
     
     private void Corte_btnImprimirticketActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Corte_btnImprimirticketActionPerformed
-        float variablemontoentregado=Float.parseFloat(monto.getText()), ventasmenosgastos, menosapertura;
+                 int decision=JOptionPane.showConfirmDialog(null,"¿Desea continuar?","UNA VEZ REALIZADO EL CORTE, SOLO EL ADMIN PUEDE ENTRAR",JOptionPane.CANCEL_OPTION);
+            if(decision==0){// SI SE ELIGE QUE SI, PROCEDEMOS A REALIZAR EL CORTE E IMPRIMIR LOS 5 TICKET
+                //QUE SON, 1.- CORTE DE CAJA, 2.- CRUDO, PECHUGA PIERNA, ALA Y MUSLO, 3.- CRUDO DEL RESTO PERO EN CANTIDADES
+                //4.-COCIDO, TOTALES Y PIEZAS, 5.- COCIDO PIEZAS
+            
+                float variablemontoentregado=Float.parseFloat(monto.getText()), ventasmenosgastos, menosapertura;
         if(variablemontoentregado>0){//COMPROBANDO QUE EL MONTO NO ESTE VACIO
                
           try{ //la insersion a la tabla ventas
@@ -302,11 +371,18 @@ public void metodogastosdeldia(){
              ventasmenosgastos=ventasdeldia-gastosdeldia; 
             JOptionPane.showMessageDialog(null,"ventasmenosgasto: "+ventasmenosgastos);
                  diferencia=variablemontoentregado-ventasmenosgastos;
-                  JOptionPane.showMessageDialog(null,"Se abrio con : "+diferencia);
+                  JOptionPane.showMessageDialog(null,"Se abrio con : "+montodeapertura);
                  
                    diferenciafinal=montodeapertura-diferencia;
-                    JOptionPane.showMessageDialog(null,"Diferencia final: "+diferenciafinal);
-               
+                   if(diferencia>0){
+                       JOptionPane.showMessageDialog(null,"Sobro la cantidad de $:"+diferencia);
+                   }else if(diferencia<0){
+                           JOptionPane.showMessageDialog(null,"Hace falta  la cantidad de $:"+diferencia);
+                   }else{
+                         JOptionPane.showMessageDialog(null,"Todo está en orden :) ");
+           
+                   }
+                
     String sql = "INSERT INTO  cortes(id_apertura, monto_entregado, gastos, ventas, diferencia, fecha, hora, usuario)  VALUES (?,?,?,?,?,?,?,?)";
                 PreparedStatement pst = ca.prepareCall(sql); //hasta aqui vamos
                
@@ -314,30 +390,36 @@ public void metodogastosdeldia(){
                  pst.setFloat(2,variablemontoentregado);
                   pst.setFloat(3,gastosdeldia);
                    pst.setFloat(4,ventasdeldia);
-                    pst.setFloat(5,diferenciafinal);
+                    pst.setFloat(5,diferencia);
                 pst.setString(6,fecha());
                 pst.setString(7,Reloj.getText());
                 pst.setInt(8,id_usuario);
                
                 int a=pst.executeUpdate();
                 if(a>0){
-                    int decision=JOptionPane.showConfirmDialog(null,"¿Desea continuar?","UNA VEZ REALIZADO EL CORTE, SOLO EL ADMIN PUEDE ENTRAR",JOptionPane.CANCEL_OPTION);
-            if(decision==0){
-                //AQUI VA A IR EL CORTE DE CAJA Y EL SOBRANTE DE LOS PRODUCTOS
-                //RECUERDA LLAMAR LOS ARRAYLIST PERTENECIENTES A LOS DOS METODOS DE ABAJO
-                sobrantedepollocrudodeldiaparaticket();//SOBRANTE, VA PARA TICKET
+        
+                //PRIMERO SE REGISTRAN LOS PRODUCTOS SOBRANTES TANTO LOS COCIDOS COMO LOS CRUDOS 
+                
+                insertaradevoluciondecrudopiezasycantidades();//SE REGISTRAN LAS PIEZAS, CANTIDADES Y TOTALES DE TODO CRUDO
+                insertaradevoluciondecocidopiezasycantidades();//SE REGISTRAN LAS PIEZAS, CANTIDADES Y TOTALES DE TODO COCIDO
+                
+                //LUEGO AQUI SE PUEDE REALIZAR CADA TICKET CORRESPONDIENTE (ESTOS SON LOS 5 TICKET)
+                sobrantedepollococidodeldiaparaticketcantidadesypiezas();//SOBRANTE DE COCIDO PARA TICKET MOSTRANDO CANTIDADES Y TOTALES
+                sobrantedepollococidodeldiaparaticketperosolocantidades();//SOBRANTE DE COCIDO PARA TICKET MOSTRANDO CANTIDADES
+                sobrantedepollocrudodeldiaparaticketcantidadesypiezas();//SOBRANTE DE PECHUGA, PIERNA ALA, MUSLO, VA PARA TICKET
+                sobrantedepollocrudodeldiaparaticketperosolocantidades();//SOBRANTE DE TODO MENOS PECHUGA, PIERNA ALA, MUSLO, VA PARA TICKET
                 obteniendolosvaloresdelcortedecajadeldiadehoyparaelticket();//LOS DATOS DEL TICKET CORTE DE CAJA
               /*
                 tikectcorte = new ticketcortedecaja();
                 tikectcorte.datosdelticketdecorte(datosdelcorteparaelticket);
                 */ 
-            insertaradevoluciondecrudo();
-           vaciartodoelpollocrudodeinventario();//UNA VEZ IMPRESO EL SOBRANTE SE VACIAN LOS POLLO CRUDIOS
+            
+           vaciartodoelpollocrudodeinventario();//UNA VEZ IMPRESO LOS 5 TICKETS SE VACIA TODO EL INVENTARIO
                 
                 JOptionPane.showMessageDialog(null,"Nos vemos pronto","Saliendo del sistema...",JOptionPane.INFORMATION_MESSAGE);
             System.exit(0);
 
-            }
+          
               
                 }
             }catch(SQLException e)  { //fin de la insersion a la tabla ventas
@@ -346,19 +428,21 @@ public void metodogastosdeldia(){
              
     }//FIN DE COMPROBANDO QUE EL MONTO NO ESTE VACIO
 else{//CUANDO EL MONTO ESTA VACIO
-            JOptionPane.showMessageDialog(null,"El monto no puede estar vacio o en 0");
- 
-   
+            JOptionPane.showMessageDialog(null,"El monto no puede estar vacio o en 0"); 
 }// FIN DE CUANDO EL MONTO ESTA VACIO
+                
+            }//SI SE ELIGE QUE SI, PROCEDEMOS A REALIZAR EL CORTE E IMPRIMIR LOS 5 TICKET
+            
+        
     }//GEN-LAST:event_Corte_btnImprimirticketActionPerformed
 
-    public void insertaradevoluciondecrudo(){
+    public void insertaradevoluciondecrudopiezasycantidades(){//AQUI SE INSERTAN LAS PIEZAS Y CANTIDADES DE PECHUGA, MUSLO ALA Y PIERNA
          ArrayList cantidades = new  ArrayList();
          ArrayList nombres = new  ArrayList();
-double []totales = {35.0, 7.70, 7.70, 5.50};
+double []totales = {35.0, 7.70, 7.70, 5.50, 0, 0, 0, 0, 0};
         try{//SOLO SE LLAMA A LA CANTIDAD PORQUE EN EL TICKET YA SE DEFINIRÁN LOS NOMBRES DE CADA ARTICULO
                       sent  = (Statement)ca.createStatement();
-                      rs = sent.executeQuery("select nombre_producto, cantidad from productos where nombre_producto in ('Pechuga', 'Muslo', 'Pierna', 'Ala')");
+                      rs = sent.executeQuery("select nombre_producto, cantidad from productos where nombre_producto in ('Pechuga', 'Muslo', 'Pierna', 'Ala', 'Huacal', 'Cadera', 'Cabeza', 'Molleja', 'Patas')");
                          while(rs.next()){
                              nombres.add(rs.getString(1));
                              cantidades.add(rs.getFloat(2));
@@ -370,8 +454,7 @@ double []totales = {35.0, 7.70, 7.70, 5.50};
         for(int aa =0; aa<=nombres.size()-1; aa++){
             double total=0;   
             total= Double.parseDouble(String.valueOf(cantidades.get(aa)))*totales[aa];
-             JOptionPane.showMessageDialog(null, "TOTAÑ "+total);
-            try{ //la insersion a la tabla ventas
+              try{ //la insersion a la tabla ventas
                 PreparedStatement ps = ca.prepareStatement ("UPDATE devolucion_crudo SET piezas='"+cantidades.get(aa)+"',total = '"+total+"',fecha = '"+fecha()+"'WHERE nombre= '"+nombres.get(aa)+"' ");  
                 int a=ps.executeUpdate();
                 if(a>0){
@@ -383,10 +466,42 @@ double []totales = {35.0, 7.70, 7.70, 5.50};
                 JOptionPane.showMessageDialog(null,"Error de datos por id vacio "+e);
             }//fin de la insersion a la tabla ventas
         }
+    }//AQUI SE INSERTAN LAS PIEZAS Y CANTIDADES DE PECHUGA, MUSLO ALA Y PIERNA
         
-    }
-    
    
+   public void insertaradevoluciondecocidopiezasycantidades(){//AQUI SE INSERTAN LAS PIEZAS Y CANTIDADES DE PECHUGA, MUSLO ALA Y PIERNA
+         ArrayList cantidades = new  ArrayList();
+         ArrayList nombres = new  ArrayList();
+double []totales = {68.0, 68.0, 7.68, 8.15, 7.50, 5.95, 23.00, 16.00, 0.00, 0.00, 11.00, 11.00, 11.00, 11.00, 17.00, 11.00, 11.00, 18.00, 11.00, 13.00, 11.50, 13.00, 11.00, 11.00, 11.00, 5.00, 2.00, 1.00, 8.50};
+        try{//SOLO SE LLAMA A LA CANTIDAD PORQUE EN EL TICKET YA SE DEFINIRÁN LOS NOMBRES DE CADA ARTICULO
+                      sent  = (Statement)ca.createStatement();
+                      rs = sent.executeQuery("select nombre_producto, SUM(cantidad) from descripcion_de_venta where id_producto in (24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52) and estado='Realizada' and fecha= '"+fecha()+"' GROUP BY nombre_producto");
+                   
+                      while(rs.next()){
+                             nombres.add(rs.getString(1));
+                             cantidades.add(rs.getFloat(2));
+                              
+                       
+                         }
+      }catch(Exception e){                                             
+      }
+        for(int aa =0; aa<=nombres.size()-1; aa++){
+            double total=0;   
+            total= Double.parseDouble(String.valueOf(cantidades.get(aa)))*totales[aa];
+            try{ //la insersion a la tabla ventas
+                PreparedStatement ps = ca.prepareStatement ("UPDATE procesados SET piezas='"+cantidades.get(aa)+"',total = '"+total+"',fecha = '"+fecha()+"'WHERE nombre= '"+nombres.get(aa)+"' ");  
+                int a=ps.executeUpdate();
+                if(a>0){
+                 }
+                         
+//cantidad.setText("");
+            
+            }catch(SQLException e)  { //fin de la insersion a la tabla ventas
+                JOptionPane.showMessageDialog(null,"Error de datos por id vacio "+e);
+            }//fin de la insersion a la tabla ventas
+        }
+    }//AQUI SE INSERTAN LAS PIEZAS Y CANTIDADES DE PECHUGA, MUSLO ALA Y PIERNA
+      
     
     private void montoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_montoFocusGained
         // *********************   CAJA DE TEXTO DE PAGOO *********
@@ -452,8 +567,10 @@ SI cc= new SI();
     private javax.swing.JLabel Gastosfromtoday;
     private javax.swing.JLabel Reloj;
     private javax.swing.JLabel Ventasfortoday1;
+    private javax.swing.JLabel aperturacantidad;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
