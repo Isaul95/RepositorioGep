@@ -45,7 +45,7 @@ import static si.Pantalla_Gastos.fecha;
 public final class menu_principal extends javax.swing.JFrame implements Runnable{
                   private final String logotipo = "/Reportes/logo1.jpeg"; // icono de DATAMAX
                                      
-    String hora,minutos,segundos, fechadesde="",fechahasta="";
+    String hora,minutos,segundos, fechadesde="",fechahasta="", fechaparaventasdesde="", fechaparaventashasta="";
     Thread hilo;
 Statement sent;  
   ResultSet rs;      
@@ -77,13 +77,20 @@ Statement sent;
                 ventaseneldiasumadas.setText(String.valueOf(sumadetotalesdeventasdehoy));// VIENE DEL METODO ventaseneldiaREALIZADAS()
                         conteodelasventasrealizadas.setText(String.valueOf(conteototaldeventas)); // VIENE DEL METODO totalventasxdia(); ES UN CONTEO DE VENTAS
                          ventascanceladaseneldia.setText(String.valueOf(conteodeventascanceladas));  // TOTAL VENTAS CANCELADAS
-                  productosvendidoseneldia(Jtable_ventasRealizadas);//MUESTRA LAS VENTAS REA
+                   llenartablaidventasconidrealizados();
+                         productosvendidoseneldia(Jtable_ventasRealizadas);//MUESTRA LAS VENTAS REA
                   ventascanceladas(Jtable_ventasCanceladas);
                   productosmasvendidos(Jtable_productosmasven);
                   TablallenadoparaEntradas(Jtable_ProductosEntradas);
                   ParaLAVenta(JtablepaLaVenta);
+              
                  // productosParaVenta(); //*****
+                 
                   
+                                                 
+                 
+                 
+                 
         llenartablaidventasconidrealizados();
       //  this.setExtendedState(MAXIMIZED_BOTH);// MAXIMIZED_BOTH=6 se puede asi o pornerle directo 6 para k sea FULLSCREEN TODA LA PANTALLA SE ADAPTA
         
@@ -120,8 +127,9 @@ Statement sent;
     }
     
     
-    
-    
+     public void llenartablaidventasconidrealizadosporrangodefechas(){
+     
+     }
     
     
     
@@ -162,7 +170,7 @@ Statement sent;
         try{ // La suma de todos los importes
     
                                          Statement sent  =(Statement)ca.createStatement();
-                                         ResultSet  rs = sent.executeQuery("select SUM(total) from venta where fecha_reporte= '"+fechaventasrealizadas()+"'");
+                                         ResultSet  rs = sent.executeQuery("select SUM(total) from venta where fecha_reporte= '"+fechaventasrealizadas()+"' AND total>0 ");
                                             while(rs.next()){
                                                       sumadetotalesdeventasdehoy =rs.getFloat(1);
                                                       }
@@ -174,9 +182,9 @@ Statement sent;
         try{ // CUENTA EL TODAL DE CUANTAS VENTAS SE REALIZARON
     
                                          Statement sent  =(Statement)ca.createStatement();
-                                         ResultSet  rs = sent.executeQuery("SELECT COUNT(`id_venta`) FROM `venta` WHERE fecha_reporte = '"+fechaventasrealizadas()+"' AND `total`!=0");
+                                         ResultSet  rs = sent.executeQuery("SELECT COUNT(id_venta) FROM venta WHERE fecha_reporte = '"+fechaventasrealizadas()+"' AND total>0");
                                             while(rs.next()){
-                                                      conteototaldeventas =Float.parseFloat(rs.getString("COUNT(`id_venta`)"));
+                                                      conteototaldeventas =Float.parseFloat(rs.getString("COUNT(id_venta)"));
                                                       }
                                                       }//fin del try-precio del producto
                                                       catch (Exception e){
@@ -199,7 +207,7 @@ Statement sent;
     public void mostrarpolloscocidos(){
            pollococido.setVisible(true);    //hace visible la tabla de proveedores 
               DefaultTableModel modelo = new DefaultTableModel(); // Se crea un objeto para agregar los nombres de las columnas a la tabla
-    modelo.addColumn("Nombre");
+    modelo.addColumn("Pollo cocido");
 
      pollococido.setModel(modelo);  // Ya una vez asignado todos los nombres se le envia el objeto a la tabla proveedores
     String []datos = new String[2];     //Un arreglo con la cantidad de nombres en las columnas
@@ -224,7 +232,7 @@ Statement sent;
            pollocrudo.setVisible(true);    //hace visible la tabla de proveedores 
               DefaultTableModel modelo = new DefaultTableModel(); // Se crea un objeto para agregar los nombres de las columnas a la tabla
        
-              modelo.addColumn("Nombre");
+              modelo.addColumn("Pollo crudo");
     
      pollocrudo.setModel(modelo);  // Ya una vez asignado todos los nombres se le envia el objeto a la tabla proveedores
     Object []datos = new Object[1];     //Un arreglo con la cantidad de nombres en las columnas
@@ -455,6 +463,37 @@ if(valor.equals("pollo crudo")){// si estan modificando sobre pollo crudo, se in
         
 }
      
+     
+      public String llenarfechadesdeparamostrarlosidventas(){ // Ordena la fecha del componente Jcalendar  que esta de la sig. manera:  dia /mes / aÃ±o, lo cual para la base de datos no es la manera correcta de ingresarlo, sino asÃ­: aÃ±o/mes/dia
+        
+       int año= fechainicial.getCalendar().get(Calendar.YEAR);
+       int mes= fechainicial.getCalendar().get(Calendar.MONTH)+1;
+       int dia= fechainicial.getCalendar().get(Calendar.DAY_OF_MONTH);
+       if(dia<10){
+           String nuevodia= "0"+dia;
+             fechaparaventasdesde= año+"/"+mes+"/"+nuevodia;
+       }
+       else{
+           fechaparaventasdesde= año+"/"+mes+"/"+dia;
+       }
+     
+        return fechaparaventasdesde;
+    }
+    
+     public String llenarfechahastaparamostrarlosidventas(){ // Ordena la fecha del componente Jcalendar  que esta de la sig. manera:  dia /mes / aÃ±o, lo cual para la base de datos no es la manera correcta de ingresarlo, sino asÃ­: aÃ±o/mes/dia
+        
+       int año= fechafinal.getCalendar().get(Calendar.YEAR);
+       int mes= fechafinal.getCalendar().get(Calendar.MONTH)+1;
+       int dia= fechafinal.getCalendar().get(Calendar.DAY_OF_MONTH);
+      if(dia<10){
+           String newday= "0"+dia;
+             fechaparaventashasta= año+"/"+mes+"/"+newday;
+       }
+       else{
+           fechaparaventashasta= año+"/"+mes+"/"+dia;
+       }
+        return fechaparaventashasta;
+    }
      
      
      public String llenarfechadesde(){ // Ordena la fecha del componente Jcalendar  que esta de la sig. manera:  dia /mes / aÃ±o, lo cual para la base de datos no es la manera correcta de ingresarlo, sino asÃ­: aÃ±o/mes/dia
@@ -2003,15 +2042,19 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         jPanel12 = new javax.swing.JPanel();
         Administrador = new javax.swing.JPanel();
         jPanel23 = new javax.swing.JPanel();
-        jLabel63 = new javax.swing.JLabel();
-        ventaseneldiasumadas = new javax.swing.JLabel();
-        conteodelasventasrealizadas = new javax.swing.JLabel();
-        jLabel90 = new javax.swing.JLabel();
         jScrollPane6 = new javax.swing.JScrollPane();
         Jtable_ventasRealizadas = new rojerusan.RSTableMetro();
         jScrollPane12 = new javax.swing.JScrollPane();
         ventasporid = new rojerusan.RSTableMetro();
         veridventas = new javax.swing.JButton();
+        jLabel91 = new javax.swing.JLabel();
+        jLabel92 = new javax.swing.JLabel();
+        fechainicial = new com.toedter.calendar.JDateChooser();
+        fechafinal = new com.toedter.calendar.JDateChooser();
+        buscarventasporfecha = new javax.swing.JButton();
+        jLabel84 = new javax.swing.JLabel();
+        jLabel98 = new javax.swing.JLabel();
+        jLabel99 = new javax.swing.JLabel();
         jPanel24 = new javax.swing.JPanel();
         jLabel93 = new javax.swing.JLabel();
         jLabel94 = new javax.swing.JLabel();
@@ -2022,6 +2065,10 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         ventascanceladaseneldia = new javax.swing.JLabel();
         jScrollPane7 = new javax.swing.JScrollPane();
         Jtable_ventasCanceladas = new rojerusan.RSTableMetro();
+        jLabel90 = new javax.swing.JLabel();
+        ventaseneldiasumadas = new javax.swing.JLabel();
+        jLabel63 = new javax.swing.JLabel();
+        conteodelasventasrealizadas = new javax.swing.JLabel();
         jPanel13 = new javax.swing.JPanel();
         producto_sobrante = new javax.swing.JPanel();
         jPanel20 = new javax.swing.JPanel();
@@ -2215,10 +2262,9 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
 
         jLabel61.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
         jLabel61.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel61.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/total.png"))); // NOI18N
         jLabel61.setText("Total con");
         jLabel61.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-        jPanel10.add(jLabel61, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 190, 170, -1));
+        jPanel10.add(jLabel61, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 200, 170, -1));
 
         descuentolabel.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
         descuentolabel.setForeground(new java.awt.Color(255, 255, 255));
@@ -2458,6 +2504,11 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         acompañantes.setGrosorBordeHead(0);
         acompañantes.setMultipleSeleccion(false);
         acompañantes.setRowHeight(25);
+        acompañantes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                acompañantesMouseClicked(evt);
+            }
+        });
         jScrollPane11.setViewportView(acompañantes);
 
         venta.add(jScrollPane11, new org.netbeans.lib.awtextra.AbsoluteConstraints(1090, 140, 190, 230));
@@ -3697,28 +3748,6 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         jPanel23.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "   Ventas del Dia Realizadas   ", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Arial", 1, 18), new java.awt.Color(255, 255, 255))); // NOI18N
         jPanel23.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel63.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel63.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel63.setText("Total de Ventas Realizadas:");
-        jPanel23.add(jLabel63, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 20, 270, 50));
-
-        ventaseneldiasumadas.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
-        ventaseneldiasumadas.setForeground(new java.awt.Color(255, 255, 255));
-        ventaseneldiasumadas.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        ventaseneldiasumadas.setText("00.00");
-        jPanel23.add(ventaseneldiasumadas, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 20, 120, 50));
-
-        conteodelasventasrealizadas.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
-        conteodelasventasrealizadas.setForeground(new java.awt.Color(255, 255, 255));
-        conteodelasventasrealizadas.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        conteodelasventasrealizadas.setText("00");
-        jPanel23.add(conteodelasventasrealizadas, new org.netbeans.lib.awtextra.AbsoluteConstraints(1110, 20, 120, 50));
-
-        jLabel90.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel90.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel90.setText("Total de Ventas del Dia : $");
-        jPanel23.add(jLabel90, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, 280, 50));
-
         Jtable_ventasRealizadas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -3778,10 +3807,59 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
                 veridventasActionPerformed(evt);
             }
         });
-        jPanel23.add(veridventas, new org.netbeans.lib.awtextra.AbsoluteConstraints(1040, 70, -1, -1));
+        jPanel23.add(veridventas, new org.netbeans.lib.awtextra.AbsoluteConstraints(1100, 70, -1, -1));
+
+        jLabel91.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel91.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel91.setText("Hasta");
+        jPanel23.add(jLabel91, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 20, 60, 50));
+
+        jLabel92.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel92.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel92.setText("Productos vendidos hoy:");
+        jPanel23.add(jLabel92, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, 280, 50));
+
+        fechainicial.setBackground(new java.awt.Color(0, 153, 204));
+        fechainicial.setForeground(new java.awt.Color(0, 96, 255));
+        fechainicial.setFont(new java.awt.Font("Tahoma", 1, 17)); // NOI18N
+        jPanel23.add(fechainicial, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 20, 50, 40));
+
+        fechafinal.setBackground(new java.awt.Color(0, 153, 204));
+        fechafinal.setForeground(new java.awt.Color(0, 96, 255));
+        fechafinal.setFont(new java.awt.Font("Tahoma", 1, 17)); // NOI18N
+        jPanel23.add(fechafinal, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 20, 50, 40));
+
+        buscarventasporfecha.setBackground(new java.awt.Color(0, 148, 204));
+        buscarventasporfecha.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        buscarventasporfecha.setForeground(new java.awt.Color(255, 255, 255));
+        buscarventasporfecha.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/image/magnifier.png"))); // NOI18N
+        buscarventasporfecha.setText("Buscar");
+        buscarventasporfecha.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        buscarventasporfecha.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buscarventasporfechaActionPerformed(evt);
+            }
+        });
+        jPanel23.add(buscarventasporfecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(1100, 20, 150, 40));
+
+        jLabel84.setFont(new java.awt.Font("Arial Black", 1, 24)); // NOI18N
+        jLabel84.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel84.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel84.setText("Desde");
+        jPanel23.add(jLabel84, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 60, 130, 40));
+
+        jLabel98.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel98.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel98.setText("Ventas de hoy:");
+        jPanel23.add(jLabel98, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 20, 280, 50));
+
+        jLabel99.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel99.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel99.setText("Desde");
+        jPanel23.add(jLabel99, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 20, 60, 50));
 
         Administrador.add(jPanel23);
-        jPanel23.setBounds(10, 70, 1260, 290);
+        jPanel23.setBounds(10, 70, 1260, 300);
 
         jPanel24.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -3847,13 +3925,13 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         jLabel62.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel62.setForeground(new java.awt.Color(255, 0, 0));
         jLabel62.setText("Total de Ventas Cancelados :");
-        jPanel26.add(jLabel62, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 20, 290, 50));
+        jPanel26.add(jLabel62, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 290, 50));
 
         ventascanceladaseneldia.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
         ventascanceladaseneldia.setForeground(new java.awt.Color(255, 0, 0));
         ventascanceladaseneldia.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         ventascanceladaseneldia.setText("00");
-        jPanel26.add(ventascanceladaseneldia, new org.netbeans.lib.awtextra.AbsoluteConstraints(1110, 20, 120, 50));
+        jPanel26.add(ventascanceladaseneldia, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 30, 120, 50));
 
         Jtable_ventasCanceladas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -3880,10 +3958,37 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         Jtable_ventasCanceladas.setRowHeight(25);
         jScrollPane7.setViewportView(Jtable_ventasCanceladas);
 
-        jPanel26.add(jScrollPane7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 1210, 210));
+        jPanel26.add(jScrollPane7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 570, 210));
 
         Administrador.add(jPanel26);
-        jPanel26.setBounds(10, 370, 1260, 290);
+        jPanel26.setBounds(10, 370, 610, 290);
+        jPanel26.getAccessibleContext().setAccessibleName("Ventas que fueron canceladas");
+
+        jLabel90.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel90.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel90.setText("Total de Ventas del Dia : $");
+        Administrador.add(jLabel90);
+        jLabel90.setBounds(660, 460, 280, 50);
+
+        ventaseneldiasumadas.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
+        ventaseneldiasumadas.setForeground(new java.awt.Color(255, 255, 255));
+        ventaseneldiasumadas.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        ventaseneldiasumadas.setText("00.00");
+        Administrador.add(ventaseneldiasumadas);
+        ventaseneldiasumadas.setBounds(910, 460, 120, 50);
+
+        jLabel63.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel63.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel63.setText("Numero de ventas realizadas:");
+        Administrador.add(jLabel63);
+        jLabel63.setBounds(660, 420, 270, 50);
+
+        conteodelasventasrealizadas.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
+        conteodelasventasrealizadas.setForeground(new java.awt.Color(255, 255, 255));
+        conteodelasventasrealizadas.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        conteodelasventasrealizadas.setText("00");
+        Administrador.add(conteodelasventasrealizadas);
+        conteodelasventasrealizadas.setBounds(930, 420, 120, 50);
 
         javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
         jPanel12.setLayout(jPanel12Layout);
@@ -5481,30 +5586,24 @@ public void datosparaelticketdeventa(){
         // BOTON PARA LA CONSULTA DE  GASTOS
         String fechadesde= llenarfechadesde();
         String fechahasta= llenarfechahasta();
-JOptionPane.showMessageDialog(null, "FECHA DESDE "+fechadesde);
-
-JOptionPane.showMessageDialog(null, "FECHA HASTA "+fechahasta);
+            if(fechadesde.equals("")&&fechahasta.equals("")){
+                JOptionPane.showMessageDialog(null, "Primero debe elegir un rango de fechas en los calendarios");
+            }else{
+                
         LlenarTablaBusquedproMasvendidosfecha(Jtable_productosmasven, llenarfechadesde(),llenarfechahasta());
+            }
+
     }//GEN-LAST:event_buscarproductosfechaActionPerformed
-
-    private void pollococidoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pollococidoMouseClicked
  
-    }//GEN-LAST:event_pollococidoMouseClicked
-
-    private void pollocrudoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pollocrudoMouseClicked
-     //ESTO AGREGA EL PRODUCTO DE LA FILA SELECCIONADO Y LE SUMA 1 PIEZA
-   int fila =pollocrudo.getSelectedRow();
-      
-      if(fila>=0){// CUANDO UNA CELDA SE SELECCIONO
-             
+    public void agregarpiezasaventa(String nombredepieza){
           /* ******************** BOTON DE ADD NUEVO PRODUCTO PARA SU VENTA ******************** */
       primer_ventadelsistema(); // 482 - 498   Comprueba que ya haya por lo menos un id registrado en la base o en su defecto que no lo haya
-           piezassuficientes(pollocrudo.getValueAt(fila,0).toString());//verifica primero que haya las suficientes piezas para agregar un producto a la venta
+           piezassuficientes(nombredepieza);//verifica primero que haya las suficientes piezas para agregar un producto a la venta
             if(suficientespiezas==true){ // si hay piezas suficientes para agregar el articulo a la venta
                 if(primerventa==0){ //indicando que aún no se crea la primer venta del sistema
               get_id_usuario();        //entonces lo que haría despues será entrar al metodo get_id_usuario, para asignar una venta al usuario que haya iniciado sesión en la maquina
               block_unlock=false;   //se desactiva la condicion que indica que ya no se agregue otro id venta ya que aún no se ha concluido la primer venta
-            comprobar_registro(pollocrudo.getValueAt(fila,0).toString()); // esto es para agregar los productos a la tabla de descripcion de venta y 
+            comprobar_registro(nombredepieza); // esto es para agregar los productos a la tabla de descripcion de venta y 
             // ya una vez concluida la venta el mismo metodo agregará dicho resultado total de la venta (a la tabla venta, bueno solo los resultados 
             // correspondientes como lo son; total, pago y cambio)
            }    
@@ -5514,22 +5613,45 @@ JOptionPane.showMessageDialog(null, "FECHA HASTA "+fechahasta);
                comprobar_venta_resagada();//579 - 605 verifica que no haya una venta cancelada
               get_id_usuario();// 255 -280
               block_unlock=false;   
-            comprobar_registro(pollocrudo.getValueAt(fila,0).toString()); //608 - 691 
+            comprobar_registro(nombredepieza); //608 - 691 
            }
             }
             else{//No hay piezas suficientes para agregar el articulo a la venta
-                JOptionPane.showMessageDialog(null,"No tiene suficientes piezas para agregar el articulo:  "+pollocrudo.getValueAt(fila,0).toString()+JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null,"No tiene suficientes piezas para agregar el articulo:  "+nombredepieza+JOptionPane.ERROR_MESSAGE);
                 JOptionPane.showMessageDialog(null,"Las piezas disponibles en inventario son:  "+piezassuficientes);
             }
-       
-
+    }
+    
+    
+    private void pollococidoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pollococidoMouseClicked
+       int fila =pollococido.getSelectedRow();
+      
+      if(fila>=0){// CUANDO UNA CELDA SE SELECCIONO
+        
+           agregarpiezasaventa(pollococido.getValueAt(fila,0).toString());
           
       }
       
       else{
           JOptionPane.showMessageDialog(null,"Por favor, seleccione una fila primero","Aviso",JOptionPane.INFORMATION_MESSAGE);
       }
-    //ESTO AGREGA EL PRODUCTO DE LA FILA SELECCIONADO Y LE SUMA 1 PIEZA        
+        
+    }//GEN-LAST:event_pollococidoMouseClicked
+
+    private void pollocrudoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pollocrudoMouseClicked
+     //ESTO AGREGA EL PRODUCTO DE LA FILA SELECCIONADO Y LE SUMA 1 PIEZA
+   int fila =pollocrudo.getSelectedRow();
+      
+      if(fila>=0){// CUANDO UNA CELDA SE SELECCIONO
+        
+           agregarpiezasaventa(pollocrudo.getValueAt(fila,0).toString());
+          
+      }
+      
+      else{
+          JOptionPane.showMessageDialog(null,"Por favor, seleccione una fila primero","Aviso",JOptionPane.INFORMATION_MESSAGE);
+      }
+    
     }//GEN-LAST:event_pollocrudoMouseClicked
 
     private void tablaventaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaventaMouseClicked
@@ -5616,7 +5738,11 @@ cerrandosesion();
     }//GEN-LAST:event_ventasporidMouseClicked
 
     private void veridventasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_veridventasActionPerformed
-       llenartablaidventasconidrealizados(); //CARGA NUEVAMENTE LAS VENTAS POR ID
+             fechainicial.cleanup();
+        fechainicial.setDate(null);
+      fechafinal.cleanup();
+        fechafinal.setDate(null);
+        llenartablaidventasconidrealizados(); //CARGA NUEVAMENTE LAS VENTAS POR ID
        veridventas.setVisible(false);
     }//GEN-LAST:event_veridventasActionPerformed
 
@@ -5678,11 +5804,21 @@ cerrandosesion();
                             block_unlock=true;
                             
                                                 JOptionPane.showMessageDialog(null,"Venta realizada con descuento");
-                                                 productosvendidoseneldia(Jtable_ventasRealizadas);
-                                                 productosmasvendidos(Jtable_productosmasven);
-                                                 llenartablaidventasconidrealizados();
-                                             
-                                                 mostrarpolloscocidos();
+                                            
+                                                
+                                                  totaldelasventasdehoy(); // PARA LA SUMA DE LOS TOTALES DE LA VENTA
+                    conteodeventasrealizadasdehoy(); // CUANTAS VENTAS SE REALIZARON? 5 O 60 O XX
+                    ventasCanceladas();//CONTEO DE LAS VENTAS CANCELADAS
+                ventaseneldiasumadas.setText(String.valueOf(sumadetotalesdeventasdehoy));// VIENE DEL METODO ventaseneldiaREALIZADAS()
+                        conteodelasventasrealizadas.setText(String.valueOf(conteototaldeventas)); // VIENE DEL METODO totalventasxdia(); ES UN CONTEO DE VENTAS
+                         ventascanceladaseneldia.setText(String.valueOf(conteodeventascanceladas));  // TOTAL VENTAS CANCELADAS
+                   llenartablaidventasconidrealizados();
+                         productosvendidoseneldia(Jtable_ventasRealizadas);//MUESTRA LAS VENTAS REA
+                  ventascanceladas(Jtable_ventasCanceladas);
+                  productosmasvendidos(Jtable_productosmasven);
+                  TablallenadoparaEntradas(Jtable_ProductosEntradas);
+                  ParaLAVenta(JtablepaLaVenta);
+                                              
 descuentoactivo=false;
 storage.clear();
 //autocompletar();
@@ -5737,11 +5873,20 @@ storage.clear();
                  }*/
              }
                                                 JOptionPane.showMessageDialog(null,"Venta realizada");
-                                                llenartablaidventasconidrealizados();
-                                                 mostrarpolloscocidos();
+                                                     totaldelasventasdehoy(); // PARA LA SUMA DE LOS TOTALES DE LA VENTA
+                    conteodeventasrealizadasdehoy(); // CUANTAS VENTAS SE REALIZARON? 5 O 60 O XX
+                    ventasCanceladas();//CONTEO DE LAS VENTAS CANCELADAS
+                ventaseneldiasumadas.setText(String.valueOf(sumadetotalesdeventasdehoy));// VIENE DEL METODO ventaseneldiaREALIZADAS()
+                        conteodelasventasrealizadas.setText(String.valueOf(conteototaldeventas)); // VIENE DEL METODO totalventasxdia(); ES UN CONTEO DE VENTAS
+                         ventascanceladaseneldia.setText(String.valueOf(conteodeventascanceladas));  // TOTAL VENTAS CANCELADAS
+                   llenartablaidventasconidrealizados();
+                         productosvendidoseneldia(Jtable_ventasRealizadas);//MUESTRA LAS VENTAS REA
+                  ventascanceladas(Jtable_ventasCanceladas);
+                  productosmasvendidos(Jtable_productosmasven);
+                  TablallenadoparaEntradas(Jtable_ProductosEntradas);
+                  ParaLAVenta(JtablepaLaVenta);
 descuentoactivo=false;
- productosvendidoseneldia(Jtable_ventasRealizadas); // CONTAR LAS VENTAS K SE REALIZARON
- productosmasvendidos(Jtable_productosmasven); // CONTABIL.. PRODUCTOS MAS VENDIDOS SOLO LAS VENTAS REALIZADAS 
+ 
 //autocompletar();
 storage.clear();
             }//fin del id del usuario
@@ -5872,6 +6017,65 @@ storage.clear();
         fecha_finalestadis.setDate(null);
     }//GEN-LAST:event_buscarproductospordiaActionPerformed
 
+    private void acompañantesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_acompañantesMouseClicked
+      
+        int fila =acompañantes.getSelectedRow();
+      
+      if(fila>=0){// CUANDO UNA CELDA SE SELECCIONO
+        
+           agregarpiezasaventa(acompañantes.getValueAt(fila,0).toString());
+          
+      }
+      
+      else{
+          JOptionPane.showMessageDialog(null,"Por favor, seleccione una fila primero","Aviso",JOptionPane.INFORMATION_MESSAGE);
+      }
+        
+    }//GEN-LAST:event_acompañantesMouseClicked
+
+    public void showidventasporfechas(JTable tablaventas, String fechadesde, String fechahasta){
+        Object[] columna = new Object[3];  //crear un obj con el nombre de colunna
+            Connection ca= cc.conexion(); // CONEXION DB 
+              DefaultTableModel modeloT = new DefaultTableModel(); 
+                  tablaventas.setModel(modeloT);  // add modelo ala tabla 
+        
+           modeloT.addColumn("Venta");
+        modeloT.addColumn("Total");        
+        modeloT.addColumn("Fecha");
+  
+        try {
+           String sSQL = "SELECT id_venta, total, fecha_reporte FROM venta WHERE total>0 AND fecha_reporte BETWEEN '"+fechadesde+"' AND '"+fechahasta+ "' ";
+                  
+        PreparedStatement ps = ca.prepareStatement(sSQL);       
+        try (ResultSet rs = ps.executeQuery(sSQL)) {
+            while (rs.next()) {
+                columna[0] = rs.getString(1);
+                columna[1] = rs.getInt(2);
+                   columna[2] = rs.getString(3);
+                modeloT.addRow(columna);
+            }
+        }
+        ps.close();
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(null, e, "Advertencia", JOptionPane.PLAIN_MESSAGE);    
+    }
+    }
+    
+    private void buscarventasporfechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarventasporfechaActionPerformed
+
+        String fechaparaventasdesde= llenarfechadesdeparamostrarlosidventas();
+        String fechaparaventashasta= llenarfechahastaparamostrarlosidventas();
+            if(fechaparaventasdesde.equals("")&&fechaparaventashasta.equals("")){
+                JOptionPane.showMessageDialog(null, "Primero debe elegir un rango de fechas en los calendarios");
+            }else{
+                
+        showidventasporfechas(ventasporid, llenarfechadesdeparamostrarlosidventas(),llenarfechahastaparamostrarlosidventas());
+            }
+        
+        
+               
+    }//GEN-LAST:event_buscarventasporfechaActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -5942,6 +6146,7 @@ SI cc= new SI();
     public static javax.swing.JButton agregarpro1;
     private javax.swing.JButton buscarproductosfecha;
     private javax.swing.JButton buscarproductospordia;
+    private javax.swing.JButton buscarventasporfecha;
     private javax.swing.JLabel cambiocombobox;
     private javax.swing.JTextField cantp;
     private javax.swing.JLabel conteodelasventasrealizadas;
@@ -5954,6 +6159,8 @@ SI cc= new SI();
     private javax.swing.JMenuItem eliminarusuarios;
     private com.toedter.calendar.JDateChooser fecha_finalestadis;
     private com.toedter.calendar.JDateChooser fecha_inicioestadis;
+    private com.toedter.calendar.JDateChooser fechafinal;
+    private com.toedter.calendar.JDateChooser fechainicial;
     private com.toedter.calendar.JDateChooser fechap;
     private javax.swing.Box.Filler filler1;
     private javax.swing.JButton jButton1;
@@ -6046,15 +6253,20 @@ SI cc= new SI();
     private javax.swing.JLabel jLabel81;
     private javax.swing.JLabel jLabel82;
     private javax.swing.JLabel jLabel83;
+    private javax.swing.JLabel jLabel84;
     private javax.swing.JLabel jLabel88;
     private javax.swing.JLabel jLabel89;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel jLabel90;
+    private javax.swing.JLabel jLabel91;
+    private javax.swing.JLabel jLabel92;
     private javax.swing.JLabel jLabel93;
     private javax.swing.JLabel jLabel94;
     private javax.swing.JLabel jLabel95;
     private javax.swing.JLabel jLabel96;
     private javax.swing.JLabel jLabel97;
+    private javax.swing.JLabel jLabel98;
+    private javax.swing.JLabel jLabel99;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;

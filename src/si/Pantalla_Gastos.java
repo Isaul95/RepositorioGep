@@ -157,24 +157,95 @@ public class Pantalla_Gastos extends javax.swing.JFrame {
      public void limpiar(){     /*====  VACIAR CAMPOS */
             txtdescripcion.setText(null);
             txtmonto.setText(null);
-            txtpiezas.setText(null);
+
            // vistaGastos.jDateChooserFecha.setDate(null);
          }         
      
+     /*
+     
+          //ESTOS 3 METODOS SON PARA CUANDO SE AGREGUE CIERTA CANTIDAD DE POLLO CRUDO, CONVIERTIENDOLO 
+     //A SUS PIEZAS CORRESPONDIENTES, Y SI YA HAY CANTIDADES ALMACENADAS, SE SUMA LO ALMACENADO CON LO
+     //QUE SE ESTA INSERTANDO
+     public void siespollocrudo(){PRIMERO ESTE METODO
+          if("pollo crudo".equalsIgnoreCase(txtdescripcion.getText())){
+                    gastos = new Gastos(cantidad, tipo, totalmonto, id_usuario, fecha);
+                         gastos.Gastosinsert();
+                         limpiar();
+                         LlenarTabla(jTableGastos);
+                             JOptionPane.showMessageDialog(null, "Gastos Registrados con Exito... entrando desde gastos en productos");
+   float totalpiezaspollo = (cantidad*piezasxunpollo);
+ float precioxpieza = (totalmonto/totalpiezaspollo);   
+     
+  if(comprobarpollo()){
+   JOptionPane.showMessageDialog(null," CANTIDAD ACTUALIZADA DE PRODUCTOS ");
+  }
+  else{
+       obtener_id_del_proveedor(menu_principal.proveedorarticulo.getSelectedItem().toString());
+    
+      registrar_pollo_crudo(pollocrudo, totalmonto, cantidad, id_proveedor); Esto registra 1 pollo o la cantidad de pollos que metas          
+          for(int i=0; i<piezas.length; i++) {
+ 
+         
+          obtener_id_del_proveedor(menu_principal.proveedorarticulo.getSelectedItem().toString());
+    
+            String sql = null;
+               try {
+            
+          Statement sent = ca.createStatement(); 
+          sql = "INSERT INTO productos (nombre_producto, tipo_producto, precio, cantidad, fecha, id_proveedor, fecha_de_caducidad)  VALUES (?,?,?,?,?,?,?)";
+         PreparedStatement pst = ca.prepareCall(sql);
+         
+           pst.setString(1, piezas[i]);
+           pst.setString(2, "Pollos");
+           pst.setFloat(3, precioxpieza);
+           //DE ACUERDO A LA PIEZA SON LAS CANTIDADES
+           if(piezas[i].equals("Pechuga")||piezas[i].equals("Muslo")||
+                   piezas[i].equals("Pierna")||
+                   piezas[i].equals("Ala")||
+                   piezas[i].equals("Patas")){
+               resultadodepiezaspares=cantidad*piezasdepollopares;
+               pst.setFloat(4,resultadodepiezaspares);
+           }
+           else if(piezas[i].equals("Huacal")||piezas[i].equals("Cadera")||
+                   piezas[i].equals("Cabeza")||
+                   piezas[i].equals("Molleja")){
+            resultadodepiezasinpares=cantidad*piezasdepollosinpares;
+               pst.setFloat(4,resultadodepiezasinpares);
+        }
+           
+           pst.setString(5, fecha());
+          pst.setInt(6, id_proveedor);
+          pst.setString(7, "Sin fecha de caducidad");
+                      
+          tt = pst.executeUpdate();
+            pst.close();
+             
+        } catch (SQLException ex) {
+            System.err.print(ex);
+ 
+        }
+          
+          }                                                
+                   
+  if (tt>0 ) {&& gastos.Gastosinsert() 
+                       JOptionPane.showMessageDialog(null, "Productos Registrados con Exito...");
+                       
+                       limpiar();
+//                       autocompletar();
+                   } 
+                   
+ }
+        
+        }
+     }PRIMERO ESTE METODO
      
      
      
-     
-     boolean comprobarpollo(){ //1
+     boolean comprobarpollo(){LUEGO ESTE METODOD EN 2DO LUGAR
          actualizar_pollocrudo();
      boolean resultado=false;
-              
-         
-       
-          
-            
+
            for(int i=0; i<piezas.length; i++) {
-  
 
             try{
                        sent  = (Statement)ca.createStatement();
@@ -184,8 +255,8 @@ public class Pantalla_Gastos extends javax.swing.JFrame {
                                                       cantidadpolloenDB =rs.getInt("cantidad"); // piezas en la db
                                                       }
             
-   if(buscap.equals(piezas[i])){ //Si el nombre del producto es diferente del estado vacio, en palabras más sencillas; si se encuentra el producto que se quiere agregar para que no se asigne nuevamente  
-        try{// el id del usuario
+   if(buscap.equals(piezas[i])){ Si el nombre del producto es diferente del estado vacio, en palabras más sencillas; si se encuentra el producto que se quiere agregar para que no se asigne nuevamente  
+        try{ el id del usuario
                 if(piezas[i].equals("Pechuga")||piezas[i].equals("Muslo")||
                    piezas[i].equals("Pierna")||
                    piezas[i].equals("Ala")||
@@ -218,10 +289,10 @@ public class Pantalla_Gastos extends javax.swing.JFrame {
                      resultado = false;
                  }
         }
-        }//fin del id del usuario
+        }fin del id del usuario
                  catch(Exception w){
                      JOptionPane.showMessageDialog(null, "Error" + w.getMessage());
-                 }//fin del id del usuario
+                 }fin del id del usuario
                }
  
          }catch (Exception f){
@@ -230,12 +301,12 @@ public class Pantalla_Gastos extends javax.swing.JFrame {
          }
      
          
-           }//2
+           }
         return resultado;
-     } //1
+     } LUEGO ESTE METODOD EN 2DO LUGAR
      
      
-     public void actualizar_pollocrudo(){ //1
+     public void actualizar_pollocrudo(){ LUEGO ESTE EN 3ER LUGAR
     
       String buscap = "";     
   
@@ -248,7 +319,7 @@ public class Pantalla_Gastos extends javax.swing.JFrame {
                                                       }
                   
            if(buscap.equalsIgnoreCase(tipo)){
-   try{// el id del usuario
+   try{el id del usuario
 
               addpiezas=cantidadpolloenDB+cantidad;
             
@@ -261,18 +332,47 @@ public class Pantalla_Gastos extends javax.swing.JFrame {
                    
                  }
 
-        }//fin del id del usuario
+        }fin del id del usuario
                  catch(Exception w){
                      JOptionPane.showMessageDialog(null, "Error" + w.getMessage());
-                 }//fin del id del usuario
+                 }fin del id del usuario
             }        
          }catch (Exception f){
                     JOptionPane.showMessageDialog(null, "Error, nombre de producto no registrado" + f.getMessage());
          }
-     } //1
+     } LUEGO ESTE EN 3ER LUGAR
      
+     public void registrar_pollo_crudo(String name, float precio, float cantidad, int id){//LUEGO ESTE EN 4TO LUGAR
+         String sql = null;
+         float preciodelpollocrudo=precio/cantidad;
+try {
+          Statement sent = ca.createStatement(); 
+          sql = "INSERT INTO productos (nombre_producto, tipo_producto, precio, cantidad, fecha, id_proveedor, fecha_de_caducidad)  VALUES (?,?,?,?,?,?,?)";
+         PreparedStatement pst = ca.prepareCall(sql);
+           // sql = "INSERT INTO egreso (tipo,fecha, total, user_id_usuario)  VALUES (?,?,?,?)";
+           
+           pst.setString(1, name);
+           pst.setString(2, "Pollos");
+           pst.setFloat(3, preciodelpollocrudo);
+          pst.setFloat(4,cantidad);
+          pst.setString(5, fecha());
+          pst.setInt(6, id);
+          pst.setString(7, "Sin fecha de caducidad");
+                      
+          tt = pst.executeUpdate();
+            pst.close();
+             
+        } catch (SQLException ex) {
+            System.err.print(ex);
+           // return false;
+        }
+} //LUEGO ESTE EN 4TO LUGAR
      
-     
+     ESTOS 3 METODOS SON PARA CUANDO SE AGREGUE CIERTA CANTIDAD DE POLLO CRUDO, CONVIERTIENDOLO 
+     A SUS PIEZAS CORRESPONDIENTES, Y SI YA HAY CANTIDADES ALMACENADAS, SE SUMA LO ALMACENADO CON LO
+       QUE SE ESTA INSERTANDO
+     */
+
       /*  ======   HACIENDO UNA CONSULTA DE LOS GASTOS A BUSCAR CON -- ((UNA)) -- FECHA DETERINADA =======A*/          
           public void LlenarTablaBusquedaFecha(JTable tablaD, String jDateXUnaFecha){ // recibe como parametro 
          Object[] columna = new Object[6];  //crear un obj con el nombre de colunna
@@ -396,7 +496,7 @@ public class Pantalla_Gastos extends javax.swing.JFrame {
         btnListar.setBackground(new java.awt.Color(0, 148, 204));
         btnListar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btnListar.setForeground(new java.awt.Color(255, 255, 255));
-        btnListar.setText("Listar Gastos");
+        btnListar.setText("Listar gastos");
         btnListar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnListarActionPerformed(evt);
@@ -479,7 +579,7 @@ public class Pantalla_Gastos extends javax.swing.JFrame {
         btnRegistrarGasto.setBackground(new java.awt.Color(0, 148, 204));
         btnRegistrarGasto.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btnRegistrarGasto.setForeground(new java.awt.Color(255, 255, 255));
-        btnRegistrarGasto.setText("Registrar Gastos");
+        btnRegistrarGasto.setText("Registrar gastos");
         btnRegistrarGasto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRegistrarGastoActionPerformed(evt);
@@ -491,7 +591,7 @@ public class Pantalla_Gastos extends javax.swing.JFrame {
         btnImprimirticket.setBackground(new java.awt.Color(0, 148, 204));
         btnImprimirticket.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btnImprimirticket.setForeground(new java.awt.Color(255, 255, 255));
-        btnImprimirticket.setText("Imprimir Tikect");
+        btnImprimirticket.setText("Imprimir tikect");
         btnImprimirticket.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnImprimirticketActionPerformed(evt);
@@ -605,31 +705,7 @@ public void obtener_id_del_proveedor(String name){
         }
 }
 
-public void registrar_pollo_crudo(String name, float precio, float cantidad, int id){
-         String sql = null;
-         float preciodelpollocrudo=precio/cantidad;
-try {
-          Statement sent = ca.createStatement(); 
-          sql = "INSERT INTO productos (nombre_producto, tipo_producto, precio, cantidad, fecha, id_proveedor, fecha_de_caducidad)  VALUES (?,?,?,?,?,?,?)";
-         PreparedStatement pst = ca.prepareCall(sql);
-           // sql = "INSERT INTO egreso (tipo,fecha, total, user_id_usuario)  VALUES (?,?,?,?)";
-           
-           pst.setString(1, name);
-           pst.setString(2, "Pollos");
-           pst.setFloat(3, preciodelpollocrudo);
-          pst.setFloat(4,cantidad);
-          pst.setString(5, fecha());
-          pst.setInt(6, id);
-          pst.setString(7, "Sin fecha de caducidad");
-                      
-          tt = pst.executeUpdate();
-            pst.close();
-             
-        } catch (SQLException ex) {
-            System.err.print(ex);
-           // return false;
-        }
-}
+
 
     private void btnRegistrarGastoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarGastoActionPerformed
         // ABRE NUEVA VENTANA PARA Registro de Gastos
@@ -647,93 +723,9 @@ try {
                           tipo = txtdescripcion.getText();                                                                                                                                    
                          String fecha = fecha(); 
                        pollocrudo= txtdescripcion.getText();                        
-                         
- if("pollo crudo".equalsIgnoreCase(txtdescripcion.getText())){/*1*/
-                    gastos = new Gastos(cantidad, tipo, totalmonto, id_usuario, fecha);
-                         gastos.Gastosinsert();
-                         limpiar();
-                         LlenarTabla(jTableGastos);
-                             JOptionPane.showMessageDialog(null, "Gastos Registrados con Exito... entrando desde gastos en productos");
-   float totalpiezaspollo = (cantidad*piezasxunpollo);
- float precioxpieza = (totalmonto/totalpiezaspollo);   
-     
-  if(comprobarpollo()){
-   JOptionPane.showMessageDialog(null," CANTIDAD ACTUALIZADA DE PRODUCTOS ");
-  }
-  else{
-       obtener_id_del_proveedor(menu_principal.proveedorarticulo.getSelectedItem().toString());
-    
-      registrar_pollo_crudo(pollocrudo, totalmonto, cantidad, id_proveedor); //Esto registra 1 pollo o la cantidad de pollos que metas          
-          for(int i=0; i<piezas.length; i++) {
- 
-         
-          obtener_id_del_proveedor(menu_principal.proveedorarticulo.getSelectedItem().toString());
-    
-            String sql = null;
-               try {
-            
-          Statement sent = ca.createStatement(); 
-          sql = "INSERT INTO productos (nombre_producto, tipo_producto, precio, cantidad, fecha, id_proveedor, fecha_de_caducidad)  VALUES (?,?,?,?,?,?,?)";
-         PreparedStatement pst = ca.prepareCall(sql);
-           // sql = "INSERT INTO egreso (tipo,fecha, total, user_id_usuario)  VALUES (?,?,?,?)";
-           
-           pst.setString(1, piezas[i]);
-           pst.setString(2, "Pollos");
-           pst.setFloat(3, precioxpieza);
-           //DE ACUERDO A LA PIEZA SON LAS CANTIDADES
-           if(piezas[i].equals("Pechuga")||piezas[i].equals("Muslo")||
-                   piezas[i].equals("Pierna")||
-                   piezas[i].equals("Ala")||
-                   piezas[i].equals("Patas")){
-               resultadodepiezaspares=cantidad*piezasdepollopares;
-               pst.setFloat(4,resultadodepiezaspares);
-           }
-           else if(piezas[i].equals("Huacal")||piezas[i].equals("Cadera")||
-                   piezas[i].equals("Cabeza")||
-                   piezas[i].equals("Molleja")){
-            resultadodepiezasinpares=cantidad*piezasdepollosinpares;
-               pst.setFloat(4,resultadodepiezasinpares);
-        }
-           
-           pst.setString(5, fecha());
-          pst.setInt(6, id_proveedor);
-          pst.setString(7, "Sin fecha de caducidad");
-                      
-          tt = pst.executeUpdate();
-            pst.close();
-             
-        } catch (SQLException ex) {
-            System.err.print(ex);
-           // return false;
-        }
-          
-          }                                                
-                   
-                  // gastos = new Gastos(piezas, precioxpieza, pollosdivididos);
-                  // gastos = new Gastos(cantidad, tipo, total, usuarioname, fecha);
-                   if (tt>0 ) {/*2*/ /* && gastos.Gastosinsert() */
-                       JOptionPane.showMessageDialog(null, "Productos Registrados con Exito...");
-                       
-                       limpiar();
-//                       autocompletar();
-                   }  /*2*/  
-                   
- }
-        
-        }/*1*/ else if(!"pollo crudo".equalsIgnoreCase(txtdescripcion.getText())){/*3*/
-           // txtpiezas.setEnabled(false);  // ME ACTIVA EL TXT
-            txtpiezas.setText("0");
-
-                                gastos = new Gastos(cantidad, tipo, totalmonto, id_usuario, fecha);
+                        gastos = new Gastos(cantidad, tipo, totalmonto, id_usuario, fecha);
                        if (gastos.Gastosinsert()) { //  aki me insertar en una de las dos tablas mas no en las dos
-       
-                            
-                            
-  //======================================== ============================================================================= /
-                            
-                            
-                            
-                            
+
                          JOptionPane.showMessageDialog(null, "Gastos Registrados con Exito...");
                             limpiar();
                             JOptionPane.showMessageDialog(null, "Generando Ticket de Gastos...");
@@ -745,11 +737,10 @@ try {
                        }/*0*/ else { /*4*/
                             JOptionPane.showMessageDialog(null, "error", "ERROR", JOptionPane.ERROR_MESSAGE);
                         }/*4*/
-        }/*3*/ 
+    
                     }//
                 } //
-            
-        
+ 
     }//GEN-LAST:event_btnRegistrarGastoActionPerformed
 
     private void btnImprimirticketActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirticketActionPerformed
