@@ -64,7 +64,7 @@ Statement sent;
        
   boolean descontardecimales=false, entero= false, medio=false, cuarto=false, descuentoactivo=false, suficientespiezas=true, block_unlock=true,tablaventaactiva=false, primerproducto=true, productoagregado=false, productorepetido=false;
       // String  usuarioname=SI_Inicio.text_user.getText(); //variable para obtener el nombre del usuario o administrador que ingreso al sistema
-            String pollo_crudo="pollo crudo", estadoinactivo="Inactivo", estadoactivo="Activo", NoP="",estadocancelado= "Cancelada",estadorealizado="Realizada", estadoenturno="En turno", fechayhora="",fechasinhora="", usuarioname=SI_Inicio.text_user.getText(); //variable para obtener el nombre del usuario o administrador que ingreso al sistema
+            String pollo_crudo="pollo crudo", estadoinactivo="Inactivo", estadoactivo="Activo", NoP="",estadocancelado= "Cancelada",estadorealizado="Realizada", estadoenturno="En turno", creditopendiente="Credito-pendiente", creditopagado="Credito-pagado", fechayhora="",fechasinhora="", usuarioname=SI_Inicio.text_user.getText(); //variable para obtener el nombre del usuario o administrador que ingreso al sistema
     public menu_principal() {
         initComponents();
         borrarventasenestadoenturnoporerrordeusuario();//ESTO ES CUANDO EL USUARIO SE EQUIVOCA Y CIERRA SESION DIRECTAMENTE EN LA X
@@ -353,7 +353,21 @@ Statement sent;
         JOptionPane.showMessageDialog(null, e, "Advertencia", JOptionPane.PLAIN_MESSAGE);    
     }
 }
-         
+           public boolean validarFormulario(String cantidaddelatabla) { // VALIDACION DE TXT MONTO
+        boolean next = false;
+        Pattern patGastos = Pattern.compile("^[0-9]+([.])?([0-9]+)?$");
+        Matcher matGastos = patGastos.matcher(cantidaddelatabla);
+
+        if (matGastos.matches()&&!cantidaddelatabla.equals("")) {
+            next = true;
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Solo Numeros");
+            
+        }
+        return next;
+    }
+           
       // CONSULTA DE PRODUCTOS EN EXITENCIA EN INVENTARIO            
      public void TablallenadoparaEntradas(JTable tablaD){ // recibe como parametro 
            Object[] columna = new Object[2];  //crear un obj con el nombre de colunna
@@ -388,10 +402,13 @@ Statement sent;
                     if(e.getType() == TableModelEvent.UPDATE){
                         
                         if(fila>=0){// CUANDO UNA CELDA SE SELECCIONO
-                   String valor = Jtable_ProductosEntradas.getValueAt(fila, 0).toString();
-                            cantidaddesdelatablaeditable = Float.parseFloat(Jtable_ProductosEntradas.getValueAt(fila, col).toString());
+                     boolean pass = validarFormulario(modeloT.getValueAt(e.getFirstRow(), e.getColumn()).toString());
+                             if(pass){
+                                   String valor = Jtable_ProductosEntradas.getValueAt(fila, 0).toString();
+                            cantidaddesdelatablaeditable = Float.parseFloat(modeloT.getValueAt(e.getFirstRow(), e.getColumn()).toString());
+                           
                               id_producto(valor); 
-                      String sql = "UPDATE productos SET cantidad='"+modeloT.getValueAt(e.getFirstRow(), e.getColumn())+"' WHERE id_producto="+id_producto;
+                      String sql = "UPDATE productos SET cantidad='"+cantidaddesdelatablaeditable+"' WHERE id_producto="+id_producto;
                         
 if(valor.equals("pollo crudo")){// si estan modificando sobre pollo crudo, se inserta primero en la linea de arriba y luego las otras piezas de pollo a su equivalente
                          
@@ -455,6 +472,8 @@ if(valor.equals("pollo crudo")){// si estan modificando sobre pollo crudo, se in
                                 JOptionPane.showMessageDialog(null, "error actualizar"+ex);    
                           }
       }
+                             }
+                           
   
                     }
 
@@ -1798,6 +1817,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         jLabel64 = new javax.swing.JLabel();
         Existencias = new javax.swing.JButton();
         total3 = new javax.swing.JLabel();
+        ventaacredito = new javax.swing.JButton();
         descuentocombo = new javax.swing.JLabel();
         agregar_proveedor = new javax.swing.JPanel();
         agregarpro = new javax.swing.JButton();
@@ -2423,6 +2443,21 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         total3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         total3.setText("00.00");
         venta.add(total3, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 30, 140, 28));
+
+        ventaacredito.setBackground(new java.awt.Color(0, 148, 204));
+        ventaacredito.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        ventaacredito.setForeground(new java.awt.Color(255, 255, 255));
+        ventaacredito.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/dinero (1).png"))); // NOI18N
+        ventaacredito.setText("Venta a credito");
+        ventaacredito.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        ventaacredito.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        ventaacredito.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        ventaacredito.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ventaacreditoActionPerformed(evt);
+            }
+        });
+        venta.add(ventaacredito, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 510, 160, -1));
 
         descuentocombo.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
         descuentocombo.setForeground(new java.awt.Color(255, 255, 255));
@@ -3093,7 +3128,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         );
 
         producto_sobrante3.add(jPanel31);
-        jPanel31.setBounds(0, 0, 1290, 71);
+        jPanel31.setBounds(0, 0, 1288, 66);
 
         jPanel32.setBackground(new java.awt.Color(0, 51, 102));
         jPanel32.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "   Inventario actualizado", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Arial", 1, 18), new java.awt.Color(255, 255, 255))); // NOI18N
@@ -3169,11 +3204,6 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         Jtable_ProductosEntradas.setMultipleSeleccion(false);
         Jtable_ProductosEntradas.setRowHeight(25);
         Jtable_ProductosEntradas.getTableHeader().setReorderingAllowed(false);
-        Jtable_ProductosEntradas.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                Jtable_ProductosEntradasKeyReleased(evt);
-            }
-        });
         jScrollPane17.setViewportView(Jtable_ProductosEntradas);
 
         jPanel33.add(jScrollPane17, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 660, 220));
@@ -3438,7 +3468,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         );
 
         agregar_usuario.add(jPanel5);
-        jPanel5.setBounds(0, 0, 1290, 60);
+        jPanel5.setBounds(0, 0, 1288, 60);
 
         tabla_usuariosnuevo = new rojerusan.RSTableMetro(){
             public boolean isCellEditable(int filas, int columnas){
@@ -3675,7 +3705,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         );
 
         Administrador.add(jPanel24);
-        jPanel24.setBounds(0, 0, 1290, 60);
+        jPanel24.setBounds(0, 0, 1288, 60);
 
         jPanel26.setBackground(new java.awt.Color(0, 51, 102));
         jPanel26.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "   Ventas del Dia Canceladas   ", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Arial", 1, 18), new java.awt.Color(255, 255, 255))); // NOI18N
@@ -3831,7 +3861,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         );
 
         producto_sobrante.add(jPanel20);
-        jPanel20.setBounds(0, 0, 1290, 71);
+        jPanel20.setBounds(0, 0, 1288, 66);
 
         jPanel25.setBackground(new java.awt.Color(0, 51, 102));
         jPanel25.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "    Productos mas Vendidos   ", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Arial", 1, 18), new java.awt.Color(255, 255, 255))); // NOI18N
@@ -4323,12 +4353,8 @@ public void obtener_id_del_proveedor(String name){
         // TODO add your handling code here:
     }//GEN-LAST:event_user_UserUpActionPerformed
 
-    private void Jtable_ProductosEntradasKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_Jtable_ProductosEntradasKeyReleased
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Jtable_ProductosEntradasKeyReleased
-
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
-        // TODO add your handling code here:
+       cerrandosesion();
     }//GEN-LAST:event_jButton10ActionPerformed
 
     private void ReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReportesActionPerformed
@@ -5060,6 +5086,26 @@ if (choice == JOptionPane.YES_OPTION){
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton5MouseClicked
 
+    public void ventarealizada(){//TODOS LOS METODOS QUE IMPLICAN HABER REALIZADO UNA VENTA
+           descuentodepollo();
+                                get_id_usuario();
+                                totaldelasventasdehoy(); // PARA LA SUMA DE LOS TOTALES DE LA VENTA
+                                conteodeventasrealizadasdehoy(); // CUANTAS VENTAS SE REALIZARON? 5 O 60 O XX
+                                ventasCanceladas();//CONTEO DE LAS VENTAS CANCELADAS
+                                ventaseneldiasumadas.setText(String.valueOf(sumadetotalesdeventasdehoy));// VIENE DEL METODO ventaseneldiaREALIZADAS()
+                                conteodelasventasrealizadas.setText(String.valueOf(conteototaldeventas)); // VIENE DEL METODO totalventasxdia(); ES UN CONTEO DE VENTAS
+                                ventascanceladaseneldia.setText(String.valueOf(conteodeventascanceladas));  // TOTAL VENTAS CANCELADAS
+                                llenartablaidventasconidrealizados();
+                                productosvendidoseneldia(Jtable_ventasRealizadas);//MUESTRA LAS VENTAS REA
+                                ventascanceladas(Jtable_ventasCanceladas);
+                                productosmasvendidos(Jtable_productosmasven);
+                                TablallenadoparaEntradas(Jtable_ProductosEntradas);
+                                ParaLAVenta(JtablepaLaVenta);
+
+                                descuentoactivo=false;
+                                storage.clear();
+    }
+    
     private void pagocomboboxKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_pagocomboboxKeyReleased
         char tecla = evt.getKeyChar();
 
@@ -5100,36 +5146,18 @@ if (choice == JOptionPane.YES_OPTION){
                                 try{
                                     id_max_de_venta();
                                     PreparedStatement ps2 = ca.prepareStatement ("UPDATE descripcion_de_venta SET estado= '"+estadorealizado+"' WHERE id_venta='"+id_de_la_venta_incrementable+"'");
-                                    ps2.executeUpdate();
+                                   int e= ps2.executeUpdate();
+                                   if(e>0){
+                                       ventarealizada();//LLAMA A TODOS LOS METODOS QUE IMPLICAN HABER REALIZADO UNA VENTA
+                                          
+                                           JOptionPane.showMessageDialog(null,"Venta realizada con descuento");
 
+                                   }
                                 }
                                 catch(Exception ex){
                                     JOptionPane.showMessageDialog(null, "Error en venta" + ex.getMessage());
                                 }
 
-                                //ACTUALIZACION EN LA TABLA DESCRIPCION DE VENTA A REALIZADA
-                                //evaluartablapiezaspararestar1pollo();
-                                descuentodepollo();
-                                get_id_usuario();
-                                block_unlock=true;
-
-                                JOptionPane.showMessageDialog(null,"Venta realizada con descuento");
-
-                                totaldelasventasdehoy(); // PARA LA SUMA DE LOS TOTALES DE LA VENTA
-                                conteodeventasrealizadasdehoy(); // CUANTAS VENTAS SE REALIZARON? 5 O 60 O XX
-                                ventasCanceladas();//CONTEO DE LAS VENTAS CANCELADAS
-                                ventaseneldiasumadas.setText(String.valueOf(sumadetotalesdeventasdehoy));// VIENE DEL METODO ventaseneldiaREALIZADAS()
-                                conteodelasventasrealizadas.setText(String.valueOf(conteototaldeventas)); // VIENE DEL METODO totalventasxdia(); ES UN CONTEO DE VENTAS
-                                ventascanceladaseneldia.setText(String.valueOf(conteodeventascanceladas));  // TOTAL VENTAS CANCELADAS
-                                llenartablaidventasconidrealizados();
-                                productosvendidoseneldia(Jtable_ventasRealizadas);//MUESTRA LAS VENTAS REA
-                                ventascanceladas(Jtable_ventasCanceladas);
-                                productosmasvendidos(Jtable_productosmasven);
-                                TablallenadoparaEntradas(Jtable_ProductosEntradas);
-                                ParaLAVenta(JtablepaLaVenta);
-
-                                descuentoactivo=false;
-                                storage.clear();
                                 //autocompletar();
                             }//fin del id del usuario
                             catch(Exception w){
@@ -5162,35 +5190,20 @@ if (choice == JOptionPane.YES_OPTION){
                                 try{
                                     id_max_de_venta();
                                     PreparedStatement ps2 = ca.prepareStatement ("UPDATE descripcion_de_venta SET estado= '"+estadorealizado+"' WHERE id_venta='"+id_de_la_venta_incrementable+"'");
-                                    ps2.executeUpdate();
+                                   int e= ps2.executeUpdate();
+                                    if(e>0){
+                                          ventarealizada();//LLAMA A TODOS LOS METODOS QUE IMPLICAN HABER REALIZADO UNA VENTA
+                                          JOptionPane.showMessageDialog(null,"Venta realizada");
 
+                                    }
                                 }
                                 catch(Exception ex){
                                     JOptionPane.showMessageDialog(null, "Error en venta" + ex.getMessage());
                                 }
 
-                                //ACTUALIZACION EN LA TABLA DESCRIPCION DE VENTA A REALIZADA
-                                // evaluartablapiezaspararestar1pollo();
-                                descuentodepollo();
-                                get_id_usuario();
-                               
-                                JOptionPane.showMessageDialog(null,"Venta realizada");
-                                totaldelasventasdehoy(); // PARA LA SUMA DE LOS TOTALES DE LA VENTA
-                                conteodeventasrealizadasdehoy(); // CUANTAS VENTAS SE REALIZARON? 5 O 60 O XX
-                                ventasCanceladas();//CONTEO DE LAS VENTAS CANCELADAS
-                                ventaseneldiasumadas.setText(String.valueOf(sumadetotalesdeventasdehoy));// VIENE DEL METODO ventaseneldiaREALIZADAS()
-                                conteodelasventasrealizadas.setText(String.valueOf(conteototaldeventas)); // VIENE DEL METODO totalventasxdia(); ES UN CONTEO DE VENTAS
-                                ventascanceladaseneldia.setText(String.valueOf(conteodeventascanceladas));  // TOTAL VENTAS CANCELADAS
-                                llenartablaidventasconidrealizados();
-                                productosvendidoseneldia(Jtable_ventasRealizadas);//MUESTRA LAS VENTAS REA
-                                ventascanceladas(Jtable_ventasCanceladas);
-                                productosmasvendidos(Jtable_productosmasven);
-                                TablallenadoparaEntradas(Jtable_ProductosEntradas);
-                                ParaLAVenta(JtablepaLaVenta);
-                                descuentoactivo=false;
-
+                             
                                 //autocompletar();
-                                storage.clear();
+                         
                             }//fin del id del usuario
                             catch(Exception w){
                                 JOptionPane.showMessageDialog(null,"error en id usuario"+w);
@@ -5239,6 +5252,10 @@ if (choice == JOptionPane.YES_OPTION){
         }
         pagocombobox.setForeground(Color.blue);
     }//GEN-LAST:event_pagocomboboxFocusGained
+
+    private void ventaacreditoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ventaacreditoActionPerformed
+new Ventaacredito().setVisible(true);        
+    }//GEN-LAST:event_ventaacreditoActionPerformed
  
     public void agregarpiezasaventa(String nombredepieza){
           /* ******************** BOTON DE ADD NUEVO PRODUCTO PARA SU VENTA ******************** */
@@ -5369,7 +5386,7 @@ SI cc= new SI();
  Connection ca= cc.conexion();
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel Administrador;
+    public static javax.swing.JPanel Administrador;
     private javax.swing.JButton AgregarGastos;
     private javax.swing.JButton Cortedecaja;
     private javax.swing.JButton Existencias;
@@ -5380,20 +5397,20 @@ SI cc= new SI();
     private rojerusan.RSTableMetro Jtable_ventasCanceladas;
     private rojerusan.RSTableMetro Jtable_ventasRealizadas;
     private rojerusan.RSTableMetro JtablepaLaVenta;
-    private javax.swing.JTabbedPane Proveedores9;
+    public static javax.swing.JTabbedPane Proveedores9;
     private javax.swing.JLabel Reloj;
     private javax.swing.JButton Reporte_user;
     private javax.swing.JButton Reporte_user1;
-    private javax.swing.JButton Reportes;
+    public javax.swing.JButton Reportes;
     private rojerusan.RSTableMetro acompañantes;
     private javax.swing.JMenuItem activarusuario;
-    private javax.swing.JButton actualizarpro;
+    public javax.swing.JButton actualizarpro;
     private javax.swing.JButton agregar3;
-    private javax.swing.JPanel agregar_articulo;
-    private javax.swing.JPanel agregar_proveedor;
-    private javax.swing.JPanel agregar_usuario;
+    public static javax.swing.JPanel agregar_articulo;
+    public static javax.swing.JPanel agregar_proveedor;
+    public static javax.swing.JPanel agregar_usuario;
     private javax.swing.JButton agregarpro;
-    private javax.swing.JButton agregarpro1;
+    public static javax.swing.JButton agregarpro1;
     private javax.swing.JButton buscarproductosfecha;
     private javax.swing.JButton buscarproductospordia;
     private javax.swing.JButton buscarventasporfecha;
@@ -5402,7 +5419,7 @@ SI cc= new SI();
     private javax.swing.JButton descuento;
     private javax.swing.JLabel descuentocombo;
     private javax.swing.JLabel descuentolabel;
-    private javax.swing.JTextField despro;
+    public static javax.swing.JTextField despro;
     private javax.swing.JMenuItem drop;
     private javax.swing.JMenuItem eliminar;
     private javax.swing.JMenuItem eliminarusuarios;
@@ -5553,25 +5570,25 @@ SI cc= new SI();
     private javax.swing.JMenuItem modificar;
     private javax.swing.JMenuItem modificarusuarios;
     private javax.swing.JMenuItem modify;
-    private javax.swing.JTextField pagocombobox;
+    public static javax.swing.JTextField pagocombobox;
     private rojerusan.RSTableMetro pollococido;
     private rojerusan.RSTableMetro pollocrudo;
-    private javax.swing.JPanel producto_sobrante;
-    private javax.swing.JPanel producto_sobrante3;
-    private javax.swing.JTextField proem;
-    private javax.swing.JTextField promail;
-    private javax.swing.JTextField promater;
-    private javax.swing.JTextField proname;
-    private javax.swing.JTextField propater;
-    private javax.swing.JTextField prorfc;
-    private javax.swing.JTextField protel;
+    public static javax.swing.JPanel producto_sobrante;
+    public static javax.swing.JPanel producto_sobrante3;
+    public static javax.swing.JTextField proem;
+    public static javax.swing.JTextField promail;
+    public static javax.swing.JTextField promater;
+    public static javax.swing.JTextField proname;
+    public static javax.swing.JTextField propater;
+    public static javax.swing.JTextField prorfc;
+    public static javax.swing.JTextField protel;
     private rojerusan.RSTableMetro proveedores;
     private javax.swing.JPopupMenu tabla_articulos;
     private javax.swing.JPopupMenu tabla_proveedores;
     public static rojerusan.RSTableMetro tabla_usuariosnuevo;
     private javax.swing.JPopupMenu tablausuarios;
     private rojerusan.RSTableMetro tablaventa;
-    private javax.swing.JTextField tipopro;
+    public static javax.swing.JTextField tipopro;
     private javax.swing.JLabel total1;
     private javax.swing.JLabel total2;
     private javax.swing.JLabel total3;
@@ -5585,7 +5602,8 @@ SI cc= new SI();
     private javax.swing.JTextField user_NombreUp;
     private javax.swing.JTextField user_TelefonoUp;
     private javax.swing.JTextField user_UserUp;
-    private javax.swing.JPanel venta;
+    public static javax.swing.JPanel venta;
+    private javax.swing.JButton ventaacredito;
     private javax.swing.JLabel ventascanceladaseneldia;
     private javax.swing.JLabel ventascanceladaseneldia3;
     private javax.swing.JLabel ventascanceladaseneldia4;
