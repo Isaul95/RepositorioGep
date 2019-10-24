@@ -42,6 +42,7 @@ import javax.swing.event.TableModelListener;
 import si.Pantalla_Gastos;
 import static si.Pantalla_Gastos.fecha;
 
+
 public final class menu_principal extends javax.swing.JFrame implements Runnable{
                   private final String logotipo = "/Reportes/logo1.jpeg"; // icono de DATAMAX
                                      
@@ -1090,6 +1091,8 @@ addpiezas=cantidadpolloenDB-2;
         totaldeventa.setText("00.00");
         pagocombobox.setText("00.00");
         cambiocombobox.setText("00.00");
+        descuentocombo.setText("00.00");
+        totalcondescuento.setText("00.00");
         tablaventa.setVisible(false);
         tablaventaactiva=false;
     } 
@@ -1105,6 +1108,7 @@ addpiezas=cantidadpolloenDB-2;
                              
                          }
                          if(block_unlock==true){
+                                
                                String sql = "INSERT INTO  venta(id_usuario)  VALUES (?)";
                          PreparedStatement pst = ca.prepareCall(sql); 
                          pst.setInt(1,id_usuario);
@@ -1640,9 +1644,12 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
              sent = ca.createStatement();   
              rs = sent.executeQuery("select * from venta where id_venta= '"+id_para_comprobacion+"'");
             while(rs.next()){        
-            totalcomprobacion=Integer.parseInt(rs.getString(3));
+            totalcomprobacion=Integer.parseInt(rs.getString(5));
             }
-            if(totalcomprobacion!=0){// esta condicion dice que si no hay una venta previamente cancelada
+            if(totalcomprobacion>0||totalcomprobacion==0||totalcomprobacion<0){
+                //PRIMERO, CUANDO ES MAYOR A 0, QUIERE DECIR QUE LA VENTA ANTERIOR SE REALIZO
+                //SEGUNDO, CUANDO LA VENTA ES IGUAL A 0 SE CANCELO
+                //TERCERO, CUANDO TIENE TOTAL NEGATIVO SIGNIFICA QUE ES UNA VENTA A CREDITO PENDIENTE POR PAGAR
                 block_unlock=true;
             }
         } catch (SQLException ex) {
@@ -5086,8 +5093,9 @@ if (choice == JOptionPane.YES_OPTION){
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton5MouseClicked
 
-    public void ventarealizada(){//TODOS LOS METODOS QUE IMPLICAN HABER REALIZADO UNA VENTA
-           descuentodepollo();
+    public void accionesdespuesderealizarcualquierventa(){
+        
+        descuentodepollo();
                                 get_id_usuario();
                                 totaldelasventasdehoy(); // PARA LA SUMA DE LOS TOTALES DE LA VENTA
                                 conteodeventasrealizadasdehoy(); // CUANTAS VENTAS SE REALIZARON? 5 O 60 O XX
@@ -5101,9 +5109,11 @@ if (choice == JOptionPane.YES_OPTION){
                                 productosmasvendidos(Jtable_productosmasven);
                                 TablallenadoparaEntradas(Jtable_ProductosEntradas);
                                 ParaLAVenta(JtablepaLaVenta);
+                                    limpiardatosdeventa(); //Los datos que aparecen en la venta se mostraran
 
                                 descuentoactivo=false;
                                 storage.clear();
+        
     }
     
     private void pagocomboboxKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_pagocomboboxKeyReleased
@@ -5146,25 +5156,23 @@ if (choice == JOptionPane.YES_OPTION){
                                 try{
                                     id_max_de_venta();
                                     PreparedStatement ps2 = ca.prepareStatement ("UPDATE descripcion_de_venta SET estado= '"+estadorealizado+"' WHERE id_venta='"+id_de_la_venta_incrementable+"'");
-                                   int e= ps2.executeUpdate();
-                                   if(e>0){
-                                       ventarealizada();//LLAMA A TODOS LOS METODOS QUE IMPLICAN HABER REALIZADO UNA VENTA
-                                          
-                                           JOptionPane.showMessageDialog(null,"Venta realizada con descuento");
-
-                                   }
+                                    int result = ps2.executeUpdate();
+                                         if(result>0){                                                         
+                                JOptionPane.showMessageDialog(null,"Venta realizada con descuento");
+                                             accionesdespuesderealizarcualquierventa();
+                                         }
                                 }
                                 catch(Exception ex){
                                     JOptionPane.showMessageDialog(null, "Error en venta" + ex.getMessage());
                                 }
 
+          
                                 //autocompletar();
                             }//fin del id del usuario
                             catch(Exception w){
                                 JOptionPane.showMessageDialog(null,"error en id usuario"+w);
                             }
-                            limpiardatosdeventa(); //Los datos que aparecen en la venta se mostraran
-
+                            
                         }
 
                     } //FIN DE CUANDO EL DESCUENTO ESTÁ ACTIVO
@@ -5183,37 +5191,32 @@ if (choice == JOptionPane.YES_OPTION){
 
                                 PreparedStatement ps = ca.prepareStatement ("UPDATE venta SET total='"+totalf+"',porcentajedescontado='"+variablede0+"',descuento='"+ variablede0+"',pago='"+pagocombobox.getText()+"',cambio='"+cambiocombobox.getText()+"',fecha_reporte='"+fecha()+"'WHERE id_venta='"+id_de_la_venta_incrementable+"'");
                                 ps.executeUpdate();
-
                                 //ACTUALIZACION EN LA TABLA DESCRIPCION DE VENTA A REALIZADA
 
                                 id_max_de_venta();
                                 try{
                                     id_max_de_venta();
                                     PreparedStatement ps2 = ca.prepareStatement ("UPDATE descripcion_de_venta SET estado= '"+estadorealizado+"' WHERE id_venta='"+id_de_la_venta_incrementable+"'");
-                                   int e= ps2.executeUpdate();
-                                    if(e>0){
-                                          ventarealizada();//LLAMA A TODOS LOS METODOS QUE IMPLICAN HABER REALIZADO UNA VENTA
-                                          JOptionPane.showMessageDialog(null,"Venta realizada");
-
-                                    }
+                                   int resultado=  ps2.executeUpdate();
+                                     if(resultado>0){                                       
+                                JOptionPane.showMessageDialog(null,"Venta realizada");
+                                         accionesdespuesderealizarcualquierventa();
+                                     }
                                 }
                                 catch(Exception ex){
                                     JOptionPane.showMessageDialog(null, "Error en venta" + ex.getMessage());
                                 }
 
-                             
                                 //autocompletar();
-                         
+
                             }//fin del id del usuario
                             catch(Exception w){
                                 JOptionPane.showMessageDialog(null,"error en id usuario"+w);
                             }
-                            limpiardatosdeventa(); //Los datos que aparecen en la venta se mostraran
 
                         }
 
                     } //FIN CUANDO EL DESCUENTO NO ESTÁ ACTIVO
-
                 }
                 else if(totaldeventa.getText().isEmpty()){
                     JOptionPane.showMessageDialog(null,"Aún no hay nada por pagar","!Espera!",JOptionPane.INFORMATION_MESSAGE);
@@ -5253,27 +5256,74 @@ if (choice == JOptionPane.YES_OPTION){
         pagocombobox.setForeground(Color.blue);
     }//GEN-LAST:event_pagocomboboxFocusGained
 
+    public boolean validarFormulariotexto(String nombre) { // VALIDACION DE TXTDESCRIPCION
+        boolean next = false;      //"^([a-zA-ZÁÉÍÓÚ]{1}[a-zñáéíóú]{1,24}[\\s]*)+$"
+        Pattern patGastos = Pattern.compile("^[A-Za-z\\s]+$");// ^([a-zA-ZÁÉÍÓÚ]{1}[a-zñáéíóú]{1,24}[\\s]*)+$
+        Matcher matGastos = patGastos.matcher(nombre);
+
+        if (matGastos.matches()&&!nombre.equals("")) {
+            next = true;
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Solo escribe letras");
+        }
+        return next;
+    }     
+    
     private void ventaacreditoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ventaacreditoActionPerformed
-new Ventaacredito().setVisible(true);        
+        String nombre = JOptionPane.showInputDialog(null,"¿A nombre de quien va ésta venta a credito?");    
+        
+            boolean pass2 = validarFormulariotexto(nombre);
+                 if(pass2){//ESTO VALIDA QUE EL TEXTO ESCRITO NO TENGA INCOHERENCIAS
+                 }
+         int decision=JOptionPane.showConfirmDialog(null,"¿Desea continuar?","Estás por agregar una venta a credito",JOptionPane.CANCEL_OPTION);
+            if(decision==0){ //opción si
+            try{
+                 tablaventaactiva=false;
+                       block_unlock=true;
+          total_venta_enturno();
+          float variable0=0;
+            float totalacredito= sumadeimportes-(sumadeimportes*2);
+         id_max_de_venta();
+        PreparedStatement ps = ca.prepareStatement ("UPDATE venta SET total='"+totalacredito+"',porcentajedescontado='"+variable0+"',descuento='"+ variable0+"',pago='"+variable0+"',cambio='"+variable0+"',fecha_reporte='"+fecha()+"'WHERE id_venta='"+id_de_la_venta_incrementable+"'");
+                                    ps.executeUpdate();
+        
+        }catch(Exception ex){
+                                    JOptionPane.showMessageDialog(null, "Error en venta" + ex.getMessage());
+       }
+        
+                                 try{
+                                    id_max_de_venta();
+                                    PreparedStatement ps2 = ca.prepareStatement ("UPDATE descripcion_de_venta SET estado= '"+creditopendiente+"',nombre_credito='"+nombre+"' WHERE id_venta='"+id_de_la_venta_incrementable+"'");
+                                    ps2.executeUpdate();
+                                   accionesdespuesderealizarcualquierventa();
+                                    JOptionPane.showMessageDialog(null, "Venta a credito agregada");
+                                }
+                                catch(Exception ex){
+                                    JOptionPane.showMessageDialog(null, "Error en venta" + ex.getMessage());
+                                }
+            
+                 
+            }
     }//GEN-LAST:event_ventaacreditoActionPerformed
  
     public void agregarpiezasaventa(String nombredepieza){
           /* ******************** BOTON DE ADD NUEVO PRODUCTO PARA SU VENTA ******************** */
       primer_ventadelsistema(); // 482 - 498   Comprueba que ya haya por lo menos un id registrado en la base o en su defecto que no lo haya
-           piezassuficientes(nombredepieza);//verifica primero que haya las suficientes piezas para agregar un producto a la venta
-            if(suficientespiezas==true){ // si hay piezas suficientes para agregar el articulo a la venta
-                if(primerventa==0){ //indicando que aún no se crea la primer venta del sistema
+       piezassuficientes(nombredepieza);//verifica primero que haya las suficientes piezas para agregar un producto a la venta    
+      if(suficientespiezas==true){ // si hay piezas suficientes para agregar el articulo a la venta       
+          if(primerventa==0){ //indicando que aún no se crea la primer venta del sistema
               get_id_usuario();        //entonces lo que haría despues será entrar al metodo get_id_usuario, para asignar una venta al usuario que haya iniciado sesión en la maquina
               block_unlock=false;   //se desactiva la condicion que indica que ya no se agregue otro id venta ya que aún no se ha concluido la primer venta
             comprobar_registro(nombredepieza); // esto es para agregar los productos a la tabla de descripcion de venta y 
-            // ya una vez concluida la venta el mismo metodo agregará dicho resultado total de la venta (a la tabla venta, bueno solo los resultados 
+  
+          // ya una vez concluida la venta el mismo metodo agregará dicho resultado total de la venta (a la tabla venta, bueno solo los resultados 
             // correspondientes como lo son; total, pago y cambio)
            }    
            else if(primerventa!=0){ //indicando que por lo menos ya hay una venta
-        verificar_id_ingresadoalsistema(); //Comprueba que el usuario que acab de iniciar sesion coincida con el usuario anteriormente registrado
-
-               comprobar_venta_resagada();//579 - 605 verifica que no haya una venta cancelada
-              get_id_usuario();// 255 -280
+           verificar_id_ingresadoalsistema(); //Comprueba que el usuario que acab de iniciar sesion coincida con el usuario anteriormente registrado
+        comprobar_venta_resagada();//579 - 605 verifica que no haya una venta cancelada
+get_id_usuario();// 255 -280
               block_unlock=false;   
             comprobar_registro(nombredepieza); //608 - 691 
            }
