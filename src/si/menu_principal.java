@@ -53,11 +53,11 @@ Statement sent;
   
   float sumadetotalesdeventasdehoy, conteototaldeventas, conteodeventascanceladas;
   //int id_de_la_venta_incrementable;
-       int  evaluadordepiezaspares=0, evaluadordepiezasinpares=0, piezassuficientes, resultadoprimerproveedor, id_de_la_venta_incrementable,totalcomprobacion, primerventa, resultfirstselling, existencia;   
+       int  id_ventapencredito, evaluadordepiezaspares=0, evaluadordepiezasinpares=0, piezassuficientes, resultadoprimerproveedor, id_de_la_venta_incrementable,totalcomprobacion, primerventa, resultfirstselling, existencia;   
   //int id_usuario,id_producto,id_venta,productos,cantidadenventa,cantidadeninventario,aux1,aux2;
          int id_proveedor,id_usuario,id_producto,id_venta,aux1,aux2,variablede0=0;
   //float importe,totalf=0,comprobacion,cambio,precio;
-          float   productos, NoPcantidad=0, cantidadenventa, cantidadeninventario, cantidaddesdelatablaeditable, piezasxunpollo=14, piezasdepollopares=2, piezasdepollosinpares=1, resultadodepiezaspares,resultadodepiezasinpares, minimodelaspiezasparesdepollocrudoeninventario, minimodelaspiezasinparesdepollocrudoeninventario, pollo_crudoeninventario, addpiezas, cantidadpolloenDB, porcentaje, importe,totalf=0,comprobacion,cambio,precio, NoPimporte=0,sumadeimportes,descuentocantidad, totalfinalcondescuento;
+          float   productos, NoPcantidad=0, cantidadenventa, cantidadeninventario, cantidaddesdelatablaeditable, piezasxunpollo=14, piezasdepollopares=2, piezasdepollosinpares=1, resultadodepiezaspares,resultadodepiezasinpares, minimodelaspiezasparesdepollocrudoeninventario, minimodelaspiezasinparesdepollocrudoeninventario, pollo_crudoeninventario, addpiezas, cantidadpolloenDB, porcentaje, importe,totalf=0,comprobacion,cambio,precio, NoPimporte=0,sumadeimportes, sumadeimportescreditopendiente,descuentocantidad, totalfinalcondescuento;
   ArrayList storage = new ArrayList(); // para guardar los id de cada producto que se ha agregado a la tabla venta
  ArrayList datosparaelticketdeventa = new ArrayList();//PARA GUARDAR LOS DATOS DEL TICKET DE VENTA
   String[] piezas = {"Pechuga", "Muslo","Pierna","Ala","Huacal","Cadera","Cabeza", "Molleja", "Patas"};
@@ -110,6 +110,7 @@ Statement sent;
                descuentolabel.setVisible(true);
                veridventas.setVisible(false);
    veridventasacreditopendiente.setVisible(false);
+   pagarventaacredito.setVisible(false);
     }
     
   
@@ -1729,7 +1730,18 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
                                                           sumadeimportes=0;
                                                       }// fin del precio-catch del producto
     }
-
+     public void total_venta_creditopendiente(int id){
+        try{ // La suma de todos los importes
+                                          sent  =(Statement)ca.createStatement();
+                                           rs = sent.executeQuery("select total from venta where id_venta= '"+id+"'");
+                                            while(rs.next()){
+                                                      sumadeimportescreditopendiente =Float.parseFloat(rs.getString("total"));
+                                                      }
+                                                      }//fin del try-precio del producto
+                                                      catch (Exception e){
+                                                          sumadeimportescreditopendiente=0;
+                                                      }// fin del precio-catch del producto
+    }
     
     // FIN DE METODOS PARA EL AREA DE VENTAS -----------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -2000,6 +2012,9 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         jLabel63 = new javax.swing.JLabel();
         conteodelasventasrealizadas = new javax.swing.JLabel();
         veridventasacreditopendiente = new javax.swing.JButton();
+        pagarventaacredito = new javax.swing.JButton();
+        jLabel96 = new javax.swing.JLabel();
+        totalventacreditoenturno = new javax.swing.JLabel();
         jPanel13 = new javax.swing.JPanel();
         producto_sobrante = new javax.swing.JPanel();
         jPanel20 = new javax.swing.JPanel();
@@ -3789,9 +3804,9 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
 
         jLabel90.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel90.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel90.setText("Total de Ventas del Dia : $");
+        jLabel90.setText("Total de ésta venta : $");
         Administrador.add(jLabel90);
-        jLabel90.setBounds(660, 460, 280, 50);
+        jLabel90.setBounds(620, 560, 280, 50);
 
         ventaseneldiasumadas.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
         ventaseneldiasumadas.setForeground(new java.awt.Color(255, 255, 255));
@@ -3821,7 +3836,30 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
             }
         });
         Administrador.add(veridventasacreditopendiente);
-        veridventasacreditopendiente.setBounds(630, 610, 155, 40);
+        veridventasacreditopendiente.setBounds(620, 610, 155, 40);
+
+        pagarventaacredito.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        pagarventaacredito.setText("Pagar venta");
+        pagarventaacredito.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pagarventaacreditoActionPerformed(evt);
+            }
+        });
+        Administrador.add(pagarventaacredito);
+        pagarventaacredito.setBounds(810, 610, 134, 40);
+
+        jLabel96.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel96.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel96.setText("Total de Ventas del Dia : $");
+        Administrador.add(jLabel96);
+        jLabel96.setBounds(660, 460, 280, 50);
+
+        totalventacreditoenturno.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
+        totalventacreditoenturno.setForeground(new java.awt.Color(255, 255, 255));
+        totalventacreditoenturno.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        totalventacreditoenturno.setText("00.00");
+        Administrador.add(totalventacreditoenturno);
+        totalventacreditoenturno.setBounds(810, 560, 120, 50);
 
         javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
         jPanel12.setLayout(jPanel12Layout);
@@ -5351,9 +5389,14 @@ agregarpiezasaventa(pollocrudo.getValueAt(fila,0).toString());
       int fila =ventasacreditopendiente.getSelectedRow();
 
         if(fila>=0){
-            veridventasacreditopendiente.setVisible(true);
+          veridventasacreditopendiente.setVisible(true);
+            pagarventaacredito.setVisible(true);
+            id_ventapencredito=Integer.parseInt(ventasacreditopendiente.getValueAt(fila,0).toString());
+    
             descripciondeproductosenbasealnumerodeventaporcreditopendiente(Integer.parseInt(ventasacreditopendiente.getValueAt(fila,0).toString()));
-
+               total_venta_creditopendiente(id_ventapencredito);
+               
+            totalventacreditoenturno.setText(String.valueOf(sumadeimportescreditopendiente));
         }
         else
         JOptionPane.showMessageDialog(null,"Por favor, seleccione una fila primero","Aviso",JOptionPane.INFORMATION_MESSAGE);
@@ -5364,6 +5407,65 @@ agregarpiezasaventa(pollocrudo.getValueAt(fila,0).toString());
         llenartablaconventasacreditopendiente(); //CARGA NUEVAMENTE LAS VENTAS POR ID
         veridventasacreditopendiente.setVisible(false);
     }//GEN-LAST:event_veridventasacreditopendienteActionPerformed
+
+    private void pagarventaacreditoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pagarventaacreditoActionPerformed
+      String pagodeventacredito = JOptionPane.showInputDialog(null,"Escriba el monto de pago","Pagando venta a credito", JOptionPane.INFORMATION_MESSAGE);    
+            float variable0=0, totalacredito=0, cambio=0;
+            boolean pass2 = validarFormulario(pagodeventacredito);
+                 if(pass2){//ESTO VALIDA QUE EL TEXTO ESCRITO NO TENGA INCOHERENCIAS
+                 
+                      int decision=JOptionPane.showConfirmDialog(null,"¿Desea continuar?","Estás por pagar una venta a credito",JOptionPane.CANCEL_OPTION);
+            if(decision==0){ //opción si
+                  total_venta_creditopendiente(id_ventapencredito);
+      
+    
+              if((Float.parseFloat(pagodeventacredito)-(Float.parseFloat(pagodeventacredito)*2))>=sumadeimportescreditopendiente){
+          try{
+                     totalacredito= sumadeimportescreditopendiente+(sumadeimportescreditopendiente*2);
+   
+  cambio = Float.parseFloat(pagodeventacredito)-totalacredito;
+     
+              block_unlock=true;
+        
+        PreparedStatement ps = ca.prepareStatement ("UPDATE venta SET total='"+totalacredito+"',porcentajedescontado='"+variable0+"',descuento='"+ variable0+"',pago='"+Float.parseFloat(pagodeventacredito)+"',cambio='"+cambio+"',fecha_reporte='"+fecha()+"'WHERE id_venta='"+id_ventapencredito+"'");
+                                    ps.executeUpdate();
+        
+        }catch(Exception ex){
+                                    JOptionPane.showMessageDialog(null, "Error en venta" + ex.getMessage());
+       }
+        
+                                 try{
+                                    id_max_de_venta();
+                                    PreparedStatement ps2 = ca.prepareStatement ("UPDATE descripcion_de_venta SET estado= '"+creditopagado+"' WHERE id_venta='"+id_ventapencredito+"'");
+                                    ps2.executeUpdate();
+                                          llenartablaconventasacreditopendiente();
+                   
+                                   accionesdespuesderealizarcualquierventa();
+                                    JOptionPane.showMessageDialog(null, "Venta a credito pagada");
+                                }
+                                catch(Exception ex){
+                                    JOptionPane.showMessageDialog(null, "Error en venta" + ex.getMessage());
+                                }
+                 }
+              else if (Float.parseFloat(pagodeventacredito)<totalacredito){
+                    try{
+                                     totalacredito= sumadeimportescreditopendiente;
+     cambio = Float.parseFloat(pagodeventacredito)-totalacredito;
+     
+        PreparedStatement ps = ca.prepareStatement ("UPDATE venta SET total='"+totalacredito+"',porcentajedescontado='"+variable0+"',descuento='"+ variable0+"',pago='"+Float.parseFloat(pagodeventacredito)+"',cambio='"+cambio+"',fecha_reporte='"+fecha()+"'WHERE id_venta='"+id_ventapencredito+"'");
+                                    ps.executeUpdate();
+        
+        }catch(Exception ex){
+                                    JOptionPane.showMessageDialog(null, "Error en venta" + ex.getMessage());
+       }
+              }
+               
+            
+                 
+            }
+                 
+                 }
+    }//GEN-LAST:event_pagarventaacreditoActionPerformed
  
     public void agregarpiezasaventa(String nombredepieza){
           /* ******************** BOTON DE ADD NUEVO PRODUCTO PARA SU VENTA ******************** */
@@ -5653,6 +5755,7 @@ SI cc= new SI();
     private javax.swing.JLabel jLabel93;
     private javax.swing.JLabel jLabel94;
     private javax.swing.JLabel jLabel95;
+    private javax.swing.JLabel jLabel96;
     private javax.swing.JLabel jLabel98;
     private javax.swing.JLabel jLabel99;
     private javax.swing.JPanel jPanel1;
@@ -5711,6 +5814,7 @@ SI cc= new SI();
     private javax.swing.JMenuItem modificar;
     private javax.swing.JMenuItem modificarusuarios;
     private javax.swing.JMenuItem modify;
+    private javax.swing.JButton pagarventaacredito;
     public static javax.swing.JTextField pagocombobox;
     private rojerusan.RSTableMetro pollococido;
     private rojerusan.RSTableMetro pollocrudo;
@@ -5735,6 +5839,7 @@ SI cc= new SI();
     private javax.swing.JLabel total3;
     private javax.swing.JLabel totalcondescuento;
     private javax.swing.JLabel totaldeventa;
+    private javax.swing.JLabel totalventacreditoenturno;
     private javax.swing.JButton update_users;
     private javax.swing.JLabel user;
     private javax.swing.JLabel user1;
