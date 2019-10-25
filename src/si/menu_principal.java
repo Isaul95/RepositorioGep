@@ -77,11 +77,10 @@ Statement sent;
                     ventasCanceladas();//CONTEO DE LAS VENTAS CANCELADAS
                 ventaseneldiasumadas.setText(String.valueOf(sumadetotalesdeventasdehoy));// VIENE DEL METODO ventaseneldiaREALIZADAS()
                         conteodelasventasrealizadas.setText(String.valueOf(conteototaldeventas)); // VIENE DEL METODO totalventasxdia(); ES UN CONTEO DE VENTAS
-                         ventascanceladaseneldia.setText(String.valueOf(conteodeventascanceladas));  // TOTAL VENTAS CANCELADAS
+                       // ventascanceladaseneldia.setText(String.valueOf(conteodeventascanceladas));  // TOTAL VENTAS CANCELADAS
                    llenartablaidventasconidrealizados(); // REALIZADAS LLENOTABLA
                    llenartablaidventasconidaCreditos(); // CREDITOS RELLENOTABLA
                        productosvendidoseneldia(Jtable_ventasRealizadas);//MUESTRA LAS VENTAS REA
-                  ventasCreditos();
                   productosmasvendidos(Jtable_productosmasven);
                   TablallenadoparaEntradas(Jtable_ProductosEntradas);
                   ParaLAVenta(JtablepaLaVenta);
@@ -118,7 +117,7 @@ Statement sent;
                jLabel61.setVisible(true);
                descuentolabel.setVisible(true);
                veridventas.setVisible(false);
-               veridcreditos.setVisible(false);
+              // veridcreditos.setVisible(false);
    
     }
     
@@ -657,41 +656,13 @@ if(valor.equals("pollo crudo")){// si estan modificando sobre pollo crudo, se in
      
       // CONSULTA DE TOTAL DE VENTAS CANCELADAS
             
-     public void ventasCreditos(){ // recibe como parametro 
-         Object[] columna = new Object[3];  //crear un obj con el nombre de colunna
-            Connection ca= cc.conexion(); // CONEXION DB 
-              DefaultTableModel modeloT = new DefaultTableModel(); 
-                  Jtable_ventasCreditos.setModel(modeloT);  // add modelo ala tabla 
-        
-       // modeloT.addColumn("id_venta");    // add al modelo las 5 columnas con los nombrs TABLA
-        modeloT.addColumn("Producto");
-        modeloT.addColumn("Cantidad");        
-        modeloT.addColumn("importe");
-        
-       //modeloT.addColumn("nombre");               
-         /* SELECT `idegreso`, `tipo`, `total`, `fecha`, turno FROM `egreso` \n" + "  INNER JOIN empleado\n" + "WHERE egreso.`empleado_idempleado` = empleado.idempleado";     */    
-        try {
-         String sSQL = "SELECT nombre_producto, SUM(cantidad), SUM(importe) FROM  descripcion_de_venta WHERE estado = 'Credito-pendiente' AND fecha = CURDATE() GROUP BY nombre_producto";
-        
-        PreparedStatement ps = ca.prepareStatement(sSQL);       
-        try (ResultSet rs = ps.executeQuery(sSQL)) {
-            while (rs.next()) {
-               // columna[0] = rs.getString("id_venta");  /* === LA DB == */
-                columna[0] = rs.getString(1);
-                columna[1] = rs.getString(2);
-                columna[2] = rs.getString(3);                
-                modeloT.addRow(columna);
-            }
-        }
-        ps.close();
-    } catch (Exception e) {
-        JOptionPane.showMessageDialog(null, e, "Advertencia", JOptionPane.PLAIN_MESSAGE);    
-    }                        
+   
+                                 
          /* VENTAS CANECLADASSS                                            
          SELECT venta.`id_venta`, `nombre_producto`,`cantidad`,`importe`, venta.total, venta.fecha_reporte FROM `descripcion_de_venta` 
          inner join venta on descripcion_de_venta.`id_venta` = venta.id_venta WHERE `estado` = 'Cancelada' AND fecha_reporte = CURDATE();         
          */                                      
-}
+
 
     
     
@@ -1984,23 +1955,20 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         jLabel84 = new javax.swing.JLabel();
         jLabel98 = new javax.swing.JLabel();
         jLabel99 = new javax.swing.JLabel();
-        jLabel90 = new javax.swing.JLabel();
-        conteodelasventasrealizadas = new javax.swing.JLabel();
-        ventaseneldiasumadas = new javax.swing.JLabel();
-        jLabel63 = new javax.swing.JLabel();
+        jScrollPane7 = new javax.swing.JScrollPane();
+        Jtable_ventasCreditos = new rojerusan.RSTableMetro();
         jPanel24 = new javax.swing.JPanel();
         jLabel93 = new javax.swing.JLabel();
         jLabel94 = new javax.swing.JLabel();
-        jButton8 = new javax.swing.JButton();
         jLabel95 = new javax.swing.JLabel();
         jPanel26 = new javax.swing.JPanel();
-        jLabel62 = new javax.swing.JLabel();
-        ventascanceladaseneldia = new javax.swing.JLabel();
         jScrollPane8 = new javax.swing.JScrollPane();
         Jtable_ventasCreditosporid = new rojerusan.RSTableMetro();
         veridcreditos = new javax.swing.JButton();
-        jScrollPane18 = new javax.swing.JScrollPane();
-        Jtable_ventasCreditos = new rojerusan.RSTableMetro();
+        jLabel63 = new javax.swing.JLabel();
+        jLabel90 = new javax.swing.JLabel();
+        ventaseneldiasumadas = new javax.swing.JLabel();
+        conteodelasventasrealizadas = new javax.swing.JLabel();
         jPanel13 = new javax.swing.JPanel();
         producto_sobrante = new javax.swing.JPanel();
         jPanel20 = new javax.swing.JPanel();
@@ -3680,27 +3648,33 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         jLabel99.setText("Desde");
         jPanel23.add(jLabel99, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 20, 60, 50));
 
-        jLabel90.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel90.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel90.setText("Total de Ventas del Dia : $");
-        jPanel23.add(jLabel90, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 170, 280, 50));
+        Jtable_ventasCreditos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
 
-        conteodelasventasrealizadas.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
-        conteodelasventasrealizadas.setForeground(new java.awt.Color(255, 255, 255));
-        conteodelasventasrealizadas.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        conteodelasventasrealizadas.setText("00");
-        jPanel23.add(conteodelasventasrealizadas, new org.netbeans.lib.awtextra.AbsoluteConstraints(1150, 130, 120, 50));
+            },
+            new String [] {
+                "nombre_producto", "cantidad", "importe", "total"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
 
-        ventaseneldiasumadas.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
-        ventaseneldiasumadas.setForeground(new java.awt.Color(255, 255, 255));
-        ventaseneldiasumadas.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        ventaseneldiasumadas.setText("00.00");
-        jPanel23.add(ventaseneldiasumadas, new org.netbeans.lib.awtextra.AbsoluteConstraints(1130, 170, 120, 50));
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        Jtable_ventasCreditos.setColorFilasForeground1(new java.awt.Color(0, 0, 0));
+        Jtable_ventasCreditos.setColorFilasForeground2(new java.awt.Color(0, 0, 0));
+        Jtable_ventasCreditos.setColorSelForeground(new java.awt.Color(0, 0, 0));
+        Jtable_ventasCreditos.setGrosorBordeFilas(0);
+        Jtable_ventasCreditos.setGrosorBordeHead(0);
+        Jtable_ventasCreditos.setMultipleSeleccion(false);
+        Jtable_ventasCreditos.setRowHeight(25);
+        Jtable_ventasCreditos.setSelectionBackground(new java.awt.Color(204, 0, 51));
+        jScrollPane7.setViewportView(Jtable_ventasCreditos);
 
-        jLabel63.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel63.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel63.setText("Numero de ventas realizadas:");
-        jPanel23.add(jLabel63, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 130, 270, 50));
+        jPanel23.add(jScrollPane7, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 70, 350, 210));
 
         Administrador.add(jPanel23);
         jPanel23.setBounds(10, 70, 1260, 300);
@@ -3712,17 +3686,6 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
 
         jLabel94.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel94.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/total.png"))); // NOI18N
-
-        jButton8.setBackground(new java.awt.Color(0, 51, 102));
-        jButton8.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jButton8.setForeground(new java.awt.Color(255, 0, 0));
-        jButton8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/serrar.png"))); // NOI18N
-        jButton8.setText("Salir");
-        jButton8.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton8ActionPerformed(evt);
-            }
-        });
 
         jLabel95.setBackground(new java.awt.Color(0, 160, 204));
         jLabel95.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
@@ -3740,9 +3703,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
                 .addComponent(jLabel93, javax.swing.GroupLayout.PREFERRED_SIZE, 324, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel94, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(405, 405, 405)
-                .addComponent(jButton8)
-                .addGap(41, 41, 41))
+                .addGap(567, 567, 567))
         );
         jPanel24Layout.setVerticalGroup(
             jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -3752,30 +3713,15 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
                     .addComponent(jLabel95)
                     .addGroup(jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(jLabel94, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel24Layout.createSequentialGroup()
-                            .addGap(6, 6, 6)
-                            .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(4, 4, 4))
                         .addComponent(jLabel93, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
         Administrador.add(jPanel24);
-        jPanel24.setBounds(0, 0, 1290, 60);
+        jPanel24.setBounds(0, 0, 1290, 210);
 
         jPanel26.setBackground(new java.awt.Color(0, 51, 102));
-        jPanel26.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "   Ventas del Dia Canceladas   ", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Arial", 1, 18), new java.awt.Color(255, 255, 255))); // NOI18N
+        jPanel26.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "   Ventas del dia a creditos ", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Arial", 1, 18), new java.awt.Color(255, 255, 255))); // NOI18N
         jPanel26.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel62.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel62.setForeground(new java.awt.Color(255, 0, 0));
-        jLabel62.setText("Total de Ventas Cancelados :");
-        jPanel26.add(jLabel62, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 290, 50));
-
-        ventascanceladaseneldia.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
-        ventascanceladaseneldia.setForeground(new java.awt.Color(255, 0, 0));
-        ventascanceladaseneldia.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        ventascanceladaseneldia.setText("00");
-        jPanel26.add(ventascanceladaseneldia, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 10, 120, 50));
 
         Jtable_ventasCreditos = new rojerusan.RSTableMetro(){
             public boolean isCellEditable(int filas, int columnas){
@@ -3812,7 +3758,11 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         });
         jScrollPane8.setViewportView(Jtable_ventasCreditosporid);
 
-        jPanel26.add(jScrollPane8, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 60, 580, 220));
+        jPanel26.add(jScrollPane8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 640, 240));
+
+        Administrador.add(jPanel26);
+        jPanel26.setBounds(10, 370, 670, 290);
+        jPanel26.getAccessibleContext().setAccessibleName("Ventas que fueron canceladas");
 
         veridcreditos.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         veridcreditos.setText("Ver los creditos");
@@ -3821,47 +3771,34 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
                 veridcreditosActionPerformed(evt);
             }
         });
-        jPanel26.add(veridcreditos, new org.netbeans.lib.awtextra.AbsoluteConstraints(1060, 60, -1, -1));
+        Administrador.add(veridcreditos);
+        veridcreditos.setBounds(700, 590, 171, 33);
 
-        Jtable_ProductosEntradas = new rojerusan.RSTableMetro(){
-            public boolean isCellEditable(int filas, int columnas){
-                if(columnas==1){
-                    return true;
-                } else{
-                    return false;
-                }
-            }
-        };
-        Jtable_ventasCreditos.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
+        jLabel63.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel63.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel63.setText("Numero de ventas realizadas:");
+        Administrador.add(jLabel63);
+        jLabel63.setBounds(860, 430, 270, 50);
 
-            },
-            new String [] {
-                "nombre_producto", "cantidad"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                true, false
-            };
+        jLabel90.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel90.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel90.setText("Total de Ventas del Dia : $");
+        Administrador.add(jLabel90);
+        jLabel90.setBounds(860, 470, 280, 50);
 
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        Jtable_ventasCreditos.setColorFilasForeground1(new java.awt.Color(0, 0, 0));
-        Jtable_ventasCreditos.setColorFilasForeground2(new java.awt.Color(0, 0, 0));
-        Jtable_ventasCreditos.setGrosorBordeFilas(0);
-        Jtable_ventasCreditos.setGrosorBordeHead(0);
-        Jtable_ventasCreditos.setMultipleSeleccion(false);
-        Jtable_ventasCreditos.setRowHeight(25);
-        Jtable_ventasCreditos.getTableHeader().setReorderingAllowed(false);
-        jScrollPane18.setViewportView(Jtable_ventasCreditos);
+        ventaseneldiasumadas.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
+        ventaseneldiasumadas.setForeground(new java.awt.Color(255, 255, 255));
+        ventaseneldiasumadas.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        ventaseneldiasumadas.setText("00.00");
+        Administrador.add(ventaseneldiasumadas);
+        ventaseneldiasumadas.setBounds(1110, 470, 120, 50);
 
-        jPanel26.add(jScrollPane18, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 380, 220));
-
-        Administrador.add(jPanel26);
-        jPanel26.setBounds(10, 370, 1260, 290);
-        jPanel26.getAccessibleContext().setAccessibleName("Ventas que fueron canceladas");
+        conteodelasventasrealizadas.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
+        conteodelasventasrealizadas.setForeground(new java.awt.Color(255, 255, 255));
+        conteodelasventasrealizadas.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        conteodelasventasrealizadas.setText("00");
+        Administrador.add(conteodelasventasrealizadas);
+        conteodelasventasrealizadas.setBounds(1130, 430, 120, 50);
 
         javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
         jPanel12.setLayout(jPanel12Layout);
@@ -4375,10 +4312,6 @@ String nombre = JOptionPane.showInputDialog(null,"¿A nombre de quien va ésta v
         JOptionPane.showMessageDialog(null,"Por favor, seleccione una fila primero","Aviso",JOptionPane.INFORMATION_MESSAGE);
 
     }//GEN-LAST:event_Jtable_ventasCreditosporidMouseClicked
-
-    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        cerrandosesion();
-    }//GEN-LAST:event_jButton8ActionPerformed
 
     private void buscarventasporfechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarventasporfechaActionPerformed
 
@@ -5204,7 +5137,6 @@ String nombre = JOptionPane.showInputDialog(null,"¿A nombre de quien va ésta v
                 mostrartabladeventas();
                 mostrarpolloscrudos();
                 mostrarpolloscocidos();
-                ventasCreditos();
             }
 
         }else{
@@ -5244,7 +5176,6 @@ String nombre = JOptionPane.showInputDialog(null,"¿A nombre de quien va ésta v
             get_id_usuario(); //vuelve a asiganr otro id_venta para que así no se repita con el id anterior que tuvo una venta cancelada
             block_unlock=false; //se bloquea la opcion de poder agregar otro id_usuario a la tabla de venta y así abrir una nueva venta
             limpiardatosdeventa();  //limpia en su mayoria los campos de texto que pertenezcan al apartado venta
-            ventasCreditos();
             tablaventa.setVisible(false); //Desaparece la tabla
         }
     }//GEN-LAST:event_jButton5ActionPerformed
@@ -5400,10 +5331,10 @@ String nombre = JOptionPane.showInputDialog(null,"¿A nombre de quien va ésta v
                                 ventasCanceladas();//CONTEO DE LAS VENTAS CANCELADAS
                                 ventaseneldiasumadas.setText(String.valueOf(sumadetotalesdeventasdehoy));// VIENE DEL METODO ventaseneldiaREALIZADAS()
                                 conteodelasventasrealizadas.setText(String.valueOf(conteototaldeventas)); // VIENE DEL METODO totalventasxdia(); ES UN CONTEO DE VENTAS
-                                ventascanceladaseneldia.setText(String.valueOf(conteodeventascanceladas));  // TOTAL VENTAS CANCELADAS
+                            
                                 llenartablaidventasconidrealizados();
                                 productosvendidoseneldia(Jtable_ventasRealizadas);//MUESTRA LAS VENTAS REA
-                                ventasCreditos();
+                               
                                 productosmasvendidos(Jtable_productosmasven);
                                 TablallenadoparaEntradas(Jtable_ProductosEntradas);
                                 ParaLAVenta(JtablepaLaVenta);
@@ -5640,7 +5571,6 @@ SI cc= new SI();
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton8;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel100;
     private javax.swing.JLabel jLabel101;
@@ -5688,7 +5618,6 @@ SI cc= new SI();
     private javax.swing.JLabel jLabel58;
     private javax.swing.JLabel jLabel60;
     private javax.swing.JLabel jLabel61;
-    private javax.swing.JLabel jLabel62;
     private javax.swing.JLabel jLabel63;
     private javax.swing.JLabel jLabel64;
     private javax.swing.JLabel jLabel65;
@@ -5746,12 +5675,12 @@ SI cc= new SI();
     private javax.swing.JScrollPane jScrollPane12;
     private javax.swing.JScrollPane jScrollPane16;
     private javax.swing.JScrollPane jScrollPane17;
-    private javax.swing.JScrollPane jScrollPane18;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JSeparator jSeparator1;
@@ -5811,7 +5740,6 @@ SI cc= new SI();
     private javax.swing.JTextField user_UserUp;
     private javax.swing.JPanel venta;
     private javax.swing.JButton ventaacredito;
-    private javax.swing.JLabel ventascanceladaseneldia;
     private javax.swing.JLabel ventascanceladaseneldia3;
     private javax.swing.JLabel ventascanceladaseneldia4;
     private javax.swing.JLabel ventaseneldiasumadas;
