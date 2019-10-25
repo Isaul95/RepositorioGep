@@ -57,7 +57,7 @@ Statement sent;
   //int id_usuario,id_producto,id_venta,productos,cantidadenventa,cantidadeninventario,aux1,aux2;
          int id_proveedor,id_usuario,id_producto,id_venta,aux1,aux2,variablede0=0;
   //float importe,totalf=0,comprobacion,cambio,precio;
-          float  productos, NoPcantidad=0, cantidadenventa, cantidadeninventario, cantidaddesdelatablaeditable, piezasxunpollo=14, piezasdepollopares=2, piezasdepollosinpares=1, resultadodepiezaspares,resultadodepiezasinpares, minimodelaspiezasparesdepollocrudoeninventario, minimodelaspiezasinparesdepollocrudoeninventario, pollo_crudoeninventario, addpiezas, cantidadpolloenDB, porcentaje, importe,totalf=0,comprobacion,cambio,precio, NoPimporte=0,sumadeimportes,descuentocantidad, totalfinalcondescuento;
+          float  cantidaddepiezas, productos, NoPcantidad=0, cantidadenventa, cantidadeninventario, cantidaddesdelatablaeditable, piezasxunpollo=14, piezasdepollopares=2, piezasdepollosinpares=1, resultadodepiezaspares,resultadodepiezasinpares, minimodelaspiezasparesdepollocrudoeninventario, minimodelaspiezasinparesdepollocrudoeninventario, pollo_crudoeninventario, addpiezas, cantidadpolloenDB, porcentaje, importe,totalf=0,comprobacion,cambio,precio, NoPimporte=0,sumadeimportes,descuentocantidad, totalfinalcondescuento;
   ArrayList storage = new ArrayList(); // para guardar los id de cada producto que se ha agregado a la tabla venta
  ArrayList datosparaelticketdeventa = new ArrayList();//PARA GUARDAR LOS DATOS DEL TICKET DE VENTA
   String[] piezas = {"Pechuga", "Muslo","Pierna","Ala","Huacal","Cadera","Cabeza", "Molleja", "Patas"};
@@ -84,17 +84,9 @@ Statement sent;
                   productosmasvendidos(Jtable_productosmasven);
                   TablallenadoparaEntradas(Jtable_ProductosEntradas);
                   ParaLAVenta(JtablepaLaVenta);
-              
-                 // productosParaVenta(); //*****
-                 
-                  
-                                                 
-                 
-                 
-                 
+
         llenartablaidventasconidrealizados();
-      //  this.setExtendedState(MAXIMIZED_BOTH);// MAXIMIZED_BOTH=6 se puede asi o pornerle directo 6 para k sea FULLSCREEN TODA LA PANTALLA SE ADAPTA
-        
+ 
         setIconImage(getIconImage());  //La variable que le manda la imagen (DataMax) al proyecto 
         quienentroalsistema();//Dependiendo quien entre al sistema serán las opciones que se le activarán
      Fecha.setText(fecha()); // SE OBTIENE LA FECHA DEL SISTEMA PARA MOSTAR EN PANTALLA
@@ -120,6 +112,12 @@ Statement sent;
    
     }
     
+    public menu_principal(String cantidad){
+        this.cantidaddepiezas=Float.parseFloat(cantidad);
+    }
+    public float getCantidaddepiezas() {
+        return cantidaddepiezas;
+    }   
     public static String fechaventasrealizadas(){ /* SE DECARA LA FECHA DEL SISTEMA */
         Date fecha=new Date();
         SimpleDateFormat formatoFecha= new SimpleDateFormat("YYYY/MM/dd");
@@ -5017,8 +5015,12 @@ if (choice == JOptionPane.YES_OPTION){
         int fila =pollocrudo.getSelectedRow();
 
         if(fila>=0){// CUANDO UNA CELDA SE SELECCIONO
-
-            agregarpiezasaventa(pollocrudo.getValueAt(fila,0).toString());
+            new cantidad().setVisible(true);
+            if(getCantidaddepiezas()>0){
+                 JOptionPane.showMessageDialog(null, "CANTIDAD"+getCantidaddepiezas());
+           
+            }
+            //agregarpiezasaventa(pollocrudo.getValueAt(fila,0).toString());
 
         }
 
@@ -5284,6 +5286,8 @@ if (choice == JOptionPane.YES_OPTION){
           total_venta_enturno();
           float variable0=0;
             float totalacredito= sumadeimportes-(sumadeimportes*2);
+
+            
          id_max_de_venta();
         PreparedStatement ps = ca.prepareStatement ("UPDATE venta SET total='"+totalacredito+"',porcentajedescontado='"+variable0+"',descuento='"+ variable0+"',pago='"+variable0+"',cambio='"+variable0+"',fecha_reporte='"+fecha()+"'WHERE id_venta='"+id_de_la_venta_incrementable+"'");
                                     ps.executeUpdate();
