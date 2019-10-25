@@ -57,7 +57,7 @@ Statement sent;
   //int id_usuario,id_producto,id_venta,productos,cantidadenventa,cantidadeninventario,aux1,aux2;
          int id_proveedor,id_usuario,id_producto,id_venta,aux1,aux2,variablede0=0;
   //float importe,totalf=0,comprobacion,cambio,precio;
-          float  cantidaddepiezas, productos, NoPcantidad=0, cantidadenventa, cantidadeninventario, cantidaddesdelatablaeditable, piezasxunpollo=14, piezasdepollopares=2, piezasdepollosinpares=1, resultadodepiezaspares,resultadodepiezasinpares, minimodelaspiezasparesdepollocrudoeninventario, minimodelaspiezasinparesdepollocrudoeninventario, pollo_crudoeninventario, addpiezas, cantidadpolloenDB, porcentaje, importe,totalf=0,comprobacion,cambio,precio, NoPimporte=0,sumadeimportes,descuentocantidad, totalfinalcondescuento;
+          float   productos, NoPcantidad=0, cantidadenventa, cantidadeninventario, cantidaddesdelatablaeditable, piezasxunpollo=14, piezasdepollopares=2, piezasdepollosinpares=1, resultadodepiezaspares,resultadodepiezasinpares, minimodelaspiezasparesdepollocrudoeninventario, minimodelaspiezasinparesdepollocrudoeninventario, pollo_crudoeninventario, addpiezas, cantidadpolloenDB, porcentaje, importe,totalf=0,comprobacion,cambio,precio, NoPimporte=0,sumadeimportes,descuentocantidad, totalfinalcondescuento;
   ArrayList storage = new ArrayList(); // para guardar los id de cada producto que se ha agregado a la tabla venta
  ArrayList datosparaelticketdeventa = new ArrayList();//PARA GUARDAR LOS DATOS DEL TICKET DE VENTA
   String[] piezas = {"Pechuga", "Muslo","Pierna","Ala","Huacal","Cadera","Cabeza", "Molleja", "Patas"};
@@ -112,12 +112,7 @@ Statement sent;
    
     }
     
-    public menu_principal(String cantidad){
-        this.cantidaddepiezas=Float.parseFloat(cantidad);
-    }
-    public float getCantidaddepiezas() {
-        return cantidaddepiezas;
-    }   
+  
     public static String fechaventasrealizadas(){ /* SE DECARA LA FECHA DEL SISTEMA */
         Date fecha=new Date();
         SimpleDateFormat formatoFecha= new SimpleDateFormat("YYYY/MM/dd");
@@ -5016,8 +5011,10 @@ if (choice == JOptionPane.YES_OPTION){
 
         if(fila>=0){// CUANDO UNA CELDA SE SELECCIONO
             new cantidad().setVisible(true);
-            if(getCantidaddepiezas()>0){
-                 JOptionPane.showMessageDialog(null, "CANTIDAD"+getCantidaddepiezas());
+            String cantidaddepiezas=cantidad.cantidad.getText();
+            JOptionPane.showMessageDialog(null, "CANTIDAD EN TEXTO"+cantidaddepiezas);
+            if(Float.parseFloat(cantidaddepiezas)>0){
+                 JOptionPane.showMessageDialog(null, "CANTIDAD"+cantidaddepiezas);
            
             }
             //agregarpiezasaventa(pollocrudo.getValueAt(fila,0).toString());

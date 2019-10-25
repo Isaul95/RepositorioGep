@@ -5,6 +5,7 @@
  */
 package si;
 
+import java.awt.Color;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
@@ -38,9 +39,9 @@ menu_principal mandar;
         siete = new javax.swing.JButton();
         ocho = new javax.swing.JButton();
         nueve = new javax.swing.JButton();
-        cantidad = new javax.swing.JTextField();
         borrar = new javax.swing.JButton();
         nueve2 = new javax.swing.JButton();
+        cantidad = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -116,7 +117,6 @@ menu_principal mandar;
             }
         });
         getContentPane().add(nueve, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 110, 77, 67));
-        getContentPane().add(cantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 30, 243, 42));
 
         borrar.setText("C");
         borrar.addActionListener(new java.awt.event.ActionListener() {
@@ -133,6 +133,14 @@ menu_principal mandar;
             }
         });
         getContentPane().add(nueve2, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 330, 120, -1));
+
+        cantidad.setBackground(new java.awt.Color(0, 0, 51));
+        cantidad.setFont(new java.awt.Font("Tahoma", 3, 18)); // NOI18N
+        cantidad.setForeground(new java.awt.Color(255, 255, 255));
+        cantidad.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        cantidad.setBorder(null);
+        cantidad.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        getContentPane().add(cantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 40, 200, 50));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -234,7 +242,7 @@ menu_principal mandar;
     }//GEN-LAST:event_ochoActionPerformed
 
     private void nueveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nueveActionPerformed
-                        String nine="8";
+                        String nine="9";
         if(!cantidad.equals("")){
 
             cantidad.setText(cantidad.getText()+nine);
@@ -267,8 +275,7 @@ cantidad.setText("");
     private void nueve2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nueve2ActionPerformed
        boolean pass = validarFormulario(cantidad.getText());
                              if(pass){
-                                   mandar = new menu_principal(cantidad.getText());
-                                 this.setVisible(false);
+                        this.setVisible(false);
                              }
                              
     }//GEN-LAST:event_nueve2ActionPerformed
@@ -310,7 +317,7 @@ cantidad.setText("");
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton borrar;
-    private javax.swing.JTextField cantidad;
+    public static javax.swing.JTextField cantidad;
     private javax.swing.JButton cinco;
     private javax.swing.JButton cuatro;
     private javax.swing.JButton dos;
