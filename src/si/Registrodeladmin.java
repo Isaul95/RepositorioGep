@@ -21,7 +21,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 //import static si.menu_principal.proem;
-import static si.menu_principal.tabla_usuariosnuevo;
+import static si.menu_principal.tabla_usuariosss;
 
 // import static si.SI_Inicio.text_user;
 
@@ -37,7 +37,7 @@ public class Registrodeladmin extends javax.swing.JFrame {
   boolean admincreado=false;
     
     public void TablaDatosUsuarios(){  /********* METODOS DE LA TABLA DE LOS USUARIOS  *********/
-       tabla_usuariosnuevo.setVisible(true);
+       tabla_usuariosss.setVisible(true);
               DefaultTableModel modelo = new DefaultTableModel();
     
     modelo.addColumn("Id Usuario");           modelo.addColumn("Nombre");
@@ -47,7 +47,7 @@ public class Registrodeladmin extends javax.swing.JFrame {
     modelo.addColumn("Telefono");             modelo.addColumn("Estado");
     modelo.addColumn("Fecha y Hora de registro");
     
-     tabla_usuariosnuevo.setModel(modelo);
+     tabla_usuariosss.setModel(modelo);
     String []datos = new String[11];    
     try {
             Statement st = ca.createStatement();
@@ -62,7 +62,7 @@ public class Registrodeladmin extends javax.swing.JFrame {
         
             modelo.addRow(datos);
             }
-           tabla_usuariosnuevo.setModel(modelo);
+           tabla_usuariosss.setModel(modelo);
         } catch (SQLException ex) {
             Logger.getLogger(menu_principal.class.getName()).log(Level.SEVERE, null, ex);
         } 
