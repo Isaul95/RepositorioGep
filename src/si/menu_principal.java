@@ -85,7 +85,6 @@ Statement sent;
                   TablallenadoparaEntradas(Jtable_ProductosEntradas);
                   ParaLAVenta(JtablepaLaVenta);
 
-        llenartablaidventasconidrealizados();
  
         setIconImage(getIconImage());  //La variable que le manda la imagen (DataMax) al proyecto 
         quienentroalsistema();//Dependiendo quien entre al sistema serán las opciones que se le activarán
@@ -148,7 +147,7 @@ Statement sent;
         
        try {
            
-                 String sSQL = "SELECT id_venta, total, fecha_reporte FROM venta WHERE total<0 AND fecha_reporte = CURDATE() ";
+                 String sSQL = "SELECT id_venta, total, fecha_reporte FROM venta WHERE estado='Credito-pendiente' AND fecha_reporte = CURDATE() ";
              
         PreparedStatement ps = ca.prepareStatement(sSQL);       
         try (ResultSet rs = ps.executeQuery(sSQL)) {
@@ -182,7 +181,7 @@ Statement sent;
         
        try {
            
-                 String sSQL = "SELECT venta.id_venta, venta.total, venta.fecha_reporte FROM venta INNER JOIN descripcion_de_venta ON venta.id_venta = descripcion_de_venta.id_venta WHERE descripcion_de_venta.estado = 'Realizada' AND venta.fecha_reporte = CURDATE() GROUP BY venta.id_venta";
+                 String sSQL = "SELECT id_venta, total, fecha_reporte FROM venta WHERE estado = 'Realizada' AND fecha_reporte = CURDATE()";
              
         PreparedStatement ps = ca.prepareStatement(sSQL);       
         try (ResultSet rs = ps.executeQuery(sSQL)) {
@@ -205,7 +204,7 @@ Statement sent;
         try{ // La suma de todos los importes
     
                                          Statement sent  =(Statement)ca.createStatement();
-                                         ResultSet  rs = sent.executeQuery("select SUM(importe) from descripcion_de_venta  where fecha= '"+fechaventasrealizadas()+"' AND estado='Realizada' ");
+                                         ResultSet  rs = sent.executeQuery("select SUM(total) from venta where fecha_reporte= '"+fechaventasrealizadas()+"' AND estado='Realizada' ");
                                             while(rs.next()){
                                                       sumadetotalesdeventasdehoy =rs.getFloat(1);
                                                       }
@@ -217,7 +216,7 @@ Statement sent;
         try{ // CUENTA EL TODAL DE CUANTAS VENTAS SE REALIZARON
     
                                          Statement sent  =(Statement)ca.createStatement();
-                                         ResultSet  rs = sent.executeQuery("SELECT COUNT(id_venta) FROM venta WHERE fecha_reporte = '"+fechaventasrealizadas()+"' AND total>0");
+                                         ResultSet  rs = sent.executeQuery("SELECT COUNT(id_venta) FROM venta WHERE fecha_reporte = '"+fechaventasrealizadas()+"' AND estado='Realizada'");
                                             while(rs.next()){
                                                       conteototaldeventas =Float.parseFloat(rs.getString("COUNT(id_venta)"));
                                                       }
@@ -1642,7 +1641,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
                 public void status_cancelado(){
        id_max_de_venta();
         try{
-                    PreparedStatement ps = ca.prepareStatement ("UPDATE venta SET total='"+variablede0+"',porcentajedescontado='"+variablede0+"',descuento='"+variablede0+"',pago='"+variablede0+"',cambio='"+variablede0+"',fecha_reporte='"+fecha()+"'WHERE id_venta='"+id_de_la_venta_incrementable+"'");
+                    PreparedStatement ps = ca.prepareStatement ("UPDATE venta SET total='"+variablede0+"',porcentajedescontado='"+variablede0+"',descuento='"+variablede0+"',pago='"+variablede0+"',cambio='"+variablede0+"',fecha_reporte='"+fecha()+"',estado='"+estadocancelado+"'WHERE id_venta='"+id_de_la_venta_incrementable+"'");
                 ps.executeUpdate();
         }
             catch (Exception e){
@@ -5218,11 +5217,11 @@ agregarpiezasaventa(pollocrudo.getValueAt(fila,0).toString());
                             try{// el id del usuario
                                 id_max_de_venta();
                                 if(descuentoactivo==true){
-                                    PreparedStatement ps = ca.prepareStatement ("UPDATE venta SET total='"+Float.parseFloat(totalcondescuento.getText())+"',porcentajedescontado='"+porcentaje+"',descuento='"+ Float.parseFloat(descuentocombo.getText())+"',pago='"+pagocombobox.getText()+"',cambio='"+cambiocombobox.getText()+"',fecha_reporte='"+fecha()+"'WHERE id_venta='"+id_de_la_venta_incrementable+"'");
+                                    PreparedStatement ps = ca.prepareStatement ("UPDATE venta SET total='"+Float.parseFloat(totalcondescuento.getText())+"',porcentajedescontado='"+porcentaje+"',descuento='"+ Float.parseFloat(descuentocombo.getText())+"',pago='"+pagocombobox.getText()+"',cambio='"+cambiocombobox.getText()+"',fecha_reporte='"+fecha()+"',estado='"+estadorealizado+"'WHERE id_venta='"+id_de_la_venta_incrementable+"'");
                                     ps.executeUpdate();
                                 }
                                 else{
-                                    PreparedStatement ps = ca.prepareStatement ("UPDATE venta SET total='"+totalf+"',porcentajedescontado='"+variablede0+"',descuento='"+ variablede0+"',pago='"+pagocombobox.getText()+"',cambio='"+cambiocombobox.getText()+"',fecha_reporte='"+fecha()+"'WHERE id_venta='"+id_de_la_venta_incrementable+"'");
+                                    PreparedStatement ps = ca.prepareStatement ("UPDATE venta SET total='"+totalf+"',porcentajedescontado='"+variablede0+"',descuento='"+ variablede0+"',pago='"+pagocombobox.getText()+"',cambio='"+cambiocombobox.getText()+"',fecha_reporte='"+fecha()+"',estado='"+estadorealizado+"'WHERE id_venta='"+id_de_la_venta_incrementable+"'");
                                     ps.executeUpdate();
                                 }
 
@@ -5265,7 +5264,7 @@ agregarpiezasaventa(pollocrudo.getValueAt(fila,0).toString());
                             try{// el id del usuario
                                 id_max_de_venta();
 
-                                PreparedStatement ps = ca.prepareStatement ("UPDATE venta SET total='"+totalf+"',porcentajedescontado='"+variablede0+"',descuento='"+ variablede0+"',pago='"+pagocombobox.getText()+"',cambio='"+cambiocombobox.getText()+"',fecha_reporte='"+fecha()+"'WHERE id_venta='"+id_de_la_venta_incrementable+"'");
+                                PreparedStatement ps = ca.prepareStatement ("UPDATE venta SET total='"+totalf+"',porcentajedescontado='"+variablede0+"',descuento='"+ variablede0+"',pago='"+pagocombobox.getText()+"',cambio='"+cambiocombobox.getText()+"',fecha_reporte='"+fecha()+"',estado='"+estadorealizado+"'WHERE id_venta='"+id_de_la_venta_incrementable+"'");
                                 ps.executeUpdate();
                                 //ACTUALIZACION EN LA TABLA DESCRIPCION DE VENTA A REALIZADA
 
@@ -5361,7 +5360,7 @@ agregarpiezasaventa(pollocrudo.getValueAt(fila,0).toString());
           float variable0=0;
 
          id_max_de_venta();
-        PreparedStatement ps = ca.prepareStatement ("UPDATE venta SET total='"+sumadeimportes+"',porcentajedescontado='"+variable0+"',descuento='"+ variable0+"',pago='"+variable0+"',cambio='"+variable0+"',fecha_reporte='"+fecha()+"'WHERE id_venta='"+id_de_la_venta_incrementable+"'");
+        PreparedStatement ps = ca.prepareStatement ("UPDATE venta SET total='"+sumadeimportes+"',porcentajedescontado='"+variable0+"',descuento='"+ variable0+"',pago='"+variable0+"',cambio='"+variable0+"',fecha_reporte='"+fecha()+"',estado='"+creditopendiente+"'WHERE id_venta='"+id_de_la_venta_incrementable+"'");
                                     ps.executeUpdate();
         
         }catch(Exception ex){
@@ -5417,17 +5416,15 @@ agregarpiezasaventa(pollocrudo.getValueAt(fila,0).toString());
                   total_venta_creditopendiente(id_ventapencredito);
       
     JOptionPane.showMessageDialog(null, "SUMADEIMPORTES"+sumadeimportescreditopendiente);
-              if((Float.parseFloat(pagodeventacredito)-(Float.parseFloat(pagodeventacredito)*2))>=sumadeimportescreditopendiente){
+              if(Float.parseFloat(pagodeventacredito)>=sumadeimportescreditopendiente){
         try{
-                     totalacredito= sumadeimportescreditopendiente+(sumadeimportescreditopendiente*2);
    JOptionPane.showMessageDialog(null, "SUMADEIMPORTES+(SUMADEIMPORTES*2)"+totalacredito);
              
-  cambio = Float.parseFloat(pagodeventacredito)-totalacredito;
+  cambio = Float.parseFloat(pagodeventacredito)-sumadeimportescreditopendiente;
         JOptionPane.showMessageDialog(null, "cambio"+cambio);
              
-              block_unlock=true;
         
-        PreparedStatement ps = ca.prepareStatement ("UPDATE venta SET total='"+totalacredito+"',porcentajedescontado='"+variable0+"',descuento='"+ variable0+"',pago='"+Float.parseFloat(pagodeventacredito)+"',cambio='"+cambio+"',fecha_reporte='"+fecha()+"'WHERE id_venta='"+id_ventapencredito+"'");
+        PreparedStatement ps = ca.prepareStatement ("UPDATE venta SET porcentajedescontado='"+variable0+"',descuento='"+ variable0+"',pago='"+Float.parseFloat(pagodeventacredito)+"',cambio='"+cambio+"',fecha_reporte='"+fecha()+"',estado='"+creditopagado+"'WHERE id_venta='"+id_ventapencredito+"'");
                                     ps.executeUpdate();
         
         }catch(Exception ex){
@@ -5441,25 +5438,30 @@ agregarpiezasaventa(pollocrudo.getValueAt(fila,0).toString());
                                           llenartablaconventasacreditopendiente();
                    
                                    accionesdespuesderealizarcualquierventa();
+                                   pagarventaacredito.setVisible(false);
+                                   pagarventaacredito.setText("00.00");
                                     JOptionPane.showMessageDialog(null, "Venta a credito pagada");
                                 }
                                 catch(Exception ex){
                                     JOptionPane.showMessageDialog(null, "Error en venta" + ex.getMessage());
                                 }
-                 }
+                 }else{
+                  JOptionPane.showMessageDialog(null, "El pago es menor al total", "Verifique por favor", JOptionPane.INFORMATION_MESSAGE);
+              }
+              /*
               else if (Float.parseFloat(pagodeventacredito)<totalacredito){
                     try{
-                                     totalacredito= sumadeimportescreditopendiente;
-     cambio = Float.parseFloat(pagodeventacredito)-totalacredito;
+                                    
+     cambio = Float.parseFloat(pagodeventacredito)-sumadeimportescreditopendiente;
      
-        PreparedStatement ps = ca.prepareStatement ("UPDATE venta SET total='"+totalacredito+"',porcentajedescontado='"+variable0+"',descuento='"+ variable0+"',pago='"+Float.parseFloat(pagodeventacredito)+"',cambio='"+cambio+"',fecha_reporte='"+fecha()+"'WHERE id_venta='"+id_ventapencredito+"'");
+        PreparedStatement ps = ca.prepareStatement ("UPDATE porcentajedescontado='"+variable0+"',descuento='"+ variable0+"',pago='"+Float.parseFloat(pagodeventacredito)+"',cambio='"+cambio+"',fecha_reporte='"+fecha()+"'WHERE id_venta='"+id_ventapencredito+"'");
                                     ps.executeUpdate();
         
         }catch(Exception ex){
                                     JOptionPane.showMessageDialog(null, "Error en venta" + ex.getMessage());
        }
               }
-               
+               */
             
                  
             }
