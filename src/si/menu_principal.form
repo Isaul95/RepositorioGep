@@ -3316,7 +3316,7 @@
                       </AuxValues>
                       <Constraints>
                         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                          <AbsoluteConstraints x="20" y="70" width="350" height="210"/>
+                          <AbsoluteConstraints x="30" y="70" width="350" height="210"/>
                         </Constraint>
                       </Constraints>
 
@@ -3465,23 +3465,6 @@
                         </Constraint>
                       </Constraints>
                     </Component>
-                    <Component class="javax.swing.JLabel" name="jLabel84">
-                      <Properties>
-                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                          <Font name="Arial Black" size="24" style="1"/>
-                        </Property>
-                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                          <Color blue="ff" green="ff" red="ff" type="rgb"/>
-                        </Property>
-                        <Property name="horizontalAlignment" type="int" value="0"/>
-                        <Property name="text" type="java.lang.String" value="Desde"/>
-                      </Properties>
-                      <Constraints>
-                        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                          <AbsoluteConstraints x="90" y="60" width="130" height="40"/>
-                        </Constraint>
-                      </Constraints>
-                    </Component>
                     <Component class="javax.swing.JLabel" name="jLabel98">
                       <Properties>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -3514,22 +3497,22 @@
                         </Constraint>
                       </Constraints>
                     </Component>
-                    <Container class="javax.swing.JScrollPane" name="jScrollPane12">
+                    <Container class="javax.swing.JScrollPane" name="jScrollPane7">
                       <AuxValues>
                         <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
                       </AuxValues>
                       <Constraints>
                         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                          <AbsoluteConstraints x="400" y="70" width="610" height="210"/>
+                          <AbsoluteConstraints x="400" y="70" width="460" height="210"/>
                         </Constraint>
                       </Constraints>
 
                       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                       <SubComponents>
-                        <Component class="rojerusan.RSTableMetro" name="ventasporid">
+                        <Component class="rojerusan.RSTableMetro" name="tabladeidventas">
                           <Properties>
                             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                              <Table columnCount="0" rowCount="0"/>
+                              <Table columnCount="0" rowCount="1"/>
                             </Property>
                             <Property name="colorFilasForeground1" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                               <Color blue="0" green="0" red="0" type="rgb"/>
@@ -3544,12 +3527,12 @@
                             <Property name="grosorBordeHead" type="int" value="0"/>
                             <Property name="multipleSeleccion" type="boolean" value="false"/>
                             <Property name="rowHeight" type="int" value="25"/>
+                            <Property name="selectionBackground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                              <Color blue="33" green="0" red="cc" type="rgb"/>
+                            </Property>
                           </Properties>
-                          <Events>
-                            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="ventasporidMouseClicked"/>
-                          </Events>
                           <AuxValues>
-                            <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="ventasporid = new rojerusan.RSTableMetro(){&#xa;public boolean isCellEditable(int filas, int columnas){&#xa;    return false;&#xa;}&#xa;};"/>
+                            <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="Jtable_ventasRealizadas = new rojerusan.RSTableMetro(){&#xa;public boolean isCellEditable(int filas, int columnas){&#xa;    return false;&#xa;}&#xa;};"/>
                           </AuxValues>
                         </Component>
                       </SubComponents>
@@ -3754,7 +3737,7 @@
                             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="ventasacreditopendienteMouseClicked"/>
                           </Events>
                           <AuxValues>
-                            <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="ventasporid = new rojerusan.RSTableMetro(){&#xa;public boolean isCellEditable(int filas, int columnas){&#xa;    return false;&#xa;}&#xa;};"/>
+                            <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="tabladeidventas = new rojerusan.RSTableMetro(){&#xa;public boolean isCellEditable(int filas, int columnas){&#xa;    return false;&#xa;}&#xa;};"/>
                           </AuxValues>
                         </Component>
                       </SubComponents>

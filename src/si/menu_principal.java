@@ -78,7 +78,7 @@ Statement sent;
                 ventaseneldiasumadas.setText(String.valueOf(sumadetotalesdeventasdehoy));// VIENE DEL METODO ventaseneldiaREALIZADAS()
                         conteodelasventasrealizadas.setText(String.valueOf(conteototaldeventas)); // VIENE DEL METODO totalventasxdia(); ES UN CONTEO DE VENTAS
                          ventascanceladaseneldia.setText(String.valueOf(conteodeventascanceladas));  // TOTAL VENTAS CANCELADAS
-                   llenartablaidventasconidrealizados();
+                   llenartablaidventasconidrealizados(tabladeidventas);
                          productosvendidoseneldia(Jtable_ventasRealizadas);//MUESTRA LAS VENTAS REA
                   llenartablaconventasacreditopendiente();
                   productosmasvendidos(Jtable_productosmasven);
@@ -147,7 +147,7 @@ Statement sent;
         
        try {
            
-                 String sSQL = "SELECT id_venta, total, fecha_reporte FROM venta WHERE estado='Credito-pendiente' AND fecha_reporte = CURDATE() ";
+                 String sSQL = "SELECT id_venta, total, fecha_reporte FROM venta WHERE estado_venta='Credito-pendiente' AND fecha_reporte = CURDATE() ";
              
         PreparedStatement ps = ca.prepareStatement(sSQL);       
         try (ResultSet rs = ps.executeQuery(sSQL)) {
@@ -168,43 +168,43 @@ Statement sent;
     
     
     
-    public void llenartablaidventasconidrealizados(){
-        Object[] columna = new Object[3];  //crear un obj con el nombre de colunna
+     public void llenartablaidventasconidrealizados(JTable tabla){ // recibe como parametro 
+         Object[] columna = new Object[3];  //crear un obj con el nombre de colunna
             Connection ca= cc.conexion(); // CONEXION DB 
-              DefaultTableModel modeloT = new DefaultTableModel(); 
-                  ventasporid.setModel(modeloT);  // add modelo ala tabla 
+              DefaultTableModel modeloTE = new DefaultTableModel(); 
+                  tabla.setModel(modeloTE);  // add modelo ala tabla 
         
-       // modeloT.addColumn("id_venta");    // add al modelo las 5 columnas con los nombrs TABLA
-        modeloT.addColumn("Venta");
-        modeloT.addColumn("Total");        
-        modeloT.addColumn("Fecha");
-        
-       try {
-           
-                 String sSQL = "SELECT id_venta, total, fecha_reporte FROM venta WHERE estado = 'Realizada' AND fecha_reporte = CURDATE()";
-             
+        modeloTE.addColumn("Venta");
+        modeloTE.addColumn("Total");        
+        modeloTE.addColumn("Fecha");
+
+        try {
+         String sSQL = "SELECT id_venta, total, fecha_reporte FROM venta WHERE estado_venta='"+estadorealizado+"' AND fecha_reporte = '"+fecha()+"' ";
+                 //"SELECT `nombre_producto`, `cantidad`, `precio_unitario`, venta.fecha_reporte FROM descripcion_de_venta inner join venta on descripcion_de_venta.`id_venta` = venta.id_venta WHERE fecha_reporte = CURDATE() ORDER BY `cantidad` DESC";
+         
+         
+                 
         PreparedStatement ps = ca.prepareStatement(sSQL);       
         try (ResultSet rs = ps.executeQuery(sSQL)) {
             while (rs.next()) {
-               // columna[0] = rs.getString("id_venta");  /* === LA DB == */
-                columna[0] = rs.getString(1);
-                columna[1] = rs.getString(2);
-                columna[2] = rs.getString(3);                
-                modeloT.addRow(columna);
-              
+                columna[0] = rs.getInt(1);
+                columna[1] = rs.getFloat(2);
+                 columna[2] = rs.getString(3);
+                //columna[5] = rs.getString("nombre");                
+                modeloTE.addRow(columna);
             }
         }
         ps.close();
     } catch (Exception e) {
         JOptionPane.showMessageDialog(null, e, "Advertencia", JOptionPane.PLAIN_MESSAGE);    
     }
-    }
+}
     
     public void totaldelasventasdehoy(){
         try{ // La suma de todos los importes
     
                                          Statement sent  =(Statement)ca.createStatement();
-                                         ResultSet  rs = sent.executeQuery("select SUM(total) from venta where fecha_reporte= '"+fechaventasrealizadas()+"' AND estado='Realizada' ");
+                                         ResultSet  rs = sent.executeQuery("select SUM(total) from venta where fecha_reporte= '"+fechaventasrealizadas()+"' AND estado_venta='Realizada' ");
                                             while(rs.next()){
                                                       sumadetotalesdeventasdehoy =rs.getFloat(1);
                                                       }
@@ -216,7 +216,7 @@ Statement sent;
         try{ // CUENTA EL TODAL DE CUANTAS VENTAS SE REALIZARON
     
                                          Statement sent  =(Statement)ca.createStatement();
-                                         ResultSet  rs = sent.executeQuery("SELECT COUNT(id_venta) FROM venta WHERE fecha_reporte = '"+fechaventasrealizadas()+"' AND estado='Realizada'");
+                                         ResultSet  rs = sent.executeQuery("SELECT COUNT(id_venta) FROM venta WHERE fecha_reporte = '"+fechaventasrealizadas()+"' AND estado_venta='Realizada'");
                                             while(rs.next()){
                                                       conteototaldeventas =Float.parseFloat(rs.getString("COUNT(id_venta)"));
                                                       }
@@ -1991,11 +1991,10 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         fechainicial = new com.toedter.calendar.JDateChooser();
         fechafinal = new com.toedter.calendar.JDateChooser();
         buscarventasporfecha = new javax.swing.JButton();
-        jLabel84 = new javax.swing.JLabel();
         jLabel98 = new javax.swing.JLabel();
         jLabel99 = new javax.swing.JLabel();
-        jScrollPane12 = new javax.swing.JScrollPane();
-        ventasporid = new rojerusan.RSTableMetro();
+        jScrollPane7 = new javax.swing.JScrollPane();
+        tabladeidventas = new rojerusan.RSTableMetro();
         jPanel24 = new javax.swing.JPanel();
         jLabel93 = new javax.swing.JLabel();
         jLabel94 = new javax.swing.JLabel();
@@ -3604,7 +3603,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         Jtable_ventasRealizadas.setSelectionBackground(new java.awt.Color(204, 0, 51));
         jScrollPane6.setViewportView(Jtable_ventasRealizadas);
 
-        jPanel23.add(jScrollPane6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 350, 210));
+        jPanel23.add(jScrollPane6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, 350, 210));
 
         veridventas.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         veridventas.setText("Ver las ventas");
@@ -3648,12 +3647,6 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         });
         jPanel23.add(buscarventasporfecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(1100, 20, 150, 40));
 
-        jLabel84.setFont(new java.awt.Font("Arial Black", 1, 24)); // NOI18N
-        jLabel84.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel84.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel84.setText("Desde");
-        jPanel23.add(jLabel84, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 60, 130, 40));
-
         jLabel98.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel98.setForeground(new java.awt.Color(255, 255, 255));
         jLabel98.setText("Ventas de hoy:");
@@ -3664,34 +3657,30 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         jLabel99.setText("Desde");
         jPanel23.add(jLabel99, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 20, 60, 50));
 
-        ventasporid = new rojerusan.RSTableMetro(){
+        Jtable_ventasRealizadas = new rojerusan.RSTableMetro(){
             public boolean isCellEditable(int filas, int columnas){
                 return false;
             }
         };
-        ventasporid.setModel(new javax.swing.table.DefaultTableModel(
+        tabladeidventas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-
+                {}
             },
             new String [] {
 
             }
         ));
-        ventasporid.setColorFilasForeground1(new java.awt.Color(0, 0, 0));
-        ventasporid.setColorFilasForeground2(new java.awt.Color(0, 0, 0));
-        ventasporid.setColorSelForeground(new java.awt.Color(0, 0, 0));
-        ventasporid.setGrosorBordeFilas(0);
-        ventasporid.setGrosorBordeHead(0);
-        ventasporid.setMultipleSeleccion(false);
-        ventasporid.setRowHeight(25);
-        ventasporid.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                ventasporidMouseClicked(evt);
-            }
-        });
-        jScrollPane12.setViewportView(ventasporid);
+        tabladeidventas.setColorFilasForeground1(new java.awt.Color(0, 0, 0));
+        tabladeidventas.setColorFilasForeground2(new java.awt.Color(0, 0, 0));
+        tabladeidventas.setColorSelForeground(new java.awt.Color(0, 0, 0));
+        tabladeidventas.setGrosorBordeFilas(0);
+        tabladeidventas.setGrosorBordeHead(0);
+        tabladeidventas.setMultipleSeleccion(false);
+        tabladeidventas.setRowHeight(25);
+        tabladeidventas.setSelectionBackground(new java.awt.Color(204, 0, 51));
+        jScrollPane7.setViewportView(tabladeidventas);
 
-        jPanel23.add(jScrollPane12, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 70, 610, 210));
+        jPanel23.add(jScrollPane7, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 70, 460, 210));
 
         Administrador.add(jPanel23);
         jPanel23.setBounds(10, 70, 1260, 300);
@@ -3768,7 +3757,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         ventascanceladaseneldia.setText("00");
         jPanel26.add(ventascanceladaseneldia, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 30, 120, 50));
 
-        ventasporid = new rojerusan.RSTableMetro(){
+        tabladeidventas = new rojerusan.RSTableMetro(){
             public boolean isCellEditable(int filas, int columnas){
                 return false;
             }
@@ -4326,7 +4315,7 @@ public void obtener_id_del_proveedor(String name){
             JOptionPane.showMessageDialog(null, "Primero debe elegir un rango de fechas en los calendarios");
         }else{
 
-            showidventasporfechas(ventasporid, llenarfechadesdeparamostrarlosidventas(),llenarfechahastaparamostrarlosidventas());
+            showidventasporfechas(tabladeidventas, llenarfechadesdeparamostrarlosidventas(),llenarfechahastaparamostrarlosidventas());
         }
 
     }//GEN-LAST:event_buscarventasporfechaActionPerformed
@@ -4336,21 +4325,9 @@ public void obtener_id_del_proveedor(String name){
         fechainicial.setDate(null);
         fechafinal.cleanup();
         fechafinal.setDate(null);
-        llenartablaidventasconidrealizados(); //CARGA NUEVAMENTE LAS VENTAS POR ID
+        llenartablaidventasconidrealizados(tabladeidventas); //CARGA NUEVAMENTE LAS VENTAS POR ID
         veridventas.setVisible(false);
     }//GEN-LAST:event_veridventasActionPerformed
-
-    private void ventasporidMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ventasporidMouseClicked
-        int fila =ventasporid.getSelectedRow();
-
-        if(fila>=0){
-            veridventas.setVisible(true);
-            descripciondeproductosenbasealnumerodeventa(Integer.parseInt(ventasporid.getValueAt(fila,0).toString()));
-
-        }
-        else
-        JOptionPane.showMessageDialog(null,"Por favor, seleccione una fila primero","Aviso",JOptionPane.INFORMATION_MESSAGE);
-    }//GEN-LAST:event_ventasporidMouseClicked
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         cerrandosesion();
@@ -5178,7 +5155,7 @@ agregarpiezasaventa(pollocrudo.getValueAt(fila,0).toString());
                                 ventaseneldiasumadas.setText(String.valueOf(sumadetotalesdeventasdehoy));// VIENE DEL METODO ventaseneldiaREALIZADAS()
                                 conteodelasventasrealizadas.setText(String.valueOf(conteototaldeventas)); // VIENE DEL METODO totalventasxdia(); ES UN CONTEO DE VENTAS
                                 ventascanceladaseneldia.setText(String.valueOf(conteodeventascanceladas));  // TOTAL VENTAS CANCELADAS
-                                llenartablaidventasconidrealizados();
+                                llenartablaidventasconidrealizados(tabladeidventas);
                                 productosvendidoseneldia(Jtable_ventasRealizadas);//MUESTRA LAS VENTAS REA
                                 llenartablaconventasacreditopendiente();
                                 productosmasvendidos(Jtable_productosmasven);
@@ -5217,11 +5194,11 @@ agregarpiezasaventa(pollocrudo.getValueAt(fila,0).toString());
                             try{// el id del usuario
                                 id_max_de_venta();
                                 if(descuentoactivo==true){
-                                    PreparedStatement ps = ca.prepareStatement ("UPDATE venta SET total='"+Float.parseFloat(totalcondescuento.getText())+"',porcentajedescontado='"+porcentaje+"',descuento='"+ Float.parseFloat(descuentocombo.getText())+"',pago='"+pagocombobox.getText()+"',cambio='"+cambiocombobox.getText()+"',fecha_reporte='"+fecha()+"',estado='"+estadorealizado+"'WHERE id_venta='"+id_de_la_venta_incrementable+"'");
+                                    PreparedStatement ps = ca.prepareStatement ("UPDATE venta SET total='"+Float.parseFloat(totalcondescuento.getText())+"',porcentajedescontado='"+porcentaje+"',descuento='"+ Float.parseFloat(descuentocombo.getText())+"',pago='"+pagocombobox.getText()+"',cambio='"+cambiocombobox.getText()+"',fecha_reporte='"+fecha()+"',estado_vemta='"+estadorealizado+"'WHERE id_venta='"+id_de_la_venta_incrementable+"'");
                                     ps.executeUpdate();
                                 }
                                 else{
-                                    PreparedStatement ps = ca.prepareStatement ("UPDATE venta SET total='"+totalf+"',porcentajedescontado='"+variablede0+"',descuento='"+ variablede0+"',pago='"+pagocombobox.getText()+"',cambio='"+cambiocombobox.getText()+"',fecha_reporte='"+fecha()+"',estado='"+estadorealizado+"'WHERE id_venta='"+id_de_la_venta_incrementable+"'");
+                                    PreparedStatement ps = ca.prepareStatement ("UPDATE venta SET total='"+totalf+"',porcentajedescontado='"+variablede0+"',descuento='"+ variablede0+"',pago='"+pagocombobox.getText()+"',cambio='"+cambiocombobox.getText()+"',fecha_reporte='"+fecha()+"',estado_vemta='"+estadorealizado+"'WHERE id_venta='"+id_de_la_venta_incrementable+"'");
                                     ps.executeUpdate();
                                 }
 
@@ -5264,7 +5241,7 @@ agregarpiezasaventa(pollocrudo.getValueAt(fila,0).toString());
                             try{// el id del usuario
                                 id_max_de_venta();
 
-                                PreparedStatement ps = ca.prepareStatement ("UPDATE venta SET total='"+totalf+"',porcentajedescontado='"+variablede0+"',descuento='"+ variablede0+"',pago='"+pagocombobox.getText()+"',cambio='"+cambiocombobox.getText()+"',fecha_reporte='"+fecha()+"',estado='"+estadorealizado+"'WHERE id_venta='"+id_de_la_venta_incrementable+"'");
+                                PreparedStatement ps = ca.prepareStatement ("UPDATE venta SET total='"+totalf+"',porcentajedescontado='"+variablede0+"',descuento='"+ variablede0+"',pago='"+pagocombobox.getText()+"',cambio='"+cambiocombobox.getText()+"',fecha_reporte='"+fecha()+"',estado_venta='"+estadorealizado+"'WHERE id_venta='"+id_de_la_venta_incrementable+"'");
                                 ps.executeUpdate();
                                 //ACTUALIZACION EN LA TABLA DESCRIPCION DE VENTA A REALIZADA
 
@@ -5346,6 +5323,7 @@ agregarpiezasaventa(pollocrudo.getValueAt(fila,0).toString());
     }     
     
     private void ventaacreditoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ventaacreditoActionPerformed
+
         String nombre = JOptionPane.showInputDialog(null,"¿A nombre de quien va ésta venta a credito?");    
         
             boolean pass2 = validarFormulariotexto(nombre);
@@ -5354,13 +5332,16 @@ agregarpiezasaventa(pollocrudo.getValueAt(fila,0).toString());
          int decision=JOptionPane.showConfirmDialog(null,"¿Desea continuar?","Estás por agregar una venta a credito",JOptionPane.CANCEL_OPTION);
             if(decision==0){ //opción si
             try{
+                  comprobar_venta_resagada();//579 - 605 verifica que no haya una venta cancelada
+get_id_usuario();// 255 -280
+              block_unlock=false;   
                  tablaventaactiva=false;
-                       block_unlock=true;
+                     
           total_venta_enturno();
           float variable0=0;
 
          id_max_de_venta();
-        PreparedStatement ps = ca.prepareStatement ("UPDATE venta SET total='"+sumadeimportes+"',porcentajedescontado='"+variable0+"',descuento='"+ variable0+"',pago='"+variable0+"',cambio='"+variable0+"',fecha_reporte='"+fecha()+"',estado='"+creditopendiente+"'WHERE id_venta='"+id_de_la_venta_incrementable+"'");
+        PreparedStatement ps = ca.prepareStatement ("UPDATE venta SET total='"+sumadeimportes+"',porcentajedescontado='"+variable0+"',descuento='"+ variable0+"',pago='"+variable0+"',cambio='"+variable0+"',fecha_reporte='"+fecha()+"',estado_venta='"+creditopendiente+"'WHERE id_venta='"+id_de_la_venta_incrementable+"'");
                                     ps.executeUpdate();
         
         }catch(Exception ex){
@@ -5402,7 +5383,9 @@ agregarpiezasaventa(pollocrudo.getValueAt(fila,0).toString());
     private void veridventasacreditopendienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_veridventasacreditopendienteActionPerformed
            
         llenartablaconventasacreditopendiente(); //CARGA NUEVAMENTE LAS VENTAS POR ID
+        totalventacreditoenturno.setText("00.00");
         veridventasacreditopendiente.setVisible(false);
+        pagarventaacredito.setVisible(false);
     }//GEN-LAST:event_veridventasacreditopendienteActionPerformed
 
     private void pagarventaacreditoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pagarventaacreditoActionPerformed
@@ -5424,7 +5407,7 @@ agregarpiezasaventa(pollocrudo.getValueAt(fila,0).toString());
         JOptionPane.showMessageDialog(null, "cambio"+cambio);
              
         
-        PreparedStatement ps = ca.prepareStatement ("UPDATE venta SET porcentajedescontado='"+variable0+"',descuento='"+ variable0+"',pago='"+Float.parseFloat(pagodeventacredito)+"',cambio='"+cambio+"',fecha_reporte='"+fecha()+"',estado='"+creditopagado+"'WHERE id_venta='"+id_ventapencredito+"'");
+        PreparedStatement ps = ca.prepareStatement ("UPDATE venta SET porcentajedescontado='"+variable0+"',descuento='"+ variable0+"',pago='"+Float.parseFloat(pagodeventacredito)+"',cambio='"+cambio+"',fecha_reporte='"+fecha()+"',estado_venta='"+creditopagado+"'WHERE id_venta='"+id_ventapencredito+"'");
                                     ps.executeUpdate();
         
         }catch(Exception ex){
@@ -5438,8 +5421,11 @@ agregarpiezasaventa(pollocrudo.getValueAt(fila,0).toString());
                                           llenartablaconventasacreditopendiente();
                    
                                    accionesdespuesderealizarcualquierventa();
+                                    llenartablaconventasacreditopendiente(); //CARGA NUEVAMENTE LAS VENTAS POR ID
+        
                                    pagarventaacredito.setVisible(false);
-                                   pagarventaacredito.setText("00.00");
+                                   totalventacreditoenturno.setText("00.00");
+                                   veridventasacreditopendiente.setVisible(false);
                                     JOptionPane.showMessageDialog(null, "Venta a credito pagada");
                                 }
                                 catch(Exception ex){
@@ -5500,7 +5486,7 @@ get_id_usuario();// 255 -280
         Object[] columna = new Object[4];  //crear un obj con el nombre de colunna
             Connection ca= cc.conexion(); // CONEXION DB 
               DefaultTableModel modeloT = new DefaultTableModel(); 
-                  ventasporid.setModel(modeloT);  // add modelo ala tabla 
+                  tabladeidventas.setModel(modeloT);  // add modelo ala tabla 
         
        // modeloT.addColumn("id_venta");    // add al modelo las 5 columnas con los nombrs TABLA
         modeloT.addColumn("Nombre");
@@ -5575,7 +5561,7 @@ get_id_usuario();// 255 -280
         modeloT.addColumn("Fecha");
   
         try {
-           String sSQL = "SELECT id_venta, total, fecha_reporte FROM venta WHERE total>0 AND fecha_reporte BETWEEN '"+fechadesde+"' AND '"+fechahasta+ "' ";
+           String sSQL = "SELECT id_venta, total, fecha_reporte FROM venta WHERE estado_venta='Realizada' AND fecha_reporte BETWEEN '"+fechadesde+"' AND '"+fechahasta+ "' ";
                   
         PreparedStatement ps = ca.prepareStatement(sSQL);       
         try (ResultSet rs = ps.executeQuery(sSQL)) {
@@ -5746,7 +5732,6 @@ SI cc= new SI();
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel80;
     private javax.swing.JLabel jLabel83;
-    private javax.swing.JLabel jLabel84;
     private javax.swing.JLabel jLabel87;
     private javax.swing.JLabel jLabel88;
     private javax.swing.JLabel jLabel89;
@@ -5783,7 +5768,6 @@ SI cc= new SI();
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane10;
     private javax.swing.JScrollPane jScrollPane11;
-    private javax.swing.JScrollPane jScrollPane12;
     private javax.swing.JScrollPane jScrollPane13;
     private javax.swing.JScrollPane jScrollPane16;
     private javax.swing.JScrollPane jScrollPane17;
@@ -5792,6 +5776,7 @@ SI cc= new SI();
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator10;
@@ -5833,6 +5818,7 @@ SI cc= new SI();
     private javax.swing.JPopupMenu tabla_articulos;
     private javax.swing.JPopupMenu tabla_proveedores;
     public static rojerusan.RSTableMetro tabla_usuariosnuevo;
+    private rojerusan.RSTableMetro tabladeidventas;
     private javax.swing.JPopupMenu tablausuarios;
     private rojerusan.RSTableMetro tablaventa;
     public static javax.swing.JTextField tipopro;
@@ -5857,7 +5843,6 @@ SI cc= new SI();
     private javax.swing.JLabel ventascanceladaseneldia3;
     private javax.swing.JLabel ventascanceladaseneldia4;
     private javax.swing.JLabel ventaseneldiasumadas;
-    private rojerusan.RSTableMetro ventasporid;
     private javax.swing.JButton veridventas;
     private javax.swing.JButton veridventasacreditopendiente;
     // End of variables declaration//GEN-END:variables
