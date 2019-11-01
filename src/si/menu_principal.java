@@ -1584,7 +1584,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
                 public void status_cancelado(){
        id_max_de_venta();
         try{
-                    PreparedStatement ps = ca.prepareStatement ("UPDATE venta SET total='"+variablede0+"',porcentajedescontado='"+variablede0+"',descuento='"+variablede0+"',pago='"+variablede0+"',cambio='"+variablede0+"',fecha_reporte='"+fecha()+"',estado='"+estadocancelado+"'WHERE id_venta='"+id_de_la_venta_incrementable+"'");
+                    PreparedStatement ps = ca.prepareStatement ("UPDATE venta SET total='"+variablede0+"',porcentajedescontado='"+variablede0+"',descuento='"+variablede0+"',pago='"+variablede0+"',cambio='"+variablede0+"',fecha_reporte='"+fecha()+"',estado_venta='"+estadocancelado+"'WHERE id_venta='"+id_de_la_venta_incrementable+"'");
                 ps.executeUpdate();
         }
             catch (Exception e){
@@ -5136,7 +5136,6 @@ agregarpiezasaventa(pollocrudo.getValueAt(fila,0).toString());
             get_id_usuario(); //vuelve a asiganr otro id_venta para que así no se repita con el id anterior que tuvo una venta cancelada
             block_unlock=false; //se bloquea la opcion de poder agregar otro id_usuario a la tabla de venta y así abrir una nueva venta
             limpiardatosdeventa();  //limpia en su mayoria los campos de texto que pertenezcan al apartado venta
-            llenartablaconventasacreditopendiente();
             tablaventa.setVisible(false); //Desaparece la tabla
         }
     }//GEN-LAST:event_jButton5ActionPerformed
@@ -5326,8 +5325,7 @@ agregarpiezasaventa(pollocrudo.getValueAt(fila,0).toString());
         
             boolean pass2 = validarFormulariotexto(nombre);
                  if(pass2){//ESTO VALIDA QUE EL TEXTO ESCRITO NO TENGA INCOHERENCIAS
-                 }
-         int decision=JOptionPane.showConfirmDialog(null,"¿Desea continuar?","Estás por agregar una venta a credito",JOptionPane.CANCEL_OPTION);
+                 int decision=JOptionPane.showConfirmDialog(null,"¿Desea continuar?","Estás por agregar una venta a credito",JOptionPane.CANCEL_OPTION);
             if(decision==0){ //opción si
             try{
                   comprobar_venta_resagada();//579 - 605 verifica que no haya una venta cancelada
@@ -5359,6 +5357,7 @@ get_id_usuario();// 255 -280
             
                  
             }
+                 }
     }//GEN-LAST:event_ventaacreditoActionPerformed
 
     private void ventasacreditopendienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ventasacreditopendienteMouseClicked
@@ -5403,7 +5402,6 @@ get_id_usuario();// 255 -280
         }catch(Exception ex){
                                     JOptionPane.showMessageDialog(null, "Error en venta" + ex.getMessage());
        }
-        
                                  try{
                                     id_max_de_venta();
                                     PreparedStatement ps2 = ca.prepareStatement ("UPDATE descripcion_de_venta SET estado= '"+creditopagado+"' WHERE id_venta='"+id_ventapencredito+"'");
