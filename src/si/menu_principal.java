@@ -34,6 +34,7 @@ import net.sf.jasperreports.engine.util.JRLoader;
 import net.sf.jasperreports.view.JasperViewer;
 import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 import javax.imageio.ImageIO;
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -46,24 +47,21 @@ import static si.Pantalla_Gastos.fecha;
 public final class menu_principal extends javax.swing.JFrame implements Runnable{
                   private final String logotipo = "/Reportes/logo1.jpeg"; // icono de DATAMAX
                                      
-    String hora,minutos,segundos, fechadesde="",fechahasta="", fechaparaventasdesde="", fechaparaventashasta="";
+    String nombredepiezaseleccionada, hora,minutos,segundos, fechadesde="",fechahasta="", fechaparaventasdesde="", fechaparaventashasta="";
     Thread hilo;
 Statement sent;  
   ResultSet rs;      
   
   float sumadetotalesdeventasdehoy, conteototaldeventas, conteodeventascanceladas;
-  //int id_de_la_venta_incrementable;
-       int  id_ventapencredito, evaluadordepiezaspares=0, evaluadordepiezasinpares=0, piezassuficientes, resultadoprimerproveedor, id_de_la_venta_incrementable,totalcomprobacion, primerventa, resultfirstselling, existencia;   
-  //int id_usuario,id_producto,id_venta,productos,cantidadenventa,cantidadeninventario,aux1,aux2;
-         int id_proveedor,id_usuario,id_producto,id_venta,aux1,aux2,variablede0=0;
-  //float importe,totalf=0,comprobacion,cambio,precio;
-          float   productos, NoPcantidad=0, cantidadenventa, cantidadeninventario, cantidaddesdelatablaeditable, piezasxunpollo=14, piezasdepollopares=2, piezasdepollosinpares=1, resultadodepiezaspares,resultadodepiezasinpares, minimodelaspiezasparesdepollocrudoeninventario, minimodelaspiezasinparesdepollocrudoeninventario, pollo_crudoeninventario, addpiezas, cantidadpolloenDB, porcentaje, importe,totalf=0,comprobacion,cambio,precio, NoPimporte=0,sumadeimportes, sumadeimportesparaeltotal, sumadeimportescreditopendiente,descuentocantidad, totalfinalcondescuento;
+     int  id_ventapencredito, evaluadordepiezaspares=0, evaluadordepiezasinpares=0, piezassuficientes, resultadoprimerproveedor, id_de_la_venta_incrementable,totalcomprobacion, primerventa, resultfirstselling, existencia;   
+  int fila, id_proveedor,id_usuario,id_producto,id_venta,aux1,aux2,variablede0=0;
+   float   cantidaddeproductos,productos, NoPcantidad=0, cantidadenventa, cantidadeninventario, cantidaddesdelatablaeditable, piezasxunpollo=14, piezasdepollopares=2, piezasdepollosinpares=1, resultadodepiezaspares,resultadodepiezasinpares, minimodelaspiezasparesdepollocrudoeninventario, minimodelaspiezasinparesdepollocrudoeninventario, pollo_crudoeninventario, addpiezas, cantidadpolloenDB, porcentaje, importe,totalf=0,comprobacion,cambio,precio, NoPimporte=0,sumadeimportes, sumadeimportesparaeltotal, sumadeimportescreditopendiente,descuentocantidad, totalfinalcondescuento;
   ArrayList storage = new ArrayList(); // para guardar los id de cada producto que se ha agregado a la tabla venta
  ArrayList datosparaelticketdeventa = new ArrayList();//PARA GUARDAR LOS DATOS DEL TICKET DE VENTA
   String[] piezas = {"Pechuga", "Muslo","Pierna","Ala","Huacal","Cadera","Cabeza", "Molleja", "Patas"};
                        double cantidaddemedio, cantidaddecuarto;
        
-  boolean descontardecimales=false, entero= false, medio=false, cuarto=false, descuentoactivo=false, suficientespiezas=true, block_unlock=true,tablaventaactiva=false, primerproducto=true, productoagregado=false, productorepetido=false;
+  boolean voyaagregar=false, voyadescontar=false, entero= false, medio=false, cuarto=false, descuentoactivo=false, suficientespiezas=true, block_unlock=true,tablaventaactiva=false, primerproducto=true, productoagregado=false, productorepetido=false;
       // String  usuarioname=SI_Inicio.text_user.getText(); //variable para obtener el nombre del usuario o administrador que ingreso al sistema
             String pollo_crudo="pollo crudo", estadoinactivo="Inactivo", estadoactivo="Activo", NoP="",estadocancelado= "Cancelada",estadorealizado="Realizada", estadoenturno="En turno", creditopendiente="Credito-pendiente", creditopagado="Credito-pagado", fechayhora="",fechasinhora="", usuarioname=SI_Inicio.text_user.getText(); //variable para obtener el nombre del usuario o administrador que ingreso al sistema
     public menu_principal() {
@@ -101,6 +99,8 @@ Statement sent;
       user.setText(usuarioname);
     TablaDatosUsuarios();   /********* METODO LLAMADO AL INICIAR EL SISTEMA LOS DATOS YA ESTAN CARAGADOS  *********/
     Ocultoetiquetas();
+    calculadora.setVisible(false);
+    
     totalventarealizada.setVisible(false);
     labelparaeltotal.setVisible(false);
     labeldescuento.setVisible(true);
@@ -132,7 +132,7 @@ Statement sent;
             JOptionPane.showMessageDialog(null, "ERROR" + e.getMessage());
         }
      }
-    
+   
          public void llenartablaconventasacreditopendiente(){
         Object[] columna = new Object[3];  //crear un obj con el nombre de colunna
             Connection ca= cc.conexion(); // CONEXION DB 
@@ -710,7 +710,7 @@ if(valor.equals("pollo crudo")){// si estan modificando sobre pollo crudo, se in
                                                       while(rs.next()){
                                                       piezassuficientes =Integer.parseInt(rs.getString("cantidad"));
                                                       }
-                                                      if(piezassuficientes>=1){
+                                                      if(piezassuficientes>=cantidaddeproductos){
                                                           suficientespiezas=true;
                                                       }
                                                       else {
@@ -869,7 +869,7 @@ if(valor.equals("pollo crudo")){// si estan modificando sobre pollo crudo, se in
                     }
                 }
                 else{
-                     productos=productos-1;
+                     productos=productos-cantidaddeproductos;
                
                 }
                 id_producto(nombredepieza);
@@ -907,7 +907,7 @@ Pantalla_Gastos ven = new Pantalla_Gastos();
                    ven.piezas[i].equals("Pierna")||
                    ven.piezas[i].equals("Ala")||
                    ven.piezas[i].equals("Patas")){
-addpiezas=cantidadpolloenDB-2;
+addpiezas=cantidadpolloenDB-(2*cantidaddeproductos);
             
                PreparedStatement ps = ca.prepareStatement ("UPDATE productos SET cantidad='"+addpiezas+"'WHERE nombre_producto='"+ven.piezas[i]+"'");
                int ty = ps.executeUpdate();
@@ -923,7 +923,7 @@ addpiezas=cantidadpolloenDB-2;
                    ven.piezas[i].equals("Cabeza")||
                    ven.piezas[i].equals("Molleja")||ven.piezas[i].equals("Pechuga")){
        
-         addpiezas=cantidadpolloenDB-1;
+         addpiezas=cantidadpolloenDB-cantidaddeproductos;
           PreparedStatement ps = ca.prepareStatement ("UPDATE productos SET cantidad='"+addpiezas+"'WHERE nombre_producto='"+ven.piezas[i]+"' ");
                int ty = ps.executeUpdate();
                 
@@ -1303,7 +1303,7 @@ addpiezas=cantidadpolloenDB-2;
                 NoPimporte = NoPcantidad*precio;
                 }
                 else{
-                    NoPcantidad=NoPcantidad+1;
+                    NoPcantidad=NoPcantidad+cantidaddeproductos;
                 precio_producto(nombredepieza);
                 NoPimporte = NoPcantidad*precio;
                 }
@@ -1312,6 +1312,8 @@ addpiezas=cantidadpolloenDB-2;
                     id_max_de_venta();
                  PreparedStatement ps = ca.prepareStatement ("UPDATE descripcion_de_venta SET cantidad='"+NoPcantidad+"',importe = '"+NoPimporte+"'WHERE id_producto='"+id_producto+"' and id_venta= '"+id_de_la_venta_incrementable+"' and fecha= '"+fecha()+"' and estado= '"+estadoenturno+"'");
                 ps.executeUpdate();
+                medio=false;
+                cuarto=false;
                 descontardeinventario(nombredepieza);
                   descuentodepollo();
                     mostrartabladeventas();
@@ -1319,6 +1321,7 @@ addpiezas=cantidadpolloenDB-2;
                     total_venta_enturno();
                     totalf=sumadeimportes;
                     totaldeventa.setText(String.valueOf(totalf));
+                    voyaagregar=false;
                     if(descuentoactivo==true){
                    JOptionPane.showMessageDialog(null, "descuento aplicado");
                if(Float.parseFloat(totaldeventa.getText())>0){
@@ -1347,7 +1350,7 @@ addpiezas=cantidadpolloenDB-2;
                      pst.setFloat(3,(float)cantidaddecuarto);
                 }
                 else{
-                    pst.setFloat(3,1);
+                    pst.setFloat(3,cantidaddeproductos);
                 }
                 
                 //EL METODO A CONTINUACION VA HACIENDO EL CONTEO DE LAS PIEZAS INDIVIDUALES
@@ -1355,7 +1358,7 @@ addpiezas=cantidadpolloenDB-2;
                 
                  precio_producto(nombredepieza);
                 pst.setFloat(4,precio);
-                importe = 1*precio;
+                importe = cantidaddeproductos*precio;
                 pst.setFloat(5,importe);
                 id_max_de_venta();
                 pst.setInt(6,(id_de_la_venta_incrementable));
@@ -1364,6 +1367,8 @@ addpiezas=cantidadpolloenDB-2;
                 
                 int a=pst.executeUpdate();
                 if(a>0){
+                    medio=false;
+                cuarto=false;
                     descontardeinventario(nombredepieza);
                       descuentodepollo();
                     mostrartabladeventas();
@@ -1374,6 +1379,7 @@ addpiezas=cantidadpolloenDB-2;
                     primerproducto=false;
                     productorepetido=true;
                     productoagregado=true;
+                    voyaagregar=false;
                     if(descuentoactivo==true){
                    JOptionPane.showMessageDialog(null, "descuento aplicado");
                if(Float.parseFloat(totaldeventa.getText())>0){
@@ -1382,7 +1388,7 @@ addpiezas=cantidadpolloenDB-2;
                     }
                  }
                                               mostrarpolloscocidos();              
-
+                                              
                 }
             }catch(SQLException e)  { //fin de la insersion a la tabla ventas
                 JOptionPane.showMessageDialog(null,"Error de datos por id vacio "+e);
@@ -1422,7 +1428,6 @@ addpiezas=cantidadpolloenDB-2;
                  
             }
 
-            
                 public void regresarproductos_a_inventariodescontandotodaslaspiezas(){ // este metodo devuelve los productos que fueron agregados a la venta y posteriormente fueron cancelados
                   String es_pollo_crudo="";
                    int piezasenventa=0;
@@ -1490,15 +1495,20 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
                         }catch (Exception f){
                             JOptionPane.showMessageDialog(null, "Error en inventario" + f.getMessage());
                         }
-                    
-                      if(cantidadenventa<=1&&cantidadenventa!=0){//SI EL ULTIMO PRODUCTO A DESCONTAR ES 1, SE VA A CANCELAR TODA LA VENTA O PORQUE MEJOR AUN, ELIMNAR DICHO PRODUCTO DE LA TABLA VENTA
-                           if(descontardecimales==true){
-                               cantidadeninventario+=cantidadenventa;
-                           }else{
-                                cantidadeninventario+=1;
-                           }
-                          descontardecimales=false;
-                           id_producto(nombredepieza);
+                    if(cantidaddeproductos<=cantidadenventa){//VERIFICA QUE NO SEA MAYOR LA CANTIDAD DE PRODUCTOS  A REGRESAR
+                        if(cantidadenventa<=cantidaddeproductos&&cantidadenventa!=0){//SI EL ULTIMO PRODUCTO A DESCONTAR ES 1, SE VA A CANCELAR TODA LA VENTA O PORQUE MEJOR AUN, ELIMNAR DICHO PRODUCTO DE LA TABLA VENTA
+                           if(medio==true){
+                   cantidadeninventario  +=(float) cantidaddemedio;
+             
+                }
+                else if(cuarto==true){
+                      cantidadeninventario  +=(float) cantidaddecuarto;
+               
+                }
+                else{
+         cantidadeninventario+=cantidaddeproductos;
+                }
+ id_producto(nombredepieza);
                         try{ //SUMANDO A INVENTARIO EL ULTIMO, 
                             PreparedStatement ps = ca.prepareStatement ("UPDATE productos SET cantidad='"+cantidadeninventario+"'WHERE id_producto='"+id_producto+"'");
                             ps.executeUpdate();
@@ -1542,8 +1552,8 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         }
                        //ELIMINAR DE VENTA EL ARTICULO
                         
-                       }else if(cantidadenventa>1){ // CUANDO AUN HAY MÁS DE UN ARTICULO EN LA TABLA VENTA
-                           cantidadeninventario+=1;
+                       }else if(cantidadenventa>cantidaddeproductos){ // CUANDO AUN HAY MÁS DE UN ARTICULO EN LA TABLA VENTA
+                           cantidadeninventario+=cantidaddeproductos;
                            id_producto(nombredepieza);
                         try{ //SUMANDO A INVENTARIO1 
                             PreparedStatement ps = ca.prepareStatement ("UPDATE productos SET cantidad='"+cantidadeninventario+"'WHERE id_producto='"+id_producto+"'");
@@ -1553,7 +1563,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
                         }// SUMANDO A INVENTARIO 1
                         id_producto(nombredepieza);
                         id_max_de_venta();
-                        cantidadenventa-=1;
+                        cantidadenventa-=cantidaddeproductos;
                 precio_producto(nombredepieza);
                 NoPimporte = cantidadenventa*precio;
                             try{//RESTA DE DESCRIPCION DE VENTA 1
@@ -1574,6 +1584,11 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
                         }//RESTA DE DESCRIPCION DE VENTA 1
                        }// CUANDO AUN HAY MÁS DE UN ARTICULO EN LA TABLA VENTA
                         
+                        
+                    }//VERIFICA QUE LA CANTIDAD DE PRODUCTOS NO SEA MAYOR A LA CANTIDAD EN VENTA
+                    else if(cantidaddeproductos>cantidadenventa){
+                        JOptionPane.showMessageDialog(null, "No puedes descontar "+cantidaddeproductos+ " piezas de "+nombredepieza+ " en venta cuando solo hay "+cantidadenventa+" piezas", "ADVERTENCIA", JOptionPane.WARNING_MESSAGE);
+                    }
                     }catch(Exception e){///obteniendo la cantidad en la tabla de descripcion_de_venta
                         JOptionPane.showMessageDialog(null, "Error en venta aqui otra vez" + e.getMessage());
                     } //obteniendo la cantidad en la tabla de descripcion_de_venta
@@ -1816,6 +1831,20 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         total3 = new javax.swing.JLabel();
         ventaacredito = new javax.swing.JButton();
         descuentocombo = new javax.swing.JLabel();
+        calculadora = new javax.swing.JPanel();
+        borrar = new javax.swing.JButton();
+        nueve = new javax.swing.JButton();
+        ocho = new javax.swing.JButton();
+        siete = new javax.swing.JButton();
+        cuatro = new javax.swing.JButton();
+        cinco = new javax.swing.JButton();
+        seis = new javax.swing.JButton();
+        tres = new javax.swing.JButton();
+        dos = new javax.swing.JButton();
+        uno = new javax.swing.JButton();
+        listo = new javax.swing.JButton();
+        cantidad = new javax.swing.JTextField();
+        salir = new javax.swing.JButton();
         agregar_proveedor = new javax.swing.JPanel();
         agregarpro = new javax.swing.JButton();
         jLabel12 = new javax.swing.JLabel();
@@ -2334,7 +2363,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         });
         jScrollPane2.setViewportView(tablaventa);
 
-        venta.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 140, 610, 230));
+        venta.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 140, 420, 230));
 
         pollocrudo = new rojerusan.RSTableMetro(){
             public boolean isCellEditable(int filas, int columnas){
@@ -2469,6 +2498,169 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         descuentocombo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         descuentocombo.setText("00.00");
         venta.add(descuentocombo, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 480, 140, 28));
+
+        calculadora.setForeground(new java.awt.Color(102, 102, 255));
+
+        borrar.setText("C");
+        borrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                borrarActionPerformed(evt);
+            }
+        });
+
+        nueve.setText("9");
+        nueve.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nueveActionPerformed(evt);
+            }
+        });
+
+        ocho.setText("8");
+        ocho.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ochoActionPerformed(evt);
+            }
+        });
+
+        siete.setText("7");
+        siete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sieteActionPerformed(evt);
+            }
+        });
+
+        cuatro.setText("4");
+        cuatro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cuatroActionPerformed(evt);
+            }
+        });
+
+        cinco.setText("5");
+        cinco.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cincoActionPerformed(evt);
+            }
+        });
+
+        seis.setText("6");
+        seis.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                seisActionPerformed(evt);
+            }
+        });
+
+        tres.setText("3");
+        tres.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tresActionPerformed(evt);
+            }
+        });
+
+        dos.setText("2");
+        dos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                dosActionPerformed(evt);
+            }
+        });
+
+        uno.setText("1");
+        uno.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                unoActionPerformed(evt);
+            }
+        });
+
+        listo.setText("¡LISTO!");
+        listo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                listoActionPerformed(evt);
+            }
+        });
+
+        cantidad.setBackground(new java.awt.Color(0, 0, 51));
+        cantidad.setFont(new java.awt.Font("Tahoma", 3, 18)); // NOI18N
+        cantidad.setForeground(new java.awt.Color(255, 255, 255));
+        cantidad.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        cantidad.setBorder(null);
+        cantidad.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
+        salir.setForeground(new java.awt.Color(255, 0, 0));
+        salir.setText("X");
+        salir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                salirActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout calculadoraLayout = new javax.swing.GroupLayout(calculadora);
+        calculadora.setLayout(calculadoraLayout);
+        calculadoraLayout.setHorizontalGroup(
+            calculadoraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, calculadoraLayout.createSequentialGroup()
+                .addContainerGap(118, Short.MAX_VALUE)
+                .addGroup(calculadoraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(salir)
+                    .addComponent(borrar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(14, 14, 14))
+            .addGroup(calculadoraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(calculadoraLayout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addGroup(calculadoraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(cantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(calculadoraLayout.createSequentialGroup()
+                            .addGroup(calculadoraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(siete, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(cuatro, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(calculadoraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(ocho, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(cinco, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(calculadoraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(nueve)
+                                .addComponent(seis, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(calculadoraLayout.createSequentialGroup()
+                            .addComponent(uno, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(0, 0, 0)
+                            .addComponent(dos)
+                            .addGap(3, 3, 3)
+                            .addComponent(tres, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(listo, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGap(0, 50, Short.MAX_VALUE)))
+        );
+        calculadoraLayout.setVerticalGroup(
+            calculadoraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(calculadoraLayout.createSequentialGroup()
+                .addContainerGap(72, Short.MAX_VALUE)
+                .addComponent(borrar, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(salir, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(calculadoraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(calculadoraLayout.createSequentialGroup()
+                    .addGap(0, 4, Short.MAX_VALUE)
+                    .addComponent(cantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(10, 10, 10)
+                    .addGroup(calculadoraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(calculadoraLayout.createSequentialGroup()
+                            .addComponent(siete, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(0, 0, 0)
+                            .addComponent(cuatro, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(calculadoraLayout.createSequentialGroup()
+                            .addComponent(ocho, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(0, 0, 0)
+                            .addComponent(cinco, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(calculadoraLayout.createSequentialGroup()
+                            .addComponent(nueve, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(0, 0, 0)
+                            .addComponent(seis, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(calculadoraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(uno, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(dos, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(tres, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(listo)
+                    .addGap(0, 4, Short.MAX_VALUE)))
+        );
+
+        venta.add(calculadora, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 130, 170, 260));
 
         Proveedores9.addTab("      Venta      ", venta);
 
@@ -3513,7 +3705,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 686, Short.MAX_VALUE)
+            .addGap(0, 712, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -4041,7 +4233,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         );
         jPanel13Layout.setVerticalGroup(
             jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 686, Short.MAX_VALUE)
+            .addGap(0, 712, Short.MAX_VALUE)
             .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel13Layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -5005,12 +5197,12 @@ public void obtener_id_del_proveedor(String name){
 
     private void acompañantesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_acompañantesMouseClicked
 
-        int fila =acompañantes.getSelectedRow();
+        fila =acompañantes.getSelectedRow();
 
         if(fila>=0){// CUANDO UNA CELDA SE SELECCIONO
-
-            agregarpiezasaventa(acompañantes.getValueAt(fila,0).toString());
-
+        nombredepiezaseleccionada=acompañantes.getValueAt(fila,0).toString();
+         voyaagregar=true;
+            calculadora.setVisible(true);
         }
 
         else{
@@ -5020,39 +5212,19 @@ public void obtener_id_del_proveedor(String name){
     }//GEN-LAST:event_acompañantesMouseClicked
 
     private void pollococidoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pollococidoMouseClicked
-        int fila =pollococido.getSelectedRow();
-
+        fila =pollococido.getSelectedRow();
+         
         if(fila>=0){// CUANDO UNA CELDA SE SELECCIONO
-
-        
-               if(pollococido.getValueAt(fila,0).toString().equals("Pollo rostizado")||pollococido.getValueAt(fila,0).toString().equals("Pollo asado")){
-                   
-                   Object[] options = { "Entero", "Medio", "Cuarto" };
-  int choice = JOptionPane.showOptionDialog(null, 
-      "¿Cuánto lleva?", 
-      "Elige una opcion?", 
-      JOptionPane.YES_NO_OPTION, 
-      JOptionPane.QUESTION_MESSAGE, 
-      null, 
-      options, 
-      options[0]);
-if (choice == JOptionPane.YES_OPTION){
-    entero= true;
-
-  }else if(choice == JOptionPane.NO_OPTION){
-      medio=true;
-      cantidaddemedio=(float) 0.50;
-           
-  }
-  else if(choice == JOptionPane.CANCEL_OPTION){
-      cuarto=true;
-      cantidaddecuarto= (float) 0.25;
-  }
-               
-               }
-      agregarpiezasaventa(pollococido.getValueAt(fila,0).toString());
-        }
-
+        nombredepiezaseleccionada=pollococido.getValueAt(fila,0).toString();
+         voyaagregar=true;
+                      if(nombredepiezaseleccionada.equals("Pollo rostizado")||nombredepiezaseleccionada.equals("Pollo asado")){
+                      }
+                      else{
+                          calculadora.setVisible(true);
+                      }
+                           
+            
+           }
         else{
             JOptionPane.showMessageDialog(null,"Por favor, seleccione una fila primero","Aviso",JOptionPane.INFORMATION_MESSAGE);
         }
@@ -5061,20 +5233,13 @@ if (choice == JOptionPane.YES_OPTION){
 
     private void pollocrudoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pollocrudoMouseClicked
         //ESTO AGREGA EL PRODUCTO DE LA FILA SELECCIONADO Y LE SUMA 1 PIEZA
-        int fila =pollocrudo.getSelectedRow();
-
+        fila =pollocrudo.getSelectedRow();
         if(fila>=0){// CUANDO UNA CELDA SE SELECCIONO
-          /*  new cantidad().setVisible(true);
-            String cantidaddepiezas=cantidad.cantidad.getText();
-            JOptionPane.showMessageDialog(null, "CANTIDAD EN TEXTO"+cantidaddepiezas);
-            if(Float.parseFloat(cantidaddepiezas)>0){
-                 JOptionPane.showMessageDialog(null, "CANTIDAD"+cantidaddepiezas);
-           
-            }
-            */
-agregarpiezasaventa(pollocrudo.getValueAt(fila,0).toString());
+             nombredepiezaseleccionada=pollocrudo.getValueAt(fila,0).toString();
+             voyaagregar=true;
+            calculadora.setVisible(true);
+      
         }
-
         else{
             JOptionPane.showMessageDialog(null,"Por favor, seleccione una fila primero","Aviso",JOptionPane.INFORMATION_MESSAGE);
         }
@@ -5083,22 +5248,12 @@ agregarpiezasaventa(pollocrudo.getValueAt(fila,0).toString());
 
     private void tablaventaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaventaMouseClicked
         //ESTO DESCUENTA UN PRODUCTO A LA VEZ Y LO DEVUELVE A INVENTARIO
-        int fila =tablaventa.getSelectedRow();
+        fila =tablaventa.getSelectedRow();
 
         if(fila>=0){// CUANDO UNA CELDA SE SELECCIONO
-              if(tablaventa.getValueAt(fila,0).toString().equals("Pollo rostizado")||pollococido.getValueAt(fila,0).toString().equals("Pollo asado")){
-                  descontardecimales=true;
-              }
-            regresarproductos_a_inventario(tablaventa.getValueAt(fila,0).toString()); //pone en estatus de cancelada la venta inconclusa
-
-            if(tablaventaactiva==true){
-
-             descuentodepollo();
-                mostrartabladeventas();
-                mostrarpolloscrudos();
-                mostrarpolloscocidos();
-                 }
-
+            nombredepiezaseleccionada=tablaventa.getValueAt(fila,0).toString();
+            voyadescontar=true;
+            calculadora.setVisible(true);
         }else{
             JOptionPane.showMessageDialog(null,"Por favor, seleccione una fila primero","Aviso",JOptionPane.INFORMATION_MESSAGE);
         }
@@ -5386,10 +5541,10 @@ get_id_usuario();// 255 -280
     }//GEN-LAST:event_veridventasacreditopendienteActionPerformed
 
     private void pagarventaacreditoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pagarventaacreditoActionPerformed
-      String pagodeventacredito = JOptionPane.showInputDialog(null,"Escriba el monto de pago","Pagando venta a credito", JOptionPane.INFORMATION_MESSAGE);    
+    String pagodeventacredito = JOptionPane.showInputDialog(null,"Escriba el monto de pago","Pagando venta a credito", JOptionPane.INFORMATION_MESSAGE);    
             float variable0=0, totalacredito=0, cambio=0;
             boolean pass2 = validarFormulario(pagodeventacredito);
-                 if(pass2){//ESTO VALIDA QUE EL TEXTO ESCRITO NO TENGA INCOHERENCIAS
+                 if(pass2){//ESTO VALIDA QUE EL TEXTO ESCRITO NO TENGA INCOHERENCIAS           
                  
                       int decision=JOptionPane.showConfirmDialog(null,"¿Desea continuar?","Estás por pagar una venta a credito",JOptionPane.CANCEL_OPTION);
             if(decision==0){ //opción si
@@ -5455,6 +5610,204 @@ get_id_usuario();// 255 -280
         else
         JOptionPane.showMessageDialog(null,"Por favor, seleccione una fila primero","Aviso",JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_jTable2MouseClicked
+
+    private void borrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_borrarActionPerformed
+        cantidad.setText("");
+    }//GEN-LAST:event_borrarActionPerformed
+
+    private void nueveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nueveActionPerformed
+        String nine="9";
+        if(!cantidad.equals("")){
+
+            cantidad.setText(cantidad.getText()+nine);
+        }
+        else {
+            cantidad.setText(nine);
+            cantidad=cantidad;
+        }
+    }//GEN-LAST:event_nueveActionPerformed
+
+    private void ochoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ochoActionPerformed
+        String eight="8";
+        if(!cantidad.equals("")){
+
+            cantidad.setText(cantidad.getText()+eight);
+        }
+        else {
+            cantidad.setText(eight);
+            cantidad=cantidad;
+        }
+    }//GEN-LAST:event_ochoActionPerformed
+
+    private void sieteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sieteActionPerformed
+        String sevenr="7";
+        if(!cantidad.equals("")){
+
+            cantidad.setText(cantidad.getText()+sevenr);
+        }
+        else {
+            cantidad.setText(sevenr);
+            cantidad=cantidad;
+        }
+    }//GEN-LAST:event_sieteActionPerformed
+
+    private void cuatroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cuatroActionPerformed
+        String fo="4";
+        if(!cantidad.equals("")){
+
+            cantidad.setText(cantidad.getText()+fo);
+        }
+        else {
+            cantidad.setText(fo);
+            cantidad=cantidad;
+        }
+    }//GEN-LAST:event_cuatroActionPerformed
+
+    private void cincoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cincoActionPerformed
+        String five="5";
+        if(!cantidad.equals("")){
+
+            cantidad.setText(cantidad.getText()+five);
+        }
+        else {
+            cantidad.setText(five);
+            cantidad=cantidad;
+        }
+    }//GEN-LAST:event_cincoActionPerformed
+
+    private void seisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seisActionPerformed
+        String six="6";
+        if(!cantidad.equals("")){
+
+            cantidad.setText(cantidad.getText()+six);
+        }
+        else {
+            cantidad.setText(six);
+            cantidad=cantidad;
+        }
+    }//GEN-LAST:event_seisActionPerformed
+
+    private void tresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tresActionPerformed
+        String th="3";
+        if(!cantidad.equals("")){
+
+            cantidad.setText(cantidad.getText()+th);
+        }
+        else {
+            cantidad.setText(th);
+            cantidad=cantidad;
+        }
+    }//GEN-LAST:event_tresActionPerformed
+
+    private void dosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dosActionPerformed
+        String two="2";
+        if(!cantidad.equals("")){
+
+            cantidad.setText(cantidad.getText()+two);
+        }
+        else {
+            cantidad.setText(two);
+            cantidad=cantidad;
+        }
+    }//GEN-LAST:event_dosActionPerformed
+
+    private void unoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_unoActionPerformed
+        String one="1";
+        if(!cantidad.equals("")){
+
+            cantidad.setText(cantidad.getText()+one);
+        }
+        else {
+            cantidad.setText(one);
+            cantidad=cantidad;
+        }
+    }//GEN-LAST:event_unoActionPerformed
+
+    private void listoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listoActionPerformed
+              
+        boolean pass2 = validarFormulario(cantidad.getText());
+                 if(pass2){//ESTO VALIDA QUE EL TEXTO ESCRITO NO TENGA INCOHERENCIAS   
+               if(voyaagregar==true){//CONDICION QUE DICE QUE VOY A UTILIZAR ALGUNA DE LAS OTRAS 3 TABLAS
+                 cantidaddeproductos=Float.parseFloat(cantidad.getText());
+          
+                   if(nombredepiezaseleccionada.equals("Pollo rostizado")||nombredepiezaseleccionada.equals("Pollo asado")){
+                   
+                   Object[] options = { "Entero", "Medio", "Cuarto" };
+  int choice = JOptionPane.showOptionDialog(null, 
+      "¿Cuánto lleva?", 
+      "Elige una opcion", 
+      JOptionPane.YES_NO_OPTION, 
+      JOptionPane.QUESTION_MESSAGE, 
+      null, 
+      options, 
+      options[0]);
+if (choice == JOptionPane.YES_OPTION){
+    entero= true;
+
+  }else if(choice == JOptionPane.NO_OPTION){
+      medio=true;
+      cantidaddemedio=(float) 0.50;
+           
+  }
+  else if(choice == JOptionPane.CANCEL_OPTION){
+      cuarto=true;
+      cantidaddecuarto= (float) 0.25;
+  }
+    agregarpiezasaventa(nombredepiezaseleccionada);    
+    cantidad.setText("");
+                 calculadora.setVisible(false);
+               }
+                       agregarpiezasaventa(nombredepiezaseleccionada);
+                       cantidad.setText("");
+                 calculadora.setVisible(false);
+             }//CONDICION QUE DICE QUE VOY A UTILIZAR ALGUNA DE LAS OTRAS 3 TABLAS
+             if(voyadescontar==true){//CONDICION QUE DICE QUE VOY A UTILIZAR LA TABLA VENTA
+      cantidaddeproductos=Float.parseFloat(cantidad.getText());
+          
+                 if(nombredepiezaseleccionada.equals("Pollo rostizado")||nombredepiezaseleccionada.equals("Pollo asado")){
+                   
+                   Object[] options = { "Entero", "Medio", "Cuarto" };
+  int choice = JOptionPane.showOptionDialog(null, 
+      "¿Cuánto lleva?", 
+      "Elige una opcion", 
+      JOptionPane.YES_NO_OPTION, 
+      JOptionPane.QUESTION_MESSAGE, 
+      null, 
+      options, 
+      options[0]);
+if (choice == JOptionPane.YES_OPTION){
+    entero= true;
+
+  }else if(choice == JOptionPane.NO_OPTION){
+      medio=true;
+      cantidaddemedio=(float) 0.50;
+           
+  }
+  else if(choice == JOptionPane.CANCEL_OPTION){
+      cuarto=true;
+      cantidaddecuarto= (float) 0.25;
+  }
+   regresarproductos_a_inventario(nombredepiezaseleccionada); //pone en estatus de cancelada la venta inconclusa
+                 cantidad.setText("");
+                 calculadora.setVisible(false); 
+                 }
+                   //VERIFICAR ESTO descontardecimales=true;
+              
+            regresarproductos_a_inventario(nombredepiezaseleccionada); //pone en estatus de cancelada la venta inconclusa
+            cantidad.setText("");
+                 calculadora.setVisible(false); 
+            descuentodepollo();
+                mostrartabladeventas();
+                mostrarpolloscrudos();
+                mostrarpolloscocidos();   
+             }//CONDICION QUE DICE QUE VOY A UTILIZAR LA TABLA VENTA
+            }//ESTO VALIDA QUE EL TEXTO ESCRITO NO TENGA INCOHERENCIAS 
+    }//GEN-LAST:event_listoActionPerformed
+
+    private void salirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salirActionPerformed
+        calculadora.setVisible(false);
+        
+    }//GEN-LAST:event_salirActionPerformed
  
     public void agregarpiezasaventa(String nombredepieza){
           /* ******************** BOTON DE ADD NUEVO PRODUCTO PARA SU VENTA ******************** */
@@ -5642,15 +5995,21 @@ SI cc= new SI();
     public static javax.swing.JPanel agregar_usuario;
     private javax.swing.JButton agregarpro;
     public static javax.swing.JButton agregarpro1;
+    private javax.swing.JButton borrar;
     private javax.swing.JButton buscarproductosfecha;
     private javax.swing.JButton buscarproductospordia;
     private javax.swing.JButton buscarventasporfecha;
+    private javax.swing.JPanel calculadora;
     private javax.swing.JLabel cambiocombobox;
+    public static javax.swing.JTextField cantidad;
+    private javax.swing.JButton cinco;
     private javax.swing.JLabel conteodelasventasrealizadas;
+    private javax.swing.JButton cuatro;
     private javax.swing.JButton descuento;
     private javax.swing.JLabel descuentocombo;
     private javax.swing.JLabel descuentolabel;
     public static javax.swing.JTextField despro;
+    private javax.swing.JButton dos;
     private javax.swing.JMenuItem drop;
     private javax.swing.JMenuItem eliminar;
     private javax.swing.JMenuItem eliminarusuarios;
@@ -5803,9 +6162,12 @@ SI cc= new SI();
     private javax.swing.JTable jTable2;
     private javax.swing.JLabel labeldescuento;
     private javax.swing.JLabel labelparaeltotal;
+    private javax.swing.JButton listo;
     private javax.swing.JMenuItem modificar;
     private javax.swing.JMenuItem modificarusuarios;
     private javax.swing.JMenuItem modify;
+    private javax.swing.JButton nueve;
+    private javax.swing.JButton ocho;
     private javax.swing.JButton pagarventaacredito;
     public static javax.swing.JTextField pagocombobox;
     private rojerusan.RSTableMetro pollococido;
@@ -5820,6 +6182,9 @@ SI cc= new SI();
     public static javax.swing.JTextField prorfc;
     public static javax.swing.JTextField protel;
     private rojerusan.RSTableMetro proveedores;
+    private javax.swing.JButton salir;
+    private javax.swing.JButton seis;
+    private javax.swing.JButton siete;
     private javax.swing.JPopupMenu tabla_articulos;
     private javax.swing.JPopupMenu tabla_proveedores;
     public static rojerusan.RSTableMetro tabla_usuariosnuevo;
@@ -5834,6 +6199,8 @@ SI cc= new SI();
     private javax.swing.JLabel totaldeventa;
     private javax.swing.JLabel totalventacreditoenturno;
     private javax.swing.JLabel totalventarealizada;
+    private javax.swing.JButton tres;
+    private javax.swing.JButton uno;
     private javax.swing.JButton update_users;
     private javax.swing.JLabel user;
     private javax.swing.JLabel user1;
