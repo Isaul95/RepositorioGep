@@ -5407,10 +5407,8 @@ get_id_usuario();// 255 -280
                                     PreparedStatement ps2 = ca.prepareStatement ("UPDATE descripcion_de_venta SET estado= '"+creditopagado+"' WHERE id_venta='"+id_ventapencredito+"'");
                                     ps2.executeUpdate();
                                           llenartablaconventasacreditopendiente();
-                   
                                    accionesdespuesderealizarcualquierventa();
                                     llenartablaconventasacreditopendiente(); //CARGA NUEVAMENTE LAS VENTAS POR ID
-        
                                    pagarventaacredito.setVisible(false);
                                    totalventacreditoenturno.setText("00.00");
                                    veridventasacreditopendiente.setVisible(false);
@@ -5422,7 +5420,7 @@ get_id_usuario();// 255 -280
                  }else{
                   JOptionPane.showMessageDialog(null, "El pago es menor al total", "Verifique por favor", JOptionPane.INFORMATION_MESSAGE);
               }
-              /*
+              /* ESTO ES PARA ABONOS
               else if (Float.parseFloat(pagodeventacredito)<totalacredito){
                     try{
                                     
