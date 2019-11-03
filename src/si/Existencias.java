@@ -231,10 +231,7 @@ int  id_usuario=Integer.parseInt(SI_Inicio.iduser.getText());
 
     private void Corte_btncancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Corte_btncancelarActionPerformed
         // BOTON DE CANCELAR LA INSERCION DE NUEVO USUARIO
-        int dialogButton = JOptionPane.YES_NO_OPTION;
-        int result = JOptionPane.showConfirmDialog(null, "¿Regresar a pagina anterior?","                    Aviso",dialogButton);
-        if(result == 0){
-            dispose();   }
+            dispose();   
     }//GEN-LAST:event_Corte_btncancelarActionPerformed
 
     private void busquedaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_busquedaKeyReleased
