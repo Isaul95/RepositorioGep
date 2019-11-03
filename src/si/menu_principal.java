@@ -2303,7 +2303,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         user1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/equipo.png"))); // NOI18N
         user1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
-        jButton1.setBackground(new java.awt.Color(0, 51, 102));
+        jButton1.setBackground(new java.awt.Color(255, 255, 255));
         jButton1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jButton1.setForeground(new java.awt.Color(255, 0, 0));
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/serrar.png"))); // NOI18N
@@ -2365,7 +2365,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         IblReloj.setText("00:00:00");
         venta.add(IblReloj, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
-        AgregarGastos.setBackground(new java.awt.Color(0, 148, 204));
+        AgregarGastos.setBackground(new java.awt.Color(0, 51, 102));
         AgregarGastos.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         AgregarGastos.setForeground(new java.awt.Color(255, 255, 255));
         AgregarGastos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/egresos1.png"))); // NOI18N
@@ -2377,7 +2377,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         });
         venta.add(AgregarGastos, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 400, 190, 50));
 
-        Cortedecaja.setBackground(new java.awt.Color(0, 148, 204));
+        Cortedecaja.setBackground(new java.awt.Color(0, 51, 102));
         Cortedecaja.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         Cortedecaja.setForeground(new java.awt.Color(255, 255, 255));
         Cortedecaja.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/cajero1.png"))); // NOI18N
@@ -2389,7 +2389,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         });
         venta.add(Cortedecaja, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 400, 190, 50));
 
-        descuento.setBackground(new java.awt.Color(0, 148, 204));
+        descuento.setBackground(new java.awt.Color(0, 51, 102));
         descuento.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         descuento.setForeground(new java.awt.Color(255, 255, 255));
         descuento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/cajero1.png"))); // NOI18N
@@ -2541,7 +2541,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         jLabel64.setText("En venta :");
         venta.add(jLabel64, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 90, 120, -1));
 
-        Existencias.setBackground(new java.awt.Color(0, 148, 204));
+        Existencias.setBackground(new java.awt.Color(0, 51, 102));
         Existencias.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         Existencias.setForeground(new java.awt.Color(255, 255, 255));
         Existencias.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/actualizar.png"))); // NOI18N
@@ -2562,7 +2562,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         total3.setText("00.00");
         venta.add(total3, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 30, 140, 28));
 
-        ventaacredito.setBackground(new java.awt.Color(0, 148, 204));
+        ventaacredito.setBackground(new java.awt.Color(0, 51, 102));
         ventaacredito.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         ventaacredito.setForeground(new java.awt.Color(255, 255, 255));
         ventaacredito.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/dinero (1).png"))); // NOI18N
@@ -2583,8 +2583,10 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         descuentocombo.setText("00.00");
         venta.add(descuentocombo, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 480, 140, 28));
 
+        calculadora.setBackground(new java.awt.Color(0, 51, 102));
         calculadora.setForeground(new java.awt.Color(102, 102, 255));
 
+        borrar.setBackground(new java.awt.Color(0, 51, 102));
         borrar.setText("C");
         borrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -2592,6 +2594,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
             }
         });
 
+        nueve.setBackground(new java.awt.Color(0, 51, 102));
         nueve.setText("9");
         nueve.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -2599,6 +2602,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
             }
         });
 
+        ocho.setBackground(new java.awt.Color(0, 51, 102));
         ocho.setText("8");
         ocho.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -2606,6 +2610,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
             }
         });
 
+        siete.setBackground(new java.awt.Color(0, 51, 102));
         siete.setText("7");
         siete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -2613,6 +2618,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
             }
         });
 
+        cuatro.setBackground(new java.awt.Color(0, 51, 102));
         cuatro.setText("4");
         cuatro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -2620,6 +2626,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
             }
         });
 
+        cinco.setBackground(new java.awt.Color(0, 51, 102));
         cinco.setText("5");
         cinco.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -2627,6 +2634,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
             }
         });
 
+        seis.setBackground(new java.awt.Color(0, 51, 102));
         seis.setText("6");
         seis.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -2634,6 +2642,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
             }
         });
 
+        tres.setBackground(new java.awt.Color(0, 51, 102));
         tres.setText("3");
         tres.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -2641,6 +2650,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
             }
         });
 
+        dos.setBackground(new java.awt.Color(0, 51, 102));
         dos.setText("2");
         dos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -2648,6 +2658,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
             }
         });
 
+        uno.setBackground(new java.awt.Color(0, 51, 102));
         uno.setText("1");
         uno.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -2655,6 +2666,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
             }
         });
 
+        listo.setBackground(new java.awt.Color(0, 51, 105));
         listo.setText("¡LISTO!");
         listo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -2662,13 +2674,14 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
             }
         });
 
-        cantidad.setBackground(new java.awt.Color(0, 0, 51));
+        cantidad.setBackground(new java.awt.Color(0, 0, 0));
         cantidad.setFont(new java.awt.Font("Tahoma", 3, 18)); // NOI18N
         cantidad.setForeground(new java.awt.Color(255, 255, 255));
         cantidad.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         cantidad.setBorder(null);
         cantidad.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
+        salir.setBackground(new java.awt.Color(0, 51, 102));
         salir.setForeground(new java.awt.Color(255, 0, 0));
         salir.setText("X");
         salir.addActionListener(new java.awt.event.ActionListener() {
@@ -2746,7 +2759,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
 
         venta.add(calculadora, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 130, 170, 260));
 
-        jButton5.setBackground(new java.awt.Color(0, 148, 204));
+        jButton5.setBackground(new java.awt.Color(0, 51, 102));
         jButton5.setFont(new java.awt.Font("Tahoma", 1, 22)); // NOI18N
         jButton5.setForeground(new java.awt.Color(255, 255, 255));
         jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/cancelar1.png"))); // NOI18N
@@ -2771,7 +2784,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         agregar_proveedor.setBackground(new java.awt.Color(0, 51, 102));
         agregar_proveedor.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        agregarpro.setBackground(new java.awt.Color(0, 148, 204));
+        agregarpro.setBackground(new java.awt.Color(0, 51, 102));
         agregarpro.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         agregarpro.setForeground(new java.awt.Color(255, 255, 255));
         agregarpro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/Add1.png"))); // NOI18N
@@ -2803,7 +2816,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         agregar_proveedor.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 400, 120, -1));
         agregar_proveedor.add(filler1, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 343, -1, -1));
 
-        agregarpro1.setBackground(new java.awt.Color(0, 148, 204));
+        agregarpro1.setBackground(new java.awt.Color(0, 51, 102));
         agregarpro1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         agregarpro1.setForeground(new java.awt.Color(255, 255, 255));
         agregarpro1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/plan-de-estudios.png"))); // NOI18N
@@ -2818,7 +2831,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         });
         agregar_proveedor.add(agregarpro1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1000, 340, 100, 97));
 
-        actualizarpro.setBackground(new java.awt.Color(0, 148, 204));
+        actualizarpro.setBackground(new java.awt.Color(0, 51, 102));
         actualizarpro.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         actualizarpro.setForeground(new java.awt.Color(255, 255, 255));
         actualizarpro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/actualizar.png"))); // NOI18N
@@ -2893,7 +2906,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
 
         jLabel15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/user022.png"))); // NOI18N
 
-        jButton3.setBackground(new java.awt.Color(0, 51, 102));
+        jButton3.setBackground(new java.awt.Color(255, 255, 255));
         jButton3.setFont(new java.awt.Font("Tahoma", 1, 23)); // NOI18N
         jButton3.setForeground(new java.awt.Color(255, 0, 0));
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/serrar.png"))); // NOI18N
@@ -3323,7 +3336,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         jLabel69.setText("CAMPO VACIO");
         agregar_proveedor.add(jLabel69, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 390, 160, 30));
 
-        Reportes.setBackground(new java.awt.Color(0, 148, 204));
+        Reportes.setBackground(new java.awt.Color(0, 51, 102));
         Reportes.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         Reportes.setForeground(new java.awt.Color(255, 255, 255));
         Reportes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/pdf.png"))); // NOI18N
@@ -3381,7 +3394,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
 
         jLabel100.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/portapapeles.png"))); // NOI18N
 
-        jButton10.setBackground(new java.awt.Color(0, 51, 102));
+        jButton10.setBackground(new java.awt.Color(255, 255, 255));
         jButton10.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jButton10.setForeground(new java.awt.Color(255, 0, 0));
         jButton10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/serrar.png"))); // NOI18N
@@ -3645,7 +3658,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         jPanel9.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "   Reportes   ", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Arial", 1, 14), new java.awt.Color(255, 255, 255))); // NOI18N
         jPanel9.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        Reporte_user.setBackground(new java.awt.Color(0, 148, 204));
+        Reporte_user.setBackground(new java.awt.Color(0, 51, 102));
         Reporte_user.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         Reporte_user.setForeground(new java.awt.Color(255, 255, 255));
         Reporte_user.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/pdf.png"))); // NOI18N
@@ -3660,7 +3673,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         });
         jPanel9.add(Reporte_user, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 40, 100, 97));
 
-        Reporte_user1.setBackground(new java.awt.Color(0, 148, 204));
+        Reporte_user1.setBackground(new java.awt.Color(0, 51, 102));
         Reporte_user1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         Reporte_user1.setForeground(new java.awt.Color(255, 255, 255));
         Reporte_user1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/verificacion-de-la-lista-de-entrega-simbolo-de-portapapeles.png"))); // NOI18N
@@ -3682,7 +3695,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         jPanel8.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "   Usuarios   ", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Arial", 1, 14), new java.awt.Color(255, 255, 255))); // NOI18N
         jPanel8.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        agregar3.setBackground(new java.awt.Color(0, 148, 204));
+        agregar3.setBackground(new java.awt.Color(0, 51, 102));
         agregar3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         agregar3.setForeground(new java.awt.Color(255, 255, 255));
         agregar3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/trabajo-en-equipo.png"))); // NOI18N
@@ -3697,7 +3710,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         });
         jPanel8.add(agregar3, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 40, 145, 100));
 
-        update_users.setBackground(new java.awt.Color(0, 148, 204));
+        update_users.setBackground(new java.awt.Color(0, 51, 102));
         update_users.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         update_users.setForeground(new java.awt.Color(255, 255, 255));
         update_users.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/actualizar.png"))); // NOI18N
@@ -3722,7 +3735,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
 
         jLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/Usuario02.png"))); // NOI18N
 
-        jButton4.setBackground(new java.awt.Color(0, 51, 102));
+        jButton4.setBackground(new java.awt.Color(255, 255, 255));
         jButton4.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jButton4.setForeground(new java.awt.Color(255, 0, 0));
         jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/serrar.png"))); // NOI18N
@@ -3861,6 +3874,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
 
         jPanel23.add(jScrollPane6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, 10, 0));
 
+        veridventas.setBackground(new java.awt.Color(0, 51, 102));
         veridventas.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         veridventas.setText("Ver las ventas");
         veridventas.addActionListener(new java.awt.event.ActionListener() {
@@ -3880,17 +3894,17 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         jLabel92.setText("Productos vendidos hoy:");
         jPanel23.add(jLabel92, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, 280, 50));
 
-        fechainicial.setBackground(new java.awt.Color(0, 153, 204));
+        fechainicial.setBackground(new java.awt.Color(0, 51, 102));
         fechainicial.setForeground(new java.awt.Color(0, 96, 255));
         fechainicial.setFont(new java.awt.Font("Tahoma", 1, 17)); // NOI18N
         jPanel23.add(fechainicial, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 20, 50, 40));
 
-        fechafinal.setBackground(new java.awt.Color(0, 153, 204));
+        fechafinal.setBackground(new java.awt.Color(0, 51, 102));
         fechafinal.setForeground(new java.awt.Color(0, 96, 255));
         fechafinal.setFont(new java.awt.Font("Tahoma", 1, 17)); // NOI18N
         jPanel23.add(fechafinal, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 20, 50, 40));
 
-        buscarventasporfecha.setBackground(new java.awt.Color(0, 148, 204));
+        buscarventasporfecha.setBackground(new java.awt.Color(0, 51, 102));
         buscarventasporfecha.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         buscarventasporfecha.setForeground(new java.awt.Color(255, 255, 255));
         buscarventasporfecha.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/image/magnifier.png"))); // NOI18N
@@ -3994,7 +4008,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         jLabel94.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel94.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/total.png"))); // NOI18N
 
-        jButton8.setBackground(new java.awt.Color(0, 51, 102));
+        jButton8.setBackground(new java.awt.Color(255, 255, 255));
         jButton8.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jButton8.setForeground(new java.awt.Color(255, 0, 0));
         jButton8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/serrar.png"))); // NOI18N
@@ -4111,6 +4125,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         Administrador.add(conteodelasventasrealizadas);
         conteodelasventasrealizadas.setBounds(930, 420, 120, 50);
 
+        veridventasacreditopendiente.setBackground(new java.awt.Color(0, 51, 102));
         veridventasacreditopendiente.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         veridventasacreditopendiente.setText("Ver las ventas");
         veridventasacreditopendiente.addActionListener(new java.awt.event.ActionListener() {
@@ -4121,6 +4136,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         Administrador.add(veridventasacreditopendiente);
         veridventasacreditopendiente.setBounds(620, 610, 155, 40);
 
+        pagarventaacredito.setBackground(new java.awt.Color(0, 51, 102));
         pagarventaacredito.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         pagarventaacredito.setText("Pagar venta");
         pagarventaacredito.addActionListener(new java.awt.event.ActionListener() {
@@ -4173,7 +4189,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
 
         jLabel88.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/portapapeles.png"))); // NOI18N
 
-        jButton6.setBackground(new java.awt.Color(0, 51, 102));
+        jButton6.setBackground(new java.awt.Color(255, 255, 255));
         jButton6.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jButton6.setForeground(new java.awt.Color(255, 0, 0));
         jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/serrar.png"))); // NOI18N
@@ -4227,7 +4243,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         jPanel25.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "    Productos mas Vendidos   ", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Arial", 1, 18), new java.awt.Color(255, 255, 255))); // NOI18N
         jPanel25.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        fecha_inicioestadis.setBackground(new java.awt.Color(0, 153, 204));
+        fecha_inicioestadis.setBackground(new java.awt.Color(0, 51, 102));
         fecha_inicioestadis.setForeground(new java.awt.Color(0, 96, 255));
         fecha_inicioestadis.setFont(new java.awt.Font("Tahoma", 1, 17)); // NOI18N
         jPanel25.add(fecha_inicioestadis, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 60, 210, 40));
@@ -4238,12 +4254,12 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         jLabel60.setText("Desde");
         jPanel25.add(jLabel60, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 60, 130, 40));
 
-        fecha_finalestadis.setBackground(new java.awt.Color(0, 153, 204));
+        fecha_finalestadis.setBackground(new java.awt.Color(0, 51, 102));
         fecha_finalestadis.setForeground(new java.awt.Color(0, 96, 255));
         fecha_finalestadis.setFont(new java.awt.Font("Tahoma", 1, 17)); // NOI18N
         jPanel25.add(fecha_finalestadis, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 60, 210, 40));
 
-        buscarproductosfecha.setBackground(new java.awt.Color(0, 148, 204));
+        buscarproductosfecha.setBackground(new java.awt.Color(0, 51, 102));
         buscarproductosfecha.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         buscarproductosfecha.setForeground(new java.awt.Color(255, 255, 255));
         buscarproductosfecha.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/image/magnifier.png"))); // NOI18N
@@ -4287,7 +4303,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
 
         jPanel25.add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, 1230, 300));
 
-        buscarproductospordia.setBackground(new java.awt.Color(0, 148, 204));
+        buscarproductospordia.setBackground(new java.awt.Color(0, 51, 102));
         buscarproductospordia.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         buscarproductospordia.setForeground(new java.awt.Color(255, 255, 255));
         buscarproductospordia.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/image/magnifier.png"))); // NOI18N
