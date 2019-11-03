@@ -125,8 +125,7 @@ Statement sent;
 try {
         id_max_de_venta();
              sent = ca.createStatement();   
-                               //      rs = sent.executeQuery("select * from descripcion_de_venta where id_venta= '"+id_de_la_venta_incrementable+"'");
-                       rs= sent.executeQuery("select id_producto, cantidad from  descripcion_de_venta where id_venta= '"+id_de_la_venta_incrementable+"' and fecha= '"+fecha()+"' and  estado = '"+estadoenturno+"'"); // se ejecuta la sentencia dentro del parentesis
+                 rs= sent.executeQuery("select id_producto, cantidad from  descripcion_de_venta where id_venta= '"+id_de_la_venta_incrementable+"' and fecha= '"+fecha()+"' and  estado = '"+estadoenturno+"'"); // se ejecuta la sentencia dentro del parentesis
             while(rs.next()){        
             idsenturno.add(0, rs.getInt(1));
             cantidaddecadaidenturno.add(0, rs.getFloat(2));
@@ -216,18 +215,12 @@ try {
             Connection ca= cc.conexion(); // CONEXION DB 
               DefaultTableModel modeloTE = new DefaultTableModel(); 
                   jTable2.setModel(modeloTE);  // add modelo ala tabla 
-        
         modeloTE.addColumn("Venta");
         modeloTE.addColumn("Total");        
         modeloTE.addColumn("Fecha");
-    jTable2.setModel(modeloTE);  // add modelo ala tabla 
-        
+    jTable2.setModel(modeloTE);  // add modelo ala tabla         
         try {
          String sSQL = "SELECT id_venta, total, fecha_reporte FROM venta WHERE estado_venta='"+estadorealizado+"' AND fecha_reporte = '"+fecha()+"' ";
-                 //"SELECT `nombre_producto`, `cantidad`, `precio_unitario`, venta.fecha_reporte FROM descripcion_de_venta inner join venta on descripcion_de_venta.`id_venta` = venta.id_venta WHERE fecha_reporte = CURDATE() ORDER BY `cantidad` DESC";
-         
-         
-                 
         PreparedStatement ps = ca.prepareStatement(sSQL);       
         ResultSet rs = ps.executeQuery(sSQL);
             while (rs.next()) {
@@ -243,30 +236,47 @@ try {
         JOptionPane.showMessageDialog(null, e, "Advertencia", JOptionPane.PLAIN_MESSAGE);    
     }
 }
-    
-    
-    
-     public void total_pagoycambiopararelticket(int id){ // recibe como parametro 
-         Object[] columna = new Object[3];  //crear un obj con el nombre de colunna
+            public void descripciondelosprouductosparaelticketdeventa(int numerodeventa){
+        Object[] columna = new Object[4];  //crear un obj con el nombre de colunna
+       try {
+                 String sSQL = "SELECT nombre_producto, cantidad, precio_unitario, importe FROM descripcion_de_venta WHERE estado='Realizada' AND id_venta = '"+numerodeventa+"' ";  
+        PreparedStatement ps = ca.prepareStatement(sSQL);       
+        ResultSet rs = ps.executeQuery(sSQL);
+            while (rs.next()) {
+                columna[0] = rs.getString(1);
+                columna[1] = rs.getString(2);
+                columna[2] = rs.getString(3);      
+                columna[3] = rs.getString(4); 
+            }
+            total_pagoycambiopararelticketdeventa(numerodeventa);
+ 
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(null, e, "Advertencia", JOptionPane.PLAIN_MESSAGE);    
+    }
+    }
+
+     public void total_pagoycambiopararelticketdeventa(int id){ // recibe como parametro 
+         Object[] columna = new Object[5];  //crear un obj con el nombre de colunna
   
         try {
-         String sSQL = "SELECT id_venta, total, pago, cambio, totalcondescuento,FROM venta WHERE estado_venta='"+estadorealizado+"' AND fecha_reporte = '"+fecha()+"' ";
+         String sSQL = "SELECT total, pago, cambio, porcentajedescontado, descuento FROM venta WHERE estado_venta='"+estadorealizado+"' AND fecha_reporte = '"+fecha()+"' ";
                  //"SELECT `nombre_producto`, `cantidad`, `precio_unitario`, venta.fecha_reporte FROM descripcion_de_venta inner join venta on descripcion_de_venta.`id_venta` = venta.id_venta WHERE fecha_reporte = CURDATE() ORDER BY `cantidad` DESC";
          
-         
-                 
         PreparedStatement ps = ca.prepareStatement(sSQL);       
         ResultSet rs = ps.executeQuery(sSQL);
             while (rs.next()) {
                 columna[0] = rs.getInt(1);
                 columna[1] = rs.getFloat(2);
                  columna[2] = rs.getString(3);
+                 columna[3] = rs.getString(4);
+                 columna[4] = rs.getString(5);
                 //columna[5] = rs.getString("nombre");                
           }  
     } catch (Exception e) {
         JOptionPane.showMessageDialog(null, e, "Advertencia", JOptionPane.PLAIN_MESSAGE);    
     }
 }
+     
     
     public void totaldelasventasdehoy(){
         try{ // La suma de todos los importes
@@ -2205,7 +2215,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         jPanel10.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "   Venta   ", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Arial", 1, 18), new java.awt.Color(255, 255, 255))); // NOI18N
         jPanel10.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        pagocombobox.setBackground(new java.awt.Color(0, 148, 204));
+        pagocombobox.setBackground(new java.awt.Color(0, 51, 102));
         pagocombobox.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
         pagocombobox.setForeground(new java.awt.Color(255, 255, 255));
         pagocombobox.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -5594,7 +5604,8 @@ if (choice == JOptionPane.YES_OPTION){
                                     id_max_de_venta();
                                     PreparedStatement ps2 = ca.prepareStatement ("UPDATE descripcion_de_venta SET estado= '"+estadorealizado+"' WHERE id_venta='"+id_de_la_venta_incrementable+"'");
                                     int result = ps2.executeUpdate();
-                                         if(result>0){                                                         
+                                         if(result>0){       
+                                                    descripciondelosprouductosparaelticketdeventa(id_de_la_venta_incrementable); //DATOS PARA EL TICKET DE VENTA
                                 JOptionPane.showMessageDialog(null,"Venta realizada con descuento");
                                              accionesdespuesderealizarcualquierventa();
                                          }
@@ -5636,9 +5647,7 @@ if (choice == JOptionPane.YES_OPTION){
                                     PreparedStatement ps2 = ca.prepareStatement ("UPDATE descripcion_de_venta SET estado= '"+estadorealizado+"' WHERE id_venta='"+id_de_la_venta_incrementable+"'");
                                    int resultado=  ps2.executeUpdate();
                                      if(resultado>0){  
-                                         id_max_de_venta();
-                                         descripciondeproductosenbasealnumerodeventa(id_de_la_venta_incrementable);
-                                         
+                                         descripciondelosprouductosparaelticketdeventa(id_de_la_venta_incrementable);//DATOS PARA EL TICKET DE VENTA          
                                 JOptionPane.showMessageDialog(null,"Venta realizada");
                                          accionesdespuesderealizarcualquierventa();
                                      }
@@ -5989,7 +5998,6 @@ get_id_usuario();// 255 -280
 
     private void salirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salirActionPerformed
         calculadora.setVisible(false);
-        
     }//GEN-LAST:event_salirActionPerformed
  
     public void agregarpiezasaventa(String nombredepieza){
@@ -6050,6 +6058,7 @@ get_id_usuario();// 255 -280
         JOptionPane.showMessageDialog(null, e, "Advertencia", JOptionPane.PLAIN_MESSAGE);    
     }
     }
+       
         
         public void descripciondeproductosenbasealnumerodeventaporcreditopendiente(int numerodeventa){
         Object[] columna = new Object[4];  //crear un obj con el nombre de colunna
