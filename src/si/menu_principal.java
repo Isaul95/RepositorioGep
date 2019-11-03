@@ -2727,7 +2727,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         jButton5.setBackground(new java.awt.Color(0, 148, 204));
         jButton5.setFont(new java.awt.Font("Tahoma", 1, 22)); // NOI18N
         jButton5.setForeground(new java.awt.Color(255, 255, 255));
-        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/cancelar2.png"))); // NOI18N
+        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/cancelar1.png"))); // NOI18N
         jButton5.setText("Limpiar venta");
         jButton5.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton5.setVerticalAlignment(javax.swing.SwingConstants.TOP);
@@ -5496,7 +5496,6 @@ if (choice == JOptionPane.YES_OPTION){
     }//GEN-LAST:event_jButton5MouseClicked
 
     public void accionesdespuesderealizarcualquierventa(){
-        
         descuentodepollo();
                                 get_id_usuario();
                                 totaldelasventasdehoy(); // PARA LA SUMA DE LOS TOTALES DE LA VENTA
@@ -5701,9 +5700,9 @@ get_id_usuario();// 255 -280
                                     id_max_de_venta();
                                     PreparedStatement ps2 = ca.prepareStatement ("UPDATE descripcion_de_venta SET estado= '"+creditopendiente+"',nombre_credito='"+nombre+"' WHERE id_venta='"+id_de_la_venta_incrementable+"'");
                                     ps2.executeUpdate();
-                                   accionesdespuesderealizarcualquierventa();
                                     JOptionPane.showMessageDialog(null, "Venta a credito agregada");
                                     accionesdespuesderealizarcualquierventa();
+                                   
                                 }
                                 catch(Exception ex){
                                     JOptionPane.showMessageDialog(null, "Error en venta" + ex.getMessage());
