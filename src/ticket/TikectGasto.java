@@ -6,9 +6,9 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.JOptionPane;
 
-public class TikectGasto {
+public class TikectGasto{
    
-    public void TikectGasto(float cantidad, String descripcion, String total){
+    public void TikectGasto(float cantidad, String descripcion, String totalmonto){
        
         Date date = new Date();
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -25,29 +25,28 @@ public class TikectGasto {
           String impra = "POS-58";
 
         // Se llama al metodo para imprimir una cadena
-         auxs+= "GASTO\n\n";
-         auxs+= "MCS Developers GI\n";
-         auxs+= "Altamirano No 8-B\n";
-         auxs+= "Iguala de la Independencia\n";
+         auxs+= "GASTO\n\n";  System.out.println("GASTO\n\n");
+         auxs+= "MCS Developers GI\n"; System.out.println("MCS Developers GI\n");
+         auxs+= "Altamirano No 8-B\n"; System.out.println("Altamirano No 8-B\n");
+         auxs+= "Iguala de la Independencia\n"; System.out.println("Iguala de la Independencia\n");
         //impServicio.printCadena(impra, "Folio: " + folio + "\n");
+        System.out.println("Fecha: " + dateFormat.format(date) + " Hora: " + hourFormat.format(date) + "\n");
          auxs+= "Fecha: " + dateFormat.format(date) + " Hora: " + hourFormat.format(date) + "\n";
-         auxs+= "==========================================\n";
-         auxs+= "Cantidad   Descripcion          Total\n";
-         auxs+= "==========================================\n";
-
-        
-    
-        
+        System.out.println("==========================================\n");
+         auxs+= "==========================================\n";       
+         auxs+= "Cantidad   Descripcion          Total\n"; System.out.println("Cantidad   Descripcion          Total\n");
+      System.out.println("==========================================\n");
+         auxs+= "==========================================\n";                   
             if (descripcion.length() > 20) { // si la descripcion_producto es mayor a 17 la corta
                 descripcion = descripcion.substring(0, 17);
             }
             // Se formatea la cadena a imprimir con String.format para varios string
-             auxs+= String.format("%-10s" + "$%-10s" + "$%-10s", cantidad, descripcion, total);
-             auxs+= "\n";
-        
-        
-         auxs+= "\n==========================================\n";
-         auxs+= "    Gasto      \n MCS Developer \n\n\n\n\n";// Varios saltos para no cortar antes
+             auxs+= String.format("%-10s" + "%-21s" + "%-10s", cantidad, descripcion, totalmonto);
+ System.out.println(String.format("%-10s" + "%-21s" + "%-10s", cantidad, descripcion, totalmonto));
+             auxs+= "\n";            
+         auxs+= "\n==========================================\n";  System.out.println("\n==========================================\n");  
+       auxs+= "    Gasto      \n MCS Developer \n\n\n\n\n";// Varios saltos para no cortar antes 
+  System.err.println("    Gasto      \n MCS Developer \n\n\n\n\n");       
          
          try {
             impServicio.printCadena(impra, auxs);

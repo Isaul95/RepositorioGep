@@ -163,10 +163,8 @@ Statement sent;
         JOptionPane.showMessageDialog(null, e, "Advertencia", JOptionPane.PLAIN_MESSAGE);    
     }
     }
-    
-    
-    
-     public void llenartablaidventasconidrealizados(){ // recibe como parametro 
+         
+           public void llenartablaidventasconidrealizados(){ // recibe como parametro 
          Object[] columna = new Object[3];  //crear un obj con el nombre de colunna
             Connection ca= cc.conexion(); // CONEXION DB 
               DefaultTableModel modeloTE = new DefaultTableModel(); 
@@ -194,6 +192,30 @@ Statement sent;
             }
           jTable2.setModel(modeloTE);  // add modelo ala tabla 
         
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(null, e, "Advertencia", JOptionPane.PLAIN_MESSAGE);    
+    }
+}
+    
+    
+    
+     public void total_pagoycambiopararelticket(int id){ // recibe como parametro 
+         Object[] columna = new Object[3];  //crear un obj con el nombre de colunna
+  
+        try {
+         String sSQL = "SELECT id_venta, total, pago, cambio, totalcondescuento,FROM venta WHERE estado_venta='"+estadorealizado+"' AND fecha_reporte = '"+fecha()+"' ";
+                 //"SELECT `nombre_producto`, `cantidad`, `precio_unitario`, venta.fecha_reporte FROM descripcion_de_venta inner join venta on descripcion_de_venta.`id_venta` = venta.id_venta WHERE fecha_reporte = CURDATE() ORDER BY `cantidad` DESC";
+         
+         
+                 
+        PreparedStatement ps = ca.prepareStatement(sSQL);       
+        ResultSet rs = ps.executeQuery(sSQL);
+            while (rs.next()) {
+                columna[0] = rs.getInt(1);
+                columna[1] = rs.getFloat(2);
+                 columna[2] = rs.getString(3);
+                //columna[5] = rs.getString("nombre");                
+          }  
     } catch (Exception e) {
         JOptionPane.showMessageDialog(null, e, "Advertencia", JOptionPane.PLAIN_MESSAGE);    
     }
@@ -5247,7 +5269,10 @@ agregarpiezasaventa(pollocrudo.getValueAt(fila,0).toString());
                                     id_max_de_venta();
                                     PreparedStatement ps2 = ca.prepareStatement ("UPDATE descripcion_de_venta SET estado= '"+estadorealizado+"' WHERE id_venta='"+id_de_la_venta_incrementable+"'");
                                    int resultado=  ps2.executeUpdate();
-                                     if(resultado>0){                                       
+                                     if(resultado>0){  
+                                         id_max_de_venta();
+                                         descripciondeproductosenbasealnumerodeventa(id_de_la_venta_incrementable);
+                                         
                                 JOptionPane.showMessageDialog(null,"Venta realizada");
                                          accionesdespuesderealizarcualquierventa();
                                      }
