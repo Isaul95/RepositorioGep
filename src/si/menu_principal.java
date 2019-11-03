@@ -132,7 +132,7 @@ try {
             cantidaddecadaidenturno.add(0, rs.getFloat(2));
             }
   regresar_cantidades_enturno_por_error_de_usuario();//SE REGRESAN LAS CANTIDADES
-  borrarventasenestadoenturnoporerrordeusuario();//SE BORRA DE DESCRIPCION DE VENTA
+  borrarventasenestadoenturnoporerrordeusuario_limpiarventa_o_cerrarsesion();//SE BORRA DE DESCRIPCION DE VENTA
      } catch (SQLException ex) {
             Logger.getLogger(menu_principal.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(null, "No se pudo mostrar ningun dato porque tu consulta está mal");
@@ -165,7 +165,7 @@ try {
        }//FIN DEL  FOR
   }    
     
-     public void borrarventasenestadoenturnoporerrordeusuario(){    
+     public void borrarventasenestadoenturnoporerrordeusuario_limpiarventa_o_cerrarsesion(){    
          id_max_de_venta();
      try{
             String sql = "DELETE from descripcion_de_venta where id_venta= '"+id_de_la_venta_incrementable+"' and fecha= '"+fecha()+"' and estado= '"+estadoenturno+"' ";
@@ -1710,7 +1710,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
             while(rs.next()){        
             totalcomprobacion=Integer.parseInt(rs.getString(5));
             }
-            if(totalcomprobacion>0||totalcomprobacion==0||totalcomprobacion<0){
+            if(totalcomprobacion>0){
                 //PRIMERO, CUANDO ES MAYOR A 0, QUIERE DECIR QUE LA VENTA ANTERIOR SE REALIZO
                 //SEGUNDO, CUANDO LA VENTA ES IGUAL A 0 SE CANCELO
                 //TERCERO, CUANDO TIENE TOTAL NEGATIVO SIGNIFICA QUE ES UNA VENTA A CREDITO PENDIENTE POR PAGAR
@@ -1878,7 +1878,6 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         jLabel31 = new javax.swing.JLabel();
         jLabel30 = new javax.swing.JLabel();
         jLabel32 = new javax.swing.JLabel();
-        jButton5 = new javax.swing.JButton();
         totalcondescuento = new javax.swing.JLabel();
         jLabel61 = new javax.swing.JLabel();
         descuentolabel = new javax.swing.JLabel();
@@ -1927,6 +1926,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         listo = new javax.swing.JButton();
         cantidad = new javax.swing.JTextField();
         salir = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
         agregar_proveedor = new javax.swing.JPanel();
         agregarpro = new javax.swing.JButton();
         jLabel12 = new javax.swing.JLabel();
@@ -2234,26 +2234,6 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         jLabel32.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/simbolodolar.png"))); // NOI18N
         jLabel32.setText("  Pagó:");
         jPanel10.add(jLabel32, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 90, 130, -1));
-
-        jButton5.setBackground(new java.awt.Color(0, 148, 204));
-        jButton5.setFont(new java.awt.Font("Tahoma", 1, 22)); // NOI18N
-        jButton5.setForeground(new java.awt.Color(255, 255, 255));
-        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/cancelar2.png"))); // NOI18N
-        jButton5.setText("Cancelar");
-        jButton5.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton5.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-        jButton5.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButton5.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton5MouseClicked(evt);
-            }
-        });
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
-            }
-        });
-        jPanel10.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, 180, 100));
 
         totalcondescuento.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
         totalcondescuento.setForeground(new java.awt.Color(255, 255, 255));
@@ -2743,6 +2723,26 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         );
 
         venta.add(calculadora, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 130, 170, 260));
+
+        jButton5.setBackground(new java.awt.Color(0, 148, 204));
+        jButton5.setFont(new java.awt.Font("Tahoma", 1, 22)); // NOI18N
+        jButton5.setForeground(new java.awt.Color(255, 255, 255));
+        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/cancelar2.png"))); // NOI18N
+        jButton5.setText("Limpiar venta");
+        jButton5.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton5.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        jButton5.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButton5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton5MouseClicked(evt);
+            }
+        });
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+        venta.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 560, 190, 100));
 
         Proveedores9.addTab("      Venta      ", venta);
 
@@ -4263,7 +4263,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         Jtable_productosmasven.setRowHeight(20);
         jScrollPane5.setViewportView(Jtable_productosmasven);
 
-        jPanel25.add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 1230, 300));
+        jPanel25.add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, 1230, 300));
 
         buscarproductospordia.setBackground(new java.awt.Color(0, 148, 204));
         buscarproductospordia.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -4460,35 +4460,22 @@ public void obtener_id_del_proveedor(String name){
       }catch(Exception e){                                             
       }
 }//BOTON CERRAR SESION, PERO COMPRUEBA SI HAY UNA VENTA PEN PARA CANCELAR EN CASO DE SALIR
-    public void cerrandosesion(){
-          //salirrr              
-          
-          if(tablaventaactiva==true&&(storage.size())>0){
-       
-            int decision=JOptionPane.showConfirmDialog(null,"¿Desea continuar?","Advertencia: Tiene una venta inconclusa",JOptionPane.CANCEL_OPTION);
-            if(decision==0){ //opción si
-                
+    public void cerrandosesion_o_limpiandoventa(){
                 regresarproductos_a_inventariodescontandotodaslaspiezas(); //pone en estatus de cancelada la venta inconclusa
                 descuentodepollo();
-                status_cancelado();  //pone en estatus de cancelada la venta inconclusa y cada producto que lo compone
-                get_id_usuario(); //vuelve a asiganr otro id_venta para que así no se repita con el id anterior que tuvo una venta cancelada
-                block_unlock=false; //se bloquea la opcion de poder agregar otro id_usuario a la tabla de venta y así abrir una nueva venta
-                limpiardatosdeventa();  //limpia en su mayoria los campos de texto que pertenezcan al apartado venta
+                //EL SIGUIENTE METODO LIMPIA LA TABLA VENTA YA UNA VEZ QUE SE REGRESARON LAS PIEZAS
+            borrarventasenestadoenturnoporerrordeusuario_limpiarventa_o_cerrarsesion();
+            /* ESTOS 3 METODOS
+            1.- AGREGA EL STATUS CANCELADO A LA TABLA VENTA, OSEA PONE TODOS LOS TOTALES EN 0
+            2.- EN EL PUNTO 1, ACTIVA LA VARIABLE block_unlock=true; PARA QUE EN EL METODO GET ID USUARIO INCREMENTE UN NUEVO ID
+            3.- Y POSTERIOR SE DESACTIVA LA VARIABLE POR QUE YA SE INCREMENTO UN NUEVO ID
+            status_cancelado();  //pone en estatus de cancelada la venta inconclusa y cada producto que lo compone
+            get_id_usuario(); //vuelve a asiganr otro id_venta para que así no se repita con el id anterior que tuvo una venta cancelada
+            block_unlock=false; //se bloquea la opcion de poder agregar otro id_usuario a la tabla de venta y así abrir una nueva venta
+            */
+            limpiardatosdeventa();  //limpia en su mayoria los campos de texto que pertenezcan al apartado venta
                 tablaventa.setVisible(false); //Desaparece la tabla
-                JOptionPane.showMessageDialog(null,"Nos vemos pronto","Saliendo del sistema...",JOptionPane.INFORMATION_MESSAGE);
-                new SI_Inicio().setVisible(true);
-               this.setVisible(false);
-             }
-       }
-       else{
-    
-        int decision=JOptionPane.showConfirmDialog(null,"¿Desea continuar?","Saliendo del sistema",JOptionPane.CANCEL_OPTION);
-            if(decision==0){
-                JOptionPane.showMessageDialog(null,"Nos vemos pronto","Saliendo del sistema...",JOptionPane.INFORMATION_MESSAGE);
-                new SI_Inicio().setVisible(true);
-               this.setVisible(false);
-            }
-       }
+               storage.clear();
     }//BOTON CERRAR SESION, PERO COMPRUEBA SI HAY UNA VENTA PEN PARA CANCELAR EN CASO DE SALIR
     
     private void modificarusuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modificarusuariosActionPerformed
@@ -4572,11 +4559,37 @@ public void obtener_id_del_proveedor(String name){
     }//GEN-LAST:event_buscarproductosfechaActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        cerrandosesion();
+      if(tablaventaactiva==true&&(storage.size())>0){
+            int decision=JOptionPane.showConfirmDialog(null,"¿Desea continuar?","Advertencia: Tiene una venta inconclusa",JOptionPane.CANCEL_OPTION);
+            if(decision==0){ //opción si
+                cerrandosesion_o_limpiandoventa();
+             }
+       }
+       else{
+        int decision2=JOptionPane.showConfirmDialog(null,"¿Desea continuar?","Saliendo del sistema",JOptionPane.CANCEL_OPTION);
+            if(decision2==0){
+                JOptionPane.showMessageDialog(null,"Nos vemos pronto","Saliendo del sistema...",JOptionPane.INFORMATION_MESSAGE);
+                new SI_Inicio().setVisible(true);
+               this.setVisible(false);
+            }
+       }
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        cerrandosesion();
+      if(tablaventaactiva==true&&(storage.size())>0){
+            int decision=JOptionPane.showConfirmDialog(null,"¿Desea continuar?","Advertencia: Tiene una venta inconclusa",JOptionPane.CANCEL_OPTION);
+            if(decision==0){ //opción si
+                cerrandosesion_o_limpiandoventa();
+             }
+       }
+       else{
+        int decision2=JOptionPane.showConfirmDialog(null,"¿Desea continuar?","Saliendo del sistema",JOptionPane.CANCEL_OPTION);
+            if(decision2==0){
+                JOptionPane.showMessageDialog(null,"Nos vemos pronto","Saliendo del sistema...",JOptionPane.INFORMATION_MESSAGE);
+                new SI_Inicio().setVisible(true);
+               this.setVisible(false);
+            }
+       }
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void buscarventasporfechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarventasporfechaActionPerformed
@@ -4605,7 +4618,20 @@ public void obtener_id_del_proveedor(String name){
     }//GEN-LAST:event_veridventasActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        cerrandosesion();
+       if(tablaventaactiva==true&&(storage.size())>0){
+            int decision=JOptionPane.showConfirmDialog(null,"¿Desea continuar?","Advertencia: Tiene una venta inconclusa",JOptionPane.CANCEL_OPTION);
+            if(decision==0){ //opción si
+                cerrandosesion_o_limpiandoventa();
+             }
+       }
+       else{
+        int decision2=JOptionPane.showConfirmDialog(null,"¿Desea continuar?","Saliendo del sistema",JOptionPane.CANCEL_OPTION);
+            if(decision2==0){
+                JOptionPane.showMessageDialog(null,"Nos vemos pronto","Saliendo del sistema...",JOptionPane.INFORMATION_MESSAGE);
+                new SI_Inicio().setVisible(true);
+               this.setVisible(false);
+            }
+       }
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void update_usersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_update_usersActionPerformed
@@ -4682,7 +4708,20 @@ public void obtener_id_del_proveedor(String name){
     }//GEN-LAST:event_user_UserUpActionPerformed
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
-       cerrandosesion();
+       if(tablaventaactiva==true&&(storage.size())>0){
+            int decision=JOptionPane.showConfirmDialog(null,"¿Desea continuar?","Advertencia: Tiene una venta inconclusa",JOptionPane.CANCEL_OPTION);
+            if(decision==0){ //opción si
+                cerrandosesion_o_limpiandoventa();
+             }
+       }
+       else{
+        int decision2=JOptionPane.showConfirmDialog(null,"¿Desea continuar?","Saliendo del sistema",JOptionPane.CANCEL_OPTION);
+            if(decision2==0){
+                JOptionPane.showMessageDialog(null,"Nos vemos pronto","Saliendo del sistema...",JOptionPane.INFORMATION_MESSAGE);
+                new SI_Inicio().setVisible(true);
+               this.setVisible(false);
+            }
+       }
     }//GEN-LAST:event_jButton10ActionPerformed
 
     private void ReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReportesActionPerformed
@@ -5051,7 +5090,20 @@ public void obtener_id_del_proveedor(String name){
     }//GEN-LAST:event_pronameFocusGained
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        cerrandosesion();
+       if(tablaventaactiva==true&&(storage.size())>0){
+            int decision=JOptionPane.showConfirmDialog(null,"¿Desea continuar?","Advertencia: Tiene una venta inconclusa",JOptionPane.CANCEL_OPTION);
+            if(decision==0){ //opción si
+                cerrandosesion_o_limpiandoventa();
+             }
+       }
+       else{
+        int decision2=JOptionPane.showConfirmDialog(null,"¿Desea continuar?","Saliendo del sistema",JOptionPane.CANCEL_OPTION);
+            if(decision2==0){
+                JOptionPane.showMessageDialog(null,"Nos vemos pronto","Saliendo del sistema...",JOptionPane.INFORMATION_MESSAGE);
+                new SI_Inicio().setVisible(true);
+               this.setVisible(false);
+            }
+       }
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void desproKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_desproKeyTyped
@@ -5415,23 +5467,28 @@ if (choice == JOptionPane.YES_OPTION){
     }//GEN-LAST:event_AgregarGastosActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        cerrandosesion();
+           if(tablaventaactiva==true&&(storage.size())>0){
+            int decision=JOptionPane.showConfirmDialog(null,"¿Desea continuar?","Advertencia: Tiene una venta inconclusa",JOptionPane.CANCEL_OPTION);
+            if(decision==0){ //opción si
+                cerrandosesion_o_limpiandoventa();
+             }
+       }
+       else{
+        int decision2=JOptionPane.showConfirmDialog(null,"¿Desea continuar?","Saliendo del sistema",JOptionPane.CANCEL_OPTION);
+            if(decision2==0){
+                JOptionPane.showMessageDialog(null,"Nos vemos pronto","Saliendo del sistema...",JOptionPane.INFORMATION_MESSAGE);
+                new SI_Inicio().setVisible(true);
+               this.setVisible(false);
+            }
+       }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // ************************  BTN CANCELARR   ***********************
         //ESTO ELIMINA TODA LA VENTA
         if(tablaventaactiva==true){
-
-            regresarproductos_a_inventariodescontandotodaslaspiezas(); //pone en estatus de cancelada la venta inconclusa
-            //y también el metodo de arriba regresa las piezas a la tabla piezas
-            descuentodepollo();
-            status_cancelado();  //pone en estatus de cancelada la venta inconclusa y cada producto que lo compone
-            get_id_usuario(); //vuelve a asiganr otro id_venta para que así no se repita con el id anterior que tuvo una venta cancelada
-            block_unlock=false; //se bloquea la opcion de poder agregar otro id_usuario a la tabla de venta y así abrir una nueva venta
-            limpiardatosdeventa();  //limpia en su mayoria los campos de texto que pertenezcan al apartado venta
-            tablaventa.setVisible(false); //Desaparece la tabla
-        }
+            cerrandosesion_o_limpiandoventa();
+         }
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton5MouseClicked
@@ -5646,6 +5703,7 @@ get_id_usuario();// 255 -280
                                     ps2.executeUpdate();
                                    accionesdespuesderealizarcualquierventa();
                                     JOptionPane.showMessageDialog(null, "Venta a credito agregada");
+                                    accionesdespuesderealizarcualquierventa();
                                 }
                                 catch(Exception ex){
                                     JOptionPane.showMessageDialog(null, "Error en venta" + ex.getMessage());
@@ -5916,8 +5974,7 @@ get_id_usuario();// 255 -280
            }
             }
             else{//No hay piezas suficientes para agregar el articulo a la venta
-                JOptionPane.showMessageDialog(null,"No tiene suficientes piezas para agregar el articulo:  "+nombredepieza+JOptionPane.ERROR_MESSAGE);
-                JOptionPane.showMessageDialog(null,"Las piezas disponibles en inventario son:  "+piezassuficientes);
+                JOptionPane.showMessageDialog(null,"No tienes suficientes piezas de "+nombredepieza+ " Las piezas disponibles en inventario son:  "+piezassuficientes,"Advertencia", JOptionPane.ERROR_MESSAGE);
             }
     }
     
