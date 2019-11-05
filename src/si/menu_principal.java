@@ -449,12 +449,12 @@ try {
         Pattern patGastos = Pattern.compile("^[0-9]+([.])?([0-9]+)?$");
         Matcher matGastos = patGastos.matcher(cantidaddelatabla);
 
-        if (matGastos.matches()&&!cantidaddelatabla.equals("")) {
+        if (matGastos.matches()&&!cantidaddelatabla.equals("")&&!cantidaddelatabla.equals("0")) {
             next = true;
 
         } else {
-            JOptionPane.showMessageDialog(null, "Solo Numeros");
-            
+            JOptionPane.showMessageDialog(null, "No puedes dejar vacio el campo ni meter un 0", "Advertencia", JOptionPane.INFORMATION_MESSAGE);
+            cantidad.setText("");
         }
         return next;
     }
@@ -1819,6 +1819,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         listo = new javax.swing.JButton();
         cantidad = new javax.swing.JTextField();
         salir = new javax.swing.JButton();
+        cero = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         agregar_proveedor = new javax.swing.JPanel();
         agregarpro = new javax.swing.JButton();
@@ -2456,6 +2457,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
 
         calculadora.setBackground(new java.awt.Color(0, 51, 102));
         calculadora.setForeground(new java.awt.Color(102, 102, 255));
+        calculadora.setLayout(null);
 
         borrar.setBackground(new java.awt.Color(0, 51, 102));
         borrar.setText("C");
@@ -2464,6 +2466,8 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
                 borrarActionPerformed(evt);
             }
         });
+        calculadora.add(borrar);
+        borrar.setBounds(120, 63, 38, 50);
 
         nueve.setBackground(new java.awt.Color(0, 51, 102));
         nueve.setText("9");
@@ -2472,6 +2476,8 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
                 nueveActionPerformed(evt);
             }
         });
+        calculadora.add(nueve);
+        nueve.setBounds(80, 64, 37, 50);
 
         ocho.setBackground(new java.awt.Color(0, 51, 102));
         ocho.setText("8");
@@ -2480,6 +2486,8 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
                 ochoActionPerformed(evt);
             }
         });
+        calculadora.add(ocho);
+        ocho.setBounds(40, 64, 40, 50);
 
         siete.setBackground(new java.awt.Color(0, 51, 102));
         siete.setText("7");
@@ -2488,6 +2496,8 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
                 sieteActionPerformed(evt);
             }
         });
+        calculadora.add(siete);
+        siete.setBounds(0, 64, 40, 50);
 
         cuatro.setBackground(new java.awt.Color(0, 51, 102));
         cuatro.setText("4");
@@ -2496,6 +2506,8 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
                 cuatroActionPerformed(evt);
             }
         });
+        calculadora.add(cuatro);
+        cuatro.setBounds(0, 114, 40, 60);
 
         cinco.setBackground(new java.awt.Color(0, 51, 102));
         cinco.setText("5");
@@ -2504,6 +2516,8 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
                 cincoActionPerformed(evt);
             }
         });
+        calculadora.add(cinco);
+        cinco.setBounds(40, 114, 40, 60);
 
         seis.setBackground(new java.awt.Color(0, 51, 102));
         seis.setText("6");
@@ -2512,6 +2526,8 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
                 seisActionPerformed(evt);
             }
         });
+        calculadora.add(seis);
+        seis.setBounds(80, 114, 40, 60);
 
         tres.setBackground(new java.awt.Color(0, 51, 102));
         tres.setText("3");
@@ -2520,6 +2536,8 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
                 tresActionPerformed(evt);
             }
         });
+        calculadora.add(tres);
+        tres.setBounds(80, 174, 40, 50);
 
         dos.setBackground(new java.awt.Color(0, 51, 102));
         dos.setText("2");
@@ -2528,6 +2546,8 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
                 dosActionPerformed(evt);
             }
         });
+        calculadora.add(dos);
+        dos.setBounds(40, 174, 37, 50);
 
         uno.setBackground(new java.awt.Color(0, 51, 102));
         uno.setText("1");
@@ -2536,6 +2556,8 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
                 unoActionPerformed(evt);
             }
         });
+        calculadora.add(uno);
+        uno.setBounds(0, 174, 40, 50);
 
         listo.setBackground(new java.awt.Color(0, 51, 105));
         listo.setText("¡LISTO!");
@@ -2544,6 +2566,8 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
                 listoActionPerformed(evt);
             }
         });
+        calculadora.add(listo);
+        listo.setBounds(0, 224, 120, 32);
 
         cantidad.setBackground(new java.awt.Color(0, 0, 0));
         cantidad.setFont(new java.awt.Font("Tahoma", 3, 18)); // NOI18N
@@ -2551,6 +2575,8 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         cantidad.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         cantidad.setBorder(null);
         cantidad.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        calculadora.add(cantidad);
+        cantidad.setBounds(0, 4, 152, 50);
 
         salir.setBackground(new java.awt.Color(0, 51, 102));
         salir.setForeground(new java.awt.Color(255, 0, 0));
@@ -2560,73 +2586,18 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
                 salirActionPerformed(evt);
             }
         });
+        calculadora.add(salir);
+        salir.setBounds(118, 118, 46, 80);
 
-        javax.swing.GroupLayout calculadoraLayout = new javax.swing.GroupLayout(calculadora);
-        calculadora.setLayout(calculadoraLayout);
-        calculadoraLayout.setHorizontalGroup(
-            calculadoraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, calculadoraLayout.createSequentialGroup()
-                .addContainerGap(118, Short.MAX_VALUE)
-                .addGroup(calculadoraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(salir)
-                    .addComponent(borrar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(14, 14, 14))
-            .addGroup(calculadoraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(calculadoraLayout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addGroup(calculadoraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(calculadoraLayout.createSequentialGroup()
-                            .addGroup(calculadoraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(siete, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(cuatro, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(calculadoraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(ocho, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(cinco, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(calculadoraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(nueve)
-                                .addComponent(seis, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGroup(calculadoraLayout.createSequentialGroup()
-                            .addComponent(uno, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(0, 0, 0)
-                            .addComponent(dos)
-                            .addGap(3, 3, 3)
-                            .addComponent(tres, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(listo, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(cantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGap(0, 18, Short.MAX_VALUE)))
-        );
-        calculadoraLayout.setVerticalGroup(
-            calculadoraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(calculadoraLayout.createSequentialGroup()
-                .addContainerGap(72, Short.MAX_VALUE)
-                .addComponent(borrar, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(salir, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(calculadoraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(calculadoraLayout.createSequentialGroup()
-                    .addGap(0, 4, Short.MAX_VALUE)
-                    .addComponent(cantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(10, 10, 10)
-                    .addGroup(calculadoraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(calculadoraLayout.createSequentialGroup()
-                            .addComponent(siete, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(0, 0, 0)
-                            .addComponent(cuatro, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(calculadoraLayout.createSequentialGroup()
-                            .addComponent(ocho, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(0, 0, 0)
-                            .addComponent(cinco, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(calculadoraLayout.createSequentialGroup()
-                            .addComponent(nueve, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(0, 0, 0)
-                            .addComponent(seis, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(calculadoraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(uno, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(dos, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(tres, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(listo)
-                    .addGap(0, 4, Short.MAX_VALUE)))
-        );
+        cero.setBackground(new java.awt.Color(0, 51, 102));
+        cero.setText("0");
+        cero.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ceroActionPerformed(evt);
+            }
+        });
+        calculadora.add(cero);
+        cero.setBounds(120, 200, 40, 60);
 
         venta.add(calculadora, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 130, 170, 260));
 
@@ -5884,6 +5855,18 @@ get_id_usuario();// 255 -280
     private void salirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salirActionPerformed
         calculadora.setVisible(false);
     }//GEN-LAST:event_salirActionPerformed
+
+    private void ceroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ceroActionPerformed
+       String one="0";
+        if(!cantidad.equals("")){
+
+            cantidad.setText(cantidad.getText()+one);
+        }
+        else {
+            cantidad.setText(one);
+            cantidad=cantidad;
+        }
+    }//GEN-LAST:event_ceroActionPerformed
  
     public void agregarpiezasaventa(String nombredepieza){
           /* ******************** BOTON DE ADD NUEVO PRODUCTO PARA SU VENTA ******************** */
@@ -6078,6 +6061,7 @@ SI cc= new SI();
     private javax.swing.JPanel calculadora;
     private javax.swing.JLabel cambiocombobox;
     public static javax.swing.JTextField cantidad;
+    private javax.swing.JButton cero;
     private javax.swing.JButton cinco;
     private javax.swing.JLabel conteodelasventasrealizadas;
     private javax.swing.JButton cuatro;

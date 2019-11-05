@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 import static si.Apertura.fecha;
 import static si.Apertura.monto;
@@ -31,7 +33,8 @@ public class Pantalla_CorteCaja extends javax.swing.JFrame  implements Runnable{
   ticketpollocrudosolopiezas  ticketpollocrudosolopiezas;
   tikectprocesados tikectprocesados;
   ticketprocesadospiezas ticketprocesadospiezas;
-float ventasdeldia, gastosdeldia, montodeapertura, diferencia, diferenciafinal, precio;
+  final float pagopollo=20*90, tacos=60, almuerzo=28;//datos para la tabla utilidad
+float diferenciaentablautilidad, utilidad, total_de_crudo, total_de_procesados, ventasdeldia, gastosdeldia, montodeapertura, diferencia, diferenciafinal, precio;
 int apertura;
 String  usuarioname=SI_Inicio.text_user.getText();
 int  id_usuario=Integer.parseInt(SI_Inicio.iduser.getText());
@@ -397,8 +400,24 @@ public void metodogastosdeldia(){
       }catch(Exception e){                                             
       }
  }
+  public boolean validarFormulario(String cantidaddecorte) { // VALIDACION DE TXT MONTO
+        boolean next = false;
+        Pattern patGastos = Pattern.compile("^[0-9]+([.])?([0-9]+)?$");
+        Matcher matGastos = patGastos.matcher(cantidaddecorte);
+
+        if (matGastos.matches()&&!cantidaddecorte.equals("")&&!cantidaddecorte.equals("0")) {
+            next = true;
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Solo escribe numeros, así como no puede quedar vacio", "Advertencia", JOptionPane.INFORMATION_MESSAGE);
+            monto.setText("");
+        }
+        return next;
+    }
     
     private void Corte_btnImprimirticketActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Corte_btnImprimirticketActionPerformed
+            boolean pass2 = validarFormulario(monto.getText());
+                 if(pass2){//ESTO VALIDA QUE EL TEXTO ESCRITO NO TENGA INCOHERENCIAS   
                  int decision=JOptionPane.showConfirmDialog(null,"¿Desea continuar?","UNA VEZ REALIZADO EL CORTE, SOLO EL ADMIN PUEDE ENTRAR",JOptionPane.CANCEL_OPTION);
             if(decision==0){// SI SE ELIGE QUE SI, PROCEDEMOS A REALIZAR EL CORTE E IMPRIMIR LOS 5 TICKET
                 //QUE SON, 1.- CORTE DE CAJA, 2.- CRUDO, PECHUGA PIERNA, ALA Y MUSLO, 3.- CRUDO DEL RESTO PERO EN CANTIDADES
@@ -454,6 +473,7 @@ public void metodogastosdeldia(){
       sobrantedepollocrudodeldiaparaticketperosolocantidades();//SOBRANTE DE TODO MENOS PECHUGA, PIERNA ALA, MUSLO, VA PARA TICKET
       obteniendolosvaloresdelcortedecajadeldiadehoyparaelticket();//LOS DATOS DEL TICKET CORTE DE CAJA                                           
                 
+      llenar_tabla_utilidad(gastosdeldia, ventasdeldia);
             vaciartodoelpollococidoenprocesados();
             vaciartodoelpollocrudoendevolucioncrudo();
            vaciartodoeninventario();//UNA VEZ IMPRESO LOS 5 TICKETS SE VACIA TODO EL INVENTARIO
@@ -474,10 +494,53 @@ else{//CUANDO EL MONTO ESTA VACIO
 }// FIN DE CUANDO EL MONTO ESTA VACIO
                 
             }//SI SE ELIGE QUE SI, PROCEDEMOS A REALIZAR EL CORTE E IMPRIMIR LOS 5 TICKET
-            
-        
+                 }            
     }//GEN-LAST:event_Corte_btnImprimirticketActionPerformed
+public void total_del_día_devolucion_crudo(){
+    try{
+        String sql = "select  SUM(total) from devolucion_crudo";
+        PreparedStatement ps= ca.prepareStatement(sql);
+        rs= ps.executeQuery();
+        if(rs.next()){
+            total_de_crudo=rs.getFloat("SUM(total)");
+        }
+        
+    }catch(Exception j){
+        
+    }
+}
+   
+public void total_del_día_procesados(){
+    try{
+        String sql = "select  SUM(total) from procesados";
+        PreparedStatement ps= ca.prepareStatement(sql);
+        rs= ps.executeQuery();
+        if(rs.next()){
+            total_de_procesados=rs.getFloat("SUM(total)");
+        }
+        
+    }catch(Exception j){
+        
+    }
+}
 
+ public void llenar_tabla_utilidad(float gastosdeldia, float ventasdeldia){
+    total_del_día_devolucion_crudo();
+    JOptionPane.showMessageDialog(null,"TOTAL DE CRUDO "+total_de_crudo);
+    total_del_día_procesados();
+    JOptionPane.showMessageDialog(null,"TOTAL DE PROCESADOS "+total_de_procesados);
+     JOptionPane.showMessageDialog(null,"TOTAL DE PAGO POLLO"+pagopollo);
+    JOptionPane.showMessageDialog(null,"TOTAL DE TACOS"+tacos);
+    JOptionPane.showMessageDialog(null,"TOTAL DE ALMUERZO"+almuerzo);
+    JOptionPane.showMessageDialog(null,"TOTAL DE GASTOS EN EL DIA"+gastosdeldia);
+    JOptionPane.showMessageDialog(null,"TOTAL DE VENTAS DEL DIA "+ventasdeldia);
+    JOptionPane.showMessageDialog(null,"TOTAL DE ALMUERZO "+almuerzo);
+           diferenciaentablautilidad=(total_de_crudo+tacos-total_de_procesados-almuerzo);
+            JOptionPane.showMessageDialog(null,"TOTAL DIFERENCIA"+diferenciaentablautilidad);
+           utilidad=(ventasdeldia+total_de_crudo+tacos-total_de_procesados-pagopollo-almuerzo);
+            JOptionPane.showMessageDialog(null,"TOTAL DE UTILIDAD "+utilidad);
+          
+ }
     public void insertaradevoluciondecrudopiezasycantidades(){//AQUI SE INSERTAN LAS PIEZAS Y CANTIDADES DE PECHUGA, MUSLO ALA Y PIERNA
          ArrayList cantidades = new  ArrayList();
          ArrayList nombres = new  ArrayList();
