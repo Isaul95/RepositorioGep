@@ -6,10 +6,9 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.JOptionPane;
 
-
-public class ticketpollocrudo {          
+public class PolloCrudoBienTocketc {
     
-       public void ticketpollocrudo(Object nombre, Object piezas) {
+       public void PolloCrudoBienTocketc(Object nombre, Object piezas) {
        
         Date date = new Date();
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -46,6 +45,5 @@ System.err.println("    SOBRANTE DE POLLO CRUDO       \n\n\n\n\n");
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "El tikect no se pudo imprimir","warning",JOptionPane.WARNING_MESSAGE);
         }
-    }  
-    
+    }
 }
