@@ -3,12 +3,13 @@ package ticket;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.JOptionPane;
 
 public class PolloCrudoBienTocketc {
     
-       public void PolloCrudoBienTocketc(Object nombre, Object piezas) {
+       public void PolloCrudoBienTocketc(ArrayList pollocrudonombre, ArrayList pollocrudopieza, float totaldecrudo){
        
         Date date = new Date();
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -22,20 +23,21 @@ public class PolloCrudoBienTocketc {
 
         // Se llama al metodo para imprimir una cadena
          auxs+= "SOBRANTE DE POLLO CRUDO\n";          System.out.println("SOBRANTE DE POLLO CRUDO\n");
-         auxs+= "MCS Developers GI\n";                  System.out.println("MCS Developers GI\n");
+         auxs+= "SOBRO POLLO CRUDO\n";                  System.out.println("SOBRO POLLO CRUDO\n");
          auxs+= "Altamirano No 8-B\n";                  System.out.println("Altamirano No 8-B\n");
          auxs+= "Iguala de la Independencia\n";         System.out.println("Iguala de la Independencia\n");
        auxs+= "Fecha: " + dateFormat.format(date) + " Hora: " + hourFormat.format(date) + "\n";  System.out.println("Fecha: " + dateFormat.format(date) + " Hora: " + hourFormat.format(date) + "\n");
         System.out.println("==========================================\n");  auxs+= "==========================================\n";                
-         auxs+= "Nombre          Piezas\n";           System.out.println("Nombre          Piezas\n");      
+         auxs+= "Nombre           Piezas\n";           System.out.println("Nombre           Piezas\n");      
          auxs+= "==========================================\n";   System.out.println("==========================================\n");                 
-           
-            // Se formatea la cadena a imprimir con String.format para varios string
-         auxs+= String.format("%-20s" + "%-8s", nombre, piezas); System.out.println(String.format("%-20s" + "%-8s", nombre, piezas));
-             auxs+= "\n";            
+         for(int n=0;n<=pollocrudonombre.size()-1;n++){                 
+            auxs+= String.format("%-20s" + "%-8s", pollocrudonombre.get(n), pollocrudopieza.get(n)); System.out.println(String.format("%-20s" + "%-8s", pollocrudonombre.get(n), pollocrudopieza.get(n)));
+             auxs+= "\n";   
+        }                  
        auxs+= "\n==========================================\n";  System.out.println("\n==========================================\n");  
-       auxs+= "    SOBRANTE DE POLLO CRUDO       \n\n\n\n\n";// Varios saltos para no cortar antes 
-System.err.println("    SOBRANTE DE POLLO CRUDO       \n\n\n\n\n");       
+       
+       auxs+= String.format("      "+"TOTAL  :"+ "$" + totaldecrudo);    System.out.println(String.format("      "+"TOTAL  :"+ "$" + totaldecrudo));
+                  auxs+= "\n\n\n\n";  // saltos para k no lo corte luego
          
          try {
             impServicio.printCadena(impra, auxs);

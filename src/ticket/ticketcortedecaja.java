@@ -27,13 +27,13 @@ import javax.swing.JOptionPane;
         auxs+= "Iguala de la Independencia\n";     System.out.println("Iguala de la Independencia\n");
         auxs+= "Fecha: " + dateFormat.format(date) + " Hora: " + hourFormat.format(date) + "\n";  System.out.println("Fecha: " + dateFormat.format(date) + " Hora: " + hourFormat.format(date) + "\n");
         auxs+= "==========================================\n";  System.out.println("==========================================\n");            
-        auxs+= "TOTAL DE VENTAS:         $ "+venta+"\n";        System.out.println("TOTAL DE VENTAS:         $ "+venta+"\n");      
-        auxs+= "TOTAL DE GASTOS          $ "+gasto+"\n";        System.out.println("TOTAL DE GASTOS          $ "+gasto+"\n");        
-        auxs+= "TOTAL DE EFECTIVO:       $ "+ventasmenosgastos+"\n";  System.out.println("TOTAL DE EFECTIVO:     $ "+ventasmenosgastos+"\n");                   
-        auxs+= "TOTAL DE ENTREGADO:      $ "+monto+"\n";        System.out.println("TOTAL DE ENTREGADO:      $ "+monto+"\n");
+        auxs+= "TOTAL DE VENTAS:      |   $ "+venta+"\n";             System.out.println("TOTAL DE VENTAS:      |   $ "+venta+"\n");      
+        auxs+= "TOTAL DE GASTOS       |   $ "+gasto+"\n";             System.out.println("TOTAL DE GASTOS       |   $ "+gasto+"\n");        
+        auxs+= "TOTAL DE EFECTIVO:    |   $ "+ventasmenosgastos+"\n"; System.out.println("TOTAL DE EFECTIVO:    |   $ "+ventasmenosgastos+"\n");                   
+        auxs+= "TOTAL DE ENTREGADO:   |   $ "+monto+"\n";             System.out.println("TOTAL DE ENTREGADO:   |   $ "+monto+"\n");
         auxs+= "==========================================\n";  System.out.println("==========================================\n");       
         auxs+= "DIFERENCIA:     $ "+String.format("%.20f", diferencia)+"\n";   System.out.println("DIFERENCIA:     $ "+String.format("%.10f", diferencia)+"\n");           
-        
+        auxs+= "\n\n\n"; // SALTOS PARA K NO LO CORTE LUEGO
         
        try {
             impServicio.printCadena(impra, auxs);
