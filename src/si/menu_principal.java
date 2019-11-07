@@ -42,16 +42,20 @@ import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import si.Pantalla_Gastos;
 import static si.Pantalla_Gastos.fecha;
+import ticket.ticketventacondescuento;
+import ticket.ticketventa;
+
 
 
 public final class menu_principal extends javax.swing.JFrame implements Runnable{
                   private final String logotipo = "/Reportes/logo1.jpeg"; // icono de DATAMAX
-                                     
+   ticketventacondescuento mandardatosaticketventacondescuento;  
+   ticketventa mandardatosticketventa;
     String nombredepiezaseleccionada, hora,minutos,segundos, fechadesde="",fechahasta="", fechaparaventasdesde="", fechaparaventashasta="";
     Thread hilo;
 Statement sent;  
   ResultSet rs;      
-  
+  float totalticket, pagoticket, cambioticket, porcentajedescontadoticket, descuentoticket;
   float sumadetotalesdeventasdehoy, conteototaldeventas, conteodeventascanceladas;
      int  id_ventapencredito, evaluadordepiezaspares=0, evaluadordepiezasinpares=0, piezassuficientes, resultadoprimerproveedor, id_de_la_venta_incrementable,totalcomprobacion, primerventa, resultfirstselling, existencia;   
   int fila, id_proveedor,id_usuario,id_producto,id_venta,aux1,aux2,variablede0=0;
@@ -62,7 +66,12 @@ Statement sent;
                        double cantidaddemedio, cantidaddecuarto;
         ArrayList idsenturno = new ArrayList();
        ArrayList cantidaddecadaidenturno = new ArrayList();
-       
+
+       ArrayList nombreproductoticket = new ArrayList();
+ArrayList piezastcket = new ArrayList();
+ArrayList preciounitarioticket = new ArrayList();
+ArrayList importesticket = new ArrayList();
+
   boolean voyaagregar=false, voyaregresar=false, entero= false, medio=false, cuarto=false, descuentoactivo=false, suficientespiezas=true, block_unlock=true,tablaventaactiva=false, primerproducto=true, productoagregado=false, productorepetido=false;
       // String  usuarioname=SI_Inicio.text_user.getText(); //variable para obtener el nombre del usuario o administrador que ingreso al sistema
             String name, pollo_crudo="pollo crudo", estadoinactivo="Inactivo", estadoactivo="Activo", NoP="",estadocancelado= "Cancelada",estadorealizado="Realizada", estadoenturno="En turno", creditopendiente="Credito-pendiente", creditopagado="Credito-pagado", fechayhora="",fechasinhora="", usuarioname=SI_Inicio.text_user.getText(); //variable para obtener el nombre del usuario o administrador que ingreso al sistema
@@ -237,18 +246,36 @@ try {
     }
 }
             public void descripciondelosprouductosparaelticketdeventa(int numerodeventa){
-        Object[] columna = new Object[4];  //crear un obj con el nombre de colunna
-       try {
+         try {
                  String sSQL = "SELECT nombre_producto, cantidad, precio_unitario, importe FROM descripcion_de_venta WHERE estado='Realizada' AND id_venta = '"+numerodeventa+"' ";  
         PreparedStatement ps = ca.prepareStatement(sSQL);       
         ResultSet rs = ps.executeQuery(sSQL);
             while (rs.next()) {
-                columna[0] = rs.getString(1);
-                columna[1] = rs.getString(2);
-                columna[2] = rs.getString(3);      
-                columna[3] = rs.getString(4); 
+              nombreproductoticket.add(rs.getString(1));
+              piezastcket.add(rs.getString(2));
+              preciounitarioticket.add(rs.getString(3)); 
+              importesticket.add(rs.getString(4));
             }
             total_pagoycambiopararelticketdeventa(numerodeventa);
+            if(descuentoactivo==true){
+                            //estas dos lineas mandan los datos para el ticket
+                 mandardatosaticketventacondescuento = new ticketventacondescuento();
+                 mandardatosaticketventacondescuento.tikectdeventacondescuento(nombreproductoticket, 
+                         piezastcket, 
+                         preciounitarioticket, 
+                         importesticket,
+                         totalticket, pagoticket, cambioticket, porcentajedescontadoticket, descuentoticket);
+            }else{//venta simple
+                 //estas dos lineas mandan los datos para el ticket
+                 mandardatosticketventa = new ticketventa();
+                 mandardatosticketventa.tikectdeventa(nombreproductoticket, 
+                         piezastcket, 
+                         preciounitarioticket, 
+                         importesticket,
+                         totalticket, pagoticket, cambioticket);
+
+            }
+                        
  
     } catch (Exception e) {
         JOptionPane.showMessageDialog(null, e, "Advertencia", JOptionPane.PLAIN_MESSAGE);    
@@ -265,12 +292,11 @@ try {
         PreparedStatement ps = ca.prepareStatement(sSQL);       
         ResultSet rs = ps.executeQuery(sSQL);
             while (rs.next()) {
-                columna[0] = rs.getInt(1);
-                columna[1] = rs.getFloat(2);
-                 columna[2] = rs.getString(3);
-                 columna[3] = rs.getString(4);
-                 columna[4] = rs.getString(5);
-                //columna[5] = rs.getString("nombre");                
+               totalticket = rs.getFloat(1);
+                pagoticket = rs.getFloat(2);
+                 cambioticket = rs.getFloat(3);
+                 porcentajedescontadoticket = rs.getFloat(4);
+                 descuentoticket = rs.getFloat(5);           
           }  
     } catch (Exception e) {
         JOptionPane.showMessageDialog(null, e, "Advertencia", JOptionPane.PLAIN_MESSAGE);    
@@ -5445,7 +5471,7 @@ if (choice == JOptionPane.YES_OPTION){
                             try{// el id del usuario
                                 id_max_de_venta();
                                 if(descuentoactivo==true){
-                                    PreparedStatement ps = ca.prepareStatement ("UPDATE venta SET total='"+Float.parseFloat(totalcondescuento.getText())+"',porcentajedescontado='"+porcentaje+"',descuento='"+ Float.parseFloat(descuentocombo.getText())+"',pago='"+pagocombobox.getText()+"',cambio='"+cambiocombobox.getText()+"',fecha_reporte='"+fecha()+"',estado_vemta='"+estadorealizado+"'WHERE id_venta='"+id_de_la_venta_incrementable+"'");
+                                    PreparedStatement ps = ca.prepareStatement ("UPDATE venta SET total='"+Float.parseFloat(totalcondescuento.getText())+"',porcentajedescontado='"+porcentaje+"',descuento='"+ Float.parseFloat(descuentocombo.getText())+"',pago='"+pagocombobox.getText()+"',cambio='"+cambiocombobox.getText()+"',fecha_reporte='"+fecha()+"',estado_venta='"+estadorealizado+"'WHERE id_venta='"+id_de_la_venta_incrementable+"'");
                                     ps.executeUpdate();
                                 }
                                 else{
