@@ -20,6 +20,8 @@ import ticket.ticketpollocrudo;
 import ticket.ticketpollocrudosolopiezas;
 import ticket.ticketprocesadospiezas;
 import ticket.tikectprocesados;
+import ticket.PolloCrudoBienTocketc;
+import ticket.PolloCrudoxPiezas;
 
 
 public class Pantalla_CorteCaja extends javax.swing.JFrame  implements Runnable{
@@ -27,9 +29,13 @@ public class Pantalla_CorteCaja extends javax.swing.JFrame  implements Runnable{
     float ventasmenosgastos,variablemontoentregado;
     String hora,minutos,segundos;
     Statement sent;  
-  ResultSet rs;     
+  ResultSet rs;    
+  
+  PolloCrudoxPiezas PolloCrudoxPiezas;
+  
   ticketcortedecaja tikectcorte; 
-  ticketpollocrudo tikectpollocrudo;
+  ticketpollocrudo tikectpollocrudo;  
+  PolloCrudoBienTocketc  PolloCrudoBienTocketc;  
   ticketpollocrudosolopiezas  ticketpollocrudosolopiezas;
   tikectprocesados tikectprocesados;
   ticketprocesadospiezas ticketprocesadospiezas;
@@ -304,7 +310,7 @@ public void metodogastosdeldia(){
             }
         public void vaciartodoelpollocrudoendevolucioncrudo(){
               try{              
-           PreparedStatement ps = ca.prepareStatement ("UPDATE deviolucion_crudo SET total= 0, piezas=0");
+           PreparedStatement ps = ca.prepareStatement ("UPDATE devolucion_crudo SET total= 0, piezas=0");
                   int a = ps.executeUpdate();
                 if(a>0){    
                 }
@@ -315,65 +321,75 @@ public void metodogastosdeldia(){
     
  public void sobrantedepollocrudodeldiaparaticketcantidadesypiezas(){//TICKET DEVOLUCION CRUDO,  LAS CANTIDADES Y PIEZAS
       try{//SOLO SE LLAMA A LA CANTIDAD PORQUE EN EL TICKET YA SE DEFINIRÁN LOS NOMBRES DE CADA ARTICULO
-          Object columna[]= new Object[3];            
+           ArrayList columna = new ArrayList(); 
+            ArrayList columna2 = new ArrayList();          
+             ArrayList columna3 = new ArrayList();
           sent  = (Statement)ca.createStatement();
-                      rs = sent.executeQuery("select nombre, piezas, total from devolucion_crudo where nombre_producto in ( 'Pechuga', 'Muslo', 'Pierna', 'Ala')");
+                      rs = sent.executeQuery("select nombre, piezas, total from devolucion_crudo where nombre in ( 'Pechuga', 'Muslo', 'Pierna', 'Ala')");
                          while(rs.next()){
-                             columna[0]= rs.getString(1);
-                             columna[1]= rs.getFloat(2);
-                             columna[2]= rs.getFloat(3);
+                             columna.add(rs.getString(1));
+                             columna2.add(rs.getFloat(2));
+                             columna3.add(rs.getFloat(3));
                          }
                          
-   ticketpollocrudosolopiezas = new ticketpollocrudosolopiezas();          
-   ticketpollocrudosolopiezas.ticketpollocrudosolopiezas(columna[0],columna[1], columna[2]);                         
+   PolloCrudoxPiezas = new PolloCrudoxPiezas();          
+   PolloCrudoxPiezas.PolloCrudoxPiezas(columna, columna2, columna3);                       
       }catch(Exception e){                                             
-        
+          System.out.println("ERROR en pantalla gasts: " + e.getMessage());
       }
  }//TICKET DEVOLUCION CRUDO,  LAS CANTIDADES Y PIEZAS
  public void sobrantedepollocrudodeldiaparaticketperosolocantidades(){ //TICKET DEVOLUCION CRUDO, SOLO LAS CANTIDADES
       try{//SOLO SE LLAMA A LA CANTIDAD PORQUE EN EL TICKET YA SE DEFINIRÁN LOS NOMBRES DE CADA ARTICULO
-          Object columna[]= new Object[2];                      
+          ArrayList columna = new ArrayList(); 
+           ArrayList columna2 = new ArrayList();   
           sent  = (Statement)ca.createStatement();
-                      rs = sent.executeQuery("select nombre, piezas from devolucion_crudo where nombre_producto in ('Patas', 'Huacal', 'Cadera', 'Cabeza', 'Molleja')");
+                      rs = sent.executeQuery("select nombre, piezas from devolucion_crudo where nombre in ('Patas', 'Huacal', 'Cadera', 'Cabeza', 'Molleja')");
                          while(rs.next()){
-                             columna[0]= rs.getString(1);
-                             columna[1]= rs.getFloat(2);
-                         }
-   tikectpollocrudo = new ticketpollocrudo();          
-   tikectpollocrudo.ticketpollocrudo(columna[0],columna[1]);
+                             columna.add(rs.getString(1));
+                             columna2.add(rs.getFloat(2));
+                         }                      
+                         total_del_día_devolucion_crudo();
+   PolloCrudoBienTocketc = new PolloCrudoBienTocketc();          
+   PolloCrudoBienTocketc.PolloCrudoBienTocketc(columna, columna2, total_de_crudo);
       }catch(Exception e){                                             
-        
+          System.out.println("ERROR" + e.getMessage());
       }
  }//TICKET DEVOLUCION CRUDO, SOLO LAS CANTIDADES
  
   public void sobrantedepollococidodeldiaparaticketcantidadesypiezas(){//TICKET DEVOLUCION COCIDO,  LAS CANTIDADES Y PIEZAS
       try{//SOLO SE LLAMA A LA CANTIDAD PORQUE EN EL TICKET YA SE DEFINIRÁN LOS NOMBRES DE CADA ARTICULO
-          Object columna[]= new Object[3];            
+             ArrayList columna = new ArrayList();
+             ArrayList columna1 = new ArrayList();    
+             ArrayList columna2 = new ArrayList();
           sent  = (Statement)ca.createStatement();
                       rs = sent.executeQuery("select nombre, piezas, total from procesados");
                          while(rs.next()){
-                             columna[0]= rs.getString(1);
-                             columna[1]= rs.getFloat(2);
-                             columna[2]= rs.getFloat(3);
+                             columna.add(rs.getString(1));
+                             columna1.add(rs.getFloat(2));
+                             columna2.add(rs.getFloat(3));
                          }
-     ticketprocesadospiezas = new ticketprocesadospiezas();          
-   ticketprocesadospiezas.ticketprocesadospiezas(columna[0],columna[1], columna[2]);                         
-      }catch(Exception e){                                             
-        
+                        
+     ticketprocesadospiezas = new ticketprocesadospiezas();       
+      total_del_día_procesados();
+      //JOptionPane.showMessageDialog(null, "TOTAL PROCESADOS de ALEXIA:"+total_de_procesados);
+     ticketprocesadospiezas.ticketprocesadospiezas(columna,columna1,columna2, total_de_procesados);                
+      }catch(Exception e){                                                     
+          // System.out.println("DESDE PROCESADOS"+ total_de_procesados);
       }
  }//TICKET DEVOLUCION COCIDO,  LAS CANTIDADES Y PIEZAS
   
  public void sobrantedepollococidodeldiaparaticketperosolocantidades(){ //TICKET DEVOLUCION COCIDO, SOLO LAS CANTIDADES
       try{//SOLO SE LLAMA A LA CANTIDAD PORQUE EN EL TICKET YA SE DEFINIRÁN LOS NOMBRES DE CADA ARTICULO
-          Object columna[]= new Object[2];                      
+          ArrayList columna = new ArrayList();
+          ArrayList columna2 = new ArrayList();
           sent  = (Statement)ca.createStatement();
                       rs = sent.executeQuery("select nombre, piezas from procesados");
-                         while(rs.next()){
-                             columna[0]= rs.getString(1);
-                             columna[1]= rs.getFloat(2);
+                         while(rs.next()){ 
+                             columna.add(rs.getString(1));
+                             columna2.add(rs.getFloat(2));
                          }
-   tikectprocesados = new tikectprocesados();          
-   tikectprocesados.tikectprocesados(columna[0],columna[1]);
+  tikectprocesados = new tikectprocesados();          
+   tikectprocesados.tikectprocesados(columna,columna2); 
       }catch(Exception e){                                             
         
       }
@@ -391,12 +407,12 @@ public void metodogastosdeldia(){
                              datosdelcorteparaelticket[3]=rs.getFloat(4);
 
                          }
-                         ticketmonto=datosdelcorteparaelticket[0];
+                       ticketmonto=datosdelcorteparaelticket[0];
                          ticketgasto=datosdelcorteparaelticket[1];
                          ticketventa=datosdelcorteparaelticket[2];
                          ticketdiferencia=datosdelcorteparaelticket[3];
    tikectcorte = new ticketcortedecaja();           
-   tikectcorte.ticketcortedecaja(ticketmonto, ticketgasto, ticketventa, ticketdiferencia, ventasmenosgastos);
+   tikectcorte.ticketcortedecaja(ticketmonto, ticketgasto, ticketventa, ticketdiferencia, ventasmenosgastos);  
       }catch(Exception e){                                             
       }
  }
@@ -467,15 +483,15 @@ public void metodogastosdeldia(){
                 insertaradevoluciondecocidopiezasycantidades();//SE REGISTRAN LAS PIEZAS, CANTIDADES Y TOTALES DE TODO COCIDO
                 
                 //LUEGO AQUI SE PUEDE REALIZAR CADA TICKET CORRESPONDIENTE (ESTOS SON LOS 5 TICKET)
-                sobrantedepollococidodeldiaparaticketcantidadesypiezas();//SOBRANTE DE COCIDO PARA TICKET MOSTRANDO CANTIDADES Y TOTALES
-     sobrantedepollococidodeldiaparaticketperosolocantidades();//SOBRANTE DE COCIDO PARA TICKET MOSTRANDO CANTIDADES
-      sobrantedepollocrudodeldiaparaticketcantidadesypiezas();//SOBRANTE DE PECHUGA, PIERNA ALA, MUSLO, VA PARA TICKET
-      sobrantedepollocrudodeldiaparaticketperosolocantidades();//SOBRANTE DE TODO MENOS PECHUGA, PIERNA ALA, MUSLO, VA PARA TICKET
-      obteniendolosvaloresdelcortedecajadeldiadehoyparaelticket();//LOS DATOS DEL TICKET CORTE DE CAJA                                           
+ sobrantedepollococidodeldiaparaticketcantidadesypiezas();//SOBRANTE DE COCIDO PARA TICKET MOSTRANDO CANTIDADES Y TOTALES
+ /* .... */ sobrantedepollococidodeldiaparaticketperosolocantidades();//SOBRANTE DE COCIDO PARA TICKET MOSTRANDO CANTIDADES
+                     /* IMPRESO */sobrantedepollocrudodeldiaparaticketcantidadesypiezas();//SOBRANTE DE PECHUGA, PIERNA ALA, MUSLO, VA PARA TICKET
+                   /* IMPRESO */ sobrantedepollocrudodeldiaparaticketperosolocantidades();//SOBRANTE DE TODO MENOS PECHUGA, PIERNA ALA, MUSLO, VA PARA TICKET
+                   /* IMPRESO */ obteniendolosvaloresdelcortedecajadeldiadehoyparaelticket();//LOS DATOS DEL TICKET CORTE DE CAJA                                           
                 
       llenar_tabla_utilidad(gastosdeldia, ventasdeldia);
-            vaciartodoelpollococidoenprocesados();
-            vaciartodoelpollocrudoendevolucioncrudo();
+           /* vaciartodoelpollococidoenprocesados();
+            vaciartodoelpollocrudoendevolucioncrudo();*/
            vaciartodoeninventario();//UNA VEZ IMPRESO LOS 5 TICKETS SE VACIA TODO EL INVENTARIO
                 
                 JOptionPane.showMessageDialog(null,"Nos vemos pronto","Saliendo del sistema...",JOptionPane.INFORMATION_MESSAGE);
