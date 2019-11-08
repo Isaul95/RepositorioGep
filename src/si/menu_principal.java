@@ -142,9 +142,9 @@ try {
   regresar_cantidades_enturno_por_error_de_usuario();//SE REGRESAN LAS CANTIDADES
   borrarventasenestadoenturnoporerrordeusuario_limpiarventa_o_cerrarsesion();//SE BORRA DE DESCRIPCION DE VENTA
      } catch (SQLException ex) {
-            Logger.getLogger(menu_principal.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(null, "No se pudo mostrar ningun dato porque tu consulta está mal");
-        } 
+            System.out.println();
+      JOptionPane.showMessageDialog(null, "ERROR EN METODO: ids_y_cantidades_enturno_por_error_de_usuario","DEVELOPER HELPER", JOptionPane.ERROR_MESSAGE);      
+     } 
     }
     
   public void regresar_cantidades_enturno_por_error_de_usuario(){
@@ -157,9 +157,8 @@ try {
             cantidadporerrordeusuario = rs.getFloat(1);
              }
              } catch (SQLException ex) {
-            Logger.getLogger(menu_principal.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(null, "No se pudo mostrar ningun dato porque tu consulta está mal");
-             }
+            JOptionPane.showMessageDialog(null, "ERROR EN METODO: regresar_cantidades_enturno_por_error_de_usuario"+", PRIMER CATCH","DEVELOPER HELPER", JOptionPane.ERROR_MESSAGE);      
+       }
              //DEVOLVIENDO LA CANTIDAD DE PRODUCTOS EN TURNO A LA TABLA PRODUCTOS
            try{
                  PreparedStatement ps = ca.prepareStatement ("UPDATE productos SET cantidad= ? WHERE id_producto= ? ");
@@ -167,8 +166,8 @@ try {
                  ps.setInt(2, Integer.parseInt(idsenturno.get(i).toString()));
                  ps.executeUpdate();
              }catch(Exception e){
-                 
-             }
+                  JOptionPane.showMessageDialog(null, "ERROR EN METODO: regresar_cantidades_enturno_por_error_de_usuario"+", SEGUNDO CATCH","DEVELOPER HELPER", JOptionPane.ERROR_MESSAGE);      
+       }
                  
        }//FIN DEL  FOR
   }    
@@ -183,8 +182,8 @@ try {
                
              }
         }catch(Exception e){
-            JOptionPane.showMessageDialog(null, "ERROR" + e.getMessage());
-        }
+         JOptionPane.showMessageDialog(null, "ERROR EN METODO: borrarventasenestadoenturnoporerrordeusuario_limpiarventa_o_cerrarsesion","DEVELOPER HELPER", JOptionPane.ERROR_MESSAGE);      
+      }
             
      }
    
@@ -215,8 +214,8 @@ try {
         }
         ps.close();
     } catch (Exception e) {
-        JOptionPane.showMessageDialog(null, e, "Advertencia", JOptionPane.PLAIN_MESSAGE);    
-    }
+         JOptionPane.showMessageDialog(null, "ERROR EN METODO: llenartablaconventasacreditopendiente","DEVELOPER HELPER", JOptionPane.ERROR_MESSAGE);      
+      }
     }
          
            public void llenartablaidventasconidrealizados(){ // recibe como parametro 
@@ -242,8 +241,8 @@ try {
           jTable2.setModel(modeloTE);  // add modelo ala tabla 
         
     } catch (Exception e) {
-        JOptionPane.showMessageDialog(null, e, "Advertencia", JOptionPane.PLAIN_MESSAGE);    
-    }
+      JOptionPane.showMessageDialog(null, "ERROR EN METODO: llenartablaidventasconidrealizados","DEVELOPER HELPER", JOptionPane.ERROR_MESSAGE);      
+       }
 }
             public void descripciondelosprouductosparaelticketdeventa(int numerodeventa){
          try {
@@ -278,8 +277,8 @@ try {
                         
  
     } catch (Exception e) {
-        JOptionPane.showMessageDialog(null, e, "Advertencia", JOptionPane.PLAIN_MESSAGE);    
-    }
+          JOptionPane.showMessageDialog(null, "ERROR EN METODO: descripciondelosprouductosparaelticketdeventa","DEVELOPER HELPER", JOptionPane.ERROR_MESSAGE);      
+      }
     }
 
      public void total_pagoycambiopararelticketdeventa(int id){ // recibe como parametro 
@@ -299,8 +298,8 @@ try {
                  descuentoticket = rs.getFloat(5);           
           }  
     } catch (Exception e) {
-        JOptionPane.showMessageDialog(null, e, "Advertencia", JOptionPane.PLAIN_MESSAGE);    
-    }
+         JOptionPane.showMessageDialog(null, "ERROR EN METODO: total_pagoycambiopararelticketdeventa","DEVELOPER HELPER", JOptionPane.ERROR_MESSAGE);      
+       }
 }
      
     
@@ -314,6 +313,7 @@ try {
                                                       }
                                                       }//fin del try-precio del producto
                                                       catch (Exception e){
+                                                           JOptionPane.showMessageDialog(null, "ERROR EN METODO: totaldelasventasdehoy","DEVELOPER HELPER", JOptionPane.ERROR_MESSAGE);       
                                                       }// fin del precio-catch del producto
     }
      public void conteodeventasrealizadasdehoy(){
@@ -326,6 +326,8 @@ try {
                                                       }
                                                       }//fin del try-precio del producto
                                                       catch (Exception e){
+                                                           JOptionPane.showMessageDialog(null, "ERROR EN METODO: conteodeventasrealizadasdehoy","DEVELOPER HELPER", JOptionPane.ERROR_MESSAGE);      
+      
                                                       }// fin del precio-catch del producto
     }
  
@@ -349,8 +351,8 @@ try {
             }
            pollococido.setModel(modelo); // Se vuelve a enviar nuevamente el objeto modelo a la tabla
         } catch (SQLException ex) {
-            Logger.getLogger(menu_principal.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(null, "No se pudo mostrar ningun dato porque tu consulta está mal");
+             JOptionPane.showMessageDialog(null, "ERROR EN METODO: mostrarpolloscocidos","DEVELOPER HELPER", JOptionPane.ERROR_MESSAGE);      
+      
         } 
       }
      public void mostrarpolloscrudos(){
@@ -375,9 +377,9 @@ try {
             }
            pollocrudo.setModel(modelo); // Se vuelve a enviar nuevamente el objeto modelo a la tabla
         } catch (SQLException ex) {
-            Logger.getLogger(menu_principal.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(null, "No se pudo mostrar ningun dato porque tu consulta está mal");
-        } 
+             JOptionPane.showMessageDialog(null, "ERROR EN METODO: mostrarpolloscrudos","DEVELOPER HELPER", JOptionPane.ERROR_MESSAGE);      
+      
+             } 
       }
      
      public void mostraracompañantes(){
@@ -402,8 +404,8 @@ try {
             }
            acompañantes.setModel(modelo); // Se vuelve a enviar nuevamente el objeto modelo a la tabla
         } catch (SQLException ex) {
-            Logger.getLogger(menu_principal.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(null, "No se pudo mostrar ningun dato porque tu consulta está mal");
+          JOptionPane.showMessageDialog(null, "ERROR EN METODO: mostraracompañantes","DEVELOPER HELPER", JOptionPane.ERROR_MESSAGE);      
+      
         } 
       }
       
@@ -436,8 +438,8 @@ try {
         }
         ps.close();
     } catch (Exception e) {
-        JOptionPane.showMessageDialog(null, e, "Advertencia", JOptionPane.PLAIN_MESSAGE);    
-    }
+       JOptionPane.showMessageDialog(null, "ERROR EN METODO: productosmasvendidos","DEVELOPER HELPER", JOptionPane.ERROR_MESSAGE);      
+      }
 }
      
       // CONSULTA DE PRODUCTOS CON PRECIOS PARA LA VENTA           
@@ -466,9 +468,8 @@ try {
             }
         }
         ps.close();
-    } catch (Exception e) {
-        JOptionPane.showMessageDialog(null, e, "Advertencia", JOptionPane.PLAIN_MESSAGE);    
-    }
+    } catch (Exception e) { JOptionPane.showMessageDialog(null, "ERROR EN METODO: ParaLAVenta","DEVELOPER HELPER", JOptionPane.ERROR_MESSAGE);      
+      }
 }
            public boolean validarFormulario(String cantidaddelatabla) { // VALIDACION DE TXT MONTO
         boolean next = false;
@@ -518,7 +519,7 @@ public void insertandopiezasdepolloporhaberagregadoxcantidaddepollocrudo(String 
         }
         }//fin del id del usuario
                  catch(Exception w){
-                     JOptionPane.showMessageDialog(null, "Error" + w.getMessage());
+                  JOptionPane.showMessageDialog(null, "ERROR EN METODO: insertandopiezasdepolloporhaberagregadoxcantidaddepollocrudo","DEVELOPER HELPER", JOptionPane.ERROR_MESSAGE);      
                  }//fin del id del usuario
  }// RECORRIENDO EL ARREGLO DE POLLOS                      
 }// si estan modificando sobre pollo crudo, se inserta primero en la linea de arriba y luego las otras piezas de pollo a su equivalente
@@ -576,9 +577,8 @@ public void insertandopiezasdepolloporhaberagregadoxcantidaddepollocrudo(String 
                        ParaLAVenta(JtablepaLaVenta);  // ***********************
                                 
                           } catch (SQLException ex) {
-                              Logger.getLogger(JTable.class.getName()).log(Level.SEVERE,null, ex);
-                                JOptionPane.showMessageDialog(null, "error actualizar"+ex);    
-                          }
+                               JOptionPane.showMessageDialog(null, "ERROR EN METODO: tableChanged","DEVELOPER HELPER", JOptionPane.ERROR_MESSAGE);      
+                           }
       }
                              }
                            
@@ -587,14 +587,11 @@ public void insertandopiezasdepolloporhaberagregadoxcantidaddepollocrudo(String 
 
                 }
             });
-                        
-             
-            
-        }
+ }
         ps.close();
     } catch (Exception e) {
-        JOptionPane.showMessageDialog(null, e, "Advertencia", JOptionPane.PLAIN_MESSAGE);    
-    }
+        JOptionPane.showMessageDialog(null, "ERROR EN METODO: TablallenadoparaEntradas","DEVELOPER HELPER", JOptionPane.ERROR_MESSAGE);      
+      }
         
 }
      
@@ -687,8 +684,8 @@ public void insertandopiezasdepolloporhaberagregadoxcantidaddepollocrudo(String 
         }
         ps.close();
     } catch (Exception e) {
-        JOptionPane.showMessageDialog(null, e, "Advertencia", JOptionPane.PLAIN_MESSAGE);    
-    }
+         JOptionPane.showMessageDialog(null, "ERROR EN METODO: LlenarTablaBusquedproMasvendidosfecha","DEVELOPER HELPER", JOptionPane.ERROR_MESSAGE);      
+       }
 }
           
           
@@ -722,9 +719,8 @@ public void insertandopiezasdepolloporhaberagregadoxcantidaddepollocrudo(String 
             } jTable3.setModel(modeloT);  // add modelo ala tabla 
         
 
-    } catch (Exception e) {
-        JOptionPane.showMessageDialog(null, e, "Advertencia", JOptionPane.PLAIN_MESSAGE);    
-    }
+    } catch (Exception e) { JOptionPane.showMessageDialog(null, "ERROR EN METODO: productosvendidoseneldia","DEVELOPER HELPER", JOptionPane.ERROR_MESSAGE);      
+      }
 }
 
      //  ICONO AL EJECUTAR EL PROYECTO
@@ -755,8 +751,8 @@ public void insertandopiezasdepolloporhaberagregadoxcantidaddepollocrudo(String 
 
             }
         } catch (SQLException ex) {
-            Logger.getLogger(menu_principal.class.getName()).log(Level.SEVERE, null, ex);
-        }
+             JOptionPane.showMessageDialog(null, "ERROR EN METODO: quienentroalsistema","DEVELOPER HELPER", JOptionPane.ERROR_MESSAGE);      
+           }
             }
     
      public static String fecha(){ /* SE DECARA LA FECHA DEL SISTEMA */
@@ -800,10 +796,9 @@ public void insertandopiezasdepolloporhaberagregadoxcantidaddepollocrudo(String 
                                                       }
                                                      }//fin del try - id del producto
                                                        catch (Exception e){
+                                                            JOptionPane.showMessageDialog(null, "ERROR EN METODO: piezassuficientes","DEVELOPER HELPER", JOptionPane.ERROR_MESSAGE);      
                                                       } //fin del id-catch del producto
     }
-    
-    
     //METODO PARA VERIFICAR QUE HAYA SUFICIENTES PIEZAS DE ALGÚN PRODUCTO PARA HACER UNA VENTA
     
     
@@ -836,8 +831,8 @@ public void insertandopiezasdepolloporhaberagregadoxcantidaddepollocrudo(String 
             }
            tabla_usuariosnuevo.setModel(modelo);
         } catch (SQLException ex) {
-            Logger.getLogger(menu_principal.class.getName()).log(Level.SEVERE, null, ex);
-        } 
+             JOptionPane.showMessageDialog(null, "ERROR EN METODO: TablaDatosUsuarios","DEVELOPER HELPER", JOptionPane.ERROR_MESSAGE);      
+       } 
     }  // FIN DE LA TABLA DE DATOS DE LOS USUSARIOS ******************
     
    
@@ -933,38 +928,31 @@ public void insertandopiezasdepolloporhaberagregadoxcantidaddepollocrudo(String 
 
            public void descontardeinventario(String nombredepieza){
                id_producto(nombredepieza);
+               cantidadpolloenDByname(id_producto);
             try{// el id del usuario
-                try{
-                       sent  = (Statement)ca.createStatement();
-                                           rs = sent.executeQuery("select * from productos where id_producto='"+id_producto+"'");
-                                            while(rs.next()){
-                                                      productos =Float.parseFloat(rs.getString("cantidad"));
-                                                      }
-                }catch (Exception f){
-                }
                 if(nombredepieza.equals("Pollo rostizado")||nombredepieza.equals("Pollo asado")){
        if(medio==true){
-  productos=productos-(float)cantidaddemedio;
-                
+  cantidadpolloenDB=cantidadpolloenDB-(float)cantidaddemedio;
                     }else if (cuarto==true){
-                         productos=productos-(float)cantidaddecuarto;
+                         cantidadpolloenDB=cantidadpolloenDB-(float)cantidaddecuarto;
                     }
                     else{
-                        productos=productos-cantidaddeproductos;
+                        cantidadpolloenDB=cantidadpolloenDB-cantidaddeproductos;
                     }
                 }
                 else{        
-                     productos=productos-cantidaddeproductos;
-               
+                     cantidadpolloenDB=cantidadpolloenDB-cantidaddeproductos; 
                 }
    id_producto(nombredepieza);
-                 PreparedStatement ps = ca.prepareStatement ("UPDATE productos SET cantidad='"+productos+"'WHERE id_producto='"+id_producto+"'");
+                 PreparedStatement ps = ca.prepareStatement ("UPDATE productos SET cantidad='"+cantidadpolloenDB+"'WHERE id_producto='"+id_producto+"'");
                 ps.executeUpdate();
                       entero= false;
                 medio=false;
                 cuarto=false;
                  }//fin del id del usuario
                  catch(Exception w){
+                 //    descontardeinventario SOLO HICE PULL CON LOS CAMBIOS DE ISAUL
+                     //        PREVIAMENTE GUARDE (COMMIT) LOS MIOS
                      JOptionPane.showMessageDialog(null, "Error" + w.getMessage());
                  }//fin del id del usuario
            if("pollo crudo".equalsIgnoreCase(nombredepieza)){
