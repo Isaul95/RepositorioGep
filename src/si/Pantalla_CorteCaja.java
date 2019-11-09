@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -40,7 +41,7 @@ public class Pantalla_CorteCaja extends javax.swing.JFrame  implements Runnable{
   tikectprocesados tikectprocesados;
   ticketprocesadospiezas ticketprocesadospiezas;
   final float pagopollo=20*90, tacos=60, almuerzo=28;//datos para la tabla utilidad
-float diferenciaentablautilidad, utilidad, total_de_crudo, total_de_procesados, ventasdeldia, gastosdeldia, montodeapertura, diferencia, diferenciafinal, precio;
+float diferenciaentablautilidad, utilidades, total_de_crudo, total_de_procesados, ventasdeldia, gastosdeldia, montodeapertura, diferencia, diferenciafinal, precio;
 int apertura;
 String  usuarioname=SI_Inicio.text_user.getText();
 int  id_usuario=Integer.parseInt(SI_Inicio.iduser.getText());
@@ -432,7 +433,7 @@ public void metodogastosdeldia(){
     }
     
     private void Corte_btnImprimirticketActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Corte_btnImprimirticketActionPerformed
-            boolean pass2 = validarFormulario(monto.getText());
+         boolean pass2 = validarFormulario(monto.getText());
                  if(pass2){//ESTO VALIDA QUE EL TEXTO ESCRITO NO TENGA INCOHERENCIAS   
                  int decision=JOptionPane.showConfirmDialog(null,"¿Desea continuar?","UNA VEZ REALIZADO EL CORTE, SOLO EL ADMIN PUEDE ENTRAR",JOptionPane.CANCEL_OPTION);
             if(decision==0){// SI SE ELIGE QUE SI, PROCEDEMOS A REALIZAR EL CORTE E IMPRIMIR LOS 5 TICKET
@@ -484,35 +485,29 @@ public void metodogastosdeldia(){
                 
                 //LUEGO AQUI SE PUEDE REALIZAR CADA TICKET CORRESPONDIENTE (ESTOS SON LOS 5 TICKET)
  sobrantedepollococidodeldiaparaticketcantidadesypiezas();//SOBRANTE DE COCIDO PARA TICKET MOSTRANDO CANTIDADES Y TOTALES
- /* .... */ sobrantedepollococidodeldiaparaticketperosolocantidades();//SOBRANTE DE COCIDO PARA TICKET MOSTRANDO CANTIDADES
-                     /* IMPRESO */sobrantedepollocrudodeldiaparaticketcantidadesypiezas();//SOBRANTE DE PECHUGA, PIERNA ALA, MUSLO, VA PARA TICKET
-                   /* IMPRESO */ sobrantedepollocrudodeldiaparaticketperosolocantidades();//SOBRANTE DE TODO MENOS PECHUGA, PIERNA ALA, MUSLO, VA PARA TICKET
-                   /* IMPRESO */ obteniendolosvaloresdelcortedecajadeldiadehoyparaelticket();//LOS DATOS DEL TICKET CORTE DE CAJA                                           
-                
+ sobrantedepollococidodeldiaparaticketperosolocantidades();//SOBRANTE DE COCIDO PARA TICKET MOSTRANDO CANTIDADES
+                   sobrantedepollocrudodeldiaparaticketcantidadesypiezas();//SOBRANTE DE PECHUGA, PIERNA ALA, MUSLO, VA PARA TICKET
+                    sobrantedepollocrudodeldiaparaticketperosolocantidades();//SOBRANTE DE TODO MENOS PECHUGA, PIERNA ALA, MUSLO, VA PARA TICKET
+                   obteniendolosvaloresdelcortedecajadeldiadehoyparaelticket();//LOS DATOS DEL TICKET CORTE DE CAJA                                                      
       llenar_tabla_utilidad(gastosdeldia, ventasdeldia);
-           /* vaciartodoelpollococidoenprocesados();
-            vaciartodoelpollocrudoendevolucioncrudo();*/
-           vaciartodoeninventario();//UNA VEZ IMPRESO LOS 5 TICKETS SE VACIA TODO EL INVENTARIO
-                
+       //   vaciartodoelpollococidoenprocesados();
+          //vaciartodoelpollocrudoendevolucioncrudo();
+          //vaciartodoeninventario();//UNA VEZ IMPRESO LOS 5 TICKETS SE VACIA TODO EL INVENTARIO            
                 JOptionPane.showMessageDialog(null,"Nos vemos pronto","Saliendo del sistema...",JOptionPane.INFORMATION_MESSAGE);
             System.exit(0);
-
-          
-              
                 }
             }catch(SQLException e)  { //fin de la insersion a la tabla ventas
                 JOptionPane.showMessageDialog(null,"Error de datos por id vacio "+e);
-            }//fin de la insersion a la tabla ventas
-             
+            }//fin de la insersion a la tabla ventas         
     }//FIN DE COMPROBANDO QUE EL MONTO NO ESTE VACIO
 else{//CUANDO EL MONTO ESTA VACIO
             JOptionPane.showMessageDialog(null,"El monto no puede estar vacio o en 0"); 
 }// FIN DE CUANDO EL MONTO ESTA VACIO
-                
             }//SI SE ELIGE QUE SI, PROCEDEMOS A REALIZAR EL CORTE E IMPRIMIR LOS 5 TICKET
-                 }            
+                 }      
     }//GEN-LAST:event_Corte_btnImprimirticketActionPerformed
-public void total_del_día_devolucion_crudo(){
+
+ public void total_del_día_devolucion_crudo(){
     try{
         String sql = "select  SUM(total) from devolucion_crudo";
         PreparedStatement ps= ca.prepareStatement(sql);
@@ -541,21 +536,34 @@ public void total_del_día_procesados(){
 }
 
  public void llenar_tabla_utilidad(float gastosdeldia, float ventasdeldia){
-    total_del_día_devolucion_crudo();
-    JOptionPane.showMessageDialog(null,"TOTAL DE CRUDO "+total_de_crudo);
+       DecimalFormat crudo= new DecimalFormat("#.##");
+        DecimalFormat procesados= new DecimalFormat("#.##");
+                  DecimalFormat diferencia= new DecimalFormat("#.##");
+                            DecimalFormat utilidad = new DecimalFormat("#.##");
     total_del_día_procesados();
-    JOptionPane.showMessageDialog(null,"TOTAL DE PROCESADOS "+total_de_procesados);
-     JOptionPane.showMessageDialog(null,"TOTAL DE PAGO POLLO"+pagopollo);
-    JOptionPane.showMessageDialog(null,"TOTAL DE TACOS"+tacos);
-    JOptionPane.showMessageDialog(null,"TOTAL DE ALMUERZO"+almuerzo);
-    JOptionPane.showMessageDialog(null,"TOTAL DE GASTOS EN EL DIA"+gastosdeldia);
-    JOptionPane.showMessageDialog(null,"TOTAL DE VENTAS DEL DIA "+ventasdeldia);
-    JOptionPane.showMessageDialog(null,"TOTAL DE ALMUERZO "+almuerzo);
-           diferenciaentablautilidad=(total_de_crudo+tacos-total_de_procesados-almuerzo);
-            JOptionPane.showMessageDialog(null,"TOTAL DIFERENCIA"+diferenciaentablautilidad);
-           utilidad=(ventasdeldia+total_de_crudo+tacos-total_de_procesados-pagopollo-almuerzo);
-            JOptionPane.showMessageDialog(null,"TOTAL DE UTILIDAD "+utilidad);
-          
+     total_del_día_devolucion_crudo();
+    diferenciaentablautilidad=(total_de_crudo+tacos-total_de_procesados-almuerzo);
+ utilidades=(ventasdeldia+total_de_crudo+tacos-total_de_procesados-pagopollo-almuerzo);
+ try{ //la insersion a la tabla ventas
+                String sql = "INSERT INTO  utilidad(totaldeventas,totaldevolucioncrudo,totalprocesados,pagopollo,tacos,utilidad,almuerzo, diferencia, gastos, fecha)  VALUES (?,?,?,?,?,?,?,?,?,?)";
+                PreparedStatement pst = ca.prepareCall(sql); //hasta aqui vamos
+               pst.setDouble(1, ventasdeldia);
+                pst.setDouble(2, Double.parseDouble(crudo.format(total_de_crudo)));
+                pst.setDouble(3,Double.parseDouble(procesados.format(total_de_procesados)));
+                pst.setDouble(4, pagopollo);
+                pst.setDouble(5, tacos);
+                pst.setDouble(6, Double.parseDouble(utilidad.format(utilidades)));
+                pst.setDouble(7, almuerzo);
+                pst.setDouble(8, Double.parseDouble(diferencia.format(diferenciaentablautilidad)));
+                pst.setDouble(9, gastosdeldia);  
+                pst.setString(10, fecha());
+                int a=pst.executeUpdate();
+                if(a>0){           
+                    JOptionPane.showMessageDialog(null, "SE INSERTO EN UTILIDAD");
+                }
+            }catch(SQLException e)  { //fin de la insersion a la tabla ventas
+                JOptionPane.showMessageDialog(null,"Error de datos por id vacio "+e);
+            }//fin de la insersion a la tabla ventas  
  }
     public void insertaradevoluciondecrudopiezasycantidades(){//AQUI SE INSERTAN LAS PIEZAS Y CANTIDADES DE PECHUGA, MUSLO ALA Y PIERNA
          ArrayList cantidades = new  ArrayList();
