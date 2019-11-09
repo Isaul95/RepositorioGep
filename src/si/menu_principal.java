@@ -132,7 +132,8 @@ llenartablautilidad();
   public void llenartablautilidad(){
         utilidad.setVisible(true);    //hace visible la tabla de proveedores 
               DefaultTableModel modelo = new DefaultTableModel(); // Se crea un objeto para agregar los nombres de las columnas a la tabla
-    modelo.addColumn("Ventas");
+    modelo.addColumn("Fecha"); 
+              modelo.addColumn("Ventas");
     modelo.addColumn("Devolucion crudo");
     modelo.addColumn("Procesados");
      modelo.addColumn("Pago pollo");
@@ -143,21 +144,22 @@ llenartablautilidad();
   modelo.addColumn("Gastos");  
   
      utilidad.setModel(modelo);  // Ya una vez asignado todos los nombres se le envia el objeto a la tabla proveedores
-    String []datos = new String[9];     //Un arreglo con la cantidad de nombres en las columnas
+    String []datos = new String[10];     //Un arreglo con la cantidad de nombres en las columnas
     try {
         id_max_de_venta();
              sent = ca.createStatement();   
             rs= sent.executeQuery("select * from utilidad"); // se ejecuta la sentencia dentro del parentesis
             while(rs.next()){        
-            datos[0]=rs.getString(2);
-            datos[1]=rs.getString(3);
-            datos[2]=rs.getString(4);
-            datos[3]=rs.getString(5);
-            datos[4]=rs.getString(6);
-            datos[5]=rs.getString(7);
-            datos[6]=rs.getString(8);
-            datos[7]=rs.getString(9);
-            datos[8]=rs.getString(10);
+            datos[0]=rs.getString(11);
+            datos[1]=rs.getString(2);
+            datos[2]=rs.getString(3);
+            datos[3]=rs.getString(4);
+            datos[4]=rs.getString(5);
+            datos[5]=rs.getString(6);
+            datos[6]=rs.getString(7);
+            datos[7]=rs.getString(8);
+            datos[8]=rs.getString(9);
+            datos[9]=rs.getString(10);
 
             modelo.addRow(datos); //se asigna el arreglo  entero a todo el objeto llamado modelo  
             }
@@ -486,7 +488,7 @@ try {
         modeloTE.addColumn("PIezas");        
         modeloTE.addColumn("Fecha");
         try {
-         String sSQL = "SELECT nombre_producto, SUM(cantidad), fecha FROM descripcion_de_venta WHERE estado='Realizada' AND fecha = '"+fecha()+"' GROUP BY nombre_producto ASC";
+         String sSQL = "SELECT nombre_producto, SUM(cantidad), fecha FROM descripcion_de_venta WHERE estado='Realizada' AND fecha = '"+fecha()+"' GROUP BY nombre_producto ORDER by SUM(cantidad) DESC";
         PreparedStatement ps = ca.prepareStatement(sSQL);       
         try (ResultSet rs = ps.executeQuery(sSQL)) {
             while (rs.next()) {
@@ -543,6 +545,8 @@ try {
         } else {
             JOptionPane.showMessageDialog(null, "No puedes dejar vacio el campo ni meter un 0", "Advertencia", JOptionPane.INFORMATION_MESSAGE);
             cantidad.setText("");
+            
+            
         }
         return next;
     }
@@ -608,7 +612,7 @@ public void insertandopiezasdepolloporhaberagregadoxcantidaddepollocrudo(String 
                 //columna[3] = rs.getInt(4);
                 modeloT.addRow(columna);
             }
-       
+            
                         modeloT.addTableModelListener(new TableModelListener(){
                 @Override
                 public void tableChanged(TableModelEvent e) {
@@ -732,7 +736,7 @@ public void insertandopiezasdepolloporhaberagregadoxcantidaddepollocrudo(String 
         modeloT.addColumn("Piezas");        
   
         try {
-         String sSQL = "SELECT nombre_producto, SUM(cantidad) FROM descripcion_de_venta where estado= 'Realizada' and fecha BETWEEN '"+llenarfechadesde()+"' AND '"+llenarfechahasta()+"' GROUP BY  nombre_producto ASC";
+         String sSQL = "SELECT nombre_producto, SUM(cantidad) FROM descripcion_de_venta where estado= 'Realizada' and fecha BETWEEN '"+llenarfechadesde()+"' AND '"+llenarfechahasta()+"' GROUP BY  nombre_producto ORDER BY SUM(cantidad) DESC";
          
                  
         PreparedStatement ps = ca.prepareStatement(sSQL);       
@@ -2033,22 +2037,21 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         jTable3 = new javax.swing.JTable();
         jScrollPane7 = new javax.swing.JScrollPane();
         tabladeidventas = new rojerusan.RSTableMetro();
+        jLabel63 = new javax.swing.JLabel();
+        conteodelasventasrealizadas = new javax.swing.JLabel();
+        jLabel96 = new javax.swing.JLabel();
+        ventaseneldiasumadas = new javax.swing.JLabel();
         jPanel24 = new javax.swing.JPanel();
         jLabel93 = new javax.swing.JLabel();
         jLabel94 = new javax.swing.JLabel();
         jButton8 = new javax.swing.JButton();
         jLabel95 = new javax.swing.JLabel();
         jPanel26 = new javax.swing.JPanel();
-        jLabel62 = new javax.swing.JLabel();
         jScrollPane13 = new javax.swing.JScrollPane();
         ventasacreditopendiente = new rojerusan.RSTableMetro();
         jLabel90 = new javax.swing.JLabel();
-        ventaseneldiasumadas = new javax.swing.JLabel();
-        jLabel63 = new javax.swing.JLabel();
-        conteodelasventasrealizadas = new javax.swing.JLabel();
         veridventasacreditopendiente = new javax.swing.JButton();
         pagarventaacredito = new javax.swing.JButton();
-        jLabel96 = new javax.swing.JLabel();
         totalventacreditoenturno = new javax.swing.JLabel();
         jPanel13 = new javax.swing.JPanel();
         producto_sobrante = new javax.swing.JPanel();
@@ -2547,7 +2550,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
             }
         });
         calculadora.add(borrar);
-        borrar.setBounds(120, 63, 39, 50);
+        borrar.setBounds(120, 63, 38, 50);
 
         nueve.setBackground(new java.awt.Color(0, 51, 102));
         nueve.setText("9");
@@ -2557,7 +2560,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
             }
         });
         calculadora.add(nueve);
-        nueve.setBounds(80, 64, 39, 50);
+        nueve.setBounds(80, 64, 37, 50);
 
         ocho.setBackground(new java.awt.Color(0, 51, 102));
         ocho.setText("8");
@@ -2627,7 +2630,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
             }
         });
         calculadora.add(dos);
-        dos.setBounds(40, 174, 39, 50);
+        dos.setBounds(40, 174, 37, 50);
 
         uno.setBackground(new java.awt.Color(0, 51, 102));
         uno.setText("1");
@@ -2647,7 +2650,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
             }
         });
         calculadora.add(listo);
-        listo.setBounds(0, 224, 120, 23);
+        listo.setBounds(0, 224, 120, 32);
 
         cantidad.setBackground(new java.awt.Color(0, 0, 0));
         cantidad.setFont(new java.awt.Font("Tahoma", 3, 18)); // NOI18N
@@ -3364,7 +3367,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         );
 
         producto_sobrante3.add(jPanel31);
-        jPanel31.setBounds(0, 0, 1290, 71);
+        jPanel31.setBounds(0, 0, 1288, 66);
 
         jPanel32.setBackground(new java.awt.Color(0, 51, 102));
         jPanel32.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "   Inventario actualizado", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Arial", 1, 18), new java.awt.Color(255, 255, 255))); // NOI18N
@@ -3688,7 +3691,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         );
 
         agregar_usuario.add(jPanel5);
-        jPanel5.setBounds(0, 0, 1290, 60);
+        jPanel5.setBounds(0, 0, 1288, 60);
 
         tabla_usuariosnuevo = new rojerusan.RSTableMetro(){
             public boolean isCellEditable(int filas, int columnas){
@@ -3744,7 +3747,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         Administrador.setLayout(null);
 
         jPanel23.setBackground(new java.awt.Color(0, 51, 102));
-        jPanel23.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "   Ventas del Dia Realizadas   ", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Arial", 1, 18), new java.awt.Color(255, 255, 255))); // NOI18N
+        jPanel23.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Ventas de hoy realizadas", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Arial", 1, 18), new java.awt.Color(255, 255, 255))); // NOI18N
         jPanel23.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         Jtable_ventasRealizadas = new rojerusan.RSTableMetro(){
@@ -3788,12 +3791,12 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
                 veridventasActionPerformed(evt);
             }
         });
-        jPanel23.add(veridventas, new org.netbeans.lib.awtextra.AbsoluteConstraints(1020, 130, -1, -1));
+        jPanel23.add(veridventas, new org.netbeans.lib.awtextra.AbsoluteConstraints(1100, 70, -1, -1));
 
         jLabel91.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel91.setForeground(new java.awt.Color(255, 255, 255));
         jLabel91.setText("Hasta");
-        jPanel23.add(jLabel91, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 20, 60, 50));
+        jPanel23.add(jLabel91, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 20, 60, 50));
 
         jLabel92.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel92.setForeground(new java.awt.Color(255, 255, 255));
@@ -3803,12 +3806,12 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         fechainicial.setBackground(new java.awt.Color(0, 51, 102));
         fechainicial.setForeground(new java.awt.Color(0, 96, 255));
         fechainicial.setFont(new java.awt.Font("Tahoma", 1, 17)); // NOI18N
-        jPanel23.add(fechainicial, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 20, 160, 40));
+        jPanel23.add(fechainicial, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 20, 160, 40));
 
         fechafinal.setBackground(new java.awt.Color(0, 51, 102));
         fechafinal.setForeground(new java.awt.Color(0, 96, 255));
         fechafinal.setFont(new java.awt.Font("Tahoma", 1, 17)); // NOI18N
-        jPanel23.add(fechafinal, new org.netbeans.lib.awtextra.AbsoluteConstraints(980, 20, 160, 40));
+        jPanel23.add(fechafinal, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 20, 160, 40));
 
         buscarventasporfecha.setBackground(new java.awt.Color(0, 51, 102));
         buscarventasporfecha.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -3821,7 +3824,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
                 buscarventasporfechaActionPerformed(evt);
             }
         });
-        jPanel23.add(buscarventasporfecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(1020, 80, 150, 40));
+        jPanel23.add(buscarventasporfecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(1120, 20, 130, 40));
 
         labelparaeltotal.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         labelparaeltotal.setForeground(new java.awt.Color(255, 255, 255));
@@ -3831,7 +3834,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         jLabel99.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel99.setForeground(new java.awt.Color(255, 255, 255));
         jLabel99.setText("Desde");
-        jPanel23.add(jLabel99, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 20, 60, 50));
+        jPanel23.add(jLabel99, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 20, 60, 50));
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -3903,6 +3906,28 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
 
         jPanel23.add(jScrollPane7, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 70, 10, 10));
 
+        jLabel63.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel63.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel63.setText("Ventas realizadas:");
+        jPanel23.add(jLabel63, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 210, 180, 50));
+
+        conteodelasventasrealizadas.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
+        conteodelasventasrealizadas.setForeground(new java.awt.Color(255, 255, 255));
+        conteodelasventasrealizadas.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        conteodelasventasrealizadas.setText("00");
+        jPanel23.add(conteodelasventasrealizadas, new org.netbeans.lib.awtextra.AbsoluteConstraints(1140, 210, 120, 50));
+
+        jLabel96.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel96.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel96.setText("Ventas de hoy : $ ");
+        jPanel23.add(jLabel96, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 250, 170, 50));
+
+        ventaseneldiasumadas.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
+        ventaseneldiasumadas.setForeground(new java.awt.Color(255, 255, 255));
+        ventaseneldiasumadas.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        ventaseneldiasumadas.setText("00.00");
+        jPanel23.add(ventaseneldiasumadas, new org.netbeans.lib.awtextra.AbsoluteConstraints(1120, 250, 120, 50));
+
         Administrador.add(jPanel23);
         jPanel23.setBounds(10, 70, 1260, 300);
 
@@ -3961,16 +3986,11 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         );
 
         Administrador.add(jPanel24);
-        jPanel24.setBounds(0, 0, 1290, 60);
+        jPanel24.setBounds(0, 0, 1288, 60);
 
         jPanel26.setBackground(new java.awt.Color(0, 51, 102));
-        jPanel26.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "   Ventas del Dia Canceladas   ", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Arial", 1, 18), new java.awt.Color(255, 255, 255))); // NOI18N
+        jPanel26.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Ventas a credito pendiente", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Arial", 1, 18), new java.awt.Color(255, 0, 0))); // NOI18N
         jPanel26.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel62.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel62.setForeground(new java.awt.Color(255, 0, 0));
-        jLabel62.setText("Ventas de credito pendiente");
-        jPanel26.add(jLabel62, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 290, 50));
 
         tabladeidventas = new rojerusan.RSTableMetro(){
             public boolean isCellEditable(int filas, int columnas){
@@ -4009,27 +4029,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         jLabel90.setForeground(new java.awt.Color(255, 255, 255));
         jLabel90.setText("Total de ésta venta : $");
         Administrador.add(jLabel90);
-        jLabel90.setBounds(620, 560, 280, 50);
-
-        ventaseneldiasumadas.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
-        ventaseneldiasumadas.setForeground(new java.awt.Color(255, 255, 255));
-        ventaseneldiasumadas.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        ventaseneldiasumadas.setText("00.00");
-        Administrador.add(ventaseneldiasumadas);
-        ventaseneldiasumadas.setBounds(910, 460, 120, 50);
-
-        jLabel63.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel63.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel63.setText("Numero de ventas realizadas:");
-        Administrador.add(jLabel63);
-        jLabel63.setBounds(660, 420, 270, 50);
-
-        conteodelasventasrealizadas.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
-        conteodelasventasrealizadas.setForeground(new java.awt.Color(255, 255, 255));
-        conteodelasventasrealizadas.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        conteodelasventasrealizadas.setText("00");
-        Administrador.add(conteodelasventasrealizadas);
-        conteodelasventasrealizadas.setBounds(930, 420, 120, 50);
+        jLabel90.setBounds(630, 560, 210, 50);
 
         veridventasacreditopendiente.setBackground(new java.awt.Color(0, 51, 102));
         veridventasacreditopendiente.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
@@ -4040,7 +4040,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
             }
         });
         Administrador.add(veridventasacreditopendiente);
-        veridventasacreditopendiente.setBounds(620, 610, 157, 33);
+        veridventasacreditopendiente.setBounds(620, 610, 155, 40);
 
         pagarventaacredito.setBackground(new java.awt.Color(0, 51, 102));
         pagarventaacredito.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
@@ -4051,20 +4051,14 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
             }
         });
         Administrador.add(pagarventaacredito);
-        pagarventaacredito.setBounds(810, 610, 137, 33);
-
-        jLabel96.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel96.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel96.setText("Total de Ventas del Dia : $");
-        Administrador.add(jLabel96);
-        jLabel96.setBounds(660, 460, 280, 50);
+        pagarventaacredito.setBounds(810, 610, 134, 40);
 
         totalventacreditoenturno.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
         totalventacreditoenturno.setForeground(new java.awt.Color(255, 255, 255));
         totalventacreditoenturno.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         totalventacreditoenturno.setText("00.00");
         Administrador.add(totalventacreditoenturno);
-        totalventacreditoenturno.setBounds(810, 560, 120, 50);
+        totalventacreditoenturno.setBounds(840, 560, 120, 50);
 
         javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
         jPanel12.setLayout(jPanel12Layout);
@@ -4143,16 +4137,16 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         );
 
         producto_sobrante.add(jPanel20);
-        jPanel20.setBounds(0, 0, 1290, 71);
+        jPanel20.setBounds(0, 0, 1288, 66);
 
         jPanel25.setBackground(new java.awt.Color(0, 51, 102));
-        jPanel25.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "    Productos mas Vendidos   ", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Arial", 1, 18), new java.awt.Color(255, 255, 255))); // NOI18N
+        jPanel25.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Productos más vendidos", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Arial", 1, 18), new java.awt.Color(255, 255, 255))); // NOI18N
         jPanel25.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         fecha_inicioestadis.setBackground(new java.awt.Color(0, 51, 102));
         fecha_inicioestadis.setForeground(new java.awt.Color(0, 96, 255));
         fecha_inicioestadis.setFont(new java.awt.Font("Tahoma", 1, 17)); // NOI18N
-        jPanel25.add(fecha_inicioestadis, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 60, 210, 40));
+        jPanel25.add(fecha_inicioestadis, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 60, 210, 40));
 
         jLabel60.setFont(new java.awt.Font("Arial Black", 1, 24)); // NOI18N
         jLabel60.setForeground(new java.awt.Color(255, 255, 255));
@@ -4163,7 +4157,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         fecha_finalestadis.setBackground(new java.awt.Color(0, 51, 102));
         fecha_finalestadis.setForeground(new java.awt.Color(0, 96, 255));
         fecha_finalestadis.setFont(new java.awt.Font("Tahoma", 1, 17)); // NOI18N
-        jPanel25.add(fecha_finalestadis, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 60, 210, 40));
+        jPanel25.add(fecha_finalestadis, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 60, 210, 40));
 
         buscarproductosfecha.setBackground(new java.awt.Color(0, 51, 102));
         buscarproductosfecha.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -4262,7 +4256,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         labelutilidad.setForeground(new java.awt.Color(255, 255, 255));
         labelutilidad.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         labelutilidad.setText("00.00");
-        jPanel25.add(labelutilidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 520, 140, 28));
+        jPanel25.add(labelutilidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 520, 140, 28));
 
         labelgastos.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
         labelgastos.setForeground(new java.awt.Color(255, 255, 255));
@@ -5503,8 +5497,11 @@ if (choice == JOptionPane.YES_OPTION){
         // ************************  BTN CANCELARR   ***********************
         //ESTO ELIMINA TODA LA VENTA
         if(tablaventaactiva==true){
-            cerrandosesion_o_limpiandoventa();
+           cerrandosesion_o_limpiandoventa();  
          }
+        else{
+             JOptionPane.showMessageDialog(null, "No hay datos en la tabla de venta","No se puede borrar", JOptionPane.INFORMATION_MESSAGE); 
+        }
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton5MouseClicked
@@ -6245,7 +6242,6 @@ SI cc= new SI();
     private javax.swing.JLabel jLabel58;
     private javax.swing.JLabel jLabel60;
     private javax.swing.JLabel jLabel61;
-    private javax.swing.JLabel jLabel62;
     private javax.swing.JLabel jLabel63;
     private javax.swing.JLabel jLabel64;
     private javax.swing.JLabel jLabel65;
@@ -6267,7 +6263,6 @@ SI cc= new SI();
     private javax.swing.JLabel jLabel82;
     private javax.swing.JLabel jLabel83;
     private javax.swing.JLabel jLabel84;
-    private javax.swing.JLabel jLabel87;
     private javax.swing.JLabel jLabel88;
     private javax.swing.JLabel jLabel89;
     private javax.swing.JLabel jLabel9;

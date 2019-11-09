@@ -8,7 +8,10 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
+import static si.Pantalla_CorteCaja.monto;
 
 
 public class Apertura extends javax.swing.JFrame implements Runnable{
@@ -84,7 +87,7 @@ public void hora(){
         jPanel2.add(jLabel1);
         jLabel1.setBounds(10, 220, 270, 29);
 
-        Corte_btnImprimirticket.setBackground(new java.awt.Color(0, 148, 204));
+        Corte_btnImprimirticket.setBackground(new java.awt.Color(0, 51, 102));
         Corte_btnImprimirticket.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         Corte_btnImprimirticket.setForeground(new java.awt.Color(255, 255, 255));
         Corte_btnImprimirticket.setText("Abrir caja");
@@ -171,18 +174,28 @@ public void hora(){
                 .addContainerGap())
         );
 
-        jPanel1.getAccessibleContext().setAccessibleName("APERTURA DE CAJA");
-
         pack();
     }// </editor-fold>//GEN-END:initComponents
+public boolean validarFormulario(String cantidaddecorte) { // VALIDACION DE TXT MONTO
+        boolean next = false;
+        Pattern patGastos = Pattern.compile("^[0-9]+([.])?([0-9]+)?$");
+        Matcher matGastos = patGastos.matcher(cantidaddecorte);
 
+        if (matGastos.matches()&&!cantidaddecorte.equals("")&&!cantidaddecorte.equals("0")) {
+            next = true;
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Solo escribe numeros, así como no puede quedar vacio", "Advertencia", JOptionPane.INFORMATION_MESSAGE);
+            monto.setText("");
+            
+        }
+        return next;
+    }
     private void Corte_btnImprimirticketActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Corte_btnImprimirticketActionPerformed
-float variablemonto=Float.parseFloat(monto.getText());
-        if(variablemonto>0){//COMPROBANDO QUE EL MONTO NO ESTE VACIO
-             try{ //la insersion a la tabla ventas
-   
-   
-    
+  boolean pass2 = validarFormulario(monto.getText());
+                 if(pass2){//ESTO VALIDA QUE EL TEXTO ESCRITO NO TENGA INCOHERENCIAS   
+                       try{ //la insersion a la tabla ventas
+
     String sql = "INSERT INTO  apertura(monto,fecha,hora,usuario)  VALUES (?,?,?,?)";
                 PreparedStatement pst = ca.prepareCall(sql); //hasta aqui vamos
                
@@ -203,13 +216,9 @@ float variablemonto=Float.parseFloat(monto.getText());
             }catch(SQLException e)  { //fin de la insersion a la tabla ventas
                 JOptionPane.showMessageDialog(null,"Error de datos por id vacio "+e);
             }//fin de la insersion a la tabla ventas
-    }//FIN DE COMPROBANDO QUE EL MONTO NO ESTE VACIO
-else{//CUANDO EL MONTO ESTA VACIO
-            JOptionPane.showMessageDialog(null,"El monto no puede estar vacio o en 0");
  
-   
-}// FIN DE CUANDO EL MONTO ESTA VACIO
        
+                 }
     }//GEN-LAST:event_Corte_btnImprimirticketActionPerformed
 
     private void montoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_montoFocusGained
