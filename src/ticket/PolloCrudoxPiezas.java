@@ -10,7 +10,7 @@ import javax.swing.JOptionPane;
 
 public class PolloCrudoxPiezas {
     
-      public void PolloCrudoxPiezas(ArrayList pollocrudnombre, ArrayList pollocrudpieza,ArrayList pollocrudtotal){
+      public void PolloCrudoxPiezas(ArrayList pollocrudnombre, ArrayList pollocrudpieza,ArrayList pollocrudtotal, float totaldecrudo){
        
         Date date = new Date();
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -36,7 +36,8 @@ public class PolloCrudoxPiezas {
              auxs+= "\n";   
         }                  
        auxs+= "\n==========================================\n";  System.out.println("\n==========================================\n");  
-        auxs+= "\n\n\n\n"; // SALTOS PARA K NO LO CORTE LUEGO
+       auxs+= String.format("      "+"TOTAL  :"+ "$" + totaldecrudo);    System.out.println(String.format("      "+"TOTAL  :"+ "$" + totaldecrudo)); 
+       auxs+= "\n\n\n\n"; // SALTOS PARA K NO LO CORTE LUEGO
          
          try {
             impServicio.printCadena(impra, auxs);

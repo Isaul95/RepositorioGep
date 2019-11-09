@@ -333,7 +333,7 @@ public void metodogastosdeldia(){
                          }
                          
    PolloCrudoxPiezas = new PolloCrudoxPiezas();          
-   PolloCrudoxPiezas.PolloCrudoxPiezas(columna, columna2, columna3);                       
+   PolloCrudoxPiezas.PolloCrudoxPiezas(columna, columna2, columna3,total_de_crudo);                       
       }catch(Exception e){                                             
           System.out.println("ERROR en pantalla gasts: " + e.getMessage());
       }
@@ -350,7 +350,7 @@ public void metodogastosdeldia(){
                          }                      
                          total_del_día_devolucion_crudo();
    PolloCrudoBienTocketc = new PolloCrudoBienTocketc();          
-   PolloCrudoBienTocketc.PolloCrudoBienTocketc(columna, columna2, total_de_crudo);
+   PolloCrudoBienTocketc.PolloCrudoBienTocketc(columna, columna2);
       }catch(Exception e){                                             
           System.out.println("ERROR" + e.getMessage());
       }
@@ -432,7 +432,7 @@ public void metodogastosdeldia(){
     }
     
     private void Corte_btnImprimirticketActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Corte_btnImprimirticketActionPerformed
-            boolean pass2 = validarFormulario(monto.getText());
+    boolean pass2 = validarFormulario(monto.getText());
                  if(pass2){//ESTO VALIDA QUE EL TEXTO ESCRITO NO TENGA INCOHERENCIAS   
                  int decision=JOptionPane.showConfirmDialog(null,"¿Desea continuar?","UNA VEZ REALIZADO EL CORTE, SOLO EL ADMIN PUEDE ENTRAR",JOptionPane.CANCEL_OPTION);
             if(decision==0){// SI SE ELIGE QUE SI, PROCEDEMOS A REALIZAR EL CORTE E IMPRIMIR LOS 5 TICKET
@@ -484,33 +484,26 @@ public void metodogastosdeldia(){
                 
                 //LUEGO AQUI SE PUEDE REALIZAR CADA TICKET CORRESPONDIENTE (ESTOS SON LOS 5 TICKET)
  sobrantedepollococidodeldiaparaticketcantidadesypiezas();//SOBRANTE DE COCIDO PARA TICKET MOSTRANDO CANTIDADES Y TOTALES
- /* .... */ sobrantedepollococidodeldiaparaticketperosolocantidades();//SOBRANTE DE COCIDO PARA TICKET MOSTRANDO CANTIDADES
-                     /* IMPRESO */sobrantedepollocrudodeldiaparaticketcantidadesypiezas();//SOBRANTE DE PECHUGA, PIERNA ALA, MUSLO, VA PARA TICKET
-                   /* IMPRESO */ sobrantedepollocrudodeldiaparaticketperosolocantidades();//SOBRANTE DE TODO MENOS PECHUGA, PIERNA ALA, MUSLO, VA PARA TICKET
-                   /* IMPRESO */ obteniendolosvaloresdelcortedecajadeldiadehoyparaelticket();//LOS DATOS DEL TICKET CORTE DE CAJA                                           
-                
+ sobrantedepollococidodeldiaparaticketperosolocantidades();//SOBRANTE DE COCIDO PARA TICKET MOSTRANDO CANTIDADES
+                   sobrantedepollocrudodeldiaparaticketcantidadesypiezas();//SOBRANTE DE PECHUGA, PIERNA ALA, MUSLO, VA PARA TICKET
+                    sobrantedepollocrudodeldiaparaticketperosolocantidades();//SOBRANTE DE TODO MENOS PECHUGA, PIERNA ALA, MUSLO, VA PARA TICKET
+                   obteniendolosvaloresdelcortedecajadeldiadehoyparaelticket();//LOS DATOS DEL TICKET CORTE DE CAJA                                                      
       llenar_tabla_utilidad(gastosdeldia, ventasdeldia);
-           /* vaciartodoelpollococidoenprocesados();
-            vaciartodoelpollocrudoendevolucioncrudo();*/
-           vaciartodoeninventario();//UNA VEZ IMPRESO LOS 5 TICKETS SE VACIA TODO EL INVENTARIO
-                
+       //   vaciartodoelpollococidoenprocesados();
+          //vaciartodoelpollocrudoendevolucioncrudo();
+          //vaciartodoeninventario();//UNA VEZ IMPRESO LOS 5 TICKETS SE VACIA TODO EL INVENTARIO            
                 JOptionPane.showMessageDialog(null,"Nos vemos pronto","Saliendo del sistema...",JOptionPane.INFORMATION_MESSAGE);
             System.exit(0);
-
-          
-              
                 }
             }catch(SQLException e)  { //fin de la insersion a la tabla ventas
                 JOptionPane.showMessageDialog(null,"Error de datos por id vacio "+e);
-            }//fin de la insersion a la tabla ventas
-             
+            }//fin de la insersion a la tabla ventas         
     }//FIN DE COMPROBANDO QUE EL MONTO NO ESTE VACIO
 else{//CUANDO EL MONTO ESTA VACIO
             JOptionPane.showMessageDialog(null,"El monto no puede estar vacio o en 0"); 
 }// FIN DE CUANDO EL MONTO ESTA VACIO
-                
             }//SI SE ELIGE QUE SI, PROCEDEMOS A REALIZAR EL CORTE E IMPRIMIR LOS 5 TICKET
-                 }            
+                 }        
     }//GEN-LAST:event_Corte_btnImprimirticketActionPerformed
 public void total_del_día_devolucion_crudo(){
     try{

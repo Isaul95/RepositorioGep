@@ -9,7 +9,7 @@ import javax.swing.JOptionPane;
 
 public class PolloCrudoBienTocketc {
     
-       public void PolloCrudoBienTocketc(ArrayList pollocrudonombre, ArrayList pollocrudopieza, float totaldecrudo){
+       public void PolloCrudoBienTocketc(ArrayList pollocrudonombre, ArrayList pollocrudopieza){
        
         Date date = new Date();
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -36,7 +36,7 @@ public class PolloCrudoBienTocketc {
         }                  
        auxs+= "\n==========================================\n";  System.out.println("\n==========================================\n");  
        
-       auxs+= String.format("      "+"TOTAL  :"+ "$" + totaldecrudo);    System.out.println(String.format("      "+"TOTAL  :"+ "$" + totaldecrudo));
+       //auxs+= String.format("      "+"TOTAL  :"+ "$" + totaldecrudo);    System.out.println(String.format("      "+"TOTAL  :"+ "$" + totaldecrudo));
                   auxs+= "\n\n\n\n";  // saltos para k no lo corte luego
          
          try {

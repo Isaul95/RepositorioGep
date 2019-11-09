@@ -13,6 +13,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
@@ -111,6 +113,48 @@ public class Pantalla_Gastos extends javax.swing.JFrame {
         Date fecha=new Date();
         SimpleDateFormat formatoFecha= new SimpleDateFormat("YYYY/MM/dd");
         return formatoFecha.format(fecha);
+    }
+             
+             
+             
+              public void mostrartodoslosproductosenexistenciasporbusqueda(String textobusqueda){
+            jTableGastos.setVisible(true);    //hace visible la tabla de proveedores 
+              DefaultTableModel modelo = new DefaultTableModel(); // Se crea un objeto para agregar los nombres de las columnas a la tabla
+   
+           // add al modelo las 5 columnas con los nombrs TABLA
+        modelo.addColumn("Cantidad");
+        modelo.addColumn("Tipo");        
+        modelo.addColumn("Fecha");
+        modelo.addColumn("Total");
+       modelo.addColumn("usuario");   
+              
+     jTableGastos.setModel(modelo);  // Ya una vez asignado todos los nombres se le envia el objeto a la tabla proveedores
+    String []datos = new String[4];     //Un arreglo con la cantidad de nombres en las columnas
+    try {
+      
+             sent = ca.createStatement();   
+                               //      rs = sent.executeQuery("select * from descripcion_de_venta where id_venta= '"+id_de_la_venta_incrementable+"'");
+                       if(textobusqueda.equals("")){
+                          rs= sent.executeQuery("SELECT `cantidad`,`tipo`,`fecha`,`total`,`usuario` FROM `egreso`"); // se ejecuta la sentencia dentro del parentesis
+ //  SELECT `idegreso`,`cantidad`,`tipo`,`fecha`,`total`,`nombre` FROM `egreso` INNER JOIN user WHERE egreso.`usuario` = user.id_usuario and fecha = curdate()";   
+                       }
+                       else{
+                   
+                           rs= sent.executeQuery("SELECT `cantidad`,`tipo`,`fecha`,`total`,`usuario` FROM `egreso` where tipo LIKE '%" +textobusqueda+"%' " + " and total LIKE '%" +textobusqueda+"%' " ); // se ejecuta la sentencia dentro del parentesis
+           
+                       }
+             while(rs.next()){        
+            datos[0]=rs.getString(1);
+            datos[1]=rs.getString(2);
+            datos[2]=rs.getString(3);
+            datos[3]=rs.getString(4);
+            modelo.addRow(datos); //se asigna el arreglo  entero a todo el objeto llamado modelo  
+            }
+           jTableGastos.setModel(modelo); // Se vuelve a enviar nuevamente el objeto modelo a la tabla
+        } catch (SQLException ex) {
+            Logger.getLogger(menu_principal.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "No se pudo mostrar ningun dato porque tu consulta está mal");
+        } 
     }
 
              
@@ -373,52 +417,6 @@ try {
        QUE SE ESTA INSERTANDO
      */
 
-      /*  ======   HACIENDO UNA CONSULTA DE LOS GASTOS A BUSCAR CON -- ((UNA)) -- FECHA DETERINADA =======A*/          
-          public void LlenarTablaBusquedaFecha(JTable tablaD, String jDateXUnaFecha){ // recibe como parametro 
-         Object[] columna = new Object[6];  //crear un obj con el nombre de colunna
-            Connection ca= cc.conexion(); // CONEXION DB 
-              DefaultTableModel modeloT = new DefaultTableModel(); 
-                  tablaD.setModel(modeloT);  // add modelo ala tabla 
-        
-        modeloT.addColumn("Idegreso");    // add al modelo las 5 columnas con los nombrs TABLA
-        modeloT.addColumn("Cantidad");
-        modeloT.addColumn("Tipo");        
-        modeloT.addColumn("Fecha");
-        modeloT.addColumn("Total");
-       modeloT.addColumn("nombre");               
-         /* SELECT `idegreso`, `tipo`, `total`, `fecha`, turno FROM `egreso` \n" + "  INNER JOIN empleado\n" + "WHERE egreso.`empleado_idempleado` = empleado.idempleado";     */    
-        try {
-         String sSQL = "SELECT `idegreso`,`cantidad`,`tipo`,`fecha`,`total`,`nombre` FROM `egreso` INNER JOIN user WHERE egreso.`usuario` = user.id_usuario AND fecha = '"+llenarfechadehoy()+"'";
-         
-  // String sSQL = "SELECT * FROM egreso\n" + "WHERE fecha = '"+llenarfechadehoy()+"'";
-         
-         //   "SELECT *FROM egreso\n" + "WHERE fecha = '2019-07-20'";            
-        PreparedStatement ps = ca.prepareStatement(sSQL);       
-        try (ResultSet rs = ps.executeQuery(sSQL)) {
-            while (rs.next()) {
-                columna[0] = rs.getString("idegreso");  /* === LA DB == */
-                columna[1] = rs.getString("cantidad");
-                columna[2] = rs.getString("tipo");
-                columna[3] = rs.getString("fecha");
-                columna[4] = rs.getString("total");
-                columna[5] = rs.getString("nombre");                
-                modeloT.addRow(columna);
-            }
-        }
-        ps.close();
-    } catch (Exception e) {
-        JOptionPane.showMessageDialog(null, e, "Advertencia", JOptionPane.PLAIN_MESSAGE);    
-    }
-}
-     
-     public String llenarfechadehoy(){         
-       int año= jDateXUnaFecha.getCalendar().get(Calendar.YEAR);
-       int mes= jDateXUnaFecha.getCalendar().get(Calendar.MONTH)+1;
-       int dia= jDateXUnaFecha.getCalendar().get(Calendar.DAY_OF_MONTH);
-       fechahoy= año+"/"+mes+"/"+dia;
-        return fechahoy;
-    } 
-     
      
     
 
@@ -438,16 +436,10 @@ try {
         jDateChooserFecha = new com.toedter.calendar.JDateChooser();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTableGastosFechaActual = new javax.swing.JTable();
-        jDateXUnaFecha = new com.toedter.calendar.JDateChooser();
-        B_cancelar = new javax.swing.JButton();
         btnRegistrarGasto = new javax.swing.JButton();
-        btnImprimirticket = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         txtpiezas = new javax.swing.JTextField();
-        buscargastos = new javax.swing.JButton();
+        busquedagastos = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -529,53 +521,6 @@ try {
         jPanel2.add(jLabel4);
         jLabel4.setBounds(870, 10, 250, 40);
 
-        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 17)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel6.setText("Fecha:");
-        jPanel2.add(jLabel6);
-        jLabel6.setBounds(790, 90, 80, 40);
-
-        jTableGastosFechaActual.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Idegreso", "Cantidad", "Tipo", "Total", "Fecha", "Usuario"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane2.setViewportView(jTableGastosFechaActual);
-
-        jPanel2.add(jScrollPane2);
-        jScrollPane2.setBounds(680, 150, 600, 170);
-
-        jDateXUnaFecha.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jDateXUnaFecha.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                jDateXUnaFechaPropertyChange(evt);
-            }
-        });
-        jPanel2.add(jDateXUnaFecha);
-        jDateXUnaFecha.setBounds(870, 90, 230, 40);
-
-        B_cancelar.setBackground(new java.awt.Color(242, 38, 19));
-        B_cancelar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        B_cancelar.setText("Regresar");
-        B_cancelar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                B_cancelarActionPerformed(evt);
-            }
-        });
-        jPanel2.add(B_cancelar);
-        B_cancelar.setBounds(1080, 420, 200, 40);
-
         btnRegistrarGasto.setBackground(new java.awt.Color(0, 148, 204));
         btnRegistrarGasto.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btnRegistrarGasto.setForeground(new java.awt.Color(255, 255, 255));
@@ -587,18 +532,6 @@ try {
         });
         jPanel2.add(btnRegistrarGasto);
         btnRegistrarGasto.setBounds(430, 170, 210, 50);
-
-        btnImprimirticket.setBackground(new java.awt.Color(0, 148, 204));
-        btnImprimirticket.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        btnImprimirticket.setForeground(new java.awt.Color(255, 255, 255));
-        btnImprimirticket.setText("Imprimir tikect");
-        btnImprimirticket.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnImprimirticketActionPerformed(evt);
-            }
-        });
-        jPanel2.add(btnImprimirticket);
-        btnImprimirticket.setBounds(910, 340, 200, 50);
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 17)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
@@ -628,17 +561,13 @@ try {
         jPanel2.add(txtpiezas);
         txtpiezas.setBounds(240, 120, 150, 40);
 
-        buscargastos.setBackground(new java.awt.Color(0, 148, 204));
-        buscargastos.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        buscargastos.setForeground(new java.awt.Color(255, 255, 255));
-        buscargastos.setText("Buscar");
-        buscargastos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buscargastosActionPerformed(evt);
+        busquedagastos.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                busquedagastosKeyReleased(evt);
             }
         });
-        jPanel2.add(buscargastos);
-        buscargastos.setBounds(1120, 80, 150, 50);
+        jPanel2.add(busquedagastos);
+        busquedagastos.setBounds(690, 230, 220, 30);
 
         jPanel1.add(jPanel2);
         jPanel2.setBounds(10, 50, 1290, 480);
@@ -658,14 +587,6 @@ try {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void B_cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_B_cancelarActionPerformed
-        // BOTON DE CANCELAR LA INSERCION DE NUEVO USUARIO
-        int dialogButton = JOptionPane.YES_NO_OPTION;
-        int result = JOptionPane.showConfirmDialog(null, "¿Regresar a pagina anterior?","                    Aviso",dialogButton);
-        if(result == 0){
-            dispose();   }
-    }//GEN-LAST:event_B_cancelarActionPerformed
 
     private void btnListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarActionPerformed
         // Listar Gastos
@@ -743,35 +664,6 @@ public void obtener_id_del_proveedor(String name){
  
     }//GEN-LAST:event_btnRegistrarGastoActionPerformed
 
-    private void btnImprimirticketActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirticketActionPerformed
-        // BOTON EN LA  BUSKEDA DE IMPRIMIR TICKET
-         int fila;
-                try {
-                    fila = jTableGastosFechaActual.getSelectedRow();
-                    if (fila == -1) {
-                        JOptionPane.showMessageDialog(null, "No ha seleccionado ninguna fila.", "ERROR", JOptionPane.ERROR_MESSAGE);
-                    } else {
-                        int cantidad = (int) jTableGastosFechaActual.getValueAt(fila, 1);
-                        String tipo = (String) jTableGastosFechaActual.getValueAt(fila, 2);
-                        String total = (String) jTableGastosFechaActual.getValueAt(fila, 3);
-                        JOptionPane.showMessageDialog(null, "Ticket Generado Exitosamente");
-                        tikectGastos = new TikectGasto();
-                        tikectGastos.TikectGasto(cantidad, tipo, total);
-                    }
-                } catch (Exception ex) {
-                }  
-        
-    }//GEN-LAST:event_btnImprimirticketActionPerformed
-
-    private void jDateXUnaFechaPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jDateXUnaFechaPropertyChange
-        //  ME HACE LA BUSKEDA AL PONER UNA FECJA EN EL CHOOSERDATE
-         
-            /* String fechahoy= jDateXUnaFecha.toString();
-          
-            LlenarTablaBusquedaFecha(jTableGastosFechaActual, llenarfechadehoy());  */
-
-    }//GEN-LAST:event_jDateXUnaFechaPropertyChange
-
     private void txtpiezasFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtpiezasFocusGained
         // *********************   CAJA DE TEXTO DE PAGOO *********
         if(txtpiezas.getText().trim().equals("00.00")){
@@ -793,12 +685,10 @@ public void obtener_id_del_proveedor(String name){
         // TODO add your handling code here:
     }//GEN-LAST:event_txtpiezasActionPerformed
 
-    private void buscargastosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscargastosActionPerformed
-        // BOTON PARA LA CONSULTA DE  GASTOS 
-        String fechahoy= jDateXUnaFecha.toString();
-          
-            LlenarTablaBusquedaFecha(jTableGastosFechaActual, llenarfechadehoy());
-    }//GEN-LAST:event_buscargastosActionPerformed
+    private void busquedagastosKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_busquedagastosKeyReleased
+        String textobusqueda = busquedagastos.getText();
+        mostrartodoslosproductosenexistenciasporbusqueda(textobusqueda);
+    }//GEN-LAST:event_busquedagastosKeyReleased
 
     /**
      * @param args the command line arguments
@@ -842,25 +732,19 @@ public void obtener_id_del_proveedor(String name){
  Connection ca= cc.conexion();
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton B_cancelar;
-    private javax.swing.JButton btnImprimirticket;
     private javax.swing.JButton btnListar;
     public javax.swing.JButton btnRegistrarGasto;
-    private javax.swing.JButton buscargastos;
+    private javax.swing.JTextField busquedagastos;
     public com.toedter.calendar.JDateChooser jDateChooserFecha;
-    public com.toedter.calendar.JDateChooser jDateXUnaFecha;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     public javax.swing.JTable jTableGastos;
-    public javax.swing.JTable jTableGastosFechaActual;
     public javax.swing.JTextField txtdescripcion;
     public javax.swing.JTextField txtmonto;
     public static javax.swing.JTextField txtpiezas;
