@@ -5464,8 +5464,12 @@ if (choice == JOptionPane.YES_OPTION){
 
     private void CortedecajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CortedecajaActionPerformed
         // TODO add your handling code here:
-
-        new Pantalla_CorteCaja().setVisible(true);
+    if(Integer.parseInt(hora)>=20){
+             new Pantalla_CorteCaja().setVisible(true);
+        }else{
+        JOptionPane.showMessageDialog(null, "Normalmente la hora de corte de caja es depues de las 8 pm", "¡Alto!", JOptionPane.ERROR_MESSAGE);
+    }
+       
     }//GEN-LAST:event_CortedecajaActionPerformed
 
     private void AgregarGastosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AgregarGastosActionPerformed
