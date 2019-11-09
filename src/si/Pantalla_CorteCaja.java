@@ -504,7 +504,7 @@ else{//CUANDO EL MONTO ESTA VACIO
             JOptionPane.showMessageDialog(null,"El monto no puede estar vacio o en 0"); 
 }// FIN DE CUANDO EL MONTO ESTA VACIO
             }//SI SE ELIGE QUE SI, PROCEDEMOS A REALIZAR EL CORTE E IMPRIMIR LOS 5 TICKET
-                  
+                 }   
     }//GEN-LAST:event_Corte_btnImprimirticketActionPerformed
 
  public void total_del_día_devolucion_crudo(){
