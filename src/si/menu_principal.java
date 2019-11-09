@@ -56,14 +56,14 @@ public final class menu_principal extends javax.swing.JFrame implements Runnable
 Statement sent;  
   ResultSet rs;      
   float totalticket, pagoticket, cambioticket, porcentajedescontadoticket, descuentoticket;
-  float sumadetotalesdeventasdehoy, conteototaldeventas, conteodeventascanceladas;
+  float utilidadfinal, utilidades, gastos, sumadetotalesdeventasdehoy, conteototaldeventas, conteodeventascanceladas;
      int  id_ventapencredito, evaluadordepiezaspares=0, evaluadordepiezasinpares=0, piezassuficientes, resultadoprimerproveedor, id_de_la_venta_incrementable,totalcomprobacion, primerventa, resultfirstselling, existencia;   
   int fila, id_proveedor,id_usuario,id_producto,id_venta,aux1,aux2,variablede0=0;
    float   cantidadporerrordeusuario, cantidaddeproductos,productos, NoPcantidad=0, cantidadenventa,  cantidaddesdelatablaeditable, piezasxunpollo=14, piezasdepollopares=2, piezasdepollosinpares=1, resultadodepiezaspares,resultadodepiezasinpares, minimodelaspiezasparesdepollocrudoeninventario, minimodelaspiezasinparesdepollocrudoeninventario, pollo_crudoeninventario, addpiezas, cantidadpolloenDB, porcentaje, importe,totalf=0,comprobacion,cambio,precio, NoPimporte=0,sumadeimportes, sumadeimportesparaeltotal, sumadeimportescreditopendiente,descuentocantidad, totalfinalcondescuento;
   ArrayList storage = new ArrayList(); // para guardar los id de cada producto que se ha agregado a la tabla venta
  ArrayList datosparaelticketdeventa = new ArrayList();//PARA GUARDAR LOS DATOS DEL TICKET DE VENTA
   String[] piezas = {"Pechuga", "Muslo","Pierna","Ala","Huacal","Cadera","Cabeza", "Molleja", "Patas"};
-                       double cantidaddemedio, cantidaddecuarto;
+double cantidaddemedio, cantidaddecuarto;
         ArrayList idsenturno = new ArrayList();
        ArrayList cantidaddecadaidenturno = new ArrayList();
 
@@ -77,6 +77,12 @@ ArrayList importesticket = new ArrayList();
             String name, pollo_crudo="pollo crudo", estadoinactivo="Inactivo", estadoactivo="Activo", NoP="",estadocancelado= "Cancelada",estadorealizado="Realizada", estadoenturno="En turno", creditopendiente="Credito-pendiente", creditopagado="Credito-pagado", fechayhora="",fechasinhora="", usuarioname=SI_Inicio.text_user.getText(); //variable para obtener el nombre del usuario o administrador que ingreso al sistema
     public menu_principal() {
         initComponents();
+        sumadeutilidades();
+        sumadegastos();
+        labelingresos.setText(String.valueOf(utilidades));
+        labelgastos.setText(String.valueOf(gastos));
+        utilidadfinal=utilidades-gastos;
+        labelutilidad.setText(String.valueOf(utilidadfinal));
         ids_y_cantidades_enturno_por_error_de_usuario();
        // borrarventasenestadoenturnoporerrordeusuario();//ESTO ES CUANDO EL USUARIO SE EQUIVOCA Y CIERRA SESION DIRECTAMENTE EN LA X
         mostrarpolloscrudos();
@@ -92,7 +98,7 @@ ArrayList importesticket = new ArrayList();
                   productosmasvendidos(Jtable_productosmasven);
                   TablallenadoparaEntradas(Jtable_ProductosEntradas);
                   ParaLAVenta(JtablepaLaVenta);
-
+llenartablautilidad();
  
         setIconImage(getIconImage());  //La variable que le manda la imagen (DataMax) al proyecto 
         quienentroalsistema();//Dependiendo quien entre al sistema serán las opciones que se le activarán
@@ -123,7 +129,68 @@ ArrayList importesticket = new ArrayList();
    pagarventaacredito.setVisible(false);
     }
     
+  public void llenartablautilidad(){
+        utilidad.setVisible(true);    //hace visible la tabla de proveedores 
+              DefaultTableModel modelo = new DefaultTableModel(); // Se crea un objeto para agregar los nombres de las columnas a la tabla
+    modelo.addColumn("Ventas");
+    modelo.addColumn("Devolucion crudo");
+    modelo.addColumn("Procesados");
+     modelo.addColumn("Pago pollo");
+      modelo.addColumn("Tacos");
+       modelo.addColumn("Utilidad");
+       modelo.addColumn("Almuerzo");
+ modelo.addColumn("Diferencia");  
+  modelo.addColumn("Gastos");  
   
+     utilidad.setModel(modelo);  // Ya una vez asignado todos los nombres se le envia el objeto a la tabla proveedores
+    String []datos = new String[9];     //Un arreglo con la cantidad de nombres en las columnas
+    try {
+        id_max_de_venta();
+             sent = ca.createStatement();   
+            rs= sent.executeQuery("select * from utilidad"); // se ejecuta la sentencia dentro del parentesis
+            while(rs.next()){        
+            datos[0]=rs.getString(2);
+            datos[1]=rs.getString(3);
+            datos[2]=rs.getString(4);
+            datos[3]=rs.getString(5);
+            datos[4]=rs.getString(6);
+            datos[5]=rs.getString(7);
+            datos[6]=rs.getString(8);
+            datos[7]=rs.getString(9);
+            datos[8]=rs.getString(10);
+
+            modelo.addRow(datos); //se asigna el arreglo  entero a todo el objeto llamado modelo  
+            }
+           utilidad.setModel(modelo); // Se vuelve a enviar nuevamente el objeto modelo a la tabla
+        } catch (SQLException ex) {
+            Logger.getLogger(menu_principal.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "No se pudo mostrar ningun dato porque tu consulta está mal");
+        } 
+  }
+  public void sumadeutilidades(){
+              try{ // La suma de las utilidades
+    Statement sent  =(Statement)ca.createStatement();
+                                         ResultSet  rs = sent.executeQuery("select SUM(utilidad) from utilidad");
+                                            while(rs.next()){
+                                                      utilidades =rs.getFloat(1);
+                                                      }
+                                                      }//fin del try-precio del producto
+                                                      catch (Exception e){
+                                                           JOptionPane.showMessageDialog(null, "ERROR EN METODO: sumadeutilidades","DEVELOPER HELPER", JOptionPane.ERROR_MESSAGE);       
+                                                      }// fin del precio-catch del producto
+  }
+    public void sumadegastos(){
+              try{ // La suma de las utilidades
+    Statement sent  =(Statement)ca.createStatement();
+                                         ResultSet  rs = sent.executeQuery("select SUM(gastos) from utilidad");
+                                            while(rs.next()){
+                                                      gastos =rs.getFloat(1);
+                                                      }
+                                                      }//fin del try-precio del producto
+                                                      catch (Exception e){
+                                                           JOptionPane.showMessageDialog(null, "ERROR EN METODO: sumadeutilidades","DEVELOPER HELPER", JOptionPane.ERROR_MESSAGE);       
+                                                      }// fin del precio-catch del producto
+  }
     public static String fechaventasrealizadas(){ /* SE DECARA LA FECHA DEL SISTEMA */
         Date fecha=new Date();
         SimpleDateFormat formatoFecha= new SimpleDateFormat("YYYY/MM/dd");
@@ -415,17 +482,11 @@ try {
             Connection ca= cc.conexion(); // CONEXION DB 
               DefaultTableModel modeloTE = new DefaultTableModel(); 
                   tablaD.setModel(modeloTE);  // add modelo ala tabla 
-        
         modeloTE.addColumn("Nombre");
         modeloTE.addColumn("PIezas");        
         modeloTE.addColumn("Fecha");
-
         try {
          String sSQL = "SELECT nombre_producto, SUM(cantidad), fecha FROM descripcion_de_venta WHERE estado='Realizada' AND fecha = '"+fecha()+"' GROUP BY nombre_producto ASC";
-                 //"SELECT `nombre_producto`, `cantidad`, `precio_unitario`, venta.fecha_reporte FROM descripcion_de_venta inner join venta on descripcion_de_venta.`id_venta` = venta.id_venta WHERE fecha_reporte = CURDATE() ORDER BY `cantidad` DESC";
-         
-         
-                 
         PreparedStatement ps = ca.prepareStatement(sSQL);       
         try (ResultSet rs = ps.executeQuery(sSQL)) {
             while (rs.next()) {
@@ -2008,6 +2069,14 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         jLabel77 = new javax.swing.JLabel();
         jLabel78 = new javax.swing.JLabel();
         jLabel80 = new javax.swing.JLabel();
+        jLabel81 = new javax.swing.JLabel();
+        jLabel82 = new javax.swing.JLabel();
+        jLabel84 = new javax.swing.JLabel();
+        labelutilidad = new javax.swing.JLabel();
+        labelgastos = new javax.swing.JLabel();
+        labelingresos = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        utilidad = new javax.swing.JTable();
 
         tabla_articulos.setComponentPopupMenu(tabla_articulos);
 
@@ -4083,18 +4152,18 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         fecha_inicioestadis.setBackground(new java.awt.Color(0, 51, 102));
         fecha_inicioestadis.setForeground(new java.awt.Color(0, 96, 255));
         fecha_inicioestadis.setFont(new java.awt.Font("Tahoma", 1, 17)); // NOI18N
-        jPanel25.add(fecha_inicioestadis, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 60, 210, 40));
+        jPanel25.add(fecha_inicioestadis, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 60, 210, 40));
 
         jLabel60.setFont(new java.awt.Font("Arial Black", 1, 24)); // NOI18N
         jLabel60.setForeground(new java.awt.Color(255, 255, 255));
         jLabel60.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel60.setText("Desde");
-        jPanel25.add(jLabel60, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 60, 130, 40));
+        jPanel25.add(jLabel60, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 130, 40));
 
         fecha_finalestadis.setBackground(new java.awt.Color(0, 51, 102));
         fecha_finalestadis.setForeground(new java.awt.Color(0, 96, 255));
         fecha_finalestadis.setFont(new java.awt.Font("Tahoma", 1, 17)); // NOI18N
-        jPanel25.add(fecha_finalestadis, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 60, 210, 40));
+        jPanel25.add(fecha_finalestadis, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 60, 210, 40));
 
         buscarproductosfecha.setBackground(new java.awt.Color(0, 51, 102));
         buscarproductosfecha.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -4107,7 +4176,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
                 buscarproductosfechaActionPerformed(evt);
             }
         });
-        jPanel25.add(buscarproductosfecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 50, 180, 50));
+        jPanel25.add(buscarproductosfecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 60, 180, 50));
 
         Jtable_productosmasven = new rojerusan.RSTableMetro(){
             public boolean isCellEditable(int filas, int columnas){
@@ -4138,7 +4207,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         Jtable_productosmasven.setRowHeight(20);
         jScrollPane5.setViewportView(Jtable_productosmasven);
 
-        jPanel25.add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, 1230, 300));
+        jPanel25.add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, 580, 170));
 
         buscarproductospordia.setBackground(new java.awt.Color(0, 51, 102));
         buscarproductospordia.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -4151,31 +4220,79 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
                 buscarproductospordiaActionPerformed(evt);
             }
         });
-        jPanel25.add(buscarproductospordia, new org.netbeans.lib.awtextra.AbsoluteConstraints(1070, 50, 180, 50));
+        jPanel25.add(buscarproductospordia, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 60, 180, 50));
 
         jLabel76.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel76.setForeground(new java.awt.Color(255, 255, 255));
         jLabel76.setText("El día de hoy");
-        jPanel25.add(jLabel76, new org.netbeans.lib.awtextra.AbsoluteConstraints(1070, 20, 270, -1));
+        jPanel25.add(jLabel76, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 30, 270, -1));
 
         jLabel77.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel77.setForeground(new java.awt.Color(255, 255, 255));
         jLabel77.setText("Selecciona el rango de fechas que quieres ver");
         jPanel25.add(jLabel77, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 30, 360, -1));
 
-        jLabel78.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel78.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         jLabel78.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel78.setText("Por rango de fechas");
-        jPanel25.add(jLabel78, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 20, 270, -1));
+        jLabel78.setText("Utilidad");
+        jPanel25.add(jLabel78, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 520, 100, -1));
 
         jLabel80.setFont(new java.awt.Font("Arial Black", 1, 24)); // NOI18N
         jLabel80.setForeground(new java.awt.Color(255, 255, 255));
         jLabel80.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel80.setText("Hasta");
-        jPanel25.add(jLabel80, new org.netbeans.lib.awtextra.AbsoluteConstraints(497, 60, -1, 40));
+        jPanel25.add(jLabel80, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 60, -1, 40));
+
+        jLabel81.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel81.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel81.setText("Por rango de fechas");
+        jPanel25.add(jLabel81, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 30, 270, -1));
+
+        jLabel82.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        jLabel82.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel82.setText("Gastos");
+        jPanel25.add(jLabel82, new org.netbeans.lib.awtextra.AbsoluteConstraints(1070, 470, 90, -1));
+
+        jLabel84.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        jLabel84.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel84.setText("Ingresos");
+        jPanel25.add(jLabel84, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 470, 110, -1));
+
+        labelutilidad.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
+        labelutilidad.setForeground(new java.awt.Color(255, 255, 255));
+        labelutilidad.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelutilidad.setText("00.00");
+        jPanel25.add(labelutilidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 520, 140, 28));
+
+        labelgastos.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
+        labelgastos.setForeground(new java.awt.Color(255, 255, 255));
+        labelgastos.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelgastos.setText("00.00");
+        jPanel25.add(labelgastos, new org.netbeans.lib.awtextra.AbsoluteConstraints(1140, 470, 140, 28));
+
+        labelingresos.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
+        labelingresos.setForeground(new java.awt.Color(255, 255, 255));
+        labelingresos.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelingresos.setText("00.00");
+        jPanel25.add(labelingresos, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 470, 140, 28));
+
+        utilidad.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane1.setViewportView(utilidad);
+
+        jPanel25.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 350, 790, 220));
 
         producto_sobrante.add(jPanel25);
-        jPanel25.setBounds(10, 80, 1270, 510);
+        jPanel25.setBounds(10, 80, 1270, 590);
 
         javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
         jPanel13.setLayout(jPanel13Layout);
@@ -6146,7 +6263,11 @@ SI cc= new SI();
     private javax.swing.JLabel jLabel79;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel80;
+    private javax.swing.JLabel jLabel81;
+    private javax.swing.JLabel jLabel82;
     private javax.swing.JLabel jLabel83;
+    private javax.swing.JLabel jLabel84;
+    private javax.swing.JLabel jLabel87;
     private javax.swing.JLabel jLabel88;
     private javax.swing.JLabel jLabel89;
     private javax.swing.JLabel jLabel9;
@@ -6177,6 +6298,7 @@ SI cc= new SI();
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane10;
     private javax.swing.JScrollPane jScrollPane11;
     private javax.swing.JScrollPane jScrollPane12;
@@ -6213,7 +6335,10 @@ SI cc= new SI();
     private javax.swing.JTable jTable2;
     private javax.swing.JTable jTable3;
     private javax.swing.JLabel labeldescuento;
+    private javax.swing.JLabel labelgastos;
+    private javax.swing.JLabel labelingresos;
     private javax.swing.JLabel labelparaeltotal;
+    private javax.swing.JLabel labelutilidad;
     private javax.swing.JButton listo;
     private javax.swing.JMenuItem modificar;
     private javax.swing.JMenuItem modificarusuarios;
@@ -6261,6 +6386,7 @@ SI cc= new SI();
     private javax.swing.JTextField user_NombreUp;
     private javax.swing.JTextField user_TelefonoUp;
     private javax.swing.JTextField user_UserUp;
+    private javax.swing.JTable utilidad;
     public static javax.swing.JPanel venta;
     private javax.swing.JButton ventaacredito;
     private rojerusan.RSTableMetro ventasacreditopendiente;
