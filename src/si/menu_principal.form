@@ -429,7 +429,7 @@
                           <Component id="user1" min="-2" pref="104" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="user" min="-2" pref="220" max="-2" attributes="0"/>
-                          <EmptySpace pref="72" max="32767" attributes="0"/>
+                          <EmptySpace pref="74" max="32767" attributes="0"/>
                           <Component id="Fecha" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="Reloj" min="-2" pref="128" max="-2" attributes="0"/>
@@ -517,7 +517,7 @@
                       <Color blue="0" green="0" red="ff" type="rgb"/>
                     </Property>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="3" name="/si/IconosJava/serrar.png"/>
+                      <Image iconType="3" name="/si/IconosJava/salir-flecha-derecha (1).png"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="Salir"/>
                     <Property name="horizontalAlignment" type="int" value="2"/>
@@ -572,7 +572,7 @@
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/si/IconosJava/egresos1.png"/>
+                  <Image iconType="3" name="/si/IconosJava/combustible (1).png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Agregar Gastos"/>
               </Properties>
@@ -597,7 +597,7 @@
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/si/IconosJava/cajero1.png"/>
+                  <Image iconType="3" name="/si/IconosJava/004-cash register.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Corte de Caja"/>
               </Properties>
@@ -622,7 +622,7 @@
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/si/IconosJava/cajero1.png"/>
+                  <Image iconType="3" name="/si/IconosJava/005-discount.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Descuento"/>
               </Properties>
@@ -1211,6 +1211,9 @@
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="ff" green="ff" red="ff" type="rgb"/>
                     </Property>
+                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                      <Image iconType="3" name="/si/IconosJava/casilla-de-verificacion (1).png"/>
+                    </Property>
                     <Property name="text" type="java.lang.String" value="&#xa1;LISTO!"/>
                   </Properties>
                   <Events>
@@ -1218,7 +1221,7 @@
                   </Events>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                      <AbsoluteConstraints x="0" y="224" width="120" height="30"/>
+                      <AbsoluteConstraints x="0" y="224" width="120" height="40"/>
                     </Constraint>
                   </Constraints>
                 </Component>
@@ -1261,7 +1264,9 @@
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="0" green="0" red="ff" type="rgb"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="X"/>
+                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                      <Image iconType="3" name="/si/IconosJava/salir-flecha-derecha (1).png"/>
+                    </Property>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="salirActionPerformed"/>
@@ -1290,7 +1295,7 @@
                   </Events>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                      <AbsoluteConstraints x="120" y="170" width="50" height="80"/>
+                      <AbsoluteConstraints x="120" y="170" width="50" height="100"/>
                     </Constraint>
                   </Constraints>
                 </Component>
@@ -1308,7 +1313,7 @@
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/si/IconosJava/cancelar1.png"/>
+                  <Image iconType="3" name="/si/IconosJava/flecha-hacia-la-izquierda (1).png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Limpiar venta"/>
                 <Property name="horizontalTextPosition" type="int" value="0"/>
@@ -1321,7 +1326,7 @@
               </Events>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="480" y="560" width="190" height="100"/>
+                  <AbsoluteConstraints x="480" y="580" width="190" height="80"/>
                 </Constraint>
               </Constraints>
             </Component>
@@ -1588,7 +1593,7 @@
                           <Component id="jLabel10" min="-2" pref="318" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="jLabel15" min="-2" pref="100" max="-2" attributes="0"/>
-                          <EmptySpace pref="410" max="32767" attributes="0"/>
+                          <EmptySpace pref="414" max="32767" attributes="0"/>
                           <Component id="jButton3" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
                       </Group>
@@ -1643,7 +1648,7 @@
                       <Color blue="0" green="0" red="ff" type="rgb"/>
                     </Property>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="3" name="/si/IconosJava/serrar.png"/>
+                      <Image iconType="3" name="/si/IconosJava/salir-flecha-derecha (1).png"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="Salir"/>
                     <Property name="horizontalTextPosition" type="int" value="4"/>
@@ -2600,7 +2605,7 @@
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
                               <Component id="jLabel101" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="65" max="32767" attributes="0"/>
+                              <EmptySpace pref="67" max="32767" attributes="0"/>
                               <Component id="jLabel83" min="-2" pref="324" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="jLabel100" min="-2" pref="74" max="-2" attributes="0"/>
@@ -2660,7 +2665,7 @@
                           <Color blue="0" green="0" red="ff" type="rgb"/>
                         </Property>
                         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                          <Image iconType="3" name="/si/IconosJava/serrar.png"/>
+                          <Image iconType="3" name="/si/IconosJava/salir-flecha-derecha (1).png"/>
                         </Property>
                         <Property name="text" type="java.lang.String" value="Salir"/>
                       </Properties>
@@ -3379,7 +3384,7 @@
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
                               <Component id="jLabel58" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="65" max="32767" attributes="0"/>
+                              <EmptySpace pref="67" max="32767" attributes="0"/>
                               <Component id="jLabel13" min="-2" pref="324" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="jLabel14" min="-2" pref="95" max="-2" attributes="0"/>
@@ -3437,7 +3442,7 @@
                           <Color blue="0" green="0" red="ff" type="rgb"/>
                         </Property>
                         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                          <Image iconType="3" name="/si/IconosJava/serrar.png"/>
+                          <Image iconType="3" name="/si/IconosJava/salir-flecha-derecha (1).png"/>
                         </Property>
                         <Property name="text" type="java.lang.String" value="Salir"/>
                       </Properties>
@@ -3640,6 +3645,12 @@
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Dialog" size="18" style="1"/>
                         </Property>
+                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                          <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                        </Property>
+                        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                          <Image iconType="3" name="/si/IconosJava/flecha-hacia-la-izquierda (1).png"/>
+                        </Property>
                         <Property name="text" type="java.lang.String" value="Ver las ventas"/>
                       </Properties>
                       <Events>
@@ -3647,7 +3658,7 @@
                       </Events>
                       <Constraints>
                         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                          <AbsoluteConstraints x="1100" y="70" width="-1" height="-1"/>
+                          <AbsoluteConstraints x="1020" y="70" width="230" height="-1"/>
                         </Constraint>
                       </Constraints>
                     </Component>
@@ -4004,7 +4015,7 @@
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
                               <Component id="jLabel95" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="65" max="32767" attributes="0"/>
+                              <EmptySpace pref="67" max="32767" attributes="0"/>
                               <Component id="jLabel93" min="-2" pref="324" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jLabel94" min="-2" pref="95" max="-2" attributes="0"/>
@@ -4063,7 +4074,7 @@
                           <Color blue="0" green="0" red="ff" type="rgb"/>
                         </Property>
                         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                          <Image iconType="3" name="/si/IconosJava/serrar.png"/>
+                          <Image iconType="3" name="/si/IconosJava/salir-flecha-derecha (1).png"/>
                         </Property>
                         <Property name="text" type="java.lang.String" value="Salir"/>
                       </Properties>
@@ -4096,9 +4107,9 @@
                     </Property>
                     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                       <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                        <TitledBorder justification="2" position="2" title="Ventas a credito pendiente">
+                        <TitledBorder justification="2" position="2" title="Ventas a credito pendiente por pagar">
                           <Font PropertyName="font" name="Arial" size="18" style="1"/>
-                          <Color PropertyName="color" blue="0" green="0" red="ff" type="rgb"/>
+                          <Color PropertyName="color" blue="ff" green="ff" red="ff" type="rgb"/>
                         </TitledBorder>
                       </Border>
                     </Property>
@@ -4158,7 +4169,7 @@
                     </Container>
                   </SubComponents>
                 </Container>
-                <Component class="javax.swing.JLabel" name="jLabel90">
+                <Component class="javax.swing.JLabel" name="deudor">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Tahoma" size="18" style="1"/>
@@ -4166,11 +4177,10 @@
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="ff" green="ff" red="ff" type="rgb"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Total de &#xe9;sta venta : $"/>
                   </Properties>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                      <AbsoluteConstraints x="630" y="560" width="210" height="50"/>
+                      <AbsoluteConstraints x="900" y="520" width="130" height="50"/>
                     </Constraint>
                   </Constraints>
                 </Component>
@@ -4181,6 +4191,12 @@
                     </Property>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Dialog" size="18" style="1"/>
+                    </Property>
+                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                    </Property>
+                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                      <Image iconType="3" name="/si/IconosJava/flecha-hacia-la-izquierda (1).png"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="Ver las ventas"/>
                   </Properties>
@@ -4201,6 +4217,12 @@
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Dialog" size="18" style="1"/>
                     </Property>
+                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                    </Property>
+                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                      <Image iconType="3" name="/si/IconosJava/casilla-de-verificacion (1).png"/>
+                    </Property>
                     <Property name="text" type="java.lang.String" value="Pagar venta"/>
                   </Properties>
                   <Events>
@@ -4208,7 +4230,7 @@
                   </Events>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                      <AbsoluteConstraints x="810" y="610" width="-1" height="-1"/>
+                      <AbsoluteConstraints x="860" y="610" width="170" height="-1"/>
                     </Constraint>
                   </Constraints>
                 </Component>
@@ -4225,7 +4247,39 @@
                   </Properties>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                      <AbsoluteConstraints x="840" y="560" width="120" height="50"/>
+                      <AbsoluteConstraints x="930" y="560" width="120" height="50"/>
+                    </Constraint>
+                  </Constraints>
+                </Component>
+                <Component class="javax.swing.JLabel" name="labelcredito">
+                  <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Tahoma" size="18" style="1"/>
+                    </Property>
+                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="Total de &#xe9;sta venta : $"/>
+                  </Properties>
+                  <Constraints>
+                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+                      <AbsoluteConstraints x="620" y="560" width="210" height="50"/>
+                    </Constraint>
+                  </Constraints>
+                </Component>
+                <Component class="javax.swing.JLabel" name="labelnombre">
+                  <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Tahoma" size="18" style="1"/>
+                    </Property>
+                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="A nombre de: "/>
+                  </Properties>
+                  <Constraints>
+                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+                      <AbsoluteConstraints x="620" y="520" width="130" height="50"/>
                     </Constraint>
                   </Constraints>
                 </Component>
@@ -4305,7 +4359,7 @@
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
                               <Component id="jLabel89" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="65" max="32767" attributes="0"/>
+                              <EmptySpace pref="67" max="32767" attributes="0"/>
                               <Component id="jLabel79" min="-2" pref="324" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="jLabel88" min="-2" pref="74" max="-2" attributes="0"/>
@@ -4365,7 +4419,7 @@
                           <Color blue="0" green="0" red="ff" type="rgb"/>
                         </Property>
                         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                          <Image iconType="3" name="/si/IconosJava/serrar.png"/>
+                          <Image iconType="3" name="/si/IconosJava/salir-flecha-derecha (1).png"/>
                         </Property>
                         <Property name="text" type="java.lang.String" value="Salir"/>
                       </Properties>
@@ -4509,12 +4563,7 @@
                         <Component class="rojerusan.RSTableMetro" name="Jtable_productosmasven">
                           <Properties>
                             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                              <Table columnCount="4" rowCount="0">
-                                <Column editable="false" title="nombre_producto" type="java.lang.Object"/>
-                                <Column editable="false" title="cantidad" type="java.lang.Object"/>
-                                <Column editable="false" title="precio_unitario" type="java.lang.Object"/>
-                                <Column editable="false" title="fecha_reporte" type="java.lang.Object"/>
-                              </Table>
+                              <Table columnCount="0" rowCount="0"/>
                             </Property>
                             <Property name="colorFilasForeground1" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                               <Color blue="0" green="0" red="0" type="rgb"/>

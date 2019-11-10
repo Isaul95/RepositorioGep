@@ -124,8 +124,14 @@ llenartablautilidad();
                jLabel61.setVisible(true);
                descuentolabel.setVisible(true);
                veridventas.setVisible(false);
-   veridventasacreditopendiente.setVisible(false);
-   pagarventaacredito.setVisible(false);
+
+   //DE LA TABLA CREDITO PENDIENTE
+    labelnombre.setVisible(false);
+        labelcredito.setVisible(false);
+        deudor.setVisible(false);
+        totalventacreditoenturno.setVisible(false);
+        veridventasacreditopendiente.setVisible(false);
+         pagarventaacredito.setVisible(false);
     }
     
   public void llenartablautilidad(){
@@ -210,7 +216,9 @@ try {
             }
   regresar_cantidades_enturno_por_error_de_usuario();//SE REGRESAN LAS CANTIDADES
   borrarventasenestadoenturnoporerrordeusuario_limpiarventa_o_cerrarsesion();//SE BORRA DE DESCRIPCION DE VENTA
-     } catch (SQLException ex) {
+borrarventasenestadoenturnoporerrordeusuario_que_no_coincidenconlafechadehoy();//ESTA SITUACION ES EXCLUSIVA CUANDO SE ESTABA HACIENDO UNA VENTA, AVANZÓ AL DÍA SIGUIENTE MIENTRAS EL SISTEMA ESTABA CORRIENDO, SE CERRÓ SISTEMA
+//SE ALMACENÓ LA VENTA COMO EN TURNO Y EL METODO ANTERIOR A ESTE NO LA PUEDE DETECTAR PORQUE SOLO ELIMINA LAS VENTA EN TURNO DEL DÍA, NO DEL DÍA DE AYER NI DEL PASADO
+} catch (SQLException ex) {
             System.out.println();
       JOptionPane.showMessageDialog(null, "ERROR EN METODO: ids_y_cantidades_enturno_por_error_de_usuario","DEVELOPER HELPER", JOptionPane.ERROR_MESSAGE);      
      } 
@@ -249,15 +257,18 @@ try {
             int n = sent.executeUpdate(sql);
             if(n>0){
                
-             }
+             }else{
+                
+            }
+            
         }catch(Exception e){
          JOptionPane.showMessageDialog(null, "ERROR EN METODO: borrarventasenestadoenturnoporerrordeusuario_limpiarventa_o_cerrarsesion","DEVELOPER HELPER", JOptionPane.ERROR_MESSAGE);      
       }     
      }
-     public void borrarventasenestadoenturnoporerrordeusuario_limpiarventa_o_cerrarsesionque_no_coincidenconlafechadehoy(){    
+     public void borrarventasenestadoenturnoporerrordeusuario_que_no_coincidenconlafechadehoy(){    
          id_max_de_venta();
      try{
-            String sql = "DELETE from descripcion_de_venta where id_venta= '"+id_de_la_venta_incrementable+"' and fecha= '"+fecha()+"' and estado= '"+estadoenturno+"' ";
+            String sql = "DELETE from descripcion_de_venta where id_venta= '"+id_de_la_venta_incrementable+"' and fecha!= '"+fecha()+"' and estado= '"+estadoenturno+"' ";
             sent = ca.createStatement();
             int n = sent.executeUpdate(sql);
             if(n>0){
@@ -551,7 +562,20 @@ try {
             next = true;
                
         } else {
-            JOptionPane.showMessageDialog(null, "No puedes dejar vacio el campo ni meter un 0", "Advertencia", JOptionPane.INFORMATION_MESSAGE);    
+            JOptionPane.showMessageDialog(null, "No puedes escribir letras, dejar vacio el campo ni meter un 0", "Advertencia", JOptionPane.INFORMATION_MESSAGE);    
+        }
+        return next;
+    }
+               public boolean validarFormularioparamostrardescripciondeproductosporid(String cantidaddelatabla) { // VALIDACION DE TXT MONTO
+        boolean next = false;
+        Pattern patGastos = Pattern.compile("^[0-9]+([.])?([0-9]+)?$");
+        Matcher matGastos = patGastos.matcher(cantidaddelatabla);
+
+        if (matGastos.matches()&&!cantidaddelatabla.equals("")&&!cantidaddelatabla.equals("0")) {
+            next = true;
+               
+        } else {
+            JOptionPane.showMessageDialog(null, "Para volver a visualizar las ventas debes de dar clic en el boton de 'ver las ventas' a la derecha de la tabla ", "Advertencia", JOptionPane.INFORMATION_MESSAGE);    
         }
         return next;
     }
@@ -751,7 +775,7 @@ public void insertandopiezasdepolloporhaberagregadoxcantidaddepollocrudo(String 
         try (ResultSet rs = ps.executeQuery(sSQL)) {
             while (rs.next()) {
                 columna[0] = rs.getString(1);
-                columna[1] = rs.getInt(2);
+                columna[1] = rs.getFloat(2);
                 modeloT.addRow(columna);
             }
         }
@@ -1507,17 +1531,24 @@ if(NoP.equals(nombredepieza)){ //Si el nombre del producto es diferente del esta
     }
     }
             public  void descuentos(){
+               
                    float totalparadescuentos = Float.parseFloat(totaldeventa.getText());
                       
                if(totalparadescuentos>0){
-                   do{
-                        porcentaje = Float.parseFloat(JOptionPane.showInputDialog(null, "Porcentaje a descontar", JOptionPane.INFORMATION_MESSAGE));
+                   try{
+                       String nombre="";
+                      do{
+                       boolean pass =validarFormulario(nombre=JOptionPane.showInputDialog(null, "Porcentaje a descontar"));
+                       if(pass){
+                            porcentaje = Float.parseFloat(nombre);
                         if(porcentaje==100){
                             JOptionPane.showMessageDialog(null, "No se puede aplicar el 100% de descuento, lo siento, vuelve a intentarlo");
                         }
-                   }while(porcentaje>=100);
-                  
-                descuentoactivo=true;
+                       } 
+                   }while(porcentaje>=100); 
+                   }catch(NullPointerException NP){}
+                   if(porcentaje>0){
+                       descuentoactivo=true;
                descuentocantidad=(totalparadescuentos * porcentaje)/100;
                descuentocombo.setText(String.valueOf(descuentocantidad));
                totalfinalcondescuento = totalparadescuentos - descuentocantidad;
@@ -1526,6 +1557,9 @@ if(NoP.equals(nombredepieza)){ //Si el nombre del producto es diferente del esta
                jLabel61.setVisible(true);
                descuentolabel.setVisible(true);
                 labeldescuento.setVisible(true);
+                   }else{
+                   JOptionPane.showMessageDialog(null,"El descuento no puede ser 0", "Error", JOptionPane.ERROR_MESSAGE);
+               }
                }
                else{
                    JOptionPane.showMessageDialog(null, "Aún no hay productos para hacer descuento");
@@ -2054,10 +2088,12 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         jPanel26 = new javax.swing.JPanel();
         jScrollPane13 = new javax.swing.JScrollPane();
         ventasacreditopendiente = new rojerusan.RSTableMetro();
-        jLabel90 = new javax.swing.JLabel();
+        deudor = new javax.swing.JLabel();
         veridventasacreditopendiente = new javax.swing.JButton();
         pagarventaacredito = new javax.swing.JButton();
         totalventacreditoenturno = new javax.swing.JLabel();
+        labelcredito = new javax.swing.JLabel();
+        labelnombre = new javax.swing.JLabel();
         jPanel13 = new javax.swing.JPanel();
         producto_sobrante = new javax.swing.JPanel();
         jPanel20 = new javax.swing.JPanel();
@@ -2266,7 +2302,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         jButton1.setBackground(new java.awt.Color(255, 255, 255));
         jButton1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jButton1.setForeground(new java.awt.Color(255, 0, 0));
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/serrar.png"))); // NOI18N
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/salir-flecha-derecha (1).png"))); // NOI18N
         jButton1.setText("Salir");
         jButton1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -2294,7 +2330,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
                 .addComponent(user1, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(user, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 72, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 74, Short.MAX_VALUE)
                 .addComponent(Fecha)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(Reloj, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -2328,7 +2364,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         AgregarGastos.setBackground(new java.awt.Color(0, 51, 102));
         AgregarGastos.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         AgregarGastos.setForeground(new java.awt.Color(255, 255, 255));
-        AgregarGastos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/egresos1.png"))); // NOI18N
+        AgregarGastos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/combustible (1).png"))); // NOI18N
         AgregarGastos.setText("Agregar Gastos");
         AgregarGastos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -2340,7 +2376,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         Cortedecaja.setBackground(new java.awt.Color(0, 51, 102));
         Cortedecaja.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         Cortedecaja.setForeground(new java.awt.Color(255, 255, 255));
-        Cortedecaja.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/cajero1.png"))); // NOI18N
+        Cortedecaja.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/004-cash register.png"))); // NOI18N
         Cortedecaja.setText("Corte de Caja");
         Cortedecaja.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -2352,7 +2388,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         descuento.setBackground(new java.awt.Color(0, 51, 102));
         descuento.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         descuento.setForeground(new java.awt.Color(255, 255, 255));
-        descuento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/cajero1.png"))); // NOI18N
+        descuento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/005-discount.png"))); // NOI18N
         descuento.setText("Descuento");
         descuento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -2670,6 +2706,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         listo.setBackground(new java.awt.Color(0, 51, 105));
         listo.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         listo.setForeground(new java.awt.Color(255, 255, 255));
+        listo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/casilla-de-verificacion (1).png"))); // NOI18N
         listo.setText("¡LISTO!");
         listo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -2677,7 +2714,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
             }
         });
         calculadora.add(listo);
-        listo.setBounds(0, 224, 120, 30);
+        listo.setBounds(0, 224, 120, 40);
 
         cantidad.setBackground(new java.awt.Color(0, 0, 0));
         cantidad.setFont(new java.awt.Font("Tahoma", 3, 18)); // NOI18N
@@ -2691,7 +2728,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         salir.setBackground(new java.awt.Color(0, 51, 102));
         salir.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         salir.setForeground(new java.awt.Color(255, 0, 0));
-        salir.setText("X");
+        salir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/salir-flecha-derecha (1).png"))); // NOI18N
         salir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 salirActionPerformed(evt);
@@ -2710,14 +2747,14 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
             }
         });
         calculadora.add(cero);
-        cero.setBounds(120, 170, 50, 80);
+        cero.setBounds(120, 170, 50, 100);
 
         venta.add(calculadora, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 130, 170, 260));
 
         jButton5.setBackground(new java.awt.Color(0, 51, 102));
         jButton5.setFont(new java.awt.Font("Tahoma", 1, 22)); // NOI18N
         jButton5.setForeground(new java.awt.Color(255, 255, 255));
-        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/cancelar1.png"))); // NOI18N
+        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/flecha-hacia-la-izquierda (1).png"))); // NOI18N
         jButton5.setText("Limpiar venta");
         jButton5.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton5.setVerticalAlignment(javax.swing.SwingConstants.TOP);
@@ -2732,7 +2769,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
                 jButton5ActionPerformed(evt);
             }
         });
-        venta.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 560, 190, 100));
+        venta.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 580, 190, 80));
 
         Proveedores9.addTab("      Venta      ", venta);
 
@@ -2864,7 +2901,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         jButton3.setBackground(new java.awt.Color(255, 255, 255));
         jButton3.setFont(new java.awt.Font("Tahoma", 1, 23)); // NOI18N
         jButton3.setForeground(new java.awt.Color(255, 0, 0));
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/serrar.png"))); // NOI18N
+        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/salir-flecha-derecha (1).png"))); // NOI18N
         jButton3.setText("Salir");
         jButton3.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -2889,7 +2926,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
                 .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 410, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 414, Short.MAX_VALUE)
                 .addComponent(jButton3)
                 .addGap(24, 24, 24))
         );
@@ -3352,7 +3389,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         jButton10.setBackground(new java.awt.Color(255, 255, 255));
         jButton10.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jButton10.setForeground(new java.awt.Color(255, 0, 0));
-        jButton10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/serrar.png"))); // NOI18N
+        jButton10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/salir-flecha-derecha (1).png"))); // NOI18N
         jButton10.setText("Salir");
         jButton10.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -3372,7 +3409,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
             .addGroup(jPanel31Layout.createSequentialGroup()
                 .addGap(25, 25, 25)
                 .addComponent(jLabel101)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 67, Short.MAX_VALUE)
                 .addComponent(jLabel83, javax.swing.GroupLayout.PREFERRED_SIZE, 324, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel100, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -3678,7 +3715,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         jButton4.setBackground(new java.awt.Color(255, 255, 255));
         jButton4.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jButton4.setForeground(new java.awt.Color(255, 0, 0));
-        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/serrar.png"))); // NOI18N
+        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/salir-flecha-derecha (1).png"))); // NOI18N
         jButton4.setText("Salir");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -3698,7 +3735,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addGap(25, 25, 25)
                 .addComponent(jLabel58)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 67, Short.MAX_VALUE)
                 .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 324, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -3816,13 +3853,15 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
 
         veridventas.setBackground(new java.awt.Color(0, 51, 102));
         veridventas.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        veridventas.setForeground(new java.awt.Color(255, 255, 255));
+        veridventas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/flecha-hacia-la-izquierda (1).png"))); // NOI18N
         veridventas.setText("Ver las ventas");
         veridventas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 veridventasActionPerformed(evt);
             }
         });
-        jPanel23.add(veridventas, new org.netbeans.lib.awtextra.AbsoluteConstraints(1100, 70, -1, -1));
+        jPanel23.add(veridventas, new org.netbeans.lib.awtextra.AbsoluteConstraints(1020, 70, 230, -1));
 
         jLabel91.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel91.setForeground(new java.awt.Color(255, 255, 255));
@@ -3987,7 +4026,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         jButton8.setBackground(new java.awt.Color(255, 255, 255));
         jButton8.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jButton8.setForeground(new java.awt.Color(255, 0, 0));
-        jButton8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/serrar.png"))); // NOI18N
+        jButton8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/salir-flecha-derecha (1).png"))); // NOI18N
         jButton8.setText("Salir");
         jButton8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -4007,7 +4046,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
             .addGroup(jPanel24Layout.createSequentialGroup()
                 .addGap(25, 25, 25)
                 .addComponent(jLabel95)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 67, Short.MAX_VALUE)
                 .addComponent(jLabel93, javax.swing.GroupLayout.PREFERRED_SIZE, 324, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel94, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -4034,7 +4073,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         jPanel24.setBounds(0, 0, 1288, 60);
 
         jPanel26.setBackground(new java.awt.Color(0, 51, 102));
-        jPanel26.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Ventas a credito pendiente", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Arial", 1, 18), new java.awt.Color(255, 0, 0))); // NOI18N
+        jPanel26.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Ventas a credito pendiente por pagar", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Arial", 1, 18), new java.awt.Color(255, 255, 255))); // NOI18N
         jPanel26.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         tabladeidventas = new rojerusan.RSTableMetro(){
@@ -4070,14 +4109,15 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         jPanel26.setBounds(10, 370, 610, 290);
         jPanel26.getAccessibleContext().setAccessibleName("Ventas que fueron canceladas");
 
-        jLabel90.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel90.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel90.setText("Total de ésta venta : $");
-        Administrador.add(jLabel90);
-        jLabel90.setBounds(630, 560, 210, 50);
+        deudor.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        deudor.setForeground(new java.awt.Color(255, 255, 255));
+        Administrador.add(deudor);
+        deudor.setBounds(900, 520, 130, 50);
 
         veridventasacreditopendiente.setBackground(new java.awt.Color(0, 51, 102));
         veridventasacreditopendiente.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        veridventasacreditopendiente.setForeground(new java.awt.Color(255, 255, 255));
+        veridventasacreditopendiente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/flecha-hacia-la-izquierda (1).png"))); // NOI18N
         veridventasacreditopendiente.setText("Ver las ventas");
         veridventasacreditopendiente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -4085,10 +4125,12 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
             }
         });
         Administrador.add(veridventasacreditopendiente);
-        veridventasacreditopendiente.setBounds(620, 610, 155, 40);
+        veridventasacreditopendiente.setBounds(620, 610, 189, 46);
 
         pagarventaacredito.setBackground(new java.awt.Color(0, 51, 102));
         pagarventaacredito.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        pagarventaacredito.setForeground(new java.awt.Color(255, 255, 255));
+        pagarventaacredito.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/casilla-de-verificacion (1).png"))); // NOI18N
         pagarventaacredito.setText("Pagar venta");
         pagarventaacredito.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -4096,14 +4138,26 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
             }
         });
         Administrador.add(pagarventaacredito);
-        pagarventaacredito.setBounds(810, 610, 134, 40);
+        pagarventaacredito.setBounds(860, 610, 170, 46);
 
         totalventacreditoenturno.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
         totalventacreditoenturno.setForeground(new java.awt.Color(255, 255, 255));
         totalventacreditoenturno.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         totalventacreditoenturno.setText("00.00");
         Administrador.add(totalventacreditoenturno);
-        totalventacreditoenturno.setBounds(840, 560, 120, 50);
+        totalventacreditoenturno.setBounds(930, 560, 120, 50);
+
+        labelcredito.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        labelcredito.setForeground(new java.awt.Color(255, 255, 255));
+        labelcredito.setText("Total de ésta venta : $");
+        Administrador.add(labelcredito);
+        labelcredito.setBounds(620, 560, 210, 50);
+
+        labelnombre.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        labelnombre.setForeground(new java.awt.Color(255, 255, 255));
+        labelnombre.setText("A nombre de: ");
+        Administrador.add(labelnombre);
+        labelnombre.setBounds(620, 520, 130, 50);
 
         javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
         jPanel12.setLayout(jPanel12Layout);
@@ -4137,7 +4191,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         jButton6.setBackground(new java.awt.Color(255, 255, 255));
         jButton6.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jButton6.setForeground(new java.awt.Color(255, 0, 0));
-        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/serrar.png"))); // NOI18N
+        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/salir-flecha-derecha (1).png"))); // NOI18N
         jButton6.setText("Salir");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -4157,7 +4211,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
             .addGroup(jPanel20Layout.createSequentialGroup()
                 .addGap(25, 25, 25)
                 .addComponent(jLabel89)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 67, Short.MAX_VALUE)
                 .addComponent(jLabel79, javax.swing.GroupLayout.PREFERRED_SIZE, 324, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel88, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -4227,17 +4281,9 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
 
             },
             new String [] {
-                "nombre_producto", "cantidad", "precio_unitario", "fecha_reporte"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false
-            };
 
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
             }
-        });
+        ));
         Jtable_productosmasven.setColorFilasForeground1(new java.awt.Color(0, 0, 0));
         Jtable_productosmasven.setColorFilasForeground2(new java.awt.Color(0, 0, 0));
         Jtable_productosmasven.setGrosorBordeFilas(0);
@@ -5712,12 +5758,12 @@ if (choice == JOptionPane.YES_OPTION){
   float totalparaventaacredito = Float.parseFloat(totaldeventa.getText());
                       
                if(totalparaventaacredito!=0){//SI EL TOTAL NO ES VACIO
-                   String nombre = JOptionPane.showInputDialog(null,"¿A nombre de quien va ésta venta a credito?");    
-        
-            boolean pass2 = validarFormulariotexto(nombre);
+                   try{
+                       String nombre="";
+            boolean pass2 = validarFormulariotexto(nombre=JOptionPane.showInputDialog(null,"¿A nombre de quien va ésta venta a credito?"));
                  if(pass2){//ESTO VALIDA QUE EL TEXTO ESCRITO NO TENGA INCOHERENCIAS
-                 int decision=JOptionPane.showConfirmDialog(null,"¿Desea continuar?","Estás por agregar una venta a credito",JOptionPane.CANCEL_OPTION);
-            if(decision==0){ //opción si
+                  int decision=JOptionPane.showConfirmDialog(null,"¿Desea continuar?","Estás por agregar una venta a credito",JOptionPane.CANCEL_OPTION);
+                     if(decision==0){ //opción si
             try{
                   comprobar_venta_resagada();//579 - 605 verifica que no haya una venta cancelada
 get_id_usuario();// 255 -280
@@ -5734,7 +5780,6 @@ get_id_usuario();// 255 -280
         }catch(Exception ex){
                                     JOptionPane.showMessageDialog(null, "Error en venta" + ex.getMessage());
        }
-        
                                  try{
                                     id_max_de_venta();
                                     PreparedStatement ps2 = ca.prepareStatement ("UPDATE descripcion_de_venta SET estado= '"+creditopendiente+"',nombre_credito='"+nombre+"' WHERE id_venta='"+id_de_la_venta_incrementable+"'");
@@ -5745,30 +5790,33 @@ get_id_usuario();// 255 -280
                                 }
                                 catch(Exception ex){
                                     JOptionPane.showMessageDialog(null, "Error en venta" + ex.getMessage());
-                                }
-            
-                 
+                                }     
             }
-                 }
+                 }   
+                   }catch(NullPointerException NP){}
+                   
                }//SI EL TOTAL NO ES VACIO
                  else{//CUANDO EL TOTAL ES VACIO
                    JOptionPane.showMessageDialog(null, "Aún no hay productos para hacer una venta a credito");
-               }//CUANDO EL TOTAL ES VACIO
-        
+               }//CUANDO EL TOTAL ES VACIO     
     }//GEN-LAST:event_ventaacreditoActionPerformed
 
     private void ventasacreditopendienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ventasacreditopendienteMouseClicked
       int fila =ventasacreditopendiente.getSelectedRow();
-
         if(fila>=0){
-          veridventasacreditopendiente.setVisible(true);
-            pagarventaacredito.setVisible(true);
-            id_ventapencredito=Integer.parseInt(ventasacreditopendiente.getValueAt(fila,0).toString());
-    
+            boolean pass =validarFormularioparamostrardescripciondeproductosporid(ventasacreditopendiente.getValueAt(fila,0).toString());
+            if(pass){
+               id_ventapencredito=Integer.parseInt(ventasacreditopendiente.getValueAt(fila,0).toString());
             descripciondeproductosenbasealnumerodeventaporcreditopendiente(Integer.parseInt(ventasacreditopendiente.getValueAt(fila,0).toString()));
                total_venta_creditopendiente(id_ventapencredito);
-               
             totalventacreditoenturno.setText(String.valueOf(sumadeimportescreditopendiente));
+              labelnombre.setVisible(true);
+        labelcredito.setVisible(true);
+        deudor.setVisible(true);
+        totalventacreditoenturno.setVisible(true); 
+            veridventasacreditopendiente.setVisible(true);
+            pagarventaacredito.setVisible(true);
+            }
         }
         else
         JOptionPane.showMessageDialog(null,"Por favor, seleccione una fila primero","Aviso",JOptionPane.INFORMATION_MESSAGE);
@@ -5777,15 +5825,20 @@ get_id_usuario();// 255 -280
     private void veridventasacreditopendienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_veridventasacreditopendienteActionPerformed
            
         llenartablaconventasacreditopendiente(); //CARGA NUEVAMENTE LAS VENTAS POR ID
-        totalventacreditoenturno.setText("00.00");
+        
+        labelnombre.setVisible(false);
+        labelcredito.setVisible(false);
+        deudor.setVisible(false);
+        totalventacreditoenturno.setVisible(false);
         veridventasacreditopendiente.setVisible(false);
-        pagarventaacredito.setVisible(false);
+         pagarventaacredito.setVisible(false);
     }//GEN-LAST:event_veridventasacreditopendienteActionPerformed
 
     private void pagarventaacreditoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pagarventaacreditoActionPerformed
-    String pagodeventacredito = JOptionPane.showInputDialog(null,"Escriba el monto de pago","Pagando venta a credito", JOptionPane.INFORMATION_MESSAGE);    
+   try{
+        String pagodeventacredito="";
             float variable0=0, totalacredito=0, cambio=0;
-            boolean pass2 = validarFormulario(pagodeventacredito);
+            boolean pass2 = validarFormulario(pagodeventacredito= JOptionPane.showInputDialog(null,"Escriba el monto de pago","Pagando venta a credito", JOptionPane.INFORMATION_MESSAGE));
                  if(pass2){//ESTO VALIDA QUE EL TEXTO ESCRITO NO TENGA INCOHERENCIAS           
                  
                       int decision=JOptionPane.showConfirmDialog(null,"¿Desea continuar?","Estás por pagar una venta a credito",JOptionPane.CANCEL_OPTION);
@@ -5836,6 +5889,9 @@ get_id_usuario();// 255 -280
             }
                  
                  }
+   }catch(NullPointerException NP){//ESTO EVITA QUE EL USUARIO META UN VALOR VACIO
+       
+   }
     }//GEN-LAST:event_pagarventaacreditoActionPerformed
 
     private void borrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_borrarActionPerformed
@@ -5989,14 +6045,18 @@ get_id_usuario();// 255 -280
     private void jTable2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable2MouseClicked
 
         int fila =jTable2.getSelectedRow(), id=0;
+      
         if(fila>=0){
-          veridventas.setVisible(true);
+            boolean pass= validarFormularioparamostrardescripciondeproductosporid(jTable2.getValueAt(fila,0).toString());
+          if(pass){
+                 veridventas.setVisible(true);
           id=Integer.parseInt(jTable2.getValueAt(fila,0).toString());
             descripciondeproductosenbasealnumerodeventa(id); 
             total_ventaporid(id);
             labelparaeltotal.setVisible(true);
     labelparaeltotal.setText(String.valueOf(sumadeimportesparaeltotal));
             totalventarealizada.setVisible(true);
+          }
         }
         else
         JOptionPane.showMessageDialog(null,"Por favor, seleccione una fila primero","Aviso",JOptionPane.INFORMATION_MESSAGE);   
@@ -6076,7 +6136,7 @@ get_id_usuario();// 255 -280
         
        try {
            
-                 String sSQL = "SELECT nombre_producto, cantidad, precio_unitario, importe FROM descripcion_de_venta WHERE estado='Credito-pendiente' AND id_venta = '"+numerodeventa+"' ";
+                 String sSQL = "SELECT nombre_producto, cantidad, precio_unitario, importe, nombre_credito FROM descripcion_de_venta WHERE estado='Credito-pendiente' AND id_venta = '"+numerodeventa+"' ";
              
         PreparedStatement ps = ca.prepareStatement(sSQL);       
         try (ResultSet rs = ps.executeQuery(sSQL)) {
@@ -6086,6 +6146,7 @@ get_id_usuario();// 255 -280
                 columna[1] = rs.getString(2);
                 columna[2] = rs.getString(3);      
                 columna[3] = rs.getString(4); 
+                deudor.setText(rs.getString(5));
                 modeloT.addRow(columna);
               
             }
@@ -6203,6 +6264,7 @@ SI cc= new SI();
     private javax.swing.JLabel descuentocombo;
     private javax.swing.JLabel descuentolabel;
     public static javax.swing.JTextField despro;
+    private javax.swing.JLabel deudor;
     private javax.swing.JButton dos;
     private javax.swing.JMenuItem drop;
     private javax.swing.JMenuItem eliminar;
@@ -6291,7 +6353,6 @@ SI cc= new SI();
     private javax.swing.JLabel jLabel88;
     private javax.swing.JLabel jLabel89;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JLabel jLabel90;
     private javax.swing.JLabel jLabel91;
     private javax.swing.JLabel jLabel92;
     private javax.swing.JLabel jLabel93;
@@ -6354,9 +6415,11 @@ SI cc= new SI();
     private javax.swing.JSeparator jSeparator9;
     private rojerusan.RSTableMetro jTable2;
     private rojerusan.RSTableMetro jTable3;
+    private javax.swing.JLabel labelcredito;
     private javax.swing.JLabel labeldescuento;
     private javax.swing.JLabel labelgastos;
     private javax.swing.JLabel labelingresos;
+    private javax.swing.JLabel labelnombre;
     private javax.swing.JLabel labelparaeltotal;
     private javax.swing.JLabel labelutilidad;
     private javax.swing.JButton listo;

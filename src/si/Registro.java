@@ -426,18 +426,20 @@ public class Registro extends javax.swing.JFrame {
         });
         jPanel1.add(user_contra, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 110, 193, -1));
 
-        B_registro.setBackground(new java.awt.Color(34, 167, 240));
+        B_registro.setBackground(new java.awt.Color(0, 51, 102));
         B_registro.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        B_registro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/casilla-de-verificacion (1).png"))); // NOI18N
         B_registro.setText("Registrar");
         B_registro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 B_registroActionPerformed(evt);
             }
         });
-        jPanel1.add(B_registro, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 360, 120, 40));
+        jPanel1.add(B_registro, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 360, 140, 40));
 
-        B_cancelar.setBackground(new java.awt.Color(242, 38, 19));
+        B_cancelar.setBackground(new java.awt.Color(0, 51, 102));
         B_cancelar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        B_cancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/salir-flecha-derecha (1).png"))); // NOI18N
         B_cancelar.setText("cancelar");
         B_cancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

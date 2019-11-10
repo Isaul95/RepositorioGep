@@ -102,8 +102,9 @@ public class Reportes extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(0, 51, 102));
 
-        B_cancelar.setBackground(new java.awt.Color(242, 38, 19));
+        B_cancelar.setBackground(new java.awt.Color(0, 51, 102));
         B_cancelar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        B_cancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/salir-flecha-derecha (1).png"))); // NOI18N
         B_cancelar.setText("cancelar");
         B_cancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

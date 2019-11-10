@@ -156,8 +156,9 @@ public void metodogastosdeldia(){
         jPanel2.setBackground(new java.awt.Color(0, 51, 102));
         jPanel2.setLayout(null);
 
-        Corte_btncancelar.setBackground(new java.awt.Color(242, 38, 19));
+        Corte_btncancelar.setBackground(new java.awt.Color(0, 51, 102));
         Corte_btncancelar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        Corte_btncancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/salir-flecha-derecha (1).png"))); // NOI18N
         Corte_btncancelar.setText("Cancelar");
         Corte_btncancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -167,9 +168,10 @@ public void metodogastosdeldia(){
         jPanel2.add(Corte_btncancelar);
         Corte_btncancelar.setBounds(330, 340, 250, 60);
 
-        Corte_btnImprimirticket.setBackground(new java.awt.Color(0, 148, 204));
+        Corte_btnImprimirticket.setBackground(new java.awt.Color(0, 51, 102));
         Corte_btnImprimirticket.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         Corte_btnImprimirticket.setForeground(new java.awt.Color(255, 255, 255));
+        Corte_btnImprimirticket.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/casilla-de-verificacion (1).png"))); // NOI18N
         Corte_btnImprimirticket.setText("Realizar Corte");
         Corte_btnImprimirticket.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

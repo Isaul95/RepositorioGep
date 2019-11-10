@@ -282,6 +282,7 @@ public class Pantalla_Gastos extends javax.swing.JFrame {
         btnRegistrarGasto.setBackground(new java.awt.Color(0, 51, 102));
         btnRegistrarGasto.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btnRegistrarGasto.setForeground(new java.awt.Color(255, 255, 255));
+        btnRegistrarGasto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/combustible (1).png"))); // NOI18N
         btnRegistrarGasto.setText("Registrar gastos");
         btnRegistrarGasto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -289,7 +290,7 @@ public class Pantalla_Gastos extends javax.swing.JFrame {
             }
         });
         jPanel2.add(btnRegistrarGasto);
-        btnRegistrarGasto.setBounds(500, 180, 150, 50);
+        btnRegistrarGasto.setBounds(460, 180, 190, 50);
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 17)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
@@ -330,8 +331,10 @@ public class Pantalla_Gastos extends javax.swing.JFrame {
         jPanel1.add(jPanel2);
         jPanel2.setBounds(0, 50, 690, 480);
 
-        gastos_btn_back.setBackground(new java.awt.Color(242, 38, 19));
+        gastos_btn_back.setBackground(new java.awt.Color(255, 255, 255));
         gastos_btn_back.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        gastos_btn_back.setForeground(new java.awt.Color(0, 0, 0));
+        gastos_btn_back.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/salir-flecha-derecha (1).png"))); // NOI18N
         gastos_btn_back.setText("Regresar");
         gastos_btn_back.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -339,7 +342,7 @@ public class Pantalla_Gastos extends javax.swing.JFrame {
             }
         });
         jPanel1.add(gastos_btn_back);
-        gastos_btn_back.setBounds(560, 0, 120, 40);
+        gastos_btn_back.setBounds(530, 0, 150, 40);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -398,9 +401,9 @@ public void obtener_id_del_proveedor(String name){
                 } else {             
                     boolean pass = validarFormulario(txtmonto.getText());
                     boolean pass2 = validarFormulariotexto(txtdescripcion.getText());
-                  //  boolean pass3 = validarFormulariopiezas(txtpiezas.getText());
+                    boolean pass3 = validarFormulariopiezas(txtpiezas.getText());
 
-                    if (pass && pass2 /*&& pass3*/) {
+                    if (pass && pass2 && pass3) {
                         
     float totalmonto = Integer.parseInt(txtmonto.getText()); //puse otro de tipo float xq total no me reconoce como string a float
                         cantidad = Float.parseFloat(txtpiezas.getText());
