@@ -122,11 +122,11 @@ public class Pantalla_Gastos extends javax.swing.JFrame {
               DefaultTableModel modelo = new DefaultTableModel(); // Se crea un objeto para agregar los nombres de las columnas a la tabla
    
            // add al modelo las 5 columnas con los nombrs TABLA
-        modelo.addColumn("Cantidad");
-        modelo.addColumn("Tipo");        
+        modelo.addColumn("Tipo"); 
+           modelo.addColumn("Cantidad");       
         modelo.addColumn("Fecha");
         modelo.addColumn("Total");
-       modelo.addColumn("usuario");   
+      
               
      jTableGastos.setModel(modelo);  // Ya una vez asignado todos los nombres se le envia el objeto a la tabla proveedores
     String []datos = new String[4];     //Un arreglo con la cantidad de nombres en las columnas
@@ -135,19 +135,19 @@ public class Pantalla_Gastos extends javax.swing.JFrame {
              sent = ca.createStatement();   
                                //      rs = sent.executeQuery("select * from descripcion_de_venta where id_venta= '"+id_de_la_venta_incrementable+"'");
                        if(textobusqueda.equals("")){
-                          rs= sent.executeQuery("SELECT `cantidad`,`tipo`,`fecha`,`total`,`usuario` FROM `egreso`"); // se ejecuta la sentencia dentro del parentesis
+                          rs= sent.executeQuery("SELECT * FROM `egreso` order by fecha desc"); // se ejecuta la sentencia dentro del parentesis
  //  SELECT `idegreso`,`cantidad`,`tipo`,`fecha`,`total`,`nombre` FROM `egreso` INNER JOIN user WHERE egreso.`usuario` = user.id_usuario and fecha = curdate()";   
                        }
                        else{
                    
-                           rs= sent.executeQuery("SELECT `cantidad`,`tipo`,`fecha`,`total`,`usuario` FROM `egreso` where tipo LIKE '%" +textobusqueda+"%' " + " and total LIKE '%" +textobusqueda+"%' " ); // se ejecuta la sentencia dentro del parentesis
+                           rs= sent.executeQuery("SELECT * FROM egreso where tipo LIKE '%" +textobusqueda+"%' or total LIKE '%" +textobusqueda+"%'  or fecha LIKE '%" +textobusqueda+"%'  or cantidad LIKE '%" +textobusqueda+"%' order by fecha desc" ); // se ejecuta la sentencia dentro del parentesis
            
                        }
              while(rs.next()){        
-            datos[0]=rs.getString(1);
+            datos[0]=rs.getString(3);
             datos[1]=rs.getString(2);
-            datos[2]=rs.getString(3);
-            datos[3]=rs.getString(4);
+            datos[2]=rs.getString(4);
+            datos[3]=rs.getString(5);
             modelo.addRow(datos); //se asigna el arreglo  entero a todo el objeto llamado modelo  
             }
            jTableGastos.setModel(modelo); // Se vuelve a enviar nuevamente el objeto modelo a la tabla
@@ -167,25 +167,19 @@ public class Pantalla_Gastos extends javax.swing.JFrame {
                   tablaD.setModel(modeloT);  // add modelo ala tabla 
         
         modeloT.addColumn("Idegreso");    // add al modelo las 5 columnas con los nombrs TABLA
-        modeloT.addColumn("Cantidad");
-        modeloT.addColumn("Tipo");        
+        modeloT.addColumn("Tipo"); 
+        modeloT.addColumn("Cantidad");       
         modeloT.addColumn("Fecha");
         modeloT.addColumn("Total");
        modeloT.addColumn("nombre");               
-         /* SELECT `idegreso`, `tipo`, `total`, `fecha`, turno FROM `egreso` \n" + "  INNER JOIN empleado\n" + "WHERE egreso.`empleado_idempleado` = empleado.idempleado";     */    
-        try {
-         String sSQL = "SELECT `idegreso`,`cantidad`,`tipo`,`fecha`,`total`,`nombre` FROM `egreso` INNER JOIN user WHERE egreso.`usuario` = user.id_usuario and fecha = curdate()";
- // SELECT `idegreso`, `tipo`, `fecha`, `total`, nombre FROM `egreso` INNER JOIN user WHERE egreso.`id_usuario` = user.id_usuario
-         
-  // String sSQL = "SELECT * FROM egreso\n" + "WHERE fecha = '"+llenarfechadehoy()+"'";
-         
-         //   "SELECT *FROM egreso\n" + "WHERE fecha = '2019-07-20'";            
-        PreparedStatement ps = ca.prepareStatement(sSQL);       
+     try {
+         String sSQL = "SELECT `idegreso`,`cantidad`,`tipo`,`fecha`,`total`,`nombre` FROM `egreso` INNER JOIN user WHERE egreso.`usuario` = user.id_usuario order by fecha desc";
+     PreparedStatement ps = ca.prepareStatement(sSQL);       
         try (ResultSet rs = ps.executeQuery(sSQL)) {
             while (rs.next()) {
                 columna[0] = rs.getString("idegreso");  /* === LA DB == */
-                columna[1] = rs.getString("cantidad");
-                columna[2] = rs.getString("tipo");
+                columna[1] = rs.getString("tipo");
+                columna[2] = rs.getString("cantidad");
                 columna[3] = rs.getString("fecha");
                 columna[4] = rs.getString("total");
                 columna[5] = rs.getString("nombre");                
@@ -204,222 +198,6 @@ public class Pantalla_Gastos extends javax.swing.JFrame {
 
            // vistaGastos.jDateChooserFecha.setDate(null);
          }         
-     
-     /*
-     
-          //ESTOS 3 METODOS SON PARA CUANDO SE AGREGUE CIERTA CANTIDAD DE POLLO CRUDO, CONVIERTIENDOLO 
-     //A SUS PIEZAS CORRESPONDIENTES, Y SI YA HAY CANTIDADES ALMACENADAS, SE SUMA LO ALMACENADO CON LO
-     //QUE SE ESTA INSERTANDO
-     public void siespollocrudo(){PRIMERO ESTE METODO
-          if("pollo crudo".equalsIgnoreCase(txtdescripcion.getText())){
-                    gastos = new Gastos(cantidad, tipo, totalmonto, id_usuario, fecha);
-                         gastos.Gastosinsert();
-                         limpiar();
-                         LlenarTabla(jTableGastos);
-                             JOptionPane.showMessageDialog(null, "Gastos Registrados con Exito... entrando desde gastos en productos");
-   float totalpiezaspollo = (cantidad*piezasxunpollo);
- float precioxpieza = (totalmonto/totalpiezaspollo);   
-     
-  if(comprobarpollo()){
-   JOptionPane.showMessageDialog(null," CANTIDAD ACTUALIZADA DE PRODUCTOS ");
-  }
-  else{
-       obtener_id_del_proveedor(menu_principal.proveedorarticulo.getSelectedItem().toString());
-    
-      registrar_pollo_crudo(pollocrudo, totalmonto, cantidad, id_proveedor); Esto registra 1 pollo o la cantidad de pollos que metas          
-          for(int i=0; i<piezas.length; i++) {
- 
-         
-          obtener_id_del_proveedor(menu_principal.proveedorarticulo.getSelectedItem().toString());
-    
-            String sql = null;
-               try {
-            
-          Statement sent = ca.createStatement(); 
-          sql = "INSERT INTO productos (nombre_producto, tipo_producto, precio, cantidad, fecha, id_proveedor, fecha_de_caducidad)  VALUES (?,?,?,?,?,?,?)";
-         PreparedStatement pst = ca.prepareCall(sql);
-         
-           pst.setString(1, piezas[i]);
-           pst.setString(2, "Pollos");
-           pst.setFloat(3, precioxpieza);
-           //DE ACUERDO A LA PIEZA SON LAS CANTIDADES
-           if(piezas[i].equals("Pechuga")||piezas[i].equals("Muslo")||
-                   piezas[i].equals("Pierna")||
-                   piezas[i].equals("Ala")||
-                   piezas[i].equals("Patas")){
-               resultadodepiezaspares=cantidad*piezasdepollopares;
-               pst.setFloat(4,resultadodepiezaspares);
-           }
-           else if(piezas[i].equals("Huacal")||piezas[i].equals("Cadera")||
-                   piezas[i].equals("Cabeza")||
-                   piezas[i].equals("Molleja")){
-            resultadodepiezasinpares=cantidad*piezasdepollosinpares;
-               pst.setFloat(4,resultadodepiezasinpares);
-        }
-           
-           pst.setString(5, fecha());
-          pst.setInt(6, id_proveedor);
-          pst.setString(7, "Sin fecha de caducidad");
-                      
-          tt = pst.executeUpdate();
-            pst.close();
-             
-        } catch (SQLException ex) {
-            System.err.print(ex);
- 
-        }
-          
-          }                                                
-                   
-  if (tt>0 ) {&& gastos.Gastosinsert() 
-                       JOptionPane.showMessageDialog(null, "Productos Registrados con Exito...");
-                       
-                       limpiar();
-//                       autocompletar();
-                   } 
-                   
- }
-        
-        }
-     }PRIMERO ESTE METODO
-     
-     
-     
-     boolean comprobarpollo(){LUEGO ESTE METODOD EN 2DO LUGAR
-         actualizar_pollocrudo();
-     boolean resultado=false;
-
-           for(int i=0; i<piezas.length; i++) {
-
-            try{
-                       sent  = (Statement)ca.createStatement();
-                                           rs = sent.executeQuery("select * from productos  where nombre_producto='"+piezas[i]+"' and fecha= '"+fecha()+"'");
-                                            while(rs.next()){
-                                                      buscap =rs.getString("nombre_producto");
-                                                      cantidadpolloenDB =rs.getInt("cantidad"); // piezas en la db
-                                                      }
-            
-   if(buscap.equals(piezas[i])){ Si el nombre del producto es diferente del estado vacio, en palabras más sencillas; si se encuentra el producto que se quiere agregar para que no se asigne nuevamente  
-        try{ el id del usuario
-                if(piezas[i].equals("Pechuga")||piezas[i].equals("Muslo")||
-                   piezas[i].equals("Pierna")||
-                   piezas[i].equals("Ala")||
-                   piezas[i].equals("Patas")){
-                    
-               resultadodepiezaspares=cantidad*piezasdepollopares;
-                   addpiezas=cantidadpolloenDB+resultadodepiezaspares;
-               
-               PreparedStatement ps = ca.prepareStatement ("UPDATE productos SET cantidad='"+addpiezas+"'WHERE nombre_producto='"+piezas[i]+"' and fecha= '"+fecha()+"'");
-               int ty = ps.executeUpdate();
-                
-                 if(ty>0){
-                     resultado = true;
-            
-                 }else{
-                     resultado = false;
-                 }
-           }
-           else if(piezas[i].equals("Huacal")||piezas[i].equals("Cadera")||
-                   piezas[i].equals("Cabeza")||
-                   piezas[i].equals("Molleja")){
-            resultadodepiezasinpares=cantidad*piezasdepollosinpares;
-          addpiezas=cantidadpolloenDB+resultadodepiezasinpares;
-           PreparedStatement ps = ca.prepareStatement ("UPDATE productos SET cantidad='"+addpiezas+"'WHERE nombre_producto='"+piezas[i]+"' and fecha= '"+fecha()+"'");
-               int ty = ps.executeUpdate();
-                
-                 if(ty>0){
-                     resultado = true;
-                 }else{
-                     resultado = false;
-                 }
-        }
-        }fin del id del usuario
-                 catch(Exception w){
-                     JOptionPane.showMessageDialog(null, "Error" + w.getMessage());
-                 }fin del id del usuario
-               }
- 
-         }catch (Exception f){
-                    JOptionPane.showMessageDialog(null, "Error, nombre de producto no registrado" + f.getMessage());
-                
-         }
-     
-         
-           }
-        return resultado;
-     } LUEGO ESTE METODOD EN 2DO LUGAR
-     
-     
-     public void actualizar_pollocrudo(){ LUEGO ESTE EN 3ER LUGAR
-    
-      String buscap = "";     
-  
-            try{
-                       sent  = (Statement)ca.createStatement();
-                                           rs = sent.executeQuery("select * from productos  where nombre_producto='"+tipo+"' and fecha= '"+fecha()+"'");
-                                            while(rs.next()){
-                                                      buscap =rs.getString("nombre_producto");
-                                                      cantidadpolloenDB =rs.getInt("cantidad"); // piezas en la db
-                                                      }
-                  
-           if(buscap.equalsIgnoreCase(tipo)){
-   try{el id del usuario
-
-              addpiezas=cantidadpolloenDB+cantidad;
-            
-               PreparedStatement ps = ca.prepareStatement ("UPDATE productos SET cantidad='"+addpiezas+"'WHERE nombre_producto='"+tipo+"' and fecha= '"+fecha()+"'");
-               int ty = ps.executeUpdate();
-                 if(ty>0){
-                   
-         JOptionPane.showMessageDialog(null, "SALIO DE ACTUALIZAR POLLO CRUDO0", "POLLO CRUDO",JOptionPane.INFORMATION_MESSAGE);
-                 }else{
-                   
-                 }
-
-        }fin del id del usuario
-                 catch(Exception w){
-                     JOptionPane.showMessageDialog(null, "Error" + w.getMessage());
-                 }fin del id del usuario
-            }        
-         }catch (Exception f){
-                    JOptionPane.showMessageDialog(null, "Error, nombre de producto no registrado" + f.getMessage());
-         }
-     } LUEGO ESTE EN 3ER LUGAR
-     
-     public void registrar_pollo_crudo(String name, float precio, float cantidad, int id){//LUEGO ESTE EN 4TO LUGAR
-         String sql = null;
-         float preciodelpollocrudo=precio/cantidad;
-try {
-          Statement sent = ca.createStatement(); 
-          sql = "INSERT INTO productos (nombre_producto, tipo_producto, precio, cantidad, fecha, id_proveedor, fecha_de_caducidad)  VALUES (?,?,?,?,?,?,?)";
-         PreparedStatement pst = ca.prepareCall(sql);
-           // sql = "INSERT INTO egreso (tipo,fecha, total, user_id_usuario)  VALUES (?,?,?,?)";
-           
-           pst.setString(1, name);
-           pst.setString(2, "Pollos");
-           pst.setFloat(3, preciodelpollocrudo);
-          pst.setFloat(4,cantidad);
-          pst.setString(5, fecha());
-          pst.setInt(6, id);
-          pst.setString(7, "Sin fecha de caducidad");
-                      
-          tt = pst.executeUpdate();
-            pst.close();
-             
-        } catch (SQLException ex) {
-            System.err.print(ex);
-           // return false;
-        }
-} //LUEGO ESTE EN 4TO LUGAR
-     
-     ESTOS 3 METODOS SON PARA CUANDO SE AGREGUE CIERTA CANTIDAD DE POLLO CRUDO, CONVIERTIENDOLO 
-     A SUS PIEZAS CORRESPONDIENTES, Y SI YA HAY CANTIDADES ALMACENADAS, SE SUMA LO ALMACENADO CON LO
-       QUE SE ESTA INSERTANDO
-     */
-
-     
-    
-
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -430,7 +208,6 @@ try {
         jTableGastos = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        btnListar = new javax.swing.JButton();
         txtmonto = new javax.swing.JTextField();
         txtdescripcion = new javax.swing.JTextField();
         jDateChooserFecha = new com.toedter.calendar.JDateChooser();
@@ -440,6 +217,7 @@ try {
         jLabel5 = new javax.swing.JLabel();
         txtpiezas = new javax.swing.JTextField();
         busquedagastos = new javax.swing.JTextField();
+        gastos_btn_back = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -456,17 +234,9 @@ try {
 
             },
             new String [] {
-                "Idegreso", "Cantidad", "Tipo", "Total", "Fecha", "Usuario"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
-            };
 
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
             }
-        });
+        ));
         jTableGastos.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jScrollPane1.setViewportView(jTableGastos);
 
@@ -477,25 +247,13 @@ try {
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Cantidad/Piezas:");
         jPanel2.add(jLabel1);
-        jLabel1.setBounds(250, 80, 150, 29);
+        jLabel1.setBounds(490, 10, 150, 29);
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 17)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Descripción del Gasto:");
         jPanel2.add(jLabel2);
         jLabel2.setBounds(10, 10, 220, 29);
-
-        btnListar.setBackground(new java.awt.Color(0, 148, 204));
-        btnListar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        btnListar.setForeground(new java.awt.Color(255, 255, 255));
-        btnListar.setText("Listar gastos");
-        btnListar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnListarActionPerformed(evt);
-            }
-        });
-        jPanel2.add(btnListar);
-        btnListar.setBounds(430, 110, 210, 50);
 
         txtmonto.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jPanel2.add(txtmonto);
@@ -507,7 +265,7 @@ try {
         jDateChooserFecha.setEnabled(false);
         jDateChooserFecha.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jPanel2.add(jDateChooserFecha);
-        jDateChooserFecha.setBounds(10, 180, 210, 40);
+        jDateChooserFecha.setBounds(250, 110, 210, 40);
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 17)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
@@ -519,9 +277,9 @@ try {
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Busqueda de Gastos");
         jPanel2.add(jLabel4);
-        jLabel4.setBounds(870, 10, 250, 40);
+        jLabel4.setBounds(10, 150, 250, 40);
 
-        btnRegistrarGasto.setBackground(new java.awt.Color(0, 148, 204));
+        btnRegistrarGasto.setBackground(new java.awt.Color(0, 51, 102));
         btnRegistrarGasto.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btnRegistrarGasto.setForeground(new java.awt.Color(255, 255, 255));
         btnRegistrarGasto.setText("Registrar gastos");
@@ -531,13 +289,13 @@ try {
             }
         });
         jPanel2.add(btnRegistrarGasto);
-        btnRegistrarGasto.setBounds(430, 170, 210, 50);
+        btnRegistrarGasto.setBounds(500, 180, 150, 50);
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 17)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Fecha:");
         jPanel2.add(jLabel5);
-        jLabel5.setBounds(10, 150, 90, 29);
+        jLabel5.setBounds(250, 80, 90, 29);
 
         txtpiezas.setBackground(new java.awt.Color(0, 148, 204));
         txtpiezas.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
@@ -559,7 +317,7 @@ try {
             }
         });
         jPanel2.add(txtpiezas);
-        txtpiezas.setBounds(240, 120, 150, 40);
+        txtpiezas.setBounds(500, 40, 150, 40);
 
         busquedagastos.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -567,16 +325,27 @@ try {
             }
         });
         jPanel2.add(busquedagastos);
-        busquedagastos.setBounds(690, 230, 220, 30);
+        busquedagastos.setBounds(10, 200, 220, 30);
 
         jPanel1.add(jPanel2);
-        jPanel2.setBounds(10, 50, 1290, 480);
+        jPanel2.setBounds(0, 50, 690, 480);
+
+        gastos_btn_back.setBackground(new java.awt.Color(242, 38, 19));
+        gastos_btn_back.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        gastos_btn_back.setText("Regresar");
+        gastos_btn_back.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                gastos_btn_backActionPerformed(evt);
+            }
+        });
+        jPanel1.add(gastos_btn_back);
+        gastos_btn_back.setBounds(560, 0, 120, 40);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1327, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 685, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -587,12 +356,6 @@ try {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarActionPerformed
-        // Listar Gastos
-        LlenarTabla(jTableGastos);
-        
-    }//GEN-LAST:event_btnListarActionPerformed
 /*
     public void autocompletar(){ //metodo sin retorno para obtener la lista de campos de la tabla productos la cual obtiene cada uno de los nombres para poder hacer algunas coincidencias al momento que el usuario estÃ¡ escribiendo
           ArrayList<String> lista = new ArrayList<String>();
@@ -690,6 +453,11 @@ public void obtener_id_del_proveedor(String name){
         mostrartodoslosproductosenexistenciasporbusqueda(textobusqueda);
     }//GEN-LAST:event_busquedagastosKeyReleased
 
+    private void gastos_btn_backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gastos_btn_backActionPerformed
+        // BOTON DE CANCELAR LA INSERCION DE NUEVO USUARIO
+        dispose();
+    }//GEN-LAST:event_gastos_btn_backActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -732,9 +500,9 @@ public void obtener_id_del_proveedor(String name){
  Connection ca= cc.conexion();
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnListar;
     public javax.swing.JButton btnRegistrarGasto;
     private javax.swing.JTextField busquedagastos;
+    private javax.swing.JButton gastos_btn_back;
     public com.toedter.calendar.JDateChooser jDateChooserFecha;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
