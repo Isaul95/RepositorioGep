@@ -446,7 +446,7 @@ public class Registrodeladmin extends javax.swing.JFrame {
                 B_cancelarActionPerformed(evt);
             }
         });
-        jPanel1.add(B_cancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 360, 120, 40));
+        jPanel1.add(B_cancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 360, 140, 40));
         jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 330, 190, 10));
         jPanel1.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 50, 190, 10));
         jPanel1.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 90, 190, 10));

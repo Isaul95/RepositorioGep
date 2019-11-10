@@ -1884,7 +1884,6 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         Proveedores9 = new javax.swing.JTabbedPane();
         venta = new javax.swing.JPanel();
         jLabel28 = new javax.swing.JLabel();
-        jSeparator7 = new javax.swing.JSeparator();
         jPanel10 = new javax.swing.JPanel();
         pagocombobox = new javax.swing.JTextField();
         cambiocombobox = new javax.swing.JLabel();
@@ -1892,12 +1891,14 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         jLabel31 = new javax.swing.JLabel();
         jLabel30 = new javax.swing.JLabel();
         jLabel32 = new javax.swing.JLabel();
-        totalcondescuento = new javax.swing.JLabel();
-        jLabel61 = new javax.swing.JLabel();
-        descuentolabel = new javax.swing.JLabel();
-        jSeparator20 = new javax.swing.JSeparator();
         jSeparator22 = new javax.swing.JSeparator();
         totaldeventa = new javax.swing.JLabel();
+        jButton5 = new javax.swing.JButton();
+        jSeparator7 = new javax.swing.JSeparator();
+        jLabel61 = new javax.swing.JLabel();
+        descuentolabel = new javax.swing.JLabel();
+        totalcondescuento = new javax.swing.JLabel();
+        jSeparator20 = new javax.swing.JSeparator();
         jPanel2 = new javax.swing.JPanel();
         user = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
@@ -1908,11 +1909,8 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         IblReloj = new javax.swing.JLabel();
         AgregarGastos = new javax.swing.JButton();
         Cortedecaja = new javax.swing.JButton();
-        descuento = new javax.swing.JButton();
-        labeldescuento = new javax.swing.JLabel();
         total1 = new javax.swing.JLabel();
         total2 = new javax.swing.JLabel();
-        jSeparator21 = new javax.swing.JSeparator();
         jScrollPane2 = new javax.swing.JScrollPane();
         tablaventa = new rojerusan.RSTableMetro();
         jScrollPane4 = new javax.swing.JScrollPane();
@@ -1922,10 +1920,13 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         jScrollPane11 = new javax.swing.JScrollPane();
         acompañantes = new rojerusan.RSTableMetro();
         jLabel64 = new javax.swing.JLabel();
-        Existencias = new javax.swing.JButton();
         total3 = new javax.swing.JLabel();
-        ventaacredito = new javax.swing.JButton();
+        jPanel27 = new javax.swing.JPanel();
+        descuento = new javax.swing.JButton();
+        labeldescuento = new javax.swing.JLabel();
         descuentocombo = new javax.swing.JLabel();
+        jSeparator21 = new javax.swing.JSeparator();
+        ventaacredito = new javax.swing.JButton();
         calculadora = new javax.swing.JPanel();
         borrar = new javax.swing.JButton();
         nueve = new javax.swing.JButton();
@@ -1941,7 +1942,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         cantidad = new javax.swing.JTextField();
         salir = new javax.swing.JButton();
         cero = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        Existencias = new javax.swing.JButton();
         agregar_proveedor = new javax.swing.JPanel();
         agregarpro = new javax.swing.JButton();
         jLabel12 = new javax.swing.JLabel();
@@ -2114,16 +2115,17 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         buscarproductospordia = new javax.swing.JButton();
         jLabel76 = new javax.swing.JLabel();
         jLabel77 = new javax.swing.JLabel();
-        jLabel78 = new javax.swing.JLabel();
         jLabel80 = new javax.swing.JLabel();
         jLabel81 = new javax.swing.JLabel();
-        jLabel82 = new javax.swing.JLabel();
-        jLabel84 = new javax.swing.JLabel();
-        labelutilidad = new javax.swing.JLabel();
-        labelgastos = new javax.swing.JLabel();
-        labelingresos = new javax.swing.JLabel();
+        jPanel28 = new javax.swing.JPanel();
         jScrollPane8 = new javax.swing.JScrollPane();
         utilidad = new rojerusan.RSTableMetro();
+        jLabel84 = new javax.swing.JLabel();
+        jLabel78 = new javax.swing.JLabel();
+        labelutilidad = new javax.swing.JLabel();
+        labelingresos = new javax.swing.JLabel();
+        jLabel82 = new javax.swing.JLabel();
+        labelgastos = new javax.swing.JLabel();
 
         tabla_articulos.setComponentPopupMenu(tabla_articulos);
 
@@ -2198,7 +2200,6 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         jLabel28.setForeground(new java.awt.Color(255, 255, 255));
         jLabel28.setText("Clic sobre algún producto para agregarlo a la venta:");
         venta.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 90, 630, -1));
-        venta.add(jSeparator7, new org.netbeans.lib.awtextra.AbsoluteConstraints(1080, 460, 140, 10));
 
         jPanel10.setBackground(new java.awt.Color(0, 51, 102));
         jPanel10.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "   Venta   ", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Arial", 1, 18), new java.awt.Color(255, 255, 255))); // NOI18N
@@ -2228,20 +2229,20 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
                 pagocomboboxKeyReleased(evt);
             }
         });
-        jPanel10.add(pagocombobox, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 90, 140, 30));
+        jPanel10.add(pagocombobox, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 80, 140, 30));
 
         cambiocombobox.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
         cambiocombobox.setForeground(new java.awt.Color(255, 255, 255));
         cambiocombobox.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         cambiocombobox.setText("00.00");
-        jPanel10.add(cambiocombobox, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 150, 140, 28));
-        jPanel10.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 120, 140, 10));
+        jPanel10.add(cambiocombobox, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 130, 140, 28));
+        jPanel10.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 110, 140, 10));
 
         jLabel31.setFont(new java.awt.Font("Trebuchet MS", 1, 22)); // NOI18N
         jLabel31.setForeground(new java.awt.Color(255, 255, 255));
         jLabel31.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/camb5.png"))); // NOI18N
         jLabel31.setText("Cambio:");
-        jPanel10.add(jLabel31, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 140, 140, -1));
+        jPanel10.add(jLabel31, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 120, 140, -1));
 
         jLabel30.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
         jLabel30.setForeground(new java.awt.Color(255, 255, 255));
@@ -2254,28 +2255,8 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         jLabel32.setForeground(new java.awt.Color(255, 255, 255));
         jLabel32.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/simbolodolar.png"))); // NOI18N
         jLabel32.setText("  Pagó:");
-        jPanel10.add(jLabel32, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 90, 130, -1));
-
-        totalcondescuento.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
-        totalcondescuento.setForeground(new java.awt.Color(255, 255, 255));
-        totalcondescuento.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        totalcondescuento.setText("00.00");
-        jPanel10.add(totalcondescuento, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 210, 140, 28));
-
-        jLabel61.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
-        jLabel61.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel61.setText("Total con");
-        jLabel61.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-        jPanel10.add(jLabel61, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 200, 170, -1));
-
-        descuentolabel.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
-        descuentolabel.setForeground(new java.awt.Color(255, 255, 255));
-        descuentolabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/total.png"))); // NOI18N
-        descuentolabel.setText("Descuento :");
-        descuentolabel.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-        jPanel10.add(descuentolabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 230, 190, -1));
-        jPanel10.add(jSeparator20, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 250, 140, 10));
-        jPanel10.add(jSeparator22, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 180, 140, 10));
+        jPanel10.add(jLabel32, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 80, 130, -1));
+        jPanel10.add(jSeparator22, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 160, 140, 10));
 
         totaldeventa.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
         totaldeventa.setForeground(new java.awt.Color(255, 255, 255));
@@ -2283,7 +2264,48 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         totaldeventa.setText("00.00");
         jPanel10.add(totaldeventa, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 30, 140, 28));
 
-        venta.add(jPanel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 400, 570, 270));
+        jButton5.setBackground(new java.awt.Color(0, 51, 102));
+        jButton5.setFont(new java.awt.Font("Tahoma", 1, 22)); // NOI18N
+        jButton5.setForeground(new java.awt.Color(255, 255, 255));
+        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/flecha-hacia-la-izquierda (1).png"))); // NOI18N
+        jButton5.setText("Limpiar venta");
+        jButton5.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton5.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        jButton5.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButton5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton5MouseClicked(evt);
+            }
+        });
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+        jPanel10.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 190, 90));
+        jPanel10.add(jSeparator7, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 60, 140, 10));
+
+        jLabel61.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
+        jLabel61.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel61.setText("Total con");
+        jLabel61.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        jPanel10.add(jLabel61, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 180, 170, -1));
+
+        descuentolabel.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
+        descuentolabel.setForeground(new java.awt.Color(255, 255, 255));
+        descuentolabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/total.png"))); // NOI18N
+        descuentolabel.setText("Descuento :");
+        descuentolabel.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        jPanel10.add(descuentolabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 210, 190, -1));
+
+        totalcondescuento.setFont(new java.awt.Font("Arial Black", 1, 30)); // NOI18N
+        totalcondescuento.setForeground(new java.awt.Color(255, 0, 51));
+        totalcondescuento.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        totalcondescuento.setText("00.00");
+        jPanel10.add(totalcondescuento, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 180, 150, 50));
+        jPanel10.add(jSeparator20, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 230, 140, 10));
+
+        venta.add(jPanel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 380, 540, 270));
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -2374,7 +2396,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
                 AgregarGastosActionPerformed(evt);
             }
         });
-        venta.add(AgregarGastos, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 400, 190, 50));
+        venta.add(AgregarGastos, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 400, 200, 90));
 
         Cortedecaja.setBackground(new java.awt.Color(0, 51, 102));
         Cortedecaja.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -2386,25 +2408,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
                 CortedecajaActionPerformed(evt);
             }
         });
-        venta.add(Cortedecaja, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 400, 190, 50));
-
-        descuento.setBackground(new java.awt.Color(0, 51, 102));
-        descuento.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        descuento.setForeground(new java.awt.Color(255, 255, 255));
-        descuento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/005-discount.png"))); // NOI18N
-        descuento.setText("Descuento");
-        descuento.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                descuentoActionPerformed(evt);
-            }
-        });
-        venta.add(descuento, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 400, 190, 50));
-
-        labeldescuento.setFont(new java.awt.Font("Trebuchet MS", 1, 22)); // NOI18N
-        labeldescuento.setForeground(new java.awt.Color(255, 255, 255));
-        labeldescuento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/camb5.png"))); // NOI18N
-        labeldescuento.setText("Descuento:");
-        venta.add(labeldescuento, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 470, 170, -1));
+        venta.add(Cortedecaja, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 520, 200, 90));
 
         total1.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
         total1.setForeground(new java.awt.Color(255, 255, 255));
@@ -2417,7 +2421,6 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         total2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         total2.setText("00.00");
         venta.add(total2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1080, 430, 140, 28));
-        venta.add(jSeparator21, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 510, 140, 10));
 
         tablaventa = new rojerusan.RSTableMetro(){
             public boolean isCellEditable(int filas, int columnas){
@@ -2446,7 +2449,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         });
         jScrollPane2.setViewportView(tablaventa);
 
-        venta.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 140, 420, 230));
+        venta.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 140, 440, 230));
 
         pollocrudo = new rojerusan.RSTableMetro(){
             public boolean isCellEditable(int filas, int columnas){
@@ -2540,29 +2543,43 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         jLabel64.setText("En venta :");
         venta.add(jLabel64, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 90, 120, -1));
 
-        Existencias.setBackground(new java.awt.Color(0, 51, 102));
-        Existencias.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        Existencias.setForeground(new java.awt.Color(255, 255, 255));
-        Existencias.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/actualizar.png"))); // NOI18N
-        Existencias.setText("Existencias");
-        Existencias.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        Existencias.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-        Existencias.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        Existencias.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ExistenciasActionPerformed(evt);
-            }
-        });
-        venta.add(Existencias, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 470, 110, 110));
-
         total3.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
         total3.setForeground(new java.awt.Color(255, 255, 255));
         total3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         total3.setText("00.00");
         venta.add(total3, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 30, 140, 28));
 
+        jPanel27.setBackground(new java.awt.Color(0, 51, 102));
+        jPanel27.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Descuentos", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Arial", 1, 18), new java.awt.Color(255, 0, 51))); // NOI18N
+        jPanel27.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        descuento.setBackground(new java.awt.Color(0, 51, 102));
+        descuento.setFont(new java.awt.Font("Arial Black", 1, 23)); // NOI18N
+        descuento.setForeground(new java.awt.Color(255, 255, 255));
+        descuento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/005-discount.png"))); // NOI18N
+        descuento.setText("Descuento");
+        descuento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                descuentoActionPerformed(evt);
+            }
+        });
+        jPanel27.add(descuento, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, 270, 60));
+
+        labeldescuento.setFont(new java.awt.Font("Trebuchet MS", 1, 22)); // NOI18N
+        labeldescuento.setForeground(new java.awt.Color(255, 255, 255));
+        labeldescuento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/camb5.png"))); // NOI18N
+        labeldescuento.setText("Descuento:");
+        jPanel27.add(labeldescuento, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, 170, -1));
+
+        descuentocombo.setFont(new java.awt.Font("Arial Black", 1, 28)); // NOI18N
+        descuentocombo.setForeground(new java.awt.Color(255, 0, 51));
+        descuentocombo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        descuentocombo.setText("00.00");
+        jPanel27.add(descuentocombo, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 100, 140, 40));
+        jPanel27.add(jSeparator21, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 150, 140, 10));
+
         ventaacredito.setBackground(new java.awt.Color(0, 51, 102));
-        ventaacredito.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        ventaacredito.setFont(new java.awt.Font("Arial Black", 1, 24)); // NOI18N
         ventaacredito.setForeground(new java.awt.Color(255, 255, 255));
         ventaacredito.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/dinero (1).png"))); // NOI18N
         ventaacredito.setText("Venta a credito");
@@ -2574,13 +2591,9 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
                 ventaacreditoActionPerformed(evt);
             }
         });
-        venta.add(ventaacredito, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 510, 160, -1));
+        jPanel27.add(ventaacredito, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 300, 90));
 
-        descuentocombo.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
-        descuentocombo.setForeground(new java.awt.Color(255, 255, 255));
-        descuentocombo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        descuentocombo.setText("00.00");
-        venta.add(descuentocombo, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 480, 140, 28));
+        venta.add(jPanel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 380, 340, 270));
 
         calculadora.setBackground(new java.awt.Color(0, 51, 102));
         calculadora.setForeground(new java.awt.Color(102, 102, 255));
@@ -2608,7 +2621,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
             }
         });
         calculadora.add(nueve);
-        nueve.setBounds(80, 64, 38, 50);
+        nueve.setBounds(80, 64, 41, 50);
 
         ocho.setBackground(new java.awt.Color(0, 51, 102));
         ocho.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
@@ -2752,27 +2765,21 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         calculadora.add(cero);
         cero.setBounds(120, 170, 50, 100);
 
-        venta.add(calculadora, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 130, 170, 260));
+        venta.add(calculadora, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 110, 170, 260));
 
-        jButton5.setBackground(new java.awt.Color(0, 51, 102));
-        jButton5.setFont(new java.awt.Font("Tahoma", 1, 22)); // NOI18N
-        jButton5.setForeground(new java.awt.Color(255, 255, 255));
-        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/flecha-hacia-la-izquierda (1).png"))); // NOI18N
-        jButton5.setText("Limpiar venta");
-        jButton5.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton5.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-        jButton5.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButton5.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton5MouseClicked(evt);
-            }
-        });
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        Existencias.setBackground(new java.awt.Color(0, 51, 102));
+        Existencias.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        Existencias.setForeground(new java.awt.Color(255, 255, 255));
+        Existencias.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/actualizar.png"))); // NOI18N
+        Existencias.setText("Existencias");
+        Existencias.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        Existencias.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        Existencias.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                ExistenciasActionPerformed(evt);
             }
         });
-        venta.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 580, 190, 80));
+        venta.add(Existencias, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 420, 130, 160));
 
         Proveedores9.addTab("      Venta      ", venta);
 
@@ -3437,7 +3444,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         );
 
         producto_sobrante3.add(jPanel31);
-        jPanel31.setBounds(0, 0, 1288, 66);
+        jPanel31.setBounds(0, 0, 1290, 71);
 
         jPanel32.setBackground(new java.awt.Color(0, 51, 102));
         jPanel32.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "   Inventario actualizado", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Arial", 1, 18), new java.awt.Color(255, 255, 255))); // NOI18N
@@ -3762,7 +3769,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         );
 
         agregar_usuario.add(jPanel5);
-        jPanel5.setBounds(0, 0, 1288, 60);
+        jPanel5.setBounds(0, 0, 1290, 60);
 
         tabla_usuariosnuevo = new rojerusan.RSTableMetro(){
             public boolean isCellEditable(int filas, int columnas){
@@ -4073,7 +4080,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         );
 
         Administrador.add(jPanel24);
-        jPanel24.setBounds(0, 0, 1288, 60);
+        jPanel24.setBounds(0, 0, 1290, 60);
 
         jPanel26.setBackground(new java.awt.Color(0, 51, 102));
         jPanel26.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Ventas a credito pendiente por pagar", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Arial", 1, 18), new java.awt.Color(255, 255, 255))); // NOI18N
@@ -4128,7 +4135,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
             }
         });
         Administrador.add(veridventasacreditopendiente);
-        veridventasacreditopendiente.setBounds(620, 610, 189, 46);
+        veridventasacreditopendiente.setBounds(620, 610, 191, 39);
 
         pagarventaacredito.setBackground(new java.awt.Color(0, 51, 102));
         pagarventaacredito.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
@@ -4141,7 +4148,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
             }
         });
         Administrador.add(pagarventaacredito);
-        pagarventaacredito.setBounds(860, 610, 170, 46);
+        pagarventaacredito.setBounds(860, 610, 170, 39);
 
         totalventacreditoenturno.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
         totalventacreditoenturno.setForeground(new java.awt.Color(255, 255, 255));
@@ -4239,7 +4246,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         );
 
         producto_sobrante.add(jPanel20);
-        jPanel20.setBounds(0, 0, 1288, 66);
+        jPanel20.setBounds(0, 0, 1290, 71);
 
         jPanel25.setBackground(new java.awt.Color(0, 51, 102));
         jPanel25.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Productos más vendidos", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Arial", 1, 18), new java.awt.Color(255, 255, 255))); // NOI18N
@@ -4259,7 +4266,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         fecha_finalestadis.setBackground(new java.awt.Color(0, 51, 102));
         fecha_finalestadis.setForeground(new java.awt.Color(0, 96, 255));
         fecha_finalestadis.setFont(new java.awt.Font("Tahoma", 1, 17)); // NOI18N
-        jPanel25.add(fecha_finalestadis, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 60, 210, 40));
+        jPanel25.add(fecha_finalestadis, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 60, 210, 40));
 
         buscarproductosfecha.setBackground(new java.awt.Color(0, 51, 102));
         buscarproductosfecha.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -4272,7 +4279,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
                 buscarproductosfechaActionPerformed(evt);
             }
         });
-        jPanel25.add(buscarproductosfecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 60, 180, 50));
+        jPanel25.add(buscarproductosfecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 50, 180, 50));
 
         Jtable_productosmasven = new rojerusan.RSTableMetro(){
             public boolean isCellEditable(int filas, int columnas){
@@ -4295,7 +4302,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         Jtable_productosmasven.setRowHeight(20);
         jScrollPane5.setViewportView(Jtable_productosmasven);
 
-        jPanel25.add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, 580, 170));
+        jPanel25.add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, 580, 170));
 
         buscarproductospordia.setBackground(new java.awt.Color(0, 51, 102));
         buscarproductospordia.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -4308,22 +4315,17 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
                 buscarproductospordiaActionPerformed(evt);
             }
         });
-        jPanel25.add(buscarproductospordia, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 60, 180, 50));
+        jPanel25.add(buscarproductospordia, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 50, 180, 50));
 
         jLabel76.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel76.setForeground(new java.awt.Color(255, 255, 255));
         jLabel76.setText("El día de hoy");
-        jPanel25.add(jLabel76, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 30, 270, -1));
+        jPanel25.add(jLabel76, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 20, 270, 30));
 
         jLabel77.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel77.setForeground(new java.awt.Color(255, 255, 255));
         jLabel77.setText("Selecciona el rango de fechas que quieres ver");
         jPanel25.add(jLabel77, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 30, 360, -1));
-
-        jLabel78.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
-        jLabel78.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel78.setText("Utilidad");
-        jPanel25.add(jLabel78, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 520, 100, -1));
 
         jLabel80.setFont(new java.awt.Font("Arial Black", 1, 24)); // NOI18N
         jLabel80.setForeground(new java.awt.Color(255, 255, 255));
@@ -4334,35 +4336,14 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         jLabel81.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel81.setForeground(new java.awt.Color(255, 255, 255));
         jLabel81.setText("Por rango de fechas");
-        jPanel25.add(jLabel81, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 30, 270, -1));
+        jPanel25.add(jLabel81, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 20, 270, 30));
 
-        jLabel82.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
-        jLabel82.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel82.setText("Gastos");
-        jPanel25.add(jLabel82, new org.netbeans.lib.awtextra.AbsoluteConstraints(1070, 470, 90, -1));
+        producto_sobrante.add(jPanel25);
+        jPanel25.setBounds(10, 70, 1270, 300);
 
-        jLabel84.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
-        jLabel84.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel84.setText("Ingresos");
-        jPanel25.add(jLabel84, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 470, 110, -1));
-
-        labelutilidad.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
-        labelutilidad.setForeground(new java.awt.Color(255, 255, 255));
-        labelutilidad.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        labelutilidad.setText("00.00");
-        jPanel25.add(labelutilidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 520, 140, 28));
-
-        labelgastos.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
-        labelgastos.setForeground(new java.awt.Color(255, 255, 255));
-        labelgastos.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        labelgastos.setText("00.00");
-        jPanel25.add(labelgastos, new org.netbeans.lib.awtextra.AbsoluteConstraints(1140, 470, 140, 28));
-
-        labelingresos.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
-        labelingresos.setForeground(new java.awt.Color(255, 255, 255));
-        labelingresos.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        labelingresos.setText("00.00");
-        jPanel25.add(labelingresos, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 470, 140, 28));
+        jPanel28.setBackground(new java.awt.Color(0, 51, 102));
+        jPanel28.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Utilidad", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Arial", 1, 18), new java.awt.Color(255, 255, 255))); // NOI18N
+        jPanel28.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         utilidad = new rojerusan.RSTableMetro(){
             public boolean isCellEditable(int filas, int columnas){
@@ -4384,10 +4365,43 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         utilidad.setRowHeight(25);
         jScrollPane8.setViewportView(utilidad);
 
-        jPanel25.add(jScrollPane8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 320, 790, 260));
+        jPanel28.add(jScrollPane8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 790, 250));
 
-        producto_sobrante.add(jPanel25);
-        jPanel25.setBounds(10, 80, 1270, 590);
+        jLabel84.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        jLabel84.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel84.setText("Ingresos");
+        jPanel28.add(jLabel84, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 90, 110, -1));
+
+        jLabel78.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        jLabel78.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel78.setText("Utilidad");
+        jPanel28.add(jLabel78, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 190, 100, -1));
+
+        labelutilidad.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
+        labelutilidad.setForeground(new java.awt.Color(255, 255, 255));
+        labelutilidad.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelutilidad.setText("00.00");
+        jPanel28.add(labelutilidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 190, 140, 28));
+
+        labelingresos.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
+        labelingresos.setForeground(new java.awt.Color(255, 255, 255));
+        labelingresos.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelingresos.setText("00.00");
+        jPanel28.add(labelingresos, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 90, 140, 28));
+
+        jLabel82.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        jLabel82.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel82.setText("Gastos");
+        jPanel28.add(jLabel82, new org.netbeans.lib.awtextra.AbsoluteConstraints(1050, 90, 90, -1));
+
+        labelgastos.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
+        labelgastos.setForeground(new java.awt.Color(255, 255, 255));
+        labelgastos.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelgastos.setText("00.00");
+        jPanel28.add(labelgastos, new org.netbeans.lib.awtextra.AbsoluteConstraints(1140, 90, 120, 28));
+
+        producto_sobrante.add(jPanel28);
+        jPanel28.setBounds(10, 370, 1270, 290);
 
         javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
         jPanel13.setLayout(jPanel13Layout);
@@ -6374,6 +6388,8 @@ SI cc= new SI();
     private javax.swing.JPanel jPanel24;
     private javax.swing.JPanel jPanel25;
     private javax.swing.JPanel jPanel26;
+    private javax.swing.JPanel jPanel27;
+    private javax.swing.JPanel jPanel28;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel31;
     private javax.swing.JPanel jPanel32;

@@ -85,7 +85,7 @@ public void hora(){
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Monto para apertura");
         jPanel2.add(jLabel1);
-        jLabel1.setBounds(10, 220, 270, 29);
+        jLabel1.setBounds(10, 170, 270, 60);
 
         Corte_btnImprimirticket.setBackground(new java.awt.Color(0, 51, 102));
         Corte_btnImprimirticket.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -98,25 +98,27 @@ public void hora(){
             }
         });
         jPanel2.add(Corte_btnImprimirticket);
-        Corte_btnImprimirticket.setBounds(50, 400, 250, 60);
+        Corte_btnImprimirticket.setBounds(10, 270, 250, 70);
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Usuario");
         jPanel2.add(jLabel3);
-        jLabel3.setBounds(10, 120, 350, 30);
+        jLabel3.setBounds(10, 80, 220, 60);
 
-        Fecha.setFont(new java.awt.Font("Times New Roman", 1, 27)); // NOI18N
+        Fecha.setFont(new java.awt.Font("Arial Black", 1, 27)); // NOI18N
+        Fecha.setForeground(new java.awt.Color(255, 255, 255));
         Fecha.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         Fecha.setText("DD/MM/YYYY");
         jPanel2.add(Fecha);
-        Fecha.setBounds(10, 10, 186, 32);
+        Fecha.setBounds(10, 10, 240, 60);
 
-        Reloj.setFont(new java.awt.Font("Times New Roman", 1, 27)); // NOI18N
+        Reloj.setFont(new java.awt.Font("Arial Black", 1, 27)); // NOI18N
+        Reloj.setForeground(new java.awt.Color(255, 255, 255));
         Reloj.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         Reloj.setText("00:00:00");
         jPanel2.add(Reloj);
-        Reloj.setBounds(240, 10, 240, 32);
+        Reloj.setBounds(340, 10, 240, 60);
 
         monto.setBackground(new java.awt.Color(0, 148, 204));
         monto.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
@@ -138,10 +140,11 @@ public void hora(){
             }
         });
         jPanel2.add(monto);
-        monto.setBounds(300, 220, 210, 29);
+        monto.setBounds(290, 170, 200, 60);
 
         Corte_btncancelar.setBackground(new java.awt.Color(0, 51, 102));
         Corte_btncancelar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        Corte_btncancelar.setForeground(new java.awt.Color(255, 255, 255));
         Corte_btncancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/salir-flecha-derecha (1).png"))); // NOI18N
         Corte_btncancelar.setText("Cancelar");
         Corte_btncancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -150,14 +153,15 @@ public void hora(){
             }
         });
         jPanel2.add(Corte_btncancelar);
-        Corte_btncancelar.setBounds(370, 400, 250, 60);
+        Corte_btncancelar.setBounds(310, 270, 250, 70);
 
         user.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
+        user.setForeground(new java.awt.Color(255, 255, 255));
         jPanel2.add(user);
-        user.setBounds(300, 120, 180, 50);
+        user.setBounds(290, 80, 190, 60);
 
         jPanel1.add(jPanel2);
-        jPanel2.setBounds(10, 50, 650, 480);
+        jPanel2.setBounds(10, 50, 590, 380);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -165,14 +169,14 @@ public void hora(){
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 677, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 611, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 541, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
