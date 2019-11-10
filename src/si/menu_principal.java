@@ -608,7 +608,7 @@ public void insertandopiezasdepolloporhaberagregadoxcantidaddepollocrudo(String 
             while (rs.next()) {
                  //columna[0] = rs.getInt(1);
                 columna[0] = rs.getString(1);
-                 columna[1] = rs.getFloat(2);
+                 columna[1] = (int) rs.getFloat(2);
                 //columna[3] = rs.getInt(4);
                 modeloT.addRow(columna);
             }
@@ -2553,7 +2553,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
             }
         });
         calculadora.add(borrar);
-        borrar.setBounds(120, 63, 38, 50);
+        borrar.setBounds(120, 63, 39, 50);
 
         nueve.setBackground(new java.awt.Color(0, 51, 102));
         nueve.setText("9");
@@ -2563,7 +2563,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
             }
         });
         calculadora.add(nueve);
-        nueve.setBounds(80, 64, 37, 50);
+        nueve.setBounds(80, 64, 39, 50);
 
         ocho.setBackground(new java.awt.Color(0, 51, 102));
         ocho.setText("8");
@@ -2633,7 +2633,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
             }
         });
         calculadora.add(dos);
-        dos.setBounds(40, 174, 37, 50);
+        dos.setBounds(40, 174, 39, 50);
 
         uno.setBackground(new java.awt.Color(0, 51, 102));
         uno.setText("1");
@@ -2653,7 +2653,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
             }
         });
         calculadora.add(listo);
-        listo.setBounds(0, 224, 120, 32);
+        listo.setBounds(0, 224, 120, 23);
 
         cantidad.setBackground(new java.awt.Color(0, 0, 0));
         cantidad.setFont(new java.awt.Font("Tahoma", 3, 18)); // NOI18N
@@ -3370,7 +3370,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         );
 
         producto_sobrante3.add(jPanel31);
-        jPanel31.setBounds(0, 0, 1288, 66);
+        jPanel31.setBounds(0, 0, 1290, 71);
 
         jPanel32.setBackground(new java.awt.Color(0, 51, 102));
         jPanel32.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "   Inventario actualizado", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Arial", 1, 18), new java.awt.Color(255, 255, 255))); // NOI18N
@@ -3455,11 +3455,6 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         Jtable_ProductosEntradas.setName(""); // NOI18N
         Jtable_ProductosEntradas.setRowHeight(30);
         Jtable_ProductosEntradas.getTableHeader().setReorderingAllowed(false);
-        Jtable_ProductosEntradas.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                Jtable_ProductosEntradasMouseClicked(evt);
-            }
-        });
         jScrollPane17.setViewportView(Jtable_ProductosEntradas);
 
         jPanel33.add(jScrollPane17, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, 580, 430));
@@ -3699,7 +3694,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         );
 
         agregar_usuario.add(jPanel5);
-        jPanel5.setBounds(0, 0, 1288, 60);
+        jPanel5.setBounds(0, 0, 1290, 60);
 
         tabla_usuariosnuevo = new rojerusan.RSTableMetro(){
             public boolean isCellEditable(int filas, int columnas){
@@ -3994,7 +3989,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         );
 
         Administrador.add(jPanel24);
-        jPanel24.setBounds(0, 0, 1288, 60);
+        jPanel24.setBounds(0, 0, 1290, 60);
 
         jPanel26.setBackground(new java.awt.Color(0, 51, 102));
         jPanel26.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Ventas a credito pendiente", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Arial", 1, 18), new java.awt.Color(255, 0, 0))); // NOI18N
@@ -4048,7 +4043,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
             }
         });
         Administrador.add(veridventasacreditopendiente);
-        veridventasacreditopendiente.setBounds(620, 610, 155, 40);
+        veridventasacreditopendiente.setBounds(620, 610, 157, 33);
 
         pagarventaacredito.setBackground(new java.awt.Color(0, 51, 102));
         pagarventaacredito.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
@@ -4059,7 +4054,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
             }
         });
         Administrador.add(pagarventaacredito);
-        pagarventaacredito.setBounds(810, 610, 134, 40);
+        pagarventaacredito.setBounds(810, 610, 137, 33);
 
         totalventacreditoenturno.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
         totalventacreditoenturno.setForeground(new java.awt.Color(255, 255, 255));
@@ -4145,7 +4140,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         );
 
         producto_sobrante.add(jPanel20);
-        jPanel20.setBounds(0, 0, 1288, 66);
+        jPanel20.setBounds(0, 0, 1290, 71);
 
         jPanel25.setBackground(new java.awt.Color(0, 51, 102));
         jPanel25.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Productos más vendidos", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Arial", 1, 18), new java.awt.Color(255, 255, 255))); // NOI18N
@@ -5988,10 +5983,6 @@ get_id_usuario();// 255 -280
             cantidad=cantidad;
         }
     }//GEN-LAST:event_ceroActionPerformed
-
-    private void Jtable_ProductosEntradasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Jtable_ProductosEntradasMouseClicked
-        JOptionPane.showMessageDialog(null,"dandole el valor de click","Aviso",JOptionPane.INFORMATION_MESSAGE);
-    }//GEN-LAST:event_Jtable_ProductosEntradasMouseClicked
  
     public void agregarpiezasaventa(String nombredepieza){
           /* ******************** BOTON DE ADD NUEVO PRODUCTO PARA SU VENTA ******************** */
