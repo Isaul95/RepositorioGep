@@ -40,6 +40,8 @@ public class Pantalla_CorteCaja extends javax.swing.JFrame  implements Runnable{
   ticketpollocrudosolopiezas  ticketpollocrudosolopiezas;
   tikectprocesados tikectprocesados;
   ticketprocesadospiezas ticketprocesadospiezas;
+  DecimalFormat solodosdecimales = new DecimalFormat("#.##");
+            
   final float pagopollo=20*90, tacos=60, almuerzo=28;//datos para la tabla utilidad
 float diferenciaentablautilidad, utilidades, total_de_crudo, total_de_procesados, ventasdeldia, gastosdeldia, montodeapertura, diferencia, diferenciafinal, precio;
 int apertura;
@@ -336,7 +338,7 @@ public void metodogastosdeldia(){
                              columna2.add(rs.getFloat(2));
                              columna3.add(rs.getFloat(3));
                          }
-                         
+                         total_del_día_devolucion_crudo();
    PolloCrudoxPiezas = new PolloCrudoxPiezas();          
    PolloCrudoxPiezas.PolloCrudoxPiezas(columna, columna2, columna3,total_de_crudo);                       
       }catch(Exception e){                                             
@@ -540,11 +542,7 @@ public void total_del_día_procesados(){
 }
 
  public void llenar_tabla_utilidad(float gastosdeldia, float ventasdeldia){
-       DecimalFormat crudo= new DecimalFormat("#.##");
-        DecimalFormat procesados= new DecimalFormat("#.##");
-                  DecimalFormat diferencia= new DecimalFormat("#.##");
-                            DecimalFormat utilidad = new DecimalFormat("#.##");
-    total_del_día_procesados();
+   total_del_día_procesados();
      total_del_día_devolucion_crudo();
     diferenciaentablautilidad=(total_de_crudo+tacos-total_de_procesados-almuerzo);
  utilidades=(ventasdeldia+total_de_crudo+tacos-total_de_procesados-pagopollo-almuerzo);
@@ -552,13 +550,13 @@ public void total_del_día_procesados(){
                 String sql = "INSERT INTO  utilidad(totaldeventas,totaldevolucioncrudo,totalprocesados,pagopollo,tacos,utilidad,almuerzo, diferencia, gastos, fecha)  VALUES (?,?,?,?,?,?,?,?,?,?)";
                 PreparedStatement pst = ca.prepareCall(sql); //hasta aqui vamos
                pst.setDouble(1, ventasdeldia);
-                pst.setDouble(2, Double.parseDouble(crudo.format(total_de_crudo)));
-                pst.setDouble(3,Double.parseDouble(procesados.format(total_de_procesados)));
+                pst.setDouble(2, Double.parseDouble(solodosdecimales.format(total_de_crudo)));
+                pst.setDouble(3,Double.parseDouble(solodosdecimales.format(total_de_procesados)));
                 pst.setDouble(4, pagopollo);
                 pst.setDouble(5, tacos);
-                pst.setDouble(6, Double.parseDouble(utilidad.format(utilidades)));
+                pst.setDouble(6, Double.parseDouble(solodosdecimales.format(utilidades)));
                 pst.setDouble(7, almuerzo);
-                pst.setDouble(8, Double.parseDouble(diferencia.format(diferenciaentablautilidad)));
+                pst.setDouble(8, Double.parseDouble(solodosdecimales.format(diferenciaentablautilidad)));
                 pst.setDouble(9, gastosdeldia);  
                 pst.setString(10, fecha());
                 int a=pst.executeUpdate();
@@ -588,7 +586,7 @@ double []totales = {35.0, 7.70, 7.70, 5.50, 0, 0, 0, 0, 0};
             double total=0;   
             total= Double.parseDouble(String.valueOf(cantidades.get(aa)))*totales[aa];
               try{ //la insersion a la tabla ventas
-                PreparedStatement ps = ca.prepareStatement ("UPDATE devolucion_crudo SET piezas='"+cantidades.get(aa)+"',total = '"+total+"',fecha = '"+fecha()+"'WHERE nombre= '"+nombres.get(aa)+"' ");  
+                PreparedStatement ps = ca.prepareStatement ("UPDATE devolucion_crudo SET piezas='"+cantidades.get(aa)+"',total = '"+solodosdecimales.format(total)+"',fecha = '"+fecha()+"'WHERE nombre= '"+nombres.get(aa)+"' ");  
                 int a=ps.executeUpdate();
                 if(a>0){
                  }
@@ -622,7 +620,7 @@ double []totales = {68.0, 68.0, 7.68, 8.15, 7.50, 5.95, 23.00, 16.00, 0.00, 0.00
             double total=0;   
             total= Double.parseDouble(String.valueOf(cantidades.get(aa)))*totales[aa];
             try{ //la insersion a la tabla ventas
-                PreparedStatement ps = ca.prepareStatement ("UPDATE procesados SET piezas='"+cantidades.get(aa)+"',total = '"+total+"',fecha = '"+fecha()+"'WHERE nombre= '"+nombres.get(aa)+"' ");  
+                PreparedStatement ps = ca.prepareStatement ("UPDATE procesados SET piezas='"+cantidades.get(aa)+"',total = '"+ solodosdecimales.format(total)+"',fecha = '"+fecha()+"'WHERE nombre= '"+nombres.get(aa)+"' ");  
                 int a=ps.executeUpdate();
                 if(a>0){
                  }
