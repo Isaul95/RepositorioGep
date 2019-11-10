@@ -143,7 +143,7 @@ int  id_usuario=Integer.parseInt(SI_Inicio.iduser.getText());
         setUndecorated(true);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "CORTE DE CAJA", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Serif", 1, 36))); // NOI18N
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "EXISTENCIAS", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Serif", 1, 36))); // NOI18N
         jPanel1.setLayout(null);
 
         jPanel2.setBackground(new java.awt.Color(0, 51, 102));
@@ -151,6 +151,7 @@ int  id_usuario=Integer.parseInt(SI_Inicio.iduser.getText());
 
         Corte_btncancelar.setBackground(new java.awt.Color(0, 51, 102));
         Corte_btncancelar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        Corte_btncancelar.setForeground(new java.awt.Color(255, 255, 255));
         Corte_btncancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/salir-flecha-derecha (1).png"))); // NOI18N
         Corte_btncancelar.setText("Regresar");
         Corte_btncancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -168,16 +169,18 @@ int  id_usuario=Integer.parseInt(SI_Inicio.iduser.getText());
         jLabel3.setBounds(10, 60, 340, 29);
 
         Fecha.setFont(new java.awt.Font("Times New Roman", 1, 27)); // NOI18N
+        Fecha.setForeground(new java.awt.Color(255, 255, 255));
         Fecha.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         Fecha.setText("DD/MM/YYYY");
         jPanel2.add(Fecha);
-        Fecha.setBounds(10, 10, 186, 32);
+        Fecha.setBounds(0, 0, 230, 60);
 
         Reloj.setFont(new java.awt.Font("Times New Roman", 1, 27)); // NOI18N
+        Reloj.setForeground(new java.awt.Color(255, 255, 255));
         Reloj.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         Reloj.setText("00:00:00");
         jPanel2.add(Reloj);
-        Reloj.setBounds(310, 10, 240, 32);
+        Reloj.setBounds(390, 0, 260, 60);
 
         existenciadeproductos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
