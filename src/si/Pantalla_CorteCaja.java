@@ -165,7 +165,7 @@ public void metodogastosdeldia(){
             }
         });
         jPanel2.add(Corte_btncancelar);
-        Corte_btncancelar.setBounds(370, 400, 250, 60);
+        Corte_btncancelar.setBounds(330, 340, 250, 60);
 
         Corte_btnImprimirticket.setBackground(new java.awt.Color(0, 148, 204));
         Corte_btnImprimirticket.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -177,13 +177,13 @@ public void metodogastosdeldia(){
             }
         });
         jPanel2.add(Corte_btnImprimirticket);
-        Corte_btnImprimirticket.setBounds(60, 400, 250, 60);
+        Corte_btnImprimirticket.setBounds(30, 340, 250, 60);
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 17)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("La apertura de caja fue:");
         jPanel2.add(jLabel3);
-        jLabel3.setBounds(320, 80, 240, 29);
+        jLabel3.setBounds(240, 100, 240, 29);
 
         monto.setBackground(new java.awt.Color(0, 148, 204));
         monto.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
@@ -205,26 +205,26 @@ public void metodogastosdeldia(){
             }
         });
         jPanel2.add(monto);
-        monto.setBounds(320, 240, 210, 40);
+        monto.setBounds(260, 240, 230, 60);
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 17)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Gastos");
         jPanel2.add(jLabel4);
-        jLabel4.setBounds(10, 210, 160, 29);
+        jLabel4.setBounds(10, 200, 170, 29);
 
         Gastosfromtoday.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
         Gastosfromtoday.setForeground(new java.awt.Color(255, 255, 255));
         Gastosfromtoday.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         Gastosfromtoday.setText("00.00");
         jPanel2.add(Gastosfromtoday);
-        Gastosfromtoday.setBounds(20, 250, 180, 29);
+        Gastosfromtoday.setBounds(10, 240, 180, 29);
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 17)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("Ventas");
         jPanel2.add(jLabel6);
-        jLabel6.setBounds(10, 80, 160, 29);
+        jLabel6.setBounds(10, 80, 180, 29);
 
         Ventasfortoday1.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
         Ventasfortoday1.setForeground(new java.awt.Color(255, 255, 255));
@@ -233,33 +233,35 @@ public void metodogastosdeldia(){
         jPanel2.add(Ventasfortoday1);
         Ventasfortoday1.setBounds(10, 120, 180, 29);
 
-        Fecha.setFont(new java.awt.Font("Times New Roman", 1, 27)); // NOI18N
+        Fecha.setFont(new java.awt.Font("Arial Black", 1, 27)); // NOI18N
+        Fecha.setForeground(new java.awt.Color(255, 255, 255));
         Fecha.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         Fecha.setText("DD/MM/YYYY");
         jPanel2.add(Fecha);
-        Fecha.setBounds(10, 10, 186, 32);
+        Fecha.setBounds(20, 10, 250, 60);
 
-        Reloj.setFont(new java.awt.Font("Times New Roman", 1, 27)); // NOI18N
+        Reloj.setFont(new java.awt.Font("Arial Black", 1, 27)); // NOI18N
+        Reloj.setForeground(new java.awt.Color(255, 255, 255));
         Reloj.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         Reloj.setText("00:00:00");
         jPanel2.add(Reloj);
-        Reloj.setBounds(310, 10, 240, 32);
+        Reloj.setBounds(350, 10, 250, 60);
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 17)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel5.setText("Monto entregado:");
+        jLabel5.setText("   Monto entregado:");
         jPanel2.add(jLabel5);
-        jLabel5.setBounds(320, 200, 240, 29);
+        jLabel5.setBounds(260, 200, 240, 29);
 
         aperturacantidad.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
         aperturacantidad.setForeground(new java.awt.Color(255, 255, 255));
         aperturacantidad.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         aperturacantidad.setText("00.00");
         jPanel2.add(aperturacantidad);
-        aperturacantidad.setBounds(320, 110, 180, 29);
+        aperturacantidad.setBounds(260, 130, 180, 40);
 
         jPanel1.add(jPanel2);
-        jPanel2.setBounds(10, 50, 650, 480);
+        jPanel2.setBounds(10, 50, 620, 450);
 
         user.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
         jPanel1.add(user);
@@ -269,13 +271,13 @@ public void metodogastosdeldia(){
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 677, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 644, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 1, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 541, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 511, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -283,10 +285,10 @@ public void metodogastosdeldia(){
 
     private void Corte_btncancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Corte_btncancelarActionPerformed
         // BOTON DE CANCELAR LA INSERCION DE NUEVO USUARIO
-        int dialogButton = JOptionPane.YES_NO_OPTION;
-        int result = JOptionPane.showConfirmDialog(null, "¿Regresar a pagina anterior?","                    Aviso",dialogButton);
-        if(result == 0){
-            dispose();   }
+       // int dialogButton = JOptionPane.YES_NO_OPTION;
+        //int result = JOptionPane.showConfirmDialog(null, "¿Regresar a pagina anterior?","   Aviso",dialogButton);
+        //if(result == 0){
+            dispose();   //}
     }//GEN-LAST:event_Corte_btncancelarActionPerformed
      
     public void vaciartodoeninventario(){

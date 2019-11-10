@@ -539,7 +539,7 @@ try {
 
         if (matGastos.matches()&&!cantidaddelatabla.equals("")&&!cantidaddelatabla.equals("0")) {
             next = true;
-
+               
         } else {
             JOptionPane.showMessageDialog(null, "No puedes dejar vacio el campo ni meter un 0", "Advertencia", JOptionPane.INFORMATION_MESSAGE);
             cantidad.setText("");
@@ -619,13 +619,18 @@ public void insertandopiezasdepolloporhaberagregadoxcantidaddepollocrudo(String 
                     if(e.getType() == TableModelEvent.UPDATE){
                         
                         if(fila>=0){// CUANDO UNA CELDA SE SELECCIONO
+                            
                      boolean pass = validarFormulario(modeloT.getValueAt(e.getFirstRow(), e.getColumn()).toString());
                              if(pass){
+                                
+                                 
+                                     
+                                 
                                    String valor = Jtable_ProductosEntradas.getValueAt(fila, 0).toString();
                             cantidaddesdelatablaeditable = Float.parseFloat(modeloT.getValueAt(e.getFirstRow(), e.getColumn()).toString());
                            
                               id_producto(valor); 
-                      String sql = "UPDATE productos SET cantidad='"+cantidaddesdelatablaeditable+"' WHERE id_producto="+id_producto;
+                      String sql = "UPDATE productos SET cantidad='"+cantidaddesdelatablaeditable+"' WHERE id_producto="+id_producto;            
 
         insertandopiezasdepolloporhaberagregadoxcantidaddepollocrudo(valor, cantidaddesdelatablaeditable);
                          SI cc= new SI();
@@ -641,9 +646,7 @@ public void insertandopiezasdepolloporhaberagregadoxcantidaddepollocrudo(String 
                                JOptionPane.showMessageDialog(null, "ERROR EN METODO: tableChanged","DEVELOPER HELPER", JOptionPane.ERROR_MESSAGE);      
                            }
       }
-                             }
-                           
-  
+                             }                             
                     }
 
                 }
@@ -3393,14 +3396,14 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         });
         JtablepaLaVenta.setColorFilasForeground1(new java.awt.Color(0, 0, 0));
         JtablepaLaVenta.setColorFilasForeground2(new java.awt.Color(0, 0, 0));
-        JtablepaLaVenta.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        JtablepaLaVenta.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         JtablepaLaVenta.setGrosorBordeFilas(0);
         JtablepaLaVenta.setGrosorBordeHead(0);
         JtablepaLaVenta.setMultipleSeleccion(false);
         JtablepaLaVenta.setRowHeight(25);
         jScrollPane16.setViewportView(JtablepaLaVenta);
 
-        jPanel32.add(jScrollPane16, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, 650, 430));
+        jPanel32.add(jScrollPane16, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, 650, 430));
 
         ventascanceladaseneldia5.setFont(new java.awt.Font("Trebuchet MS", 1, 22)); // NOI18N
         ventascanceladaseneldia5.setForeground(new java.awt.Color(255, 0, 0));
@@ -3449,6 +3452,11 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         Jtable_ProductosEntradas.setName(""); // NOI18N
         Jtable_ProductosEntradas.setRowHeight(30);
         Jtable_ProductosEntradas.getTableHeader().setReorderingAllowed(false);
+        Jtable_ProductosEntradas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Jtable_ProductosEntradasMouseClicked(evt);
+            }
+        });
         jScrollPane17.setViewportView(Jtable_ProductosEntradas);
 
         jPanel33.add(jScrollPane17, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, 580, 430));
@@ -5979,6 +5987,10 @@ get_id_usuario();// 255 -280
             cantidad=cantidad;
         }
     }//GEN-LAST:event_ceroActionPerformed
+
+    private void Jtable_ProductosEntradasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Jtable_ProductosEntradasMouseClicked
+        JOptionPane.showMessageDialog(null,"dandole el valor de click","Aviso",JOptionPane.INFORMATION_MESSAGE);
+    }//GEN-LAST:event_Jtable_ProductosEntradasMouseClicked
  
     public void agregarpiezasaventa(String nombredepieza){
           /* ******************** BOTON DE ADD NUEVO PRODUCTO PARA SU VENTA ******************** */
@@ -6267,7 +6279,6 @@ SI cc= new SI();
     private javax.swing.JLabel jLabel82;
     private javax.swing.JLabel jLabel83;
     private javax.swing.JLabel jLabel84;
-    private javax.swing.JLabel jLabel87;
     private javax.swing.JLabel jLabel88;
     private javax.swing.JLabel jLabel89;
     private javax.swing.JLabel jLabel9;
