@@ -358,7 +358,7 @@ borrarventasenestadoenturnoporerrordeusuario_que_no_coincidenconlafechadehoy();/
                          piezastcket, 
                          preciounitarioticket, 
                          importesticket,
-                         totalticket, pagoticket, cambioticket, porcentajedescontadoticket, descuentoticket);
+                         totalticket, pagoticket, cambioticket, porcentajedescontadoticket, descuentoticket, numerodeventa);
             }else{//venta simple
                  //estas dos lineas mandan los datos para el ticket
                  mandardatosticketventa = new ticketventa();
@@ -366,7 +366,7 @@ borrarventasenestadoenturnoporerrordeusuario_que_no_coincidenconlafechadehoy();/
                          piezastcket, 
                          preciounitarioticket, 
                          importesticket,
-                         totalticket, pagoticket, cambioticket);
+                         totalticket, pagoticket, cambioticket, numerodeventa);
 
             }
                         
@@ -5648,7 +5648,7 @@ if (choice == JOptionPane.YES_OPTION){
                             try{// el id del usuario
                                 id_max_de_venta();
                                 
-                                    PreparedStatement ps = ca.prepareStatement ("UPDATE venta SET total='"+Float.parseFloat(totalcondescuento.getText())+"',porcentajedescontado='"+porcentaje+"',descuento='"+ Float.parseFloat(descuentocombo.getText())+"',pago='"+pagocombobox.getText()+"',cambio='"+cambiocombobox.getText()+"',fecha_reporte='"+fecha()+"',estado_venta='"+estadorealizado+"'WHERE id_venta='"+id_de_la_venta_incrementable+"'");
+                                    PreparedStatement ps = ca.prepareStatement ("UPDATE venta SET total='"+solodosdecimales.format(Float.parseFloat(totalcondescuento.getText()))+"',porcentajedescontado='"+porcentaje+"',descuento='"+ Float.parseFloat(descuentocombo.getText())+"',pago='"+solodosdecimales.format(pagocombobox.getText())+"',cambio='"+solodosdecimales.format(cambiocombobox.getText())+"',fecha_reporte='"+fecha()+"',estado_venta='"+estadorealizado+"'WHERE id_venta='"+id_de_la_venta_incrementable+"'");
                                     ps.executeUpdate();
                                 //ACTUALIZACION EN LA TABLA DESCRIPCION DE VENTA A REALIZADA
 
@@ -5690,7 +5690,7 @@ if (choice == JOptionPane.YES_OPTION){
                             try{// el id del usuario
                                 id_max_de_venta();
 
-                                PreparedStatement ps = ca.prepareStatement ("UPDATE venta SET total='"+totalf+"',porcentajedescontado='"+variablede0+"',descuento='"+ variablede0+"',pago='"+pagocombobox.getText()+"',cambio='"+cambiocombobox.getText()+"',fecha_reporte='"+fecha()+"',estado_venta='"+estadorealizado+"'WHERE id_venta='"+id_de_la_venta_incrementable+"'");
+                                PreparedStatement ps = ca.prepareStatement ("UPDATE venta SET total='"+solodosdecimales.format(totalf)+"',porcentajedescontado='"+variablede0+"',descuento='"+ variablede0+"',pago='"+pagocombobox.getText()+"',cambio='"+solodosdecimales.format(cambiocombobox.getText())+"',fecha_reporte='"+fecha()+"',estado_venta='"+estadorealizado+"'WHERE id_venta='"+id_de_la_venta_incrementable+"'");
                                 ps.executeUpdate();
                                 //ACTUALIZACION EN LA TABLA DESCRIPCION DE VENTA A REALIZADA
 

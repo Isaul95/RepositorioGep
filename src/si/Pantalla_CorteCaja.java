@@ -160,6 +160,7 @@ public void metodogastosdeldia(){
 
         Corte_btncancelar.setBackground(new java.awt.Color(0, 51, 102));
         Corte_btncancelar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        Corte_btncancelar.setForeground(new java.awt.Color(255, 255, 255));
         Corte_btncancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/salir-flecha-derecha (1).png"))); // NOI18N
         Corte_btncancelar.setText("Cancelar");
         Corte_btncancelar.addActionListener(new java.awt.event.ActionListener() {

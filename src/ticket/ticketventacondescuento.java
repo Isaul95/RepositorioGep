@@ -14,7 +14,7 @@ public class ticketventacondescuento {
                ArrayList piezas, 
                ArrayList precio, 
                ArrayList importe, 
-               float total, float pago, float cambio, float porcentaje, float descuento) {
+               float total, float pago, float cambio, float porcentaje, float descuento, int numerodeventa) {
        
         Date date = new Date();
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -33,7 +33,8 @@ public class ticketventacondescuento {
          auxs+= "Iguala de la Independencia\n";         System.out.println("Iguala de la Independencia\n");
         //impServicio.printCadena(impra, "Folio: " + folio + "\n");        
        auxs+= "Fecha: " + dateFormat.format(date) + " Hora: " + hourFormat.format(date) + "\n";  System.out.println("Fecha: " + dateFormat.format(date) + " Hora: " + hourFormat.format(date) + "\n");
-        System.out.println("==========================================\n");  auxs+= "==========================================\n";              
+       auxs+= String.format("Venta: "+"%-20s", numerodeventa); System.out.println(String.format("Venta: "+"%-20s", numerodeventa));
+       System.out.println("==========================================\n");  auxs+= "==========================================\n";              
          auxs+= "Nombre     Piezas     Precio     Importe\n";           System.out.println("Nombre     Piezas     Precio     Importe\n");       
          auxs+= "==========================================\n";   System.out.println("==========================================\n");                 
             for(int n=0;n<=nombre.size()-1;n++){
