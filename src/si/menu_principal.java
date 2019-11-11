@@ -20,6 +20,7 @@ import javax.swing.table.DefaultTableModel;
           import java.util.Date;             /* HORA DEL SISTEMA LIBRERIAS */
           import java.util.*;             /* HORA DEL SISTEMA LIBRERIAS */
 import java.text.DateFormat;
+import java.text.DecimalFormat;
           import java.text.SimpleDateFormat;  /* HORA DEL SISTEMA LIBRERIAS */
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -70,18 +71,20 @@ double cantidaddemedio, cantidaddecuarto;
 ArrayList piezastcket = new ArrayList();
 ArrayList preciounitarioticket = new ArrayList();
 ArrayList importesticket = new ArrayList();
-
+//DATA MAX FULL VERSION
   boolean voyaagregar=false, voyaregresar=false, entero= false, medio=false, cuarto=false, descuentoactivo=false, suficientespiezas=true, block_unlock=true,tablaventaactiva=false;
       // String  usuarioname=SI_Inicio.text_user.getText(); //variable para obtener el nombre del usuario o administrador que ingreso al sistema
             String name, pollo_crudo="pollo crudo", estadoinactivo="Inactivo", estadoactivo="Activo", NoP="",estadocancelado= "Cancelada",estadorealizado="Realizada", estadoenturno="En turno", creditopendiente="Credito-pendiente", creditopagado="Credito-pagado", fechayhora="",fechasinhora="", usuarioname=SI_Inicio.text_user.getText(); //variable para obtener el nombre del usuario o administrador que ingreso al sistema
-    public menu_principal() {
+   DecimalFormat solodosdecimales = new DecimalFormat("#.##");
+        
+            public menu_principal() {
         initComponents();
         sumadeutilidades();
         sumadegastos();
         labelingresos.setText(String.valueOf(utilidades));
         labelgastos.setText(String.valueOf(gastos));
         utilidadfinal=utilidades-gastos;
-        labelutilidad.setText(String.valueOf(utilidadfinal));
+        labelutilidad.setText(String.valueOf(solodosdecimales.format(utilidadfinal)));
         ids_y_cantidades_enturno_por_error_de_usuario();
        // borrarventasenestadoenturnoporerrordeusuario();//ESTO ES CUANDO EL USUARIO SE EQUIVOCA Y CIERRA SESION DIRECTAMENTE EN LA X
         mostrarpolloscrudos();
@@ -355,7 +358,7 @@ borrarventasenestadoenturnoporerrordeusuario_que_no_coincidenconlafechadehoy();/
                          piezastcket, 
                          preciounitarioticket, 
                          importesticket,
-                         totalticket, pagoticket, cambioticket, porcentajedescontadoticket, descuentoticket);
+                         totalticket, pagoticket, cambioticket, porcentajedescontadoticket, descuentoticket, numerodeventa);
             }else{//venta simple
                  //estas dos lineas mandan los datos para el ticket
                  mandardatosticketventa = new ticketventa();
@@ -363,7 +366,7 @@ borrarventasenestadoenturnoporerrordeusuario_que_no_coincidenconlafechadehoy();/
                          piezastcket, 
                          preciounitarioticket, 
                          importesticket,
-                         totalticket, pagoticket, cambioticket);
+                         totalticket, pagoticket, cambioticket, numerodeventa);
 
             }
                         
@@ -5549,11 +5552,11 @@ if (choice == JOptionPane.YES_OPTION){
     }//GEN-LAST:event_descuentoActionPerformed
 
     private void CortedecajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CortedecajaActionPerformed
-new Pantalla_CorteCaja().setVisible(true);       
+new Pantalla_CorteCaja().setVisible(true);
     }//GEN-LAST:event_CortedecajaActionPerformed
 
     private void AgregarGastosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AgregarGastosActionPerformed
-new Pantalla_CorteCaja().setVisible(true); 
+new Pantalla_Gastos().setVisible(true);
     }//GEN-LAST:event_AgregarGastosActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -5637,7 +5640,7 @@ new Pantalla_CorteCaja().setVisible(true);
                             try{// el id del usuario
                                 id_max_de_venta();
                                 
-                                    PreparedStatement ps = ca.prepareStatement ("UPDATE venta SET total='"+Float.parseFloat(totalcondescuento.getText())+"',porcentajedescontado='"+porcentaje+"',descuento='"+ Float.parseFloat(descuentocombo.getText())+"',pago='"+pagocombobox.getText()+"',cambio='"+cambiocombobox.getText()+"',fecha_reporte='"+fecha()+"',estado_venta='"+estadorealizado+"'WHERE id_venta='"+id_de_la_venta_incrementable+"'");
+                                    PreparedStatement ps = ca.prepareStatement ("UPDATE venta SET total='"+solodosdecimales.format(Float.parseFloat(totalcondescuento.getText()))+"',porcentajedescontado='"+porcentaje+"',descuento='"+ Float.parseFloat(descuentocombo.getText())+"',pago='"+solodosdecimales.format(pagocombobox.getText())+"',cambio='"+solodosdecimales.format(cambiocombobox.getText())+"',fecha_reporte='"+fecha()+"',estado_venta='"+estadorealizado+"'WHERE id_venta='"+id_de_la_venta_incrementable+"'");
                                     ps.executeUpdate();
                                 //ACTUALIZACION EN LA TABLA DESCRIPCION DE VENTA A REALIZADA
 
@@ -5679,7 +5682,7 @@ new Pantalla_CorteCaja().setVisible(true);
                             try{// el id del usuario
                                 id_max_de_venta();
 
-                                PreparedStatement ps = ca.prepareStatement ("UPDATE venta SET total='"+totalf+"',porcentajedescontado='"+variablede0+"',descuento='"+ variablede0+"',pago='"+pagocombobox.getText()+"',cambio='"+cambiocombobox.getText()+"',fecha_reporte='"+fecha()+"',estado_venta='"+estadorealizado+"'WHERE id_venta='"+id_de_la_venta_incrementable+"'");
+                                PreparedStatement ps = ca.prepareStatement ("UPDATE venta SET total='"+solodosdecimales.format(totalf)+"',porcentajedescontado='"+variablede0+"',descuento='"+ variablede0+"',pago='"+pagocombobox.getText()+"',cambio='"+solodosdecimales.format(cambiocombobox.getText())+"',fecha_reporte='"+fecha()+"',estado_venta='"+estadorealizado+"'WHERE id_venta='"+id_de_la_venta_incrementable+"'");
                                 ps.executeUpdate();
                                 //ACTUALIZACION EN LA TABLA DESCRIPCION DE VENTA A REALIZADA
 
