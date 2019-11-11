@@ -5556,8 +5556,7 @@ new Pantalla_CorteCaja().setVisible(true);
     }//GEN-LAST:event_CortedecajaActionPerformed
 
     private void AgregarGastosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AgregarGastosActionPerformed
-        // ABRE NUEVA VENTANA PARA Registro de Gastos
-        new Pantalla_Gastos().setVisible(true);
+new Pantalla_Gastos().setVisible(true);
     }//GEN-LAST:event_AgregarGastosActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
