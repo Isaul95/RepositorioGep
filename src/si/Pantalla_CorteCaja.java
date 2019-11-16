@@ -512,9 +512,9 @@ public void metodogastosdeldia(){
                     sobrantedepollocrudodeldiaparaticketperosolocantidades();//SOBRANTE DE TODO MENOS PECHUGA, PIERNA ALA, MUSLO, VA PARA TICKET
                    obteniendolosvaloresdelcortedecajadeldiadehoyparaelticket();//LOS DATOS DEL TICKET CORTE DE CAJA                                                      
       llenar_tabla_utilidad(gastosdeldia, ventasdeldia);
-       vaciartodoelpollococidoenprocesados();
+          vaciartodoelpollococidoenprocesados();
           vaciartodoelpollocrudoendevolucioncrudo();
-          vaciartodoeninventario();//UNA VEZ IMPRESO LOS 5 TICKETS SE VACIA TODO EL INVENTARIO            
+         vaciartodoeninventario();//UNA VEZ IMPRESO LOS 5 TICKETS SE VACIA TODO EL INVENTARIO            
                 JOptionPane.showMessageDialog(null,"Nos vemos pronto","Saliendo del sistema...",JOptionPane.INFORMATION_MESSAGE);
             System.exit(0);
                 }
