@@ -22,7 +22,7 @@ public class TikectGasto{
        
         //  String impra = "MP-4200 TH";  Nombre de la impresora   
         // ---->> Star SP500 Tear Bar (SP512)
-          String impra = "POS-58";
+          String impra = "Juarez";
 
         // Se llama al metodo para imprimir una cadena
          auxs+= "GASTO\n\n";  System.out.println("GASTO\n\n");

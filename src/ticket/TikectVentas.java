@@ -26,7 +26,7 @@ public class TikectVentas {
         System.out.println(impServicio.getImpresoras()); // imprime todas las impresoras instaladas
         String auxs = "";
 
-        String impra = "MP-4200 TH"; // Nombre de la impresora
+        String impra = "Juarez"; // Nombre de la impresora
 
         // Se llama al metodo para imprimir una cadena
         auxs += "COMPROBANTE DE VENTA\n\n";   System.out.println("");

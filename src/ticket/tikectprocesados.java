@@ -20,7 +20,7 @@ public class tikectprocesados {
         System.out.println(impServicio.getImpresoras()); // imprime todas las impresoras instaladas
         //int clientesNum = clientes.size();
         String auxs="";       
-        String impra = "MP-4200 TH"; // Nombre de la impresora
+        String impra = "Juarez"; // Nombre de la impresora
 
         // Se llama al metodo para imprimir una cadena
          auxs+= "PROCESADOS\n";          System.out.println("PROCESADOS\n");
