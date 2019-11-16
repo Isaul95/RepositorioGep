@@ -199,6 +199,7 @@ public boolean validarFormulario(String cantidaddecorte) { // VALIDACION DE TXT 
     }
     private void Corte_btnImprimirticketActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Corte_btnImprimirticketActionPerformed
   boolean pass2 = validarFormulario(monto.getText());
+  //prueba
                  if(pass2){//ESTO VALIDA QUE EL TEXTO ESCRITO NO TENGA INCOHERENCIAS   
                        try{ //la insersion a la tabla ventas
 
