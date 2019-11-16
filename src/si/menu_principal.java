@@ -109,7 +109,7 @@ llenartablautilidad();
      hilo.start();
         setVisible(true);  // SE OBTIENE LA HORA DEL SISTEMA PARA MOSTAR EN PANTALLA
 //        autocompletar(); //metodo autocompletar que sirve para cuando el usuario escriba un articulo y encuentre coincidencias en la base de datos
-        this.setLocationRelativeTo(null); // esto elimina los botones de cerrar, minimizar y maximizar
+this.setLocationRelativeTo(null); // esto elimina los botones de cerrar, minimizar y maximizar
        // update.setEnabled(false); //mantiene el boton de actualizar usuarios oculto hasta ser llamado cuando se le necesite
         actualizarpro.setEnabled(false); //de igual manera que el anterior, solo que este es para los proveedores
                 agregarpro.setEnabled(false);

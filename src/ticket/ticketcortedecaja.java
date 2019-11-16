@@ -8,11 +8,8 @@ import java.util.Date;
 import javax.swing.JOptionPane;
 
  public class ticketcortedecaja{
-   DecimalFormat solodosdecimales = new DecimalFormat("#.##");
-  float diferenciacondosdecimales;
-      public void ticketcortedecaja(float monto, float gasto, float venta , float diferencia, float ventasmenosgastos, float totaldepagos) {
-      diferenciacondosdecimales=Float.parseFloat(solodosdecimales.format(diferencia));
-        Date date = new Date();
+  public void ticketcortedecaja(float monto, float gasto, float venta , float diferencia, float ventasmenosgastos, float totaldepagos) {
+     Date date = new Date();
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         DateFormat hourFormat = new SimpleDateFormat("HH:mm:ss");                
         
@@ -36,7 +33,7 @@ import javax.swing.JOptionPane;
         auxs+= "TOTAL DE PAGOS:   |   $ "+totaldepagos+"\n";             System.out.println("TOTAL DE PAGOS:   |   $ "+totaldepagos+"\n");
         
         auxs+= "==========================================\n";  System.out.println("==========================================\n");       
-        auxs+= "DIFERENCIA:     $ "+String.format("%.20f", diferenciacondosdecimales)+"\n";   System.out.println("DIFERENCIA:     $ "+String.format("%.10f", diferenciacondosdecimales)+"\n");           
+        auxs+= "DIFERENCIA:     $ "+String.format("%.20f", diferencia)+"\n";   System.out.println("DIFERENCIA:     $ "+String.format("%.10f", diferencia)+"\n");           
         //PENDIENTE CORREGIR EL METODO DIFERENCIA
         auxs+= "\n\n\n"; // SALTOS PARA K NO LO CORTE LUEGO
         

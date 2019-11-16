@@ -433,8 +433,8 @@ public void metodogastosdeldia(){
                          }
                  
                          pagoshechoseneldiaactual();
-   tikectcorte = new ticketcortedecaja();           
-   tikectcorte.ticketcortedecaja(ticketmonto, ticketgasto, ticketventa, ticketdiferencia, ventasmenosgastos, totaldepagos);  
+   tikectcorte = new ticketcortedecaja();     
+   tikectcorte.ticketcortedecaja(ticketmonto, ticketgasto, ticketventa, Float.parseFloat(solodosdecimales.format(ticketdiferencia)), ventasmenosgastos, totaldepagos);  
       }catch(Exception e){                                             
       }
  }
@@ -470,8 +470,8 @@ public void metodogastosdeldia(){
               metodogastosdeldia();
               aperturadeldia();
               pagoshechoseneldiaactual();
-             ventasmenosgastos=ventasdeldia-gastosdeldia-totaldepagos; 
-            JOptionPane.showMessageDialog(null,"ventasmenosgastosmenospagos: "+ventasmenosgastos);
+             ventasmenosgastos=ventasdeldia-gastosdeldia+totaldepagos; 
+        //    JOptionPane.showMessageDialog(null,"ventasmenosgastosmenospagos: "+ventasmenosgastos);
                  diferencia=variablemontoentregado-ventasmenosgastos;
                   JOptionPane.showMessageDialog(null,"Se abrio con : "+montodeapertura);
                  
@@ -492,7 +492,7 @@ public void metodogastosdeldia(){
                  pst.setFloat(2,variablemontoentregado);
                   pst.setFloat(3,gastosdeldia);
                    pst.setFloat(4,ventasdeldia);
-                    pst.setFloat(5,diferencia);
+                    pst.setFloat(5,Float.parseFloat(solodosdecimales.format(diferencia)));
                 pst.setString(6,fecha());
                 pst.setString(7,Reloj.getText());
                 pst.setInt(8,id_usuario);
@@ -512,7 +512,7 @@ public void metodogastosdeldia(){
                     sobrantedepollocrudodeldiaparaticketperosolocantidades();//SOBRANTE DE TODO MENOS PECHUGA, PIERNA ALA, MUSLO, VA PARA TICKET
                    obteniendolosvaloresdelcortedecajadeldiadehoyparaelticket();//LOS DATOS DEL TICKET CORTE DE CAJA                                                      
       llenar_tabla_utilidad(gastosdeldia, ventasdeldia);
-          vaciartodoelpollococidoenprocesados();
+      vaciartodoelpollococidoenprocesados();
           vaciartodoelpollocrudoendevolucioncrudo();
          vaciartodoeninventario();//UNA VEZ IMPRESO LOS 5 TICKETS SE VACIA TODO EL INVENTARIO            
                 JOptionPane.showMessageDialog(null,"Nos vemos pronto","Saliendo del sistema...",JOptionPane.INFORMATION_MESSAGE);
@@ -578,7 +578,7 @@ public void pagoshechoseneldiaactual(){
  try{ //la insersion a la tabla ventas
                 String sql = "INSERT INTO  utilidad(totaldeventas,pagos,totaldevolucioncrudo,totalprocesados,pagopollo,tacos,utilidad,almuerzo, diferencia, gastos, fecha)  VALUES (?,?,?,?,?,?,?,?,?,?,?)";
                 PreparedStatement pst = ca.prepareCall(sql); //hasta aqui vamos
-               pst.setDouble(1, ventasdeldia);
+               pst.setDouble(1, Double.parseDouble(solodosdecimales.format(ventasdeldia)));
                pst.setDouble(2,Double.parseDouble(solodosdecimales.format(totaldepagos)));
                 pst.setDouble(3, Double.parseDouble(solodosdecimales.format(total_de_crudo)));
                 pst.setDouble(4,Double.parseDouble(solodosdecimales.format(total_de_procesados)));
@@ -587,12 +587,11 @@ public void pagoshechoseneldiaactual(){
                 pst.setDouble(7, Double.parseDouble(solodosdecimales.format(utilidades)));
                 pst.setDouble(8, almuerzo);
                 pst.setDouble(9, Double.parseDouble(solodosdecimales.format(diferenciaentablautilidad)));
-                pst.setDouble(10, gastosdeldia);  
+                pst.setDouble(10, Double.parseDouble(solodosdecimales.format(gastosdeldia)));  
                 pst.setString(11, fecha());
                 int a=pst.executeUpdate();
                 if(a>0){           
-                    JOptionPane.showMessageDialog(null, "SE INSERTO EN UTILIDAD");
-                }
+                    }
             }catch(SQLException e)  { //fin de la insersion a la tabla ventas
                 JOptionPane.showMessageDialog(null,"Error de datos por id vacio "+e);
             }//fin de la insersion a la tabla ventas  
