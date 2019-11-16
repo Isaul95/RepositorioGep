@@ -2,14 +2,16 @@
 package ticket;
 
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.JOptionPane;
 
  public class ticketcortedecaja{
-   
-      public void ticketcortedecaja(float monto, float gasto, float venta , float diferencia, float ventasmenosgastos) {
-       
+   DecimalFormat solodosdecimales = new DecimalFormat("#.##");
+  float diferenciacondosdecimales;
+      public void ticketcortedecaja(float monto, float gasto, float venta , float diferencia, float ventasmenosgastos, float totaldepagos) {
+      diferenciacondosdecimales=Float.parseFloat(solodosdecimales.format(diferencia));
         Date date = new Date();
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         DateFormat hourFormat = new SimpleDateFormat("HH:mm:ss");                
@@ -31,8 +33,11 @@ import javax.swing.JOptionPane;
         auxs+= "TOTAL DE GASTOS       |   $ "+gasto+"\n";             System.out.println("TOTAL DE GASTOS       |   $ "+gasto+"\n");        
         auxs+= "TOTAL DE EFECTIVO:    |   $ "+ventasmenosgastos+"\n"; System.out.println("TOTAL DE EFECTIVO:    |   $ "+ventasmenosgastos+"\n");                   
         auxs+= "TOTAL DE ENTREGADO:   |   $ "+monto+"\n";             System.out.println("TOTAL DE ENTREGADO:   |   $ "+monto+"\n");
+        auxs+= "TOTAL DE PAGOS:   |   $ "+totaldepagos+"\n";             System.out.println("TOTAL DE PAGOS:   |   $ "+totaldepagos+"\n");
+        
         auxs+= "==========================================\n";  System.out.println("==========================================\n");       
-        auxs+= "DIFERENCIA:     $ "+String.format("%.20f", diferencia)+"\n";   System.out.println("DIFERENCIA:     $ "+String.format("%.10f", diferencia)+"\n");           
+        auxs+= "DIFERENCIA:     $ "+String.format("%.20f", diferenciacondosdecimales)+"\n";   System.out.println("DIFERENCIA:     $ "+String.format("%.10f", diferenciacondosdecimales)+"\n");           
+        //PENDIENTE CORREGIR EL METODO DIFERENCIA
         auxs+= "\n\n\n"; // SALTOS PARA K NO LO CORTE LUEGO
         
        try {

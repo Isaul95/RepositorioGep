@@ -43,12 +43,11 @@ public class Pantalla_CorteCaja extends javax.swing.JFrame  implements Runnable{
   DecimalFormat solodosdecimales = new DecimalFormat("#.##");
             
   final float pagopollo=20*90, tacos=60, almuerzo=28;//datos para la tabla utilidad
-float diferenciaentablautilidad, utilidades, total_de_crudo, total_de_procesados, ventasdeldia, gastosdeldia, montodeapertura, diferencia, diferenciafinal, precio;
+float totaldepagos,diferenciaentablautilidad, utilidades, total_de_crudo, total_de_procesados, ventasdeldia, gastosdeldia, montodeapertura, diferencia, diferenciafinal, precio;
 int apertura;
 String  usuarioname=SI_Inicio.text_user.getText();
 int  id_usuario=Integer.parseInt(SI_Inicio.iduser.getText());
     Calendar fecha_actual = new GregorianCalendar();
-   Float  []datosdelcorteparaelticket = new Float[4]; // para guardar los id de cada producto que se ha agregado a la tabla venta
   float ticketmonto, ticketventa, ticketgasto, ticketdiferencia;
     public Pantalla_CorteCaja() {
         initComponents();
@@ -59,9 +58,12 @@ int  id_usuario=Integer.parseInt(SI_Inicio.iduser.getText());
         ventaseneldia();
         metodogastosdeldia();
         aperturadeldia();
+        pagoshechoseneldiaactual();
         aperturacantidad.setText(String.valueOf(montodeapertura));
         Ventasfortoday1.setText(String.valueOf(ventasdeldia));
         Gastosfromtoday.setText(String.valueOf(gastosdeldia));
+        pagosmadetoday.setText(String.valueOf(totaldepagos));
+        
         user.setText(usuarioname);
         
     }
@@ -146,6 +148,8 @@ public void metodogastosdeldia(){
         Reloj = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         aperturacantidad = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        pagosmadetoday = new javax.swing.JLabel();
         user = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -169,7 +173,7 @@ public void metodogastosdeldia(){
             }
         });
         jPanel2.add(Corte_btncancelar);
-        Corte_btncancelar.setBounds(330, 340, 250, 60);
+        Corte_btncancelar.setBounds(340, 380, 250, 60);
 
         Corte_btnImprimirticket.setBackground(new java.awt.Color(0, 51, 102));
         Corte_btnImprimirticket.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -182,13 +186,13 @@ public void metodogastosdeldia(){
             }
         });
         jPanel2.add(Corte_btnImprimirticket);
-        Corte_btnImprimirticket.setBounds(30, 340, 250, 60);
+        Corte_btnImprimirticket.setBounds(30, 380, 250, 60);
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 17)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("La apertura de caja fue:");
         jPanel2.add(jLabel3);
-        jLabel3.setBounds(240, 100, 240, 29);
+        jLabel3.setBounds(340, 80, 240, 29);
 
         monto.setBackground(new java.awt.Color(0, 148, 204));
         monto.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
@@ -210,20 +214,20 @@ public void metodogastosdeldia(){
             }
         });
         jPanel2.add(monto);
-        monto.setBounds(260, 240, 230, 60);
+        monto.setBounds(360, 290, 230, 60);
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 17)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("Gastos");
+        jLabel4.setText("Pagos");
         jPanel2.add(jLabel4);
-        jLabel4.setBounds(10, 200, 170, 29);
+        jLabel4.setBounds(10, 260, 170, 29);
 
         Gastosfromtoday.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
         Gastosfromtoday.setForeground(new java.awt.Color(255, 255, 255));
         Gastosfromtoday.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         Gastosfromtoday.setText("00.00");
         jPanel2.add(Gastosfromtoday);
-        Gastosfromtoday.setBounds(10, 240, 180, 29);
+        Gastosfromtoday.setBounds(10, 210, 180, 29);
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 17)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
@@ -256,14 +260,27 @@ public void metodogastosdeldia(){
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("   Monto entregado:");
         jPanel2.add(jLabel5);
-        jLabel5.setBounds(260, 200, 240, 29);
+        jLabel5.setBounds(340, 250, 240, 29);
 
         aperturacantidad.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
         aperturacantidad.setForeground(new java.awt.Color(255, 255, 255));
         aperturacantidad.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         aperturacantidad.setText("00.00");
         jPanel2.add(aperturacantidad);
-        aperturacantidad.setBounds(260, 130, 180, 40);
+        aperturacantidad.setBounds(420, 110, 180, 40);
+
+        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 17)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel7.setText("Gastos");
+        jPanel2.add(jLabel7);
+        jLabel7.setBounds(10, 170, 170, 29);
+
+        pagosmadetoday.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
+        pagosmadetoday.setForeground(new java.awt.Color(255, 255, 255));
+        pagosmadetoday.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        pagosmadetoday.setText("00.00");
+        jPanel2.add(pagosmadetoday);
+        pagosmadetoday.setBounds(10, 300, 180, 29);
 
         jPanel1.add(jPanel2);
         jPanel2.setBounds(10, 50, 620, 450);
@@ -409,18 +426,15 @@ public void metodogastosdeldia(){
                       sent  = (Statement)ca.createStatement();
                       rs = sent.executeQuery("select monto_entregado, gastos, ventas, diferencia from cortes where fecha=  '"+fecha()+"' ");
                          while(rs.next()){
-                             datosdelcorteparaelticket[0]=rs.getFloat(1);
-                             datosdelcorteparaelticket[1]=rs.getFloat(2);
-                             datosdelcorteparaelticket[2]=rs.getFloat(3);
-                             datosdelcorteparaelticket[3]=rs.getFloat(4);
-
+                             ticketmonto=rs.getFloat(1);
+                             ticketgasto=rs.getFloat(2);
+                             ticketventa=rs.getFloat(3);
+                             ticketdiferencia=rs.getFloat(4);
                          }
-                       ticketmonto=datosdelcorteparaelticket[0];
-                         ticketgasto=datosdelcorteparaelticket[1];
-                         ticketventa=datosdelcorteparaelticket[2];
-                         ticketdiferencia=datosdelcorteparaelticket[3];
+                 
+                         pagoshechoseneldiaactual();
    tikectcorte = new ticketcortedecaja();           
-   tikectcorte.ticketcortedecaja(ticketmonto, ticketgasto, ticketventa, ticketdiferencia, ventasmenosgastos);  
+   tikectcorte.ticketcortedecaja(ticketmonto, ticketgasto, ticketventa, ticketdiferencia, ventasmenosgastos, totaldepagos);  
       }catch(Exception e){                                             
       }
  }
@@ -455,8 +469,9 @@ public void metodogastosdeldia(){
               ventaseneldia();
               metodogastosdeldia();
               aperturadeldia();
-             ventasmenosgastos=ventasdeldia-gastosdeldia; 
-            JOptionPane.showMessageDialog(null,"ventasmenosgasto: "+ventasmenosgastos);
+              pagoshechoseneldiaactual();
+             ventasmenosgastos=ventasdeldia-gastosdeldia-totaldepagos; 
+            JOptionPane.showMessageDialog(null,"ventasmenosgastosmenospagos: "+ventasmenosgastos);
                  diferencia=variablemontoentregado-ventasmenosgastos;
                   JOptionPane.showMessageDialog(null,"Se abrio con : "+montodeapertura);
                  
@@ -497,9 +512,9 @@ public void metodogastosdeldia(){
                     sobrantedepollocrudodeldiaparaticketperosolocantidades();//SOBRANTE DE TODO MENOS PECHUGA, PIERNA ALA, MUSLO, VA PARA TICKET
                    obteniendolosvaloresdelcortedecajadeldiadehoyparaelticket();//LOS DATOS DEL TICKET CORTE DE CAJA                                                      
       llenar_tabla_utilidad(gastosdeldia, ventasdeldia);
-       //   vaciartodoelpollococidoenprocesados();
-          //vaciartodoelpollocrudoendevolucioncrudo();
-          //vaciartodoeninventario();//UNA VEZ IMPRESO LOS 5 TICKETS SE VACIA TODO EL INVENTARIO            
+       vaciartodoelpollococidoenprocesados();
+          vaciartodoelpollocrudoendevolucioncrudo();
+          vaciartodoeninventario();//UNA VEZ IMPRESO LOS 5 TICKETS SE VACIA TODO EL INVENTARIO            
                 JOptionPane.showMessageDialog(null,"Nos vemos pronto","Saliendo del sistema...",JOptionPane.INFORMATION_MESSAGE);
             System.exit(0);
                 }
@@ -541,25 +556,39 @@ public void total_del_día_procesados(){
         
     }
 }
-
+public void pagoshechoseneldiaactual(){
+       try{
+        String sql = "select SUM(total) from venta where estado_venta='Credito-pagado' and fecha_reporte = '"+fecha()+ "' ";
+        PreparedStatement ps= ca.prepareStatement(sql);
+        rs= ps.executeQuery();
+        if(rs.next()){
+            totaldepagos=rs.getFloat("SUM(total)");
+        }
+        
+    }catch(Exception j){
+        
+    }
+}
  public void llenar_tabla_utilidad(float gastosdeldia, float ventasdeldia){
-   total_del_día_procesados();
+     pagoshechoseneldiaactual();
+     total_del_día_procesados();
      total_del_día_devolucion_crudo();
     diferenciaentablautilidad=(total_de_crudo+tacos-total_de_procesados-almuerzo);
- utilidades=(ventasdeldia+total_de_crudo+tacos-total_de_procesados-pagopollo-almuerzo);
+ utilidades=(ventasdeldia+totaldepagos+total_de_crudo+tacos-total_de_procesados-pagopollo-almuerzo);
  try{ //la insersion a la tabla ventas
-                String sql = "INSERT INTO  utilidad(totaldeventas,totaldevolucioncrudo,totalprocesados,pagopollo,tacos,utilidad,almuerzo, diferencia, gastos, fecha)  VALUES (?,?,?,?,?,?,?,?,?,?)";
+                String sql = "INSERT INTO  utilidad(totaldeventas,pagos,totaldevolucioncrudo,totalprocesados,pagopollo,tacos,utilidad,almuerzo, diferencia, gastos, fecha)  VALUES (?,?,?,?,?,?,?,?,?,?,?)";
                 PreparedStatement pst = ca.prepareCall(sql); //hasta aqui vamos
                pst.setDouble(1, ventasdeldia);
-                pst.setDouble(2, Double.parseDouble(solodosdecimales.format(total_de_crudo)));
-                pst.setDouble(3,Double.parseDouble(solodosdecimales.format(total_de_procesados)));
-                pst.setDouble(4, pagopollo);
-                pst.setDouble(5, tacos);
-                pst.setDouble(6, Double.parseDouble(solodosdecimales.format(utilidades)));
-                pst.setDouble(7, almuerzo);
-                pst.setDouble(8, Double.parseDouble(solodosdecimales.format(diferenciaentablautilidad)));
-                pst.setDouble(9, gastosdeldia);  
-                pst.setString(10, fecha());
+               pst.setDouble(2,Double.parseDouble(solodosdecimales.format(totaldepagos)));
+                pst.setDouble(3, Double.parseDouble(solodosdecimales.format(total_de_crudo)));
+                pst.setDouble(4,Double.parseDouble(solodosdecimales.format(total_de_procesados)));
+                pst.setDouble(5, pagopollo);
+                pst.setDouble(6, tacos);
+                pst.setDouble(7, Double.parseDouble(solodosdecimales.format(utilidades)));
+                pst.setDouble(8, almuerzo);
+                pst.setDouble(9, Double.parseDouble(solodosdecimales.format(diferenciaentablautilidad)));
+                pst.setDouble(10, gastosdeldia);  
+                pst.setString(11, fecha());
                 int a=pst.executeUpdate();
                 if(a>0){           
                     JOptionPane.showMessageDialog(null, "SE INSERTO EN UTILIDAD");
@@ -704,9 +733,11 @@ SI cc= new SI();
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     public static javax.swing.JTextField monto;
+    private javax.swing.JLabel pagosmadetoday;
     private javax.swing.JLabel user;
     // End of variables declaration//GEN-END:variables
 }

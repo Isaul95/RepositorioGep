@@ -46,7 +46,7 @@ public class ticketventa {
        auxs+= "\n";     
        auxs+= String.format("Pago: "+"$%-20s", pago); System.out.println(String.format("Pago: "+"$%-20s", pago));
        auxs+= "\n"; 
-       auxs+= String.format("Cambio: "+"$%-20s", cambio); System.out.println(String.format("Cmabio: "+"$%-20s", cambio));
+       auxs+= String.format("Cambio: "+"$%-20s", cambio); System.out.println(String.format("Cambio: "+"$%-20s", cambio));
        auxs+= "\n";   
    auxs+= "    Ticket de venta       \n\n\n\n\n";// Varios saltos para no cortar antes   
          try {
