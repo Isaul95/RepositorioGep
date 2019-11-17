@@ -15,7 +15,7 @@ public class ticketventa {
                ArrayList precio, 
                ArrayList importe, 
                float total, float pago, float cambio, int numerodeventa) {
-       String nom = nombre.toString();
+       
         Date date = new Date();
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         DateFormat hourFormat = new SimpleDateFormat("HH:mm:ss");                
@@ -28,9 +28,9 @@ public class ticketventa {
 
        // Se llama al metodo para imprimir una cadena
         auxs += "COMPROBANTE DE VENTA\n\n";   System.out.println("COMPROBANTE DE VENTA\n\n");
+         auxs += "POLLERIA LA GRANJA\n";             System.out.println("POLLERIA LA GRANJA\n");
         auxs+= "PROP.JOSE MIGUEL CASTREZANA B.\n";  System.out.println("PROP.JOSE MIGUEL CASTREZANA B.\n");
-        auxs+= "R.F.C. CABM850201PR1\n";            System.out.println("R.F.C. CABM850201PR1\n");
-        auxs += "POLLERIA LA GRANJA\n";             System.out.println("POLLERIA LA GRANJA\n");
+        auxs+= "R.F.C. CABM850201PR1\n";            System.out.println("R.F.C. CABM850201PR1\n");       
         auxs += "CARR. IGUALA-TAXCO KM.1.5\n";          System.out.println("CARR. IGUALA-TAXCO KM.1.5\n");
         auxs += "LOCAL 10 Y 11\n";                      System.out.println("LOCAL 10 Y 11\n");
         auxs += "CENTRAL DE ABASTOS\n";                System.out.println("CENTRAL DE ABASTOS\n");
@@ -44,16 +44,14 @@ public class ticketventa {
          auxs+= "==============================\n";   System.out.println("==============================\n");                 
             
          for(int n=0;n<=nombre.size()-1;n++){
-             
-             
-                          
-             if (nom.length()> 7) { // si la descripcion_producto es mayor a 17 la corta
-                nom = nom.substring(0, 7);
+             String nom = nombre.get(n).toString();                  
+             if (nom.length()> 12) { // si la descripcion_producto es mayor a 17 la corta
+                nom = nom.substring(0, 12);
             //   System.out.println("\nCortandooloo....\n");
             }
              
-         auxs+= String.format("%-13s" + " " + "%-3s"+"  "+"$%-4s"+"  "+"$%-4s\n", nombre.get(n), piezas.get(n), precio.get(n), importe.get(n));  System.out.println(String.format("%-13s" + " " + "%-3s"+"  "+"$%-4s"+"  "+"$%-4s", nombre.get(n), piezas.get(n), precio.get(n), importe.get(n)));      
-             
+         auxs+= String.format("%-13s" + " " + "%-3s"+"  "+"$%-4s"+"  "+"$%-4s\n", nom, piezas.get(n), precio.get(n), importe.get(n));  System.out.println(String.format("%-13s" + " " + "%-3s"+"  "+"$%-4s"+"  "+"$%-4s", nom, piezas.get(n), precio.get(n), importe.get(n)));      
+          //auxs+= "\n"+nom;      System.out.println("\n"+nom);
              }
          
        auxs+= "\n==============================\n";  System.out.println("\n==============================\n");  
