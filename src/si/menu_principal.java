@@ -368,7 +368,7 @@ String sSQL = " select venta.id_venta, venta.total, venta.fecha_reporte, descrip
                          piezastcket, 
                          preciounitarioticket, 
                          importesticket,
-                         totalticket, pagoticket, cambioticket, porcentajedescontadoticket, descuentoticket, numerodeventa);
+                         totalticket, totalcdescticket, pagoticket, cambioticket, porcentajedescontadoticket, descuentoticket, numerodeventa);
             //totalcdescticket agregar al metodo de arriba
                  vaciarlistasdeticket();
             }else{//venta simple

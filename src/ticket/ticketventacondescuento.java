@@ -14,7 +14,7 @@ public class ticketventacondescuento {
                ArrayList piezas, 
                ArrayList precio, 
                ArrayList importe, 
-               float total, float pago, float cambio, float porcentaje, float descuento, int numerodeventa) {
+               float total, float totalcdescuento, float pago, float cambio, float porcentaje, float descuento, int numerodeventa) {
        
         Date date = new Date();
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -61,6 +61,8 @@ public class ticketventacondescuento {
        auxs+= "\n";   
        auxs+= String.format("Descuento: "+"$%-20s", descuento); System.out.println(String.format("Descuento: "+"$%-20s", descuento));
        auxs+= "\n";   
+       auxs+= String.format("Total con descuento: "+"$%-20s", totalcdescuento); System.out.println(String.format("Total con descuento : "+"$%-20s", totalcdescuento));
+       auxs+= "\n"; 
        auxs += "     Gracias por su compra\n\n\n\n\n";// Varios saltos para no cortar antes
       System.out.println("     Gracias por su compra\n\n\n\n\n");
        
