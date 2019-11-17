@@ -20,20 +20,26 @@ import javax.swing.JOptionPane;
         String impra = "Juarez"; // Nombre de la impresora
 
         // Se llama al metodo para imprimir una cadena
-        auxs+= "CORTE DE CAJA\n\n";  System.out.println("CORTE DE CAJA\n\n");      
-        auxs+= "FARMACIAS GI\n";       System.out.println("FARMACIAS GI\n");
-        auxs+= "Altamirano #6-A\n";    System.out.println("Altamirano #6-A\n");
-        auxs+= "Iguala de la Independencia\n";     System.out.println("Iguala de la Independencia\n");
-        auxs+= "Fecha: " + dateFormat.format(date) + " Hora: " + hourFormat.format(date) + "\n";  System.out.println("Fecha: " + dateFormat.format(date) + " Hora: " + hourFormat.format(date) + "\n");
-        auxs+= "==========================================\n";  System.out.println("==========================================\n");            
-        auxs+= "TOTAL DE VENTAS:      |   $ "+venta+"\n";             System.out.println("TOTAL DE VENTAS:      |   $ "+venta+"\n");      
-        auxs+= "TOTAL DE GASTOS       |   $ "+gasto+"\n";             System.out.println("TOTAL DE GASTOS       |   $ "+gasto+"\n");        
-        auxs+= "TOTAL DE EFECTIVO:    |   $ "+ventasmenosgastos+"\n"; System.out.println("TOTAL DE EFECTIVO:    |   $ "+ventasmenosgastos+"\n");                   
-        auxs+= "TOTAL DE ENTREGADO:   |   $ "+monto+"\n";             System.out.println("TOTAL DE ENTREGADO:   |   $ "+monto+"\n");
-        auxs+= "TOTAL DE PAGOS:   |   $ "+totaldepagos+"\n";             System.out.println("TOTAL DE PAGOS:   |   $ "+totaldepagos+"\n");
+       auxs+= "CORTE DE CAJA\n\n";  System.out.println("CORTE DE CAJA\n\n");      
+        auxs+= "PROP.JOSE MIGUEL CASTREZANA B.\n";  System.out.println("PROP.JOSE MIGUEL CASTREZANA B.\n");
+        auxs+= "R.F.C. CABM850201PR1\n"; System.out.println("R.F.C. CABM850201PR1\n");
+         auxs+= "POLLERIA LA GRANJA\n"; System.out.println("POLLERIA LA GRANJA\n");
+         auxs+= "CARR. IGUALA-TAXCO KM.1.5\n"; System.out.println("CARR. IGUALA-TAXCO KM.1.5\n");
+        auxs += "LOCAL 10 Y 11\n";             System.out.println("LOCAL 10 Y 11\n");
+        auxs += "CENTRAL DE ABASTOS\n";        System.out.println("CENTRAL DE ABASTOS\n");
+        auxs += "COL.INSURGENTES  C.P.4003\n";  System.out.println("COL.INSURGENTES  C.P.40033");
+        auxs+= "IGUALA DE LA INDEPENDENCIA\n"; System.out.println("IGUALA DE LA INDEPENDENCIA\n"); 
         
-        auxs+= "==========================================\n";  System.out.println("==========================================\n");       
-        auxs+= "DIFERENCIA:     $ "+String.format("%.20f", diferencia)+"\n";   System.out.println("DIFERENCIA:     $ "+String.format("%.10f", diferencia)+"\n");           
+        auxs+= "Fecha: " + dateFormat.format(date) + " Hora: " + hourFormat.format(date) + "\n";  System.out.println("Fecha: " + dateFormat.format(date) + " Hora: " + hourFormat.format(date) + "\n");
+        auxs+= "\n==============================\n";  System.out.println("\n==============================\n");            
+          auxs+= "TOTAL DE VENTAS:    | $"+venta+"\n";             System.out.println("TOTAL DE VENTAS:    | $"+venta+"\n");      
+          auxs+= "TOTAL DE GASTOS     | $"+gasto+"\n";             System.out.println("TOTAL DE GASTOS     | $"+gasto+"\n");        
+          auxs+= "TOTAL DE EFECTIVO:  | $"+ventasmenosgastos+"\n"; System.out.println("TOTAL DE EFECTIVO:  | $"+ventasmenosgastos+"\n");                   
+          auxs+= "TOTAL DE ENTREGADO: | $"+monto+"\n";             System.out.println("TOTAL DE ENTREGADO: | $"+monto+"\n");
+          auxs+= "TOTAL DE PAGOS:     | $"+totaldepagos+"\n";      System.out.println("TOTAL DE PAGOS:     | $"+totaldepagos+"\n");
+        
+        auxs+= "\n==============================\n";  System.out.println("\n==============================\n");       
+          auxs+= "DIFERENCIA: $ "+String.format("%.10f", diferencia)+"\n";   System.out.println("DIFERENCIA: $ "+String.format("%.10f", diferencia)+"\n");           
         //PENDIENTE CORREGIR EL METODO DIFERENCIA
         auxs+= "\n\n\n"; // SALTOS PARA K NO LO CORTE LUEGO
         
