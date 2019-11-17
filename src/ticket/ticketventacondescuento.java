@@ -28,9 +28,9 @@ public class ticketventacondescuento {
 
         // Se llama al metodo para imprimir una cadena
          auxs+= "TICKET CON DESCUENTO\n\n";          System.out.println("TICKET CON DESCUENTO\n\n");
+         auxs += "POLLERIA LA GRANJA\n";             System.out.println("POLLERIA LA GRANJA\n");
         auxs+= "PROP.JOSE MIGUEL CASTREZANA B.\n";  System.out.println("PROP.JOSE MIGUEL CASTREZANA B.\n");
-        auxs+= "R.F.C. CABM850201PR1\n";            System.out.println("R.F.C. CABM850201PR1\n");
-        auxs += "POLLERIA LA GRANJA\n";             System.out.println("POLLERIA LA GRANJA\n");
+        auxs+= "R.F.C. CABM850201PR1\n";            System.out.println("R.F.C. CABM850201PR1\n");        
         auxs += "CARR. IGUALA-TAXCO KM.1.5\n";          System.out.println("CARR. IGUALA-TAXCO KM.1.5\n");
         auxs += "LOCAL 10 Y 11\n";                      System.out.println("LOCAL 10 Y 11\n");
         auxs += "CENTRAL DE ABASTOS\n";                System.out.println("CENTRAL DE ABASTOS\n");
@@ -43,8 +43,12 @@ public class ticketventacondescuento {
                      auxs+= "Descrip  Cant  Precio  Importe\n";   System.out.println("Descrip  Cant  Precio  Importe\n");       
          auxs+= "\n==============================\n";   System.out.println("\n==============================\n");                 
             for(int n=0;n<=nombre.size()-1;n++){
-                    // Se formatea la cadena a imprimir con String.format para varios string
-         auxs+= String.format("%-13s" + " " + "%-3s"+"  "+"$%-4s"+"  "+"$%-4s\n", nombre.get(n), piezas.get(n), precio.get(n), importe.get(n)); System.out.println(String.format("%-13s" + " " + "%-3s"+"  "+"$%-4s"+"  "+"$%-4s\n", nombre.get(n), piezas.get(n), precio.get(n), importe.get(n)));      
+                 String nom1 = nombre.get(n).toString();
+                if (nom1.length()> 12) { // si la descripcion_producto es mayor a 17 la corta
+                nom1 = nom1.substring(0, 12);           
+            }
+                 
+         auxs+= String.format("%-13s" + " " + "%-3s"+"  "+"$%-4s"+"  "+"$%-4s\n", nom1, piezas.get(n), precio.get(n), importe.get(n)); System.out.println(String.format("%-13s" + " " + "%-3s"+"  "+"$%-4s"+"  "+"$%-4s", nom1, piezas.get(n), precio.get(n), importe.get(n)));      
              } 
        auxs+= "\n==============================\n";  System.out.println("\n==============================\n");  
        auxs+= String.format("Total: "+"$%-20s", total); System.out.println(String.format("Total: "+"$%-20s", total));
@@ -57,7 +61,9 @@ public class ticketventacondescuento {
        auxs+= "\n";   
        auxs+= String.format("Descuento: "+"$%-20s", descuento); System.out.println(String.format("Descuento: "+"$%-20s", descuento));
        auxs+= "\n";   
-       auxs+= "    Ticket con descuento       \n\n\n\n\n";// Varios saltos para no cortar antes  
+       auxs += "     Gracias por su compra\n\n\n\n\n";// Varios saltos para no cortar antes
+      System.out.println("     Gracias por su compra\n\n\n\n\n");
+       
          try {
             impServicio.printCadena(impra, auxs);
             // Cortar el papel ....

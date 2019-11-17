@@ -22,7 +22,7 @@ public class ticketpollocrudosolopiezas {
         String impra = "Juarez"; // Nombre de la impresora
 
         // Se llama al metodo para imprimir una cadena
-         auxs+= "SOBRANTE DE POLLO CRUDO PIEZAS\n\n";          System.out.println("SOBRANTE DE POLLO CRUDO PIEZAS\n\n");
+         auxs+= "SOBRANTE DE POLLO CRUNO SE HACEEE....\n\n";          System.out.println("SOBRANTE DE POLLO CRUDO PIEZAS\n\n");
          auxs+= "POLLO PIEZAS GI\n";                  System.out.println("POLLO PIEZAS\n");
          auxs+= "Altamirano No 8-B\n";                  System.out.println("Altamirano No 8-B\n");
          auxs+= "Iguala de la Independencia\n";         System.out.println("Iguala de la Independencia\n");
