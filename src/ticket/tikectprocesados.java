@@ -24,19 +24,25 @@ public class tikectprocesados {
 
         // Se llama al metodo para imprimir una cadena
          auxs+= "PROCESADOS\n";          System.out.println("PROCESADOS\n");
-         auxs+= "MCS Developers GI\n";                  System.out.println("MCS Developers GI\n");
-         auxs+= "Altamirano No 8-B\n";                  System.out.println("Altamirano No 8-B\n");
-         auxs+= "Iguala de la Independencia\n";         System.out.println("Iguala de la Independencia\n");
-        //impServicio.printCadena(impra, "Folio: " + folio + "\n");        
+         auxs+= "SOBRANTE DE POLLO CRUDO\n";          System.out.println("SOBRANTE DE POLLO CRUDO\n");
+         auxs+= "PROP.JOSE MIGUEL CASTREZANA B.\n";  System.out.println("PROP.JOSE MIGUEL CASTREZANA B.\n");
+        auxs+= "R.F.C. CABM850201PR1\n"; System.out.println("R.F.C. CABM850201PR1\n");
+         auxs+= "POLLERIA LA GRANJA\n"; System.out.println("POLLERIA LA GRANJA\n");
+         auxs+= "CARR. IGUALA-TAXCO KM.1.5\n"; System.out.println("CARR. IGUALA-TAXCO KM.1.5\n");
+        auxs += "LOCAL 10 Y 11\n";             System.out.println("LOCAL 10 Y 11\n");
+        auxs += "CENTRAL DE ABASTOS\n";        System.out.println("CENTRAL DE ABASTOS\n");
+        auxs += "COL.INSURGENTES  C.P.4003\n";  System.out.println("COL.INSURGENTES  C.P.40033");
+        auxs+= "IGUALA DE LA INDEPENDENCIA\n"; System.out.println("IGUALA DE LA INDEPENDENCIA\n");     
+        
        auxs+= "Fecha: " + dateFormat.format(date) + " Hora: " + hourFormat.format(date) + "\n";  System.out.println("Fecha: " + dateFormat.format(date) + " Hora: " + hourFormat.format(date) + "\n");
-        System.out.println("==========================================\n");  auxs+= "==========================================\n";                
-         auxs+= "Nombre                    Piezas\n";           System.out.println("Nombre                    Piezas\n");      
-         auxs+= "==========================================\n";   System.out.println("==========================================\n");                            
+        System.out.println("\n==============================\n");            auxs+= "\n==============================\n";                
+                      auxs+= "Nombre              Piezas\n";           System.out.println("Nombre              Piezas\n");      
+         auxs+= "\n==============================\n";   System.out.println("\n==============================\n");                            
                    for(int n=0;n<=procesadosnombre.size()-1;n++){                 
-            auxs+= String.format("%-28s" + "%-8s" , procesadosnombre.get(n), procesadospiezas.get(n)); System.out.println(String.format("%-28s" + "%-8s" , procesadosnombre.get(n), procesadospiezas.get(n)));
+            auxs+= String.format("%-23s" + "%-9s" , procesadosnombre.get(n), procesadospiezas.get(n)); System.out.println(String.format("%-23s" + "%-9s" , procesadosnombre.get(n), procesadospiezas.get(n)));
              auxs+= "\n";   
         }
-       auxs+= "\n==========================================\n";  System.out.println("\n==========================================\n");  
+       auxs+= "\n==============================\n";  System.out.println("\n==============================\n");  
         auxs+= "\n\n\n"; // SALTOS PARA K NO LO CORTE LUEGO
          
          try {

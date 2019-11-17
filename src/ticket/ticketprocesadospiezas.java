@@ -23,22 +23,27 @@ public class ticketprocesadospiezas {
 
         // Se llama al metodo para imprimir una cadena
          auxs+= "PROCESADOS CON PIEZAS\n";               System.out.println("PROCESADOS CON PIEZAS\n");
-         auxs+= "MCS Developers GI\n";                  System.out.println("MCS Developers GI\n");
-         auxs+= "Altamirano No 8-B\n";                  System.out.println("Altamirano No 8-B\n");
-         auxs+= "Iguala de la Independencia\n";         System.out.println("Iguala de la Independencia\n");
-        //impServicio.printCadena(impra, "Folio: " + folio + "\n");        
+         auxs+= "PROP.JOSE MIGUEL CASTREZANA B.\n";  System.out.println("PROP.JOSE MIGUEL CASTREZANA B.\n");
+        auxs+= "R.F.C. CABM850201PR1\n"; System.out.println("R.F.C. CABM850201PR1\n");
+         auxs+= "POLLERIA LA GRANJA\n"; System.out.println("POLLERIA LA GRANJA\n");
+         auxs+= "CARR. IGUALA-TAXCO KM.1.5\n"; System.out.println("CARR. IGUALA-TAXCO KM.1.5\n");
+        auxs += "LOCAL 10 Y 11\n";             System.out.println("LOCAL 10 Y 11\n");
+        auxs += "CENTRAL DE ABASTOS\n";        System.out.println("CENTRAL DE ABASTOS\n");
+        auxs += "COL.INSURGENTES  C.P.4003\n";  System.out.println("COL.INSURGENTES  C.P.40033");
+        auxs+= "IGUALA DE LA INDEPENDENCIA\n"; System.out.println("IGUALA DE LA INDEPENDENCIA\n");  
+         
        auxs+= "Fecha: " + dateFormat.format(date) + " Hora: " + hourFormat.format(date) + "\n";  System.out.println("Fecha: " + dateFormat.format(date) + " Hora: " + hourFormat.format(date) + "\n");
-      System.out.println("==========================================\n");  auxs+= "==========================================\n";                
-        auxs+= "Nombre                 Piezas      Total\n";    System.out.println("Nombre                 Piezas      Total\n");               
-         auxs+= "==========================================\n";   System.out.println("==========================================\n");                           
+      System.out.println("\n==============================\n");          auxs+= "\n==============================\n";                
+                    auxs+= "Nombre      Piezas     Total\n";    System.out.println("Nombre      Piezas     Total\n");               
+         auxs+= "\n==============================\n";   System.out.println("\n==============================\n");                           
              for(int n=0;n<=procesadosnombre.size()-1;n++){                 
-                  auxs+= String.format("%-25s" + "%-7s" + "$%-8s" , procesadosnombre.get(n), procesadospiezas.get(n), procesadostotal.get(n)); System.out.println(String.format("%-25s" + "%-10s" + "$%-10s" , procesadosnombre.get(n), procesadospiezas.get(n), procesadostotal.get(n)));
-                  auxs+= "\n\n\n\n"; // SALTOS PARA K NO LO CORTE LUEGO   
+                  auxs+= String.format("%-20s" + "%-7s" + "$%-7s" , procesadosnombre.get(n), procesadospiezas.get(n), procesadostotal.get(n)); System.out.println(String.format("%-22s" + "%-8s" + "$%-8s" , procesadosnombre.get(n), procesadospiezas.get(n), procesadostotal.get(n)));
+                  auxs+= "\n"; // SALTOS PARA K NO LO CORTE LUEGO     "%-11s" + "%-10s" + "$%-12s"  
              }                             
               
-       auxs+= "\n==========================================\n";  System.out.println("\n==========================================\n");  
+       auxs+= "\n==============================\n";  System.out.println("\n==============================\n");  
      // auxs+= "TOTAL :";// Varios saltos para no cortar antes 
-         auxs+= String.format("      "+"TOTAL  :"+ "$" + totaldeprocesados);    System.out.println(String.format("      "+"TOTAL  :"+ "$" + totaldeprocesados));
+         auxs+= String.format("  "+"TOTAL :"+ "$" + totaldeprocesados);    System.out.println(String.format("  "+"TOTAL :"+ "$" + totaldeprocesados));
                   auxs+= "\n\n\n\n"; // SALTOS PARA K NO LO CORTE LUEGO
          try {
             impServicio.printCadena(impra, auxs);

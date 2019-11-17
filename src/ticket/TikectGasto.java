@@ -25,28 +25,32 @@ public class TikectGasto{
           String impra = "Juarez";
 
         // Se llama al metodo para imprimir una cadena
-         auxs+= "GASTO\n\n";  System.out.println("GASTO\n\n");
-         auxs+= "MCS Developers GI\n"; System.out.println("MCS Developers GI\n");
-         auxs+= "Altamirano No 8-B\n"; System.out.println("Altamirano No 8-B\n");
-         auxs+= "Iguala de la Independencia\n"; System.out.println("Iguala de la Independencia\n");
-        //impServicio.printCadena(impra, "Folio: " + folio + "\n");
+        auxs+= "COMPROBANTE DE GASTOS\n\n";  System.out.println("COMPROBANTE DE GASTOS\n\n");
+         auxs+= "PROP.JOSE MIGUEL CASTREZANA B.\n";  System.out.println("PROP.JOSE MIGUEL CASTREZANA B.\n");
+        auxs+= "R.F.C. CABM850201PR1\n"; System.out.println("R.F.C. CABM850201PR1\n");
+         auxs+= "POLLERIA LA GRANJA\n"; System.out.println("POLLERIA LA GRANJA\n");
+         auxs+= "CARR. IGUALA-TAXCO KM.1.5\n"; System.out.println("CARR. IGUALA-TAXCO KM.1.5\n");
+        auxs += "LOCAL 10 Y 11\n";             System.out.println("LOCAL 10 Y 11\n");
+        auxs += "CENTRAL DE ABASTOS\n";        System.out.println("CENTRAL DE ABASTOS\n");
+        auxs += "COL.INSURGENTES  C.P.4003\n";  System.out.println("COL.INSURGENTES  C.P.40033");
+        auxs+= "IGUALA DE LA INDEPENDENCIA\n"; System.out.println("IGUALA DE LA INDEPENDENCIA\n"); 
+        
         System.out.println("Fecha: " + dateFormat.format(date) + " Hora: " + hourFormat.format(date) + "\n");
-         auxs+= "Fecha: " + dateFormat.format(date) + " Hora: " + hourFormat.format(date) + "\n";
-        System.out.println("==========================================\n");
-         auxs+= "==========================================\n";       
-         auxs+= "Cantidad   Descripcion          Total\n"; System.out.println("Cantidad   Descripcion          Total\n");
-      System.out.println("==========================================\n");
-         auxs+= "==========================================\n";                   
+         auxs+= "Fecha: " + dateFormat.format(date) + " Hora: " + hourFormat.format(date) + "\n";        
+         auxs+= "\n==============================\n";        System.out.println("\n==============================\n");
+           auxs+= "Cant  Descripcion    Total\n"; System.out.println("Cant  Descripcion    Total\n");
+      System.out.println("\n==============================\n");
+         auxs+= "\n==============================\n";                   
             if (descripcion.length() > 20) { // si la descripcion_producto es mayor a 17 la corta
                 descripcion = descripcion.substring(0, 17);
             }
             // Se formatea la cadena a imprimir con String.format para varios string
-             auxs+= String.format("%-10s" + "%-21s" + "%-10s", cantidad, descripcion, totalmonto);
- System.out.println(String.format("%-10s" + "%-21s" + "%-10s", cantidad, descripcion, totalmonto));
+             auxs+= String.format("%-6s" + "%-14s" + "%-17s", cantidad, descripcion, totalmonto);
+ System.out.println(String.format("%-6s" + "%-14s" + "%-17s", cantidad, descripcion, totalmonto));
              auxs+= "\n";            
-         auxs+= "\n==========================================\n";  System.out.println("\n==========================================\n");  
-       auxs+= "    Gasto      \n MCS Developer \n\n\n\n\n";// Varios saltos para no cortar antes 
-  System.err.println("    Gasto      \n MCS Developer \n\n\n\n\n");       
+         auxs+= "\n==============================\n";  System.out.println("\n==============================\n");  
+       auxs+= "\n\n";// Varios saltos para no cortar antes 
+        
          
          try {
             impServicio.printCadena(impra, auxs);
