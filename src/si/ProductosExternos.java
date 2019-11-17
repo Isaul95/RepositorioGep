@@ -159,7 +159,7 @@ int  id_usuario=Integer.parseInt(SI_Inicio.iduser.getText());
         combopieza.setBounds(30, 190, 180, 34);
 
         combosucursal.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        combosucursal.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Blanca", "Zapata", "Mercado", " ", " " }));
+        combosucursal.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Blanca", "Zapata", "Mercado" }));
         jPanel2.add(combosucursal);
         combosucursal.setBounds(30, 110, 180, 26);
 
@@ -556,7 +556,7 @@ public void totalapagarmetodo(){
                     cantidadnumerica+=piezaendb;
                     total=Float.parseFloat(String.valueOf(cantidadnumerica*7.70));
            try{ //la insersion a la tabla ventas
-                PreparedStatement ps = ca.prepareStatement ("UPDATE productoexterno SET pieza='"+cantidadnumerica+"',total = '"+solodosdecimales.format(total)+"',fecha = '"+fecha()+"',tiendaexterna = '"+combosucursal.getSelectedItem().toString()+"''WHERE nombre= 'Muslo' ");  
+                PreparedStatement ps = ca.prepareStatement ("UPDATE productoexterno SET pieza='"+cantidadnumerica+"',total = '"+solodosdecimales.format(total)+"',fecha = '"+fecha()+"',tiendaexterna = '"+combosucursal.getSelectedItem().toString()+"'WHERE nombre= 'Muslo' ");  
                 int a=ps.executeUpdate();
                 if(a>0){
                       totalapagarmetodo();
@@ -600,7 +600,7 @@ public void totalapagarmetodo(){
                     piezasenbase(combopieza.getSelectedItem().toString());
                      cantidadnumerica+=piezaendb;
             try{ //la insersion a la tabla ventas
-                PreparedStatement ps = ca.prepareStatement ("UPDATE productoexterno SET pieza='"+cantidad+"',fecha = '"+fecha()+"',tiendaexterna = '"+combosucursal.getSelectedItem().toString()+"'WHERE nombre= '"+combopieza.getSelectedItem().toString()+"' ");  
+                PreparedStatement ps = ca.prepareStatement ("UPDATE productoexterno SET pieza='"+cantidadnumerica+"',fecha = '"+fecha()+"',tiendaexterna = '"+combosucursal.getSelectedItem().toString()+"'WHERE nombre= '"+combopieza.getSelectedItem().toString()+"' ");  
                 int a=ps.executeUpdate();
                 if(a>0){
                       totalapagarmetodo();

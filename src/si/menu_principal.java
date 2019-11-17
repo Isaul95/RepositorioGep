@@ -56,7 +56,7 @@ public final class menu_principal extends javax.swing.JFrame implements Runnable
     Thread hilo;
 Statement sent;  
   ResultSet rs;      
-  float totalticket, pagoticket, cambioticket, porcentajedescontadoticket, descuentoticket;
+  float totalticket, totalcdescticket, pagoticket, cambioticket, porcentajedescontadoticket, descuentoticket;
   float utilidadfinal, utilidades, gastos, sumadetotalesdeventasdehoy, conteodeventascanceladas;
      int   conteototaldeventas, id_ventapencredito, evaluadordepiezaspares=0, evaluadordepiezasinpares=0,  resultadoprimerproveedor, id_de_la_venta_incrementable,totalcomprobacion, primerventa, resultfirstselling, existencia;   
   int fila, id_proveedor,id_usuario,id_producto,id_venta,aux1,aux2,variablede0=0;
@@ -369,12 +369,13 @@ String sSQL = " select venta.id_venta, venta.total, venta.fecha_reporte, descrip
                          preciounitarioticket, 
                          importesticket,
                          totalticket, pagoticket, cambioticket, porcentajedescontadoticket, descuentoticket, numerodeventa);
-            vaciarlistasdeticket();
+            //totalcdescticket agregar al metodo de arriba
+                 vaciarlistasdeticket();
             }else{//venta simple
                  //estas dos lineas mandan los datos para el ticket
                  mandardatosticketventa = new ticketventa();
                  mandardatosticketventa.tikectdeventa(nombreproductoticket, 
-                         piezastcket, 
+                   piezastcket, 
                          preciounitarioticket, 
                          importesticket,
                          totalticket, pagoticket, cambioticket, numerodeventa);
@@ -391,16 +392,17 @@ String sSQL = " select venta.id_venta, venta.total, venta.fecha_reporte, descrip
          Object[] columna = new Object[5];  //crear un obj con el nombre de colunna
   
         try {
-         String sSQL = "SELECT total, pago, cambio, porcentajedescontado, descuento FROM venta WHERE estado_venta='"+estadorealizado+"' AND fecha_reporte = '"+fecha()+"' ";
+         String sSQL = "SELECT total, totalcdescuento, pago, cambio, porcentajedescontado, descuento FROM venta WHERE estado_venta='"+estadorealizado+"' AND fecha_reporte = '"+fecha()+"' ";
  
         PreparedStatement ps = ca.prepareStatement(sSQL);       
         ResultSet rs = ps.executeQuery(sSQL);
             while (rs.next()) {
                totalticket = rs.getFloat(1);
-                pagoticket = rs.getFloat(2);
-                 cambioticket = rs.getFloat(3);
-                 porcentajedescontadoticket = rs.getFloat(4);
-                 descuentoticket = rs.getFloat(5);           
+              totalcdescticket = rs.getFloat(2);
+                pagoticket = rs.getFloat(3);
+                 cambioticket = rs.getFloat(4);
+                 porcentajedescontadoticket = rs.getFloat(5);
+                 descuentoticket = rs.getFloat(6);           
           }  
     } catch (Exception e) {
          JOptionPane.showMessageDialog(null, "ERROR EN METODO: total_pagoycambiopararelticketdeventa","DEVELOPER HELPER", JOptionPane.ERROR_MESSAGE);      
@@ -5991,7 +5993,7 @@ public void ocultarcalculadoradespuesdecobrar(){
                             try{// el id del usuario
                                 id_max_de_venta();
                                 
-                                    PreparedStatement ps = ca.prepareStatement ("UPDATE venta SET total='"+solodosdecimales.format(Float.parseFloat(totalcondescuento.getText()))+"',porcentajedescontado='"+porcentaje+"',descuento='"+ solodosdecimales.format(Float.parseFloat(descuentocombo.getText()))+"',pago='"+solodosdecimales.format(Float.parseFloat(cantidad.getText()))+"',cambio='"+solodosdecimales.format(Float.parseFloat(cambiocombobox.getText()))+"',fecha_reporte='"+fecha()+"',estado_venta='"+estadorealizado+"'WHERE id_venta='"+id_de_la_venta_incrementable+"'");
+                                    PreparedStatement ps = ca.prepareStatement ("UPDATE venta SET total='"+solodosdecimales.format(Float.parseFloat(totaldeventa.getText()))+"',porcentajedescontado='"+porcentaje+"',totalcdescuento='"+solodosdecimales.format(Float.parseFloat(totalcondescuento.getText()))+"',descuento='"+ solodosdecimales.format(Float.parseFloat(descuentocombo.getText()))+"',pago='"+solodosdecimales.format(Float.parseFloat(cantidad.getText()))+"',cambio='"+solodosdecimales.format(Float.parseFloat(cambiocombobox.getText()))+"',fecha_reporte='"+fecha()+"',estado_venta='"+estadorealizado+"'WHERE id_venta='"+id_de_la_venta_incrementable+"'");
                                     ps.executeUpdate();
                                 //ACTUALIZACION EN LA TABLA DESCRIPCION DE VENTA A REALIZADA
 
