@@ -315,7 +315,7 @@ public void metodogastosdeldia(){
      
     public void vaciartodoeninventario(){
               try{              
-           PreparedStatement ps = ca.prepareStatement ("UPDATE productos SET cantidad= 0");
+           PreparedStatement ps = ca.prepareStatement ("UPDATE productos SET cantidad= 0 WHERE nombre_producto NOT IN ('Huacal', 'Cadera', 'Cabeza', 'Molleja', 'Patas')");
                   int a = ps.executeUpdate();
                 if(a>0){    
                 }
@@ -358,7 +358,7 @@ public void metodogastosdeldia(){
                          }
                          total_del_día_devolucion_crudo();
    PolloCrudoxPiezas = new PolloCrudoxPiezas();          
-   PolloCrudoxPiezas.PolloCrudoxPiezas(columna, columna2, columna3,total_de_crudo);                       
+   PolloCrudoxPiezas.PolloCrudoxPiezas(columna, columna2, columna3,Float.parseFloat(solodosdecimales.format(total_de_crudo)));                       
       }catch(Exception e){                                             
           System.out.println("ERROR en pantalla gasts: " + e.getMessage());
       }
@@ -397,7 +397,7 @@ public void metodogastosdeldia(){
      ticketprocesadospiezas = new ticketprocesadospiezas();       
       total_del_día_procesados();
       //JOptionPane.showMessageDialog(null, "TOTAL PROCESADOS de ALEXIA:"+total_de_procesados);
-     ticketprocesadospiezas.ticketprocesadospiezas(columna,columna1,columna2, total_de_procesados);                
+     ticketprocesadospiezas.ticketprocesadospiezas(columna,columna1,columna2, Float.parseFloat(solodosdecimales.format(total_de_procesados)));                
       }catch(Exception e){                                                     
           // System.out.println("DESDE PROCESADOS"+ total_de_procesados);
       }
@@ -434,7 +434,7 @@ public void metodogastosdeldia(){
                  
                          pagoshechoseneldiaactual();
    tikectcorte = new ticketcortedecaja();     
-   tikectcorte.ticketcortedecaja(ticketmonto, ticketgasto, ticketventa, Float.parseFloat(solodosdecimales.format(ticketdiferencia)), ventasmenosgastos, totaldepagos);  
+   tikectcorte.ticketcortedecaja(ticketmonto, ticketgasto, ticketventa, Float.parseFloat(solodosdecimales.format(ticketdiferencia)), Float.parseFloat(solodosdecimales.format(ventasmenosgastos)), Float.parseFloat(solodosdecimales.format(totaldepagos)));  
       }catch(Exception e){                                             
       }
  }
@@ -632,10 +632,10 @@ double []totales = {35.0, 7.70, 7.70, 5.50, 0, 0, 0, 0, 0};
    public void insertaradevoluciondecocidopiezasycantidades(){//AQUI SE INSERTAN LAS PIEZAS Y CANTIDADES DE PECHUGA, MUSLO ALA Y PIERNA
          ArrayList cantidades = new  ArrayList();
          ArrayList nombres = new  ArrayList();
-double []totales = {68.0, 68.0, 7.68, 8.15, 7.50, 5.95, 23.00, 16.00, 0.00, 0.00, 11.00, 11.00, 11.00, 11.00, 17.00, 11.00, 11.00, 18.00, 11.00, 13.00, 11.50, 13.00, 11.00, 11.00, 11.00, 5.00, 2.00, 1.00, 8.50};
+double []totales = {68.0, 68.0, 7.68, 8.15, 7.50, 5.95, 23.00, 16.00, 0.00, 11.00, 11.00, 11.00, 11.00, 17.00, 11.00, 11.00, 18.00, 11.00, 13.00, 11.50, 13.00, 11.00, 11.00, 11.00, 5.00, 2.00, 1.00, 8.50};
         try{//SOLO SE LLAMA A LA CANTIDAD PORQUE EN EL TICKET YA SE DEFINIRÁN LOS NOMBRES DE CADA ARTICULO
                       sent  = (Statement)ca.createStatement();
-                      rs = sent.executeQuery("select nombre_producto, SUM(cantidad) from descripcion_de_venta where id_producto in (24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52) and estado='Realizada' and fecha= '"+fecha()+"' GROUP BY nombre_producto");
+                      rs = sent.executeQuery("select nombre_producto, SUM(cantidad) from descripcion_de_venta where id_producto in (24, 25, 26, 27, 28, 29, 30, 31, 32, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52) and estado='Realizada' and fecha= '"+fecha()+"' GROUP BY nombre_producto");
                    
                       while(rs.next()){
                              nombres.add(rs.getString(1));
