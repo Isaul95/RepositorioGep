@@ -582,10 +582,12 @@ String sSQL = " select venta.id_venta, venta.total, venta.fecha_reporte, descrip
     }
            public boolean validarFormularioparaentradadeproductos(String cantidaddelatabla) { // VALIDACION DE TXT MONTO
         boolean next = false;
-        Pattern patGastos = Pattern.compile("^[0-9]+([.])?([0-9]+)?$");
+        Pattern patGastos = Pattern.compile("^-[0-9]+([.])?([0-9]+)?$");//con simbolomenos
+        Pattern patGastos1 = Pattern.compile("^[0-9]+([.])?([0-9]+)?$");
         Matcher matGastos = patGastos.matcher(cantidaddelatabla);
+        Matcher matGastos1 = patGastos1.matcher(cantidaddelatabla);
 
-        if (matGastos.matches()&&!cantidaddelatabla.equals("")) {
+        if (matGastos.matches()&&!cantidaddelatabla.equals("")||matGastos1.matches()) {
             next = true;
                
         } else {
@@ -690,7 +692,9 @@ public void insertandopiezasdepolloporhaberagregadoxcantidaddepollocrudo(String 
                             cantidaddesdelatablaeditable = Float.parseFloat(modeloT.getValueAt(e.getFirstRow(), e.getColumn()).toString());
                            
                               id_producto(valor); 
-                      String sql = "UPDATE productos SET cantidad='"+cantidaddesdelatablaeditable+"' WHERE id_producto="+id_producto;            
+                             cantidadpolloenDByname(id_producto);
+                              cantidaddesdelatablaeditable+=cantidadpolloenDB;
+                              String sql = "UPDATE productos SET cantidad='"+cantidaddesdelatablaeditable+"' WHERE id_producto="+id_producto;            
 
         insertandopiezasdepolloporhaberagregadoxcantidaddepollocrudo(valor, cantidaddesdelatablaeditable);
                          SI cc= new SI();
@@ -2044,7 +2048,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         jScrollPane16 = new javax.swing.JScrollPane();
         JtablepaLaVenta = new rojerusan.RSTableMetro();
         ventascanceladaseneldia5 = new javax.swing.JLabel();
-        cobro1 = new javax.swing.JButton();
+        moreexternalproducts = new javax.swing.JButton();
         jPanel33 = new javax.swing.JPanel();
         jScrollPane17 = new javax.swing.JScrollPane();
         Jtable_ProductosEntradas = new rojerusan.RSTableMetro();
@@ -2302,11 +2306,6 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         cobro.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         cobro.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         cobro.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        cobro.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                cobroMouseClicked(evt);
-            }
-        });
         cobro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cobroActionPerformed(evt);
@@ -3502,24 +3501,19 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         ventascanceladaseneldia5.setText("productos en existencia en inventario del dia de hoy");
         jPanel32.add(ventascanceladaseneldia5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 650, 50));
 
-        cobro1.setBackground(new java.awt.Color(0, 51, 102));
-        cobro1.setFont(new java.awt.Font("Tahoma", 1, 22)); // NOI18N
-        cobro1.setForeground(new java.awt.Color(51, 255, 51));
-        cobro1.setText("Agregar más a inventario");
-        cobro1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        cobro1.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-        cobro1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        cobro1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                cobro1MouseClicked(evt);
-            }
-        });
-        cobro1.addActionListener(new java.awt.event.ActionListener() {
+        moreexternalproducts.setBackground(new java.awt.Color(0, 51, 102));
+        moreexternalproducts.setFont(new java.awt.Font("Tahoma", 1, 22)); // NOI18N
+        moreexternalproducts.setForeground(new java.awt.Color(51, 255, 51));
+        moreexternalproducts.setText("Agregar producto externo");
+        moreexternalproducts.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        moreexternalproducts.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        moreexternalproducts.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        moreexternalproducts.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cobro1ActionPerformed(evt);
+                moreexternalproductsActionPerformed(evt);
             }
         });
-        jPanel32.add(cobro1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 67, 380, 40));
+        jPanel32.add(moreexternalproducts, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 67, 380, 40));
 
         producto_sobrante3.add(jPanel32);
         jPanel32.setBounds(610, 80, 670, 570);
@@ -6122,10 +6116,6 @@ public void ocultarcalculadoradespuesdecobrar(){
         JOptionPane.showMessageDialog(null,"Por favor, seleccione una fila primero","Aviso",JOptionPane.INFORMATION_MESSAGE);   
     }//GEN-LAST:event_jTable2MouseClicked
 
-    private void cobroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cobroMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cobroMouseClicked
-
     private void cobroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cobroActionPerformed
      if(tablaventaactiva==true){
       calculadora.setVisible(true);
@@ -6140,13 +6130,9 @@ public void ocultarcalculadoradespuesdecobrar(){
         
     }//GEN-LAST:event_cobroActionPerformed
 
-    private void cobro1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cobro1MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cobro1MouseClicked
-
-    private void cobro1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cobro1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cobro1ActionPerformed
+    private void moreexternalproductsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_moreexternalproductsActionPerformed
+       new ProductosExternos().setVisible(true);
+    }//GEN-LAST:event_moreexternalproductsActionPerformed
  
     public void agregarpiezasaventa(String nombredepieza){
           /* ******************** BOTON DE ADD NUEVO PRODUCTO PARA SU VENTA ******************** */
@@ -6346,7 +6332,6 @@ SI cc= new SI();
     private javax.swing.JButton cero;
     private javax.swing.JButton cinco;
     private javax.swing.JButton cobro;
-    private javax.swing.JButton cobro1;
     private javax.swing.JLabel conteodelasventasrealizadas;
     private javax.swing.JButton cuatro;
     private javax.swing.JButton descuento;
@@ -6515,6 +6500,7 @@ SI cc= new SI();
     private javax.swing.JMenuItem modificar;
     private javax.swing.JMenuItem modificarusuarios;
     private javax.swing.JMenuItem modify;
+    private javax.swing.JButton moreexternalproducts;
     private javax.swing.JButton nueve;
     private javax.swing.JButton ocho;
     private javax.swing.JButton pagarventaacredito;
