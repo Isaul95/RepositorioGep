@@ -24,7 +24,7 @@ public class SI {
          conectar=DriverManager.getConnection("jdbc:mysql://localhost/inventariostore","root",MySQLpassword);  
           System.out.println("Se hizo la conexion exitosa");
       }catch(Exception e){
-          JOptionPane.showMessageDialog(null,"Error  en el inicio "+e);
+          JOptionPane.showMessageDialog(null,"Error la conexion"+e);
           System.err.print(e.getMessage());
                         }
         return conectar;
