@@ -374,8 +374,8 @@ public void metodogastosdeldia(){
                              columna2.add(rs.getFloat(2));
                          }                      
                          total_del_día_devolucion_crudo();
-  PolloCrudoBienTocketc = new PolloCrudoBienTocketc();          
-   PolloCrudoBienTocketc.PolloCrudoBienTocketc(columna, columna2);
+  //PolloCrudoBienTocketc = new PolloCrudoBienTocketc();          
+  // PolloCrudoBienTocketc.PolloCrudoBienTocketc(columna, columna2);
       }catch(Exception e){                                             
           System.out.println("ERROR" + e.getMessage());
       }
@@ -394,9 +394,9 @@ public void metodogastosdeldia(){
                              columna2.add(rs.getFloat(3));
                          }
                         
-    ticketprocesadospiezas = new ticketprocesadospiezas();       
+   // ticketprocesadospiezas = new ticketprocesadospiezas();       
       total_del_día_procesados();    
-     ticketprocesadospiezas.ticketprocesadospiezas(columna,columna1,columna2, Float.parseFloat(solodosdecimales.format(total_de_procesados)));                
+    // ticketprocesadospiezas.ticketprocesadospiezas(columna,columna1,columna2, Float.parseFloat(solodosdecimales.format(total_de_procesados)));                
       }catch(Exception e){                                                     
           // System.out.println("DESDE PROCESADOS"+ total_de_procesados);
       }
@@ -412,8 +412,8 @@ public void metodogastosdeldia(){
                              columna.add(rs.getString(1));
                              columna2.add(rs.getFloat(2));
                          }
- tikectprocesados = new tikectprocesados();          
-   tikectprocesados.tikectprocesados(columna,columna2); 
+ //tikectprocesados = new tikectprocesados();          
+ //  tikectprocesados.tikectprocesados(columna,columna2); 
       }catch(Exception e){                                             
         
       }
@@ -507,9 +507,9 @@ public void metodogastosdeldia(){
                 //LUEGO AQUI SE PUEDE REALIZAR CADA TICKET CORRESPONDIENTE (ESTOS SON LOS 5 TICKET)
  sobrantedepollococidodeldiaparaticketcantidadesypiezas();//SOBRANTE DE COCIDO PARA TICKET MOSTRANDO CANTIDADES Y TOTALES
  sobrantedepollococidodeldiaparaticketperosolocantidades();//SOBRANTE DE COCIDO PARA TICKET MOSTRANDO CANTIDADES
-   sobrantedepollocrudodeldiaparaticketcantidadesypiezas();//SOBRANTE DE PECHUGA, PIERNA ALA, MUSLO, VA PARA TICKET
+            /*sii*/ sobrantedepollocrudodeldiaparaticketcantidadesypiezas();//SOBRANTE DE PECHUGA, PIERNA ALA, MUSLO, VA PARA TICKET
  sobrantedepollocrudodeldiaparaticketperosolocantidades();//SOBRANTE DE TODO MENOS PECHUGA, PIERNA ALA, MUSLO, VA PARA TICKET
- obteniendolosvaloresdelcortedecajadeldiadehoyparaelticket();//LOS DATOS DEL TICKET CORTE DE CAJA                                                      
+            /*sii*/obteniendolosvaloresdelcortedecajadeldiadehoyparaelticket();//LOS DATOS DEL TICKET CORTE DE CAJA                                                      
       llenar_tabla_utilidad(gastosdeldia, ventasdeldia);
       vaciartodoelpollococidoenprocesados();
           vaciartodoelpollocrudoendevolucioncrudo();
