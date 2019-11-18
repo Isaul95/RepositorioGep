@@ -32,7 +32,7 @@ public class Gastos {
      //String nombre_producto;
      String[] piezas;
      float precioxpieza;
-     int totalpiezaspollo;
+     float totalpiezaspollo;
 
     public int getId_usuario() {
         return id_usuario;
@@ -58,11 +58,11 @@ public class Gastos {
         this.precioxpieza = precioxpieza;
     }
 
-    public int getTotalpiezaspollo() {
+    public float getTotalpiezaspollo() {
         return totalpiezaspollo;
     }
 
-    public void setTotalpiezaspollo(int totalpiezaspollo) {
+    public void setTotalpiezaspollo(float totalpiezaspollo) {
         this.totalpiezaspollo = totalpiezaspollo;
     }
 
@@ -93,7 +93,7 @@ public class Gastos {
      //id_usuario = "";
     }
      
-      Gastos(/*String descripcion,*/String[] piezaspollo, float precioxpieza, int totalpiezaspollo) {
+      Gastos(/*String descripcion,*/String[] piezaspollo, float precioxpieza, float totalpiezaspollo) {
          //this.tipo = descripcion;
          this.piezas[0] = piezaspollo[0];
          this.piezas[1] = piezaspollo[1];

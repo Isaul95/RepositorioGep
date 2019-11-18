@@ -18,7 +18,6 @@ public class SI {
    //clase para hacer la conexión a mysql 
    Connection conectar=null;
        public Connection conexion(){
-              
                   try{
           Class.forName("com.mysql.jdbc.Driver");
          conectar=DriverManager.getConnection("jdbc:mysql://localhost:3308/inventariostore","root",MySQLpassword);  

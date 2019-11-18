@@ -1139,7 +1139,8 @@ public void cantidadenventa(int pieza){
 }
            
            public void descontarpiezasdepollocrudodeinventario(){//INICIO DE DESCONTAR POLLO CRUDO DE INVENTARIO
-Pantalla_Gastos ven = new Pantalla_Gastos();
+//se lo quito a productos, se lo sumo a venta
+               Pantalla_Gastos ven = new Pantalla_Gastos();
            for(int i=0; i<piezas.length; i++) {
           //System.out.println(piezas [i]); 
           id_producto(piezas[i]);
@@ -1176,7 +1177,8 @@ Pantalla_Gastos ven = new Pantalla_Gastos();
            }//FIN DE DESCONTAR POLLO CRUDO DE INVENTARIO
 
            public void regresarpiezasdepollocrudodeinventario(){//INICIO DE DESCONTAR POLLO CRUDO DE INVENTARIO
-      Pantalla_Gastos ven = new Pantalla_Gastos();
+      //se lo quito a venta se lo sumo a inventario
+               Pantalla_Gastos ven = new Pantalla_Gastos();
                   String pollocrudo="pollo crudo"; 
            for(int i=0; i<piezas.length; i++) {
        //AGREGAR EL TRY DE LA CANTIDAD EN VENTA  
@@ -1695,9 +1697,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
                       cantidadpolloenDB  +=(float) cantidaddecuarto;
                
                 }
-                else if(nombredepieza.equals("Pierna completa")){
-                    
-                }
+           
                 else{
          cantidadpolloenDB+=cantidaddeproductos;
                 }         
@@ -1986,7 +1986,6 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         pollococido = new rojerusan.RSTableMetro();
         jScrollPane11 = new javax.swing.JScrollPane();
         acompañantes = new rojerusan.RSTableMetro();
-        jLabel64 = new javax.swing.JLabel();
         total3 = new javax.swing.JLabel();
         jPanel27 = new javax.swing.JPanel();
         descuento = new javax.swing.JButton();
@@ -2011,10 +2010,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         listo = new javax.swing.JButton();
         Existencias = new javax.swing.JButton();
         calculatorstate = new javax.swing.JLabel();
-        piernacompletquit = new javax.swing.JButton();
-        piernacompleteadd = new javax.swing.JButton();
         jLabel74 = new javax.swing.JLabel();
-        jLabel75 = new javax.swing.JLabel();
         agregar_proveedor = new javax.swing.JPanel();
         agregarpro = new javax.swing.JButton();
         jLabel12 = new javax.swing.JLabel();
@@ -2095,7 +2091,6 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         jScrollPane16 = new javax.swing.JScrollPane();
         JtablepaLaVenta = new rojerusan.RSTableMetro();
         ventascanceladaseneldia5 = new javax.swing.JLabel();
-        moreexternalproducts = new javax.swing.JButton();
         jPanel33 = new javax.swing.JPanel();
         jScrollPane17 = new javax.swing.JScrollPane();
         Jtable_ProductosEntradas = new rojerusan.RSTableMetro();
@@ -2593,11 +2588,6 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
 
         venta.add(jScrollPane11, new org.netbeans.lib.awtextra.AbsoluteConstraints(1090, 140, 190, 230));
 
-        jLabel64.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
-        jLabel64.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel64.setText("Agregar");
-        venta.add(jLabel64, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 60, 120, -1));
-
         total3.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
         total3.setForeground(new java.awt.Color(255, 255, 255));
         total3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -2840,39 +2830,10 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         calculatorstate.setForeground(new java.awt.Color(255, 255, 255));
         venta.add(calculatorstate, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 70, 190, 50));
 
-        piernacompletquit.setBackground(new java.awt.Color(0, 51, 105));
-        piernacompletquit.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        piernacompletquit.setForeground(new java.awt.Color(255, 255, 255));
-        piernacompletquit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/casilla-de-verificacion (1).png"))); // NOI18N
-        piernacompletquit.setText("Pierna completa");
-        piernacompletquit.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                piernacompletquitActionPerformed(evt);
-            }
-        });
-        venta.add(piernacompletquit, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 90, 200, 40));
-
-        piernacompleteadd.setBackground(new java.awt.Color(0, 51, 105));
-        piernacompleteadd.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        piernacompleteadd.setForeground(new java.awt.Color(255, 255, 255));
-        piernacompleteadd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/casilla-de-verificacion (1).png"))); // NOI18N
-        piernacompleteadd.setText("Pierna completa");
-        piernacompleteadd.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                piernacompleteaddActionPerformed(evt);
-            }
-        });
-        venta.add(piernacompleteadd, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 60, 200, 40));
-
         jLabel74.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         jLabel74.setForeground(new java.awt.Color(255, 255, 255));
         jLabel74.setText("En venta :");
         venta.add(jLabel74, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, 120, -1));
-
-        jLabel75.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
-        jLabel75.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel75.setText("Quitar");
-        venta.add(jLabel75, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 90, 120, -1));
 
         Proveedores9.addTab("      Venta      ", venta);
 
@@ -3581,20 +3542,6 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         ventascanceladaseneldia5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         ventascanceladaseneldia5.setText("productos en existencia en inventario del dia de hoy");
         jPanel32.add(ventascanceladaseneldia5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 650, 50));
-
-        moreexternalproducts.setBackground(new java.awt.Color(0, 51, 102));
-        moreexternalproducts.setFont(new java.awt.Font("Tahoma", 1, 22)); // NOI18N
-        moreexternalproducts.setForeground(new java.awt.Color(51, 255, 51));
-        moreexternalproducts.setText("Agregar producto externo");
-        moreexternalproducts.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        moreexternalproducts.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-        moreexternalproducts.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        moreexternalproducts.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                moreexternalproductsActionPerformed(evt);
-            }
-        });
-        jPanel32.add(moreexternalproducts, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 67, 380, 40));
 
         producto_sobrante3.add(jPanel32);
         jPanel32.setBounds(610, 80, 670, 570);
@@ -6023,8 +5970,7 @@ get_id_usuario();// 255 -280
  boolean pass2 = validarFormulario(cantidad.getText());
                  if(pass2){//ESTO VALIDA QUE EL TEXTO ESCRITO NO TENGA INCOHERENCIAS   
                if(voyaagregar==true){//CONDICION QUE DICE QUE VOY A UTILIZAR ALGUNA DE LAS OTRAS 3 TABLAS
-                 JOptionPane.showMessageDialog(null, "entro a voy a agresar");
-           
+               
                    voyacobrar=false;
                  voyaregresar=false;// SE DESACTIVA PARA QUE SOLO AGREGUÉ EN VENTA
                    cantidaddeproductos=Float.parseFloat(cantidad.getText());
@@ -6034,8 +5980,7 @@ get_id_usuario();// 255 -280
                  calculatorstate.setVisible(false);
              }//CONDICION QUE DICE QUE VOY A UTILIZAR ALGUNA DE LAS OTRAS 3 TABLAS
              if(voyaregresar==true){//CONDICION QUE DICE QUE VOY A UTILIZAR LA TABLA VENTA
-           JOptionPane.showMessageDialog(null, "entro a voy a regresar");
-                 voyacobrar=false;
+      voyacobrar=false;
                  cantidaddeproductos=Float.parseFloat(cantidad.getText());
          regresarproductos_a_inventario(nombredepiezaseleccionada); //pone en estatus de cancelada la venta inconclusa
             cantidad.setText("");
@@ -6086,8 +6031,7 @@ public void ocultarcalculadoradespuesdecobrar(){
                                     int result = ps2.executeUpdate();
                                          if(result>0){       
                                                     descripciondelosprouductosparaelticketdeventa(id_de_la_venta_incrementable); //DATOS PARA EL TICKET DE VENTA
-                                 JOptionPane.showMessageDialog(null,"Venta realizada con descuento");
-                                             accionesdespuesderealizarcualquierventa();
+                                 accionesdespuesderealizarcualquierventa();
                                              ocultarcalculadoradespuesdecobrar();
                                          }
                                 }
@@ -6129,8 +6073,7 @@ public void ocultarcalculadoradespuesdecobrar(){
                                    int resultado=  ps2.executeUpdate();
                                      if(resultado>0){  
                                          descripciondelosprouductosparaelticketdeventa(id_de_la_venta_incrementable);//DATOS PARA EL TICKET DE VENTA          
-                                       JOptionPane.showMessageDialog(null,"Venta realizada");
-                                         accionesdespuesderealizarcualquierventa();
+                                      accionesdespuesderealizarcualquierventa();
                                          ocultarcalculadoradespuesdecobrar();
                                      }
                                 }
@@ -6213,18 +6156,6 @@ public void ocultarcalculadoradespuesdecobrar(){
          JOptionPane.showMessageDialog(null, "Aún no hay productos en venta para cobrar", "Verifique", JOptionPane.INFORMATION_MESSAGE);
         
     }//GEN-LAST:event_cobroActionPerformed
-
-    private void moreexternalproductsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_moreexternalproductsActionPerformed
-       new ProductosExternos().setVisible(true);
-    }//GEN-LAST:event_moreexternalproductsActionPerformed
-
-    private void piernacompletquitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_piernacompletquitActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_piernacompletquitActionPerformed
-
-    private void piernacompleteaddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_piernacompleteaddActionPerformed
-      calculadora.setVisible(true);
-    }//GEN-LAST:event_piernacompleteaddActionPerformed
  
     public void agregarpiezasaventa(String nombredepieza){
           /* ******************** BOTON DE ADD NUEVO PRODUCTO PARA SU VENTA ******************** */
@@ -6495,7 +6426,6 @@ SI cc= new SI();
     private javax.swing.JLabel jLabel60;
     private javax.swing.JLabel jLabel61;
     private javax.swing.JLabel jLabel63;
-    private javax.swing.JLabel jLabel64;
     private javax.swing.JLabel jLabel65;
     private javax.swing.JLabel jLabel66;
     private javax.swing.JLabel jLabel67;
@@ -6506,7 +6436,6 @@ SI cc= new SI();
     private javax.swing.JLabel jLabel72;
     private javax.swing.JLabel jLabel73;
     private javax.swing.JLabel jLabel74;
-    private javax.swing.JLabel jLabel75;
     private javax.swing.JLabel jLabel76;
     private javax.swing.JLabel jLabel77;
     private javax.swing.JLabel jLabel78;
@@ -6594,12 +6523,9 @@ SI cc= new SI();
     private javax.swing.JMenuItem modificar;
     private javax.swing.JMenuItem modificarusuarios;
     private javax.swing.JMenuItem modify;
-    private javax.swing.JButton moreexternalproducts;
     private javax.swing.JButton nueve;
     private javax.swing.JButton ocho;
     private javax.swing.JButton pagarventaacredito;
-    private javax.swing.JButton piernacompleteadd;
-    private javax.swing.JButton piernacompletquit;
     private rojerusan.RSTableMetro pollococido;
     private rojerusan.RSTableMetro pollocrudo;
     public static javax.swing.JPanel producto_sobrante;

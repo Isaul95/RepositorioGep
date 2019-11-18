@@ -682,8 +682,13 @@ public void nombresypiezas(){
     public void agregaraproductos(){
         nombresypiezas();
         for (int i = 0; i < nombres.size(); i++) {
+            JOptionPane.showMessageDialog(null, "PIEZA PARA AGREGAR"+nombres.get(i).toString());
             piezasenproductos(nombres.get(i).toString());
+             JOptionPane.showMessageDialog(null, "PIEZAS EN DB"+piezaendb+" DE LA PIEZA "+nombres.get(i).toString());
+           
             piezaendb+=Float.parseFloat(piezas.get(i).toString());
+            JOptionPane.showMessageDialog(null, "NUEVAS PIEZAS PARA LA DB"+piezaendb+" DE LA PIEZA "+nombres.get(i).toString());
+           
                  try{ //la insersion a la tabla ventas
                 PreparedStatement ps = ca.prepareStatement ("UPDATE productos SET cantidad='"+piezaendb+"'WHERE nombre_producto= '"+nombres.get(i).toString()+"' ");  
                 int a=ps.executeUpdate();
@@ -693,6 +698,7 @@ public void nombresypiezas(){
                 }
             }catch(SQLException e)  { //fin de la insersion a la tabla ventas
                 JOptionPane.showMessageDialog(null,"Error de datos por id vacio "+e);
+            
             }//fin de la insersion a la tabla ventas
         }
     }

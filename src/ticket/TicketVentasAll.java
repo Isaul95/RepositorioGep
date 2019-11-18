@@ -21,7 +21,7 @@ public class TicketVentasAll {
         //int clientesNum = clientes.size();
         String auxs="";       
         String impra = "Juarez"; // Nombre de la impresora
-
+     float total = 0;
         // Se llama al metodo para imprimir una cadena
          auxs+= "VENTAS DE PRODUCTOS\n";               System.out.println("VENTAS DE PRODUCTOS\n");
           auxs+= "POLLERIA LA GRANJA\n"; System.out.println("POLLERIA LA GRANJA\n");
@@ -40,10 +40,12 @@ public class TicketVentasAll {
              for(int n=0;n<=columna1.size()-1;n++){                 
                   auxs+= String.format("%-14s" + "%-10s" + "$%-11s" , columna1.get(n), columna2.get(n), columna3.get(n)); System.out.println(String.format("%-14s" + "%-10s" + "$%-11s" , columna1.get(n), columna2.get(n), columna3.get(n)));
                   auxs+= "\n"; // SALTOS PARA K NO LO CORTE LUEGO     "%-11s" + "%-10s" + "$%-12s"  
+                  total+=Float.parseFloat(String.valueOf(columna3.get(n)));
              }                             
               
        auxs+= "==============================\n";  System.out.println("==============================\n");       
-         //auxs+= String.format("  "+"TOTAL :"+ "$" + totaldeprocesados);    System.out.println(String.format("  "+"TOTAL :"+ "$" + totaldeprocesados));
+       
+       auxs+= String.format("  "+"TOTAL :"+ "$" + total);    System.out.println(String.format("  "+"TOTAL :"+ "$" + total));
                   auxs+= "\n\n\n\n"; // SALTOS PARA K NO LO CORTE LUEGO
          try {
             impServicio.printCadena(impra, auxs);

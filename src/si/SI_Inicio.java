@@ -316,8 +316,7 @@ public static String fecha(){ /* SE DECARA LA FECHA DEL SISTEMA */
              }
                      
               else if(user.equals(datos[0])&&pass.equals(datos[1])){ //comparacion entre lo escrito por el usuario y lo almacenado en la base de datos
-                JOptionPane.showMessageDialog(null,"Bienvenido a nuestro Sistema: \nUsuario:" +user," Acceso Concedido",JOptionPane.INFORMATION_MESSAGE); //Msg de bienvenida                                                                     
-             yaseabriosistema();
+               yaseabriosistema();
              
              if(aperturahecha==0){//Si el valor de apertua es mayo a 0, no se abrirá la ventana de apertura
                  
@@ -400,7 +399,6 @@ public static String fecha(){ /* SE DECARA LA FECHA DEL SISTEMA */
                     datos[1]=rs.getString("contraseña");
                 }
                 if(user.equals(datos[0])&&pass.equals(datos[1])){ //comparacion entre lo escrito por el usuario y lo almacenado en la base de datos
-                    JOptionPane.showMessageDialog(null,"Bienvenido Administrador:\n" +user," Acceso Concedido",JOptionPane.INFORMATION_MESSAGE); //Msg de bienvenida
                     new menu_principal().setVisible(true);
                     this.setVisible(false);
                              this.setIconImage(null);

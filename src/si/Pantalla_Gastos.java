@@ -405,17 +405,14 @@ public void obtener_id_del_proveedor(String name){
 
                     if (pass && pass2 && pass3) {
                         
-    float totalmonto = Integer.parseInt(txtmonto.getText()); //puse otro de tipo float xq total no me reconoce como string a float
+    float totalmonto = Float.parseFloat(txtmonto.getText()); //puse otro de tipo float xq total no me reconoce como string a float
                         cantidad = Float.parseFloat(txtpiezas.getText());
                           tipo = txtdescripcion.getText();                                                                                                                                    
                          String fecha = fecha(); 
                        pollocrudo= txtdescripcion.getText();                        
                         gastos = new Gastos(cantidad, tipo, totalmonto, id_usuario, fecha);
                        if (gastos.Gastosinsert()) { //  aki me insertar en una de las dos tablas mas no en las dos
-
-                         JOptionPane.showMessageDialog(null, "Gastos Registrados con Exito...");
-                            limpiar();
-                            JOptionPane.showMessageDialog(null, "Generando Ticket de Gastos...");
+     limpiar();
                            // txtpiezas.setText("0");
                             LlenarTabla(jTableGastos); // LLENANDO LA TABLA AL INSERTAR CORRECTAMEBTE
                             tikectGastos = new TikectGasto();
