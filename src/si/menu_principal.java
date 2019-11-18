@@ -1059,6 +1059,8 @@ public void insertandopiezasdepolloporhaberagregadoxcantidaddepollocrudo(String 
            public void descontardeinventario(String nombredepieza){
                id_producto(nombredepieza);
                cantidadpolloenDByname(id_producto);
+                 JOptionPane.showMessageDialog(null, "CANTIDAD  "+cantidadpolloenDB+" DE "+nombredepieza+" EN BASE", "AGREGANDO", JOptionPane.INFORMATION_MESSAGE);    
+ 
             try{// el id del usuario
                 if(nombredepieza.equals("Pollo rostizado")||nombredepieza.equals("Pollo asado")){
        if(medio==true){
@@ -1074,6 +1076,10 @@ public void insertandopiezasdepolloporhaberagregadoxcantidaddepollocrudo(String 
                      cantidadpolloenDB=cantidadpolloenDB-cantidaddeproductos; 
                 }
    id_producto(nombredepieza);
+    JOptionPane.showMessageDialog(null, "NUEVA CANTIDAD  "+cantidadpolloenDB+" DE "+nombredepieza, "AGREGANDO", JOptionPane.INFORMATION_MESSAGE);    
+ 
+          JOptionPane.showMessageDialog(null, "NUEVA CANTIDAD  "+cantidadpolloenDB+" DE "+nombredepieza, "AGREGANDO", JOptionPane.INFORMATION_MESSAGE);    
+ 
                  PreparedStatement ps = ca.prepareStatement ("UPDATE productos SET cantidad='"+cantidadpolloenDB+"'WHERE id_producto='"+id_producto+"'");
                 ps.executeUpdate();
                       entero= false;
@@ -1121,31 +1127,50 @@ public void cantidadenventa(int pieza){
            
            public void descontarpiezasdepollocrudodeinventario(){//INICIO DE DESCONTAR POLLO CRUDO DE INVENTARIO
 Pantalla_Gastos ven = new Pantalla_Gastos();
-           for(int i=0; i<ven.piezas.length; i++) {
+           for(int i=0; i<piezas.length; i++) {
           //System.out.println(piezas [i]); 
-          id_producto(ven.piezas[i]);
+          JOptionPane.showMessageDialog(null, "PIEZA "+piezas[i], "AGREGANDO", JOptionPane.INFORMATION_MESSAGE);
+          id_producto(piezas[i]);
+           JOptionPane.showMessageDialog(null, "ID_PRODUCTO "+id_producto, "AGREGANDO", JOptionPane.INFORMATION_MESSAGE);
            cantidadpolloenDByname(id_producto);
-   if(name.equals(ven.piezas[i])){ //Si el nombre del producto es diferente del estado vacio, en palabras más sencillas; si se encuentra el producto que se quiere agregar para que no se asigne nuevamente  
+            JOptionPane.showMessageDialog(null, "NOMBRE EN LA BASE "+name+" CONINCIDE CON "+piezas[i], "AGREGANDO", JOptionPane.INFORMATION_MESSAGE);
+             JOptionPane.showMessageDialog(null, "CANTIDAD "+cantidadpolloenDB+" DE "+name, "AGREGANDO", JOptionPane.INFORMATION_MESSAGE);    
+   if(name.equals(piezas[i])){ //Si el nombre del producto es diferente del estado vacio, en palabras más sencillas; si se encuentra el producto que se quiere agregar para que no se asigne nuevamente  
         try{// el id del usuario
-                if(ven.piezas[i].equals("Muslo")||
-                   ven.piezas[i].equals("Pierna")||
-                   ven.piezas[i].equals("Ala")||
-                   ven.piezas[i].equals("Patas")){
+                if(piezas[i].equals("Muslo")||
+                   piezas[i].equals("Pierna")||
+                   piezas[i].equals("Ala")||
+                   piezas[i].equals("Patas")){
+                  JOptionPane.showMessageDialog(null, "PIEZA PAR "+piezas[i], "AGREGANDO", JOptionPane.INFORMATION_MESSAGE);    
 addpiezas=cantidadpolloenDB-(2*cantidaddeproductos);
-               PreparedStatement ps = ca.prepareStatement ("UPDATE productos SET cantidad='"+addpiezas+"'WHERE nombre_producto='"+ven.piezas[i]+"'");
+            JOptionPane.showMessageDialog(null, "CANTIDAD EN BASE "+cantidadpolloenDB+ " - (2 * "+cantidaddeproductos+" RESULTADO "+addpiezas, "AGREGANDO", JOptionPane.INFORMATION_MESSAGE);    
+
+               PreparedStatement ps = ca.prepareStatement ("UPDATE productos SET cantidad='"+addpiezas+"'WHERE nombre_producto='"+piezas[i]+"'");
                int ty = ps.executeUpdate();          
                  if(ty>0){
+                      JOptionPane.showMessageDialog(null, "SE INSERTO PAR EN PRODUCTOS ", "AGREGANDO", JOptionPane.INFORMATION_MESSAGE);    
+ 
                  }else{
+                          JOptionPane.showMessageDialog(null, "NO SE INSERTO EN PRODUCTOS ", "AGREGANDO", JOptionPane.INFORMATION_MESSAGE);    
+ 
                  }
            }
-           else if(ven.piezas[i].equals("Huacal")||ven.piezas[i].equals("Cadera")||
-                   ven.piezas[i].equals("Cabeza")||
-                   ven.piezas[i].equals("Molleja")||ven.piezas[i].equals("Pechuga")){
+           else if(piezas[i].equals("Huacal")||piezas[i].equals("Cadera")||
+                   piezas[i].equals("Cabeza")||
+                   piezas[i].equals("Molleja")||piezas[i].equals("Pechuga")){
+                 JOptionPane.showMessageDialog(null, "PIEZA INPAR "+piezas[i], "AGREGANDO", JOptionPane.INFORMATION_MESSAGE);    
+
          addpiezas=cantidadpolloenDB-cantidaddeproductos;
-          PreparedStatement ps = ca.prepareStatement ("UPDATE productos SET cantidad='"+addpiezas+"'WHERE nombre_producto='"+ven.piezas[i]+"' ");
+           JOptionPane.showMessageDialog(null, "CANTIDAD EN BASE "+cantidadpolloenDB+ " - (2 * "+cantidaddeproductos+" RESULTADO "+addpiezas, "AGREGANDO", JOptionPane.INFORMATION_MESSAGE);    
+
+          PreparedStatement ps = ca.prepareStatement ("UPDATE productos SET cantidad='"+addpiezas+"'WHERE nombre_producto='"+piezas[i]+"' ");
                int ty = ps.executeUpdate();          
                  if(ty>0){     
+                            JOptionPane.showMessageDialog(null, "SE INSERTO INPAR EN PRODUCTOS ", "AGREGANDO", JOptionPane.INFORMATION_MESSAGE);    
+ 
                  }else{
+                            JOptionPane.showMessageDialog(null, "NO SE INSERTO INPAR EN PRODUCTOS ", "AGREGANDO", JOptionPane.INFORMATION_MESSAGE);    
+ 
                  }
         }
         }//fin del id del usuario
@@ -1159,32 +1184,54 @@ addpiezas=cantidadpolloenDB-(2*cantidaddeproductos);
            public void regresarpiezasdepollocrudodeinventario(){//INICIO DE DESCONTAR POLLO CRUDO DE INVENTARIO
       Pantalla_Gastos ven = new Pantalla_Gastos();
                   String pollocrudo="pollo crudo"; 
-           for(int i=0; i<ven.piezas.length; i++) {
-       //AGREGAR EL TRY DE LA CANTIDAD EN VENTA
-       id_producto(ven.piezas[i]);
+           for(int i=0; i<piezas.length; i++) {
+       //AGREGAR EL TRY DE LA CANTIDAD EN VENTA  
+       JOptionPane.showMessageDialog(null, "PIEZA "+piezas[i], "REGRESANDO", JOptionPane.INFORMATION_MESSAGE);
+          id_producto(piezas[i]);
+          JOptionPane.showMessageDialog(null, "ID_PRODUCTO "+id_producto, "REGRESANDO", JOptionPane.INFORMATION_MESSAGE);
+           
                cantidadenventa(id_producto);
+                        JOptionPane.showMessageDialog(null, "CANTIDAD EN VENTA "+cantidadenventa+" DE "+name, "REGRESANDOV", JOptionPane.INFORMATION_MESSAGE);    
         cantidadpolloenDByname(id_producto);
-   if(name.equals(ven.piezas[i])){ //Si el nombre del producto es diferente del estado vacio, en palabras más sencillas; si se encuentra el producto que se quiere agregar para que no se asigne nuevamente  
+         JOptionPane.showMessageDialog(null, "NOMBRE EN LA BASE "+name+" CONINCIDE CON "+piezas[i], "REGRESANDO", JOptionPane.INFORMATION_MESSAGE);
+             JOptionPane.showMessageDialog(null, "CANTIDAD "+cantidadpolloenDB+" DE "+name, "REGRESANDO", JOptionPane.INFORMATION_MESSAGE);    
+   
+   if(name.equals(piezas[i])){ //Si el nombre del producto es diferente del estado vacio, en palabras más sencillas; si se encuentra el producto que se quiere agregar para que no se asigne nuevamente  
         try{// el id del usuario
-                if(ven.piezas[i].equals("Muslo")||
-                   ven.piezas[i].equals("Pierna")||
-                   ven.piezas[i].equals("Ala")||
-                   ven.piezas[i].equals("Patas")){
-                      addpiezas=cantidadpolloenDB+(2*cantidadenventa);  
-               PreparedStatement ps = ca.prepareStatement ("UPDATE productos SET cantidad='"+addpiezas+"'WHERE nombre_producto='"+ven.piezas[i]+"'");
+                if(piezas[i].equals("Muslo")||
+                   piezas[i].equals("Pierna")||
+                   piezas[i].equals("Ala")||
+                   piezas[i].equals("Patas")){
+                        JOptionPane.showMessageDialog(null, "PIEZA PAR "+piezas[i], "REGRESANDO", JOptionPane.INFORMATION_MESSAGE);    
+                      addpiezas=cantidadpolloenDB+(2*cantidadenventa); 
+                        JOptionPane.showMessageDialog(null, "CANTIDAD EN BASE "+cantidadpolloenDB+ " +(2 * "+cantidadenventa+" REGRESANDO "+addpiezas, "AGREGANDO", JOptionPane.INFORMATION_MESSAGE);    
+
+               PreparedStatement ps = ca.prepareStatement ("UPDATE productos SET cantidad='"+addpiezas+"'WHERE nombre_producto='"+piezas[i]+"'");
                int ty = ps.executeUpdate();
                  if(ty>0){
+                        JOptionPane.showMessageDialog(null, "SE DESCONTO PAR", "REGRESANDO", JOptionPane.INFORMATION_MESSAGE);    
+
                  }else{
+                     JOptionPane.showMessageDialog(null, "NO SE DESCONTO PAR", "REGRESANDO", JOptionPane.INFORMATION_MESSAGE);    
+
                  }
            }
-           else if(ven.piezas[i].equals("Huacal")||ven.piezas[i].equals("Cadera")||
-                   ven.piezas[i].equals("Cabeza")||
-                   ven.piezas[i].equals("Molleja")||ven.piezas[i].equals("Pechuga")){
+           else if(piezas[i].equals("Huacal")||ven.piezas[i].equals("Cadera")||
+                   piezas[i].equals("Cabeza")||
+                   piezas[i].equals("Molleja")||piezas[i].equals("Pechuga")){
+                JOptionPane.showMessageDialog(null, "PIEZA INPAR "+piezas[i], "REGRESANDO", JOptionPane.INFORMATION_MESSAGE);    
+                      
         addpiezas=cantidadpolloenDB+cantidadenventa;
-         PreparedStatement ps = ca.prepareStatement ("UPDATE productos SET cantidad='"+addpiezas+"'WHERE nombre_producto='"+ven.piezas[i]+"'");
+           JOptionPane.showMessageDialog(null, "CANTIDAD EN BASE "+cantidadpolloenDB+ " +(2 * "+cantidadenventa+" REGRESANDO "+addpiezas, "AGREGANDO", JOptionPane.INFORMATION_MESSAGE);    
+
+         PreparedStatement ps = ca.prepareStatement ("UPDATE productos SET cantidad='"+addpiezas+"'WHERE nombre_producto='"+piezas[i]+"'");
                int ty = ps.executeUpdate();
                  if(ty>0){
+                     JOptionPane.showMessageDialog(null, "SE DESCONTO INPAR", "REGRESANDO", JOptionPane.INFORMATION_MESSAGE);    
+
                  }else{
+                           JOptionPane.showMessageDialog(null, "NO SE DESCONTO INPAR", "REGRESANDO", JOptionPane.INFORMATION_MESSAGE);    
+
                  }
         }
         }//fin del id del usuario
@@ -1639,7 +1686,8 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
  }               
                 
                 public void regresarproductos_a_inventario(String nombredepieza){ // este metodo devuelve los productos que fueron agregados a la venta y posteriormente fueron cancelados
-               String es_pollo_crudo="";
+               JOptionPane.showMessageDialog(null, "entro a regresarproductos_a_inventario");
+                    String es_pollo_crudo="";
                     id_max_de_venta();
                     block_unlock=true;   
                     //pendiente la restauracion de venta a inventario
@@ -1716,7 +1764,8 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
                     else if(cantidaddeproductos>cantidadenventa){
                         JOptionPane.showMessageDialog(null, "No puedes descontar "+cantidaddeproductos+ " piezas de "+nombredepieza+ " en venta cuando solo hay "+cantidadenventa+" piezas", "ADVERTENCIA", JOptionPane.WARNING_MESSAGE);
                     }
-                if("pollo crudo".equalsIgnoreCase(es_pollo_crudo)){
+                if("pollo crudo".equalsIgnoreCase(nombredepieza)){
+                    JOptionPane.showMessageDialog(null, "ENTRO AL COMPARATIVO DEL EQUAL");
                     regresarpiezasdepollocrudodeinventario();
                 }
 }
@@ -5941,10 +5990,12 @@ get_id_usuario();// 255 -280
     }//GEN-LAST:event_unoActionPerformed
 
     private void listoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listoActionPerformed
-           boolean pass2 = validarFormulario(cantidad.getText());
+ boolean pass2 = validarFormulario(cantidad.getText());
                  if(pass2){//ESTO VALIDA QUE EL TEXTO ESCRITO NO TENGA INCOHERENCIAS   
                if(voyaagregar==true){//CONDICION QUE DICE QUE VOY A UTILIZAR ALGUNA DE LAS OTRAS 3 TABLAS
-                 voyacobrar=false;
+                 JOptionPane.showMessageDialog(null, "entro a voy a agresar");
+           
+                   voyacobrar=false;
                  voyaregresar=false;// SE DESACTIVA PARA QUE SOLO AGREGUÉ EN VENTA
                    cantidaddeproductos=Float.parseFloat(cantidad.getText());
                        agregarpiezasaventa(nombredepiezaseleccionada);
@@ -5953,7 +6004,8 @@ get_id_usuario();// 255 -280
                  calculatorstate.setVisible(false);
              }//CONDICION QUE DICE QUE VOY A UTILIZAR ALGUNA DE LAS OTRAS 3 TABLAS
              if(voyaregresar==true){//CONDICION QUE DICE QUE VOY A UTILIZAR LA TABLA VENTA
-           voyacobrar=false;
+           JOptionPane.showMessageDialog(null, "entro a voy a regresar");
+                 voyacobrar=false;
                  cantidaddeproductos=Float.parseFloat(cantidad.getText());
          regresarproductos_a_inventario(nombredepiezaseleccionada); //pone en estatus de cancelada la venta inconclusa
             cantidad.setText("");

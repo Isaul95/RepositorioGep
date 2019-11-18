@@ -28,6 +28,8 @@ public class ProductosExternos extends javax.swing.JFrame  implements Runnable{
     float piezaendb=0;
     float totalapagar=0;
       DecimalFormat solodosdecimales = new DecimalFormat("#.##");
+            ArrayList nombres = new ArrayList();
+             ArrayList piezas = new ArrayList();
             
     Thread hilo;
     String hora,minutos,segundos;
@@ -519,12 +521,33 @@ public void piezasenbase(String pieza){
       }catch(Exception e){                                             
       }
 }
+public void piezasenproductos(String pieza){
+      try{//SOLO SE LLAMA A LA CANTIDAD PORQUE EN EL TICKET YA SE DEFINIRÁN LOS NOMBRES DE CADA ARTICULO
+                      sent  = (Statement)ca.createStatement();
+                      rs = sent.executeQuery("select cantidad from productos where nombre_producto = '"+pieza+"' ");
+                         while(rs.next()){
+                             piezaendb=rs.getFloat(1);               
+                         }
+      }catch(Exception e){                                             
+      }
+}
 public void totalapagarmetodo(){
       try{//SOLO SE LLAMA A LA CANTIDAD PORQUE EN EL TICKET YA SE DEFINIRÁN LOS NOMBRES DE CADA ARTICULO
                       sent  = (Statement)ca.createStatement();
-                      rs = sent.executeQuery("select SUM(total) from productoexterno");
+                      rs = sent.executeQuery("select SUM(total) from productoexterno WHERE nombre IN ('Pechuga', 'Muslo', 'Pierna', 'Ala')");
                          while(rs.next()){
                              totalapagar=rs.getFloat(1);             
+                         }
+      }catch(Exception e){                                             
+      }
+}
+public void nombresypiezas(){
+        try{//SOLO SE LLAMA A LA CANTIDAD PORQUE EN EL TICKET YA SE DEFINIRÁN LOS NOMBRES DE CADA ARTICULO
+                      sent  = (Statement)ca.createStatement();
+                      rs = sent.executeQuery("select nombre, pieza from productoexterno");
+                         while(rs.next()){
+                             nombres.add(rs.getString(1));
+                             piezas.add(rs.getFloat(1));
                          }
       }catch(Exception e){                                             
       }
@@ -544,8 +567,10 @@ public void totalapagarmetodo(){
                 PreparedStatement ps = ca.prepareStatement ("UPDATE productoexterno SET pieza='"+cantidadnumerica+"',total = '"+solodosdecimales.format(total)+"',fecha = '"+fecha()+"',tiendaexterna = '"+combosucursal.getSelectedItem().toString()+"'WHERE nombre= 'Pechuga' ");  
                 int a=ps.executeUpdate();
                 if(a>0){
+                    JOptionPane.showMessageDialog(null, "Producto agregado");
                     totalapagarmetodo();
-                    pago.setText(String.valueOf(totalapagar));
+                    pago.setText(solodosdecimales.format(totalapagar));
+                    
                  }
             }catch(SQLException e)  { //fin de la insersion a la tabla ventas
                 JOptionPane.showMessageDialog(null,"Error de datos por id vacio "+e);
@@ -559,8 +584,9 @@ public void totalapagarmetodo(){
                 PreparedStatement ps = ca.prepareStatement ("UPDATE productoexterno SET pieza='"+cantidadnumerica+"',total = '"+solodosdecimales.format(total)+"',fecha = '"+fecha()+"',tiendaexterna = '"+combosucursal.getSelectedItem().toString()+"'WHERE nombre= 'Muslo' ");  
                 int a=ps.executeUpdate();
                 if(a>0){
+                     JOptionPane.showMessageDialog(null, "Producto agregado");
                       totalapagarmetodo();
-                    pago.setText(String.valueOf(totalapagar));
+              pago.setText(solodosdecimales.format(totalapagar));
                  }
             }catch(SQLException e)  { //fin de la insersion a la tabla ventas
                 JOptionPane.showMessageDialog(null,"Error de datos por id vacio "+e);
@@ -574,8 +600,9 @@ public void totalapagarmetodo(){
                 PreparedStatement ps = ca.prepareStatement ("UPDATE productoexterno SET pieza='"+cantidadnumerica+"',total = '"+solodosdecimales.format(total)+"',fecha = '"+fecha()+"',tiendaexterna = '"+combosucursal.getSelectedItem().toString()+"'WHERE nombre= 'Pierna' ");  
                 int a=ps.executeUpdate();
                 if(a>0){
+                     JOptionPane.showMessageDialog(null, "Producto agregado");
                       totalapagarmetodo();
-                    pago.setText(String.valueOf(totalapagar));
+                   pago.setText(solodosdecimales.format(totalapagar));
                  }
             }catch(SQLException e)  { //fin de la insersion a la tabla ventas
                 JOptionPane.showMessageDialog(null,"Error de datos por id vacio "+e);
@@ -589,8 +616,9 @@ public void totalapagarmetodo(){
                 PreparedStatement ps = ca.prepareStatement ("UPDATE productoexterno SET pieza='"+cantidadnumerica+"',total = '"+solodosdecimales.format(total)+"',fecha = '"+fecha()+"',tiendaexterna = '"+combosucursal.getSelectedItem().toString()+"'WHERE nombre= 'Ala' ");  
                 int a=ps.executeUpdate();
                 if(a>0){
+                     JOptionPane.showMessageDialog(null, "Producto agregado");
                       totalapagarmetodo();
-                    pago.setText(String.valueOf(totalapagar));
+                  pago.setText(solodosdecimales.format(totalapagar));
                  }
             }catch(SQLException e)  { //fin de la insersion a la tabla ventas
                 JOptionPane.showMessageDialog(null,"Error de datos por id vacio "+e);
@@ -603,14 +631,15 @@ public void totalapagarmetodo(){
                 PreparedStatement ps = ca.prepareStatement ("UPDATE productoexterno SET pieza='"+cantidadnumerica+"',fecha = '"+fecha()+"',tiendaexterna = '"+combosucursal.getSelectedItem().toString()+"'WHERE nombre= '"+combopieza.getSelectedItem().toString()+"' ");  
                 int a=ps.executeUpdate();
                 if(a>0){
+                     JOptionPane.showMessageDialog(null, "Producto agregado");
                       totalapagarmetodo();
-                    pago.setText(String.valueOf(totalapagar));
+                pago.setText(solodosdecimales.format(totalapagar));
                  }
             }catch(SQLException e)  { //fin de la insersion a la tabla ventas
                 JOptionPane.showMessageDialog(null,"Error de datos por id vacio "+e);
             }//fin de la insersion a la tabla ventas
                     break;
-                              
+              
             }
         }//ESTO VALIDA QUE EL TEXTO ESCRITO NO TENGA INCOHERENCIAS
     }//GEN-LAST:event_listoActionPerformed
@@ -631,8 +660,45 @@ public void totalapagarmetodo(){
         }
     }//GEN-LAST:event_ceroActionPerformed
 
+    public void insertarengastos(){
+        try{// el id del usuario para obtener el id del usuario y comprobar si hay o no algun registro
+   String sql = "INSERT INTO  egreso(cantidad, tipo, fecha, total, usuario)  VALUES (?,?,?,?,?)";
+                         PreparedStatement pst = ca.prepareCall(sql); 
+                         pst.setInt(1,0);
+                         pst.setString(2,combosucursal.getSelectedItem().toString());
+                         pst.setString(3,fecha());
+                         pst.setString(4,solodosdecimales.format(totalapagar));
+                         pst.setInt(5,id_usuario);
+                           
+                         int a=pst.executeUpdate();
+                         if(a>0){
+                             JOptionPane.showMessageDialog(null, "Pago de pollo agregado a gastos");
+                         }             
+      }catch(Exception w){
+                     JOptionPane.showMessageDialog(null,"error en id usuario"+w);
+      }//fin del id del usuario para comprobar si hay o no elementos ya guardados
+    }
+    
+    public void agregaraproductos(){
+        nombresypiezas();
+        for (int i = 0; i < nombres.size(); i++) {
+            piezasenproductos(nombres.get(i).toString());
+            piezaendb+=Float.parseFloat(piezas.get(i).toString());
+                 try{ //la insersion a la tabla ventas
+                PreparedStatement ps = ca.prepareStatement ("UPDATE productos SET cantidad='"+piezaendb+"'WHERE nombre_producto= '"+nombres.get(i).toString()+"' ");  
+                int a=ps.executeUpdate();
+                if(a>0){
+                     JOptionPane.showMessageDialog(null, "Productos agregados a inventario");
+                pago.setText(""); 
+                }
+            }catch(SQLException e)  { //fin de la insersion a la tabla ventas
+                JOptionPane.showMessageDialog(null,"Error de datos por id vacio "+e);
+            }//fin de la insersion a la tabla ventas
+        }
+    }
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+    insertarengastos();
+    agregaraproductos();
     }//GEN-LAST:event_jButton1ActionPerformed
  
     /**
