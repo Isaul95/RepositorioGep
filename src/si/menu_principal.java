@@ -1647,8 +1647,7 @@ if(NoP.equals(nombredepieza)){ //Si el nombre del producto es diferente del esta
             }
             
                 public void regresarproductos_a_inventariodescontandotodaslaspiezas(){ // este metodo devuelve los productos que fueron agregados a la venta y posteriormente fueron cancelados
-                  String es_pollo_crudo="";
-                   int piezasenventa=0;
+                 int piezasenventa=0;
                                   float piezasenlatablapiezas=0;
                     id_max_de_venta();
                     block_unlock=true;
@@ -1662,7 +1661,7 @@ if(NoP.equals(nombredepieza)){ //Si el nombre del producto es diferente del esta
                         }catch(Exception s){
 JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
                         } 
-                 if("pollo crudo".equalsIgnoreCase(es_pollo_crudo)){
+                 if("pollo crudo".equalsIgnoreCase(name)){
                     regresarpiezasdepollocrudodeinventario();
                 }
                 }//fin del ciclo for              
