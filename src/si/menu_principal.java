@@ -79,6 +79,7 @@ ArrayList importesticket = new ArrayList();
         
             public menu_principal() {
         initComponents();
+            //  this.setExtendedState(MAXIMIZED_BOTH);
         sumadeutilidades();
         sumadegastos();
         labelingresos.setText(String.valueOf(utilidades));
@@ -2220,7 +2221,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        Proveedores9.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        Proveedores9.setFont(new java.awt.Font("Tahoma", 1, 19)); // NOI18N
 
         venta.setBackground(new java.awt.Color(0, 51, 102));
         venta.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
