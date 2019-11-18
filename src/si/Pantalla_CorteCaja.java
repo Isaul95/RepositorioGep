@@ -23,6 +23,7 @@ import ticket.ticketprocesadospiezas;
 import ticket.tikectprocesados;
 import ticket.PolloCrudoBienTocketc;
 import ticket.PolloCrudoxPiezas;
+import ticket.TicketVentasAll;
 
 
 public class Pantalla_CorteCaja extends javax.swing.JFrame  implements Runnable{
@@ -31,6 +32,8 @@ public class Pantalla_CorteCaja extends javax.swing.JFrame  implements Runnable{
     String hora,minutos,segundos;
     Statement sent;  
   ResultSet rs;    
+  
+  TicketVentasAll TicketVenAll;
   
   PolloCrudoxPiezas PolloCrudoxPiezas;
   
@@ -381,6 +384,36 @@ public void metodogastosdeldia(){
       }
  }//TICKET DEVOLUCION CRUDO, SOLO LAS CANTIDADES
  
+ 
+
+     public void productosvendidoseneldia(){ // recibe como parametro                          
+        try {
+            ArrayList columna1 = new ArrayList(); 
+            ArrayList columna2 = new ArrayList();          
+            ArrayList columna3 = new ArrayList();
+            
+            sent  = (Statement)ca.createStatement();
+           rs = sent.executeQuery("SELECT nombre_producto, SUM(cantidad), SUM(importe) FROM  descripcion_de_venta WHERE estado = 'Realizada' AND fecha = CURDATE() GROUP BY nombre_producto");
+
+            while (rs.next()) {                
+                             columna1.add(rs.getString(1));
+                             columna2.add(rs.getFloat(2));
+                             columna3.add(rs.getFloat(3));
+                            
+            }            
+        TicketVenAll = new TicketVentasAll();          
+  TicketVenAll.TicketVentasAll(columna1,columna2,columna3); 
+
+    } catch (Exception e) {
+       JOptionPane.showMessageDialog(null, "ERROR EN METODO: productosvendidoseneldia","DEVELOPER HELPER", JOptionPane.ERROR_MESSAGE);      
+      }
+}
+ 
+ 
+ 
+ 
+ 
+ 
   public void sobrantedepollococidodeldiaparaticketcantidadesypiezas(){//TICKET DEVOLUCION COCIDO,  LAS CANTIDADES Y PIEZAS
       try{//SOLO SE LLAMA A LA CANTIDAD PORQUE EN EL TICKET YA SE DEFINIRÁN LOS NOMBRES DE CADA ARTICULO
              ArrayList columna = new ArrayList();
@@ -507,10 +540,12 @@ public void metodogastosdeldia(){
                 //LUEGO AQUI SE PUEDE REALIZAR CADA TICKET CORRESPONDIENTE (ESTOS SON LOS 5 TICKET)
  sobrantedepollococidodeldiaparaticketcantidadesypiezas();//SOBRANTE DE COCIDO PARA TICKET MOSTRANDO CANTIDADES Y TOTALES
  sobrantedepollococidodeldiaparaticketperosolocantidades();//SOBRANTE DE COCIDO PARA TICKET MOSTRANDO CANTIDADES
-            /*sii*/ sobrantedepollocrudodeldiaparaticketcantidadesypiezas();//SOBRANTE DE PECHUGA, PIERNA ALA, MUSLO, VA PARA TICKET
+ productosvendidoseneldia();
  sobrantedepollocrudodeldiaparaticketperosolocantidades();//SOBRANTE DE TODO MENOS PECHUGA, PIERNA ALA, MUSLO, VA PARA TICKET
             /*sii*/obteniendolosvaloresdelcortedecajadeldiadehoyparaelticket();//LOS DATOS DEL TICKET CORTE DE CAJA                                                      
-      llenar_tabla_utilidad(gastosdeldia, ventasdeldia);
+     /*sii*/ sobrantedepollocrudodeldiaparaticketcantidadesypiezas();//SOBRANTE DE PECHUGA, PIERNA ALA, MUSLO, VA PARA TICKET
+            
+            llenar_tabla_utilidad(gastosdeldia, ventasdeldia);
       vaciartodoelpollococidoenprocesados();
           vaciartodoelpollocrudoendevolucioncrudo();
          vaciartodoeninventario();//UNA VEZ IMPRESO LOS 5 TICKETS SE VACIA TODO EL INVENTARIO            
