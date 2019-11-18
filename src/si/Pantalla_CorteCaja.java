@@ -318,7 +318,7 @@ public void metodogastosdeldia(){
      
     public void vaciartodoeninventario(){
               try{              
-           PreparedStatement ps = ca.prepareStatement ("UPDATE productos SET cantidad= 0 WHERE nombre_producto NOT IN ('Huacal', 'Cadera', 'Cabeza', 'Molleja', 'Patas')");
+           PreparedStatement ps = ca.prepareStatement ("UPDATE productos SET cantidad= 0 WHERE nombre_producto NOT IN ('Huacal', 'Cadera', 'Cabeza', 'Molleja', 'Patas', 'Longaniza', 'Mole rojo', 'Mole verde', 'Miel', 'Ens. de manzana', 'Ensalada de col', 'Ensalada rusa', 'Pasta de codito', 'Chiles en vinagre', 'Ver. encurtidas')");
                   int a = ps.executeUpdate();
                 if(a>0){    
                 }
@@ -537,7 +537,7 @@ public void metodogastosdeldia(){
                 insertaradevoluciondecrudopiezasycantidades();//SE REGISTRAN LAS PIEZAS, CANTIDADES Y TOTALES DE TODO CRUDO
                 insertaradevoluciondecocidopiezasycantidades();//SE REGISTRAN LAS PIEZAS, CANTIDADES Y TOTALES DE TODO COCIDO
                 
-                //LUEGO AQUI SE PUEDE REALIZAR CADA TICKET CORRESPONDIENTE (ESTOS SON LOS 5 TICKET)
+             //LUEGO AQUI SE PUEDE REALIZAR CADA TICKET CORRESPONDIENTE (ESTOS SON LOS 5 TICKET)
  sobrantedepollococidodeldiaparaticketcantidadesypiezas();//SOBRANTE DE COCIDO PARA TICKET MOSTRANDO CANTIDADES Y TOTALES
  sobrantedepollococidodeldiaparaticketperosolocantidades();//SOBRANTE DE COCIDO PARA TICKET MOSTRANDO CANTIDADES
  productosvendidoseneldia();
