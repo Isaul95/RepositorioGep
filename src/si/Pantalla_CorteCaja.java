@@ -508,13 +508,7 @@ public void metodogastosdeldia(){
                   JOptionPane.showMessageDialog(null,"Se abrio con : "+montodeapertura);
                  
                    diferenciafinal=montodeapertura-diferencia;
-                   if(diferencia>0){
-                       JOptionPane.showMessageDialog(null,"Sobro la cantidad de $:"+diferencia);
-                   }else if(diferencia<0){
-                           JOptionPane.showMessageDialog(null,"Hace falta  la cantidad de $:"+diferencia);
-                   }else{
-                         JOptionPane.showMessageDialog(null,"Todo está en orden :) ");
-                   }
+                   
                 
     String sql = "INSERT INTO  cortes(id_apertura, monto_entregado, gastos, ventas, diferencia, fecha, hora, usuario)  VALUES (?,?,?,?,?,?,?,?)";
                 PreparedStatement pst = ca.prepareCall(sql); //hasta aqui vamos
