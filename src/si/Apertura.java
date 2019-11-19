@@ -213,8 +213,7 @@ public boolean validarFormulario(String cantidaddecorte) { // VALIDACION DE TXT 
                
                 int a=pst.executeUpdate();
                 if(a>0){
-                   JOptionPane.showMessageDialog(null,"Bienvenido Usuario: \n" +usuarioname," Acceso Concedido",JOptionPane.INFORMATION_MESSAGE); //Msg de bienvenida                                                                     
-                 this.setVisible(false);  
+                    this.setVisible(false);  
                                      // HERE 
                               new menu_principal().setVisible(true);
                                this.setIconImage(null);

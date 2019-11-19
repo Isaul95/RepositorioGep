@@ -580,6 +580,7 @@ String sSQL = " select venta.id_venta, venta.total, venta.fecha_reporte, descrip
                
         } else {
             JOptionPane.showMessageDialog(null, "No puedes escribir letras, dejar vacio el campo ni meter un 0", "Advertencia", JOptionPane.INFORMATION_MESSAGE);    
+        cantidad.setText("");
         }
         return next;
     }
@@ -1131,14 +1132,13 @@ public void cantidadpolloenDByname(int pieza){
 
 public void cantidadenventa(int pieza){
     id_max_de_venta();
-   
      //Cantidad en venta
                 try{
                 sent  =(Statement)ca.createStatement(); 
-                     rs = sent.executeQuery("select * from descripcion_de_venta where id_producto= '"+pieza+"'AND estado='"+estadoenturno+"'and id_venta='"+id_de_la_venta_incrementable+"'");       
+                     rs = sent.executeQuery("select * from descripcion_de_venta where id_producto= '"+pieza+"'AND estado='"+estadoenturno+"'and id_venta='"+id_de_la_venta_incrementable+"'and fecha='"+fecha()+"'  ");       
                 while(rs.next()){    
                     cantidadenventa =rs.getFloat("cantidad");             
-               }
+                }
                 }catch(Exception e){
                     
                 }
@@ -1662,7 +1662,8 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
                 }//fin del ciclo for              
 }
  public void accionesdespuesderegresarproductosainventarios(){
-      medio=false;
+     descuentodepollo();
+     medio=false;
                 cuarto=false;
                             cantidaddecuarto=0;
                 cantidaddemedio=0;
@@ -5540,11 +5541,11 @@ public void obtener_id_del_proveedor(String name){
         if(fila>=0){// CUANDO UNA CELDA SE SELECCIONO
         nombredepiezaseleccionada=pollococido.getValueAt(fila,0).toString();
          voyaagregar=true;
-         if(nombredepiezaseleccionada.equals("Pollo rostizado")||nombredepiezaseleccionada.equals("Pollo asado")||nombredepiezaseleccionada.equals("Longaniza")){
+         if(nombredepiezaseleccionada.equals("Pollo rostizado")||nombredepiezaseleccionada.equals("Pollo asado")){
                    
                    Object[] options = { "Entero", "Medio", "Cuarto" };
   int choice = JOptionPane.showOptionDialog(null, 
-      "¿Cuánto lleva?", 
+      "¿Cuánto lleva de? "+nombredepiezaseleccionada, 
       "Elige una opcion", 
       JOptionPane.YES_NO_OPTION, 
       JOptionPane.QUESTION_MESSAGE, 
@@ -5595,7 +5596,7 @@ if (choice == JOptionPane.YES_OPTION){
          if(nombredepiezaseleccionada.equals("Pierna")||nombredepiezaseleccionada.equals("Huacal")){        
                    Object[] options = { "Completa", "Individual"};
   int choice = JOptionPane.showOptionDialog(null, 
-      "¿Vas a agregar completa o individual?", 
+      "¿Vas a agregar "+nombredepiezaseleccionada+" completa o individual?", 
       "Elige una opcion", 
       JOptionPane.YES_NO_OPTION, 
       JOptionPane.QUESTION_MESSAGE, 
@@ -5617,12 +5618,44 @@ if (choice == JOptionPane.YES_OPTION){
                        calculatorstate.setForeground(Color.white);
   }
       
-      }else {
-            calculadora.setVisible(true);
-            calculatorstate.setVisible(true);
+      }
+//MEDIA PECHUGA
+         else if(nombredepiezaseleccionada.equals("Pechuga")||nombredepiezaseleccionada.equals("Pollo crudo")){
+ Object[] optionsppc = { "Completa", "Medio"};
+  int choicesppc = JOptionPane.showOptionDialog(null, 
+      "¿"+nombredepiezaseleccionada+" completo o medio?", 
+      "Elige una opcion", 
+      JOptionPane.YES_NO_OPTION, 
+      JOptionPane.QUESTION_MESSAGE, 
+      null, 
+      optionsppc, 
+      optionsppc[0]);
+if (choicesppc == JOptionPane.YES_OPTION){
+    entero= true;
+             calculadora.setVisible(true);
+             calculatorstate.setVisible(true);
             calculatorstate.setText("Agregando: "+nombredepiezaseleccionada);
+            
+            calculatorstate.setForeground(Color.white);
+  }else if(choicesppc == JOptionPane.NO_OPTION){
+       medio=true;
+      cantidaddemedio=(float) 0.50;
+      cantidaddeproductos=(float)cantidaddemedio;
+         calculadora.setVisible(false);
+         if(nombredepiezaseleccionada.equals("Pollo crudo")){ 
+               agregarpiezasaventa(nombredepiezaseleccionada);
+         }
+    agregarpiezasaventa(nombredepiezaseleccionada);  
+  }
+     }else{
+             calculadora.setVisible(true);
+             calculatorstate.setVisible(true);
+             calculatorstate.setText("Agregando: "+nombredepiezaseleccionada);
                        calculatorstate.setForeground(Color.white);
          }
+         
+//MEDIA PECHUGA
+
         }//FIN DE LA CONDICION FILA SELECCIONADA
         else{
             JOptionPane.showMessageDialog(null,"Por favor, seleccione una fila primero","Aviso",JOptionPane.INFORMATION_MESSAGE);
@@ -5650,7 +5683,7 @@ public void eliminarhuesito(int id){
                 eliminarhuesito(id_producto);
             }
                 
-if(nombredepiezaseleccionada.equals("Pollo rostizado")||nombredepiezaseleccionada.equals("Pollo asado")||nombredepiezaseleccionada.equals("Longaniza")){
+if(nombredepiezaseleccionada.equals("Pollo rostizado")||nombredepiezaseleccionada.equals("Pollo asado")){
                    
                    Object[] options = { "Entero", "Medio", "Cuarto" };
   int choice = JOptionPane.showOptionDialog(null, 
@@ -5695,11 +5728,11 @@ if (choice == JOptionPane.YES_OPTION){
       
   //
   
-   if(nombredepiezaseleccionada.equals("Pierna")||nombredepiezaseleccionada.equals("Huacal")){
+else if(nombredepiezaseleccionada.equals("Pierna")||nombredepiezaseleccionada.equals("Huacal")){
                    
                    Object[] optionstwo = { "Completa", "Individual"};
   int choices = JOptionPane.showOptionDialog(null, 
-      "¿Vas a eliminar completa o individual?", 
+      "¿Vas a eliminar"+nombredepiezaseleccionada+ "completa o individual?", 
       "Elige una opcion", 
       JOptionPane.YES_NO_OPTION, 
       JOptionPane.QUESTION_MESSAGE, 
@@ -5724,6 +5757,28 @@ if (choices == JOptionPane.YES_OPTION){
   }//CUANDO ELIGIO PIEZA INDIVIDUAL
       
    }//PIERNA Y HUACAL ENTEROS
+ //ELIMINANDO PECHUGA O POLLO  POR ENTERO O POR MEDIO
+else if(nombredepiezaseleccionada.equals("Pechuga")){
+ Object[] optionsppc = { "Completa", "Medio"};
+  int choicesppc = JOptionPane.showOptionDialog(null, 
+      "¿Vas a eliminar "+nombredepiezaseleccionada+" completo o medio?", 
+      "Elige una opcion", 
+      JOptionPane.YES_NO_OPTION, 
+      JOptionPane.QUESTION_MESSAGE, 
+      null, 
+      optionsppc, 
+      optionsppc[0]);
+if (choicesppc == JOptionPane.YES_OPTION){
+       medio=true;
+      cantidaddemedio=(float) 0.50;
+      cantidaddeproductos=(float)cantidaddemedio;
+      calculadora.setVisible(false);
+          regresarproductos_a_inventario(nombredepiezaseleccionada); //pone en estatus de cancelada la venta inconclusa
+          descuentodepollo();
+          mostrartabladeventas();
+  }
+     }
+//
           else{
   calculadora.setVisible(true);
         calculatorstate.setVisible(true);
@@ -6078,11 +6133,24 @@ get_id_usuario();// 255 -280
             cantidad.setText(cantidad.getText()+one);
         }
         else {
+            cantidad.setText("");
             cantidad.setText(one);
             cantidad=cantidad;
         }
     }//GEN-LAST:event_unoActionPerformed
-
+public void sepuedeeliminarpiernacompleta(){
+                  try{ // La suma de las utilidades
+    Statement sent  =(Statement)ca.createStatement();
+                                         ResultSet  rs = sent.executeQuery("select cantidad from descripcion_de_venta WHERE ");
+                                            while(rs.next()){
+                                                      utilidades =rs.getFloat(1);
+                                                      }
+                                                      }//fin del try-precio del producto
+                                                      catch (Exception e){
+                                                           JOptionPane.showMessageDialog(null, "ERROR EN METODO: sumadeutilidades","DEVELOPER HELPER", JOptionPane.ERROR_MESSAGE);       
+                                                      }// fin del precio-catch del producto
+}
+    
     private void listoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listoActionPerformed
  boolean pass2 = validarFormulario(cantidad.getText());
                  if(pass2){//ESTO VALIDA QUE EL TEXTO ESCRITO NO TENGA INCOHERENCIAS   
@@ -6116,18 +6184,31 @@ get_id_usuario();// 255 -280
       voyacobrar=false;
                  cantidaddeproductos=Float.parseFloat(cantidad.getText());
                  if(calculatorstate.getText().equals("Eliminando: Pierna completa")){
-                        String[] piernafull = {"Muslo","Pierna"};
+                     id_producto("Muslo");
+                     cantidadenventa=0;
+                  cantidadenventa(id_producto);
+                  if(cantidadenventa>0){
+                     String[] piernafull = {"Pierna","Muslo"};
                            for (int i = 0; i < piernafull.length; i++) {
                      regresarproductos_a_inventario(piernafull[i].toString()); //pone en estatus de cancelada la venta inconclusa
                            }
+                  }else{regresarproductos_a_inventario("Pierna"); //pone en estatus de cancelada la venta inconclusa
+                           }
+                        
                    }else if(calculatorstate.getText().equals("Eliminando: Huacal completo")){
-                       String[] hucalfull = {"Huacal","Cadera"};
+                        id_producto("Cadera");
+                     cantidadenventa=0;
+                  cantidadenventa(id_producto); 
+                     if(cantidadenventa>0){
+                         String[] hucalfull = {"Huacal","Cadera"};
                            for (int i = 0; i < hucalfull.length; i++) {
                                regresarproductos_a_inventario(hucalfull[i].toString()); //pone en estatus de cancelada la venta inconclusa
                            }
+                     }else{ regresarproductos_a_inventario("Huacal"); //pone en estatus de cancelada la venta inconclusa
+                         }
+                       
                    }else if(calculatorstate.getText().equals("Eliminando: huesitos")){
-                       JOptionPane.showMessageDialog(null, "VA A AGREGAR HUESITOS");
-                            regresarproductos_a_inventario("Huesito"); //pone en estatus de cancelada la venta inconclusa
+                    regresarproductos_a_inventario("Huesito"); //pone en estatus de cancelada la venta inconclusa
               
                    } else{
                         regresarproductos_a_inventario(nombredepiezaseleccionada); //pone en estatus de cancelada la venta inconclusa
@@ -6257,6 +6338,7 @@ public void ocultarcalculadoradespuesdecobrar(){
     private void salirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salirActionPerformed
         calculadora.setVisible(false);
         calculatorstate.setText("");
+        cantidad.setText("");
         calculatorstate.setVisible(false);
     }//GEN-LAST:event_salirActionPerformed
 

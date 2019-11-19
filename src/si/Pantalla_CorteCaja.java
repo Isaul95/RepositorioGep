@@ -514,7 +514,6 @@ public void metodogastosdeldia(){
                            JOptionPane.showMessageDialog(null,"Hace falta  la cantidad de $:"+diferencia);
                    }else{
                          JOptionPane.showMessageDialog(null,"Todo está en orden :) ");
-           
                    }
                 
     String sql = "INSERT INTO  cortes(id_apertura, monto_entregado, gastos, ventas, diferencia, fecha, hora, usuario)  VALUES (?,?,?,?,?,?,?,?)";
@@ -528,22 +527,18 @@ public void metodogastosdeldia(){
                 pst.setString(6,fecha());
                 pst.setString(7,Reloj.getText());
                 pst.setInt(8,id_usuario);
-               
                 int a=pst.executeUpdate();
                 if(a>0){
-        
                 //PRIMERO SE REGISTRAN LOS PRODUCTOS SOBRANTES TANTO LOS COCIDOS COMO LOS CRUDOS 
-                
                 insertaradevoluciondecrudopiezasycantidades();//SE REGISTRAN LAS PIEZAS, CANTIDADES Y TOTALES DE TODO CRUDO
-                insertaradevoluciondecocidopiezasycantidades();//SE REGISTRAN LAS PIEZAS, CANTIDADES Y TOTALES DE TODO COCIDO
-                
+                insertaradevoluciondecocidopiezasycantidades();//SE REGISTRAN LAS PIEZAS, CANTIDADES Y TOTALES DE TODO COCIDO                
              //LUEGO AQUI SE PUEDE REALIZAR CADA TICKET CORRESPONDIENTE (ESTOS SON LOS 5 TICKET)
 //YA NO SE IMPRIME ÉSTE TICKET sobrantedepollococidodeldiaparaticketcantidadesypiezas();//SOBRANTE DE COCIDO PARA TICKET MOSTRANDO CANTIDADES Y TOTALES
  // YA NO SE IMPRIME ÉSTE TICKET sobrantedepollococidodeldiaparaticketperosolocantidades();//SOBRANTE DE COCIDO PARA TICKET MOSTRANDO CANTIDADES
  productosvendidoseneldia();//TODOS LOS PRODUCTOS VENDIDOS
  // YA NO SE IMPRIME ÉSTE TICKET sobrantedepollocrudodeldiaparaticketperosolocantidades();//SOBRANTE DE TODO MENOS PECHUGA, PIERNA ALA, MUSLO, VA PARA TICKET
             /*sii*/obteniendolosvaloresdelcortedecajadeldiadehoyparaelticket();//LOS DATOS DEL TICKET CORTE DE CAJA                                                      
-     /*sii*/ sobrantedepollocrudodeldiaparaticketcantidadesypiezas();//SOBRANTE DE PECHUGA, PIERNA ALA, MUSLO, VA PARA TICKET
+    /*sii*/ sobrantedepollocrudodeldiaparaticketcantidadesypiezas();//SOBRANTE DE PECHUGA, PIERNA ALA, MUSLO, VA PARA TICKET
            
             llenar_tabla_utilidad(gastosdeldia, ventasdeldia);
       vaciartodoelpollococidoenprocesados();
