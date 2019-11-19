@@ -376,7 +376,7 @@ public void metodogastosdeldia(){
                              columna.add(rs.getString(1));
                              columna2.add(rs.getFloat(2));
                          }                      
-                         total_del_día_devolucion_crudo();
+                        // total_del_día_devolucion_crudo();
   //PolloCrudoBienTocketc = new PolloCrudoBienTocketc();          
   // PolloCrudoBienTocketc.PolloCrudoBienTocketc(columna, columna2);
       }catch(Exception e){                                             
@@ -428,7 +428,7 @@ public void metodogastosdeldia(){
                          }
                         
    // ticketprocesadospiezas = new ticketprocesadospiezas();       
-      total_del_día_procesados();    
+     // total_del_día_procesados();    
     // ticketprocesadospiezas.ticketprocesadospiezas(columna,columna1,columna2, Float.parseFloat(solodosdecimales.format(total_de_procesados)));                
       }catch(Exception e){                                                     
           // System.out.println("DESDE PROCESADOS"+ total_de_procesados);
@@ -538,13 +538,13 @@ public void metodogastosdeldia(){
                 insertaradevoluciondecocidopiezasycantidades();//SE REGISTRAN LAS PIEZAS, CANTIDADES Y TOTALES DE TODO COCIDO
                 
              //LUEGO AQUI SE PUEDE REALIZAR CADA TICKET CORRESPONDIENTE (ESTOS SON LOS 5 TICKET)
- sobrantedepollococidodeldiaparaticketcantidadesypiezas();//SOBRANTE DE COCIDO PARA TICKET MOSTRANDO CANTIDADES Y TOTALES
- sobrantedepollococidodeldiaparaticketperosolocantidades();//SOBRANTE DE COCIDO PARA TICKET MOSTRANDO CANTIDADES
- productosvendidoseneldia();
- sobrantedepollocrudodeldiaparaticketperosolocantidades();//SOBRANTE DE TODO MENOS PECHUGA, PIERNA ALA, MUSLO, VA PARA TICKET
+//YA NO SE IMPRIME ÉSTE TICKET sobrantedepollococidodeldiaparaticketcantidadesypiezas();//SOBRANTE DE COCIDO PARA TICKET MOSTRANDO CANTIDADES Y TOTALES
+ // YA NO SE IMPRIME ÉSTE TICKET sobrantedepollococidodeldiaparaticketperosolocantidades();//SOBRANTE DE COCIDO PARA TICKET MOSTRANDO CANTIDADES
+ productosvendidoseneldia();//TODOS LOS PRODUCTOS VENDIDOS
+ // YA NO SE IMPRIME ÉSTE TICKET sobrantedepollocrudodeldiaparaticketperosolocantidades();//SOBRANTE DE TODO MENOS PECHUGA, PIERNA ALA, MUSLO, VA PARA TICKET
             /*sii*/obteniendolosvaloresdelcortedecajadeldiadehoyparaelticket();//LOS DATOS DEL TICKET CORTE DE CAJA                                                      
      /*sii*/ sobrantedepollocrudodeldiaparaticketcantidadesypiezas();//SOBRANTE DE PECHUGA, PIERNA ALA, MUSLO, VA PARA TICKET
-            
+           
             llenar_tabla_utilidad(gastosdeldia, ventasdeldia);
       vaciartodoelpollococidoenprocesados();
           vaciartodoelpollocrudoendevolucioncrudo();
