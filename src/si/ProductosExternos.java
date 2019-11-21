@@ -21,7 +21,8 @@ import static si.Pantalla_CorteCaja.fecha;
 import static si.menu_principal.fecha;
 import ticket.ticketcortedecaja;
 import static si.menu_principal.JtablepaLaVenta;
-import ticket.TikectGasto;
+import ticket.TicketVentaExterna;
+
 
 
 public class ProductosExternos extends javax.swing.JFrame  implements Runnable{
@@ -36,7 +37,7 @@ public class ProductosExternos extends javax.swing.JFrame  implements Runnable{
         String productoexternocentral="productoexternocentral";
         String productoexternozapata="productoexternozapata";
        
-       TikectGasto tikectGastos;
+       TicketVentaExterna ticketVentasExternas;
     Thread hilo;
     String hora,minutos,segundos;
     Statement sent;  
@@ -600,7 +601,7 @@ public void nombresypiezas(){
             PreparedStatement pst = ca.prepareCall(sql);                          
             int a=pst.executeUpdate();
             if(a>0){   // UPDATE `productoexternoblanca` SET `pieza`=0;
-                JOptionPane.showMessageDialog(null, "Pago de pollo correctamente");
+               // JOptionPane.showMessageDialog(null, "Pago de pollo correctamente");
                          }             
       }catch(Exception w){
                      JOptionPane.showMessageDialog(null,"error en id usuario"+w);
@@ -623,9 +624,11 @@ public void nombresypiezas(){
                            
                          int a=pst.executeUpdate();
                          if(a>0){   // UPDATE `productoexternoblanca` SET `pieza`=0;
-                             JOptionPane.showMessageDialog(null, "Pago de pollo agregado a gastos");
-                            
-                           
+                  JOptionPane.showMessageDialog(null, "Imprimiendo Ticketc");
+            String nombresuc = combosucursal.getSelectedItem().toString();
+       ticketVentasExternas = new TicketVentaExterna();
+       ticketVentasExternas.TicketVentaExterna(nombresuc , totalapagar);
+
                          }             
       }catch(Exception w){
                      JOptionPane.showMessageDialog(null,"error en id usuario"+w);
@@ -634,25 +637,24 @@ public void nombresypiezas(){
     
     public void agregaraproductos(){
         nombresypiezas();
-        for (int i = 0; i < nombres.size(); i++) {
-            //JOptionPane.showMessageDialog(null, "PIEZA PARA AGREGAR"+nombres.get(i).toString());
-            piezasenproductos(nombres.get(i).toString());
-         //    JOptionPane.showMessageDialog(null, "PIEZAS EN DB productos"+piezaendb+" DE LA PIEZA productos"+nombres.get(i).toString());
-                    
-           // JOptionPane.showMessageDialog(null, "NUEVAS PIEZAS PARA LA DB desde blanca "+piezas+" DE LA PIEZA blanca "+nombres.get(i).toString());
+        for (int i = 0; i < nombres.size(); i++) {            
+            piezasenproductos(nombres.get(i).toString());         
+                               
            piezaendb+=Float.parseFloat(piezas.get(i).toString());
                  try{ //la insersion a la tabla ventas
                 PreparedStatement ps = ca.prepareStatement ("UPDATE productos SET cantidad='"+piezaendb+"'WHERE nombre_producto= '"+nombres.get(i).toString()+"' ");  
                 int a=ps.executeUpdate();  
                 if(a>0){
-                     JOptionPane.showMessageDialog(null, "Productos agregados a inventario");
+                     
                     pago.setText(""); 
                 }
+                
             }catch(SQLException e)  { //fin de la insersion a la tabla ventas
                 JOptionPane.showMessageDialog(null,"Error de datos por id vacio "+e);
             
             }//fin de la insersion a la tabla ventas
         }
+        JOptionPane.showMessageDialog(null, "Productos agregados a inventario");
         nombres.clear();
     }
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -721,7 +723,7 @@ public void nombresypiezas(){
                     }
 
                     if(a>0){
-                        JOptionPane.showMessageDialog(null, "Producto agregado");
+                        JOptionPane.showMessageDialog(null, "Producto agregado de pechugaaaa");
                         cantidad.setText("");
                         totalapagarmetodo();
                         pago.setText(solodosdecimales.format(totalapagar));
@@ -755,7 +757,7 @@ public void nombresypiezas(){
                     }
 
                     if(a>0){
-                        JOptionPane.showMessageDialog(null, "Producto agregado");
+                        JOptionPane.showMessageDialog(null, "Producto agregado de musloooo");
                         cantidad.setText("");
                         totalapagarmetodo();
                         pago.setText(solodosdecimales.format(totalapagar));
@@ -790,7 +792,7 @@ public void nombresypiezas(){
                     }
 
                     if(a>0){
-                        JOptionPane.showMessageDialog(null, "Producto agregado");
+                        JOptionPane.showMessageDialog(null, "Producto agregado de piernaaa");
                         cantidad.setText("");
                         totalapagarmetodo();
                         pago.setText(solodosdecimales.format(totalapagar));
@@ -823,7 +825,7 @@ public void nombresypiezas(){
                     }
 
                     if(a>0){
-                        JOptionPane.showMessageDialog(null, "Producto agregado");
+                        JOptionPane.showMessageDialog(null, "Producto agregado  desde alaaaa");
                         cantidad.setText("");
                         totalapagarmetodo();
                         pago.setText(solodosdecimales.format(totalapagar));
@@ -855,7 +857,7 @@ public void nombresypiezas(){
                     }
 
                     if(a>0){
-                        JOptionPane.showMessageDialog(null, "Producto agregado");
+                        JOptionPane.showMessageDialog(null, "Producto agregado desde defaultttt");
                         cantidad.setText("");
                         totalapagarmetodo();
                         pago.setText(solodosdecimales.format(totalapagar));
