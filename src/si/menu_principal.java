@@ -5637,7 +5637,6 @@ public void obtener_id_del_proveedor(String name){
 
     private void pollococidoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pollococidoMouseClicked
         fila =pollococido.getSelectedRow();
-         
         if(fila>=0){// CUANDO UNA CELDA SE SELECCIONO
         nombredepiezaseleccionada=pollococido.getValueAt(fila,0).toString();
          voyaagregar=true;
@@ -5693,7 +5692,6 @@ if (choice == JOptionPane.YES_OPTION){
         else{
             JOptionPane.showMessageDialog(null,"Por favor, seleccione una fila primero","Aviso",JOptionPane.INFORMATION_MESSAGE);
         }
-
     }//GEN-LAST:event_pollococidoMouseClicked
 
     private void pollocrudoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pollocrudoMouseClicked
@@ -6164,7 +6162,7 @@ public void sepuedeeliminarpiernacompleta(){
     }//GEN-LAST:event_listoActionPerformed
 
     public static void agregandoaventa(String nombredepiezaseleccionada, float cantidaddeproductos){
-if(nombredepiezaseleccionada.equals("Pierna completa")){
+ if(nombredepiezaseleccionada.equals("Pierna completa")){
                         String[] piernafull = {"Muslo","Pierna"};
                            for (int i = 0; i < piernafull.length; i++) {
                               agregarpiezasaventa(piernafull[i].toString());

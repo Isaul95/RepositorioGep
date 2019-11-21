@@ -251,7 +251,7 @@ int  id_usuario=Integer.parseInt(SI_Inicio.iduser.getText());
         combopieza.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         combopieza.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pechuga", "Muslo", "Pierna", "Ala", "Huacal", "Cadera", "Cabeza", "Molleja", "Patas" }));
         jPanel2.add(combopieza);
-        combopieza.setBounds(30, 190, 180, 30);
+        combopieza.setBounds(30, 190, 180, 34);
 
         combosucursal.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         combosucursal.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Blanca", "Zapata", "Mercado" }));
@@ -305,7 +305,7 @@ int  id_usuario=Integer.parseInt(SI_Inicio.iduser.getText());
             }
         });
         calculadora.add(nueve);
-        nueve.setBounds(80, 64, 41, 50);
+        nueve.setBounds(80, 64, 38, 50);
 
         ocho.setBackground(new java.awt.Color(0, 51, 102));
         ocho.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
@@ -450,13 +450,13 @@ int  id_usuario=Integer.parseInt(SI_Inicio.iduser.getText());
         cero.setBounds(120, 170, 50, 100);
 
         jPanel2.add(calculadora);
-        calculadora.setBounds(250, 100, 180, 280);
+        calculadora.setBounds(230, 90, 180, 280);
 
         pago.setFont(new java.awt.Font("Tahoma", 1, 22)); // NOI18N
         pago.setForeground(new java.awt.Color(255, 255, 255));
         pago.setText("00.00");
         jPanel2.add(pago);
-        pago.setBounds(60, 280, 70, 29);
+        pago.setBounds(550, 370, 70, 29);
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 1, 17)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
@@ -493,16 +493,16 @@ int  id_usuario=Integer.parseInt(SI_Inicio.iduser.getText());
         jScrollPane1.setViewportView(J_tableLlenado);
 
         jPanel2.add(jScrollPane1);
-        jScrollPane1.setBounds(550, 70, 370, 400);
+        jScrollPane1.setBounds(430, 110, 190, 230);
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 1, 21)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setText("Total a pagar: $");
         jPanel2.add(jLabel9);
-        jLabel9.setBounds(30, 240, 190, 29);
+        jLabel9.setBounds(360, 370, 190, 29);
 
         jPanel1.add(jPanel2);
-        jPanel2.setBounds(20, 50, 930, 480);
+        jPanel2.setBounds(20, 50, 640, 480);
 
         user.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
         jPanel1.add(user);
@@ -512,7 +512,7 @@ int  id_usuario=Integer.parseInt(SI_Inicio.iduser.getText());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 960, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 657, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1030,7 +1030,7 @@ SI cc= new SI();
     private javax.swing.JLabel Reloj;
     private javax.swing.JButton borrar;
     private javax.swing.JPanel calculadora;
-    private javax.swing.JTextField cantidad;
+    public static javax.swing.JTextField cantidad;
     private javax.swing.JButton cero;
     private javax.swing.JButton cinco;
     private javax.swing.JComboBox<String> combopieza;
