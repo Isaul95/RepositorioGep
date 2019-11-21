@@ -1,5 +1,4 @@
 package si;
-import java.awt.Color;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,26 +10,31 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import static si.Apertura.fecha;
 import static si.Apertura.monto;
 import static si.Pantalla_CorteCaja.fecha;
 import static si.menu_principal.fecha;
 import ticket.ticketcortedecaja;
+import static si.menu_principal.JtablepaLaVenta;
 
 
 public class ProductosExternos extends javax.swing.JFrame  implements Runnable{
+   menu_principal menuprin ;    //  
     float piezaendb=0;
     float totalapagar=0;
+    int a=0;
       DecimalFormat solodosdecimales = new DecimalFormat("#.##");
             ArrayList nombres = new ArrayList();
              ArrayList piezas = new ArrayList();
-            
+        String productoexternoblanca="productoexternoblanca";
+        String productoexternocentral="productoexternocentral";
+        String productoexternozapata="productoexternozapata";
+        
     Thread hilo;
     String hora,minutos,segundos;
     Statement sent;  
@@ -47,6 +51,89 @@ int  id_usuario=Integer.parseInt(SI_Inicio.iduser.getText());
         user.setText(usuarioname);
         
     }
+    
+      public void LlenarTableDatosblanca(JTable tablaD){ // recibe como parametro 
+         Object[] columna = new Object[2];  //crear un obj con el nombre de colunna
+            Connection ca= cc.conexion(); // CONEXION DB 
+              DefaultTableModel modeloT = new DefaultTableModel(); 
+                  tablaD.setModel(modeloT);  // add modelo ala tabla         
+        
+         modeloT.addColumn("Producto");           
+        modeloT.addColumn("Pieza");
+     EtiquetaSucursal.setText("Productos de Blanca");
+        try {
+         String sSQL = "SELECT nombre, pieza FROM productoexternoblanca";
+
+        PreparedStatement ps = ca.prepareStatement(sSQL);       
+        try (ResultSet rs = ps.executeQuery(sSQL)) {
+            while (rs.next()) {          
+                 columna[0] = rs.getString(1);                
+                columna[1] = (int) rs.getFloat(2);
+                              
+                modeloT.addRow(columna);
+            }
+        }
+        ps.close();
+    } catch (Exception e) { JOptionPane.showMessageDialog(null, "ERROR EN METODO: ParaLAVenta","DEVELOPER HELPER", JOptionPane.ERROR_MESSAGE);      
+      }
+}
+      
+      
+       public void LlenarTableDatosMercado(JTable tablaD){ // recibe como parametro 
+         Object[] columna = new Object[2];  //crear un obj con el nombre de colunna
+            Connection ca= cc.conexion(); // CONEXION DB 
+              DefaultTableModel modeloT = new DefaultTableModel(); 
+                  tablaD.setModel(modeloT);  // add modelo ala tabla         
+        
+         modeloT.addColumn("Producto");           
+        modeloT.addColumn("Pieza");
+       EtiquetaSucursal.setText("Productos de Mercado");
+        try {
+         String sSQL = "SELECT nombre, pieza FROM productoexternocentral";
+
+        PreparedStatement ps = ca.prepareStatement(sSQL);       
+        try (ResultSet rs = ps.executeQuery(sSQL)) {
+            while (rs.next()) {
+                 columna[0] = rs.getString(1);                
+                columna[1] = (int) rs.getFloat(2);
+                              
+                modeloT.addRow(columna);
+            }
+        }
+        ps.close();
+    } catch (Exception e) { JOptionPane.showMessageDialog(null, "ERROR EN METODO: ParaLAVenta","DEVELOPER HELPER", JOptionPane.ERROR_MESSAGE);      
+      }
+}
+    
+      
+        public void LlenarTableDatoszapata(JTable tablaD){ // recibe como parametro 
+         Object[] columna = new Object[2];  //crear un obj con el nombre de colunna
+            Connection ca= cc.conexion(); // CONEXION DB 
+              DefaultTableModel modeloT = new DefaultTableModel(); 
+                  tablaD.setModel(modeloT);  // add modelo ala tabla         
+        
+         modeloT.addColumn("Producto");           
+        modeloT.addColumn("Pieza");
+         EtiquetaSucursal.setText("Productos de Zapata");
+        try {
+         String sSQL = "SELECT nombre, pieza FROM productoexternozapata";
+
+        PreparedStatement ps = ca.prepareStatement(sSQL);       
+        try (ResultSet rs = ps.executeQuery(sSQL)) {
+            while (rs.next()) {
+                 columna[0] = rs.getString(1);                
+                columna[1] = (int) rs.getFloat(2);
+                              
+                modeloT.addRow(columna);
+            }
+        }
+        ps.close();
+    } catch (Exception e) { JOptionPane.showMessageDialog(null, "ERROR EN METODO: ParaLAVenta","DEVELOPER HELPER", JOptionPane.ERROR_MESSAGE);      
+      }
+}
+      
+       
+       
     
     public void hora(){
         Calendar calendario=new GregorianCalendar();
@@ -96,7 +183,7 @@ int  id_usuario=Integer.parseInt(SI_Inicio.iduser.getText());
         combopieza = new javax.swing.JComboBox<>();
         combosucursal = new javax.swing.JComboBox<>();
         jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
+        EtiquetaSucursal = new javax.swing.JLabel();
         calculadora = new javax.swing.JPanel();
         borrar = new javax.swing.JButton();
         nueve = new javax.swing.JButton();
@@ -115,6 +202,9 @@ int  id_usuario=Integer.parseInt(SI_Inicio.iduser.getText());
         pago = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        J_tableLlenado = new rojerusan.RSTableMetro();
+        jLabel9 = new javax.swing.JLabel();
         user = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -158,10 +248,20 @@ int  id_usuario=Integer.parseInt(SI_Inicio.iduser.getText());
         combopieza.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         combopieza.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pechuga", "Muslo", "Pierna", "Ala", "Huacal", "Cadera", "Cabeza", "Molleja", "Patas" }));
         jPanel2.add(combopieza);
-        combopieza.setBounds(30, 190, 180, 34);
+        combopieza.setBounds(30, 190, 180, 30);
 
         combosucursal.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         combosucursal.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Blanca", "Zapata", "Mercado" }));
+        combosucursal.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                combosucursalMouseClicked(evt);
+            }
+        });
+        combosucursal.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                combosucursalKeyPressed(evt);
+            }
+        });
         jPanel2.add(combosucursal);
         combosucursal.setBounds(30, 110, 180, 26);
 
@@ -169,13 +269,12 @@ int  id_usuario=Integer.parseInt(SI_Inicio.iduser.getText());
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("¿De parte de quién viene ésta producto?");
         jPanel2.add(jLabel7);
-        jLabel7.setBounds(30, 70, 360, 29);
+        jLabel7.setBounds(30, 60, 360, 29);
 
-        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 17)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel8.setText("Total a pagar: $");
-        jPanel2.add(jLabel8);
-        jLabel8.setBounds(30, 280, 190, 29);
+        EtiquetaSucursal.setFont(new java.awt.Font("Tahoma", 1, 21)); // NOI18N
+        EtiquetaSucursal.setForeground(new java.awt.Color(255, 255, 255));
+        jPanel2.add(EtiquetaSucursal);
+        EtiquetaSucursal.setBounds(610, 30, 270, 29);
 
         calculadora.setBackground(new java.awt.Color(0, 51, 102));
         calculadora.setForeground(new java.awt.Color(102, 102, 255));
@@ -203,7 +302,7 @@ int  id_usuario=Integer.parseInt(SI_Inicio.iduser.getText());
             }
         });
         calculadora.add(nueve);
-        nueve.setBounds(80, 64, 38, 50);
+        nueve.setBounds(80, 64, 41, 50);
 
         ocho.setBackground(new java.awt.Color(0, 51, 102));
         ocho.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
@@ -348,13 +447,13 @@ int  id_usuario=Integer.parseInt(SI_Inicio.iduser.getText());
         cero.setBounds(120, 170, 50, 100);
 
         jPanel2.add(calculadora);
-        calculadora.setBounds(430, 100, 180, 280);
+        calculadora.setBounds(250, 100, 180, 280);
 
-        pago.setFont(new java.awt.Font("Tahoma", 1, 17)); // NOI18N
+        pago.setFont(new java.awt.Font("Tahoma", 1, 22)); // NOI18N
         pago.setForeground(new java.awt.Color(255, 255, 255));
         pago.setText("00.00");
         jPanel2.add(pago);
-        pago.setBounds(180, 280, 70, 29);
+        pago.setBounds(60, 280, 70, 29);
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 1, 17)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
@@ -371,10 +470,36 @@ int  id_usuario=Integer.parseInt(SI_Inicio.iduser.getText());
             }
         });
         jPanel2.add(jButton1);
-        jButton1.setBounds(390, 410, 210, 60);
+        jButton1.setBounds(310, 410, 210, 60);
+
+        J_tableLlenado.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        J_tableLlenado.setColorFilasForeground1(new java.awt.Color(0, 0, 0));
+        J_tableLlenado.setColorFilasForeground2(new java.awt.Color(0, 0, 0));
+        J_tableLlenado.setFuenteFilas(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
+        J_tableLlenado.setFuenteFilasSelect(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
+        J_tableLlenado.setGrosorBordeFilas(0);
+        J_tableLlenado.setGrosorBordeHead(0);
+        J_tableLlenado.setRowHeight(19);
+        jScrollPane1.setViewportView(J_tableLlenado);
+
+        jPanel2.add(jScrollPane1);
+        jScrollPane1.setBounds(550, 70, 370, 400);
+
+        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 21)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel9.setText("Total a pagar: $");
+        jPanel2.add(jLabel9);
+        jLabel9.setBounds(30, 240, 190, 29);
 
         jPanel1.add(jPanel2);
-        jPanel2.setBounds(20, 50, 640, 480);
+        jPanel2.setBounds(20, 50, 930, 480);
 
         user.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
         jPanel1.add(user);
@@ -384,7 +509,7 @@ int  id_usuario=Integer.parseInt(SI_Inicio.iduser.getText());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 677, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 960, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -514,7 +639,15 @@ int  id_usuario=Integer.parseInt(SI_Inicio.iduser.getText());
 public void piezasenbase(String pieza){
       try{//SOLO SE LLAMA A LA CANTIDAD PORQUE EN EL TICKET YA SE DEFINIRÁN LOS NOMBRES DE CADA ARTICULO
                       sent  = (Statement)ca.createStatement();
-                      rs = sent.executeQuery("select pieza from productoexterno where nombre = '"+pieza+"' ");
+              
+        combosucursal.getSelectedItem().toString();
+         if(combosucursal.getSelectedItem().toString().equals("Blanca")){          
+             rs = sent.executeQuery("select pieza from productoexternoblanca where nombre = '"+pieza+"' ");
+        }else if(combosucursal.getSelectedItem().toString().equals("Zapata")){                       
+            rs = sent.executeQuery("select pieza from productoexternozapata where nombre = '"+pieza+"' ");
+        }else{                  
+           rs = sent.executeQuery("select pieza from productoexternocentral where nombre = '"+pieza+"' ");
+    }                                                                                            
                          while(rs.next()){
                              piezaendb=rs.getFloat(1);               
                          }
@@ -534,7 +667,15 @@ public void piezasenproductos(String pieza){
 public void totalapagarmetodo(){
       try{//SOLO SE LLAMA A LA CANTIDAD PORQUE EN EL TICKET YA SE DEFINIRÁN LOS NOMBRES DE CADA ARTICULO
                       sent  = (Statement)ca.createStatement();
-                      rs = sent.executeQuery("select SUM(total) from productoexterno WHERE nombre IN ('Pechuga', 'Muslo', 'Pierna', 'Ala')");
+     
+    combosucursal.getSelectedItem().toString();
+         if(combosucursal.getSelectedItem().toString().equals("Blanca")){            
+               rs = sent.executeQuery("select SUM(total) from productoexternoblanca WHERE nombre IN ('Pechuga', 'Muslo', 'Pierna', 'Ala')");                       
+          }else if(combosucursal.getSelectedItem().toString().equals("Zapata")){            
+               rs = sent.executeQuery("select SUM(total) from productoexternozapata WHERE nombre IN ('Pechuga', 'Muslo', 'Pierna', 'Ala')");
+         }else{          
+               rs = sent.executeQuery("select SUM(total) from productoexternocentral WHERE nombre IN ('Pechuga', 'Muslo', 'Pierna', 'Ala')");                        
+    }                           
                          while(rs.next()){
                              totalapagar=rs.getFloat(1);             
                          }
@@ -544,12 +685,20 @@ public void totalapagarmetodo(){
 public void nombresypiezas(){
         try{//SOLO SE LLAMA A LA CANTIDAD PORQUE EN EL TICKET YA SE DEFINIRÁN LOS NOMBRES DE CADA ARTICULO
                       sent  = (Statement)ca.createStatement();
-                      rs = sent.executeQuery("select nombre, pieza from productoexterno");
-                         while(rs.next()){
+                      
+
+   if(combosucursal.getSelectedItem().toString().equals("Blanca")){                       
+             rs = sent.executeQuery("select nombre, pieza from productoexternoblanca where pieza != 0");
+   }else if(combosucursal.getSelectedItem().toString().equals("Zapata")){                       
+             rs = sent.executeQuery("select nombre, pieza from productoexternozapata where pieza != 0");                       
+   }else{                  
+             rs = sent.executeQuery("select nombre, pieza from productoexternocentral where pieza != 0");                      
+    }                      
+                       while(rs.next()){
                              nombres.add(rs.getString(1));
-                             piezas.add(rs.getFloat(1));
+                             piezas.add(rs.getFloat(2));
                          }
-      }catch(Exception e){                                             
+      }catch(Exception e){                                      
       }
 }
 
@@ -557,17 +706,30 @@ public void nombresypiezas(){
         boolean pass2 = validarFormulario(cantidad.getText());
         if(pass2){//ESTO VALIDA QUE EL TEXTO ESCRITO NO TENGA INCOHERENCIAS
             float cantidadnumerica=Float.parseFloat(cantidad.getText().toString());
-            float total=0;
+            float total=0; 
             switch(combopieza.getSelectedItem().toString()){
                 case "Pechuga":
                     piezasenbase(combopieza.getSelectedItem().toString());
                     cantidadnumerica+=piezaendb;
                     total=cantidadnumerica*35;
               try{ //la insersion a la tabla ventas
-                PreparedStatement ps = ca.prepareStatement ("UPDATE productoexterno SET pieza='"+cantidadnumerica+"',total = '"+solodosdecimales.format(total)+"',fecha = '"+fecha()+"',tiendaexterna = '"+combosucursal.getSelectedItem().toString()+"'WHERE nombre= 'Pechuga' ");  
-                int a=ps.executeUpdate();
+                  if(combosucursal.getSelectedItem().toString().equals("Blanca")){                      
+                     PreparedStatement ps = ca.prepareStatement ("UPDATE productoexternoblanca SET pieza='"+cantidadnumerica+"',total = '"+solodosdecimales.format(total)+"',fecha = '"+fecha()+"',tiendaexterna = '"+combosucursal.getSelectedItem().toString()+"'WHERE nombre= 'Pechuga' ");  
+                a=ps.executeUpdate();                
+  LlenarTableDatosblanca(J_tableLlenado);    
+                  }else if(combosucursal.getSelectedItem().toString().equals("Zapata")){                       
+                      PreparedStatement ps = ca.prepareStatement ("UPDATE productoexternozapata SET pieza='"+cantidadnumerica+"',total = '"+solodosdecimales.format(total)+"',fecha = '"+fecha()+"',tiendaexterna = '"+combosucursal.getSelectedItem().toString()+"'WHERE nombre= 'Pechuga' ");  
+                a=ps.executeUpdate();                
+  LlenarTableDatoszapata(J_tableLlenado);
+                  }else{                        
+                         PreparedStatement ps = ca.prepareStatement ("UPDATE productoexternocentral SET pieza='"+cantidadnumerica+"',total = '"+solodosdecimales.format(total)+"',fecha = '"+fecha()+"',tiendaexterna = '"+combosucursal.getSelectedItem().toString()+"'WHERE nombre= 'Pechuga' ");  
+                a=ps.executeUpdate(); 
+LlenarTableDatosMercado(J_tableLlenado);
+                  }
+                
                 if(a>0){
                     JOptionPane.showMessageDialog(null, "Producto agregado");
+                    cantidad.setText("");
                     totalapagarmetodo();
                     pago.setText(solodosdecimales.format(totalapagar));
                     
@@ -581,11 +743,28 @@ public void nombresypiezas(){
                     cantidadnumerica+=piezaendb;
                     total=Float.parseFloat(String.valueOf(cantidadnumerica*7.70));
            try{ //la insersion a la tabla ventas
-                PreparedStatement ps = ca.prepareStatement ("UPDATE productoexterno SET pieza='"+cantidadnumerica+"',total = '"+solodosdecimales.format(total)+"',fecha = '"+fecha()+"',tiendaexterna = '"+combosucursal.getSelectedItem().toString()+"'WHERE nombre= 'Muslo' ");  
-                int a=ps.executeUpdate();
+                                            
+                if(combosucursal.getSelectedItem().toString().equals("Blanca")){
+   
+                      PreparedStatement ps = ca.prepareStatement ("UPDATE productoexternoblanca SET pieza='"+cantidadnumerica+"',total = '"+solodosdecimales.format(total)+"',fecha = '"+fecha()+"',tiendaexterna = '"+combosucursal.getSelectedItem().toString()+"'WHERE nombre= 'Muslo' ");                      
+                a=ps.executeUpdate(); 
+LlenarTableDatosblanca(J_tableLlenado);        
+                  }else if(combosucursal.getSelectedItem().toString().equals("Zapata")){
+    
+                     PreparedStatement ps = ca.prepareStatement ("UPDATE productoexternozapata SET pieza='"+cantidadnumerica+"',total = '"+solodosdecimales.format(total)+"',fecha = '"+fecha()+"',tiendaexterna = '"+combosucursal.getSelectedItem().toString()+"'WHERE nombre= 'Muslo' ");                        
+                a=ps.executeUpdate(); 
+LlenarTableDatoszapata(J_tableLlenado);
+                  }else{
+    
+                  PreparedStatement ps = ca.prepareStatement ("UPDATE productoexternocentral SET pieza='"+cantidadnumerica+"',total = '"+solodosdecimales.format(total)+"',fecha = '"+fecha()+"',tiendaexterna = '"+combosucursal.getSelectedItem().toString()+"'WHERE nombre= 'Muslo' ");                         
+                a=ps.executeUpdate(); 
+LlenarTableDatosMercado(J_tableLlenado);                
+                  }
+                
                 if(a>0){
                      JOptionPane.showMessageDialog(null, "Producto agregado");
-                      totalapagarmetodo();
+                     cantidad.setText("");
+                     totalapagarmetodo();
               pago.setText(solodosdecimales.format(totalapagar));
                  }
             }catch(SQLException e)  { //fin de la insersion a la tabla ventas
@@ -593,15 +772,34 @@ public void nombresypiezas(){
             }//fin de la insersion a la tabla ventas
                         break;
                 case "Pierna":
-                       piezasenbase(combopieza.getSelectedItem().toString());
+                    piezasenbase(combopieza.getSelectedItem().toString());
                     cantidadnumerica+=piezaendb;
+                   
                     total=Float.parseFloat(String.valueOf(cantidadnumerica*7.70));
-          try{ //la insersion a la tabla ventas
-                PreparedStatement ps = ca.prepareStatement ("UPDATE productoexterno SET pieza='"+cantidadnumerica+"',total = '"+solodosdecimales.format(total)+"',fecha = '"+fecha()+"',tiendaexterna = '"+combosucursal.getSelectedItem().toString()+"'WHERE nombre= 'Pierna' ");  
-                int a=ps.executeUpdate();
+          try{ //la insersion a la tabla ventas               
+            
+                if(combosucursal.getSelectedItem().toString().equals("Blanca")){
+    
+                      PreparedStatement ps = ca.prepareStatement ("UPDATE productoexternoblanca SET pieza='"+cantidadnumerica+"',total = '"+solodosdecimales.format(total)+"',fecha = '"+fecha()+"',tiendaexterna = '"+combosucursal.getSelectedItem().toString()+"'WHERE nombre= 'Pierna' ");                        
+                a=ps.executeUpdate(); 
+LlenarTableDatosblanca(J_tableLlenado);
+        
+                  }else if(combosucursal.getSelectedItem().toString().equals("Zapata")){
+    
+                     PreparedStatement ps = ca.prepareStatement ("UPDATE productoexternozapata SET pieza='"+cantidadnumerica+"',total = '"+solodosdecimales.format(total)+"',fecha = '"+fecha()+"',tiendaexterna = '"+combosucursal.getSelectedItem().toString()+"'WHERE nombre= 'Pierna' ");  
+                a=ps.executeUpdate(); 
+LlenarTableDatoszapata(J_tableLlenado);
+                  }else{
+    
+                  PreparedStatement ps = ca.prepareStatement ("UPDATE productoexternocentral SET pieza='"+cantidadnumerica+"',total = '"+solodosdecimales.format(total)+"',fecha = '"+fecha()+"',tiendaexterna = '"+combosucursal.getSelectedItem().toString()+"'WHERE nombre= 'Pierna' ");  
+                a=ps.executeUpdate(); 
+LlenarTableDatosMercado(J_tableLlenado);               
+                  }   
+                                
                 if(a>0){
                      JOptionPane.showMessageDialog(null, "Producto agregado");
-                      totalapagarmetodo();
+                     cantidad.setText(""); 
+                     totalapagarmetodo();
                    pago.setText(solodosdecimales.format(totalapagar));
                  }
             }catch(SQLException e)  { //fin de la insersion a la tabla ventas
@@ -613,11 +811,28 @@ public void nombresypiezas(){
                     cantidadnumerica+=piezaendb;
                     total=Float.parseFloat(String.valueOf(cantidadnumerica*5.50));
                  try{ //la insersion a la tabla ventas
-                PreparedStatement ps = ca.prepareStatement ("UPDATE productoexterno SET pieza='"+cantidadnumerica+"',total = '"+solodosdecimales.format(total)+"',fecha = '"+fecha()+"',tiendaexterna = '"+combosucursal.getSelectedItem().toString()+"'WHERE nombre= 'Ala' ");  
-                int a=ps.executeUpdate();
+                
+                if(combosucursal.getSelectedItem().toString().equals("Blanca")){
+    
+                       PreparedStatement ps = ca.prepareStatement ("UPDATE productoexternoblanca SET pieza='"+cantidadnumerica+"',total = '"+solodosdecimales.format(total)+"',fecha = '"+fecha()+"',tiendaexterna = '"+combosucursal.getSelectedItem().toString()+"'WHERE nombre= 'Ala' ");  
+                a=ps.executeUpdate(); 
+LlenarTableDatosblanca(J_tableLlenado);        
+                  }else if(combosucursal.getSelectedItem().toString().equals("Zapata")){
+    
+                       PreparedStatement ps = ca.prepareStatement ("UPDATE productoexternozapata SET pieza='"+cantidadnumerica+"',total = '"+solodosdecimales.format(total)+"',fecha = '"+fecha()+"',tiendaexterna = '"+combosucursal.getSelectedItem().toString()+"'WHERE nombre= 'Ala' ");  
+                a=ps.executeUpdate(); 
+ LlenarTableDatoszapata(J_tableLlenado);
+                  }else{
+    
+                      PreparedStatement ps = ca.prepareStatement ("UPDATE productoexternocentral SET pieza='"+cantidadnumerica+"',total = '"+solodosdecimales.format(total)+"',fecha = '"+fecha()+"',tiendaexterna = '"+combosucursal.getSelectedItem().toString()+"'WHERE nombre= 'Ala' ");  
+                a=ps.executeUpdate();
+LlenarTableDatosMercado(J_tableLlenado);                
+                  }   
+                
                 if(a>0){
                      JOptionPane.showMessageDialog(null, "Producto agregado");
-                      totalapagarmetodo();
+                     cantidad.setText(""); 
+                     totalapagarmetodo();
                   pago.setText(solodosdecimales.format(totalapagar));
                  }
             }catch(SQLException e)  { //fin de la insersion a la tabla ventas
@@ -627,12 +842,29 @@ public void nombresypiezas(){
                 default:
                     piezasenbase(combopieza.getSelectedItem().toString());
                      cantidadnumerica+=piezaendb;
-            try{ //la insersion a la tabla ventas
-                PreparedStatement ps = ca.prepareStatement ("UPDATE productoexterno SET pieza='"+cantidadnumerica+"',fecha = '"+fecha()+"',tiendaexterna = '"+combosucursal.getSelectedItem().toString()+"'WHERE nombre= '"+combopieza.getSelectedItem().toString()+"' ");  
-                int a=ps.executeUpdate();
+            try{ //la insersion a la tabla ventas               
+              
+              if(combosucursal.getSelectedItem().toString().equals("Blanca")){
+    
+                       PreparedStatement ps = ca.prepareStatement ("UPDATE productoexternoblanca SET pieza='"+cantidadnumerica+"',fecha = '"+fecha()+"',tiendaexterna = '"+combosucursal.getSelectedItem().toString()+"'WHERE nombre= '"+combopieza.getSelectedItem().toString()+"' ");  
+                a=ps.executeUpdate(); 
+LlenarTableDatosblanca(J_tableLlenado);                         
+                  }else if(combosucursal.getSelectedItem().toString().equals("Zapata")){
+    
+                       PreparedStatement ps = ca.prepareStatement ("UPDATE productoexternozapata SET pieza='"+cantidadnumerica+"',fecha = '"+fecha()+"',tiendaexterna = '"+combosucursal.getSelectedItem().toString()+"'WHERE nombre= '"+combopieza.getSelectedItem().toString()+"' ");  
+                a=ps.executeUpdate(); 
+LlenarTableDatoszapata(J_tableLlenado);
+                  }else{
+    
+                      PreparedStatement ps = ca.prepareStatement ("UPDATE productoexternocentral SET pieza='"+cantidadnumerica+"',fecha = '"+fecha()+"',tiendaexterna = '"+combosucursal.getSelectedItem().toString()+"'WHERE nombre= '"+combopieza.getSelectedItem().toString()+"' ");  
+                a=ps.executeUpdate(); 
+LlenarTableDatosMercado(J_tableLlenado);                
+                  }   
+                  
                 if(a>0){
                      JOptionPane.showMessageDialog(null, "Producto agregado");
-                      totalapagarmetodo();
+                     cantidad.setText(""); 
+                     totalapagarmetodo();
                 pago.setText(solodosdecimales.format(totalapagar));
                  }
             }catch(SQLException e)  { //fin de la insersion a la tabla ventas
@@ -660,6 +892,25 @@ public void nombresypiezas(){
         }
     }//GEN-LAST:event_ceroActionPerformed
 
+    
+    
+    public void vaciandotablas(){
+        try{// el id del usuario para obtener el id del usuario y comprobar si hay o no algun registro
+   String sql = "UPDATE `productoexternoblanca` SET `pieza`=0 ,`total`=0";  
+            PreparedStatement pst = ca.prepareCall(sql);                          
+            int a=pst.executeUpdate();
+            if(a>0){   // UPDATE `productoexternoblanca` SET `pieza`=0;
+                JOptionPane.showMessageDialog(null, "Pago de pollo correctamente");
+                         }             
+      }catch(Exception w){
+                     JOptionPane.showMessageDialog(null,"error en id usuario"+w);
+      }//fin del id del usuario para comprobar si hay o no elementos ya guardados
+    }
+    
+    
+    
+    
+    
     public void insertarengastos(){
         try{// el id del usuario para obtener el id del usuario y comprobar si hay o no algun registro
    String sql = "INSERT INTO  egreso(cantidad, tipo, fecha, total, usuario)  VALUES (?,?,?,?,?)";
@@ -671,8 +922,9 @@ public void nombresypiezas(){
                          pst.setInt(5,id_usuario);
                            
                          int a=pst.executeUpdate();
-                         if(a>0){
+                         if(a>0){   // UPDATE `productoexternoblanca` SET `pieza`=0;
                              JOptionPane.showMessageDialog(null, "Pago de pollo agregado a gastos");
+                            // vaciandotablas(); // vaciando las tablas cuando se paga el pollo
                          }             
       }catch(Exception w){
                      JOptionPane.showMessageDialog(null,"error en id usuario"+w);
@@ -682,30 +934,49 @@ public void nombresypiezas(){
     public void agregaraproductos(){
         nombresypiezas();
         for (int i = 0; i < nombres.size(); i++) {
-            JOptionPane.showMessageDialog(null, "PIEZA PARA AGREGAR"+nombres.get(i).toString());
+            //JOptionPane.showMessageDialog(null, "PIEZA PARA AGREGAR"+nombres.get(i).toString());
             piezasenproductos(nombres.get(i).toString());
-             JOptionPane.showMessageDialog(null, "PIEZAS EN DB"+piezaendb+" DE LA PIEZA "+nombres.get(i).toString());
-           
-            piezaendb+=Float.parseFloat(piezas.get(i).toString());
-            JOptionPane.showMessageDialog(null, "NUEVAS PIEZAS PARA LA DB"+piezaendb+" DE LA PIEZA "+nombres.get(i).toString());
-           
+         //    JOptionPane.showMessageDialog(null, "PIEZAS EN DB productos"+piezaendb+" DE LA PIEZA productos"+nombres.get(i).toString());
+                    
+           // JOptionPane.showMessageDialog(null, "NUEVAS PIEZAS PARA LA DB desde blanca "+piezas+" DE LA PIEZA blanca "+nombres.get(i).toString());
+           piezaendb+=Float.parseFloat(piezas.get(i).toString());
                  try{ //la insersion a la tabla ventas
                 PreparedStatement ps = ca.prepareStatement ("UPDATE productos SET cantidad='"+piezaendb+"'WHERE nombre_producto= '"+nombres.get(i).toString()+"' ");  
-                int a=ps.executeUpdate();
+                int a=ps.executeUpdate();  
                 if(a>0){
                      JOptionPane.showMessageDialog(null, "Productos agregados a inventario");
-                pago.setText(""); 
+                    pago.setText(""); 
                 }
             }catch(SQLException e)  { //fin de la insersion a la tabla ventas
                 JOptionPane.showMessageDialog(null,"Error de datos por id vacio "+e);
             
             }//fin de la insersion a la tabla ventas
         }
+        nombres.clear();
     }
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
     insertarengastos();
-    agregaraproductos();
+    agregaraproductos();   // UPDATE `productoexternoblanca` SET `pieza`=0;
+    vaciandotablas(); 
+    
+            // menuprin.ParaLAVenta(J_tableLlenado); ParaLAVenta(JtablepaLaVenta);
+              LlenarTableDatosblanca(J_tableLlenado); 
+              LlenarTableDatoszapata(J_tableLlenado);
+              LlenarTableDatosMercado(J_tableLlenado);
+              menu_principal pho = new menu_principal(true);
+              this.setVisible(false);
+    
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void combosucursalMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_combosucursalMouseClicked
+              
+                      
+                                                                                     
+    }//GEN-LAST:event_combosucursalMouseClicked
+
+    private void combosucursalKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_combosucursalKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_combosucursalKeyPressed
  
     /**
      * @param args the command line arguments
@@ -748,7 +1019,9 @@ SI cc= new SI();
  Connection ca= cc.conexion();
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Corte_btncancelar;
+    private javax.swing.JLabel EtiquetaSucursal;
     private javax.swing.JLabel Fecha;
+    private rojerusan.RSTableMetro J_tableLlenado;
     private javax.swing.JLabel Reloj;
     private javax.swing.JButton borrar;
     private javax.swing.JPanel calculadora;
@@ -762,9 +1035,10 @@ SI cc= new SI();
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton listo;
     private javax.swing.JButton nueve;
     private javax.swing.JButton ocho;
