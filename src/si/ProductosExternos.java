@@ -21,6 +21,7 @@ import static si.Pantalla_CorteCaja.fecha;
 import static si.menu_principal.fecha;
 import ticket.ticketcortedecaja;
 import static si.menu_principal.JtablepaLaVenta;
+import ticket.TikectGasto;
 
 
 public class ProductosExternos extends javax.swing.JFrame  implements Runnable{
@@ -34,7 +35,8 @@ public class ProductosExternos extends javax.swing.JFrame  implements Runnable{
         String productoexternoblanca="productoexternoblanca";
         String productoexternocentral="productoexternocentral";
         String productoexternozapata="productoexternozapata";
-        
+       
+       TikectGasto tikectGastos;
     Thread hilo;
     String hora,minutos,segundos;
     Statement sent;  
@@ -48,7 +50,7 @@ int  id_usuario=Integer.parseInt(SI_Inicio.iduser.getText());
      hilo.start();
         this.setLocationRelativeTo(null); // CENTRAR FORMULARIO
         Fecha.setText(fecha());
-        user.setText(usuarioname);
+       // user.setText(usuarioname);
         
     }
     
@@ -524,118 +526,6 @@ int  id_usuario=Integer.parseInt(SI_Inicio.iduser.getText());
     private void Corte_btncancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Corte_btncancelarActionPerformed
             dispose();   
     }//GEN-LAST:event_Corte_btncancelarActionPerformed
-
-    private void borrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_borrarActionPerformed
-        cantidad.setText("");
-    }//GEN-LAST:event_borrarActionPerformed
-
-    private void nueveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nueveActionPerformed
-        String nine="9";
-        if(!cantidad.equals("")){
-
-            cantidad.setText(cantidad.getText()+nine);
-        }
-        else {
-            cantidad.setText(nine);
-            cantidad=cantidad;
-        }
-    }//GEN-LAST:event_nueveActionPerformed
-
-    private void ochoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ochoActionPerformed
-        String eight="8";
-        if(!cantidad.equals("")){
-
-            cantidad.setText(cantidad.getText()+eight);
-        }
-        else {
-            cantidad.setText(eight);
-            cantidad=cantidad;
-        }
-    }//GEN-LAST:event_ochoActionPerformed
-
-    private void sieteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sieteActionPerformed
-        String sevenr="7";
-        if(!cantidad.equals("")){
-
-            cantidad.setText(cantidad.getText()+sevenr);
-        }
-        else {
-            cantidad.setText(sevenr);
-            cantidad=cantidad;
-        }
-    }//GEN-LAST:event_sieteActionPerformed
-
-    private void cuatroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cuatroActionPerformed
-        String fo="4";
-        if(!cantidad.equals("")){
-
-            cantidad.setText(cantidad.getText()+fo);
-        }
-        else {
-            cantidad.setText(fo);
-            cantidad=cantidad;
-        }
-    }//GEN-LAST:event_cuatroActionPerformed
-
-    private void cincoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cincoActionPerformed
-        String five="5";
-        if(!cantidad.equals("")){
-
-            cantidad.setText(cantidad.getText()+five);
-        }
-        else {
-            cantidad.setText(five);
-            cantidad=cantidad;
-        }
-    }//GEN-LAST:event_cincoActionPerformed
-
-    private void seisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seisActionPerformed
-        String six="6";
-        if(!cantidad.equals("")){
-
-            cantidad.setText(cantidad.getText()+six);
-        }
-        else {
-            cantidad.setText(six);
-            cantidad=cantidad;
-        }
-    }//GEN-LAST:event_seisActionPerformed
-
-    private void tresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tresActionPerformed
-        String th="3";
-        if(!cantidad.equals("")){
-
-            cantidad.setText(cantidad.getText()+th);
-        }
-        else {
-            cantidad.setText(th);
-            cantidad=cantidad;
-        }
-    }//GEN-LAST:event_tresActionPerformed
-
-    private void dosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dosActionPerformed
-        String two="2";
-        if(!cantidad.equals("")){
-
-            cantidad.setText(cantidad.getText()+two);
-        }
-        else {
-            cantidad.setText(two);
-            cantidad=cantidad;
-        }
-    }//GEN-LAST:event_dosActionPerformed
-
-    private void unoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_unoActionPerformed
-        String one="1";
-        if(!cantidad.equals("")){
-
-            cantidad.setText(cantidad.getText()+one);
-        }
-        else {
-            cantidad.setText(one);
-            cantidad=cantidad;
-        }
-    }//GEN-LAST:event_unoActionPerformed
 public void piezasenbase(String pieza){
       try{//SOLO SE LLAMA A LA CANTIDAD PORQUE EN EL TICKET YA SE DEFINIRÁN LOS NOMBRES DE CADA ARTICULO
                       sent  = (Statement)ca.createStatement();
@@ -702,196 +592,6 @@ public void nombresypiezas(){
       }
 }
 
-    private void listoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listoActionPerformed
-        boolean pass2 = validarFormulario(cantidad.getText());
-        if(pass2){//ESTO VALIDA QUE EL TEXTO ESCRITO NO TENGA INCOHERENCIAS
-            float cantidadnumerica=Float.parseFloat(cantidad.getText().toString());
-            float total=0; 
-            switch(combopieza.getSelectedItem().toString()){
-                case "Pechuga":
-                    piezasenbase(combopieza.getSelectedItem().toString());
-                    cantidadnumerica+=piezaendb;
-                    total=cantidadnumerica*35;
-              try{ //la insersion a la tabla ventas
-                  if(combosucursal.getSelectedItem().toString().equals("Blanca")){                      
-                     PreparedStatement ps = ca.prepareStatement ("UPDATE productoexternoblanca SET pieza='"+cantidadnumerica+"',total = '"+solodosdecimales.format(total)+"',fecha = '"+fecha()+"',tiendaexterna = '"+combosucursal.getSelectedItem().toString()+"'WHERE nombre= 'Pechuga' ");  
-                a=ps.executeUpdate();                
-  LlenarTableDatosblanca(J_tableLlenado);    
-                  }else if(combosucursal.getSelectedItem().toString().equals("Zapata")){                       
-                      PreparedStatement ps = ca.prepareStatement ("UPDATE productoexternozapata SET pieza='"+cantidadnumerica+"',total = '"+solodosdecimales.format(total)+"',fecha = '"+fecha()+"',tiendaexterna = '"+combosucursal.getSelectedItem().toString()+"'WHERE nombre= 'Pechuga' ");  
-                a=ps.executeUpdate();                
-  LlenarTableDatoszapata(J_tableLlenado);
-                  }else{                        
-                         PreparedStatement ps = ca.prepareStatement ("UPDATE productoexternocentral SET pieza='"+cantidadnumerica+"',total = '"+solodosdecimales.format(total)+"',fecha = '"+fecha()+"',tiendaexterna = '"+combosucursal.getSelectedItem().toString()+"'WHERE nombre= 'Pechuga' ");  
-                a=ps.executeUpdate(); 
-LlenarTableDatosMercado(J_tableLlenado);
-                  }
-                
-                if(a>0){
-                    JOptionPane.showMessageDialog(null, "Producto agregado");
-                    cantidad.setText("");
-                    totalapagarmetodo();
-                    pago.setText(solodosdecimales.format(totalapagar));
-                    
-                 }
-            }catch(SQLException e)  { //fin de la insersion a la tabla ventas
-                JOptionPane.showMessageDialog(null,"Error de datos por id vacio "+e);
-            }//fin de la insersion a la tabla ventas
-                        break;
-                case "Muslo":
-                     piezasenbase(combopieza.getSelectedItem().toString());
-                    cantidadnumerica+=piezaendb;
-                    total=Float.parseFloat(String.valueOf(cantidadnumerica*7.70));
-           try{ //la insersion a la tabla ventas
-                                            
-                if(combosucursal.getSelectedItem().toString().equals("Blanca")){
-   
-                      PreparedStatement ps = ca.prepareStatement ("UPDATE productoexternoblanca SET pieza='"+cantidadnumerica+"',total = '"+solodosdecimales.format(total)+"',fecha = '"+fecha()+"',tiendaexterna = '"+combosucursal.getSelectedItem().toString()+"'WHERE nombre= 'Muslo' ");                      
-                a=ps.executeUpdate(); 
-LlenarTableDatosblanca(J_tableLlenado);        
-                  }else if(combosucursal.getSelectedItem().toString().equals("Zapata")){
-    
-                     PreparedStatement ps = ca.prepareStatement ("UPDATE productoexternozapata SET pieza='"+cantidadnumerica+"',total = '"+solodosdecimales.format(total)+"',fecha = '"+fecha()+"',tiendaexterna = '"+combosucursal.getSelectedItem().toString()+"'WHERE nombre= 'Muslo' ");                        
-                a=ps.executeUpdate(); 
-LlenarTableDatoszapata(J_tableLlenado);
-                  }else{
-    
-                  PreparedStatement ps = ca.prepareStatement ("UPDATE productoexternocentral SET pieza='"+cantidadnumerica+"',total = '"+solodosdecimales.format(total)+"',fecha = '"+fecha()+"',tiendaexterna = '"+combosucursal.getSelectedItem().toString()+"'WHERE nombre= 'Muslo' ");                         
-                a=ps.executeUpdate(); 
-LlenarTableDatosMercado(J_tableLlenado);                
-                  }
-                
-                if(a>0){
-                     JOptionPane.showMessageDialog(null, "Producto agregado");
-                     cantidad.setText("");
-                     totalapagarmetodo();
-              pago.setText(solodosdecimales.format(totalapagar));
-                 }
-            }catch(SQLException e)  { //fin de la insersion a la tabla ventas
-                JOptionPane.showMessageDialog(null,"Error de datos por id vacio "+e);
-            }//fin de la insersion a la tabla ventas
-                        break;
-                case "Pierna":
-                    piezasenbase(combopieza.getSelectedItem().toString());
-                    cantidadnumerica+=piezaendb;
-                   
-                    total=Float.parseFloat(String.valueOf(cantidadnumerica*7.70));
-          try{ //la insersion a la tabla ventas               
-            
-                if(combosucursal.getSelectedItem().toString().equals("Blanca")){
-    
-                      PreparedStatement ps = ca.prepareStatement ("UPDATE productoexternoblanca SET pieza='"+cantidadnumerica+"',total = '"+solodosdecimales.format(total)+"',fecha = '"+fecha()+"',tiendaexterna = '"+combosucursal.getSelectedItem().toString()+"'WHERE nombre= 'Pierna' ");                        
-                a=ps.executeUpdate(); 
-LlenarTableDatosblanca(J_tableLlenado);
-        
-                  }else if(combosucursal.getSelectedItem().toString().equals("Zapata")){
-    
-                     PreparedStatement ps = ca.prepareStatement ("UPDATE productoexternozapata SET pieza='"+cantidadnumerica+"',total = '"+solodosdecimales.format(total)+"',fecha = '"+fecha()+"',tiendaexterna = '"+combosucursal.getSelectedItem().toString()+"'WHERE nombre= 'Pierna' ");  
-                a=ps.executeUpdate(); 
-LlenarTableDatoszapata(J_tableLlenado);
-                  }else{
-    
-                  PreparedStatement ps = ca.prepareStatement ("UPDATE productoexternocentral SET pieza='"+cantidadnumerica+"',total = '"+solodosdecimales.format(total)+"',fecha = '"+fecha()+"',tiendaexterna = '"+combosucursal.getSelectedItem().toString()+"'WHERE nombre= 'Pierna' ");  
-                a=ps.executeUpdate(); 
-LlenarTableDatosMercado(J_tableLlenado);               
-                  }   
-                                
-                if(a>0){
-                     JOptionPane.showMessageDialog(null, "Producto agregado");
-                     cantidad.setText(""); 
-                     totalapagarmetodo();
-                   pago.setText(solodosdecimales.format(totalapagar));
-                 }
-            }catch(SQLException e)  { //fin de la insersion a la tabla ventas
-                JOptionPane.showMessageDialog(null,"Error de datos por id vacio "+e);
-            }//fin de la insersion a la tabla ventas
-                        break;
-                case "Ala":    
-                             piezasenbase(combopieza.getSelectedItem().toString());
-                    cantidadnumerica+=piezaendb;
-                    total=Float.parseFloat(String.valueOf(cantidadnumerica*5.50));
-                 try{ //la insersion a la tabla ventas
-                
-                if(combosucursal.getSelectedItem().toString().equals("Blanca")){
-    
-                       PreparedStatement ps = ca.prepareStatement ("UPDATE productoexternoblanca SET pieza='"+cantidadnumerica+"',total = '"+solodosdecimales.format(total)+"',fecha = '"+fecha()+"',tiendaexterna = '"+combosucursal.getSelectedItem().toString()+"'WHERE nombre= 'Ala' ");  
-                a=ps.executeUpdate(); 
-LlenarTableDatosblanca(J_tableLlenado);        
-                  }else if(combosucursal.getSelectedItem().toString().equals("Zapata")){
-    
-                       PreparedStatement ps = ca.prepareStatement ("UPDATE productoexternozapata SET pieza='"+cantidadnumerica+"',total = '"+solodosdecimales.format(total)+"',fecha = '"+fecha()+"',tiendaexterna = '"+combosucursal.getSelectedItem().toString()+"'WHERE nombre= 'Ala' ");  
-                a=ps.executeUpdate(); 
- LlenarTableDatoszapata(J_tableLlenado);
-                  }else{
-    
-                      PreparedStatement ps = ca.prepareStatement ("UPDATE productoexternocentral SET pieza='"+cantidadnumerica+"',total = '"+solodosdecimales.format(total)+"',fecha = '"+fecha()+"',tiendaexterna = '"+combosucursal.getSelectedItem().toString()+"'WHERE nombre= 'Ala' ");  
-                a=ps.executeUpdate();
-LlenarTableDatosMercado(J_tableLlenado);                
-                  }   
-                
-                if(a>0){
-                     JOptionPane.showMessageDialog(null, "Producto agregado");
-                     cantidad.setText(""); 
-                     totalapagarmetodo();
-                  pago.setText(solodosdecimales.format(totalapagar));
-                 }
-            }catch(SQLException e)  { //fin de la insersion a la tabla ventas
-                JOptionPane.showMessageDialog(null,"Error de datos por id vacio "+e);
-            }//fin de la insersion a la tabla ventas
-                        break;
-                default:
-                    piezasenbase(combopieza.getSelectedItem().toString());
-                     cantidadnumerica+=piezaendb;
-            try{ //la insersion a la tabla ventas               
-              
-              if(combosucursal.getSelectedItem().toString().equals("Blanca")){
-    
-                       PreparedStatement ps = ca.prepareStatement ("UPDATE productoexternoblanca SET pieza='"+cantidadnumerica+"',fecha = '"+fecha()+"',tiendaexterna = '"+combosucursal.getSelectedItem().toString()+"'WHERE nombre= '"+combopieza.getSelectedItem().toString()+"' ");  
-                a=ps.executeUpdate(); 
-LlenarTableDatosblanca(J_tableLlenado);                         
-                  }else if(combosucursal.getSelectedItem().toString().equals("Zapata")){
-    
-                       PreparedStatement ps = ca.prepareStatement ("UPDATE productoexternozapata SET pieza='"+cantidadnumerica+"',fecha = '"+fecha()+"',tiendaexterna = '"+combosucursal.getSelectedItem().toString()+"'WHERE nombre= '"+combopieza.getSelectedItem().toString()+"' ");  
-                a=ps.executeUpdate(); 
-LlenarTableDatoszapata(J_tableLlenado);
-                  }else{
-    
-                      PreparedStatement ps = ca.prepareStatement ("UPDATE productoexternocentral SET pieza='"+cantidadnumerica+"',fecha = '"+fecha()+"',tiendaexterna = '"+combosucursal.getSelectedItem().toString()+"'WHERE nombre= '"+combopieza.getSelectedItem().toString()+"' ");  
-                a=ps.executeUpdate(); 
-LlenarTableDatosMercado(J_tableLlenado);                
-                  }   
-                  
-                if(a>0){
-                     JOptionPane.showMessageDialog(null, "Producto agregado");
-                     cantidad.setText(""); 
-                     totalapagarmetodo();
-                pago.setText(solodosdecimales.format(totalapagar));
-                 }
-            }catch(SQLException e)  { //fin de la insersion a la tabla ventas
-                JOptionPane.showMessageDialog(null,"Error de datos por id vacio "+e);
-            }//fin de la insersion a la tabla ventas
-                    break;
-              
-            }
-        }//ESTO VALIDA QUE EL TEXTO ESCRITO NO TENGA INCOHERENCIAS
-    }//GEN-LAST:event_listoActionPerformed
-
-    private void salirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salirActionPerformed
-        calculadora.setVisible(false);
-    }//GEN-LAST:event_salirActionPerformed
-
-    private void ceroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ceroActionPerformed
-        String one="0";
-        if(!cantidad.equals("")){
-
-            cantidad.setText(cantidad.getText()+one);
-        }
-        else {
-            cantidad.setText(one);
-            cantidad=cantidad;
-        }
-    }//GEN-LAST:event_ceroActionPerformed
-
     
     
     public void vaciandotablas(){
@@ -924,7 +624,8 @@ LlenarTableDatosMercado(J_tableLlenado);
                          int a=pst.executeUpdate();
                          if(a>0){   // UPDATE `productoexternoblanca` SET `pieza`=0;
                              JOptionPane.showMessageDialog(null, "Pago de pollo agregado a gastos");
-                            // vaciandotablas(); // vaciando las tablas cuando se paga el pollo
+                            
+                           
                          }             
       }catch(Exception w){
                      JOptionPane.showMessageDialog(null,"error en id usuario"+w);
@@ -977,6 +678,308 @@ LlenarTableDatosMercado(J_tableLlenado);
     private void combosucursalKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_combosucursalKeyPressed
         // TODO add your handling code here:
     }//GEN-LAST:event_combosucursalKeyPressed
+
+    private void ceroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ceroActionPerformed
+        String one="0";
+        if(!cantidad.equals("")){
+
+            cantidad.setText(cantidad.getText()+one);
+        }
+        else {
+            cantidad.setText(one);
+            cantidad=cantidad;
+        }
+    }//GEN-LAST:event_ceroActionPerformed
+
+    private void salirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salirActionPerformed
+        calculadora.setVisible(false);
+    }//GEN-LAST:event_salirActionPerformed
+
+    private void listoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listoActionPerformed
+        boolean pass2 = validarFormulario(cantidad.getText());
+        if(pass2){//ESTO VALIDA QUE EL TEXTO ESCRITO NO TENGA INCOHERENCIAS
+            float cantidadnumerica=Float.parseFloat(cantidad.getText().toString());
+            float total=0;
+            switch(combopieza.getSelectedItem().toString()){
+                case "Pechuga":
+                piezasenbase(combopieza.getSelectedItem().toString());
+                cantidadnumerica+=piezaendb;
+                total=cantidadnumerica*35;
+                try{ //la insersion a la tabla ventas
+                    if(combosucursal.getSelectedItem().toString().equals("Blanca")){
+                        PreparedStatement ps = ca.prepareStatement ("UPDATE productoexternoblanca SET pieza='"+cantidadnumerica+"',total = '"+solodosdecimales.format(total)+"',fecha = '"+fecha()+"',tiendaexterna = '"+combosucursal.getSelectedItem().toString()+"'WHERE nombre= 'Pechuga' ");
+                        a=ps.executeUpdate();
+                        LlenarTableDatosblanca(J_tableLlenado);
+                    }else if(combosucursal.getSelectedItem().toString().equals("Zapata")){
+                        PreparedStatement ps = ca.prepareStatement ("UPDATE productoexternozapata SET pieza='"+cantidadnumerica+"',total = '"+solodosdecimales.format(total)+"',fecha = '"+fecha()+"',tiendaexterna = '"+combosucursal.getSelectedItem().toString()+"'WHERE nombre= 'Pechuga' ");
+                        a=ps.executeUpdate();
+                        LlenarTableDatoszapata(J_tableLlenado);
+                    }else{
+                        PreparedStatement ps = ca.prepareStatement ("UPDATE productoexternocentral SET pieza='"+cantidadnumerica+"',total = '"+solodosdecimales.format(total)+"',fecha = '"+fecha()+"',tiendaexterna = '"+combosucursal.getSelectedItem().toString()+"'WHERE nombre= 'Pechuga' ");
+                        a=ps.executeUpdate();
+                        LlenarTableDatosMercado(J_tableLlenado);
+                    }
+
+                    if(a>0){
+                        JOptionPane.showMessageDialog(null, "Producto agregado");
+                        cantidad.setText("");
+                        totalapagarmetodo();
+                        pago.setText(solodosdecimales.format(totalapagar));
+
+                    }
+                }catch(SQLException e)  { //fin de la insersion a la tabla ventas
+                    JOptionPane.showMessageDialog(null,"Error de datos por id vacio "+e);
+                }//fin de la insersion a la tabla ventas
+                break;
+                case "Muslo":
+                piezasenbase(combopieza.getSelectedItem().toString());
+                cantidadnumerica+=piezaendb;
+                total=Float.parseFloat(String.valueOf(cantidadnumerica*7.70));
+                try{ //la insersion a la tabla ventas
+
+                    if(combosucursal.getSelectedItem().toString().equals("Blanca")){
+
+                        PreparedStatement ps = ca.prepareStatement ("UPDATE productoexternoblanca SET pieza='"+cantidadnumerica+"',total = '"+solodosdecimales.format(total)+"',fecha = '"+fecha()+"',tiendaexterna = '"+combosucursal.getSelectedItem().toString()+"'WHERE nombre= 'Muslo' ");
+                        a=ps.executeUpdate();
+                        LlenarTableDatosblanca(J_tableLlenado);
+                    }else if(combosucursal.getSelectedItem().toString().equals("Zapata")){
+
+                        PreparedStatement ps = ca.prepareStatement ("UPDATE productoexternozapata SET pieza='"+cantidadnumerica+"',total = '"+solodosdecimales.format(total)+"',fecha = '"+fecha()+"',tiendaexterna = '"+combosucursal.getSelectedItem().toString()+"'WHERE nombre= 'Muslo' ");
+                        a=ps.executeUpdate();
+                        LlenarTableDatoszapata(J_tableLlenado);
+                    }else{
+
+                        PreparedStatement ps = ca.prepareStatement ("UPDATE productoexternocentral SET pieza='"+cantidadnumerica+"',total = '"+solodosdecimales.format(total)+"',fecha = '"+fecha()+"',tiendaexterna = '"+combosucursal.getSelectedItem().toString()+"'WHERE nombre= 'Muslo' ");
+                        a=ps.executeUpdate();
+                        LlenarTableDatosMercado(J_tableLlenado);
+                    }
+
+                    if(a>0){
+                        JOptionPane.showMessageDialog(null, "Producto agregado");
+                        cantidad.setText("");
+                        totalapagarmetodo();
+                        pago.setText(solodosdecimales.format(totalapagar));
+                    }
+                }catch(SQLException e)  { //fin de la insersion a la tabla ventas
+                    JOptionPane.showMessageDialog(null,"Error de datos por id vacio "+e);
+                }//fin de la insersion a la tabla ventas
+                break;
+                case "Pierna":
+                piezasenbase(combopieza.getSelectedItem().toString());
+                cantidadnumerica+=piezaendb;
+
+                total=Float.parseFloat(String.valueOf(cantidadnumerica*7.70));
+                try{ //la insersion a la tabla ventas
+
+                    if(combosucursal.getSelectedItem().toString().equals("Blanca")){
+
+                        PreparedStatement ps = ca.prepareStatement ("UPDATE productoexternoblanca SET pieza='"+cantidadnumerica+"',total = '"+solodosdecimales.format(total)+"',fecha = '"+fecha()+"',tiendaexterna = '"+combosucursal.getSelectedItem().toString()+"'WHERE nombre= 'Pierna' ");
+                        a=ps.executeUpdate();
+                        LlenarTableDatosblanca(J_tableLlenado);
+
+                    }else if(combosucursal.getSelectedItem().toString().equals("Zapata")){
+
+                        PreparedStatement ps = ca.prepareStatement ("UPDATE productoexternozapata SET pieza='"+cantidadnumerica+"',total = '"+solodosdecimales.format(total)+"',fecha = '"+fecha()+"',tiendaexterna = '"+combosucursal.getSelectedItem().toString()+"'WHERE nombre= 'Pierna' ");
+                        a=ps.executeUpdate();
+                        LlenarTableDatoszapata(J_tableLlenado);
+                    }else{
+
+                        PreparedStatement ps = ca.prepareStatement ("UPDATE productoexternocentral SET pieza='"+cantidadnumerica+"',total = '"+solodosdecimales.format(total)+"',fecha = '"+fecha()+"',tiendaexterna = '"+combosucursal.getSelectedItem().toString()+"'WHERE nombre= 'Pierna' ");
+                        a=ps.executeUpdate();
+                        LlenarTableDatosMercado(J_tableLlenado);
+                    }
+
+                    if(a>0){
+                        JOptionPane.showMessageDialog(null, "Producto agregado");
+                        cantidad.setText("");
+                        totalapagarmetodo();
+                        pago.setText(solodosdecimales.format(totalapagar));
+                    }
+                }catch(SQLException e)  { //fin de la insersion a la tabla ventas
+                    JOptionPane.showMessageDialog(null,"Error de datos por id vacio "+e);
+                }//fin de la insersion a la tabla ventas
+                break;
+                case "Ala":
+                piezasenbase(combopieza.getSelectedItem().toString());
+                cantidadnumerica+=piezaendb;
+                total=Float.parseFloat(String.valueOf(cantidadnumerica*5.50));
+                try{ //la insersion a la tabla ventas
+
+                    if(combosucursal.getSelectedItem().toString().equals("Blanca")){
+
+                        PreparedStatement ps = ca.prepareStatement ("UPDATE productoexternoblanca SET pieza='"+cantidadnumerica+"',total = '"+solodosdecimales.format(total)+"',fecha = '"+fecha()+"',tiendaexterna = '"+combosucursal.getSelectedItem().toString()+"'WHERE nombre= 'Ala' ");
+                        a=ps.executeUpdate();
+                        LlenarTableDatosblanca(J_tableLlenado);
+                    }else if(combosucursal.getSelectedItem().toString().equals("Zapata")){
+
+                        PreparedStatement ps = ca.prepareStatement ("UPDATE productoexternozapata SET pieza='"+cantidadnumerica+"',total = '"+solodosdecimales.format(total)+"',fecha = '"+fecha()+"',tiendaexterna = '"+combosucursal.getSelectedItem().toString()+"'WHERE nombre= 'Ala' ");
+                        a=ps.executeUpdate();
+                        LlenarTableDatoszapata(J_tableLlenado);
+                    }else{
+
+                        PreparedStatement ps = ca.prepareStatement ("UPDATE productoexternocentral SET pieza='"+cantidadnumerica+"',total = '"+solodosdecimales.format(total)+"',fecha = '"+fecha()+"',tiendaexterna = '"+combosucursal.getSelectedItem().toString()+"'WHERE nombre= 'Ala' ");
+                        a=ps.executeUpdate();
+                        LlenarTableDatosMercado(J_tableLlenado);
+                    }
+
+                    if(a>0){
+                        JOptionPane.showMessageDialog(null, "Producto agregado");
+                        cantidad.setText("");
+                        totalapagarmetodo();
+                        pago.setText(solodosdecimales.format(totalapagar));
+                    }
+                }catch(SQLException e)  { //fin de la insersion a la tabla ventas
+                    JOptionPane.showMessageDialog(null,"Error de datos por id vacio "+e);
+                }//fin de la insersion a la tabla ventas
+                break;
+                default:
+                piezasenbase(combopieza.getSelectedItem().toString());
+                cantidadnumerica+=piezaendb;
+                try{ //la insersion a la tabla ventas
+
+                    if(combosucursal.getSelectedItem().toString().equals("Blanca")){
+
+                        PreparedStatement ps = ca.prepareStatement ("UPDATE productoexternoblanca SET pieza='"+cantidadnumerica+"',fecha = '"+fecha()+"',tiendaexterna = '"+combosucursal.getSelectedItem().toString()+"'WHERE nombre= '"+combopieza.getSelectedItem().toString()+"' ");
+                        a=ps.executeUpdate();
+                        LlenarTableDatosblanca(J_tableLlenado);
+                    }else if(combosucursal.getSelectedItem().toString().equals("Zapata")){
+
+                        PreparedStatement ps = ca.prepareStatement ("UPDATE productoexternozapata SET pieza='"+cantidadnumerica+"',fecha = '"+fecha()+"',tiendaexterna = '"+combosucursal.getSelectedItem().toString()+"'WHERE nombre= '"+combopieza.getSelectedItem().toString()+"' ");
+                        a=ps.executeUpdate();
+                        LlenarTableDatoszapata(J_tableLlenado);
+                    }else{
+
+                        PreparedStatement ps = ca.prepareStatement ("UPDATE productoexternocentral SET pieza='"+cantidadnumerica+"',fecha = '"+fecha()+"',tiendaexterna = '"+combosucursal.getSelectedItem().toString()+"'WHERE nombre= '"+combopieza.getSelectedItem().toString()+"' ");
+                        a=ps.executeUpdate();
+                        LlenarTableDatosMercado(J_tableLlenado);
+                    }
+
+                    if(a>0){
+                        JOptionPane.showMessageDialog(null, "Producto agregado");
+                        cantidad.setText("");
+                        totalapagarmetodo();
+                        pago.setText(solodosdecimales.format(totalapagar));
+                    }
+                }catch(SQLException e)  { //fin de la insersion a la tabla ventas
+                    JOptionPane.showMessageDialog(null,"Error de datos por id vacio "+e);
+                }//fin de la insersion a la tabla ventas
+                break;
+
+            }
+        }//ESTO VALIDA QUE EL TEXTO ESCRITO NO TENGA INCOHERENCIAS
+    }//GEN-LAST:event_listoActionPerformed
+
+    private void unoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_unoActionPerformed
+        String one="1";
+        if(!cantidad.equals("")){
+
+            cantidad.setText(cantidad.getText()+one);
+        }
+        else {
+            cantidad.setText(one);
+            cantidad=cantidad;
+        }
+    }//GEN-LAST:event_unoActionPerformed
+
+    private void dosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dosActionPerformed
+        String two="2";
+        if(!cantidad.equals("")){
+
+            cantidad.setText(cantidad.getText()+two);
+        }
+        else {
+            cantidad.setText(two);
+            cantidad=cantidad;
+        }
+    }//GEN-LAST:event_dosActionPerformed
+
+    private void tresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tresActionPerformed
+        String th="3";
+        if(!cantidad.equals("")){
+
+            cantidad.setText(cantidad.getText()+th);
+        }
+        else {
+            cantidad.setText(th);
+            cantidad=cantidad;
+        }
+    }//GEN-LAST:event_tresActionPerformed
+
+    private void seisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seisActionPerformed
+        String six="6";
+        if(!cantidad.equals("")){
+
+            cantidad.setText(cantidad.getText()+six);
+        }
+        else {
+            cantidad.setText(six);
+            cantidad=cantidad;
+        }
+    }//GEN-LAST:event_seisActionPerformed
+
+    private void cincoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cincoActionPerformed
+        String five="5";
+        if(!cantidad.equals("")){
+
+            cantidad.setText(cantidad.getText()+five);
+        }
+        else {
+            cantidad.setText(five);
+            cantidad=cantidad;
+        }
+    }//GEN-LAST:event_cincoActionPerformed
+
+    private void cuatroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cuatroActionPerformed
+        String fo="4";
+        if(!cantidad.equals("")){
+
+            cantidad.setText(cantidad.getText()+fo);
+        }
+        else {
+            cantidad.setText(fo);
+            cantidad=cantidad;
+        }
+    }//GEN-LAST:event_cuatroActionPerformed
+
+    private void sieteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sieteActionPerformed
+        String sevenr="7";
+        if(!cantidad.equals("")){
+
+            cantidad.setText(cantidad.getText()+sevenr);
+        }
+        else {
+            cantidad.setText(sevenr);
+            cantidad=cantidad;
+        }
+    }//GEN-LAST:event_sieteActionPerformed
+
+    private void ochoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ochoActionPerformed
+        String eight="8";
+        if(!cantidad.equals("")){
+
+            cantidad.setText(cantidad.getText()+eight);
+        }
+        else {
+            cantidad.setText(eight);
+            cantidad=cantidad;
+        }
+    }//GEN-LAST:event_ochoActionPerformed
+
+    private void nueveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nueveActionPerformed
+        String nine="9";
+        if(!cantidad.equals("")){
+
+            cantidad.setText(cantidad.getText()+nine);
+        }
+        else {
+            cantidad.setText(nine);
+            cantidad=cantidad;
+        }
+    }//GEN-LAST:event_nueveActionPerformed
+
+    private void borrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_borrarActionPerformed
+        cantidad.setText("");
+    }//GEN-LAST:event_borrarActionPerformed
  
     /**
      * @param args the command line arguments
@@ -1025,7 +1028,7 @@ SI cc= new SI();
     private javax.swing.JLabel Reloj;
     private javax.swing.JButton borrar;
     private javax.swing.JPanel calculadora;
-    public static javax.swing.JTextField cantidad;
+    private javax.swing.JTextField cantidad;
     private javax.swing.JButton cero;
     private javax.swing.JButton cinco;
     private javax.swing.JComboBox<String> combopieza;

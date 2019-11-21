@@ -415,8 +415,7 @@ public void obtener_id_del_proveedor(String name){
      limpiar();
                            // txtpiezas.setText("0");
                             LlenarTabla(jTableGastos); // LLENANDO LA TABLA AL INSERTAR CORRECTAMEBTE
-                            tikectGastos = new TikectGasto();
-                            tikectGastos.TikectGasto(cantidad ,tipo, String.valueOf(totalmonto));
+                           
 
                        }/*0*/ else { /*4*/
                             JOptionPane.showMessageDialog(null, "error", "ERROR", JOptionPane.ERROR_MESSAGE);
