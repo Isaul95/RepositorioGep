@@ -218,6 +218,11 @@ public class Acompañantes extends javax.swing.JFrame {
         regresa.setBackground(new java.awt.Color(0, 51, 102));
         regresa.setForeground(new java.awt.Color(255, 255, 255));
         regresa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/salir-flecha-derecha (1).png"))); // NOI18N
+        regresa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                regresaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -338,100 +343,186 @@ public class Acompañantes extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-      Calculadora enviar = new Calculadora("Salsa guajillo (gde)","Escribe la cantidad");
+      if(masdeunapieza.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
+            Calculadora enviar = new Calculadora("Salsa guajillo (gde)","Escribe la cantidad");
          this.setVisible(false);
          new Calculadora().setVisible(true);   
+         }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
+           menu_principal enviar = new menu_principal("Salsa guajillo (gde)",1);
+         this.setVisible(false);
+      }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-       Calculadora enviar = new Calculadora("Spagueti blanco","Escribe la cantidad");
+         if(masdeunapieza.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
+           Calculadora enviar = new Calculadora("Spagueti blanco","Escribe la cantidad");
          this.setVisible(false);
          new Calculadora().setVisible(true);   
+         }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
+           menu_principal enviar = new menu_principal("Spagueti blanco",1);
+         this.setVisible(false);
+      }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-     Calculadora enviar = new Calculadora("Spagueti rojo","Escribe la cantidad");
+    
+           if(masdeunapieza.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
+           Calculadora enviar = new Calculadora("Spagueti rojo","Escribe la cantidad");
          this.setVisible(false);
          new Calculadora().setVisible(true);   
+         }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
+           menu_principal enviar = new menu_principal("Spagueti rojo",1);
+         this.setVisible(false);
+      }
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-       Calculadora enviar = new Calculadora("Arroz blanco","Escribe la cantidad");
+        if(masdeunapieza.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
+           Calculadora enviar = new Calculadora("Arroz blanco","Escribe la cantidad");
          this.setVisible(false);
          new Calculadora().setVisible(true);   
+         }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
+           menu_principal enviar = new menu_principal("Arroz blanco",1);
+         this.setVisible(false);
+      }
+   
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-         Calculadora enviar = new Calculadora("Arroz rojo","Escribe la cantidad");
+       if(masdeunapieza.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
+           Calculadora enviar = new Calculadora("Arroz rojo","Escribe la cantidad");
          this.setVisible(false);
          new Calculadora().setVisible(true);   
+         }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
+           menu_principal enviar = new menu_principal("Arroz rojo",1);
+         this.setVisible(false);
+      }
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-      Calculadora enviar = new Calculadora("Frijoles puercos","Escribe la cantidad");
+if(masdeunapieza.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
+           Calculadora enviar = new Calculadora("Frijoles puercos","Escribe la cantidad");
          this.setVisible(false);
          new Calculadora().setVisible(true);   
+         }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
+           menu_principal enviar = new menu_principal("Frijoles puercos",1);
+         this.setVisible(false);
+      }
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-     Calculadora enviar = new Calculadora("Frijoles peruanos","Escribe la cantidad");
+if(masdeunapieza.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
+           Calculadora enviar = new Calculadora("Frijoles peruanos","Escribe la cantidad");
          this.setVisible(false);
          new Calculadora().setVisible(true);   
+         }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
+           menu_principal enviar = new menu_principal("Frijoles peruanos",1);
+         this.setVisible(false);
+      }
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-     Calculadora enviar = new Calculadora("Frijoles charros","Escribe la cantidad");
+  if(masdeunapieza.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
+           Calculadora enviar = new Calculadora("Frijoles charros","Escribe la cantidad");
          this.setVisible(false);
          new Calculadora().setVisible(true);   
+         }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
+           menu_principal enviar = new menu_principal("Frijoles charros",1);
+         this.setVisible(false);
+      }   
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
-        Calculadora enviar = new Calculadora("Cochinita","Escribe la cantidad");
+if(masdeunapieza.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
+           Calculadora enviar = new Calculadora("Cochinita","Escribe la cantidad");
          this.setVisible(false);
          new Calculadora().setVisible(true);   
+         }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
+           menu_principal enviar = new menu_principal("Cochinita",1);
+         this.setVisible(false);
+      }   
     }//GEN-LAST:event_jButton9ActionPerformed
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
-        Calculadora enviar = new Calculadora("Pure","Escribe la cantidad");
+  if(masdeunapieza.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
+           Calculadora enviar = new Calculadora("Pure","Escribe la cantidad");
          this.setVisible(false);
          new Calculadora().setVisible(true);   
+         }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
+           menu_principal enviar = new menu_principal("Pure",1);
+         this.setVisible(false);
+      } 
     }//GEN-LAST:event_jButton10ActionPerformed
 
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
-     Calculadora enviar = new Calculadora("Ens. de manzana","Escribe la cantidad");
+if(masdeunapieza.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
+           Calculadora enviar = new Calculadora("Ens. de manzana","Escribe la cantidad");
          this.setVisible(false);
          new Calculadora().setVisible(true);   
+         }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
+           menu_principal enviar = new menu_principal("Ens. de manzana",1);
+         this.setVisible(false);
+      }  
     }//GEN-LAST:event_jButton11ActionPerformed
 
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
-      Calculadora enviar = new Calculadora("Ensalada de col","Escribe la cantidad");
+if(masdeunapieza.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
+           Calculadora enviar = new Calculadora("Ensalada de col","Escribe la cantidad");
          this.setVisible(false);
          new Calculadora().setVisible(true);   
+         }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
+           menu_principal enviar = new menu_principal("Ensalada de col",1);
+         this.setVisible(false);
+      }  
     }//GEN-LAST:event_jButton12ActionPerformed
 
     private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
-      Calculadora enviar = new Calculadora("Ensalada rusa","Escribe la cantidad en pesos");
+if(masdeunapieza.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
+           Calculadora enviar = new Calculadora("Ensalada rusa","Escribe la cantidad");
          this.setVisible(false);
          new Calculadora().setVisible(true);   
+         }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
+           menu_principal enviar = new menu_principal("Ensalada rusa",1);
+         this.setVisible(false);
+      }  
     }//GEN-LAST:event_jButton13ActionPerformed
 
     private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
-       Calculadora enviar = new Calculadora("Pasta de codito","Escribe la cantidad");
+if(masdeunapieza.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
+           Calculadora enviar = new Calculadora("Pasta de codito","Escribe la cantidad");
          this.setVisible(false);
          new Calculadora().setVisible(true);   
+         }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
+           menu_principal enviar = new menu_principal("Pasta de codito",1);
+         this.setVisible(false);
+      }  
     }//GEN-LAST:event_jButton14ActionPerformed
 
     private void jButton15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton15ActionPerformed
-       Calculadora enviar = new Calculadora("Chiles en vinagre","Escribe la cantidad");
+if(masdeunapieza.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
+           Calculadora enviar = new Calculadora("Chiles en vinagre","Escribe la cantidad");
          this.setVisible(false);
          new Calculadora().setVisible(true);   
+         }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
+           menu_principal enviar = new menu_principal("Chiles en vinagre",1);
+         this.setVisible(false);
+      } 
     }//GEN-LAST:event_jButton15ActionPerformed
 
     private void jButton16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton16ActionPerformed
-       Calculadora enviar = new Calculadora("Ver. encurtidas","Escribe la cantidad");
+if(masdeunapieza.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
+           Calculadora enviar = new Calculadora("Ver. encurtidas","Escribe la cantidad");
          this.setVisible(false);
          new Calculadora().setVisible(true);   
+         }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
+      new menu_principal("Ver. encurtidas",1).setVisible(true);   
+         dispose();
+      } 
     }//GEN-LAST:event_jButton16ActionPerformed
+
+    private void regresaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_regresaActionPerformed
+            dispose();
+    }//GEN-LAST:event_regresaActionPerformed
 
     /**
      * @param args the command line arguments

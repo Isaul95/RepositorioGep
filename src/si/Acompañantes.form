@@ -451,6 +451,9 @@
               <Image iconType="3" name="/si/IconosJava/salir-flecha-derecha (1).png"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="regresaActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
