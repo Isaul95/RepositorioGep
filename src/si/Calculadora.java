@@ -16,7 +16,8 @@ import static si.menu_principal.cantidad;
  * @author Alexis
  */
 public class Calculadora extends javax.swing.JFrame {
-static String pieza="", descripcion="";
+static String pieza="", descripcion="", uso="";
+static float cantidadacobrar=0;
     /**
      * Creates new form Calculadora
      */
@@ -24,11 +25,16 @@ public Calculadora(String pieza, String descripcion){
     this.pieza=pieza;
     this.descripcion=descripcion;
 }
+public Calculadora(float cantidadacobrar, String uso){
+    this.cantidadacobrar=cantidadacobrar;
+    this.uso=uso;
+    
+}
     public Calculadora() {
         initComponents();
          piezalabel.setText(this.pieza);
          descripcionlabel.setText(this.descripcion);
-         
+         piezalabel.setText(this.uso);
          this.setLocationRelativeTo(null); // CENTRAR FORMULARIO
         
     }
@@ -431,9 +437,15 @@ String two="2";
         boolean pass2 = validarFormulario(cantidad.getText());
                  if(pass2){//ESTO VALIDA QUE EL TEXTO ESCRITO NO TENGA INCOHERENCIAS   
                      //LA SIGUIENTE LINEA LE ENVIA LA CANTIDAD Y EL NOMBRE DE PIEZA A MENU PRINCIPAL
-                 menu_principal enviar = new menu_principal(Float.parseFloat(cantidad.getText()), this.pieza);
+             if(this.cantidadacobrar>0){//SI LA CALCULADORA SE VA A USAR PARA PAGOS
+                menu_principal enviar =new menu_principal(Float.parseFloat(cantidad.getText()));   
+                  this.setVisible(false);
+                 } else{//CUANDO SE USA PARA AGREGAR CANTIDADES O PIEZAS
+                  menu_principal enviar = new menu_principal(Float.parseFloat(cantidad.getText()), this.pieza);
                  this.setVisible(false);
+                     }
                  }
+                     
     }//GEN-LAST:event_listoActionPerformed
 
     private void n0ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_n0ActionPerformed

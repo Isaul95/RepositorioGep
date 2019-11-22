@@ -60,7 +60,7 @@ static Statement sent;
   static float utilidadfinal, utilidades, gastos, sumadetotalesdeventasdehoy, conteodeventascanceladas;
       static int  id=0, conteototaldeventas, id_ventapencredito, evaluadordepiezaspares=0, evaluadordepiezasinpares=0,  resultadoprimerproveedor, id_de_la_venta_incrementable,totalcomprobacion, primerventa, resultfirstselling, existencia;   
   static int fila, id_proveedor,id_usuario,id_producto,id_venta,aux1,aux2,variablede0=0;
-   static float   piezassuficientes, cantidadporerrordeusuario,productos, NoPcantidad=0, cantidadenventa,  cantidaddesdelatablaeditable, piezasxunpollo=14, piezasdepollopares=2, piezasdepollosinpares=1, resultadodepiezaspares,resultadodepiezasinpares, minimodelaspiezasparesdepollocrudoeninventario, minimodelaspiezasinparesdepollocrudoeninventario, pollo_crudoeninventario, addpiezas, cantidadpolloenDB, porcentaje, importe,totalf=0,comprobacion,cambio,precio, NoPimporte=0,sumadeimportes, sumadeimportesparaeltotal, sumadeimportescreditopendiente,descuentocantidad, totalfinalcondescuento;
+   static float   totaldeventaenturno, variablepago, variablepagocondescuento, piezassuficientes, cantidadporerrordeusuario,productos, NoPcantidad=0, cantidadenventa,  cantidaddesdelatablaeditable, piezasxunpollo=14, piezasdepollopares=2, piezasdepollosinpares=1, resultadodepiezaspares,resultadodepiezasinpares, minimodelaspiezasparesdepollocrudoeninventario, minimodelaspiezasinparesdepollocrudoeninventario, pollo_crudoeninventario, addpiezas, cantidadpolloenDB, porcentaje, importe,totalf=0,comprobacion,cambio,precio, NoPimporte=0,sumadeimportes, sumadeimportesparaeltotal, sumadeimportescreditopendiente,descuentocantidad, totalfinalcondescuento;
   static ArrayList storage = new ArrayList(); // para guardar los id de cada producto que se ha agregado a la tabla venta
  static String[] piezas = {"Pechuga", "Muslo","Pierna","Ala","Huacal","Cadera","Cabeza", "Molleja", "Patas"};
 static String[] piezasdemedio = {"Pechuga", "Muslo","Pierna","Ala","Huacal", "Molleja", "Patas"};
@@ -91,7 +91,7 @@ static boolean seagregoexterno=false;
          ParaLAVenta(JtablepaLaVenta);
     }
 }    
-   //CUANDO RECIBE LA CANTIDAD POR DEFAULT 1
+   //CUANDO RECIBE LA CANTIDAD POR DEFAULT DE 1
   menu_principal(String piezaseleccionada, int cantidaddeproductos){
       this.cantidaddeproductos=cantidaddeproductos;
       this.nombredepiezaseleccionada=piezaseleccionada;
@@ -104,6 +104,11 @@ static boolean seagregoexterno=false;
       this.nombredepiezaseleccionada=piezaseleccionada;
        agregandoaventa(nombredepiezaseleccionada, cantidaddeproductos);
       
+  }
+    //CUANDO SE VA A HACER EL PAGO
+  menu_principal(float variablepago){
+      this.variablepago=variablepago;
+ metodo_de_cobro(this.variablepago); 
   }
  
             public menu_principal() {
@@ -6068,28 +6073,24 @@ public void sepuedeeliminarpiernacompleta(){
                    }else {
                         agregarpiezasaventa(nombredepiezaseleccionada);
                    }
-                      
-
-          
-  if(voyacobrar==true){
-                 metodo_de_cobro();
-             }
+                     
     }
     
     public static void ocultarcalculadoradespuesdecobrar(){
     cantidad.setText("");
     //calculadora.setVisible(false);
 }
-    public static void metodo_de_cobro(){
+    public static void metodo_de_cobro(float variablepago){
     /*   ********************  BOTON DE COBRAR LA VENTA ****************  */
             /*   ******************  BOTON DE COBRAR LA VENTA **************  */
             try{
+            
 
-                float totaldeventaenturno =  Float.parseFloat(totaldeventa.getText());
-                float variablepago = Float.parseFloat(cantidad.getText());
-                float variablepagocondescuento =  Float.parseFloat(totalcondescuento.getText());
+               totaldeventaenturno =  Float.parseFloat(totaldeventa.getText());
+           
+              variablepagocondescuento =  Float.parseFloat(totalcondescuento.getText());
 
-                if(!totaldeventa.getText().isEmpty()&&!cantidad.getText().isEmpty()&& Float.parseFloat(totaldeventa.getText())>0){
+                if(!totaldeventa.getText().isEmpty()&&variablepago>0&&Float.parseFloat(totaldeventa.getText())>0){
                     if(descuentoactivo==true){ //CUANDO EL DESCUENTO ESTÁ ACTIVO
 
                         if(variablepago<variablepagocondescuento){ // comprueba que la cantidad recibida sea mayor al total
@@ -6097,12 +6098,12 @@ public void sepuedeeliminarpiernacompleta(){
                         }
                         else {
                             tablaventaactiva=false;
-                            cambiocombobox.setText(String.valueOf(cambio=Float.parseFloat(cantidad.getText())-variablepagocondescuento));
+                            cambiocombobox.setText(String.valueOf(cambio=variablepago-variablepagocondescuento));
                             block_unlock=true;
                             try{// el id del usuario
                                 id_max_de_venta();
                                 
-                                    PreparedStatement ps = ca.prepareStatement ("UPDATE venta SET total='"+solodosdecimales.format(Float.parseFloat(totaldeventa.getText()))+"',porcentajedescontado='"+porcentaje+"',totalcdescuento='"+solodosdecimales.format(Float.parseFloat(totalcondescuento.getText()))+"',descuento='"+ solodosdecimales.format(Float.parseFloat(descuentocombo.getText()))+"',pago='"+solodosdecimales.format(Float.parseFloat(cantidad.getText()))+"',cambio='"+solodosdecimales.format(Float.parseFloat(cambiocombobox.getText()))+"',fecha_reporte='"+fecha()+"',estado_venta='"+estadorealizado+"'WHERE id_venta='"+id_de_la_venta_incrementable+"'");
+                                    PreparedStatement ps = ca.prepareStatement ("UPDATE venta SET total='"+solodosdecimales.format(Float.parseFloat(totaldeventa.getText()))+"',porcentajedescontado='"+porcentaje+"',totalcdescuento='"+solodosdecimales.format(Float.parseFloat(totalcondescuento.getText()))+"',descuento='"+ solodosdecimales.format(Float.parseFloat(descuentocombo.getText()))+"',pago='"+solodosdecimales.format(variablepago)+"',cambio='"+solodosdecimales.format(Float.parseFloat(cambiocombobox.getText()))+"',fecha_reporte='"+fecha()+"',estado_venta='"+estadorealizado+"'WHERE id_venta='"+id_de_la_venta_incrementable+"'");
                                     ps.executeUpdate();
                                 //ACTUALIZACION EN LA TABLA DESCRIPCION DE VENTA A REALIZADA
 
@@ -6139,12 +6140,12 @@ public void sepuedeeliminarpiernacompleta(){
                         }
                         else {
                             tablaventaactiva=false;
-                            cambiocombobox.setText(String.valueOf(cambio=Float.parseFloat(cantidad.getText())-totalf));
+                            cambiocombobox.setText(String.valueOf(cambio=variablepago-totalf));
                             block_unlock=true;
                             try{// el id del usuario
                                 id_max_de_venta();
 
-                                PreparedStatement ps = ca.prepareStatement ("UPDATE venta SET total='"+solodosdecimales.format(totalf)+"',porcentajedescontado='"+variablede0+"',descuento='"+ variablede0+"',pago='"+cantidad.getText()+"',cambio='"+solodosdecimales.format(Float.parseFloat(cambiocombobox.getText()))+"',fecha_reporte='"+fecha()+"',estado_venta='"+estadorealizado+"'WHERE id_venta='"+id_de_la_venta_incrementable+"'");
+                                PreparedStatement ps = ca.prepareStatement ("UPDATE venta SET total='"+solodosdecimales.format(totalf)+"',porcentajedescontado='"+variablede0+"',descuento='"+ variablede0+"',pago='"+solodosdecimales.format(variablepago)+"',cambio='"+solodosdecimales.format(Float.parseFloat(cambiocombobox.getText()))+"',fecha_reporte='"+fecha()+"',estado_venta='"+estadorealizado+"'WHERE id_venta='"+id_de_la_venta_incrementable+"'");
                                 ps.executeUpdate();
                                 //ACTUALIZACION EN LA TABLA DESCRIPCION DE VENTA A REALIZADA
 
@@ -6185,8 +6186,8 @@ public void sepuedeeliminarpiernacompleta(){
                 }
             }catch(Exception NFE){//Number format exception para cuando el usuario no ingrese ningun dato en la caja
                 JOptionPane.showMessageDialog(null,"No tiene valor la cantidad recibida","!Espera!",JOptionPane.INFORMATION_MESSAGE);
-            }
 }
+    }
     private void salirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salirActionPerformed
         calculadora.setVisible(false);
         calculatorstate.setText("");
@@ -6229,12 +6230,9 @@ public void sepuedeeliminarpiernacompleta(){
 
     private void cobroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cobroActionPerformed
      if(tablaventaactiva==true&&!totaldeventa.getText().equals("")){
-      calculadora.setVisible(true);
-            calculatorstate.setVisible(true);
-            calculatorstate.setText("Cobrando...");
-                       calculatorstate.setForeground(Color.green);
-                       voyacobrar=true;   
-                       voyaagregar=false;
+         String cobrando="Cobrando";
+ Calculadora enviar = new Calculadora(Float.parseFloat(totaldeventa.getText().toString()), cobrando);
+         new Calculadora().setVisible(true); 
      }else
          JOptionPane.showMessageDialog(null, "Aún no hay productos en venta para cobrar", "Verifique", JOptionPane.INFORMATION_MESSAGE);
         

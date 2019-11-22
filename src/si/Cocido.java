@@ -587,9 +587,8 @@ Calculadora enviar = new Calculadora("Longaniza","Escribe la cantidad en pesos")
 
     private void jButton17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton17ActionPerformed
      if(masdeunapieza.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
-           Calculadora enviar = new Calculadora("Pollo rostizado","Escribe la cantidad");
-         this.setVisible(false);
-         new Calculadora().setVisible(true);   
+         menu_principal enviar =new menu_principal((float)medio, "Pollo rostizado");   
+                this.setVisible(false);  
          }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
          menu_principal enviar =new menu_principal((float)medio, "Pollo rostizado");   
                 this.setVisible(false);
@@ -598,11 +597,9 @@ Calculadora enviar = new Calculadora("Longaniza","Escribe la cantidad en pesos")
 
     private void jButton18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton18ActionPerformed
           if(masdeunapieza.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
-           Calculadora enviar = new Calculadora("Pollo asado","Escribe la cantidad");
-         this.setVisible(false);
-         new Calculadora().setVisible(true);   
+           menu_principal enviar =new menu_principal((float)medio, "Pollo asado");   
+                  this.setVisible(false);   
          }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
-     
          menu_principal enviar =new menu_principal((float)medio, "Pollo asado");   
                   this.setVisible(false);
       } 
@@ -610,9 +607,8 @@ Calculadora enviar = new Calculadora("Longaniza","Escribe la cantidad en pesos")
 
     private void jButton19ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton19ActionPerformed
              if(masdeunapieza.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
-           Calculadora enviar = new Calculadora("Pollo rostizado","Escribe la cantidad");
-         this.setVisible(false);
-         new Calculadora().setVisible(true);   
+menu_principal enviar =new menu_principal((float)cuarto, "Pollo rostizado");   
+                  this.setVisible(false);
          }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
      
         menu_principal enviar = new menu_principal((float)cuarto, "Pollo rostizado");   
@@ -622,9 +618,8 @@ Calculadora enviar = new Calculadora("Longaniza","Escribe la cantidad en pesos")
 
     private void jButton20ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton20ActionPerformed
                   if(masdeunapieza.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
-           Calculadora enviar = new Calculadora("Pollo asado","Escribe la cantidad");
-         this.setVisible(false);
-         new Calculadora().setVisible(true);   
+          menu_principal enviar = new menu_principal((float)cuarto, "Pollo asado");   
+                this.setVisible(false);
          }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
           menu_principal enviar = new menu_principal((float)cuarto, "Pollo asado");   
                 this.setVisible(false);
