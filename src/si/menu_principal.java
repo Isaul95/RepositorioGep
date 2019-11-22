@@ -91,19 +91,21 @@ static boolean seagregoexterno=false;
          ParaLAVenta(JtablepaLaVenta);
     }
 }    
-   //ESTO ES DESPUES DE AGREGAR A VENTA
+   //CUANDO RECIBE LA CANTIDAD POR DEFAULT 1
   menu_principal(String piezaseleccionada, int cantidaddeproductos){
       this.cantidaddeproductos=cantidaddeproductos;
       this.nombredepiezaseleccionada=piezaseleccionada;
        agregandoaventa(nombredepiezaseleccionada, cantidaddeproductos);
       
   }
-  menu_principal(int cantidaddeproductos, String piezaseleccionada){
+  //CUANDO RECIBE UNA CANTIDAD POR PARTE DE LA CALCULADORA O UN MEDIO O UN CUARTO
+  menu_principal(float cantidaddeproductos, String piezaseleccionada){
       this.cantidaddeproductos=cantidaddeproductos;
       this.nombredepiezaseleccionada=piezaseleccionada;
        agregandoaventa(nombredepiezaseleccionada, cantidaddeproductos);
       
   }
+ 
             public menu_principal() {
         initComponents();
             //  this.setExtendedState(MAXIMIZED_BOTH);
@@ -116,7 +118,6 @@ static boolean seagregoexterno=false;
         ids_y_cantidades_enturno_por_error_de_usuario();
        // borrarventasenestadoenturnoporerrordeusuario();//ESTO ES CUANDO EL USUARIO SE EQUIVOCA Y CIERRA SESION DIRECTAMENTE EN LA X
         mostrarpolloscrudos();
-        mostrarpolloscocidos();
               totaldelasventasdehoy(); // PARA LA SUMA DE LOS TOTALES DE LA VENTA
                     conteodeventasrealizadasdehoy(); // CUANTAS VENTAS SE REALIZARON? 5 O 60 O XX
                 ventaseneldiasumadas.setText(String.valueOf(sumadetotalesdeventasdehoy));// VIENE DEL METODO ventaseneldiaREALIZADAS()
@@ -495,30 +496,7 @@ String sSQL = " select venta.id_venta, venta.total, venta.fecha_reporte, descrip
       
                                                       }// fin del precio-catch del producto
     }
- 
-      
-    public void mostrarpolloscocidos(){
-           pollococido.setVisible(true);    //hace visible la tabla de proveedores 
-              DefaultTableModel modelo = new DefaultTableModel(); // Se crea un objeto para agregar los nombres de las columnas a la tabla
-    modelo.addColumn("Pollo cocido");
 
-     pollococido.setModel(modelo);  // Ya una vez asignado todos los nombres se le envia el objeto a la tabla proveedores
-    String []datos = new String[2];     //Un arreglo con la cantidad de nombres en las columnas
-    try {
-        id_max_de_venta();
-             sent = ca.createStatement();   
-                      rs= sent.executeQuery("select nombre_producto from  productos where id_producto in(24, 25, 26, 27, 28, 29, 30, 31, 49, 50, 51, 52, 53, 54, 55, 56)"); // se ejecuta la sentencia dentro del parentesis
-            while(rs.next()){        
-            datos[0]=rs.getString(1);
-           
-            modelo.addRow(datos); //se asigna el arreglo  entero a todo el objeto llamado modelo  
-            }
-           pollococido.setModel(modelo); // Se vuelve a enviar nuevamente el objeto modelo a la tabla
-        } catch (SQLException ex) {
-             JOptionPane.showMessageDialog(null, "ERROR EN METODO: mostrarpolloscocidos","DEVELOPER HELPER", JOptionPane.ERROR_MESSAGE);      
-      
-        } 
-      }
      public void mostrarpolloscrudos(){
   
            pollocrudo.setVisible(true);    //hace visible la tabla de proveedores 
@@ -1566,7 +1544,7 @@ public void regresarmedios(){
           }
         //FIN METODOS PARA DESCONTAR 1 POLLO  O N POLLOS EN BASE A LAS PIEZAS QUE SE HAN DESCONTADO
  public static void accionesdespuesinsertarendescripciondeventaoactualizarenlamismatabla(String nombredepieza){
- if(nombredepieza.equals("Huesito")){
+ if(nombredepieza.equals("Huesito")||nombredepieza.equals("Longaniza")){
      mostrartabladeventas();
                     tablaventaactiva=true;
                     medio=false;
@@ -1810,12 +1788,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
 
                 
  public void regresarproductos_a_inventario(String nombredepieza){ // este metodo devuelve los productos que fueron agregados a la venta y posteriormente fueron cancelados
-              if(nombredepieza.equals("Huesito")||nombredepieza.equals("Longaniza")){
-                    accionesdespuesderegresarproductosainventarios();
-                    descuentocombo.setText("00.00");
-                    totalcondescuento.setText("00.00");
-              }else{//CUANDO NO ES HUESITO
-                    id_max_de_venta();
+              id_max_de_venta();
                     block_unlock=true;   
                     //pendiente la restauracion de venta a inventario
                     id_producto(nombredepieza);
@@ -1854,8 +1827,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         } //ELIMINAR DE VENTA EL ARTICULO
          if("pollo crudo".equalsIgnoreCase(nombredepieza)){
                     regresarpiezasdepollocrudodeinventario();
-         }
-              }//CUANDO NO ES HUESITO          
+         }     
 }
                 public void status_cancelado(){
        id_max_de_venta();
@@ -2078,8 +2050,6 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         tablaventa = new rojerusan.RSTableMetro();
         jScrollPane4 = new javax.swing.JScrollPane();
         pollocrudo = new rojerusan.RSTableMetro();
-        jScrollPane10 = new javax.swing.JScrollPane();
-        pollococido = new rojerusan.RSTableMetro();
         total3 = new javax.swing.JLabel();
         jPanel27 = new javax.swing.JPanel();
         labeldescuento = new javax.swing.JLabel();
@@ -2632,35 +2602,6 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
 
         venta.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 140, 190, 230));
 
-        pollococido = new rojerusan.RSTableMetro(){
-            public boolean isCellEditable(int filas, int columnas){
-                return false;
-            }
-        };
-        pollococido.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-
-            }
-        ));
-        pollococido.setColorFilasForeground1(new java.awt.Color(0, 0, 0));
-        pollococido.setColorFilasForeground2(new java.awt.Color(0, 0, 0));
-        pollococido.setColorSelForeground(new java.awt.Color(0, 0, 0));
-        pollococido.setGrosorBordeFilas(0);
-        pollococido.setGrosorBordeHead(0);
-        pollococido.setMultipleSeleccion(false);
-        pollococido.setRowHeight(25);
-        pollococido.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                pollococidoMouseClicked(evt);
-            }
-        });
-        jScrollPane10.setViewportView(pollococido);
-
-        venta.add(jScrollPane10, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 140, 190, 230));
-
         total3.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
         total3.setForeground(new java.awt.Color(255, 255, 255));
         total3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -2929,7 +2870,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
                 bonesActionPerformed(evt);
             }
         });
-        venta.add(bones, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 100, 180, 40));
+        venta.add(bones, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 110, 180, 40));
 
         mostrarpollocrudo.setBackground(new java.awt.Color(0, 51, 102));
         mostrarpollocrudo.setForeground(new java.awt.Color(255, 255, 255));
@@ -2950,6 +2891,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         venta.add(abrircalculadora, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 130, -1));
 
         mostrarpollococido.setBackground(new java.awt.Color(0, 51, 102));
+        mostrarpollococido.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         mostrarpollococido.setForeground(new java.awt.Color(255, 255, 255));
         mostrarpollococido.setText("COCIDO");
         mostrarpollococido.addActionListener(new java.awt.event.ActionListener() {
@@ -2957,9 +2899,10 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
                 mostrarpollococidoActionPerformed(evt);
             }
         });
-        venta.add(mostrarpollococido, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 90, 130, -1));
+        venta.add(mostrarpollococido, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 180, 150, 120));
 
         mostraracompañantes.setBackground(new java.awt.Color(0, 51, 102));
+        mostraracompañantes.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         mostraracompañantes.setForeground(new java.awt.Color(255, 255, 255));
         mostraracompañantes.setText("ACOMPAÑANTES");
         mostraracompañantes.addActionListener(new java.awt.event.ActionListener() {
@@ -2967,7 +2910,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
                 mostraracompañantesActionPerformed(evt);
             }
         });
-        venta.add(mostraracompañantes, new org.netbeans.lib.awtextra.AbsoluteConstraints(1130, 180, 130, 120));
+        venta.add(mostraracompañantes, new org.netbeans.lib.awtextra.AbsoluteConstraints(1070, 180, 190, 120));
 
         Proveedores9.addTab("      Venta      ", venta);
 
@@ -5635,65 +5578,6 @@ public void obtener_id_del_proveedor(String name){
         new Existencias().setVisible(true);
     }//GEN-LAST:event_ExistenciasActionPerformed
 
-    private void pollococidoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pollococidoMouseClicked
-        fila =pollococido.getSelectedRow();
-        if(fila>=0){// CUANDO UNA CELDA SE SELECCIONO
-        nombredepiezaseleccionada=pollococido.getValueAt(fila,0).toString();
-         voyaagregar=true;
-         if(nombredepiezaseleccionada.equals("Longaniza")){
-               voyaagregar=true;
-        calculadora.setVisible(true);
-             calculatorstate.setVisible(true);
-            calculatorstate.setText("Agregando: "+nombredepiezaseleccionada);   
-            cantidad.setText("Escribe en pesos");      
-        calculatorstate.setForeground(Color.white);
-         }
-         
-         else if(nombredepiezaseleccionada.equals("Pollo rostizado")||nombredepiezaseleccionada.equals("Pollo asado")){
-                   
-                   Object[] options = { "Entero", "Medio", "Cuarto" };
-  int choice = JOptionPane.showOptionDialog(null, 
-      "¿Cuánto lleva de? "+nombredepiezaseleccionada, 
-      "Elige una opcion", 
-      JOptionPane.YES_NO_OPTION, 
-      JOptionPane.QUESTION_MESSAGE, 
-      null, 
-      options, 
-      options[0]);
-if (choice == JOptionPane.YES_OPTION){
-    entero= true;
-             calculadora.setVisible(true);
-             calculatorstate.setVisible(true);
-          calculatorstate.setText("Agregando: "+nombredepiezaseleccionada);
-                       calculatorstate.setForeground(Color.white);
-  }else if(choice == JOptionPane.NO_OPTION){
-       medio=true;
-      cantidaddemedio=(float) 0.50;
-      cantidaddeproductos=(float)cantidaddemedio;
-         calculadora.setVisible(false);
-         
-    agregarpiezasaventa(nombredepiezaseleccionada);  
-  }
-  else if(choice == JOptionPane.CANCEL_OPTION){
-      cuarto=true;
-      cantidaddecuarto= (float) 0.25;
-      cantidaddeproductos=(float)cantidaddecuarto;
-         calculadora.setVisible(false);
-         agregarpiezasaventa(nombredepiezaseleccionada);  
-  }    
-      }else {
-             calculadora.setVisible(true);
-             calculatorstate.setVisible(true);
-             calculatorstate.setText("Agregando: "+nombredepiezaseleccionada);
-                       calculatorstate.setForeground(Color.white);
-         }
-         
-           }
-        else{
-            JOptionPane.showMessageDialog(null,"Por favor, seleccione una fila primero","Aviso",JOptionPane.INFORMATION_MESSAGE);
-        }
-    }//GEN-LAST:event_pollococidoMouseClicked
-
     private void pollocrudoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pollocrudoMouseClicked
         //ESTO AGREGA EL PRODUCTO DE LA FILA SELECCIONADO Y LE SUMA 1 PIEZA
         fila =pollocrudo.getSelectedRow();
@@ -5771,7 +5655,8 @@ public void eliminarhuesito(int id){
     try{
         String sql = "delete from descripcion_de_venta where id_producto = '"+id+"' ";
         PreparedStatement ps = ca.prepareStatement(sql);
-        ps.execute();
+       ps.execute();
+       
     }catch(Exception e){
         JOptionPane.showMessageDialog(null, "No se elimino huesito");
     }
@@ -5786,6 +5671,8 @@ public void eliminarhuesito(int id){
             if(nombredepiezaseleccionada.equals("Huesito")||nombredepiezaseleccionada.equals("Longaniza")){
                 id_producto(nombredepiezaseleccionada);
                 eliminarhuesito(id_producto);
+              accionesdespuesderegresarproductosainventarios();
+           mostrartabladeventas();
             }else{
                   regresarproductos_a_inventario(nombredepiezaseleccionada); //pone en estatus de cancelada la venta inconclusa
           descuentodepollo();
@@ -6791,7 +6678,6 @@ static SI cc= new SI();
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
-    private javax.swing.JScrollPane jScrollPane10;
     private javax.swing.JScrollPane jScrollPane12;
     private javax.swing.JScrollPane jScrollPane13;
     private javax.swing.JScrollPane jScrollPane14;
@@ -6842,7 +6728,6 @@ static SI cc= new SI();
     private javax.swing.JButton nueve;
     private javax.swing.JButton ocho;
     private javax.swing.JButton pagarventaacredito;
-    public rojerusan.RSTableMetro pollococido;
     public rojerusan.RSTableMetro pollocrudo;
     public static javax.swing.JPanel producto_sobrante;
     public static javax.swing.JPanel producto_sobrante3;

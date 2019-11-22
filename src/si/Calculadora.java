@@ -23,7 +23,6 @@ static String pieza="", descripcion="";
 public Calculadora(String pieza, String descripcion){
     this.pieza=pieza;
     this.descripcion=descripcion;
-    JOptionPane.showMessageDialog(null, this.pieza);
 }
     public Calculadora() {
         initComponents();
@@ -166,8 +165,8 @@ public Calculadora(String pieza, String descripcion){
             }
         });
 
-        regresa.setBackground(new java.awt.Color(0, 51, 102));
-        regresa.setForeground(new java.awt.Color(255, 255, 255));
+        regresa.setBackground(new java.awt.Color(255, 255, 255));
+        regresa.setForeground(new java.awt.Color(255, 0, 0));
         regresa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/salir-flecha-derecha (1).png"))); // NOI18N
         regresa.setText("Regresar");
         regresa.addActionListener(new java.awt.event.ActionListener() {
@@ -431,9 +430,10 @@ String two="2";
     private void listoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listoActionPerformed
         boolean pass2 = validarFormulario(cantidad.getText());
                  if(pass2){//ESTO VALIDA QUE EL TEXTO ESCRITO NO TENGA INCOHERENCIAS   
-                 
+                     //LA SIGUIENTE LINEA LE ENVIA LA CANTIDAD Y EL NOMBRE DE PIEZA A MENU PRINCIPAL
+                 menu_principal enviar = new menu_principal(Float.parseFloat(cantidad.getText()), this.pieza);
+                 this.setVisible(false);
                  }
-       
     }//GEN-LAST:event_listoActionPerformed
 
     private void n0ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_n0ActionPerformed
