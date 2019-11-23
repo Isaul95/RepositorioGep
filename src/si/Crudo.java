@@ -11,7 +11,7 @@ import javax.swing.JOptionPane;
  * @author Alexis
  */
 public class Crudo extends javax.swing.JFrame {
-
+    double medio=0.50, cuarto=0.25;
     /**
      * Creates new form Crudo
      */
@@ -77,7 +77,7 @@ public class Crudo extends javax.swing.JFrame {
 
         jButton3.setBackground(new java.awt.Color(0, 51, 102));
         jButton3.setForeground(new java.awt.Color(255, 255, 255));
-        jButton3.setText("pech completa");
+        jButton3.setText("Pierna completa");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
@@ -321,119 +321,159 @@ public class Crudo extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-      
-         if(masdeunapieza.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
-             JOptionPane.showMessageDialog(null, "Estoy aqui");
-             Calculadora enviar = new Calculadora("pollo crudo","Escribe la cantidad");
+if(masdeunapieza.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
+           Calculadora enviar = new Calculadora("pollo crudo","Escribe la cantidad");
          this.setVisible(false);
          new Calculadora().setVisible(true);   
-         }
+         }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
+       menu_principal enviar =new menu_principal("pollo crudo",1);   
+                  this.setVisible(false);
+      } 
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-          if(masdeunapieza.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
-                  Calculadora enviar = new Calculadora("Medio pollo","Escribe la cantidad");
-         this.setVisible(false);
-         new Calculadora().setVisible(true);   
-          }
+   if(masdeunapieza.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
+         menu_principal enviar =new menu_principal((float)medio, "pollo crudo");   
+                this.setVisible(false);  
+         }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
+         menu_principal enviar =new menu_principal((float)medio, "pollo crudo");   
+                this.setVisible(false);
+      } 
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-      if(masdeunapieza.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
-             Calculadora enviar = new Calculadora("Pechuga completa","Escribe la cantidad");
+    
+   if(masdeunapieza.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
+          Calculadora enviar = new Calculadora("Pierna completa","Escribe la cantidad");
          this.setVisible(false);
          new Calculadora().setVisible(true);   
-      }
+         }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
+       menu_principal enviar =new menu_principal("Pierna completa",1);   
+                  this.setVisible(false);
+      } 
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        if(masdeunapieza.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
-           Calculadora enviar = new Calculadora("Huacal completo","Escribe la cantidad");
+     if(masdeunapieza.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
+          Calculadora enviar = new Calculadora("Huacal completo","Escribe la cantidad");
          this.setVisible(false);
          new Calculadora().setVisible(true);   
-        }
+         }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
+       menu_principal enviar =new menu_principal("Huacal completo",1);   
+                  this.setVisible(false);
+      } 
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-          if(masdeunapieza.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU    
-        Calculadora enviar = new Calculadora("Pechuga","Escribe la cantidad");
+         
+     if(masdeunapieza.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
+    Calculadora enviar = new Calculadora("Pechuga","Escribe la cantidad");
          this.setVisible(false);
          new Calculadora().setVisible(true);   
-          }
+         }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
+       menu_principal enviar =new menu_principal("Pechuga",1);   
+                  this.setVisible(false);
+      } 
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-     if(masdeunapieza.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU    
-        Calculadora enviar = new Calculadora("Muslo","Escribe la cantidad");
+     if(masdeunapieza.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
+    Calculadora enviar = new Calculadora("Muslo","Escribe la cantidad");
          this.setVisible(false);
-         new Calculadora().setVisible(true);  
-     }
+         new Calculadora().setVisible(true);   
+         }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
+       menu_principal enviar =new menu_principal("Muslo",1);   
+                  this.setVisible(false);
+      } 
           
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-      if(masdeunapieza.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU  
-            Calculadora enviar = new Calculadora("Pierna","Escribe la cantidad");
+     if(masdeunapieza.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
+    Calculadora enviar = new Calculadora("Pierna","Escribe la cantidad");
          this.setVisible(false);
          new Calculadora().setVisible(true);   
-      }
+         }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
+       menu_principal enviar =new menu_principal("Pierna",1);   
+                  this.setVisible(false);
+      } 
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-     if(masdeunapieza.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU  
-          Calculadora enviar = new Calculadora("Ala","Escribe la cantidad");
+  if(masdeunapieza.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
+    Calculadora enviar = new Calculadora("Ala","Escribe la cantidad");
          this.setVisible(false);
-         new Calculadora().setVisible(true); 
-     }
-         
+         new Calculadora().setVisible(true);   
+         }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
+       menu_principal enviar =new menu_principal("Ala",1);   
+                  this.setVisible(false);
+      }  
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
-        if(masdeunapieza.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
-            Calculadora enviar = new Calculadora("Huacal","Escribe la cantidad");
+ if(masdeunapieza.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
+    Calculadora enviar = new Calculadora("Huacal","Escribe la cantidad");
          this.setVisible(false);
-         new Calculadora().setVisible(true); 
-        }    
+         new Calculadora().setVisible(true);   
+         }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
+       menu_principal enviar =new menu_principal("Huacal",1);   
+                  this.setVisible(false);
+      }  
     }//GEN-LAST:event_jButton9ActionPerformed
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
-          if(masdeunapieza.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
-        Calculadora enviar = new Calculadora("Cadera","Escribe la cantidad");
+  if(masdeunapieza.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
+    Calculadora enviar = new Calculadora("Cadera","Escribe la cantidad");
          this.setVisible(false);
          new Calculadora().setVisible(true);   
-          }
+         }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
+       menu_principal enviar =new menu_principal("Cadera",1);   
+                  this.setVisible(false);
+      }  
     }//GEN-LAST:event_jButton10ActionPerformed
 
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
-        if(masdeunapieza.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
-             Calculadora enviar = new Calculadora("Cabeza","Escribe la cantidad");
+  if(masdeunapieza.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
+    Calculadora enviar = new Calculadora("Cabeza","Escribe la cantidad");
          this.setVisible(false);
          new Calculadora().setVisible(true);   
-        }
+         }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
+       menu_principal enviar =new menu_principal("Cabeza",1);   
+                  this.setVisible(false);
+      }
     }//GEN-LAST:event_jButton11ActionPerformed
 
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
-        if(masdeunapieza.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
-                    Calculadora enviar = new Calculadora("Molleja","Escribe la cantidad");
+    if(masdeunapieza.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
+    Calculadora enviar = new Calculadora("Molleja","Escribe la cantidad");
          this.setVisible(false);
          new Calculadora().setVisible(true);   
-        }
+         }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
+       menu_principal enviar =new menu_principal("Molleja",1);   
+                  this.setVisible(false);
+      }
     }//GEN-LAST:event_jButton12ActionPerformed
 
     private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
-       if(masdeunapieza.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
-            Calculadora enviar = new Calculadora("Patas","Escribe la cantidad");
+   if(masdeunapieza.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
+    Calculadora enviar = new Calculadora("Patas","Escribe la cantidad");
          this.setVisible(false);
          new Calculadora().setVisible(true);   
-       }
+         }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
+       menu_principal enviar =new menu_principal("Patas",1);   
+                  this.setVisible(false);
+      }
     }//GEN-LAST:event_jButton13ActionPerformed
 
     private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
-        if(masdeunapieza.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
-             Calculadora enviar = new Calculadora("Pechuga en bisteck","Escribe la cantidad");
+       if(masdeunapieza.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
+    Calculadora enviar = new Calculadora("Pechuga en bisteck","Escribe la cantidad");
          this.setVisible(false);
          new Calculadora().setVisible(true);   
-        }
+         }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
+       menu_principal enviar =new menu_principal("Pechuga en bisteck",1);   
+                  this.setVisible(false);
+      }
     }//GEN-LAST:event_jButton14ActionPerformed
 
     private void regresaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_regresaActionPerformed
@@ -441,11 +481,13 @@ public class Crudo extends javax.swing.JFrame {
     }//GEN-LAST:event_regresaActionPerformed
 
     private void jButton15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton15ActionPerformed
-    if(masdeunapieza.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
-             Calculadora enviar = new Calculadora("Media Pechuga","Escribe la cantidad");
-         this.setVisible(false);
-         new Calculadora().setVisible(true);   
-        }
+if(masdeunapieza.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
+         menu_principal enviar =new menu_principal((float)medio, "Pechuga");   
+                this.setVisible(false);  
+         }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
+         menu_principal enviar =new menu_principal((float)medio, "Pechuga");   
+                this.setVisible(false);
+      } 
     }//GEN-LAST:event_jButton15ActionPerformed
 
     /**
