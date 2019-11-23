@@ -333,10 +333,10 @@ if(masdeunapieza.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PI
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
    if(masdeunapieza.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
-         menu_principal enviar =new menu_principal((float)medio, "pollo crudo");   
+         menu_principal enviar =new menu_principal((float)medio, "Medio pollo");   
                 this.setVisible(false);  
          }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
-         menu_principal enviar =new menu_principal((float)medio, "pollo crudo");   
+         menu_principal enviar =new menu_principal((float)medio, "Medio pollo");   
                 this.setVisible(false);
       } 
     }//GEN-LAST:event_jButton2ActionPerformed

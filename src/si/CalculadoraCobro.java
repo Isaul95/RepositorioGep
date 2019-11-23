@@ -13,21 +13,23 @@ import javax.swing.JOptionPane;
  *
  * @author Alexis
  */
-public class Calculadora extends javax.swing.JFrame {
+public class CalculadoraCobro extends javax.swing.JFrame {
 static String pieza="", descripcion="", uso="";
 static float cantidadacobrar=0;
     /**
      * Creates new form Calculadora
      */
-public Calculadora(String pieza, String descripcion){
-    this.pieza=pieza;
-    this.descripcion=descripcion;
-}
 
-    public Calculadora() {
+public CalculadoraCobro(float cantidadacobrar, String uso){
+    this.cantidadacobrar=cantidadacobrar;
+    this.uso=uso;
+    
+}
+    public CalculadoraCobro() {
         initComponents();
          piezalabel.setText(this.pieza);
          descripcionlabel.setText(this.descripcion);
+         piezalabel.setText(this.uso);
          this.setLocationRelativeTo(null); // CENTRAR FORMULARIO
         
     }
@@ -429,9 +431,11 @@ String two="2";
     private void listoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listoActionPerformed
         boolean pass2 = validarFormulario(cantidad.getText());
                  if(pass2){//ESTO VALIDA QUE EL TEXTO ESCRITO NO TENGA INCOHERENCIAS   
-                  //CUANDO SE USA PARA AGREGAR CANTIDADES O PIEZAS
-                  menu_principal enviar = new menu_principal(Float.parseFloat(cantidad.getText()), this.pieza);
-                 this.setVisible(false);
+                     //LA SIGUIENTE LINEA LE ENVIA LA CANTIDAD Y EL NOMBRE DE PIEZA A MENU PRINCIPAL
+            //SI LA CALCULADORA SE VA A USAR PARA PAGOS
+                menu_principal enviar =new menu_principal(Float.parseFloat(cantidad.getText()));   
+                  this.setVisible(false);
+       
                  }
                      
     }//GEN-LAST:event_listoActionPerformed
@@ -465,20 +469,21 @@ String two="2";
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Calculadora.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CalculadoraCobro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Calculadora.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CalculadoraCobro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Calculadora.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CalculadoraCobro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Calculadora.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CalculadoraCobro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Calculadora().setVisible(true);
+                new CalculadoraCobro().setVisible(true);
             }
         });
     }

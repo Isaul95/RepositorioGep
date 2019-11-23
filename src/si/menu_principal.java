@@ -64,7 +64,7 @@ static Statement sent;
   static ArrayList storage = new ArrayList(); // para guardar los id de cada producto que se ha agregado a la tabla venta
  static String[] piezas = {"Pechuga", "Muslo","Pierna","Ala","Huacal","Cadera","Cabeza", "Molleja", "Patas", "pollo crudo"};
 static String[] piezasdemedio = {"Pechuga", "Muslo","Pierna","Ala","Huacal", "Molleja", "Patas", "pollo crudo"};
-
+static ArrayList piezasquenohay = new ArrayList();
 
  static double cantidaddemedio, cantidaddecuarto;
         ArrayList idsenturno = new ArrayList();
@@ -78,7 +78,7 @@ static ArrayList importesticket = new ArrayList();
 
   static boolean voyacobrar=false, descuentoactivo=false, suficientespiezas=true, block_unlock=true,tablaventaactiva=false;
 static String nombredepiezaseleccionada="";
-static float cantidaddeproductos=0;
+static float cantidaddeproductos=0, cantidadparapollocrudo=0;
 static boolean seagregoexterno=false;
 
       // String  usuarioname=SI_Inicio.text_user.getText(); //variable para obtener el nombre del usuario o administrador que ingreso al sistema
@@ -95,6 +95,7 @@ static boolean seagregoexterno=false;
   menu_principal(String piezaseleccionada, int cantidaddeproductos){
       this.cantidaddeproductos=cantidaddeproductos;
       this.nombredepiezaseleccionada=piezaseleccionada;
+        this.cantidadparapollocrudo=cantidaddeproductos;
 agregandoaventa(nombredepiezaseleccionada, cantidaddeproductos);
       
   }
@@ -102,7 +103,8 @@ agregandoaventa(nombredepiezaseleccionada, cantidaddeproductos);
   menu_principal(float cantidaddeproductos, String piezaseleccionada){
       this.cantidaddeproductos=cantidaddeproductos;
       this.nombredepiezaseleccionada=piezaseleccionada;
-       agregandoaventa(nombredepiezaseleccionada, cantidaddeproductos);
+      this.cantidadparapollocrudo=cantidaddeproductos;
+     agregandoaventa(nombredepiezaseleccionada, cantidaddeproductos);
       
   }
     //CUANDO SE VA A HACER EL PAGO
@@ -151,8 +153,6 @@ this.setLocationRelativeTo(null); // esto elimina los botones de cerrar, minimiz
       user.setText(usuarioname);
     TablaDatosUsuarios();   /********* METODO LLAMADO AL INICIAR EL SISTEMA LOS DATOS YA ESTAN CARAGADOS  *********/
     Ocultoetiquetas();
-    calculadora.setVisible(false);
-    calculatorstate.setVisible(false);
     totalventarealizada.setVisible(false);
     labelparaeltotal.setVisible(false);
     labeldescuento.setVisible(true);
@@ -169,6 +169,7 @@ deletedescuento.setVisible(false);
         totalventacreditoenturno.setVisible(false);
         veridventasacreditopendiente.setVisible(false);
          pagarventaacredito.setVisible(false);
+         piezasparaacomplettarpollo.setVisible(false);
     }
    
   public void llenartablautilidad(){
@@ -544,7 +545,7 @@ String sSQL = " select venta.id_venta, venta.total, venta.fecha_reporte, descrip
         modeloT.addColumn("cantidad");
 
         try {
-         String sSQL = "SELECT nombre_producto, precio, cantidad FROM productos WHERE nombre_producto NOT IN ('Huesito')";
+         String sSQL = "SELECT nombre_producto, precio, cantidad FROM productos WHERE nombre_producto NOT IN ('Huesito', 'Medio pollo')";
                  //"SELECT `nombre_producto`, `cantidad`, `precio_unitario`, venta.fecha_reporte FROM descripcion_de_venta inner join venta on descripcion_de_venta.`id_venta` = venta.id_venta WHERE fecha_reporte = CURDATE() ORDER BY `cantidad` DESC";
          
         PreparedStatement ps = ca.prepareStatement(sSQL);       
@@ -571,7 +572,6 @@ String sSQL = " select venta.id_venta, venta.total, venta.fecha_reporte, descrip
                
         } else {
             JOptionPane.showMessageDialog(null, "No puedes escribir letras, dejar vacio el campo ni meter un 0", "Advertencia", JOptionPane.INFORMATION_MESSAGE);    
-        cantidad.setText("");
         }
         return next;
     }
@@ -654,7 +654,7 @@ public static void insertandopiezasdepolloporhaberagregadoxcantidaddepollocrudo(
         //modeloT.addColumn("tipo_producto");        
         modeloT.addColumn("cantidad");
         try {
-         String sSQL = "SELECT  nombre_producto, cantidad FROM productos WHERE nombre_producto NOT IN('Huesito')";
+         String sSQL = "SELECT  nombre_producto, cantidad FROM productos WHERE nombre_producto NOT IN('Huesito', 'Medio pollo')";
                  
         PreparedStatement ps = ca.prepareStatement(sSQL);       
         try (ResultSet rs = ps.executeQuery(sSQL)) {
@@ -905,7 +905,7 @@ public static void insertandopiezasdepolloporhaberagregadoxcantidaddepollocrudo(
     
     
      public static void piezassuficientes(String pieza){
-          if(pieza.equals("Huesito")||pieza.equals("Longaniza")||pieza.equals("pollo crudo")){
+          if(pieza.equals("Huesito")||pieza.equals("Longaniza")||pieza.equals("pollo crudo")||pieza.equals("Medio pollo")){
    suficientespiezas=true;
 }
           else{
@@ -1091,6 +1091,8 @@ public static void insertandopiezasdepolloporhaberagregadoxcantidaddepollocrudo(
                  }//fin del id del usuario
                }else{
                  JOptionPane.showMessageDialog(null, "Hay en inventario "+cantidadpolloenDB+" piezas de "+nombredepieza);
+                 piezasquenohay.add(nombredepieza);
+                 piezasparaacomplettarpollo.setVisible(true);
                }
     }
 
@@ -1125,49 +1127,17 @@ public void cantidadenventa(int pieza){
 
            
 
-           public void regresarpiezasdepollocrudodeinventario(){//INICIO DE DESCONTAR POLLO CRUDO DE INVENTARIO
-      //se lo quito a venta se lo sumo a inventario
-
-
-          String pollocrudo="pollo crudo"; 
-           for(int i=0; i<piezas.length; i++) {
-       //AGREGAR EL TRY DE LA CANTIDAD EN VENTA  
-     id_producto(piezas[i]);
-             cantidadenventa(id_producto);
-           cantidadpolloenDByname(id_producto);
-        if(name.equals(piezas[i])){ //Si el nombre del producto es diferente del estado vacio, en palabras más sencillas; si se encuentra el producto que se quiere agregar para que no se asigne nuevamente  
-        try{// el id del usuario
-                if(piezas[i].equals("Muslo")||
-                   piezas[i].equals("Pierna")||
-                   piezas[i].equals("Ala")||
-                   piezas[i].equals("Patas")){
-                        addpiezas=cantidadpolloenDB+(2*cantidadenventa); 
-                      PreparedStatement ps = ca.prepareStatement ("UPDATE productos SET cantidad='"+addpiezas+"'WHERE nombre_producto='"+piezas[i]+"'");
+           public void regresarpiezasdepollocrudodeinventario(int id, float addpiezas){//INICIO DE DESCONTAR POLLO CRUDO DE INVENTARIO
+    try{// el id del usuario
+      PreparedStatement ps = ca.prepareStatement ("UPDATE productos SET cantidad='"+addpiezas+"'WHERE id_producto='"+id+"'");
                int ty = ps.executeUpdate();
                  if(ty>0){
                        }else{
                      }
-           }
-           else if(piezas[i].equals("Huacal")||piezas[i].equals("Cadera")||
-                   piezas[i].equals("Cabeza")||
-                   piezas[i].equals("Molleja")||piezas[i].equals("Pechuga")){
-                  addpiezas=cantidadpolloenDB+cantidadenventa;
-            PreparedStatement ps = ca.prepareStatement ("UPDATE productos SET cantidad='"+addpiezas+"'WHERE nombre_producto='"+piezas[i]+"'");
-               int ty = ps.executeUpdate();
-                 if(ty>0){
-                 }else{
-                   }
-        }
-        }//fin del id del usuario
-                 catch(Exception w){
+  }   catch(Exception w){
                      JOptionPane.showMessageDialog(null, "Error" + w.getMessage());
                  }//fin del id del usuario
-               }
-        
-           }//2
-   //descuento de 1 pollo normal
-                 
-           }//FIN DE DESCONTAR POLLO CRUDO DE INVENTARIO
+   }//FIN DE DESCONTAR POLLO CRUDO DE INVENTARIO
            
            public static void precio_producto(String nombredepieza){
         try{ // el precio del producto
@@ -1414,10 +1384,11 @@ public void cantidadenventa(int pieza){
                                    piezas[i].toString().equals("Pierna")||
                                    piezas[i].toString().equals("Ala")||
                                            piezas[i].toString().equals("Patas")){
-                               cantidaddeproductos=2;
-                               descontardeinventario(piezas[i].toString());
+                   cantidaddeproductos=2*cantidadparapollocrudo;
+                          descontardeinventario(piezas[i].toString());
+                               
                            }else{
-                        cantidaddeproductos=1;
+                        cantidaddeproductos=1*cantidadparapollocrudo;
               descontardeinventario(piezas[i].toString()); 
                     }  
                   }
@@ -1464,9 +1435,9 @@ public void cantidadenventa(int pieza){
                     totaldeventa.setText(String.valueOf(totalf));                 
                     NoP="";
  }
- else if("pollo crudo".equalsIgnoreCase(nombredepieza)&&cantidaddeproductos!=0.50){
+ else if("pollo crudo".equalsIgnoreCase(nombredepieza)){
           descontarlaspiezasdeunpollo();
- }else if("pollo crudo".equalsIgnoreCase(nombredepieza)&&cantidaddeproductos==0.50){
+ }else if("Medio pollo".equalsIgnoreCase(nombredepieza)){
                 descontarlaspiezasdeunmediopollo();
  }
  else{
@@ -1501,15 +1472,19 @@ public void cantidadenventa(int pieza){
  
   public static void comprobar_registro (String nombredepieza){
   obtenerelnombredeproductoylacantidaddelmismo_en_descripcion_deventa(nombredepieza);
-if(NoP.equals(nombredepieza)){ //Si el nombre del producto es diferente del estado vacio, en palabras más sencillas; si se encuentra el producto que se quiere agregar para que no se asigne nuevamente  
+if(NoP.equals(nombredepieza)&&NoPimporte!=0){ //Si el nombre del producto es diferente del estado vacio, en palabras más sencillas; si se encuentra el producto que se quiere agregar para que no se asigne nuevamente  
     try{// ESTE ES PARA EL UPDATE
           obtenerelnombredeproductoylacantidaddelmismo_en_descripcion_deventa(nombredepieza);
       NoPcantidad=NoPcantidad+cantidaddeproductos;
                 precio_producto(nombredepieza);
                 NoPimporte = NoPcantidad*precio;
- id_producto(nombredepieza);
+                
+                    precio_producto(nombredepieza);
+                NoPimporte = NoPcantidad*precio;
+              
+                id_producto(nombredepieza);
                     id_max_de_venta();
-                 PreparedStatement ps = ca.prepareStatement ("UPDATE descripcion_de_venta SET cantidad='"+NoPcantidad+"',importe = '"+NoPimporte+"'WHERE id_producto='"+id_producto+"' and id_venta= '"+id_de_la_venta_incrementable+"' and fecha= '"+fecha()+"' and estado= '"+estadoenturno+"'");
+                 PreparedStatement ps = ca.prepareStatement ("UPDATE descripcion_de_venta SET cantidad='"+NoPcantidad+"',importe = '"+NoPimporte+"'WHERE importe !=0 and id_producto='"+id_producto+"' and id_venta= '"+id_de_la_venta_incrementable+"' and fecha= '"+fecha()+"' and estado= '"+estadoenturno+"' ");
                int a=  ps.executeUpdate();
                if(a>0){
                       accionesdespuesinsertarendescripciondeventaoactualizarenlamismatabla(nombredepieza);
@@ -1536,13 +1511,16 @@ if(NoP.equals(nombredepieza)){ //Si el nombre del producto es diferente del esta
                 pst.setInt(1,id_producto);
                 storage.add(id_producto); //almacena cada id de cada producto en éste arreglo dinamico
                 pst.setString(2,nombredepieza);
-                    pst.setFloat(3,cantidaddeproductos);            
+                pst.setFloat(3,cantidaddeproductos);            
                 //EL METODO A CONTINUACION VA HACIENDO EL CONTEO DE LAS PIEZAS INDIVIDUALES
                 // PARA UNA VEZ LLEGANDO A UN POLLO ENTERO DESCONTARLO DE LA BASE           
-                 precio_producto(nombredepieza);
+                precio_producto(nombredepieza);
                 pst.setFloat(4,precio);
-                importe = (float)cantidaddeproductos*precio;        
+                
+                     importe = (float)cantidaddeproductos*precio;        
                 pst.setFloat(5,importe);
+               
+                
                 id_max_de_venta();
                 pst.setInt(6,(id_de_la_venta_incrementable));
                 pst.setString(7, estadoenturno);
@@ -1619,9 +1597,7 @@ deletedescuento.setVisible(true);
                         }catch(Exception s){
 JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
                         } 
-                 if("pollo crudo".equalsIgnoreCase(name)){
-                    regresarpiezasdepollocrudodeinventario();
-                }
+                 //PENDIENTE EL REGRESO DE POLLO A INVENTARIO 
                 }//fin del ciclo for              
 }
  public void accionesdespuesderegresarproductosainventarios(){
@@ -1685,11 +1661,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
             int n = sent.executeUpdate(sql);
             if(n>0){
                 id_producto(nombredepieza);
-                for(int r=0;r<=storage.size()-1;r++){
-                 if(Integer.parseInt(storage.get(r).toString())==id_producto){
-                     storage.remove(r);
-                 }
-             }
+ eliminarpolloenterodestorage(id_producto);
                  accionesdespuesderegresarproductosainventarios();
                     descuentocombo.setText("00.00");
                     totalcondescuento.setText("00.00");
@@ -1699,9 +1671,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         }catch(Exception e){
             JOptionPane.showMessageDialog(null, "ERROR" + e.getMessage());
         } //ELIMINAR DE VENTA EL ARTICULO
-         if("pollo crudo".equalsIgnoreCase(nombredepieza)){
-                    regresarpiezasdepollocrudodeinventario();
-         }     
+         
 }
                 public void status_cancelado(){
        id_max_de_venta();
@@ -1930,29 +1900,13 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         ventaacredito = new javax.swing.JButton();
         deletedescuento = new javax.swing.JButton();
         descuento = new javax.swing.JButton();
-        calculadora = new javax.swing.JPanel();
-        borrar = new javax.swing.JButton();
-        nueve = new javax.swing.JButton();
-        ocho = new javax.swing.JButton();
-        siete = new javax.swing.JButton();
-        cuatro = new javax.swing.JButton();
-        cinco = new javax.swing.JButton();
-        seis = new javax.swing.JButton();
-        tres = new javax.swing.JButton();
-        dos = new javax.swing.JButton();
-        uno = new javax.swing.JButton();
-        cantidad = new javax.swing.JTextField();
-        salir = new javax.swing.JButton();
-        cero = new javax.swing.JButton();
-        listo = new javax.swing.JButton();
         Existencias = new javax.swing.JButton();
-        calculatorstate = new javax.swing.JLabel();
         jLabel74 = new javax.swing.JLabel();
         bones = new javax.swing.JButton();
         mostrarpollocrudo = new javax.swing.JButton();
-        abrircalculadora = new javax.swing.JButton();
         mostrarpollococido = new javax.swing.JButton();
         mostraracompañantes = new javax.swing.JButton();
+        piezasparaacomplettarpollo = new javax.swing.JCheckBox();
         agregar_proveedor = new javax.swing.JPanel();
         agregarpro = new javax.swing.JButton();
         jLabel12 = new javax.swing.JLabel();
@@ -2509,178 +2463,6 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
 
         venta.add(jPanel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 380, 340, 270));
 
-        calculadora.setBackground(new java.awt.Color(0, 51, 102));
-        calculadora.setForeground(new java.awt.Color(102, 102, 255));
-        calculadora.setLayout(null);
-
-        borrar.setBackground(new java.awt.Color(0, 51, 102));
-        borrar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        borrar.setForeground(new java.awt.Color(255, 255, 255));
-        borrar.setText("C");
-        borrar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                borrarActionPerformed(evt);
-            }
-        });
-        calculadora.add(borrar);
-        borrar.setBounds(120, 60, 50, 50);
-
-        nueve.setBackground(new java.awt.Color(0, 51, 102));
-        nueve.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
-        nueve.setForeground(new java.awt.Color(255, 255, 255));
-        nueve.setText("9");
-        nueve.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nueveActionPerformed(evt);
-            }
-        });
-        calculadora.add(nueve);
-        nueve.setBounds(80, 64, 38, 50);
-
-        ocho.setBackground(new java.awt.Color(0, 51, 102));
-        ocho.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
-        ocho.setForeground(new java.awt.Color(255, 255, 255));
-        ocho.setText("8");
-        ocho.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ochoActionPerformed(evt);
-            }
-        });
-        calculadora.add(ocho);
-        ocho.setBounds(40, 64, 40, 50);
-
-        siete.setBackground(new java.awt.Color(0, 51, 102));
-        siete.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
-        siete.setForeground(new java.awt.Color(255, 255, 255));
-        siete.setText("7");
-        siete.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                sieteActionPerformed(evt);
-            }
-        });
-        calculadora.add(siete);
-        siete.setBounds(0, 64, 40, 50);
-
-        cuatro.setBackground(new java.awt.Color(0, 51, 102));
-        cuatro.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
-        cuatro.setForeground(new java.awt.Color(255, 255, 255));
-        cuatro.setText("4");
-        cuatro.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cuatroActionPerformed(evt);
-            }
-        });
-        calculadora.add(cuatro);
-        cuatro.setBounds(0, 114, 40, 60);
-
-        cinco.setBackground(new java.awt.Color(0, 51, 102));
-        cinco.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
-        cinco.setForeground(new java.awt.Color(255, 255, 255));
-        cinco.setText("5");
-        cinco.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cincoActionPerformed(evt);
-            }
-        });
-        calculadora.add(cinco);
-        cinco.setBounds(40, 114, 40, 60);
-
-        seis.setBackground(new java.awt.Color(0, 51, 102));
-        seis.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
-        seis.setForeground(new java.awt.Color(255, 255, 255));
-        seis.setText("6");
-        seis.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                seisActionPerformed(evt);
-            }
-        });
-        calculadora.add(seis);
-        seis.setBounds(80, 114, 40, 60);
-
-        tres.setBackground(new java.awt.Color(0, 51, 102));
-        tres.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
-        tres.setForeground(new java.awt.Color(255, 255, 255));
-        tres.setText("3");
-        tres.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tresActionPerformed(evt);
-            }
-        });
-        calculadora.add(tres);
-        tres.setBounds(80, 174, 40, 50);
-
-        dos.setBackground(new java.awt.Color(0, 51, 102));
-        dos.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
-        dos.setForeground(new java.awt.Color(255, 255, 255));
-        dos.setText("2");
-        dos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                dosActionPerformed(evt);
-            }
-        });
-        calculadora.add(dos);
-        dos.setBounds(40, 174, 40, 50);
-
-        uno.setBackground(new java.awt.Color(0, 51, 102));
-        uno.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
-        uno.setForeground(new java.awt.Color(255, 255, 255));
-        uno.setText("1");
-        uno.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                unoActionPerformed(evt);
-            }
-        });
-        calculadora.add(uno);
-        uno.setBounds(0, 174, 40, 50);
-
-        cantidad.setBackground(new java.awt.Color(0, 0, 0));
-        cantidad.setFont(new java.awt.Font("Tahoma", 3, 18)); // NOI18N
-        cantidad.setForeground(new java.awt.Color(255, 255, 255));
-        cantidad.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        cantidad.setBorder(null);
-        cantidad.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        calculadora.add(cantidad);
-        cantidad.setBounds(0, 4, 160, 50);
-
-        salir.setBackground(new java.awt.Color(0, 51, 102));
-        salir.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        salir.setForeground(new java.awt.Color(255, 0, 0));
-        salir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/salir-flecha-derecha (1).png"))); // NOI18N
-        salir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                salirActionPerformed(evt);
-            }
-        });
-        calculadora.add(salir);
-        salir.setBounds(120, 110, 50, 60);
-
-        cero.setBackground(new java.awt.Color(0, 51, 102));
-        cero.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
-        cero.setForeground(new java.awt.Color(255, 255, 255));
-        cero.setText("0");
-        cero.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ceroActionPerformed(evt);
-            }
-        });
-        calculadora.add(cero);
-        cero.setBounds(120, 170, 50, 100);
-
-        listo.setBackground(new java.awt.Color(0, 51, 105));
-        listo.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        listo.setForeground(new java.awt.Color(255, 255, 255));
-        listo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/casilla-de-verificacion (1).png"))); // NOI18N
-        listo.setText("¡LISTO!");
-        listo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                listoActionPerformed(evt);
-            }
-        });
-        calculadora.add(listo);
-        listo.setBounds(0, 220, 120, 40);
-
-        venta.add(calculadora, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 110, 170, 260));
-
         Existencias.setBackground(new java.awt.Color(0, 51, 102));
         Existencias.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         Existencias.setForeground(new java.awt.Color(255, 255, 255));
@@ -2694,10 +2476,6 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
             }
         });
         venta.add(Existencias, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 420, 130, 160));
-
-        calculatorstate.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        calculatorstate.setForeground(new java.awt.Color(255, 255, 255));
-        venta.add(calculatorstate, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 70, 330, 50));
 
         jLabel74.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         jLabel74.setForeground(new java.awt.Color(255, 255, 255));
@@ -2713,9 +2491,10 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
                 bonesActionPerformed(evt);
             }
         });
-        venta.add(bones, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 110, 180, 40));
+        venta.add(bones, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 100, 180, 70));
 
         mostrarpollocrudo.setBackground(new java.awt.Color(0, 51, 102));
+        mostrarpollocrudo.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         mostrarpollocrudo.setForeground(new java.awt.Color(255, 255, 255));
         mostrarpollocrudo.setText("CRUDO");
         mostrarpollocrudo.addActionListener(new java.awt.event.ActionListener() {
@@ -2724,14 +2503,6 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
             }
         });
         venta.add(mostrarpollocrudo, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 180, 160, 120));
-
-        abrircalculadora.setText("CALC");
-        abrircalculadora.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                abrircalculadoraActionPerformed(evt);
-            }
-        });
-        venta.add(abrircalculadora, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 130, -1));
 
         mostrarpollococido.setBackground(new java.awt.Color(0, 51, 102));
         mostrarpollococido.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
@@ -2754,6 +2525,12 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
             }
         });
         venta.add(mostraracompañantes, new org.netbeans.lib.awtextra.AbsoluteConstraints(1070, 180, 190, 120));
+
+        piezasparaacomplettarpollo.setBackground(new java.awt.Color(0, 51, 102));
+        piezasparaacomplettarpollo.setFont(new java.awt.Font("Dialog", 1, 20)); // NOI18N
+        piezasparaacomplettarpollo.setForeground(new java.awt.Color(255, 255, 255));
+        piezasparaacomplettarpollo.setText("Completar pollo");
+        venta.add(piezasparaacomplettarpollo, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 240, 230, -1));
 
         Proveedores9.addTab("      Venta      ", venta);
 
@@ -5430,6 +5207,15 @@ public void eliminarhuesito(int id){
         JOptionPane.showMessageDialog(null, "No se elimino huesito");
     }
 }
+
+public void eliminarpolloenterodestorage(int id_producto){
+    for(int r=0;r<=storage.size()-1;r++){
+                 if(Integer.parseInt(storage.get(r).toString())==id_producto){
+                     storage.remove(r);
+                 }
+             }
+}
+
     private void tablaventaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaventaMouseClicked
         //ESTO DESCUENTA UN PRODUCTO A LA VEZ Y LO DEVUELVE A INVENTARIO
         fila =tablaventa.getSelectedRow();
@@ -5438,12 +5224,95 @@ public void eliminarhuesito(int id){
             nombredepiezaseleccionada=tablaventa.getValueAt(fila,0).toString();       
             if(nombredepiezaseleccionada.equals("Huesito")||nombredepiezaseleccionada.equals("Longaniza")){
                 id_producto(nombredepiezaseleccionada);
-                eliminarhuesito(id_producto);
               accionesdespuesderegresarproductosainventarios();
            mostrartabladeventas();
-            }else{
+            }else if(nombredepiezaseleccionada.equals("pollo crudo")){
+                  id_producto("pollo crudo");
+                cantidadenventa(id_producto);
+                 for (int i = 0; i < piezas.length; i++) {
+                     if(piezasquenohay.size()>0){
+                         for (int a = 0; a < piezasquenohay.size(); a++) {
+                             JOptionPane.showMessageDialog(null, "ENTRO AL PIZAS QUE NO HAY "+piezasquenohay.get(a));
+                        if(!piezasquenohay.get(a).toString().equals(piezas[i].toString())&&piezas[i].toString().equals("Muslo")||
+                                   !piezasquenohay.get(a).toString().equals(piezas[i].toString())&&piezas[i].toString().equals("Pierna")||
+                                   !piezasquenohay.get(a).toString().equals(piezas[i].toString())&&piezas[i].toString().equals("Ala")||
+                              !piezasquenohay.get(a).toString().equals(piezas[i].toString())&&piezas[i].toString().equals("Patas")
+                                   ){
+                        JOptionPane.showMessageDialog(null, "piezas[i].toString() "+piezas[i].toString());
+                              
+                     id_producto(piezas[i].toString());
+                     cantidadpolloenDByname(id_producto);
+                     addpiezas=cantidadpolloenDB+(2*cantidadenventa);
+                    regresarpiezasdepollocrudodeinventario(id_producto, addpiezas);
+                 }else if(!piezasquenohay.get(a).toString().equals(piezas[i].toString())&&piezas[i].toString().equals("Pechuga")||
+                         !piezasquenohay.get(a).toString().equals(piezas[i].toString())&&piezas[i].toString().equals("Huacal")||
+                         !piezasquenohay.get(a).toString().equals(piezas[i].toString())&&piezas[i].toString().equals("Cadera")||
+                         !piezasquenohay.get(a).toString().equals(piezas[i].toString())&&piezas[i].toString().equals("Cabeza")||
+                         !piezasquenohay.get(a).toString().equals(piezas[i].toString())&&piezas[i].toString().equals("Molleja")||
+                         !piezasquenohay.get(a).toString().equals(piezas[i].toString())&&piezas[i].toString().equals("pollo crudo")){
+                        JOptionPane.showMessageDialog(null, "ENTRO AL PIZAS QUE NO HAY INPARES");
+                         JOptionPane.showMessageDialog(null, "Epiezas[i].toString() "+piezas[i].toString());
+                     
+                 id_producto(piezas[i].toString());
+                     cantidadpolloenDByname(id_producto);
+                     addpiezas=cantidadpolloenDB+cantidadenventa;
+                    regresarpiezasdepollocrudodeinventario(id_producto, addpiezas);
+                    
+                    }
+                         }
+                     }else{
+                         if(piezas[i].toString().equals("Muslo")||
+                                  piezas[i].toString().equals("Pierna")||
+                                   piezas[i].toString().equals("Ala")||
+                                           piezas[i].toString().equals("Patas")){
+                     id_producto(piezas[i].toString());
+                     cantidadpolloenDByname(id_producto);
+                     addpiezas=cantidadpolloenDB+(2*cantidadenventa);
+                    regresarpiezasdepollocrudodeinventario(id_producto, addpiezas);
+                 }else{
+                 id_producto(piezas[i].toString());
+                     cantidadpolloenDByname(id_producto);
+                     addpiezas=cantidadpolloenDB+cantidadenventa;
+                    regresarpiezasdepollocrudodeinventario(id_producto, addpiezas);
+                    } 
+                     }
+                    
+                 }
+                id_producto("pollo crudo");
+                    eliminarhuesito(id_producto);    
+                     accionesdespuesderegresarproductosainventarios();
+           mostrartabladeventas();
+           eliminarpolloenterodestorage(id_producto);
+           piezasquenohay.clear();
+            }//CASILLA, AGREGA CON IMPORTE EN 0
+            // BOOLEANAS PARA SABER CUALES NO SE VA A REGRESAR
+            else if(nombredepiezaseleccionada.equals("Medio pollo")){
+                 id_producto("Medio pollo");
+                cantidadenventa(id_producto);
+                 for (int i = 0; i < piezasdemedio.length; i++) {
+                    if(piezasdemedio[i].toString().equals("Pechuga")){
+                              id_producto(piezasdemedio[i].toString());
+                     cantidadpolloenDByname(id_producto);
+                     addpiezas=cantidadpolloenDB+cantidadenventa;
+                              regresarpiezasdepollocrudodeinventario(id_producto, addpiezas);
+                       }else{
+                         id_producto(piezasdemedio[i].toString());
+                     cantidadpolloenDByname(id_producto);
+                     addpiezas=cantidadpolloenDB+1;
+                        regresarpiezasdepollocrudodeinventario(id_producto, addpiezas);
+                    
+                    }  
+                  }
+                 id_producto("Medio pollo");
+                    eliminarhuesito(id_producto);    
+                     accionesdespuesderegresarproductosainventarios();
+           mostrartabladeventas();
+           eliminarpolloenterodestorage(id_producto);
+            }
+            
+            else{
                   regresarproductos_a_inventario(nombredepiezaseleccionada); //pone en estatus de cancelada la venta inconclusa
-          //descuentodepollo();
+         //descuentodepollo();
           mostrartabladeventas();
             }
         }
@@ -5522,10 +5391,7 @@ new Pantalla_Gastos().setVisible(true);
 
                                 descuentoactivo=false;
                                 storage.clear();
-                                voyacobrar=false;
-                                calculatorstate.setText("");
-        calculatorstate.setVisible(false);
-        
+                                voyacobrar=false;        
     }
     
     public boolean validarFormulariotexto(String nombre) { // VALIDACION DE TXTDESCRIPCION
@@ -5687,119 +5553,6 @@ get_id_usuario();// 255 -280
        
    }
     }//GEN-LAST:event_pagarventaacreditoActionPerformed
-
-    private void borrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_borrarActionPerformed
-        cantidad.setText("");
-    }//GEN-LAST:event_borrarActionPerformed
-
-    private void nueveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nueveActionPerformed
-        String nine="9";
-        if(!cantidad.equals("")){
-
-            cantidad.setText(cantidad.getText()+nine);
-        }
-        else {
-            cantidad.setText(nine);
-            cantidad=cantidad;
-        }
-    }//GEN-LAST:event_nueveActionPerformed
-
-    private void ochoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ochoActionPerformed
-        String eight="8";
-        if(!cantidad.equals("")){
-
-            cantidad.setText(cantidad.getText()+eight);
-        }
-        else {
-            cantidad.setText(eight);
-            cantidad=cantidad;
-        }
-    }//GEN-LAST:event_ochoActionPerformed
-
-    private void sieteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sieteActionPerformed
-        String sevenr="7";
-        if(!cantidad.equals("")){
-
-            cantidad.setText(cantidad.getText()+sevenr);
-        }
-        else {
-            cantidad.setText(sevenr);
-            cantidad=cantidad;
-        }
-    }//GEN-LAST:event_sieteActionPerformed
-
-    private void cuatroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cuatroActionPerformed
-        String fo="4";
-        if(!cantidad.equals("")){
-
-            cantidad.setText(cantidad.getText()+fo);
-        }
-        else {
-            cantidad.setText(fo);
-            cantidad=cantidad;
-        }
-    }//GEN-LAST:event_cuatroActionPerformed
-
-    private void cincoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cincoActionPerformed
-        String five="5";
-        if(!cantidad.equals("")){
-
-            cantidad.setText(cantidad.getText()+five);
-        }
-        else {
-            cantidad.setText(five);
-            cantidad=cantidad;
-        }
-    }//GEN-LAST:event_cincoActionPerformed
-
-    private void seisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seisActionPerformed
-        String six="6";
-        if(!cantidad.equals("")){
-
-            cantidad.setText(cantidad.getText()+six);
-        }
-        else {
-            cantidad.setText(six);
-            cantidad=cantidad;
-        }
-    }//GEN-LAST:event_seisActionPerformed
-
-    private void tresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tresActionPerformed
-        String th="3";
-        if(!cantidad.equals("")){
-
-            cantidad.setText(cantidad.getText()+th);
-        }
-        else {
-            cantidad.setText(th);
-            cantidad=cantidad;
-        }
-    }//GEN-LAST:event_tresActionPerformed
-
-    private void dosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dosActionPerformed
-        String two="2";
-        if(!cantidad.equals("")){
-
-            cantidad.setText(cantidad.getText()+two);
-        }
-        else {
-            cantidad.setText(two);
-            cantidad=cantidad;
-        }
-    }//GEN-LAST:event_dosActionPerformed
-
-    private void unoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_unoActionPerformed
-        String one="1";
-        if(!cantidad.equals("")){
-
-            cantidad.setText(cantidad.getText()+one);
-        }
-        else {
-            cantidad.setText("");
-            cantidad.setText(one);
-            cantidad=cantidad;
-        }
-    }//GEN-LAST:event_unoActionPerformed
 public void sepuedeeliminarpiernacompleta(){
                   try{ // La suma de las utilidades
     Statement sent  =(Statement)ca.createStatement();
@@ -5813,9 +5566,6 @@ public void sepuedeeliminarpiernacompleta(){
                                                       }// fin del precio-catch del producto
 }
     
-    private void listoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listoActionPerformed
-    }//GEN-LAST:event_listoActionPerformed
-
     public static void agregandoaventa(String nombredepiezaseleccionada, float cantidaddeproductos){
  if(nombredepiezaseleccionada.equals("Pierna completa")){
                         String[] piernafull = {"Muslo","Pierna"};
@@ -5829,30 +5579,32 @@ public void sepuedeeliminarpiernacompleta(){
                            }
                    }
                    else if(nombredepiezaseleccionada.equals("pollo crudo")){
-                        if(cantidaddeproductos==0.5){//ESTO INDICA QUE ES MEDIO POLLO
-                             //TODAS LAS PIEZAS QUE CORRESONDE A UN POLLO ENTERO
-                  agregarpiezasaventa(nombredepiezaseleccionada);
-                       }else{
-                          //TODAS LAS PIEZAS QUE CORRESONDE A UN POLLO ENTERO
+         //TODAS LAS PIEZAS QUE CORRESONDE A UN POLLO ENTERO
                 cantidaddeproductos=1; 
                 agregarpiezasaventa(nombredepiezaseleccionada);
+          }  else  if(nombredepiezaseleccionada.equals("Medio pollo")){//ESTO INDICA QUE ES MEDIO POLLO
+                             //TODAS LAS PIEZAS QUE CORRESONDE A UN POLLO ENTERO
+                  agregarpiezasaventa(nombredepiezaseleccionada);
                        }
-                   }
-                   else if(nombredepiezaseleccionada.equals("Huesito")){
+                   else if(nombredepiezaseleccionada.equals("Huesito")||nombredepiezaseleccionada.equals("Longaniza")){
                        agregarpiezasaventa("Huesito");
+                   }else if(piezasparaacomplettarpollo.isSelected()&&nombredepiezaseleccionada.equals("Pechuga")||
+                           nombredepiezaseleccionada.equals("Muslo")||
+                           nombredepiezaseleccionada.equals("Pierna")||
+                           nombredepiezaseleccionada.equals("Ala")||
+                           nombredepiezaseleccionada.equals("Huacal")||
+                           nombredepiezaseleccionada.equals("Cadera")||
+                           nombredepiezaseleccionada.equals("Cabeza")||
+                           nombredepiezaseleccionada.equals("Molleja")||
+                           nombredepiezaseleccionada.equals("Patas")){ 
+                       agregarpiezasaventa(nombredepiezaseleccionada);
                    }   
-                   else if(nombredepiezaseleccionada.equals("Longaniza")){
-                        agregarpiezasaventa("Longaniza");
-                   }else {
+                   else {
                         agregarpiezasaventa(nombredepiezaseleccionada);
                    }
     
     }
     
-    public static void ocultarcalculadoradespuesdecobrar(){
-    cantidad.setText("");
-    //calculadora.setVisible(false);
-}
     public static void metodo_de_cobro(float variablepago){
     /*   ********************  BOTON DE COBRAR LA VENTA ****************  */
             /*   ******************  BOTON DE COBRAR LA VENTA **************  */
@@ -5888,7 +5640,7 @@ public void sepuedeeliminarpiernacompleta(){
                                          if(result>0){       
                                                     descripciondelosprouductosparaelticketdeventa(id_de_la_venta_incrementable); //DATOS PARA EL TICKET DE VENTA
                                  accionesdespuesderealizarcualquierventa();
-                                             ocultarcalculadoradespuesdecobrar();
+                                          
                                          }
                                 }
                                 catch(Exception ex){
@@ -5930,7 +5682,7 @@ public void sepuedeeliminarpiernacompleta(){
                                      if(resultado>0){  
                                          descripciondelosprouductosparaelticketdeventa(id_de_la_venta_incrementable);//DATOS PARA EL TICKET DE VENTA          
                                       accionesdespuesderealizarcualquierventa();
-                                         ocultarcalculadoradespuesdecobrar();
+                                      
                                      }
                                 }
                                 catch(Exception ex){
@@ -5951,35 +5703,10 @@ public void sepuedeeliminarpiernacompleta(){
                 else if(totaldeventa.getText().isEmpty()){
                     JOptionPane.showMessageDialog(null,"Aún no hay nada por pagar","!Espera!",JOptionPane.INFORMATION_MESSAGE);
                 }
-                else if(cantidad.getText().isEmpty()){
-                    JOptionPane.showMessageDialog(null,"Aún no has ingresado la cantidad recibida","!Espera!",JOptionPane.INFORMATION_MESSAGE);
-                }
-                else if(cantidad.getText().isEmpty()){
-                    JOptionPane.showMessageDialog(null,"Aún no hay articulos ingresados","!Espera!",JOptionPane.INFORMATION_MESSAGE);
-                }
             }catch(Exception NFE){//Number format exception para cuando el usuario no ingrese ningun dato en la caja
                 JOptionPane.showMessageDialog(null,"No tiene valor la cantidad recibida","!Espera!",JOptionPane.INFORMATION_MESSAGE);
 }
     }
-    private void salirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salirActionPerformed
-        calculadora.setVisible(false);
-        calculatorstate.setText("");
-        cantidad.setText("");
-        calculatorstate.setVisible(false);
-    }//GEN-LAST:event_salirActionPerformed
-
-    private void ceroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ceroActionPerformed
-       String one="0";
-        if(!cantidad.equals("")){
-
-            cantidad.setText(cantidad.getText()+one);
-        }
-        else {
-            cantidad.setText(one);
-            cantidad=cantidad;
-        }
-    }//GEN-LAST:event_ceroActionPerformed
-
     private void jTable2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable2MouseClicked
 
         int fila =jTable2.getSelectedRow();
@@ -6004,8 +5731,8 @@ public void sepuedeeliminarpiernacompleta(){
     private void cobroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cobroActionPerformed
      if(tablaventaactiva==true&&!totaldeventa.getText().equals("")){
          String cobrando="Cobrando";
- Calculadora enviar = new Calculadora(Float.parseFloat(totaldeventa.getText().toString()), cobrando);
-         new Calculadora().setVisible(true); 
+ CalculadoraCobro enviar = new CalculadoraCobro(Float.parseFloat(totaldeventa.getText().toString()), cobrando);
+         new CalculadoraCobro().setVisible(true); 
      }else
          JOptionPane.showMessageDialog(null, "Aún no hay productos en venta para cobrar", "Verifique", JOptionPane.INFORMATION_MESSAGE);
         
@@ -6032,10 +5759,6 @@ descuentocombo.setText("00.00");
     private void mostrarpollocrudoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mostrarpollocrudoActionPerformed
        new Crudo().setVisible(true);
     }//GEN-LAST:event_mostrarpollocrudoActionPerformed
-
-    private void abrircalculadoraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_abrircalculadoraActionPerformed
-          new Calculadora().setVisible(true);
-    }//GEN-LAST:event_abrircalculadoraActionPerformed
 
     private void mostrarpollococidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mostrarpollococidoActionPerformed
        new Cocido().setVisible(true);
@@ -6112,6 +5835,46 @@ if(NoP.equals(nombredepieza)){ //Si el nombre del producto es diferente del esta
             }//fin de la insersion a la tabla ventas
     }
     }
+    public static void acompletarpollo(String nombredepieza){
+        try{ //la insersion a la tabla ventas
+                String sql = "INSERT INTO descripcion_de_venta (id_producto,nombre_producto,cantidad,precio_unitario,importe,id_venta,estado, fecha)  VALUES (?,?,?,?,?,?,?,?)";
+                PreparedStatement pst = ca.prepareCall(sql); //hasta aqui vamos
+                id_producto(nombredepieza); 
+                pst.setInt(1,id_producto);
+                storage.add(id_producto); //almacena cada id de cada producto en éste arreglo dinamico
+                pst.setString(2,nombredepieza);
+                pst.setFloat(3,cantidaddeproductos);            
+                //EL METODO A CONTINUACION VA HACIENDO EL CONTEO DE LAS PIEZAS INDIVIDUALES
+                // PARA UNA VEZ LLEGANDO A UN POLLO ENTERO DESCONTARLO DE LA BASE           
+                precio_producto(nombredepieza);
+                pst.setFloat(4,precio);
+                
+                     importe = (float)cantidaddeproductos*precio;        
+                pst.setFloat(5,0);
+               
+                
+                id_max_de_venta();
+                pst.setInt(6,(id_de_la_venta_incrementable));
+                pst.setString(7, estadoenturno);
+                pst.setString(8, fecha());
+                int a=pst.executeUpdate();
+                if(a>0){
+                    accionesdespuesinsertarendescripciondeventaoactualizarenlamismatabla(nombredepieza);
+                    if(descuentoactivo==true){//DESCUENTOACTIVO
+                   JOptionPane.showMessageDialog(null, "descuento aplicado");
+               if(Float.parseFloat(totaldeventa.getText())>0){
+               totalfinalcondescuento =  Float.parseFloat(totaldeventa.getText()) - Float.parseFloat(descuentocombo.getText());
+               totalcondescuento.setText(String.valueOf(totalfinalcondescuento));
+                    }
+                 }//DESCUENTOACTIVO            
+                                              
+                }else{//CUANDO NO SE PUDO INSERTAR
+                   }
+            }catch(SQLException e)  { //fin de la insersion a la tabla ventas
+                JOptionPane.showMessageDialog(null,"Error de datos por id vacio "+e);
+            }//fin de la insersion a la tabla ventas
+    }
+    
     
    public static void agregarpiezasaventa(String nombredepieza){
          /* ******************** BOTON DE ADD NUEVO PRODUCTO PARA SU VENTA ******************** */
@@ -6123,7 +5886,10 @@ if(NoP.equals(nombredepieza)){ //Si el nombre del producto es diferente del esta
               block_unlock=false;   //se desactiva la condicion que indica que ya no se agregue otro id venta ya que aún no se ha concluido la primer venta
            if(nombredepieza.equals("Huesito")||nombredepieza.equals("Longaniza")){
         insertorupdateoverbonnie(nombredepieza, cantidaddeproductos);
-          } else{
+          }else if(piezasparaacomplettarpollo.isSelected()){
+              acompletarpollo(nombredepieza);
+          } 
+           else{
                comprobar_registro(nombredepieza); // esto es para agregar los productos a la tabla de descripcion de venta y 
            }   
           // ya una vez concluida la venta el mismo metodo agregará dicho resultado total de la venta (a la tabla venta, bueno solo los resultados 
@@ -6136,7 +5902,10 @@ get_id_usuario();// 255 -280
               block_unlock=false;   
              if(nombredepieza.equals("Huesito")||nombredepieza.equals("Longaniza")){
        insertorupdateoverbonnie(nombredepieza, cantidaddeproductos);
-          } else{
+          } else if(piezasparaacomplettarpollo.isSelected()){
+              acompletarpollo(nombredepieza);
+          }
+             else{
                comprobar_registro(nombredepieza); // esto es para agregar los productos a la tabla de descripcion de venta y 
            } 
            }
@@ -6298,7 +6067,6 @@ static SI cc= new SI();
     private javax.swing.JButton Reporte_user;
     private javax.swing.JButton Reporte_user1;
     public javax.swing.JButton Reportes;
-    private javax.swing.JButton abrircalculadora;
     private javax.swing.JMenuItem activarusuario;
     public javax.swing.JButton actualizarpro;
     private javax.swing.JButton agregar;
@@ -6309,27 +6077,19 @@ static SI cc= new SI();
     private javax.swing.JButton agregarpro;
     public static javax.swing.JButton agregarpro1;
     private javax.swing.JButton bones;
-    private javax.swing.JButton borrar;
     private javax.swing.JButton buscarproductosfecha;
     private javax.swing.JButton buscarproductospordia;
     private javax.swing.JButton buscarventasporfecha;
-    private javax.swing.JPanel calculadora;
-    public static javax.swing.JLabel calculatorstate;
     public static javax.swing.JLabel cambiocombobox;
-    public static javax.swing.JTextField cantidad;
-    private javax.swing.JButton cero;
-    private javax.swing.JButton cinco;
     private javax.swing.JButton cleanall;
     private javax.swing.JButton cobro;
     public static javax.swing.JLabel conteodelasventasrealizadas;
-    private javax.swing.JButton cuatro;
     private javax.swing.JButton deletedescuento;
     private javax.swing.JButton descuento;
     public static javax.swing.JLabel descuentocombo;
     private javax.swing.JLabel descuentolabel;
     public static javax.swing.JTextField despro;
     private javax.swing.JLabel deudor;
-    private javax.swing.JButton dos;
     private javax.swing.JMenuItem drop;
     private javax.swing.JMenuItem eliminar;
     private javax.swing.JMenuItem eliminarusuarios;
@@ -6483,16 +6243,14 @@ static SI cc= new SI();
     private javax.swing.JLabel labelnombre;
     private javax.swing.JLabel labelparaeltotal;
     private javax.swing.JLabel labelutilidad;
-    private javax.swing.JButton listo;
     private javax.swing.JMenuItem modificar;
     private javax.swing.JMenuItem modificarusuarios;
     private javax.swing.JMenuItem modify;
     private javax.swing.JButton mostraracompañantes;
     private javax.swing.JButton mostrarpollococido;
     private javax.swing.JButton mostrarpollocrudo;
-    private javax.swing.JButton nueve;
-    private javax.swing.JButton ocho;
     private javax.swing.JButton pagarventaacredito;
+    public static javax.swing.JCheckBox piezasparaacomplettarpollo;
     public static javax.swing.JPanel producto_sobrante;
     public static javax.swing.JPanel producto_sobrante3;
     public static javax.swing.JTextField proem;
@@ -6503,9 +6261,6 @@ static SI cc= new SI();
     public static javax.swing.JTextField prorfc;
     public static javax.swing.JTextField protel;
     private rojerusan.RSTableMetro proveedores;
-    private javax.swing.JButton salir;
-    private javax.swing.JButton seis;
-    private javax.swing.JButton siete;
     private javax.swing.JPopupMenu tabla_articulos;
     private javax.swing.JPopupMenu tabla_proveedores;
     public static rojerusan.RSTableMetro tabla_usuariosnuevo;
@@ -6520,8 +6275,6 @@ static SI cc= new SI();
     public static javax.swing.JLabel totaldeventa;
     private javax.swing.JLabel totalventacreditoenturno;
     private javax.swing.JLabel totalventarealizada;
-    private javax.swing.JButton tres;
-    private javax.swing.JButton uno;
     private javax.swing.JButton update_users;
     private javax.swing.JLabel user;
     private javax.swing.JLabel user1;
