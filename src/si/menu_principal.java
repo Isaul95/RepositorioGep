@@ -66,7 +66,7 @@ static Statement sent;
 static String[] piezasdemedio = {"Pechuga", "Muslo","Pierna","Ala","Huacal", "Molleja", "Patas", "pollo crudo"};
 static ArrayList piezasquenohay = new ArrayList();
 
- static double cantidaddemedio, cantidaddecuarto;
+ static double cantidaddemedio, cantidaddecuarto, medio=0.50, cuarto=0.25;
         ArrayList idsenturno = new ArrayList();
        ArrayList cantidaddecadaidenturno = new ArrayList();
 
@@ -91,22 +91,9 @@ static boolean seagregoexterno=false;
          ParaLAVenta(JtablepaLaVenta);
     }
 }    
-   //CUANDO RECIBE LA CANTIDAD POR DEFAULT DE 1
-  menu_principal(String piezaseleccionada, int cantidaddeproductos){
-      this.cantidaddeproductos=cantidaddeproductos;
-      this.nombredepiezaseleccionada=piezaseleccionada;
-        this.cantidadparapollocrudo=cantidaddeproductos;
-agregandoaventa(nombredepiezaseleccionada, cantidaddeproductos);
-      
-  }
-  //CUANDO RECIBE UNA CANTIDAD POR PARTE DE LA CALCULADORA O UN MEDIO O UN CUARTO
-  menu_principal(float cantidaddeproductos, String piezaseleccionada){
-      this.cantidaddeproductos=cantidaddeproductos;
-      this.nombredepiezaseleccionada=piezaseleccionada;
-      this.cantidadparapollocrudo=cantidaddeproductos;
-     agregandoaventa(nombredepiezaseleccionada, cantidaddeproductos);
-      
-  }
+
+  
+
     //CUANDO SE VA A HACER EL PAGO
   menu_principal(float variablepago){
       this.variablepago=variablepago;
@@ -156,7 +143,7 @@ this.setLocationRelativeTo(null); // esto elimina los botones de cerrar, minimiz
     totalventarealizada.setVisible(false);
     labelparaeltotal.setVisible(false);
     labeldescuento.setVisible(true);
-               jLabel61.setVisible(true);
+             
                descuentolabel.setVisible(true);
                veridventas.setVisible(false);
                imprimirventa.setVisible(false);
@@ -171,7 +158,22 @@ deletedescuento.setVisible(false);
          pagarventaacredito.setVisible(false);
          piezasparaacomplettarpollo.setVisible(false);
     }
-   
+      //CUANDO RECIBE LA CANTIDAD POR DEFAULT DE 1
+  public void piezaseleccionadaycantidadunica(String piezaseleccionada, int cantidaddeproductos){
+        this.cantidaddeproductos=cantidaddeproductos;
+      this.nombredepiezaseleccionada=piezaseleccionada;
+        this.cantidadparapollocrudo=cantidaddeproductos;
+agregandoaventa(nombredepiezaseleccionada, cantidaddeproductos);
+  }   
+    //CUANDO RECIBE UNA CANTIDAD POR PARTE DE LA CALCULADORA O UN MEDIO O UN CUARTO
+  public void piezaseleccionadaycantidadvariable(float cantidaddeproductos, String piezaseleccionada){
+      this.cantidaddeproductos=cantidaddeproductos;
+      this.nombredepiezaseleccionada=piezaseleccionada;
+      this.cantidadparapollocrudo=cantidaddeproductos;
+     agregandoaventa(nombredepiezaseleccionada, cantidaddeproductos);
+      
+  }
+            
   public void llenartablautilidad(){
         utilidad.setVisible(true);    //hace visible la tabla de proveedores 
               DefaultTableModel modelo = new DefaultTableModel(); // Se crea un objeto para agregar los nombres de las columnas a la tabla
@@ -1567,7 +1569,7 @@ if(NoP.equals(nombredepieza)&&NoPimporte!=0){ //Si el nombre del producto es dif
                totalfinalcondescuento = totalparadescuentos - descuentocantidad;
                totalcondescuento.setText(String.valueOf(totalfinalcondescuento));
                  totalcondescuento.setVisible(true);
-               jLabel61.setVisible(true);
+
                descuentolabel.setVisible(true);
                 labeldescuento.setVisible(true);
 deletedescuento.setVisible(true);
@@ -1864,20 +1866,19 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         activarusuario = new javax.swing.JMenuItem();
         Proveedores9 = new javax.swing.JTabbedPane();
         venta = new javax.swing.JPanel();
-        jLabel28 = new javax.swing.JLabel();
         jPanel10 = new javax.swing.JPanel();
         cambiocombobox = new javax.swing.JLabel();
         jLabel31 = new javax.swing.JLabel();
         jLabel30 = new javax.swing.JLabel();
         jSeparator22 = new javax.swing.JSeparator();
         totaldeventa = new javax.swing.JLabel();
-        cleanall = new javax.swing.JButton();
         jSeparator7 = new javax.swing.JSeparator();
-        jLabel61 = new javax.swing.JLabel();
         descuentolabel = new javax.swing.JLabel();
         totalcondescuento = new javax.swing.JLabel();
         jSeparator20 = new javax.swing.JSeparator();
-        cobro = new javax.swing.JButton();
+        labeldescuento = new javax.swing.JLabel();
+        descuentocombo = new javax.swing.JLabel();
+        jSeparator21 = new javax.swing.JSeparator();
         jPanel2 = new javax.swing.JPanel();
         user = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
@@ -1886,27 +1887,64 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         Reloj = new javax.swing.JLabel();
         Fecha = new javax.swing.JLabel();
         IblReloj = new javax.swing.JLabel();
-        AgregarGastos = new javax.swing.JButton();
-        Cortedecaja = new javax.swing.JButton();
-        total1 = new javax.swing.JLabel();
-        total2 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tablaventa = new rojerusan.RSTableMetro();
         total3 = new javax.swing.JLabel();
         jPanel27 = new javax.swing.JPanel();
-        labeldescuento = new javax.swing.JLabel();
-        descuentocombo = new javax.swing.JLabel();
-        jSeparator21 = new javax.swing.JSeparator();
+        Cortedecaja = new javax.swing.JButton();
+        AgregarGastos = new javax.swing.JButton();
+        descuento = new javax.swing.JButton();
         ventaacredito = new javax.swing.JButton();
         deletedescuento = new javax.swing.JButton();
-        descuento = new javax.swing.JButton();
+        cleanall = new javax.swing.JButton();
         Existencias = new javax.swing.JButton();
         jLabel74 = new javax.swing.JLabel();
-        bones = new javax.swing.JButton();
-        mostrarpollocrudo = new javax.swing.JButton();
-        mostrarpollococido = new javax.swing.JButton();
-        mostraracompañantes = new javax.swing.JButton();
         piezasparaacomplettarpollo = new javax.swing.JCheckBox();
+        jTabbedPane1 = new javax.swing.JTabbedPane();
+        CRUDO = new javax.swing.JPanel();
+        mostrarpollocrudo = new javax.swing.JButton();
+        bones = new javax.swing.JButton();
+        COCIDO = new javax.swing.JPanel();
+        polloasado = new javax.swing.JButton();
+        jButton23 = new javax.swing.JButton();
+        masdeunapiezacocido = new javax.swing.JCheckBox();
+        jButton24 = new javax.swing.JButton();
+        jButton25 = new javax.swing.JButton();
+        jButton26 = new javax.swing.JButton();
+        jButton27 = new javax.swing.JButton();
+        jButton28 = new javax.swing.JButton();
+        jButton29 = new javax.swing.JButton();
+        jButton30 = new javax.swing.JButton();
+        jButton31 = new javax.swing.JButton();
+        jButton32 = new javax.swing.JButton();
+        jButton33 = new javax.swing.JButton();
+        jButton34 = new javax.swing.JButton();
+        jButton35 = new javax.swing.JButton();
+        jButton36 = new javax.swing.JButton();
+        jButton37 = new javax.swing.JButton();
+        jButton38 = new javax.swing.JButton();
+        jButton39 = new javax.swing.JButton();
+        jButton40 = new javax.swing.JButton();
+        jButton41 = new javax.swing.JButton();
+        ACOMPAÑANTES = new javax.swing.JPanel();
+        salsaguajillo = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
+        jButton7 = new javax.swing.JButton();
+        jButton9 = new javax.swing.JButton();
+        jButton11 = new javax.swing.JButton();
+        jButton12 = new javax.swing.JButton();
+        jButton13 = new javax.swing.JButton();
+        jButton14 = new javax.swing.JButton();
+        jButton15 = new javax.swing.JButton();
+        jButton16 = new javax.swing.JButton();
+        jButton17 = new javax.swing.JButton();
+        jButton18 = new javax.swing.JButton();
+        jButton19 = new javax.swing.JButton();
+        jButton20 = new javax.swing.JButton();
+        jButton21 = new javax.swing.JButton();
+        jButton22 = new javax.swing.JButton();
+        masdeunapieza = new javax.swing.JCheckBox();
+        cobro = new javax.swing.JButton();
         agregar_proveedor = new javax.swing.JPanel();
         agregarpro = new javax.swing.JButton();
         jLabel12 = new javax.swing.JLabel();
@@ -2162,98 +2200,65 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         venta.setBackground(new java.awt.Color(0, 51, 102));
         venta.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel28.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
-        jLabel28.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel28.setText("Clic sobre algún producto para agregarlo a la venta:");
-        venta.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 60, 630, -1));
-
         jPanel10.setBackground(new java.awt.Color(0, 51, 102));
         jPanel10.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "   Venta   ", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Arial", 1, 18), new java.awt.Color(255, 255, 255))); // NOI18N
         jPanel10.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        cambiocombobox.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
-        cambiocombobox.setForeground(new java.awt.Color(255, 255, 255));
+        cambiocombobox.setFont(new java.awt.Font("Trebuchet MS", 1, 36)); // NOI18N
+        cambiocombobox.setForeground(new java.awt.Color(255, 0, 0));
         cambiocombobox.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         cambiocombobox.setText("00.00");
-        jPanel10.add(cambiocombobox, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 90, 140, 28));
+        jPanel10.add(cambiocombobox, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 240, 140, 28));
 
         jLabel31.setFont(new java.awt.Font("Trebuchet MS", 1, 22)); // NOI18N
         jLabel31.setForeground(new java.awt.Color(255, 255, 255));
         jLabel31.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/camb5.png"))); // NOI18N
         jLabel31.setText("Cambio:");
-        jPanel10.add(jLabel31, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 80, 140, -1));
+        jPanel10.add(jLabel31, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 230, 140, -1));
 
         jLabel30.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
         jLabel30.setForeground(new java.awt.Color(255, 255, 255));
         jLabel30.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/total.png"))); // NOI18N
-        jLabel30.setText(" Total:");
+        jLabel30.setText("Subtotal");
         jLabel30.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-        jPanel10.add(jLabel30, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 30, 120, -1));
-        jPanel10.add(jSeparator22, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 120, 140, 10));
+        jPanel10.add(jLabel30, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, 150, -1));
+        jPanel10.add(jSeparator22, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 270, 140, 10));
 
         totaldeventa.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
         totaldeventa.setForeground(new java.awt.Color(255, 255, 255));
         totaldeventa.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         totaldeventa.setText("00.00");
-        jPanel10.add(totaldeventa, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 30, 140, 28));
-
-        cleanall.setBackground(new java.awt.Color(0, 51, 102));
-        cleanall.setFont(new java.awt.Font("Tahoma", 1, 22)); // NOI18N
-        cleanall.setForeground(new java.awt.Color(255, 255, 255));
-        cleanall.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/flecha-hacia-la-izquierda (1).png"))); // NOI18N
-        cleanall.setText("Limpiar venta");
-        cleanall.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        cleanall.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-        cleanall.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        cleanall.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                cleanallMouseClicked(evt);
-            }
-        });
-        cleanall.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cleanallActionPerformed(evt);
-            }
-        });
-        jPanel10.add(cleanall, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, 190, 90));
-        jPanel10.add(jSeparator7, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 60, 140, 10));
-
-        jLabel61.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
-        jLabel61.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel61.setText("Total con");
-        jLabel61.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-        jPanel10.add(jLabel61, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 140, 170, -1));
+        jPanel10.add(totaldeventa, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 30, 140, 28));
+        jPanel10.add(jSeparator7, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 60, 140, 10));
 
         descuentolabel.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
         descuentolabel.setForeground(new java.awt.Color(255, 255, 255));
         descuentolabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/total.png"))); // NOI18N
-        descuentolabel.setText("Descuento :");
+        descuentolabel.setText("Total");
         descuentolabel.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-        jPanel10.add(descuentolabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 170, 190, -1));
+        jPanel10.add(descuentolabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 140, 190, -1));
 
-        totalcondescuento.setFont(new java.awt.Font("Arial Black", 1, 30)); // NOI18N
-        totalcondescuento.setForeground(new java.awt.Color(255, 0, 51));
+        totalcondescuento.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
+        totalcondescuento.setForeground(new java.awt.Color(255, 255, 255));
         totalcondescuento.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         totalcondescuento.setText("00.00");
-        jPanel10.add(totalcondescuento, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 140, 150, 50));
-        jPanel10.add(jSeparator20, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 180, 140, 10));
+        jPanel10.add(totalcondescuento, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 130, 150, 50));
+        jPanel10.add(jSeparator20, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 170, 140, 10));
 
-        cobro.setBackground(new java.awt.Color(0, 51, 102));
-        cobro.setFont(new java.awt.Font("Tahoma", 1, 22)); // NOI18N
-        cobro.setForeground(new java.awt.Color(255, 255, 255));
-        cobro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/flecha-hacia-la-izquierda (1).png"))); // NOI18N
-        cobro.setText("Cobrar");
-        cobro.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        cobro.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-        cobro.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        cobro.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cobroActionPerformed(evt);
-            }
-        });
-        jPanel10.add(cobro, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 190, 90));
+        labeldescuento.setFont(new java.awt.Font("Trebuchet MS", 1, 22)); // NOI18N
+        labeldescuento.setForeground(new java.awt.Color(255, 255, 255));
+        labeldescuento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/camb5.png"))); // NOI18N
+        labeldescuento.setText("Descuento:");
+        jPanel10.add(labeldescuento, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 170, -1));
 
-        venta.add(jPanel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 380, 540, 270));
+        descuentocombo.setFont(new java.awt.Font("Arial Black", 1, 28)); // NOI18N
+        descuentocombo.setForeground(new java.awt.Color(255, 0, 51));
+        descuentocombo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        descuentocombo.setText("00.00");
+        jPanel10.add(descuentocombo, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 80, 140, -1));
+        jPanel10.add(jSeparator21, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 120, 140, 10));
+
+        venta.add(jPanel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 390, 450, 290));
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -2334,42 +2339,6 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         IblReloj.setText("00:00:00");
         venta.add(IblReloj, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
-        AgregarGastos.setBackground(new java.awt.Color(0, 51, 102));
-        AgregarGastos.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        AgregarGastos.setForeground(new java.awt.Color(255, 255, 255));
-        AgregarGastos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/combustible (1).png"))); // NOI18N
-        AgregarGastos.setText("Agregar Gastos");
-        AgregarGastos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                AgregarGastosActionPerformed(evt);
-            }
-        });
-        venta.add(AgregarGastos, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 400, 200, 90));
-
-        Cortedecaja.setBackground(new java.awt.Color(0, 51, 102));
-        Cortedecaja.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        Cortedecaja.setForeground(new java.awt.Color(255, 255, 255));
-        Cortedecaja.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/004-cash register.png"))); // NOI18N
-        Cortedecaja.setText("Corte de Caja");
-        Cortedecaja.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CortedecajaActionPerformed(evt);
-            }
-        });
-        venta.add(Cortedecaja, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 520, 200, 90));
-
-        total1.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
-        total1.setForeground(new java.awt.Color(255, 255, 255));
-        total1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        total1.setText("00.00");
-        venta.add(total1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1080, 430, 140, 28));
-
-        total2.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
-        total2.setForeground(new java.awt.Color(255, 255, 255));
-        total2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        total2.setText("00.00");
-        venta.add(total2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1080, 430, 140, 28));
-
         tablaventa = new rojerusan.RSTableMetro(){
             public boolean isCellEditable(int filas, int columnas){
                 return false;
@@ -2406,27 +2375,46 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         venta.add(total3, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 30, 140, 28));
 
         jPanel27.setBackground(new java.awt.Color(0, 51, 102));
-        jPanel27.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Descuentos", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Arial", 1, 18), new java.awt.Color(255, 0, 51))); // NOI18N
+        jPanel27.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Otras opciones", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Arial", 1, 18), new java.awt.Color(255, 255, 255))); // NOI18N
         jPanel27.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        labeldescuento.setFont(new java.awt.Font("Trebuchet MS", 1, 22)); // NOI18N
-        labeldescuento.setForeground(new java.awt.Color(255, 255, 255));
-        labeldescuento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/camb5.png"))); // NOI18N
-        labeldescuento.setText("Descuento:");
-        jPanel27.add(labeldescuento, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 170, -1));
+        Cortedecaja.setBackground(new java.awt.Color(0, 51, 102));
+        Cortedecaja.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        Cortedecaja.setForeground(new java.awt.Color(255, 255, 255));
+        Cortedecaja.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/004-cash register.png"))); // NOI18N
+        Cortedecaja.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CortedecajaActionPerformed(evt);
+            }
+        });
+        jPanel27.add(Cortedecaja, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, -1, 60));
 
-        descuentocombo.setFont(new java.awt.Font("Arial Black", 1, 28)); // NOI18N
-        descuentocombo.setForeground(new java.awt.Color(255, 0, 51));
-        descuentocombo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        descuentocombo.setText("00.00");
-        jPanel27.add(descuentocombo, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 90, 140, 40));
-        jPanel27.add(jSeparator21, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 130, 140, 10));
+        AgregarGastos.setBackground(new java.awt.Color(0, 51, 102));
+        AgregarGastos.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        AgregarGastos.setForeground(new java.awt.Color(255, 255, 255));
+        AgregarGastos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/combustible (1).png"))); // NOI18N
+        AgregarGastos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AgregarGastosActionPerformed(evt);
+            }
+        });
+        jPanel27.add(AgregarGastos, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 30, -1, 60));
+
+        descuento.setBackground(new java.awt.Color(0, 51, 102));
+        descuento.setFont(new java.awt.Font("Arial Black", 1, 23)); // NOI18N
+        descuento.setForeground(new java.awt.Color(255, 255, 255));
+        descuento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/005-discount.png"))); // NOI18N
+        descuento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                descuentoActionPerformed(evt);
+            }
+        });
+        jPanel27.add(descuento, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, -1, 60));
 
         ventaacredito.setBackground(new java.awt.Color(0, 51, 102));
         ventaacredito.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
         ventaacredito.setForeground(new java.awt.Color(255, 255, 255));
         ventaacredito.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/dinero (1).png"))); // NOI18N
-        ventaacredito.setText("Venta a credito");
         ventaacredito.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         ventaacredito.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         ventaacredito.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -2435,39 +2423,45 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
                 ventaacreditoActionPerformed(evt);
             }
         });
-        jPanel27.add(ventaacredito, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 300, 90));
+        jPanel27.add(ventaacredito, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 100, 60, 60));
 
-        deletedescuento.setBackground(new java.awt.Color(0, 51, 102));
+        deletedescuento.setBackground(new java.awt.Color(255, 0, 0));
         deletedescuento.setFont(new java.awt.Font("Arial Black", 1, 23)); // NOI18N
         deletedescuento.setForeground(new java.awt.Color(255, 51, 51));
         deletedescuento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/005-discount.png"))); // NOI18N
-        deletedescuento.setText("Quitar descuento");
         deletedescuento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 deletedescuentoActionPerformed(evt);
             }
         });
-        jPanel27.add(deletedescuento, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, 310, 40));
+        jPanel27.add(deletedescuento, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, -1, 60));
 
-        descuento.setBackground(new java.awt.Color(0, 51, 102));
-        descuento.setFont(new java.awt.Font("Arial Black", 1, 23)); // NOI18N
-        descuento.setForeground(new java.awt.Color(255, 255, 255));
-        descuento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/005-discount.png"))); // NOI18N
-        descuento.setText("Descuento");
-        descuento.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                descuentoActionPerformed(evt);
+        cleanall.setBackground(new java.awt.Color(0, 51, 102));
+        cleanall.setFont(new java.awt.Font("Tahoma", 1, 22)); // NOI18N
+        cleanall.setForeground(new java.awt.Color(255, 255, 255));
+        cleanall.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/flecha-hacia-la-izquierda (1).png"))); // NOI18N
+        cleanall.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        cleanall.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        cleanall.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        cleanall.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cleanallMouseClicked(evt);
             }
         });
-        jPanel27.add(descuento, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, 270, 60));
+        cleanall.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cleanallActionPerformed(evt);
+            }
+        });
+        jPanel27.add(cleanall, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 170, 60, 60));
 
-        venta.add(jPanel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 380, 340, 270));
+        venta.add(jPanel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 390, 170, 270));
 
-        Existencias.setBackground(new java.awt.Color(0, 51, 102));
+        Existencias.setBackground(new java.awt.Color(255, 255, 255));
         Existencias.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        Existencias.setForeground(new java.awt.Color(255, 255, 255));
+        Existencias.setForeground(new java.awt.Color(204, 0, 0));
         Existencias.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/actualizar.png"))); // NOI18N
-        Existencias.setText("Existencias");
+        Existencias.setText("¿?");
         Existencias.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         Existencias.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         Existencias.addActionListener(new java.awt.event.ActionListener() {
@@ -2475,12 +2469,34 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
                 ExistenciasActionPerformed(evt);
             }
         });
-        venta.add(Existencias, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 420, 130, 160));
+        venta.add(Existencias, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 70, 80, 90));
 
         jLabel74.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         jLabel74.setForeground(new java.awt.Color(255, 255, 255));
         jLabel74.setText("En venta :");
         venta.add(jLabel74, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, 120, -1));
+
+        piezasparaacomplettarpollo.setBackground(new java.awt.Color(0, 51, 102));
+        piezasparaacomplettarpollo.setFont(new java.awt.Font("Dialog", 1, 20)); // NOI18N
+        piezasparaacomplettarpollo.setForeground(new java.awt.Color(255, 255, 255));
+        piezasparaacomplettarpollo.setText("Completar pollo");
+        venta.add(piezasparaacomplettarpollo, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 100, 180, -1));
+
+        jTabbedPane1.setForeground(new java.awt.Color(255, 255, 255));
+        jTabbedPane1.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+
+        CRUDO.setBackground(new java.awt.Color(0, 51, 102));
+        CRUDO.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+
+        mostrarpollocrudo.setBackground(new java.awt.Color(255, 255, 255));
+        mostrarpollocrudo.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        mostrarpollocrudo.setForeground(new java.awt.Color(255, 0, 0));
+        mostrarpollocrudo.setText("CRUDO");
+        mostrarpollocrudo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mostrarpollocrudoActionPerformed(evt);
+            }
+        });
 
         bones.setBackground(new java.awt.Color(0, 51, 105));
         bones.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
@@ -2491,46 +2507,606 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
                 bonesActionPerformed(evt);
             }
         });
-        venta.add(bones, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 100, 180, 70));
 
-        mostrarpollocrudo.setBackground(new java.awt.Color(0, 51, 102));
-        mostrarpollocrudo.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        mostrarpollocrudo.setForeground(new java.awt.Color(255, 255, 255));
-        mostrarpollocrudo.setText("CRUDO");
-        mostrarpollocrudo.addActionListener(new java.awt.event.ActionListener() {
+        javax.swing.GroupLayout CRUDOLayout = new javax.swing.GroupLayout(CRUDO);
+        CRUDO.setLayout(CRUDOLayout);
+        CRUDOLayout.setHorizontalGroup(
+            CRUDOLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(CRUDOLayout.createSequentialGroup()
+                .addGroup(CRUDOLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(CRUDOLayout.createSequentialGroup()
+                        .addGap(194, 194, 194)
+                        .addComponent(bones, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(CRUDOLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(mostrarpollocrudo, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(224, Short.MAX_VALUE))
+        );
+        CRUDOLayout.setVerticalGroup(
+            CRUDOLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, CRUDOLayout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addComponent(mostrarpollocrudo, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 262, Short.MAX_VALUE)
+                .addComponent(bones, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(115, 115, 115))
+        );
+
+        jTabbedPane1.addTab("CRUDO", CRUDO);
+
+        COCIDO.setBackground(new java.awt.Color(0, 51, 102));
+        COCIDO.setFont(new java.awt.Font("Dialog", 0, 36)); // NOI18N
+
+        polloasado.setBackground(new java.awt.Color(255, 255, 255));
+        polloasado.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
+        polloasado.setForeground(new java.awt.Color(255, 0, 0));
+        polloasado.setText("Pollo asado");
+        polloasado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mostrarpollocrudoActionPerformed(evt);
+                polloasadoActionPerformed(evt);
             }
         });
-        venta.add(mostrarpollocrudo, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 180, 160, 120));
 
-        mostrarpollococido.setBackground(new java.awt.Color(0, 51, 102));
-        mostrarpollococido.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        mostrarpollococido.setForeground(new java.awt.Color(255, 255, 255));
-        mostrarpollococido.setText("COCIDO");
-        mostrarpollococido.addActionListener(new java.awt.event.ActionListener() {
+        jButton23.setBackground(new java.awt.Color(255, 255, 255));
+        jButton23.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
+        jButton23.setForeground(new java.awt.Color(255, 0, 0));
+        jButton23.setText("Rostizado");
+        jButton23.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mostrarpollococidoActionPerformed(evt);
+                jButton23ActionPerformed(evt);
             }
         });
-        venta.add(mostrarpollococido, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 180, 150, 120));
 
-        mostraracompañantes.setBackground(new java.awt.Color(0, 51, 102));
-        mostraracompañantes.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        mostraracompañantes.setForeground(new java.awt.Color(255, 255, 255));
-        mostraracompañantes.setText("ACOMPAÑANTES");
-        mostraracompañantes.addActionListener(new java.awt.event.ActionListener() {
+        masdeunapiezacocido.setBackground(new java.awt.Color(0, 51, 102));
+        masdeunapiezacocido.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        masdeunapiezacocido.setForeground(new java.awt.Color(255, 255, 255));
+        masdeunapiezacocido.setText("Agregar más de una pieza");
+
+        jButton24.setBackground(new java.awt.Color(255, 255, 255));
+        jButton24.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
+        jButton24.setForeground(new java.awt.Color(255, 0, 0));
+        jButton24.setText("Pech. broaster");
+        jButton24.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mostraracompañantesActionPerformed(evt);
+                jButton24ActionPerformed(evt);
             }
         });
-        venta.add(mostraracompañantes, new org.netbeans.lib.awtextra.AbsoluteConstraints(1070, 180, 190, 120));
 
-        piezasparaacomplettarpollo.setBackground(new java.awt.Color(0, 51, 102));
-        piezasparaacomplettarpollo.setFont(new java.awt.Font("Dialog", 1, 20)); // NOI18N
-        piezasparaacomplettarpollo.setForeground(new java.awt.Color(255, 255, 255));
-        piezasparaacomplettarpollo.setText("Completar pollo");
-        venta.add(piezasparaacomplettarpollo, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 240, 230, -1));
+        jButton25.setBackground(new java.awt.Color(255, 255, 255));
+        jButton25.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
+        jButton25.setForeground(new java.awt.Color(255, 0, 0));
+        jButton25.setText("Pierna broast.");
+        jButton25.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton25ActionPerformed(evt);
+            }
+        });
+
+        jButton26.setBackground(new java.awt.Color(255, 255, 255));
+        jButton26.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
+        jButton26.setForeground(new java.awt.Color(255, 0, 0));
+        jButton26.setText("Medio asado");
+        jButton26.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton26ActionPerformed(evt);
+            }
+        });
+
+        jButton27.setBackground(new java.awt.Color(255, 255, 255));
+        jButton27.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
+        jButton27.setForeground(new java.awt.Color(255, 0, 0));
+        jButton27.setText("Medio rostizado");
+        jButton27.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton27ActionPerformed(evt);
+            }
+        });
+
+        jButton28.setBackground(new java.awt.Color(255, 255, 255));
+        jButton28.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
+        jButton28.setForeground(new java.awt.Color(255, 0, 0));
+        jButton28.setText("Cuar. rostizado");
+        jButton28.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton28ActionPerformed(evt);
+            }
+        });
+
+        jButton29.setBackground(new java.awt.Color(255, 255, 255));
+        jButton29.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
+        jButton29.setForeground(new java.awt.Color(255, 0, 0));
+        jButton29.setText("Cuarto asado");
+        jButton29.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton29ActionPerformed(evt);
+            }
+        });
+
+        jButton30.setBackground(new java.awt.Color(255, 255, 255));
+        jButton30.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
+        jButton30.setForeground(new java.awt.Color(255, 0, 0));
+        jButton30.setText("Ala broaster");
+        jButton30.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton30ActionPerformed(evt);
+            }
+        });
+
+        jButton31.setBackground(new java.awt.Color(255, 255, 255));
+        jButton31.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
+        jButton31.setForeground(new java.awt.Color(255, 0, 0));
+        jButton31.setText("Nuggets");
+        jButton31.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton31ActionPerformed(evt);
+            }
+        });
+
+        jButton32.setBackground(new java.awt.Color(255, 255, 255));
+        jButton32.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
+        jButton32.setForeground(new java.awt.Color(255, 0, 0));
+        jButton32.setText("Barbacoa de pollo");
+        jButton32.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton32ActionPerformed(evt);
+            }
+        });
+
+        jButton33.setBackground(new java.awt.Color(255, 255, 255));
+        jButton33.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
+        jButton33.setForeground(new java.awt.Color(255, 0, 0));
+        jButton33.setText("Muslo broast.");
+        jButton33.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton33ActionPerformed(evt);
+            }
+        });
+
+        jButton34.setBackground(new java.awt.Color(255, 255, 255));
+        jButton34.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
+        jButton34.setForeground(new java.awt.Color(255, 0, 0));
+        jButton34.setText("Alitas bbq");
+        jButton34.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton34ActionPerformed(evt);
+            }
+        });
+
+        jButton35.setBackground(new java.awt.Color(255, 255, 255));
+        jButton35.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
+        jButton35.setForeground(new java.awt.Color(255, 0, 0));
+        jButton35.setText("Tacos");
+        jButton35.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton35ActionPerformed(evt);
+            }
+        });
+
+        jButton36.setBackground(new java.awt.Color(255, 255, 255));
+        jButton36.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
+        jButton36.setForeground(new java.awt.Color(255, 0, 0));
+        jButton36.setText("Brochetas");
+        jButton36.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton36ActionPerformed(evt);
+            }
+        });
+
+        jButton37.setBackground(new java.awt.Color(255, 255, 255));
+        jButton37.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
+        jButton37.setForeground(new java.awt.Color(255, 0, 0));
+        jButton37.setText("Mole verde");
+        jButton37.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton37ActionPerformed(evt);
+            }
+        });
+
+        jButton38.setBackground(new java.awt.Color(255, 255, 255));
+        jButton38.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
+        jButton38.setForeground(new java.awt.Color(255, 0, 0));
+        jButton38.setText("Mole rojo");
+        jButton38.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton38ActionPerformed(evt);
+            }
+        });
+
+        jButton39.setBackground(new java.awt.Color(255, 255, 255));
+        jButton39.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
+        jButton39.setForeground(new java.awt.Color(255, 0, 0));
+        jButton39.setText("Mininuggets");
+        jButton39.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton39ActionPerformed(evt);
+            }
+        });
+
+        jButton40.setBackground(new java.awt.Color(255, 255, 255));
+        jButton40.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
+        jButton40.setForeground(new java.awt.Color(255, 0, 0));
+        jButton40.setText("Longaniza");
+        jButton40.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton40ActionPerformed(evt);
+            }
+        });
+
+        jButton41.setBackground(new java.awt.Color(255, 255, 255));
+        jButton41.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
+        jButton41.setForeground(new java.awt.Color(255, 0, 0));
+        jButton41.setText("Miel");
+        jButton41.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton41ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout COCIDOLayout = new javax.swing.GroupLayout(COCIDO);
+        COCIDO.setLayout(COCIDOLayout);
+        COCIDOLayout.setHorizontalGroup(
+            COCIDOLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, COCIDOLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(masdeunapiezacocido)
+                .addGap(122, 122, 122))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, COCIDOLayout.createSequentialGroup()
+                .addGroup(COCIDOLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(COCIDOLayout.createSequentialGroup()
+                        .addGroup(COCIDOLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jButton28, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton27, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)
+                            .addComponent(jButton23, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton40, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton37, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(COCIDOLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(polloasado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton26, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton29, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE)
+                            .addComponent(jButton38, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton41, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(jButton32, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(COCIDOLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButton33, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton24, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton25, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton30, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton34, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(COCIDOLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(COCIDOLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(COCIDOLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButton35, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton31, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton36, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(8, 8, 8))
+                    .addGroup(COCIDOLayout.createSequentialGroup()
+                        .addGap(7, 7, 7)
+                        .addComponent(jButton39, javax.swing.GroupLayout.DEFAULT_SIZE, 141, Short.MAX_VALUE)
+                        .addContainerGap())))
+        );
+        COCIDOLayout.setVerticalGroup(
+            COCIDOLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, COCIDOLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(masdeunapiezacocido)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(COCIDOLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButton23, javax.swing.GroupLayout.DEFAULT_SIZE, 71, Short.MAX_VALUE)
+                    .addComponent(polloasado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton24, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton31, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(COCIDOLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButton27, javax.swing.GroupLayout.DEFAULT_SIZE, 66, Short.MAX_VALUE)
+                    .addComponent(jButton26, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton25, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton35, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(COCIDOLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButton28, javax.swing.GroupLayout.DEFAULT_SIZE, 66, Short.MAX_VALUE)
+                    .addComponent(jButton29, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton30, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton36, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(12, 12, 12)
+                .addGroup(COCIDOLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton39, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(COCIDOLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jButton33, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButton40, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton38, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGroup(COCIDOLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(COCIDOLayout.createSequentialGroup()
+                        .addGap(14, 14, 14)
+                        .addGroup(COCIDOLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jButton37, javax.swing.GroupLayout.DEFAULT_SIZE, 63, Short.MAX_VALUE)
+                            .addComponent(jButton41, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, COCIDOLayout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addComponent(jButton34, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton32, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(92, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("COCIDO", COCIDO);
+
+        ACOMPAÑANTES.setBackground(new java.awt.Color(0, 51, 102));
+
+        salsaguajillo.setBackground(new java.awt.Color(255, 255, 255));
+        salsaguajillo.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
+        salsaguajillo.setForeground(new java.awt.Color(255, 0, 0));
+        salsaguajillo.setText("Salsa guajillo");
+        salsaguajillo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                salsaguajilloActionPerformed(evt);
+            }
+        });
+
+        jButton5.setBackground(new java.awt.Color(255, 255, 255));
+        jButton5.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
+        jButton5.setForeground(new java.awt.Color(255, 0, 0));
+        jButton5.setText("Spa blanco");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+
+        jButton7.setBackground(new java.awt.Color(255, 255, 255));
+        jButton7.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
+        jButton7.setForeground(new java.awt.Color(255, 0, 0));
+        jButton7.setText("Arroz blanco");
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
+
+        jButton9.setBackground(new java.awt.Color(255, 255, 255));
+        jButton9.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
+        jButton9.setForeground(new java.awt.Color(255, 0, 0));
+        jButton9.setText("Arroz rojo");
+        jButton9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton9ActionPerformed(evt);
+            }
+        });
+
+        jButton11.setBackground(new java.awt.Color(255, 255, 255));
+        jButton11.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
+        jButton11.setForeground(new java.awt.Color(255, 0, 0));
+        jButton11.setText("Spagueti rojo");
+        jButton11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton11ActionPerformed(evt);
+            }
+        });
+
+        jButton12.setBackground(new java.awt.Color(255, 255, 255));
+        jButton12.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
+        jButton12.setForeground(new java.awt.Color(255, 0, 0));
+        jButton12.setText("Frij puercos");
+        jButton12.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton12ActionPerformed(evt);
+            }
+        });
+
+        jButton13.setBackground(new java.awt.Color(255, 255, 255));
+        jButton13.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
+        jButton13.setForeground(new java.awt.Color(255, 0, 0));
+        jButton13.setText("Cochinita");
+        jButton13.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton13ActionPerformed(evt);
+            }
+        });
+
+        jButton14.setBackground(new java.awt.Color(255, 255, 255));
+        jButton14.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
+        jButton14.setForeground(new java.awt.Color(255, 0, 0));
+        jButton14.setText("Frij charros");
+        jButton14.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton14ActionPerformed(evt);
+            }
+        });
+
+        jButton15.setBackground(new java.awt.Color(255, 255, 255));
+        jButton15.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
+        jButton15.setForeground(new java.awt.Color(255, 0, 0));
+        jButton15.setText("Frij peruanos");
+        jButton15.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton15ActionPerformed(evt);
+            }
+        });
+
+        jButton16.setBackground(new java.awt.Color(255, 255, 255));
+        jButton16.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
+        jButton16.setForeground(new java.awt.Color(255, 0, 0));
+        jButton16.setText("Pure");
+        jButton16.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton16ActionPerformed(evt);
+            }
+        });
+
+        jButton17.setBackground(new java.awt.Color(255, 255, 255));
+        jButton17.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
+        jButton17.setForeground(new java.awt.Color(255, 0, 0));
+        jButton17.setText("Ens. manzana");
+        jButton17.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton17ActionPerformed(evt);
+            }
+        });
+
+        jButton18.setBackground(new java.awt.Color(255, 255, 255));
+        jButton18.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
+        jButton18.setForeground(new java.awt.Color(255, 0, 0));
+        jButton18.setText("Ens. de col");
+        jButton18.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton18ActionPerformed(evt);
+            }
+        });
+
+        jButton19.setBackground(new java.awt.Color(255, 255, 255));
+        jButton19.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
+        jButton19.setForeground(new java.awt.Color(255, 0, 0));
+        jButton19.setText("Chiles en vinagre");
+        jButton19.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton19ActionPerformed(evt);
+            }
+        });
+
+        jButton20.setBackground(new java.awt.Color(255, 255, 255));
+        jButton20.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
+        jButton20.setForeground(new java.awt.Color(255, 0, 0));
+        jButton20.setText("Pasta de codo");
+        jButton20.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton20ActionPerformed(evt);
+            }
+        });
+
+        jButton21.setBackground(new java.awt.Color(255, 255, 255));
+        jButton21.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
+        jButton21.setForeground(new java.awt.Color(255, 0, 0));
+        jButton21.setText("Ensalada rusa");
+        jButton21.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton21ActionPerformed(evt);
+            }
+        });
+
+        jButton22.setBackground(new java.awt.Color(255, 255, 255));
+        jButton22.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
+        jButton22.setForeground(new java.awt.Color(255, 0, 0));
+        jButton22.setText("Ver. encurtidas");
+        jButton22.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton22ActionPerformed(evt);
+            }
+        });
+
+        masdeunapieza.setBackground(new java.awt.Color(0, 51, 102));
+        masdeunapieza.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        masdeunapieza.setForeground(new java.awt.Color(255, 255, 255));
+        masdeunapieza.setText("Agregar más de una pieza");
+
+        javax.swing.GroupLayout ACOMPAÑANTESLayout = new javax.swing.GroupLayout(ACOMPAÑANTES);
+        ACOMPAÑANTES.setLayout(ACOMPAÑANTESLayout);
+        ACOMPAÑANTESLayout.setHorizontalGroup(
+            ACOMPAÑANTESLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ACOMPAÑANTESLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(ACOMPAÑANTESLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(ACOMPAÑANTESLayout.createSequentialGroup()
+                        .addComponent(jButton21, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton20, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton22)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(ACOMPAÑANTESLayout.createSequentialGroup()
+                        .addGroup(ACOMPAÑANTESLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(ACOMPAÑANTESLayout.createSequentialGroup()
+                                .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(ACOMPAÑANTESLayout.createSequentialGroup()
+                                .addComponent(jButton13, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton17, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(ACOMPAÑANTESLayout.createSequentialGroup()
+                                .addComponent(salsaguajillo, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(3, 3, 3)
+                                .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(ACOMPAÑANTESLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButton15, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(ACOMPAÑANTESLayout.createSequentialGroup()
+                                .addComponent(jButton16, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(ACOMPAÑANTESLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jButton7, javax.swing.GroupLayout.DEFAULT_SIZE, 129, Short.MAX_VALUE)
+                            .addComponent(jButton14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(68, 68, 68)))
+                .addContainerGap())
+            .addGroup(ACOMPAÑANTESLayout.createSequentialGroup()
+                .addGap(153, 153, 153)
+                .addComponent(masdeunapieza)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ACOMPAÑANTESLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jButton19, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(495, Short.MAX_VALUE))
+        );
+        ACOMPAÑANTESLayout.setVerticalGroup(
+            ACOMPAÑANTESLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ACOMPAÑANTESLayout.createSequentialGroup()
+                .addComponent(masdeunapieza)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(ACOMPAÑANTESLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(salsaguajillo, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(30, 30, 30)
+                .addGroup(ACOMPAÑANTESLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(ACOMPAÑANTESLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButton12, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButton15, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton14, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(35, 35, 35)
+                .addGroup(ACOMPAÑANTESLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(ACOMPAÑANTESLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jButton13, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButton17, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ACOMPAÑANTESLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jButton18, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButton16, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(26, 26, 26)
+                .addGroup(ACOMPAÑANTESLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jButton21, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, ACOMPAÑANTESLayout.createSequentialGroup()
+                        .addComponent(jButton22, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jButton20, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton19, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(107, 107, 107))
+        );
+
+        jTabbedPane1.addTab("ACOMPAÑANTES", ACOMPAÑANTES);
+
+        venta.add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 70, 600, 630));
+        jTabbedPane1.getAccessibleContext().setAccessibleName("ventas\n");
+
+        cobro.setBackground(new java.awt.Color(0, 51, 102));
+        cobro.setFont(new java.awt.Font("Tahoma", 1, 22)); // NOI18N
+        cobro.setForeground(new java.awt.Color(255, 255, 255));
+        cobro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/flecha-hacia-la-izquierda (1).png"))); // NOI18N
+        cobro.setText("Cobrar");
+        cobro.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        cobro.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        cobro.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        cobro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cobroActionPerformed(evt);
+            }
+        });
+        venta.add(cobro, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 310, 190, 70));
 
         Proveedores9.addTab("      Venta      ", venta);
 
@@ -3562,7 +4138,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1310, Short.MAX_VALUE)
+            .addGap(0, 1288, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -3574,9 +4150,9 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
             .addGap(0, 707, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addGap(0, 16, Short.MAX_VALUE)
                     .addComponent(agregar_usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 674, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+                    .addGap(0, 17, Short.MAX_VALUE)))
         );
 
         Proveedores9.addTab("      Usuarios      ", jPanel1);
@@ -4179,7 +4755,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         jPanel13.setLayout(jPanel13Layout);
         jPanel13Layout.setHorizontalGroup(
             jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1310, Short.MAX_VALUE)
+            .addGap(0, 1288, Short.MAX_VALUE)
             .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel13Layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -4191,9 +4767,9 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
             .addGap(0, 707, Short.MAX_VALUE)
             .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel13Layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addGap(0, 16, Short.MAX_VALUE)
                     .addComponent(producto_sobrante, javax.swing.GroupLayout.PREFERRED_SIZE, 674, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+                    .addGap(0, 17, Short.MAX_VALUE)))
         );
 
         Proveedores9.addTab("      Estadisticas      ", jPanel13);
@@ -5756,21 +6332,379 @@ descuentocombo.setText("00.00");
          deletedescuento.setVisible(false);
     }//GEN-LAST:event_deletedescuentoActionPerformed
 
-    private void mostrarpollocrudoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mostrarpollocrudoActionPerformed
-       new Crudo().setVisible(true);
-    }//GEN-LAST:event_mostrarpollocrudoActionPerformed
-
-    private void mostrarpollococidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mostrarpollococidoActionPerformed
-       new Cocido().setVisible(true);
-    }//GEN-LAST:event_mostrarpollococidoActionPerformed
-
-    private void mostraracompañantesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mostraracompañantesActionPerformed
-      new Acompañantes().setVisible(true);
-    }//GEN-LAST:event_mostraracompañantesActionPerformed
-
     private void agregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarActionPerformed
    new ProductosExternos().setVisible(true);        
     }//GEN-LAST:event_agregarActionPerformed
+
+    private void mostrarpollocrudoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mostrarpollocrudoActionPerformed
+        new Crudo().setVisible(true);
+    }//GEN-LAST:event_mostrarpollocrudoActionPerformed
+
+    private void salsaguajilloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salsaguajilloActionPerformed
+        if(masdeunapieza.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
+            Calculadora enviar = new Calculadora("Salsa guajillo (gde)","Escribe la cantidad");
+            new Calculadora().setVisible(true);
+        }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
+            piezaseleccionadaycantidadunica("Salsa guajillo (gde)",1);
+        }
+    }//GEN-LAST:event_salsaguajilloActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        if(masdeunapieza.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
+            Calculadora enviar = new Calculadora("Spagueti blanco","Escribe la cantidad");
+           
+            new Calculadora().setVisible(true);
+        }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
+                  piezaseleccionadaycantidadunica("Spagueti blanco",1);
+        }
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        if(masdeunapieza.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
+            Calculadora enviar = new Calculadora("Arroz blanco","Escribe la cantidad");
+         
+            new Calculadora().setVisible(true);
+        }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
+            piezaseleccionadaycantidadunica("Arroz blanco",1);
+        }
+
+    }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+        if(masdeunapieza.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
+            Calculadora enviar = new Calculadora("Arroz rojo","Escribe la cantidad");
+          
+            new Calculadora().setVisible(true);
+        }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
+              piezaseleccionadaycantidadunica("Arroz rojo",1);
+        }
+    }//GEN-LAST:event_jButton9ActionPerformed
+
+    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
+
+        if(masdeunapieza.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
+            Calculadora enviar = new Calculadora("Spagueti rojo","Escribe la cantidad");
+           new Calculadora().setVisible(true);
+        }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
+            piezaseleccionadaycantidadunica("Spagueti rojo",1);
+        }
+    }//GEN-LAST:event_jButton11ActionPerformed
+
+    private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
+        if(masdeunapieza.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
+            Calculadora enviar = new Calculadora("Frijoles puercos","Escribe la cantidad");
+           
+            new Calculadora().setVisible(true);
+        }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
+             piezaseleccionadaycantidadunica("Frijoles puercos",1);
+        }
+    }//GEN-LAST:event_jButton12ActionPerformed
+
+    private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
+        if(masdeunapieza.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
+            Calculadora enviar = new Calculadora("Cochinita","Escribe la cantidad");
+           
+            new Calculadora().setVisible(true);
+        }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
+           piezaseleccionadaycantidadunica("Cochinita",1);
+        }
+    }//GEN-LAST:event_jButton13ActionPerformed
+
+    private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
+        if(masdeunapieza.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
+            Calculadora enviar = new Calculadora("Frijoles charros","Escribe la cantidad");
+          
+            new Calculadora().setVisible(true);
+        }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
+            piezaseleccionadaycantidadunica("Frijoles charros",1);
+        }
+    }//GEN-LAST:event_jButton14ActionPerformed
+
+    private void jButton15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton15ActionPerformed
+        if(masdeunapieza.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
+            Calculadora enviar = new Calculadora("Frijoles peruanos","Escribe la cantidad");
+        
+            new Calculadora().setVisible(true);
+        }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
+            piezaseleccionadaycantidadunica("Frijoles peruanos",1);
+        }
+    }//GEN-LAST:event_jButton15ActionPerformed
+
+    private void jButton16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton16ActionPerformed
+        if(masdeunapieza.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
+            Calculadora enviar = new Calculadora("Pure","Escribe la cantidad");
+         
+            new Calculadora().setVisible(true);
+        }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
+         piezaseleccionadaycantidadunica("Pure",1);
+        }
+    }//GEN-LAST:event_jButton16ActionPerformed
+
+    private void jButton17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton17ActionPerformed
+        if(masdeunapieza.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
+            Calculadora enviar = new Calculadora("Ens. de manzana","Escribe la cantidad");
+          
+            new Calculadora().setVisible(true);
+        }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
+           piezaseleccionadaycantidadunica("Ens. de manzana",1);
+        }
+    }//GEN-LAST:event_jButton17ActionPerformed
+
+    private void jButton18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton18ActionPerformed
+        if(masdeunapieza.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
+            Calculadora enviar = new Calculadora("Ensalada de col","Escribe la cantidad");
+         
+            new Calculadora().setVisible(true);
+        }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
+          piezaseleccionadaycantidadunica("Ensalada de col",1);  
+        }
+    }//GEN-LAST:event_jButton18ActionPerformed
+
+    private void jButton19ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton19ActionPerformed
+        if(masdeunapieza.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
+            Calculadora enviar = new Calculadora("Chiles en vinagre","Escribe la cantidad");
+           
+            new Calculadora().setVisible(true);
+        }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
+         piezaseleccionadaycantidadunica("Chiles en vinagre",1);  
+        }
+    }//GEN-LAST:event_jButton19ActionPerformed
+
+    private void jButton20ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton20ActionPerformed
+        if(masdeunapieza.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
+            Calculadora enviar = new Calculadora("Pasta de codito","Escribe la cantidad");
+        
+            new Calculadora().setVisible(true);
+        }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
+            piezaseleccionadaycantidadunica("Pasta de codito",1);  
+        }
+    }//GEN-LAST:event_jButton20ActionPerformed
+
+    private void jButton21ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton21ActionPerformed
+        if(masdeunapieza.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
+            Calculadora enviar = new Calculadora("Ensalada rusa","Escribe la cantidad");
+         
+            new Calculadora().setVisible(true);
+        }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
+           piezaseleccionadaycantidadunica("Ensalada rusa",1);  
+        }
+    }//GEN-LAST:event_jButton21ActionPerformed
+
+    private void jButton22ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton22ActionPerformed
+        if(masdeunapieza.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
+            Calculadora enviar = new Calculadora("Ver. encurtidas","Escribe la cantidad");
+        
+            new Calculadora().setVisible(true);
+        }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
+          piezaseleccionadaycantidadunica("Ver. encurtidas",1);  
+        }
+    }//GEN-LAST:event_jButton22ActionPerformed
+
+    private void polloasadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_polloasadoActionPerformed
+     if(masdeunapiezacocido.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
+            Calculadora enviar = new Calculadora("Pollo asado","Escribe la cantidad");
+          
+            new Calculadora().setVisible(true);
+        }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
+            piezaseleccionadaycantidadunica("Pollo asado",1);
+        }
+    }//GEN-LAST:event_polloasadoActionPerformed
+
+    private void jButton23ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton23ActionPerformed
+        if(masdeunapiezacocido.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
+            Calculadora enviar = new Calculadora("Pollo rostizado","Escribe la cantidad");
+           
+            new Calculadora().setVisible(true);
+        }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
+                 piezaseleccionadaycantidadunica("Pollo rostizado",1);
+        }
+    }//GEN-LAST:event_jButton23ActionPerformed
+
+    private void jButton24ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton24ActionPerformed
+     if(masdeunapiezacocido.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
+            Calculadora enviar = new Calculadora("Pech. broaster","Escribe la cantidad");
+         
+            new Calculadora().setVisible(true);
+        }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
+            piezaseleccionadaycantidadunica("Pech. broaster",1);
+        }
+    }//GEN-LAST:event_jButton24ActionPerformed
+
+    private void jButton25ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton25ActionPerformed
+    if(masdeunapiezacocido.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
+            Calculadora enviar = new Calculadora("Pierna broaster","Escribe la cantidad");
+           
+            new Calculadora().setVisible(true);
+        }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
+            piezaseleccionadaycantidadunica("Pierna broaster",1);
+        }
+    }//GEN-LAST:event_jButton25ActionPerformed
+
+    private void jButton26ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton26ActionPerformed
+        if(masdeunapieza.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
+        piezaseleccionadaycantidadvariable((float)medio, "Pollo asado");
+    }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
+             piezaseleccionadaycantidadvariable((float)medio, "Pollo asado");
+        }
+    }//GEN-LAST:event_jButton26ActionPerformed
+
+    private void jButton27ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton27ActionPerformed
+    if(masdeunapiezacocido.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
+           piezaseleccionadaycantidadvariable((float)medio, "Pollo rostizado");
+           
+        }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
+          piezaseleccionadaycantidadvariable((float)medio, "Pollo rostizado");
+           
+        }
+    }//GEN-LAST:event_jButton27ActionPerformed
+
+    private void jButton28ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton28ActionPerformed
+if(masdeunapiezacocido.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
+             piezaseleccionadaycantidadvariable((float)cuarto, "Pollo rostizado");
+        }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
+         piezaseleccionadaycantidadvariable((float)cuarto, "Pollo rostizado");          
+        }
+    }//GEN-LAST:event_jButton28ActionPerformed
+
+    private void jButton29ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton29ActionPerformed
+   if(masdeunapiezacocido.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
+            piezaseleccionadaycantidadvariable((float)cuarto, "Pollo asado");  
+          
+        }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
+          piezaseleccionadaycantidadvariable((float)cuarto, "Pollo asado");  
+        }
+    }//GEN-LAST:event_jButton29ActionPerformed
+
+    private void jButton30ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton30ActionPerformed
+
+     if(masdeunapiezacocido.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
+              Calculadora enviar = new Calculadora("Ala broaster","Escribe la cantidad");
+             new Calculadora().setVisible(true);
+        }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
+          piezaseleccionadaycantidadunica("Ala broaster",1);
+        }
+    }//GEN-LAST:event_jButton30ActionPerformed
+
+    private void jButton31ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton31ActionPerformed
+
+      if(masdeunapiezacocido.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
+            Calculadora enviar = new Calculadora("Nuggets","Escribe la cantidad");
+     
+            new Calculadora().setVisible(true);
+        }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
+        piezaseleccionadaycantidadunica("Nuggets",1);
+        }
+    }//GEN-LAST:event_jButton31ActionPerformed
+
+    private void jButton32ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton32ActionPerformed
+
+      if(masdeunapiezacocido.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
+            Calculadora enviar = new Calculadora("Barbacoa de pollo","Escribe la cantidad");
+          
+            new Calculadora().setVisible(true);
+        }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
+              piezaseleccionadaycantidadunica("Barbacoa de pollo",1);
+        }
+    }//GEN-LAST:event_jButton32ActionPerformed
+
+    private void jButton33ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton33ActionPerformed
+    if(masdeunapiezacocido.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
+             Calculadora enviar = new Calculadora("Muslo broaster","Escribe la cantidad");
+         
+            new Calculadora().setVisible(true);
+        }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
+             piezaseleccionadaycantidadunica("Muslo broaster",1);
+        }
+    }//GEN-LAST:event_jButton33ActionPerformed
+
+    private void jButton34ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton34ActionPerformed
+
+        if(masdeunapieza.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
+            Calculadora enviar = new Calculadora("Alitas bbq","Escribe la cantidad");
+       
+            new Calculadora().setVisible(true);
+        }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
+     piezaseleccionadaycantidadunica("Alitas bbq",1);
+        }
+    }//GEN-LAST:event_jButton34ActionPerformed
+
+    private void jButton35ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton35ActionPerformed
+
+    if(masdeunapiezacocido.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
+             Calculadora enviar = new Calculadora("Tacos","Escribe la cantidad");
+           
+            new Calculadora().setVisible(true);
+        }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
+             piezaseleccionadaycantidadunica("Tacos",1);
+        }
+    }//GEN-LAST:event_jButton35ActionPerformed
+
+    private void jButton36ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton36ActionPerformed
+if(masdeunapiezacocido.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
+              Calculadora enviar = new Calculadora("Brochetas","Escribe la cantidad");
+        
+            new Calculadora().setVisible(true);
+        }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
+             piezaseleccionadaycantidadunica("Brochetas",1);
+        }
+    }//GEN-LAST:event_jButton36ActionPerformed
+
+    private void jButton37ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton37ActionPerformed
+     if(masdeunapiezacocido.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
+            Calculadora enviar = new Calculadora("Mole verde","Escribe la cantidad");
+
+            new Calculadora().setVisible(true);
+        }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
+            piezaseleccionadaycantidadunica("Mole verde",1);
+        }
+    }//GEN-LAST:event_jButton37ActionPerformed
+
+    private void jButton38ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton38ActionPerformed
+
+     if(masdeunapiezacocido.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
+            Calculadora enviar = new Calculadora("Mole rojo","Escribe la cantidad");
+           
+            new Calculadora().setVisible(true);
+        }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
+            piezaseleccionadaycantidadunica("Mole rojo",1);
+        }
+    }//GEN-LAST:event_jButton38ActionPerformed
+
+    private void jButton39ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton39ActionPerformed
+
+ if(masdeunapiezacocido.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
+                Calculadora enviar = new Calculadora("Mininuggets","Escribe la cantidad");
+         
+            new Calculadora().setVisible(true);
+        }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
+              piezaseleccionadaycantidadunica("Mininuggets",1);
+        }
+    }//GEN-LAST:event_jButton39ActionPerformed
+
+    private void jButton40ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton40ActionPerformed
+
+       if(masdeunapiezacocido.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
+            Calculadora enviar = new Calculadora("Longaniza","Escribe la cantidad en pesos");
+          
+            new Calculadora().setVisible(true);
+        }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
+            Calculadora enviar = new Calculadora("Longaniza","Escribe la cantidad en pesos");
+           
+            new Calculadora().setVisible(true);
+        }
+    }//GEN-LAST:event_jButton40ActionPerformed
+
+    private void jButton41ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton41ActionPerformed
+
+        if(masdeunapiezacocido.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
+            Calculadora enviar = new Calculadora("Miel","Escribe la cantidad");
+        
+            new Calculadora().setVisible(true);
+        }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
+     piezaseleccionadaycantidadunica("Miel",1);
+        
+        }
+    }//GEN-LAST:event_jButton41ActionPerformed
 
  
     public static void insertorupdateoverbonnie(String nombredepieza, float cantidaddeproductos){
@@ -6052,8 +6986,11 @@ static SI cc= new SI();
  static Connection ca= cc.conexion();
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel ACOMPAÑANTES;
     public static javax.swing.JPanel Administrador;
     private javax.swing.JButton AgregarGastos;
+    private javax.swing.JPanel COCIDO;
+    private javax.swing.JPanel CRUDO;
     private javax.swing.JButton Cortedecaja;
     private javax.swing.JButton Existencias;
     private javax.swing.JLabel Fecha;
@@ -6101,10 +7038,44 @@ static SI cc= new SI();
     private javax.swing.JButton imprimirventa;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
+    private javax.swing.JButton jButton11;
+    private javax.swing.JButton jButton12;
+    private javax.swing.JButton jButton13;
+    private javax.swing.JButton jButton14;
+    private javax.swing.JButton jButton15;
+    private javax.swing.JButton jButton16;
+    private javax.swing.JButton jButton17;
+    private javax.swing.JButton jButton18;
+    private javax.swing.JButton jButton19;
+    private javax.swing.JButton jButton20;
+    private javax.swing.JButton jButton21;
+    private javax.swing.JButton jButton22;
+    private javax.swing.JButton jButton23;
+    private javax.swing.JButton jButton24;
+    private javax.swing.JButton jButton25;
+    private javax.swing.JButton jButton26;
+    private javax.swing.JButton jButton27;
+    private javax.swing.JButton jButton28;
+    private javax.swing.JButton jButton29;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton30;
+    private javax.swing.JButton jButton31;
+    private javax.swing.JButton jButton32;
+    private javax.swing.JButton jButton33;
+    private javax.swing.JButton jButton34;
+    private javax.swing.JButton jButton35;
+    private javax.swing.JButton jButton36;
+    private javax.swing.JButton jButton37;
+    private javax.swing.JButton jButton38;
+    private javax.swing.JButton jButton39;
     private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton40;
+    private javax.swing.JButton jButton41;
+    private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
+    private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel100;
     private javax.swing.JLabel jLabel101;
@@ -6126,7 +7097,6 @@ static SI cc= new SI();
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
-    private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel33;
@@ -6151,7 +7121,6 @@ static SI cc= new SI();
     private javax.swing.JLabel jLabel54;
     private javax.swing.JLabel jLabel58;
     private javax.swing.JLabel jLabel60;
-    private javax.swing.JLabel jLabel61;
     private javax.swing.JLabel jLabel63;
     private javax.swing.JLabel jLabel65;
     private javax.swing.JLabel jLabel66;
@@ -6234,6 +7203,7 @@ static SI cc= new SI();
     private javax.swing.JSeparator jSeparator6;
     private javax.swing.JSeparator jSeparator7;
     private javax.swing.JSeparator jSeparator9;
+    private javax.swing.JTabbedPane jTabbedPane1;
     public static rojerusan.RSTableMetro jTable2;
     public static rojerusan.RSTableMetro jTable3;
     private javax.swing.JLabel labelcredito;
@@ -6243,14 +7213,15 @@ static SI cc= new SI();
     private javax.swing.JLabel labelnombre;
     private javax.swing.JLabel labelparaeltotal;
     private javax.swing.JLabel labelutilidad;
+    private javax.swing.JCheckBox masdeunapieza;
+    private javax.swing.JCheckBox masdeunapiezacocido;
     private javax.swing.JMenuItem modificar;
     private javax.swing.JMenuItem modificarusuarios;
     private javax.swing.JMenuItem modify;
-    private javax.swing.JButton mostraracompañantes;
-    private javax.swing.JButton mostrarpollococido;
     private javax.swing.JButton mostrarpollocrudo;
     private javax.swing.JButton pagarventaacredito;
     public static javax.swing.JCheckBox piezasparaacomplettarpollo;
+    private javax.swing.JButton polloasado;
     public static javax.swing.JPanel producto_sobrante;
     public static javax.swing.JPanel producto_sobrante3;
     public static javax.swing.JTextField proem;
@@ -6261,6 +7232,7 @@ static SI cc= new SI();
     public static javax.swing.JTextField prorfc;
     public static javax.swing.JTextField protel;
     private rojerusan.RSTableMetro proveedores;
+    private javax.swing.JButton salsaguajillo;
     private javax.swing.JPopupMenu tabla_articulos;
     private javax.swing.JPopupMenu tabla_proveedores;
     public static rojerusan.RSTableMetro tabla_usuariosnuevo;
@@ -6268,8 +7240,6 @@ static SI cc= new SI();
     private javax.swing.JPopupMenu tablausuarios;
     public static rojerusan.RSTableMetro tablaventa;
     public static javax.swing.JTextField tipopro;
-    private javax.swing.JLabel total1;
-    private javax.swing.JLabel total2;
     private javax.swing.JLabel total3;
     public static javax.swing.JLabel totalcondescuento;
     public static javax.swing.JLabel totaldeventa;
