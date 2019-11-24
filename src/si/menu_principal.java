@@ -62,8 +62,8 @@ static Statement sent;
   static int fila, id_proveedor,id_usuario,id_producto,id_venta,aux1,aux2,variablede0=0;
    static float   totaldeventaenturno, variablepago, variablepagocondescuento, piezassuficientes, cantidadporerrordeusuario,productos, NoPcantidad=0, cantidadenventa,  cantidaddesdelatablaeditable, piezasxunpollo=14, piezasdepollopares=2, piezasdepollosinpares=1, resultadodepiezaspares,resultadodepiezasinpares, minimodelaspiezasparesdepollocrudoeninventario, minimodelaspiezasinparesdepollocrudoeninventario, pollo_crudoeninventario, addpiezas, cantidadpolloenDB, porcentaje, importe,totalf=0,comprobacion,cambio,precio, NoPimporte=0,sumadeimportes, sumadeimportesparaeltotal, sumadeimportescreditopendiente,descuentocantidad, totalfinalcondescuento;
   static ArrayList storage = new ArrayList(); // para guardar los id de cada producto que se ha agregado a la tabla venta
- static String[] piezas = {"Pechuga", "Muslo","Pierna","Ala","Huacal","Cadera","Cabeza", "Molleja", "Patas", "pollo crudo"};
-static String[] piezasdemedio = {"Pechuga", "Muslo","Pierna","Ala","Huacal", "Molleja", "Patas", "pollo crudo"};
+ static String[] piezas = {"pollo crudo", "Pechuga", "Muslo","Pierna","Ala","Huacal","Cadera","Cabeza", "Molleja", "Patas"};
+static String[] piezasdemedio = {"pollo crudo","Pechuga", "Muslo","Pierna","Ala","Huacal", "Molleja", "Patas"};
 static ArrayList piezasquenohay = new ArrayList();
 
  static double cantidaddemedio, cantidaddecuarto, medio=0.50, cuarto=0.25;
@@ -92,6 +92,13 @@ static boolean seagregoexterno=false;
     }
 }    
 
+     //CUANDO RECIBE UNA CANTIDAD POR PARTE DE LA CALCULADORA O UN MEDIO O UN CUARTO
+  menu_principal(float cantidaddeproductos, String piezaseleccionada){
+      this.cantidaddeproductos=cantidaddeproductos;
+      this.nombredepiezaseleccionada=piezaseleccionada;
+      this.cantidadparapollocrudo=cantidaddeproductos;
+     agregandoaventa(nombredepiezaseleccionada, cantidaddeproductos);
+  }
   
 
     //CUANDO SE VA A HACER EL PAGO
@@ -171,7 +178,6 @@ agregandoaventa(nombredepiezaseleccionada, cantidaddeproductos);
       this.nombredepiezaseleccionada=piezaseleccionada;
       this.cantidadparapollocrudo=cantidaddeproductos;
      agregandoaventa(nombredepiezaseleccionada, cantidaddeproductos);
-      
   }
             
   public void llenartablautilidad(){
@@ -1380,50 +1386,8 @@ public void cantidadenventa(int pieza){
                  }
           }
           
-       public static void descontarlaspiezasdeunpollo(){
-           for (int i = 0; i < piezas.length; i++) {
-                    if(piezas[i].toString().equals("Muslo")||
-                                   piezas[i].toString().equals("Pierna")||
-                                   piezas[i].toString().equals("Ala")||
-                                           piezas[i].toString().equals("Patas")){
-                   cantidaddeproductos=2*cantidadparapollocrudo;
-                          descontardeinventario(piezas[i].toString());
-                               
-                           }else{
-                        cantidaddeproductos=1*cantidadparapollocrudo;
-              descontardeinventario(piezas[i].toString()); 
-                    }  
-                  }
-                 
-                    mostrartabladeventas();
-                    tablaventaactiva=true;
-                cantidaddecuarto=0;
-                cantidaddemedio=0;
-                   total_venta_enturno();
-                    totalf=sumadeimportes;
-                    totaldeventa.setText(String.valueOf(totalf));
-                   
-                    NoP="";
-       }
-       public static void descontarlaspiezasdeunmediopollo(){
-            for (int i = 0; i < piezasdemedio.length; i++) {
-                    if(piezasdemedio[i].toString().equals("Pechuga")){
-                               cantidaddeproductos=(float)0.50;
-                             descontardeinventario(piezasdemedio[i].toString());
-                           }else{
-                        cantidaddeproductos=1;
-                           descontardeinventario(piezasdemedio[i].toString()); 
-                    }  
-                  }
-  mostrartabladeventas();
-                    tablaventaactiva=true;
- cantidaddecuarto=0;
-                cantidaddemedio=0;
-                   total_venta_enturno();
-                    totalf=sumadeimportes;
-                    totaldeventa.setText(String.valueOf(totalf));                  
-                    NoP="";
-       } 
+      
+  
           
         //FIN METODOS PARA DESCONTAR 1 POLLO  O N POLLOS EN BASE A LAS PIEZAS QUE SE HAN DESCONTADO
  public static void accionesdespuesinsertarendescripciondeventaoactualizarenlamismatabla(String nombredepieza){
@@ -1437,11 +1401,7 @@ public void cantidadenventa(int pieza){
                     totaldeventa.setText(String.valueOf(totalf));                 
                     NoP="";
  }
- else if("pollo crudo".equalsIgnoreCase(nombredepieza)){
-          descontarlaspiezasdeunpollo();
- }else if("Medio pollo".equalsIgnoreCase(nombredepieza)){
-                descontarlaspiezasdeunmediopollo();
- }
+
  else{
        descontardeinventario(nombredepieza);
                     //  descuentodepollo();                  
@@ -1480,11 +1440,7 @@ if(NoP.equals(nombredepieza)&&NoPimporte!=0){ //Si el nombre del producto es dif
       NoPcantidad=NoPcantidad+cantidaddeproductos;
                 precio_producto(nombredepieza);
                 NoPimporte = NoPcantidad*precio;
-                
-                    precio_producto(nombredepieza);
-                NoPimporte = NoPcantidad*precio;
-              
-                id_producto(nombredepieza);
+              id_producto(nombredepieza);
                     id_max_de_venta();
                  PreparedStatement ps = ca.prepareStatement ("UPDATE descripcion_de_venta SET cantidad='"+NoPcantidad+"',importe = '"+NoPimporte+"'WHERE importe !=0 and id_producto='"+id_producto+"' and id_venta= '"+id_de_la_venta_incrementable+"' and fecha= '"+fecha()+"' and estado= '"+estadoenturno+"' ");
                int a=  ps.executeUpdate();
@@ -1513,7 +1469,7 @@ if(NoP.equals(nombredepieza)&&NoPimporte!=0){ //Si el nombre del producto es dif
                 pst.setInt(1,id_producto);
                 storage.add(id_producto); //almacena cada id de cada producto en éste arreglo dinamico
                 pst.setString(2,nombredepieza);
-                pst.setFloat(3,cantidaddeproductos);            
+                pst.setFloat(3,cantidaddeproductos);    
                 //EL METODO A CONTINUACION VA HACIENDO EL CONTEO DE LAS PIEZAS INDIVIDUALES
                 // PARA UNA VEZ LLEGANDO A UN POLLO ENTERO DESCONTARLO DE LA BASE           
                 precio_producto(nombredepieza);
@@ -1902,7 +1858,22 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         piezasparaacomplettarpollo = new javax.swing.JCheckBox();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         CRUDO = new javax.swing.JPanel();
-        mostrarpollocrudo = new javax.swing.JButton();
+        crudo = new javax.swing.JButton();
+        masdeunapiezacrudo = new javax.swing.JCheckBox();
+        jButton42 = new javax.swing.JButton();
+        jButton43 = new javax.swing.JButton();
+        jButton44 = new javax.swing.JButton();
+        jButton45 = new javax.swing.JButton();
+        jButton46 = new javax.swing.JButton();
+        jButton47 = new javax.swing.JButton();
+        jButton48 = new javax.swing.JButton();
+        jButton49 = new javax.swing.JButton();
+        jButton50 = new javax.swing.JButton();
+        jButton51 = new javax.swing.JButton();
+        jButton52 = new javax.swing.JButton();
+        jButton53 = new javax.swing.JButton();
+        jButton54 = new javax.swing.JButton();
+        jButton55 = new javax.swing.JButton();
         bones = new javax.swing.JButton();
         COCIDO = new javax.swing.JPanel();
         polloasado = new javax.swing.JButton();
@@ -2469,7 +2440,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
                 ExistenciasActionPerformed(evt);
             }
         });
-        venta.add(Existencias, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 70, 80, 90));
+        venta.add(Existencias, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 80, 80, 90));
 
         jLabel74.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         jLabel74.setForeground(new java.awt.Color(255, 255, 255));
@@ -2487,50 +2458,206 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
 
         CRUDO.setBackground(new java.awt.Color(0, 51, 102));
         CRUDO.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        CRUDO.setLayout(null);
 
-        mostrarpollocrudo.setBackground(new java.awt.Color(255, 255, 255));
-        mostrarpollocrudo.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        mostrarpollocrudo.setForeground(new java.awt.Color(255, 0, 0));
-        mostrarpollocrudo.setText("CRUDO");
-        mostrarpollocrudo.addActionListener(new java.awt.event.ActionListener() {
+        crudo.setBackground(new java.awt.Color(255, 255, 255));
+        crudo.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
+        crudo.setForeground(new java.awt.Color(255, 0, 0));
+        crudo.setText("pollo crudo");
+        crudo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mostrarpollocrudoActionPerformed(evt);
+                crudoActionPerformed(evt);
             }
         });
+        CRUDO.add(crudo);
+        crudo.setBounds(6, 54, 172, 80);
 
-        bones.setBackground(new java.awt.Color(0, 51, 105));
-        bones.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        bones.setForeground(new java.awt.Color(255, 255, 255));
+        masdeunapiezacrudo.setBackground(new java.awt.Color(0, 51, 102));
+        masdeunapiezacrudo.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        masdeunapiezacrudo.setForeground(new java.awt.Color(255, 255, 255));
+        masdeunapiezacrudo.setText("Agregar más de una pieza");
+        CRUDO.add(masdeunapiezacrudo);
+        masdeunapiezacrudo.setBounds(161, 6, 325, 36);
+
+        jButton42.setBackground(new java.awt.Color(255, 255, 255));
+        jButton42.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
+        jButton42.setForeground(new java.awt.Color(255, 0, 0));
+        jButton42.setText("Medio pollo");
+        jButton42.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton42ActionPerformed(evt);
+            }
+        });
+        CRUDO.add(jButton42);
+        jButton42.setBounds(230, 50, 170, 81);
+
+        jButton43.setBackground(new java.awt.Color(255, 255, 255));
+        jButton43.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
+        jButton43.setForeground(new java.awt.Color(255, 0, 0));
+        jButton43.setText("Media pechuga");
+        jButton43.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton43ActionPerformed(evt);
+            }
+        });
+        CRUDO.add(jButton43);
+        jButton43.setBounds(430, 50, 160, 81);
+
+        jButton44.setBackground(new java.awt.Color(255, 255, 255));
+        jButton44.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
+        jButton44.setForeground(new java.awt.Color(255, 0, 0));
+        jButton44.setText("Pechuga");
+        jButton44.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton44ActionPerformed(evt);
+            }
+        });
+        CRUDO.add(jButton44);
+        jButton44.setBounds(430, 150, 160, 77);
+
+        jButton45.setBackground(new java.awt.Color(255, 255, 255));
+        jButton45.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
+        jButton45.setForeground(new java.awt.Color(255, 0, 0));
+        jButton45.setText("Hua completo");
+        jButton45.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton45ActionPerformed(evt);
+            }
+        });
+        CRUDO.add(jButton45);
+        jButton45.setBounds(230, 150, 170, 76);
+
+        jButton46.setBackground(new java.awt.Color(255, 255, 255));
+        jButton46.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
+        jButton46.setForeground(new java.awt.Color(255, 0, 0));
+        jButton46.setText("Pierna completa");
+        jButton46.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton46ActionPerformed(evt);
+            }
+        });
+        CRUDO.add(jButton46);
+        jButton46.setBounds(10, 150, 172, 77);
+
+        jButton47.setBackground(new java.awt.Color(255, 255, 255));
+        jButton47.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
+        jButton47.setForeground(new java.awt.Color(255, 0, 0));
+        jButton47.setText("Muslo");
+        jButton47.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton47ActionPerformed(evt);
+            }
+        });
+        CRUDO.add(jButton47);
+        jButton47.setBounds(10, 240, 170, 74);
+
+        jButton48.setBackground(new java.awt.Color(255, 255, 255));
+        jButton48.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
+        jButton48.setForeground(new java.awt.Color(255, 0, 0));
+        jButton48.setText("Pierna");
+        jButton48.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton48ActionPerformed(evt);
+            }
+        });
+        CRUDO.add(jButton48);
+        jButton48.setBounds(230, 240, 170, 74);
+
+        jButton49.setBackground(new java.awt.Color(255, 255, 255));
+        jButton49.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
+        jButton49.setForeground(new java.awt.Color(255, 0, 0));
+        jButton49.setText("Ala");
+        jButton49.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton49ActionPerformed(evt);
+            }
+        });
+        CRUDO.add(jButton49);
+        jButton49.setBounds(430, 240, 158, 74);
+
+        jButton50.setBackground(new java.awt.Color(255, 255, 255));
+        jButton50.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
+        jButton50.setForeground(new java.awt.Color(255, 0, 0));
+        jButton50.setText("Cabeza");
+        jButton50.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton50ActionPerformed(evt);
+            }
+        });
+        CRUDO.add(jButton50);
+        jButton50.setBounds(430, 330, 160, 70);
+
+        jButton51.setBackground(new java.awt.Color(255, 255, 255));
+        jButton51.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
+        jButton51.setForeground(new java.awt.Color(255, 0, 0));
+        jButton51.setText("Cadera");
+        jButton51.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton51ActionPerformed(evt);
+            }
+        });
+        CRUDO.add(jButton51);
+        jButton51.setBounds(230, 330, 170, 70);
+
+        jButton52.setBackground(new java.awt.Color(255, 255, 255));
+        jButton52.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
+        jButton52.setForeground(new java.awt.Color(255, 0, 0));
+        jButton52.setText("Huacal");
+        jButton52.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton52ActionPerformed(evt);
+            }
+        });
+        CRUDO.add(jButton52);
+        jButton52.setBounds(10, 330, 170, 75);
+
+        jButton53.setBackground(new java.awt.Color(255, 255, 255));
+        jButton53.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
+        jButton53.setForeground(new java.awt.Color(255, 0, 0));
+        jButton53.setText("Molleja");
+        jButton53.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton53ActionPerformed(evt);
+            }
+        });
+        CRUDO.add(jButton53);
+        jButton53.setBounds(10, 420, 170, 69);
+
+        jButton54.setBackground(new java.awt.Color(255, 255, 255));
+        jButton54.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
+        jButton54.setForeground(new java.awt.Color(255, 0, 0));
+        jButton54.setText("Patas");
+        jButton54.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton54ActionPerformed(evt);
+            }
+        });
+        CRUDO.add(jButton54);
+        jButton54.setBounds(230, 420, 170, 69);
+
+        jButton55.setBackground(new java.awt.Color(255, 255, 255));
+        jButton55.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
+        jButton55.setForeground(new java.awt.Color(255, 0, 0));
+        jButton55.setText("Pech./ bisteck");
+        jButton55.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton55ActionPerformed(evt);
+            }
+        });
+        CRUDO.add(jButton55);
+        jButton55.setBounds(430, 420, 160, 69);
+
+        bones.setBackground(new java.awt.Color(255, 255, 255));
+        bones.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        bones.setForeground(new java.awt.Color(255, 0, 0));
         bones.setText("Huesitos");
         bones.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bonesActionPerformed(evt);
             }
         });
-
-        javax.swing.GroupLayout CRUDOLayout = new javax.swing.GroupLayout(CRUDO);
-        CRUDO.setLayout(CRUDOLayout);
-        CRUDOLayout.setHorizontalGroup(
-            CRUDOLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(CRUDOLayout.createSequentialGroup()
-                .addGroup(CRUDOLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(CRUDOLayout.createSequentialGroup()
-                        .addGap(194, 194, 194)
-                        .addComponent(bones, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(CRUDOLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(mostrarpollocrudo, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(224, Short.MAX_VALUE))
-        );
-        CRUDOLayout.setVerticalGroup(
-            CRUDOLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, CRUDOLayout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addComponent(mostrarpollocrudo, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 262, Short.MAX_VALUE)
-                .addComponent(bones, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(115, 115, 115))
-        );
+        CRUDO.add(bones);
+        bones.setBounds(10, 500, 160, 40);
 
         jTabbedPane1.addTab("CRUDO", CRUDO);
 
@@ -2774,18 +2901,13 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
                     .addComponent(jButton25, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton30, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton34, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(COCIDOLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(COCIDOLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(COCIDOLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton35, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton31, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton36, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(8, 8, 8))
-                    .addGroup(COCIDOLayout.createSequentialGroup()
-                        .addGap(7, 7, 7)
-                        .addComponent(jButton39, javax.swing.GroupLayout.DEFAULT_SIZE, 141, Short.MAX_VALUE)
-                        .addContainerGap())))
+                    .addComponent(jButton35, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton31, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton36, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
+                    .addComponent(jButton39, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE))
+                .addGap(8, 8, 8))
         );
         COCIDOLayout.setVerticalGroup(
             COCIDOLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2811,24 +2933,19 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
                     .addComponent(jButton30, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton36, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(12, 12, 12)
-                .addGroup(COCIDOLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton39, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(COCIDOLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jButton33, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButton40, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton38, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addGroup(COCIDOLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(COCIDOLayout.createSequentialGroup()
-                        .addGap(14, 14, 14)
-                        .addGroup(COCIDOLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jButton37, javax.swing.GroupLayout.DEFAULT_SIZE, 63, Short.MAX_VALUE)
-                            .addComponent(jButton41, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, COCIDOLayout.createSequentialGroup()
-                        .addGap(12, 12, 12)
-                        .addComponent(jButton34, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(COCIDOLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButton33, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton40, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton38, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton39, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(COCIDOLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton37, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton41, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton34, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addComponent(jButton32, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(92, Short.MAX_VALUE))
+                .addContainerGap(80, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("COCIDO", COCIDO);
@@ -3005,51 +3122,54 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         ACOMPAÑANTESLayout.setHorizontalGroup(
             ACOMPAÑANTESLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ACOMPAÑANTESLayout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(ACOMPAÑANTESLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(ACOMPAÑANTESLayout.createSequentialGroup()
-                        .addComponent(jButton21, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton20, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton22)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addContainerGap()
+                        .addGroup(ACOMPAÑANTESLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(ACOMPAÑANTESLayout.createSequentialGroup()
+                                .addComponent(jButton21, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton20, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jButton22)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(ACOMPAÑANTESLayout.createSequentialGroup()
+                                .addGroup(ACOMPAÑANTESLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(ACOMPAÑANTESLayout.createSequentialGroup()
+                                        .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jButton12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addGroup(ACOMPAÑANTESLayout.createSequentialGroup()
+                                        .addComponent(jButton13, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jButton17, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addGroup(ACOMPAÑANTESLayout.createSequentialGroup()
+                                        .addComponent(salsaguajillo, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(3, 3, 3)
+                                        .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(ACOMPAÑANTESLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jButton15, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jButton5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addGroup(ACOMPAÑANTESLayout.createSequentialGroup()
+                                        .addComponent(jButton16, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(0, 0, Short.MAX_VALUE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(ACOMPAÑANTESLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jButton7, javax.swing.GroupLayout.DEFAULT_SIZE, 129, Short.MAX_VALUE)
+                                    .addComponent(jButton14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jButton18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(68, 68, 68))))
                     .addGroup(ACOMPAÑANTESLayout.createSequentialGroup()
                         .addGroup(ACOMPAÑANTESLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(ACOMPAÑANTESLayout.createSequentialGroup()
-                                .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(153, 153, 153)
+                                .addComponent(masdeunapieza))
                             .addGroup(ACOMPAÑANTESLayout.createSequentialGroup()
-                                .addComponent(jButton13, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton17, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(ACOMPAÑANTESLayout.createSequentialGroup()
-                                .addComponent(salsaguajillo, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(3, 3, 3)
-                                .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(ACOMPAÑANTESLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton15, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(ACOMPAÑANTESLayout.createSequentialGroup()
-                                .addComponent(jButton16, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(ACOMPAÑANTESLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jButton7, javax.swing.GroupLayout.DEFAULT_SIZE, 129, Short.MAX_VALUE)
-                            .addComponent(jButton14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(68, 68, 68)))
+                                .addContainerGap()
+                                .addComponent(jButton19, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addGroup(ACOMPAÑANTESLayout.createSequentialGroup()
-                .addGap(153, 153, 153)
-                .addComponent(masdeunapieza)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ACOMPAÑANTESLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jButton19, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(495, Short.MAX_VALUE))
         );
         ACOMPAÑANTESLayout.setVerticalGroup(
             ACOMPAÑANTESLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -5802,91 +5922,8 @@ public void eliminarpolloenterodestorage(int id_producto){
                 id_producto(nombredepiezaseleccionada);
               accionesdespuesderegresarproductosainventarios();
            mostrartabladeventas();
-            }else if(nombredepiezaseleccionada.equals("pollo crudo")){
-                  id_producto("pollo crudo");
-                cantidadenventa(id_producto);
-                 for (int i = 0; i < piezas.length; i++) {
-                     if(piezasquenohay.size()>0){
-                         for (int a = 0; a < piezasquenohay.size(); a++) {
-                             JOptionPane.showMessageDialog(null, "ENTRO AL PIZAS QUE NO HAY "+piezasquenohay.get(a));
-                        if(!piezasquenohay.get(a).toString().equals(piezas[i].toString())&&piezas[i].toString().equals("Muslo")||
-                                   !piezasquenohay.get(a).toString().equals(piezas[i].toString())&&piezas[i].toString().equals("Pierna")||
-                                   !piezasquenohay.get(a).toString().equals(piezas[i].toString())&&piezas[i].toString().equals("Ala")||
-                              !piezasquenohay.get(a).toString().equals(piezas[i].toString())&&piezas[i].toString().equals("Patas")
-                                   ){
-                        JOptionPane.showMessageDialog(null, "piezas[i].toString() "+piezas[i].toString());
-                              
-                     id_producto(piezas[i].toString());
-                     cantidadpolloenDByname(id_producto);
-                     addpiezas=cantidadpolloenDB+(2*cantidadenventa);
-                    regresarpiezasdepollocrudodeinventario(id_producto, addpiezas);
-                 }else if(!piezasquenohay.get(a).toString().equals(piezas[i].toString())&&piezas[i].toString().equals("Pechuga")||
-                         !piezasquenohay.get(a).toString().equals(piezas[i].toString())&&piezas[i].toString().equals("Huacal")||
-                         !piezasquenohay.get(a).toString().equals(piezas[i].toString())&&piezas[i].toString().equals("Cadera")||
-                         !piezasquenohay.get(a).toString().equals(piezas[i].toString())&&piezas[i].toString().equals("Cabeza")||
-                         !piezasquenohay.get(a).toString().equals(piezas[i].toString())&&piezas[i].toString().equals("Molleja")||
-                         !piezasquenohay.get(a).toString().equals(piezas[i].toString())&&piezas[i].toString().equals("pollo crudo")){
-                        JOptionPane.showMessageDialog(null, "ENTRO AL PIZAS QUE NO HAY INPARES");
-                         JOptionPane.showMessageDialog(null, "Epiezas[i].toString() "+piezas[i].toString());
-                     
-                 id_producto(piezas[i].toString());
-                     cantidadpolloenDByname(id_producto);
-                     addpiezas=cantidadpolloenDB+cantidadenventa;
-                    regresarpiezasdepollocrudodeinventario(id_producto, addpiezas);
-                    
-                    }
-                         }
-                     }else{
-                         if(piezas[i].toString().equals("Muslo")||
-                                  piezas[i].toString().equals("Pierna")||
-                                   piezas[i].toString().equals("Ala")||
-                                           piezas[i].toString().equals("Patas")){
-                     id_producto(piezas[i].toString());
-                     cantidadpolloenDByname(id_producto);
-                     addpiezas=cantidadpolloenDB+(2*cantidadenventa);
-                    regresarpiezasdepollocrudodeinventario(id_producto, addpiezas);
-                 }else{
-                 id_producto(piezas[i].toString());
-                     cantidadpolloenDByname(id_producto);
-                     addpiezas=cantidadpolloenDB+cantidadenventa;
-                    regresarpiezasdepollocrudodeinventario(id_producto, addpiezas);
-                    } 
-                     }
-                    
-                 }
-                id_producto("pollo crudo");
-                    eliminarhuesito(id_producto);    
-                     accionesdespuesderegresarproductosainventarios();
-           mostrartabladeventas();
-           eliminarpolloenterodestorage(id_producto);
-           piezasquenohay.clear();
-            }//CASILLA, AGREGA CON IMPORTE EN 0
-            // BOOLEANAS PARA SABER CUALES NO SE VA A REGRESAR
-            else if(nombredepiezaseleccionada.equals("Medio pollo")){
-                 id_producto("Medio pollo");
-                cantidadenventa(id_producto);
-                 for (int i = 0; i < piezasdemedio.length; i++) {
-                    if(piezasdemedio[i].toString().equals("Pechuga")){
-                              id_producto(piezasdemedio[i].toString());
-                     cantidadpolloenDByname(id_producto);
-                     addpiezas=cantidadpolloenDB+cantidadenventa;
-                              regresarpiezasdepollocrudodeinventario(id_producto, addpiezas);
-                       }else{
-                         id_producto(piezasdemedio[i].toString());
-                     cantidadpolloenDByname(id_producto);
-                     addpiezas=cantidadpolloenDB+1;
-                        regresarpiezasdepollocrudodeinventario(id_producto, addpiezas);
-                    
-                    }  
-                  }
-                 id_producto("Medio pollo");
-                    eliminarhuesito(id_producto);    
-                     accionesdespuesderegresarproductosainventarios();
-           mostrartabladeventas();
-           eliminarpolloenterodestorage(id_producto);
-            }
-            
-            else{
+            } // BOOLEANAS PARA SABER CUALES NO SE VA A REGRESAR
+                else{
                   regresarproductos_a_inventario(nombredepiezaseleccionada); //pone en estatus de cancelada la venta inconclusa
          //descuentodepollo();
           mostrartabladeventas();
@@ -6153,27 +6190,42 @@ public void sepuedeeliminarpiernacompleta(){
                            for (int i = 0; i < hucalfull.length; i++) {
                                 agregarpiezasaventa(hucalfull[i].toString());
                            }
-                   }
-                   else if(nombredepiezaseleccionada.equals("pollo crudo")){
-         //TODAS LAS PIEZAS QUE CORRESONDE A UN POLLO ENTERO
-                cantidaddeproductos=1; 
-                agregarpiezasaventa(nombredepiezaseleccionada);
-          }  else  if(nombredepiezaseleccionada.equals("Medio pollo")){//ESTO INDICA QUE ES MEDIO POLLO
+                   }      
+ else if(nombredepiezaseleccionada.equals("pollo crudo")&&piezasparaacomplettarpollo.isSelected()==false){//TODAS LAS PIEZAS QUE CORRESONDE A UN POLLO ENTERO
+  for (int i = 0; i < piezas.length; i++) {
+                    if(piezas[i].toString().equals("Muslo")||
+                                   piezas[i].toString().equals("Pierna")||
+                                   piezas[i].toString().equals("Ala")||
+                                           piezas[i].toString().equals("Patas")){
+                      cantidaddeproductos=2*cantidadparapollocrudo;
+                   acompletarpollo(piezas[i].toString(), cantidaddeproductos);
+                        }else{
+                          if(piezas[i].toString().equals("pollo crudo")){
+                           cantidaddeproductos=1*cantidadparapollocrudo;
+                         agregarpiezasaventa(piezas[i].toString());
+                           }else{
+                              cantidaddeproductos=1*cantidadparapollocrudo;  
+          acompletarpollo(piezas[i].toString(), cantidaddeproductos);
+                           }
+                    }  
+                  }
+          }
+          else  if(nombredepiezaseleccionada.equals("Medio pollo")){//ESTO INDICA QUE ES MEDIO POLLO
                              //TODAS LAS PIEZAS QUE CORRESONDE A UN POLLO ENTERO
                   agregarpiezasaventa(nombredepiezaseleccionada);
                        }
                    else if(nombredepiezaseleccionada.equals("Huesito")||nombredepiezaseleccionada.equals("Longaniza")){
                        agregarpiezasaventa("Huesito");
                    }else if(piezasparaacomplettarpollo.isSelected()&&nombredepiezaseleccionada.equals("Pechuga")||
-                           nombredepiezaseleccionada.equals("Muslo")||
-                           nombredepiezaseleccionada.equals("Pierna")||
-                           nombredepiezaseleccionada.equals("Ala")||
-                           nombredepiezaseleccionada.equals("Huacal")||
-                           nombredepiezaseleccionada.equals("Cadera")||
-                           nombredepiezaseleccionada.equals("Cabeza")||
-                           nombredepiezaseleccionada.equals("Molleja")||
-                           nombredepiezaseleccionada.equals("Patas")){ 
-                       agregarpiezasaventa(nombredepiezaseleccionada);
+                                piezasparaacomplettarpollo.isSelected()&&nombredepiezaseleccionada.equals("Muslo")||
+                           piezasparaacomplettarpollo.isSelected()&&nombredepiezaseleccionada.equals("Pierna")||
+                           piezasparaacomplettarpollo.isSelected()&&nombredepiezaseleccionada.equals("Ala")||
+                           piezasparaacomplettarpollo.isSelected()&&nombredepiezaseleccionada.equals("Huacal")||
+                           piezasparaacomplettarpollo.isSelected()&&nombredepiezaseleccionada.equals("Cadera")||
+                           piezasparaacomplettarpollo.isSelected()&&nombredepiezaseleccionada.equals("Cabeza")||
+                           piezasparaacomplettarpollo.isSelected()&&nombredepiezaseleccionada.equals("Molleja")||
+                           piezasparaacomplettarpollo.isSelected()&&nombredepiezaseleccionada.equals("Patas")){ 
+                       acompletarpollo(nombredepiezaseleccionada, cantidaddeproductos);
                    }   
                    else {
                         agregarpiezasaventa(nombredepiezaseleccionada);
@@ -6335,10 +6387,6 @@ descuentocombo.setText("00.00");
     private void agregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarActionPerformed
    new ProductosExternos().setVisible(true);        
     }//GEN-LAST:event_agregarActionPerformed
-
-    private void mostrarpollocrudoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mostrarpollocrudoActionPerformed
-        new Crudo().setVisible(true);
-    }//GEN-LAST:event_mostrarpollocrudoActionPerformed
 
     private void salsaguajilloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salsaguajilloActionPerformed
         if(masdeunapieza.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
@@ -6706,6 +6754,147 @@ if(masdeunapiezacocido.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE 
         }
     }//GEN-LAST:event_jButton41ActionPerformed
 
+    private void crudoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_crudoActionPerformed
+        if(masdeunapiezacrudo.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
+            Calculadora enviar = new Calculadora("pollo crudo","Escribe la cantidad");
+
+            new Calculadora().setVisible(true);
+        }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
+           piezaseleccionadaycantidadunica("pollo crudo",1);
+        }
+    }//GEN-LAST:event_crudoActionPerformed
+
+    private void jButton42ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton42ActionPerformed
+        if(masdeunapiezacrudo.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
+           piezaseleccionadaycantidadvariable((float)medio, "Medio pollo");
+
+        }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
+            piezaseleccionadaycantidadvariable((float)medio, "Medio pollo");
+        }
+    }//GEN-LAST:event_jButton42ActionPerformed
+
+    private void jButton43ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton43ActionPerformed
+        if(masdeunapiezacrudo.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
+         piezaseleccionadaycantidadvariable((float)medio, "Pechuga");
+        }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
+             piezaseleccionadaycantidadvariable((float)medio, "Pechuga");
+        }
+    }//GEN-LAST:event_jButton43ActionPerformed
+
+    private void jButton44ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton44ActionPerformed
+
+        if(masdeunapiezacrudo.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
+            Calculadora enviar = new Calculadora("Pechuga","Escribe la cantidad");
+
+            new Calculadora().setVisible(true);
+        }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
+           piezaseleccionadaycantidadunica("Pechuga",1);
+        }
+    }//GEN-LAST:event_jButton44ActionPerformed
+
+    private void jButton45ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton45ActionPerformed
+        if(masdeunapiezacrudo.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
+            Calculadora enviar = new Calculadora("Huacal completo","Escribe la cantidad");
+
+            new Calculadora().setVisible(true);
+        }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
+            piezaseleccionadaycantidadunica("Huacal completo",1);
+        }
+    }//GEN-LAST:event_jButton45ActionPerformed
+
+    private void jButton46ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton46ActionPerformed
+
+        if(masdeunapiezacrudo.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
+            Calculadora enviar = new Calculadora("Pierna completa","Escribe la cantidad");
+
+            new Calculadora().setVisible(true);
+        }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
+             piezaseleccionadaycantidadunica("Pierna completa",1);
+        }
+    }//GEN-LAST:event_jButton46ActionPerformed
+
+    private void jButton47ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton47ActionPerformed
+        if(masdeunapiezacrudo.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
+            Calculadora enviar = new Calculadora("Muslo","Escribe la cantidad");
+            new Calculadora().setVisible(true);
+        }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
+                piezaseleccionadaycantidadunica("Muslo",1);
+        }
+
+    }//GEN-LAST:event_jButton47ActionPerformed
+
+    private void jButton48ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton48ActionPerformed
+        if(masdeunapiezacrudo.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
+            Calculadora enviar = new Calculadora("Pierna","Escribe la cantidad");
+            new Calculadora().setVisible(true);
+        }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
+            piezaseleccionadaycantidadunica("Pierna",1);
+        }
+    }//GEN-LAST:event_jButton48ActionPerformed
+
+    private void jButton49ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton49ActionPerformed
+        if(masdeunapiezacrudo.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
+            Calculadora enviar = new Calculadora("Ala","Escribe la cantidad");
+            new Calculadora().setVisible(true);
+        }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
+            piezaseleccionadaycantidadunica("Ala",1);
+        }
+    }//GEN-LAST:event_jButton49ActionPerformed
+
+    private void jButton50ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton50ActionPerformed
+        if(masdeunapiezacrudo.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
+            Calculadora enviar = new Calculadora("Cabeza","Escribe la cantidad");
+            new Calculadora().setVisible(true);
+        }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
+            piezaseleccionadaycantidadunica("Cabeza",1);
+        }
+    }//GEN-LAST:event_jButton50ActionPerformed
+
+    private void jButton51ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton51ActionPerformed
+        if(masdeunapiezacrudo.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
+            Calculadora enviar = new Calculadora("Cadera","Escribe la cantidad");
+            new Calculadora().setVisible(true);
+        }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
+            piezaseleccionadaycantidadunica("Cadera",1);
+        }
+    }//GEN-LAST:event_jButton51ActionPerformed
+
+    private void jButton52ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton52ActionPerformed
+        if(masdeunapiezacrudo.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
+            Calculadora enviar = new Calculadora("Huacal","Escribe la cantidad");
+            new Calculadora().setVisible(true);
+        }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
+         piezaseleccionadaycantidadunica("Huacal",1);
+        }
+    }//GEN-LAST:event_jButton52ActionPerformed
+
+    private void jButton53ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton53ActionPerformed
+        if(masdeunapiezacrudo.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
+            Calculadora enviar = new Calculadora("Molleja","Escribe la cantidad");
+            new Calculadora().setVisible(true);
+        }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
+         piezaseleccionadaycantidadunica("Molleja",1);
+        }
+    }//GEN-LAST:event_jButton53ActionPerformed
+
+    private void jButton54ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton54ActionPerformed
+        if(masdeunapiezacrudo.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
+            Calculadora enviar = new Calculadora("Patas","Escribe la cantidad");
+            new Calculadora().setVisible(true);
+        }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
+               piezaseleccionadaycantidadunica("Patas",1);
+        }
+    }//GEN-LAST:event_jButton54ActionPerformed
+
+    private void jButton55ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton55ActionPerformed
+        if(masdeunapiezacrudo.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
+            Calculadora enviar = new Calculadora("Pechuga en bisteck","Escribe la cantidad");
+            new Calculadora().setVisible(true);
+        }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
+   
+        }
+    }//GEN-LAST:event_jButton55ActionPerformed
+
  
     public static void insertorupdateoverbonnie(String nombredepieza, float cantidaddeproductos){
    obtenerelnombredeproductoylacantidaddelmismo_en_descripcion_deventa(nombredepieza);
@@ -6769,24 +6958,52 @@ if(NoP.equals(nombredepieza)){ //Si el nombre del producto es diferente del esta
             }//fin de la insersion a la tabla ventas
     }
     }
-    public static void acompletarpollo(String nombredepieza){
-        try{ //la insersion a la tabla ventas
+    public static void acompletarpollo(String nombredepieza, float cantidaddeproductos){
+   
+             obtenerelnombredeproductoylacantidaddelmismo_en_descripcion_deventa(nombredepieza);
+if(NoP.equals(nombredepieza)&&NoPimporte==0){ //Si el nombre del producto es diferente del estado vacio, en palabras más sencillas; si se encuentra el producto que se quiere agregar para que no se asigne nuevamente  
+    try{// ESTE ES PARA EL UPDATE
+          obtenerelnombredeproductoylacantidaddelmismo_en_descripcion_deventa(nombredepieza);
+      NoPcantidad=NoPcantidad+cantidaddeproductos;
+                precio_producto(nombredepieza);
+              
+    id_producto(nombredepieza);
+                    id_max_de_venta();
+                 PreparedStatement ps = ca.prepareStatement ("UPDATE descripcion_de_venta SET cantidad='"+NoPcantidad+"',importe = '"+0+"'WHERE importe =0 and id_producto='"+id_producto+"' and id_venta= '"+id_de_la_venta_incrementable+"' and fecha= '"+fecha()+"' and estado= '"+estadoenturno+"' ");
+               int a=  ps.executeUpdate();
+               if(a>0){
+                      accionesdespuesinsertarendescripciondeventaoactualizarenlamismatabla(nombredepieza);
+                    if(descuentoactivo==true){
+                   JOptionPane.showMessageDialog(null, "descuento aplicado");
+               if(Float.parseFloat(totaldeventa.getText())>0){
+               totalfinalcondescuento =  Float.parseFloat(totaldeventa.getText()) - Float.parseFloat(descuentocombo.getText());
+               totalcondescuento.setText(String.valueOf(totalfinalcondescuento));
+                    }
+                 }
+               }else{
+                   JOptionPane.showMessageDialog(null, " NO SE PUDO ACTIALIZAR");
+               }
+        }//fin del id del usuario
+                 catch(Exception w){
+                     JOptionPane.showMessageDialog(null, "Error en todo el codigo de update de metodo comprobar_registro" + w.getMessage());
+                 }//fin del id del usuario
+     }
+        
+        else{
+            try{ //la insersion a la tabla ventas
                 String sql = "INSERT INTO descripcion_de_venta (id_producto,nombre_producto,cantidad,precio_unitario,importe,id_venta,estado, fecha)  VALUES (?,?,?,?,?,?,?,?)";
                 PreparedStatement pst = ca.prepareCall(sql); //hasta aqui vamos
                 id_producto(nombredepieza); 
                 pst.setInt(1,id_producto);
                 storage.add(id_producto); //almacena cada id de cada producto en éste arreglo dinamico
                 pst.setString(2,nombredepieza);
-                pst.setFloat(3,cantidaddeproductos);            
+               pst.setFloat(3,cantidaddeproductos);            
                 //EL METODO A CONTINUACION VA HACIENDO EL CONTEO DE LAS PIEZAS INDIVIDUALES
                 // PARA UNA VEZ LLEGANDO A UN POLLO ENTERO DESCONTARLO DE LA BASE           
                 precio_producto(nombredepieza);
                 pst.setFloat(4,precio);
-                
-                     importe = (float)cantidaddeproductos*precio;        
+               importe = (float)cantidaddeproductos*precio;        
                 pst.setFloat(5,0);
-               
-                
                 id_max_de_venta();
                 pst.setInt(6,(id_de_la_venta_incrementable));
                 pst.setString(7, estadoenturno);
@@ -6807,6 +7024,7 @@ if(NoP.equals(nombredepieza)){ //Si el nombre del producto es diferente del esta
             }catch(SQLException e)  { //fin de la insersion a la tabla ventas
                 JOptionPane.showMessageDialog(null,"Error de datos por id vacio "+e);
             }//fin de la insersion a la tabla ventas
+        }
     }
     
     
@@ -6820,9 +7038,7 @@ if(NoP.equals(nombredepieza)){ //Si el nombre del producto es diferente del esta
               block_unlock=false;   //se desactiva la condicion que indica que ya no se agregue otro id venta ya que aún no se ha concluido la primer venta
            if(nombredepieza.equals("Huesito")||nombredepieza.equals("Longaniza")){
         insertorupdateoverbonnie(nombredepieza, cantidaddeproductos);
-          }else if(piezasparaacomplettarpollo.isSelected()){
-              acompletarpollo(nombredepieza);
-          } 
+          }
            else{
                comprobar_registro(nombredepieza); // esto es para agregar los productos a la tabla de descripcion de venta y 
            }   
@@ -6836,8 +7052,6 @@ get_id_usuario();// 255 -280
               block_unlock=false;   
              if(nombredepieza.equals("Huesito")||nombredepieza.equals("Longaniza")){
        insertorupdateoverbonnie(nombredepieza, cantidaddeproductos);
-          } else if(piezasparaacomplettarpollo.isSelected()){
-              acompletarpollo(nombredepieza);
           }
              else{
                comprobar_registro(nombredepieza); // esto es para agregar los productos a la tabla de descripcion de venta y 
@@ -6845,7 +7059,7 @@ get_id_usuario();// 255 -280
            }
             }
             else{//No hay piezas suficientes para agregar el articulo a la venta
-                JOptionPane.showMessageDialog(null,"No tienes suficientes piezas de "+nombredepieza+ " Las piezas disponibles en inventario son:  "+piezassuficientes,"Advertencia", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null,"Solo hay "+piezassuficientes+ "piezas de "+nombredepieza,"Advertencia", JOptionPane.ERROR_MESSAGE);
             }
     }
     
@@ -7021,6 +7235,7 @@ static SI cc= new SI();
     private javax.swing.JButton cleanall;
     private javax.swing.JButton cobro;
     public static javax.swing.JLabel conteodelasventasrealizadas;
+    private javax.swing.JButton crudo;
     private javax.swing.JButton deletedescuento;
     private javax.swing.JButton descuento;
     public static javax.swing.JLabel descuentocombo;
@@ -7071,7 +7286,21 @@ static SI cc= new SI();
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton40;
     private javax.swing.JButton jButton41;
+    private javax.swing.JButton jButton42;
+    private javax.swing.JButton jButton43;
+    private javax.swing.JButton jButton44;
+    private javax.swing.JButton jButton45;
+    private javax.swing.JButton jButton46;
+    private javax.swing.JButton jButton47;
+    private javax.swing.JButton jButton48;
+    private javax.swing.JButton jButton49;
     private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton50;
+    private javax.swing.JButton jButton51;
+    private javax.swing.JButton jButton52;
+    private javax.swing.JButton jButton53;
+    private javax.swing.JButton jButton54;
+    private javax.swing.JButton jButton55;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
@@ -7215,10 +7444,10 @@ static SI cc= new SI();
     private javax.swing.JLabel labelutilidad;
     private javax.swing.JCheckBox masdeunapieza;
     private javax.swing.JCheckBox masdeunapiezacocido;
+    private javax.swing.JCheckBox masdeunapiezacrudo;
     private javax.swing.JMenuItem modificar;
     private javax.swing.JMenuItem modificarusuarios;
     private javax.swing.JMenuItem modify;
-    private javax.swing.JButton mostrarpollocrudo;
     private javax.swing.JButton pagarventaacredito;
     public static javax.swing.JCheckBox piezasparaacomplettarpollo;
     private javax.swing.JButton polloasado;
