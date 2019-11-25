@@ -326,17 +326,17 @@ if(masdeunapieza.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PI
          this.setVisible(false);
          new Calculadora().setVisible(true);   
          }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
-       menu_principal enviar =new menu_principal("pollo crudo",1);   
+      // menu_principal enviar =new menu_principal("pollo crudo",1);   
                   this.setVisible(false);
       } 
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
    if(masdeunapieza.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
-         menu_principal enviar =new menu_principal((float)medio, "Medio pollo");   
+       //  menu_principal enviar =new menu_principal((float)medio, "Medio pollo");   
                 this.setVisible(false);  
          }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
-         menu_principal enviar =new menu_principal((float)medio, "Medio pollo");   
+        // menu_principal enviar =new menu_principal((float)medio, "Medio pollo");   
                 this.setVisible(false);
       } 
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -348,7 +348,7 @@ if(masdeunapieza.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PI
          this.setVisible(false);
          new Calculadora().setVisible(true);   
          }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
-       menu_principal enviar =new menu_principal("Pierna completa",1);   
+//       menu_principal enviar =new menu_principal("Pierna completa",1);   
                   this.setVisible(false);
       } 
     }//GEN-LAST:event_jButton3ActionPerformed
@@ -359,7 +359,7 @@ if(masdeunapieza.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PI
          this.setVisible(false);
          new Calculadora().setVisible(true);   
          }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
-       menu_principal enviar =new menu_principal("Huacal completo",1);   
+   //    menu_principal enviar =new menu_principal("Huacal completo",1);   
                   this.setVisible(false);
       } 
     }//GEN-LAST:event_jButton4ActionPerformed
@@ -371,7 +371,7 @@ if(masdeunapieza.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PI
          this.setVisible(false);
          new Calculadora().setVisible(true);   
          }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
-       menu_principal enviar =new menu_principal("Pechuga",1);   
+     //  menu_principal enviar =new menu_principal("Pechuga",1);   
                   this.setVisible(false);
       } 
     }//GEN-LAST:event_jButton5ActionPerformed
@@ -382,7 +382,7 @@ if(masdeunapieza.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PI
          this.setVisible(false);
          new Calculadora().setVisible(true);   
          }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
-       menu_principal enviar =new menu_principal("Muslo",1);   
+     //  menu_principal enviar =new menu_principal("Muslo",1);   
                   this.setVisible(false);
       } 
           
@@ -394,7 +394,7 @@ if(masdeunapieza.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PI
          this.setVisible(false);
          new Calculadora().setVisible(true);   
          }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
-       menu_principal enviar =new menu_principal("Pierna",1);   
+    //   menu_principal enviar =new menu_principal("Pierna",1);   
                   this.setVisible(false);
       } 
     }//GEN-LAST:event_jButton7ActionPerformed
@@ -405,7 +405,7 @@ if(masdeunapieza.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PI
          this.setVisible(false);
          new Calculadora().setVisible(true);   
          }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
-       menu_principal enviar =new menu_principal("Ala",1);   
+     //  menu_principal enviar =new menu_principal("Ala",1);   
                   this.setVisible(false);
       }  
     }//GEN-LAST:event_jButton8ActionPerformed
@@ -416,7 +416,7 @@ if(masdeunapieza.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PI
          this.setVisible(false);
          new Calculadora().setVisible(true);   
          }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
-       menu_principal enviar =new menu_principal("Huacal",1);   
+     //  menu_principal enviar =new menu_principal("Huacal",1);   
                   this.setVisible(false);
       }  
     }//GEN-LAST:event_jButton9ActionPerformed
@@ -427,7 +427,7 @@ if(masdeunapieza.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PI
          this.setVisible(false);
          new Calculadora().setVisible(true);   
          }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
-       menu_principal enviar =new menu_principal("Cadera",1);   
+     //  menu_principal enviar =new menu_principal("Cadera",1);   
                   this.setVisible(false);
       }  
     }//GEN-LAST:event_jButton10ActionPerformed
@@ -438,7 +438,7 @@ if(masdeunapieza.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PI
          this.setVisible(false);
          new Calculadora().setVisible(true);   
          }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
-       menu_principal enviar =new menu_principal("Cabeza",1);   
+      // menu_principal enviar =new menu_principal("Cabeza",1);   
                   this.setVisible(false);
       }
     }//GEN-LAST:event_jButton11ActionPerformed
@@ -449,7 +449,7 @@ if(masdeunapieza.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PI
          this.setVisible(false);
          new Calculadora().setVisible(true);   
          }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
-       menu_principal enviar =new menu_principal("Molleja",1);   
+      // menu_principal enviar =new menu_principal("Molleja",1);   
                   this.setVisible(false);
       }
     }//GEN-LAST:event_jButton12ActionPerformed
@@ -460,7 +460,7 @@ if(masdeunapieza.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PI
          this.setVisible(false);
          new Calculadora().setVisible(true);   
          }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
-       menu_principal enviar =new menu_principal("Patas",1);   
+      // menu_principal enviar =new menu_principal("Patas",1);   
                   this.setVisible(false);
       }
     }//GEN-LAST:event_jButton13ActionPerformed
@@ -471,7 +471,7 @@ if(masdeunapieza.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PI
          this.setVisible(false);
          new Calculadora().setVisible(true);   
          }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
-       menu_principal enviar =new menu_principal("Pechuga en bisteck",1);   
+       //menu_principal enviar =new menu_principal("Pechuga en bisteck",1);   
                   this.setVisible(false);
       }
     }//GEN-LAST:event_jButton14ActionPerformed
@@ -482,10 +482,10 @@ if(masdeunapieza.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PI
 
     private void jButton15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton15ActionPerformed
 if(masdeunapieza.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
-         menu_principal enviar =new menu_principal((float)medio, "Pechuga");   
+       //  menu_principal enviar =new menu_principal((float)medio, "Pechuga");   
                 this.setVisible(false);  
          }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
-         menu_principal enviar =new menu_principal((float)medio, "Pechuga");   
+       //  menu_principal enviar =new menu_principal((float)medio, "Pechuga");   
                 this.setVisible(false);
       } 
     }//GEN-LAST:event_jButton15ActionPerformed

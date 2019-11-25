@@ -398,8 +398,7 @@ public void metodogastosdeldia(){
             while (rs.next()) {                
                              columna1.add(rs.getString(1));
                              columna2.add(rs.getFloat(2));
-                             columna3.add(rs.getFloat(3));
-                            
+                             columna3.add(rs.getFloat(3));                            
             }            
         TicketVenAll = new TicketVentasAll();          
   TicketVenAll.TicketVentasAll(columna1,columna2,columna3); 

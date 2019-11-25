@@ -430,7 +430,7 @@ String two="2";
         boolean pass2 = validarFormulario(cantidad.getText());
                  if(pass2){//ESTO VALIDA QUE EL TEXTO ESCRITO NO TENGA INCOHERENCIAS   
                   //CUANDO SE USA PARA AGREGAR CANTIDADES O PIEZAS
-                  menu_principal enviar = new menu_principal(Float.parseFloat(cantidad.getText()), this.pieza);
+         //         menu_principal enviar = new menu_principal(Float.parseFloat(cantidad.getText()), this.pieza);
                  this.setVisible(false);
                  }
                      
