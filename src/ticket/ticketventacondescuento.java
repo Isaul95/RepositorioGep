@@ -14,7 +14,7 @@ public class ticketventacondescuento {
                ArrayList piezas, 
                ArrayList precio, 
                ArrayList importe, 
-               float total, float totalcdescuento, float pago, float cambio, float porcentaje, float descuento, int numerodeventa) {
+               float subtotal, float total, float pago, float cambio, float descuento, int numerodeventa) {
        
         Date date = new Date();
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -51,18 +51,18 @@ public class ticketventacondescuento {
          auxs+= String.format("%-13s" + " " + "%-3s"+"  "+"$%-4s"+"  "+"$%-4s\n", nom1, piezas.get(n), precio.get(n), importe.get(n)); System.out.println(String.format("%-13s" + " " + "%-3s"+"  "+"$%-4s"+"  "+"$%-4s", nom1, piezas.get(n), precio.get(n), importe.get(n)));      
              } 
        auxs+= "\n==============================\n";  System.out.println("\n==============================\n");  
-       auxs+= String.format("Total: "+"$%-20s", total); System.out.println(String.format("Total: "+"$%-20s", total));
-       auxs+= "\n";     
-       auxs+= String.format("Pago: "+"$%-20s", pago); System.out.println(String.format("Pago: "+"$%-20s", pago));
+       auxs+= String.format("Sub total: "+"$%-20s", subtotal); System.out.println(String.format("Sub total : "+"$%-20s", subtotal));
        auxs+= "\n"; 
-       auxs+= String.format("Cambio: "+"$%-20s", cambio); System.out.println(String.format("Cambio: "+"$%-20s", cambio));
-       auxs+= "\n";   
-       auxs+= String.format("Porcentaje descontado: "+"%-20s", porcentaje+"%"); System.out.println(String.format("Porcentaje descontado: "+"%-20s", porcentaje+"%"));
-       auxs+= "\n";   
        auxs+= String.format("Descuento: "+"$%-20s", descuento); System.out.println(String.format("Descuento: "+"$%-20s", descuento));
        auxs+= "\n";   
-       auxs+= String.format("Total con descuento: "+"$%-20s", totalcdescuento); System.out.println(String.format("Total con descuento : "+"$%-20s", totalcdescuento));
-       auxs+= "\n"; 
+        auxs+= String.format("Total: "+"$%-20s", total); System.out.println(String.format("Total: "+"$%-20s", total));
+       auxs+= "\n";  
+       auxs+= String.format("Pago: "+"$%-20s", pago); System.out.println(String.format("Pago: "+"$%-20s", pago));
+       auxs+= "\n";
+       auxs+= String.format("Cambio: "+"$%-20s", cambio); System.out.println(String.format("Cambio: "+"$%-20s", cambio));
+       auxs+= "\n";   
+       
+       
        auxs += "     Gracias por su compra\n\n\n\n\n";// Varios saltos para no cortar antes
       System.out.println("     Gracias por su compra\n\n\n\n\n");
        

@@ -46,7 +46,7 @@ public class Pantalla_CorteCaja extends javax.swing.JFrame  implements Runnable{
   DecimalFormat solodosdecimales = new DecimalFormat("#.##");
             
   final float pagopollo=20*90, tacos=60, almuerzo=28;//datos para la tabla utilidad
-float totaldepagos,diferenciaentablautilidad, utilidades, total_de_crudo, total_de_procesados, ventasdeldia, gastosdeldia, montodeapertura, diferencia, diferenciafinal, precio;
+float numerodescuentos, totaldedescuentos, totaldepagos,diferenciaentablautilidad, utilidades, total_de_crudo, total_de_procesados, ventasdeldia, gastosdeldia, montodeapertura, diferencia, diferenciafinal, precio;
 int apertura;
 String  usuarioname=SI_Inicio.text_user.getText();
 int  id_usuario=Integer.parseInt(SI_Inicio.iduser.getText());
@@ -62,6 +62,9 @@ int  id_usuario=Integer.parseInt(SI_Inicio.iduser.getText());
         metodogastosdeldia();
         aperturadeldia();
         pagoshechoseneldiaactual();
+        total_numeros_y_descuentos();
+           numerosdescuentos.setText(String.valueOf(numerodescuentos)+" descuentos");
+           totaldescuentos.setText(String.valueOf("$"+totaldedescuentos));
         aperturacantidad.setText(String.valueOf(montodeapertura));
         Ventasfortoday1.setText(String.valueOf(ventasdeldia));
         Gastosfromtoday.setText(String.valueOf(gastosdeldia));
@@ -85,6 +88,18 @@ int  id_usuario=Integer.parseInt(SI_Inicio.iduser.getText());
           hora();
           Reloj.setText(hora+":"+minutos+":"+segundos+" ");
       }
+    }
+    public void total_numeros_y_descuentos(){
+ try{ // La suma de todos los importes
+    Statement sent  =(Statement)ca.createStatement();
+                                         ResultSet  rs = sent.executeQuery("select COUNT(descuento), SUM(descuento) from venta where estado_venta ='Realizada' and descuento!=0");
+                                            while(rs.next()){
+                                                numerodescuentos=rs.getInt("SUM(descuento)");
+                                                totaldedescuentos=rs.getFloat("SUM(descuento)");
+                                            }
+                                                      }//fin del try-precio del producto
+                                                      catch (Exception e){
+                                                      }// fin del precio-catch del producto
     }
     
     public static String fecha(){ /* SE DECARA LA FECHA DEL SISTEMA */
@@ -153,6 +168,10 @@ public void metodogastosdeldia(){
         aperturacantidad = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         pagosmadetoday = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        totaldescuentos = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        numerosdescuentos = new javax.swing.JLabel();
         user = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -193,9 +212,9 @@ public void metodogastosdeldia(){
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 17)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("La apertura de caja fue:");
+        jLabel3.setText("Total de descuentos");
         jPanel2.add(jLabel3);
-        jLabel3.setBounds(340, 80, 240, 29);
+        jLabel3.setBounds(380, 160, 200, 29);
 
         monto.setBackground(new java.awt.Color(0, 148, 204));
         monto.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
@@ -263,7 +282,7 @@ public void metodogastosdeldia(){
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("   Monto entregado:");
         jPanel2.add(jLabel5);
-        jLabel5.setBounds(340, 250, 240, 29);
+        jLabel5.setBounds(350, 260, 240, 29);
 
         aperturacantidad.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
         aperturacantidad.setForeground(new java.awt.Color(255, 255, 255));
@@ -284,6 +303,28 @@ public void metodogastosdeldia(){
         pagosmadetoday.setText("00.00");
         jPanel2.add(pagosmadetoday);
         pagosmadetoday.setBounds(10, 300, 180, 29);
+
+        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 17)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel8.setText("La apertura de caja fue:");
+        jPanel2.add(jLabel8);
+        jLabel8.setBounds(340, 80, 240, 29);
+
+        totaldescuentos.setFont(new java.awt.Font("Tahoma", 1, 17)); // NOI18N
+        totaldescuentos.setForeground(new java.awt.Color(255, 255, 255));
+        jPanel2.add(totaldescuentos);
+        totaldescuentos.setBounds(440, 200, 100, 29);
+
+        jLabel10.setFont(new java.awt.Font("Tahoma", 1, 17)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel10.setText("Numero");
+        jPanel2.add(jLabel10);
+        jLabel10.setBounds(260, 160, 100, 29);
+
+        numerosdescuentos.setFont(new java.awt.Font("Tahoma", 1, 17)); // NOI18N
+        numerosdescuentos.setForeground(new java.awt.Color(255, 255, 255));
+        jPanel2.add(numerosdescuentos);
+        numerosdescuentos.setBounds(260, 200, 100, 29);
 
         jPanel1.add(jPanel2);
         jPanel2.setBounds(10, 50, 620, 450);
@@ -530,7 +571,7 @@ public void metodogastosdeldia(){
  // YA NO SE IMPRIME ÉSTE TICKET sobrantedepollococidodeldiaparaticketperosolocantidades();//SOBRANTE DE COCIDO PARA TICKET MOSTRANDO CANTIDADES
  productosvendidoseneldia();//TODOS LOS PRODUCTOS VENDIDOS
  // YA NO SE IMPRIME ÉSTE TICKET sobrantedepollocrudodeldiaparaticketperosolocantidades();//SOBRANTE DE TODO MENOS PECHUGA, PIERNA ALA, MUSLO, VA PARA TICKET
-            /*sii*/obteniendolosvaloresdelcortedecajadeldiadehoyparaelticket();//LOS DATOS DEL TICKET CORTE DE CAJA                                                      
+     /*sii*/obteniendolosvaloresdelcortedecajadeldiadehoyparaelticket();//LOS DATOS DEL TICKET CORTE DE CAJA                                                      
     /*sii*/ sobrantedepollocrudodeldiaparaticketcantidadesypiezas();//SOBRANTE DE PECHUGA, PIERNA ALA, MUSLO, VA PARA TICKET
            
             llenar_tabla_utilidad(gastosdeldia, ventasdeldia);
@@ -750,15 +791,19 @@ SI cc= new SI();
     private javax.swing.JLabel Reloj;
     private javax.swing.JLabel Ventasfortoday1;
     private javax.swing.JLabel aperturacantidad;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     public static javax.swing.JTextField monto;
+    private javax.swing.JLabel numerosdescuentos;
     private javax.swing.JLabel pagosmadetoday;
+    private javax.swing.JLabel totaldescuentos;
     private javax.swing.JLabel user;
     // End of variables declaration//GEN-END:variables
 }
