@@ -60,7 +60,7 @@ static Statement sent;
   static float utilidadfinal, utilidades, gastos, sumadetotalesdeventasdehoy, conteodeventascanceladas;
       static int  id=0, conteototaldeventas, id_ventapencredito, evaluadordepiezaspares=0, evaluadordepiezasinpares=0,  resultadoprimerproveedor, id_de_la_venta_incrementable,totalcomprobacion, primerventa, resultfirstselling, existencia;   
   static int fila, id_proveedor,id_usuario,id_producto,id_venta,aux1,aux2,variablede0=0;
-   static float   totaldeventaenturno, variablepago, variablepagocondescuento, piezassuficientes, cantidadporerrordeusuario,productos, NoPcantidad=0, cantidadenventa,  cantidaddesdelatablaeditable, piezasxunpollo=14, piezasdepollopares=2, piezasdepollosinpares=1, resultadodepiezaspares,resultadodepiezasinpares, minimodelaspiezasparesdepollocrudoeninventario, minimodelaspiezasinparesdepollocrudoeninventario, pollo_crudoeninventario, addpiezas, cantidadpolloenDB, porcentaje, importe,totalf=0,comprobacion,cambio,precio, NoPimporte=0,sumadeimportes, sumadeimportesparaeltotal, sumadeimportescreditopendiente,descuentocantidad, totalfinalcondescuento;
+   static float   totaldeventaenturno, variablepago, variablepagocondescuento, piezassuficientes, cantidadporerrordeusuario,productos, NoPcantidad=0, cantidadenventa,  cantidadenventasumada ,cantidaddesdelatablaeditable, piezasxunpollo=14, piezasdepollopares=2, piezasdepollosinpares=1, resultadodepiezaspares,resultadodepiezasinpares, minimodelaspiezasparesdepollocrudoeninventario, minimodelaspiezasinparesdepollocrudoeninventario, pollo_crudoeninventario, addpiezas, cantidadpolloenDB, porcentaje, importe,totalf=0,comprobacion,cambio,precio, NoPimporte=0,sumadeimportes, sumadeimportesparaeltotal, sumadeimportescreditopendiente,descuentocantidad, totalfinalcondescuento;
   static ArrayList storage = new ArrayList(); // para guardar los id de cada producto que se ha agregado a la tabla venta
  static String[] piezas = {"pollo crudo", "Pechuga", "Muslo","Pierna","Ala","Huacal","Cadera","Cabeza", "Molleja", "Patas"};
 static String[] piezasdemedio = {"Medio pollo","Pechuga", "Muslo","Pierna","Ala","Huacal", "Molleja", "Patas"};
@@ -1425,15 +1425,19 @@ public void cantidadenventa(int pieza){
                 
          }
  }
- public static void noguardaridrepetidoenstorage(int id){
+ public static void noguardaridrepetidoenstorage(int id){//NO PERMITE AGREGAR IDS REPETIDOS A STORAGE
+     boolean loencontre=false;
      if(storage.size()>0){
          for(int n=0;n<=storage.size()-1;n++){  
          if(Integer.parseInt(storage.get(n).toString())==id){
-            
+          loencontre=true;  
          }
+         }if(loencontre==false){
+             storage.add(id);
          }
+     }else{
+          storage.add(id);
      }
-     
  }
   public static void comprobar_registro (String nombredepieza){
   obtenerelnombredeproductoylacantidaddelmismo_en_descripcion_deventa(nombredepieza);
@@ -1470,8 +1474,7 @@ if(NoP.equals(nombredepieza)&&NoPimporte!=0){ //Si el nombre del producto es dif
                 id_producto(nombredepieza); 
                 pst.setInt(1,id_producto);
                 noguardaridrepetidoenstorage(id_producto);
-                storage.add(id_producto); //almacena cada id de cada producto en éste arreglo dinamico
-                pst.setString(2,nombredepieza);
+                 pst.setString(2,nombredepieza);
                 pst.setFloat(3,cantidaddeproductos);    
                 //EL METODO A CONTINUACION VA HACIENDO EL CONTEO DE LAS PIEZAS INDIVIDUALES
                 // PARA UNA VEZ LLEGANDO A UN POLLO ENTERO DESCONTARLO DE LA BASE           
@@ -1540,7 +1543,20 @@ deletedescuento.setVisible(true);
                }
                  
             }
-            
+public void cantidadenventasumadecantidadesfinales(int pieza){
+    id_max_de_venta();
+     //Cantidad en venta
+                try{
+                sent  =(Statement)ca.createStatement(); 
+                     rs = sent.executeQuery("select SUM(cantidad) from descripcion_de_venta where id_producto= '"+pieza+"'AND estado='"+estadoenturno+"'and id_venta='"+id_de_la_venta_incrementable+"'and fecha='"+fecha()+"'  ");       
+                while(rs.next()){    
+                    cantidadenventasumada =rs.getFloat("SUM(cantidad)");      
+                    nameenventa=rs.getString("nombre_producto");
+                }
+                }catch(Exception e){
+                    
+                }
+}
                 public void regresarproductos_a_inventariodescontandotodaslaspiezas(){ // este metodo devuelve los productos que fueron agregados a la venta y posteriormente fueron cancelados
                  int piezasenventa=0;
                                   float piezasenlatablapiezas=0;
@@ -1548,10 +1564,8 @@ deletedescuento.setVisible(true);
                     block_unlock=true;
                 for(int n=0;n<=storage.size()-1;n++){
                  cantidadpolloenDByname(Integer.parseInt(storage.get(n).toString()));
-                        cantidadenventa(Integer.parseInt(storage.get(n).toString()));
-                        JOptionPane.showMessageDialog(null, "NOMBRE "+name+" CEDB "+cantidadpolloenDB);
-                         JOptionPane.showMessageDialog(null, "NAME EN VENTA "+nameenventa+" CANTIDAD EN VENTA "+cantidadenventa+" ");
-                      cantidadpolloenDB+=cantidadenventa;
+                        cantidadenventasumadecantidadesfinales(Integer.parseInt(storage.get(n).toString()));
+                       cantidadpolloenDB+=cantidadenventasumada;
                         try{
                             PreparedStatement ps = ca.prepareStatement ("UPDATE productos SET cantidad='"+cantidadpolloenDB+"'WHERE id_producto='"+storage.get(n)+"'");
                             ps.executeUpdate();
@@ -7017,8 +7031,8 @@ if(NoP.equals(nombredepieza)){ //Si el nombre del producto es diferente del esta
                 PreparedStatement pst = ca.prepareCall(sql); //hasta aqui vamos
                 id_producto(nombredepieza); 
                 pst.setInt(1,id_producto);
-                storage.add(id_producto); //almacena cada id de cada producto en éste arreglo dinamico
-                pst.setString(2,nombredepieza);
+                noguardaridrepetidoenstorage(id_producto);
+                 pst.setString(2,nombredepieza);
                 pst.setFloat(3,1);
                 pst.setFloat(4,0);
                 importe = (float)1*cantidaddeproductos;     
@@ -7080,7 +7094,7 @@ if(NoP.equals(nombredepieza)&&NoPimporte==0){ //Si el nombre del producto es dif
                 PreparedStatement pst = ca.prepareCall(sql); //hasta aqui vamos
                 id_producto(nombredepieza); 
                 pst.setInt(1,id_producto);
-                storage.add(id_producto); //almacena cada id de cada producto en éste arreglo dinamico
+               noguardaridrepetidoenstorage(id_producto);
                 pst.setString(2,nombredepieza);
                 pst.setFloat(3,cantidaddeproductos);            
                 //EL METODO A CONTINUACION VA HACIENDO EL CONTEO DE LAS PIEZAS INDIVIDUALES
