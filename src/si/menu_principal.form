@@ -793,7 +793,7 @@
                       <Color blue="ff" green="ff" red="ff" type="rgb"/>
                     </Property>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="3" name="/si/IconosJava/flecha-hacia-la-izquierda (1).png"/>
+                      <Image iconType="3" name="/si/IconosJava/cancelar2.png"/>
                     </Property>
                     <Property name="horizontalTextPosition" type="int" value="0"/>
                     <Property name="verticalAlignment" type="int" value="1"/>

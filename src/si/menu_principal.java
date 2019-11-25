@@ -82,7 +82,7 @@ static float cantidaddeproductos=0, cantidadparapollocrudo=0;
 static boolean seagregoexterno=false;
 
       // String  usuarioname=SI_Inicio.text_user.getText(); //variable para obtener el nombre del usuario o administrador que ingreso al sistema
-            static String name, pollo_crudo="pollo crudo", estadoinactivo="Inactivo", estadoactivo="Activo", NoP="",estadocancelado= "Cancelada",estadorealizado="Realizada", estadoenturno="En turno", creditopendiente="Credito-pendiente", creditopagado="Credito-pagado", fechayhora="",fechasinhora="", usuarioname=SI_Inicio.text_user.getText(); //variable para obtener el nombre del usuario o administrador que ingreso al sistema
+            static String nameenventa,name, pollo_crudo="pollo crudo", estadoinactivo="Inactivo", estadoactivo="Activo", NoP="",estadocancelado= "Cancelada",estadorealizado="Realizada", estadoenturno="En turno", creditopendiente="Credito-pendiente", creditopagado="Credito-pagado", fechayhora="",fechasinhora="", usuarioname=SI_Inicio.text_user.getText(); //variable para obtener el nombre del usuario o administrador que ingreso al sistema
    static DecimalFormat solodosdecimales = new DecimalFormat("#.##");
 //ESO ES DESPUES DE AGREGAR PRODUCTO EXTERNO
    public menu_principal(boolean seagregoexterno){
@@ -1118,7 +1118,8 @@ public void cantidadenventa(int pieza){
                 sent  =(Statement)ca.createStatement(); 
                      rs = sent.executeQuery("select * from descripcion_de_venta where id_producto= '"+pieza+"'AND estado='"+estadoenturno+"'and id_venta='"+id_de_la_venta_incrementable+"'and fecha='"+fecha()+"'  ");       
                 while(rs.next()){    
-                    cantidadenventa =rs.getFloat("cantidad");             
+                    cantidadenventa =rs.getFloat("cantidad");      
+                    nameenventa=rs.getString("nombre_producto");
                 }
                 }catch(Exception e){
                     
@@ -1424,7 +1425,16 @@ public void cantidadenventa(int pieza){
                 
          }
  }
- 
+ public static void noguardaridrepetidoenstorage(int id){
+     if(storage.size()>0){
+         for(int n=0;n<=storage.size()-1;n++){  
+         if(Integer.parseInt(storage.get(n).toString())==id){
+            
+         }
+         }
+     }
+     
+ }
   public static void comprobar_registro (String nombredepieza){
   obtenerelnombredeproductoylacantidaddelmismo_en_descripcion_deventa(nombredepieza);
 if(NoP.equals(nombredepieza)&&NoPimporte!=0){ //Si el nombre del producto es diferente del estado vacio, en palabras más sencillas; si se encuentra el producto que se quiere agregar para que no se asigne nuevamente  
@@ -1459,6 +1469,7 @@ if(NoP.equals(nombredepieza)&&NoPimporte!=0){ //Si el nombre del producto es dif
                 PreparedStatement pst = ca.prepareCall(sql); //hasta aqui vamos
                 id_producto(nombredepieza); 
                 pst.setInt(1,id_producto);
+                noguardaridrepetidoenstorage(id_producto);
                 storage.add(id_producto); //almacena cada id de cada producto en éste arreglo dinamico
                 pst.setString(2,nombredepieza);
                 pst.setFloat(3,cantidaddeproductos);    
@@ -1538,6 +1549,8 @@ deletedescuento.setVisible(true);
                 for(int n=0;n<=storage.size()-1;n++){
                  cantidadpolloenDByname(Integer.parseInt(storage.get(n).toString()));
                         cantidadenventa(Integer.parseInt(storage.get(n).toString()));
+                        JOptionPane.showMessageDialog(null, "NOMBRE "+name+" CEDB "+cantidadpolloenDB);
+                         JOptionPane.showMessageDialog(null, "NAME EN VENTA "+nameenventa+" CANTIDAD EN VENTA "+cantidadenventa+" ");
                       cantidadpolloenDB+=cantidadenventa;
                         try{
                             PreparedStatement ps = ca.prepareStatement ("UPDATE productos SET cantidad='"+cantidadpolloenDB+"'WHERE id_producto='"+storage.get(n)+"'");
@@ -2433,7 +2446,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         cleanall.setBackground(new java.awt.Color(0, 51, 102));
         cleanall.setFont(new java.awt.Font("Tahoma", 1, 22)); // NOI18N
         cleanall.setForeground(new java.awt.Color(255, 255, 255));
-        cleanall.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/flecha-hacia-la-izquierda (1).png"))); // NOI18N
+        cleanall.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/cancelar2.png"))); // NOI18N
         cleanall.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         cleanall.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         cleanall.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
