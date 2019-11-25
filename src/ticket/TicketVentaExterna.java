@@ -1,22 +1,22 @@
 
+
 package ticket;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 
 public class TicketVentaExterna {
 
-    public void TicketVentaExterna(String nombresuc, float totalapagar) {
+    public void TicketVentaExterna(String nombresuc, float pago, ArrayList columna1, ArrayList columna2) {
         
           Date date = new Date();
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         DateFormat hourFormat = new SimpleDateFormat("HH:mm:ss");
-        
-        
-        
+                        
         ServicioImp impServicio = new ServicioImp(); // se crea objeto 
         System.out.println(impServicio.getImpresoras()); // imprime todas las impresoras instaladas
         String auxs="";
@@ -37,17 +37,20 @@ public class TicketVentaExterna {
         auxs+= "IGUALA DE LA INDEPENDENCIA\n"; System.out.println("IGUALA DE LA INDEPENDENCIA\n"); 
         
         System.out.println("Fecha: " + dateFormat.format(date) + " Hora: " + hourFormat.format(date) + "\n");
-         auxs+= "Fecha: " + dateFormat.format(date) + " Hora: " + hourFormat.format(date) + "\n";        
+         auxs+= "Fecha: " + dateFormat.format(date) + " Hora: " + hourFormat.format(date) + "\n"; 
+         auxs += "Sucursal    " + nombresuc ;             System.out.println("Sucursal    " + nombresuc);         
          auxs+= "\n==============================\n";        System.out.println("\n==============================\n");
-           auxs+= "Descripcion        Total\n"; System.out.println("Descripcion        Total\n");
-      System.out.println("\n==============================\n");
-         auxs+= "\n==============================\n";                   
-                             
-              auxs+= String.format("%-18s" + "$%-8s", nombresuc, totalapagar);
-  System.out.println(String.format("%-18s" + "$%-8s", nombresuc, totalapagar));
-             auxs+= "\n";            
+           auxs+= "Descripcion       Piezas\n"; System.out.println("Descripcion       Piezas\n");
+           auxs+= "\n==============================\n";         System.out.println("\n==============================\n");                  
+           
+       //  int cant = Integer.parseInt(String.valueOf(cantidadnumerica));
+          for(int n=0;n<=columna1.size()-1;n++){                 
+                  auxs+= String.format("%-18s" + "%-8s" , columna1.get(n), columna2.get(n)); System.out.println(String.format("%-18s" + "%-8s" , columna1.get(n), columna2.get(n)));
+                  auxs+= "\n"; // SALTOS PARA K NO LO CORTE LUEGO     "%-11s" + "%-10s" + "$%-12s"                 
+             }  
          auxs+= "\n==============================\n";  System.out.println("\n==============================\n");  
-       auxs+= "\n\n";// Varios saltos para no cortar antes 
+       auxs+= String.format("  "+"TOTAL :"+ "$" + pago);    System.out.println(String.format("  "+"TOTAL :"+ "$" + pago));
+         auxs+= "\n\n";// Varios saltos para no cortar antes 
         
          
          try {
@@ -59,10 +62,6 @@ public class TicketVentaExterna {
             JOptionPane.showMessageDialog(null, "El tikect no se pudo imprimir","warning",JOptionPane.WARNING_MESSAGE);
         }
         
-    }
-
-    
-
-    
-    
+    }    
+        
 }
