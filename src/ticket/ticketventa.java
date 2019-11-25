@@ -14,7 +14,7 @@ public class ticketventa {
                ArrayList piezas, 
                ArrayList precio, 
                ArrayList importe, 
-               float total, float pago, float cambio, int numerodeventa) {
+               float subtotal, float total, float pago, float cambio, int numerodeventa) {
        
         Date date = new Date();
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -55,6 +55,8 @@ public class ticketventa {
              }
          
        auxs+= "\n==============================\n";  System.out.println("\n==============================\n");  
+       auxs+= String.format("Sub total:  "+"$%-20s", subtotal); System.out.println(String.format("Sub total:   "+"$%-20s", subtotal));
+       auxs+= "\n";
        auxs+= String.format("Total:  "+"$%-20s", total); System.out.println(String.format("Total:   "+"$%-20s", total));
        auxs+= "\n";                  
        auxs+= String.format("Pago:   "+"$%-20s", pago); System.out.println(String.format("Pago:     "+"$%-20s", pago));
