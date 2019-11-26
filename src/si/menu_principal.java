@@ -45,6 +45,7 @@ import si.Pantalla_Gastos;
 import static si.Pantalla_Gastos.fecha;
 import ticket.ticketventacondescuento;
 import ticket.ticketventa;
+import ticket.ticketventacredito;
 
 
 
@@ -52,6 +53,7 @@ public final class menu_principal extends javax.swing.JFrame implements Runnable
                   private final String logotipo = "/Reportes/logo1.jpeg"; // icono de DATAMAX
    static ticketventacondescuento mandardatosaticketventacondescuento;  
    static ticketventa mandardatosticketventa;
+    static ticketventacredito mandardatosticketventacredito;
     String  hora,minutos,segundos, fechadesde="",fechahasta="", fechaparaventasdesde="", fechaparaventashasta="";
     Thread hilo;
 static Statement sent;  
@@ -76,7 +78,7 @@ static ArrayList preciounitarioticket = new ArrayList();
 static ArrayList importesticket = new ArrayList();
 //DATA MAX FULL VERSION
 
-  static boolean voyacobrar=false, descuentoactivo=false, suficientespiezas=true, block_unlock=true,tablaventaactiva=false;
+  static boolean soypechugaenbisteck=false, voyacobrar=false, descuentoactivo=false, suficientespiezas=true, block_unlock=true,tablaventaactiva=false;
 static String nombredepiezaseleccionada="";
 static float cantidaddeproductos=0, cantidadparapollocrudo=0;
 static boolean seagregoexterno=false;
@@ -420,6 +422,38 @@ String sSQL = " select venta.id_venta, venta.total, venta.fecha_reporte, descrip
           JOptionPane.showMessageDialog(null, "ERROR EN METODO: descripciondelosprouductosparaelticketdeventa","DEVELOPER HELPER", JOptionPane.ERROR_MESSAGE);      
       }
     }
+  
+            public static void descripciondelosprouductosparaelticketdeventacredito(int numerodeventa){
+         String nombre="";
+                try {
+                 String sSQL = "SELECT nombre_producto, cantidad, precio_unitario, importe, nombre_credito FROM descripcion_de_venta WHERE estado='Credito-pendiente' AND id_venta = '"+numerodeventa+"' ";  
+        PreparedStatement ps = ca.prepareStatement(sSQL);       
+        ResultSet rs = ps.executeQuery(sSQL);
+            while (rs.next()) {
+              nombreproductoticket.add(rs.getString(1));
+              piezastcket.add(rs.getString(2));
+              preciounitarioticket.add(rs.getString(3)); 
+              importesticket.add(rs.getString(4));
+              nombre=rs.getString(5);
+            }
+            total_pagoycambiopararelticketdeventacredito(numerodeventa);
+            
+                 //estas dos lineas mandan los datos para el ticket
+                 mandardatosticketventacredito = new ticketventacredito();    
+                 mandardatosticketventacredito.tikectdeventaacredito(nombre, nombreproductoticket, 
+                   piezastcket, 
+                         preciounitarioticket, 
+                         importesticket,
+                         subtotalticket, totalticket, pagoticket, cambioticket, numerodeventa);
+ vaciarlistasdeticket();
+       
+                        
+ 
+    } catch (Exception e) {
+          JOptionPane.showMessageDialog(null, "ERROR EN METODO: descripciondelosprouductosparaelticketdeventa","DEVELOPER HELPER", JOptionPane.ERROR_MESSAGE);      
+      }
+    }
+            
             public static void descripciondelosprouductosparaelticketdeventa(int numerodeventa){
          try {
                  String sSQL = "SELECT nombre_producto, cantidad, precio_unitario, importe FROM descripcion_de_venta WHERE estado='Realizada' AND id_venta = '"+numerodeventa+"' ";  
@@ -458,12 +492,31 @@ String sSQL = " select venta.id_venta, venta.total, venta.fecha_reporte, descrip
           JOptionPane.showMessageDialog(null, "ERROR EN METODO: descripciondelosprouductosparaelticketdeventa","DEVELOPER HELPER", JOptionPane.ERROR_MESSAGE);      
       }
     }
-
-     public static void total_pagoycambiopararelticketdeventa(int id){ // recibe como parametro 
+ public static void total_pagoycambiopararelticketdeventa(int id){ // recibe como parametro 
          Object[] columna = new Object[5];  //crear un obj con el nombre de colunna
   
         try {
          String sSQL = "SELECT subtotal, total, pago, cambio, descuento FROM venta WHERE estado_venta='"+estadorealizado+"' AND fecha_reporte = '"+fecha()+"' and id_venta='"+id+"' ";
+ 
+        PreparedStatement ps = ca.prepareStatement(sSQL);       
+        ResultSet rs = ps.executeQuery(sSQL);
+            while (rs.next()) {
+               subtotalticket = rs.getFloat(1);
+              totalticket = rs.getFloat(2);
+                pagoticket = rs.getFloat(3);
+                 cambioticket = rs.getFloat(4);
+                 descuentoticket = rs.getFloat(5);           
+          }  
+    } catch (Exception e) {
+         JOptionPane.showMessageDialog(null, "ERROR EN METODO: total_pagoycambiopararelticketdeventa","DEVELOPER HELPER", JOptionPane.ERROR_MESSAGE);      
+       }
+}
+     
+     public static void total_pagoycambiopararelticketdeventacredito(int id){ // recibe como parametro 
+         Object[] columna = new Object[5];  //crear un obj con el nombre de colunna
+  
+        try {
+         String sSQL = "SELECT subtotal, total, pago, cambio, descuento FROM venta WHERE estado_venta='"+creditopendiente+"' AND fecha_reporte = '"+fecha()+"' and id_venta='"+id+"' ";
  
         PreparedStatement ps = ca.prepareStatement(sSQL);       
         ResultSet rs = ps.executeQuery(sSQL);
@@ -1397,6 +1450,7 @@ public void cantidadenventa(int pieza){
                     NoP="";
  } else{
        descontardeinventario(nombredepieza, cantidaddeproductos);
+       soypechugaenbisteck=false;
                     //  descuentodepollo();                  
                     mostrartabladeventas();
                     tablaventaactiva=true;
@@ -1474,8 +1528,13 @@ if(NoP.equals(nombredepieza)&&NoPimporte!=0){ //Si el nombre del producto es dif
                 id_producto(nombredepieza); 
                 pst.setInt(1,id_producto);
                 noguardaridrepetidoenstorage(id_producto);
-                 pst.setString(2,nombredepieza);
-                pst.setFloat(3,cantidaddeproductos);    
+                if(soypechugaenbisteck==true){
+                    pst.setString(2,"Pechuga en bisteck");
+                }else{
+                    pst.setString(2,nombredepieza);
+               
+                }
+                  pst.setFloat(3,cantidaddeproductos);    
                 //EL METODO A CONTINUACION VA HACIENDO EL CONTEO DE LAS PIEZAS INDIVIDUALES
                 // PARA UNA VEZ LLEGANDO A UN POLLO ENTERO DESCONTARLO DE LA BASE           
                 precio_producto(nombredepieza);
@@ -1557,12 +1616,26 @@ public void cantidadenventasumadecantidadesfinales(int pieza){
                     
                 }
 }
+public void descontartodaslaspechugasenbisteck(float cantidadpolloenDB){
+    try{
+                            PreparedStatement ps = ca.prepareStatement ("UPDATE productos SET cantidad='"+cantidadpolloenDB+"'WHERE id_producto='"+15+"'");
+                            ps.executeUpdate();
+                        }catch(Exception s){
+JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
+                        } 
+}
                 public void regresarproductos_a_inventariodescontandotodaslaspiezas(){ // este metodo devuelve los productos que fueron agregados a la venta y posteriormente fueron cancelados
                  int piezasenventa=0;
                                   float piezasenlatablapiezas=0;
                     id_max_de_venta();
                     block_unlock=true;
                 for(int n=0;n<=storage.size()-1;n++){
+                    if(storage.get(n).toString().equals("57")){
+                         cantidadpolloenDByname(15);
+                        cantidadenventasumadecantidadesfinales(57);
+                       cantidadpolloenDB+=cantidadenventasumada;
+                       descontartodaslaspechugasenbisteck(cantidadpolloenDB);
+                    }
                  cantidadpolloenDByname(Integer.parseInt(storage.get(n).toString()));
                         cantidadenventasumadecantidadesfinales(Integer.parseInt(storage.get(n).toString()));
                        cantidadpolloenDB+=cantidadenventasumada;
@@ -1589,27 +1662,44 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
                totalfinalcondescuento =  Float.parseFloat(subtotal.getText()) - Float.parseFloat(descuentocombo.getText());
                total.setText(String.valueOf(totalfinalcondescuento));
                     }
+               
                  }
  }         
- public void regresarpiernacompleta(float cantidaddeproductos){
-                String[] piernafull = {"Muslo","Pierna"};
-                      
-               for (int i = 0; i < piernafull.length; i++) {
-                   id_producto(piernafull[i]);
-               cantidadpolloenDByname(id_producto);
-                 cantidadenventa(id_producto);
-               cantidadpolloenDB-=cantidaddeproductos;
-               try{
-               PreparedStatement ps = ca.prepareStatement ("UPDATE productos SET cantidad='"+cantidadpolloenDB+"'WHERE id_producto='"+id_producto+"'");
-                ps.executeUpdate();
-                 }//fin del id del usuario
-                 catch(Exception w){
-              JOptionPane.showMessageDialog(null, "Error" + w.getMessage());
-                 }//fin del id del usuario
-               }
 
-           }
 
+ public void regresarproductos_pechugaenbisteck(String nombredepieza){ // este metodo devuelve los productos que fueron agregados a la venta y posteriormente fueron cancelados
+              id_max_de_venta();
+                    block_unlock=true;   
+                    //pendiente la restauracion de venta a inventario
+                    id_producto(nombredepieza);
+                  cantidadenventa(57);
+                       cantidadpolloenDByname(id_producto);
+   cantidadpolloenDB+=cantidadenventa;
+ id_producto(nombredepieza);
+                        try{ //SUMANDO A INVENTARIO EL ULTIMO, 
+                            PreparedStatement ps = ca.prepareStatement ("UPDATE productos SET cantidad='"+cantidadpolloenDB+"'WHERE id_producto='"+id_producto+"'");
+                            ps.executeUpdate();
+                         }catch(Exception s){
+JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
+                        }// SUMANDO A INVENTARIO EL ULTIMO, 
+                        //ELIMINAR DE VENTA EL ARTICULO
+                        id_max_de_venta();
+                        try{
+            String sql = "DELETE from descripcion_de_venta where id_producto= '"+57+"' and id_venta= '"+id_de_la_venta_incrementable+"' and fecha= '"+fecha()+"' and estado= '"+estadoenturno+"' ";
+            sent = ca.createStatement();
+            int n = sent.executeUpdate(sql);
+            if(n>0){
+ eliminarpolloenterodestorage(57);
+                 accionesdespuesderegresarproductosainventarios();
+                    descuentocombo.setText("00.00");
+                    total.setText(subtotal.getText());
+              //  mostrartablaarticulos();
+//                autocompletar();
+            }
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, "ERROR" + e.getMessage());
+        } //ELIMINAR DE VENTA EL ARTICULO     
+}
                 
  public void regresarproductos_a_inventario(String nombredepieza){ // este metodo devuelve los productos que fueron agregados a la venta y posteriormente fueron cancelados
               id_max_de_venta();
@@ -2504,7 +2594,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
                 ExistenciasActionPerformed(evt);
             }
         });
-        venta.add(Existencias, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 140, 80, 90));
+        venta.add(Existencias, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 80, 80, 90));
 
         jLabel74.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         jLabel74.setForeground(new java.awt.Color(255, 255, 255));
@@ -5981,6 +6071,10 @@ public void eliminarpolloenterodestorage(int id_producto){
                 }
                
             } // BOOLEANAS PARA SABER CUALES NO SE VA A REGRESAR
+            else if(nombredepiezaseleccionada.equals("Pechuga en bisteck")){
+            regresarproductos_pechugaenbisteck("Pechuga");
+            mostrartabladeventas();
+                    }
                 else{
                   regresarproductos_a_inventario(nombredepiezaseleccionada); //pone en estatus de cancelada la venta inconclusa
          //descuentodepollo();
@@ -6098,7 +6192,7 @@ get_id_usuario();// 255 -280
           float variable0=0;
 
          id_max_de_venta();
-        PreparedStatement ps = ca.prepareStatement ("UPDATE venta SET total='"+sumadeimportes+"',porcentajedescontado='"+variable0+"',descuento='"+ variable0+"',pago='"+variable0+"',cambio='"+variable0+"',fecha_reporte='"+fecha()+"',estado_venta='"+creditopendiente+"'WHERE id_venta='"+id_de_la_venta_incrementable+"'");
+        PreparedStatement ps = ca.prepareStatement ("UPDATE venta SET total='"+sumadeimportes+"',descuento='"+ variable0+"',pago='"+variable0+"',cambio='"+variable0+"',fecha_reporte='"+fecha()+"',estado_venta='"+creditopendiente+"'WHERE id_venta='"+id_de_la_venta_incrementable+"'");
                                     ps.executeUpdate();
         
         }catch(Exception ex){
@@ -6108,10 +6202,12 @@ get_id_usuario();// 255 -280
                                     id_max_de_venta();
                                     PreparedStatement ps2 = ca.prepareStatement ("UPDATE descripcion_de_venta SET estado= '"+creditopendiente+"',nombre_credito='"+nombre+"' WHERE id_venta='"+id_de_la_venta_incrementable+"'");
                                     ps2.executeUpdate();
-                                    JOptionPane.showMessageDialog(null, "Venta a credito agregada");
-                                    block_unlock=true;
+                                
+ descripciondelosprouductosparaelticketdeventacredito(id_de_la_venta_incrementable);//DATOS PARA EL TICKET DE VENTA          
+ descripciondelosprouductosparaelticketdeventacredito(id_de_la_venta_incrementable);//DATOS PARA EL TICKET DE VENTA          
+                                                                         
+ block_unlock=true;
                                     accionesdespuesderealizarcualquierventa();
-                                   
                                 }
                                 catch(Exception ex){
                                     JOptionPane.showMessageDialog(null, "Error en venta" + ex.getMessage());
@@ -6172,7 +6268,7 @@ get_id_usuario();// 255 -280
        if(Float.parseFloat(pagodeventacredito)>=sumadeimportescreditopendiente){
         try{          
   cambio = Float.parseFloat(pagodeventacredito)-sumadeimportescreditopendiente;       
-        PreparedStatement ps = ca.prepareStatement ("UPDATE venta SET porcentajedescontado='"+variable0+"',descuento='"+ variable0+"',pago='"+solodosdecimales.format(Float.parseFloat(pagodeventacredito))+"',cambio='"+solodosdecimales.format(cambio)+"',fecha_reporte='"+fecha()+"',estado_venta='"+creditopagado+"'WHERE id_venta='"+id_ventapencredito+"'");
+        PreparedStatement ps = ca.prepareStatement ("UPDATE venta SET descuento='"+ variable0+"',pago='"+solodosdecimales.format(Float.parseFloat(pagodeventacredito))+"',cambio='"+solodosdecimales.format(cambio)+"',fecha_reporte='"+fecha()+"',estado_venta='"+creditopagado+"'WHERE id_venta='"+id_ventapencredito+"'");
                                     ps.executeUpdate();
         }catch(Exception ex){
                                     JOptionPane.showMessageDialog(null, "Error en venta" + ex.getMessage());
@@ -6290,7 +6386,11 @@ get_id_usuario();// 255 -280
                            piezasparaacomplettarpollo.isSelected()&&nombredepiezaseleccionada.equals("Patas")){ 
                        acompletarpollo(nombredepiezaseleccionada, cantidaddeproductos);
                    }   
-                   else {
+                   else if(nombredepiezaseleccionada.equals("Pechuga en bisteck")){
+                  soypechugaenbisteck=true;
+                       insertorupdatepechugaenbisteck("Pechuga", cantidaddeproductos);
+                   }
+                       else {
                         agregarpiezasaventa(nombredepiezaseleccionada);
                    }
     
@@ -6959,7 +7059,7 @@ if(masdeunapiezacocido.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE 
             Calculadora enviar = new Calculadora("Pechuga en bisteck","Escribe la cantidad");
             new Calculadora().setVisible(true);
         }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
-   
+             piezaseleccionadaycantidadunica("Pechuga en bisteck",1);
         }
     }//GEN-LAST:event_jButton55ActionPerformed
 
@@ -7095,7 +7195,13 @@ if(NoP.equals(nombredepieza)&&NoPimporte==0){ //Si el nombre del producto es dif
                 id_producto(nombredepieza); 
                 pst.setInt(1,id_producto);
                noguardaridrepetidoenstorage(id_producto);
-                pst.setString(2,nombredepieza);
+               if(soypechugaenbisteck==true){
+                   pst.setString(2,"Pechuga en bisteck");
+                
+               }else{
+                   pst.setString(2,nombredepieza);
+                
+               }
                 pst.setFloat(3,cantidaddeproductos);            
                 //EL METODO A CONTINUACION VA HACIENDO EL CONTEO DE LAS PIEZAS INDIVIDUALES
                 // PARA UNA VEZ LLEGANDO A UN POLLO ENTERO DESCONTARLO DE LA BASE           
@@ -7125,8 +7231,75 @@ if(NoP.equals(nombredepieza)&&NoPimporte==0){ //Si el nombre del producto es dif
             }//fin de la insersion a la tabla ventas
         }
     }
-    
-    
+   
+     public static void insertorupdatepechugaenbisteck(String nombredepieza, float cantidaddeproductos){
+  obtenerelnombredeproductoylacantidaddelmismo_en_descripcion_deventa("Pechuga en bisteck");
+if(NoP.equals("Pechuga en bisteck")&&NoPimporte!=0){ //Si el nombre del producto es diferente del estado vacio, en palabras más sencillas; si se encuentra el producto que se quiere agregar para que no se asigne nuevamente  
+    try{// ESTE ES PARA EL UPDATE
+          obtenerelnombredeproductoylacantidaddelmismo_en_descripcion_deventa(nombredepieza);
+          NoPcantidad=NoPcantidad+cantidaddeproductos;
+                precio_producto(nombredepieza);
+                NoPimporte = NoPcantidad*precio;
+            
+    id_producto(nombredepieza);
+                    id_max_de_venta();
+                 PreparedStatement ps = ca.prepareStatement ("UPDATE descripcion_de_venta SET cantidad='"+NoPcantidad+"',importe = '"+NoPimporte+"'WHERE importe !=0 and id_producto='"+57+"' and id_venta= '"+id_de_la_venta_incrementable+"' and fecha= '"+fecha()+"' and estado= '"+estadoenturno+"' ");
+               int a=  ps.executeUpdate();
+               if(a>0){
+                      accionesdespuesinsertarendescripciondeventaoactualizarenlamismatabla(nombredepieza,cantidaddeproductos);
+                    if(descuentoactivo==true){
+                if(Float.parseFloat(subtotal.getText())>0){
+               totalfinalcondescuento =  Float.parseFloat(subtotal.getText()) - Float.parseFloat(descuentocombo.getText());
+               total.setText(String.valueOf(totalfinalcondescuento));
+                    }
+                 }
+               }else{
+                   JOptionPane.showMessageDialog(null, " NO SE PUDO ACTIALIZAR");
+               }
+        }//fin del id del usuario
+                 catch(Exception w){
+                     JOptionPane.showMessageDialog(null, "Error en todo el codigo de update de metodo comprobar_registro" + w.getMessage());
+                 }//fin del id del usuario
+     }
+        
+        else{
+            try{ //la insersion a la tabla ventas
+                String sql = "INSERT INTO descripcion_de_venta (id_producto,nombre_producto,cantidad,precio_unitario,importe,id_venta,estado, fecha)  VALUES (?,?,?,?,?,?,?,?)";
+                PreparedStatement pst = ca.prepareCall(sql); //hasta aqui vamos
+                id_producto(nombredepieza); 
+                pst.setInt(1,57);
+               noguardaridrepetidoenstorage(57);
+               pst.setString(2,"Pechuga en bisteck");
+                pst.setFloat(3,cantidaddeproductos);            
+                //EL METODO A CONTINUACION VA HACIENDO EL CONTEO DE LAS PIEZAS INDIVIDUALES
+                // PARA UNA VEZ LLEGANDO A UN POLLO ENTERO DESCONTARLO DE LA BASE           
+                 precio_producto(nombredepieza);
+                pst.setFloat(4,precio);
+                     importe = (float)cantidaddeproductos*precio;        
+                pst.setFloat(5,importe);
+                
+                id_max_de_venta();
+                pst.setInt(6,(id_de_la_venta_incrementable));
+                pst.setString(7, estadoenturno);
+                pst.setString(8, fecha());
+                int a=pst.executeUpdate();
+                if(a>0){
+                    accionesdespuesinsertarendescripciondeventaoactualizarenlamismatabla(nombredepieza, cantidaddeproductos);
+                    if(descuentoactivo==true){//DESCUENTOACTIVO
+               
+                        if(Float.parseFloat(subtotal.getText())>0){
+               totalfinalcondescuento =  Float.parseFloat(subtotal.getText()) - Float.parseFloat(descuentocombo.getText());
+               total.setText(String.valueOf(totalfinalcondescuento));
+                    }
+                 }//DESCUENTOACTIVO            
+                                        
+                }else{//CUANDO NO SE PUDO INSERTAR
+                   }
+            }catch(SQLException e)  { //fin de la insersion a la tabla ventas
+                JOptionPane.showMessageDialog(null,"Error de datos por id vacio "+e);
+            }//fin de la insersion a la tabla ventas
+        }
+    }
    public static void agregarpiezasaventa(String nombredepieza){
          /* ******************** BOTON DE ADD NUEVO PRODUCTO PARA SU VENTA ******************** */
           primer_ventadelsistema(); // 482 - 498   Comprueba que ya haya por lo menos un id registrado en la base o en su defecto que no lo haya

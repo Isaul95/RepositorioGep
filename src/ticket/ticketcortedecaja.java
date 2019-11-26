@@ -8,7 +8,7 @@ import java.util.Date;
 import javax.swing.JOptionPane;
 
  public class ticketcortedecaja{
-  public void ticketcortedecaja(float monto, float gasto, float venta , float diferencia, float ventasmenosgastos, float totaldepagos) {
+  public void ticketcortedecaja(float monto, float gasto, float venta , float diferencia, float ventasmenosgastos, float totaldepagos, int numerodedescuentos, float totaldescuentos) {
      Date date = new Date();
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         DateFormat hourFormat = new SimpleDateFormat("HH:mm:ss");                
@@ -32,7 +32,9 @@ import javax.swing.JOptionPane;
         
         auxs+= "Fecha: " + dateFormat.format(date) + " Hora: " + hourFormat.format(date) + "\n";  System.out.println("Fecha: " + dateFormat.format(date) + " Hora: " + hourFormat.format(date) + "\n");
         auxs+= "\n==============================\n";  System.out.println("\n==============================\n");            
-          auxs+= "TOTAL DE VENTAS:    | $"+venta+"\n";             System.out.println("TOTAL DE VENTAS:    | $"+venta+"\n");      
+         auxs+= "SE HICIERON:    | "+numerodedescuentos+" DESCUENTOS"+"\n";             System.out.println("SE HICIERON:    | "+numerodedescuentos+" DESCUENTOS"+"\n");  
+         auxs+= "DANDO UN TOTAL DE:    | $"+totaldescuentos+"\n";             System.out.println("DANDO UN TOTAL DE:    | $"+totaldescuentos+"\n");  
+         auxs+= "TOTAL DE VENTAS:    | $"+venta+"\n";             System.out.println("TOTAL DE VENTAS:    | $"+venta+"\n");      
           auxs+= "+"+"\n";      System.out.println("+"+"\n");
           auxs+= "TOTAL DE PAGOS:     | $"+totaldepagos+"\n";      System.out.println("TOTAL DE PAGOS:     | $"+totaldepagos+"\n");
           auxs+= "-"+"\n";      System.out.println("-"+"\n");

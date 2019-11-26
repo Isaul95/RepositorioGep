@@ -46,8 +46,8 @@ public class Pantalla_CorteCaja extends javax.swing.JFrame  implements Runnable{
   DecimalFormat solodosdecimales = new DecimalFormat("#.##");
             
   final float pagopollo=20*90, tacos=60, almuerzo=28;//datos para la tabla utilidad
-float numerodescuentos, totaldedescuentos, totaldepagos,diferenciaentablautilidad, utilidades, total_de_crudo, total_de_procesados, ventasdeldia, gastosdeldia, montodeapertura, diferencia, diferenciafinal, precio;
-int apertura;
+float  totaldedescuentos, totaldepagos,diferenciaentablautilidad, utilidades, total_de_crudo, total_de_procesados, ventasdeldia, gastosdeldia, montodeapertura, diferencia, diferenciafinal, precio;
+int apertura, numerodescuentos;
 String  usuarioname=SI_Inicio.text_user.getText();
 int  id_usuario=Integer.parseInt(SI_Inicio.iduser.getText());
     Calendar fecha_actual = new GregorianCalendar();
@@ -493,7 +493,7 @@ public void metodogastosdeldia(){
  }//TICKET DEVOLUCION COCIDO, SOLO LAS CANTIDADES
  
  
-  public void obteniendolosvaloresdelcortedecajadeldiadehoyparaelticket(){
+  public void obteniendolosvaloresdelcortedecajadeldiadehoyparaelticket(int numerodedescuentos, float totaldescuentos){
       try{//SOLO SE LLAMA A LA CANTIDAD PORQUE EN EL TICKET YA SE DEFINIRÁN LOS NOMBRES DE CADA ARTICULO
                       sent  = (Statement)ca.createStatement();
                       rs = sent.executeQuery("select monto_entregado, gastos, ventas, diferencia from cortes where fecha=  '"+fecha()+"' ");
@@ -506,7 +506,7 @@ public void metodogastosdeldia(){
                  
                          pagoshechoseneldiaactual();
    tikectcorte = new ticketcortedecaja();     
-   tikectcorte.ticketcortedecaja(ticketmonto, ticketgasto, ticketventa, Float.parseFloat(solodosdecimales.format(ticketdiferencia)), Float.parseFloat(solodosdecimales.format(ventasmenosgastos)), Float.parseFloat(solodosdecimales.format(totaldepagos)));  
+   tikectcorte.ticketcortedecaja(ticketmonto, ticketgasto, ticketventa, Float.parseFloat(solodosdecimales.format(ticketdiferencia)), Float.parseFloat(solodosdecimales.format(ventasmenosgastos)), Float.parseFloat(solodosdecimales.format(totaldepagos)), numerodedescuentos, totaldescuentos);  
       }catch(Exception e){                                             
       }
  }
@@ -571,7 +571,8 @@ public void metodogastosdeldia(){
  // YA NO SE IMPRIME ÉSTE TICKET sobrantedepollococidodeldiaparaticketperosolocantidades();//SOBRANTE DE COCIDO PARA TICKET MOSTRANDO CANTIDADES
  productosvendidoseneldia();//TODOS LOS PRODUCTOS VENDIDOS
  // YA NO SE IMPRIME ÉSTE TICKET sobrantedepollocrudodeldiaparaticketperosolocantidades();//SOBRANTE DE TODO MENOS PECHUGA, PIERNA ALA, MUSLO, VA PARA TICKET
-     /*sii*/obteniendolosvaloresdelcortedecajadeldiadehoyparaelticket();//LOS DATOS DEL TICKET CORTE DE CAJA                                                      
+ total_numeros_y_descuentos();    
+ /*sii*/obteniendolosvaloresdelcortedecajadeldiadehoyparaelticket(numerodescuentos, totaldedescuentos);//LOS DATOS DEL TICKET CORTE DE CAJA                                                      
     /*sii*/ sobrantedepollocrudodeldiaparaticketcantidadesypiezas();//SOBRANTE DE PECHUGA, PIERNA ALA, MUSLO, VA PARA TICKET
            
             llenar_tabla_utilidad(gastosdeldia, ventasdeldia);
