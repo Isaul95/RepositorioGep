@@ -56,6 +56,7 @@ public class Pantalla_Gastos extends javax.swing.JFrame {
         //menu_principal.autocompletar();
        // Actualizar();
 //       autocompletar();
+menu_principal.noduplicargastos=true;
         this.setLocationRelativeTo(null); // CENTRAR FORMULARIO
          //AutoCompleteDecorator.decorate(menu_principal.searchforproducts);
         jDateChooserFecha.setCalendar(fecha_actual);
@@ -221,6 +222,11 @@ public class Pantalla_Gastos extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "GASTOS", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Serif", 1, 36))); // NOI18N
@@ -333,7 +339,6 @@ public class Pantalla_Gastos extends javax.swing.JFrame {
 
         gastos_btn_back.setBackground(new java.awt.Color(255, 255, 255));
         gastos_btn_back.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        gastos_btn_back.setForeground(new java.awt.Color(0, 0, 0));
         gastos_btn_back.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/salir-flecha-derecha (1).png"))); // NOI18N
         gastos_btn_back.setText("Regresar");
         gastos_btn_back.addActionListener(new java.awt.event.ActionListener() {
@@ -457,6 +462,10 @@ public void obtener_id_del_proveedor(String name){
         // BOTON DE CANCELAR LA INSERCION DE NUEVO USUARIO
         dispose();
     }//GEN-LAST:event_gastos_btn_backActionPerformed
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        menu_principal.noduplicargastos=false;
+    }//GEN-LAST:event_formWindowClosed
 
     /**
      * @param args the command line arguments

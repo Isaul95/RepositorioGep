@@ -50,6 +50,7 @@ import ticket.ticketventacredito;
 
 
 public final class menu_principal extends javax.swing.JFrame implements Runnable{
+     static boolean noduplicarexistencias=false, noduplicarcorte=false, noduplicargastos=false, noduplicarexternos=false;
                   private final String logotipo = "/Reportes/logo1.jpeg"; // icono de DATAMAX
    static ticketventacondescuento mandardatosaticketventacondescuento;  
    static ticketventa mandardatosticketventa;
@@ -2264,6 +2265,11 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         Proveedores9.setFont(new java.awt.Font("Tahoma", 1, 19)); // NOI18N
@@ -3029,7 +3035,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
                     .addGroup(COCIDOLayout.createSequentialGroup()
                         .addGroup(COCIDOLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(jButton28, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton27, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)
+                            .addComponent(jButton27, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jButton23, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jButton40, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jButton37, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -6023,7 +6029,10 @@ public void obtener_id_del_proveedor(String name){
     }//GEN-LAST:event_agregarproActionPerformed
 
     private void ExistenciasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExistenciasActionPerformed
-        new Existencias().setVisible(true);
+  if(noduplicarexistencias==false){
+      new Existencias().setVisible(true);
+  }
+        
     }//GEN-LAST:event_ExistenciasActionPerformed
 public void eliminarhuesito(int id){
     try{
@@ -6084,8 +6093,10 @@ public void eliminarpolloenterodestorage(int id_producto){
     }//GEN-LAST:event_descuentoActionPerformed
 
     private void CortedecajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CortedecajaActionPerformed
-if(Integer.parseInt(hora)>=17&&Integer.parseInt(minutos)>=15){//Se puede habilitar el corte alas 5:15 pm
-    new Pantalla_CorteCaja().setVisible(true);
+ if(Integer.parseInt(hora)>=17&&Integer.parseInt(minutos)>=15){//Se puede habilitar el corte alas 5:15 pm
+      if(noduplicarcorte==false){
+         new Pantalla_CorteCaja().setVisible(true);
+    }                 
 }
 else 
     JOptionPane.showMessageDialog(null,"Aún es muy pronto, el corte se hace después de las 5:15 pm","Verifica",JOptionPane.INFORMATION_MESSAGE);
@@ -6093,7 +6104,7 @@ else
     }//GEN-LAST:event_CortedecajaActionPerformed
 
     private void AgregarGastosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AgregarGastosActionPerformed
-new Pantalla_Gastos().setVisible(true);
+if(noduplicargastos==false){new Pantalla_Gastos().setVisible(true);}
     }//GEN-LAST:event_AgregarGastosActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -6552,7 +6563,8 @@ descuentocombo.setText("00.00");
     }//GEN-LAST:event_deletedescuentoActionPerformed
 
     private void agregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarActionPerformed
-   new ProductosExternos().setVisible(true);        
+if(noduplicarexternos==false){new ProductosExternos().setVisible(true); }
+       
     }//GEN-LAST:event_agregarActionPerformed
 
     private void salsaguajilloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salsaguajilloActionPerformed
@@ -7097,6 +7109,10 @@ if(masdeunapiezacocido.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE 
         }
         
     }//GEN-LAST:event_montoKeyReleased
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_formWindowClosed
 
  
     public static void insertorupdateoverbonnie(String nombredepieza, float cantidaddeproductos){

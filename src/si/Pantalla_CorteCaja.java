@@ -53,7 +53,8 @@ int  id_usuario=Integer.parseInt(SI_Inicio.iduser.getText());
     Calendar fecha_actual = new GregorianCalendar();
   float ticketmonto, ticketventa, ticketgasto, ticketdiferencia;
     public Pantalla_CorteCaja() {
-        initComponents();
+        initComponents();   
+         menu_principal.noduplicarcorte=true;
          hilo=new Thread(this);
      hilo.start();
         this.setLocationRelativeTo(null); // CENTRAR FORMULARIO
@@ -176,6 +177,11 @@ public void metodogastosdeldia(){
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "CORTE DE CAJA", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Serif", 1, 36))); // NOI18N
@@ -747,6 +753,10 @@ double []totales = {68.0, 68.0, 7.68, 8.15, 7.50, 5.95, 23.00, 16.00, 0.00, 11.0
     private void montoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_montoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_montoActionPerformed
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+         menu_principal.noduplicarcorte=false;
+    }//GEN-LAST:event_formWindowClosed
 
     /**
      * @param args the command line arguments

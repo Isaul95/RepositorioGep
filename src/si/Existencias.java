@@ -21,7 +21,7 @@ import ticket.ticketcortedecaja;
 
 
 public class Existencias extends javax.swing.JFrame  implements Runnable{
-    Thread hilo;
+    Thread hilo;    
     String hora,minutos,segundos;
     Statement sent;  
   ResultSet rs;     
@@ -36,6 +36,7 @@ int  id_usuario=Integer.parseInt(SI_Inicio.iduser.getText());
   
     public Existencias() {
         initComponents();
+         menu_principal.noduplicarexistencias=true;
          hilo=new Thread(this);
      hilo.start();
         this.setLocationRelativeTo(null); // CENTRAR FORMULARIO
@@ -141,6 +142,11 @@ int  id_usuario=Integer.parseInt(SI_Inicio.iduser.getText());
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "EXISTENCIAS", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Serif", 1, 36))); // NOI18N
@@ -242,11 +248,11 @@ int  id_usuario=Integer.parseInt(SI_Inicio.iduser.getText());
        String textobusqueda = busqueda.getText();
        mostrartodoslosproductosenexistenciasporbusqueda(textobusqueda);
     }//GEN-LAST:event_busquedaKeyReleased
-     
-   
- 
 
-    
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+          menu_principal.noduplicarexistencias=false;
+    }//GEN-LAST:event_formWindowClosed
+
     /**
      * @param args the command line arguments
      */

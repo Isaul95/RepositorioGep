@@ -40,6 +40,7 @@ int  id_usuario=Integer.parseInt(SI_Inicio.iduser.getText());
     Calendar fecha_actual = new GregorianCalendar();
     public ProductosExternos() {
         initComponents();
+        menu_principal.noduplicarexternos=true;
          hilo=new Thread(this);
      hilo.start();
         this.setLocationRelativeTo(null); // CENTRAR FORMULARIO
@@ -197,6 +198,11 @@ int  id_usuario=Integer.parseInt(SI_Inicio.iduser.getText());
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Producto externo", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Serif", 1, 36))); // NOI18N
@@ -255,7 +261,7 @@ int  id_usuario=Integer.parseInt(SI_Inicio.iduser.getText());
         combopieza.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         combopieza.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pechuga", "Muslo", "Pierna", "Ala", "Huacal", "Cadera", "Cabeza", "Molleja", "Patas" }));
         jPanel2.add(combopieza);
-        combopieza.setBounds(30, 190, 180, 30);
+        combopieza.setBounds(30, 190, 180, 34);
 
         combosucursal.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         combosucursal.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Blanca", "Zapata", "Mercado" }));
@@ -309,7 +315,7 @@ int  id_usuario=Integer.parseInt(SI_Inicio.iduser.getText());
             }
         });
         calculadora.add(nueve);
-        nueve.setBounds(80, 64, 41, 50);
+        nueve.setBounds(80, 64, 38, 50);
 
         ocho.setBackground(new java.awt.Color(0, 51, 102));
         ocho.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
@@ -988,6 +994,10 @@ public void nombresypiezas(){
     private void borrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_borrarActionPerformed
         cantidad.setText("");
     }//GEN-LAST:event_borrarActionPerformed
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+      menu_principal.noduplicarexternos=false;
+    }//GEN-LAST:event_formWindowClosed
  
     /**
      * @param args the command line arguments
