@@ -66,7 +66,7 @@ static Statement sent;
   static ArrayList storage = new ArrayList(); // para guardar los id de cada producto que se ha agregado a la tabla venta
  static String[] piezas = {"pollo crudo", "Pechuga", "Muslo","Pierna","Ala","Huacal","Cadera","Cabeza", "Molleja", "Patas"};
 static String[] piezasdemedio = {"Medio pollo","Pechuga", "Muslo","Pierna","Ala","Huacal", "Molleja", "Patas"};
-static ArrayList piezasquenohay = new ArrayList();
+
 
  static double cantidaddemedio, cantidaddecuarto, medio=0.50, cuarto=0.25;
         ArrayList idsenturno = new ArrayList();
@@ -78,7 +78,7 @@ static ArrayList preciounitarioticket = new ArrayList();
 static ArrayList importesticket = new ArrayList();
 //DATA MAX FULL VERSION
 
-  static boolean voyacobrar=false, descuentoactivo=false, suficientespiezas=true, block_unlock=true,tablaventaactiva=false;
+  static boolean soypechugaenbisteck=false, voyacobrar=false, descuentoactivo=false, suficientespiezas=true, block_unlock=true,tablaventaactiva=false;
 static String nombredepiezaseleccionada="";
 static float cantidaddeproductos=0, cantidadparapollocrudo=0;
 static boolean seagregoexterno=false;
@@ -1144,9 +1144,6 @@ public static void insertandopiezasdepolloporhaberagregadoxcantidaddepollocrudo(
                  catch(Exception w){
                  JOptionPane.showMessageDialog(null, "Error" + w.getMessage());
                  }//fin del id del usuario
-               }else if(!nombredepieza.equals("pollo crudo")||!nombredepieza.equals("Medio pollo")){
-                piezasquenohay.add(nombredepieza);
-                 piezasparaacomplettarpollo.setVisible(true);
                }
     }
 
@@ -1453,6 +1450,7 @@ public void cantidadenventa(int pieza){
       
                     //  descuentodepollo();                  
                     mostrartabladeventas();
+                    soypechugaenbisteck=false;
                     tablaventaactiva=true;
                 cantidaddecuarto=0;
                 cantidaddemedio=0;
@@ -6333,31 +6331,46 @@ get_id_usuario();// 255 -280
                         || piezas[i].toString().equals("Pierna")
                         || piezas[i].toString().equals("Ala")
                         || piezas[i].toString().equals("Patas")) {
-                    cantidaddeproductos = 2 * cantidadparapollocrudo;
+                    piezassuficientes(piezas[i].toString());//verifica primero que haya las suficientes piezas para agregar un producto a la venta    
+            if (suficientespiezas == true) {
+                cantidaddeproductos = 2 * cantidadparapollocrudo;
                     acompletarpollo(piezas[i].toString(), cantidaddeproductos);
+            }else{ piezasparaacomplettarpollo.setVisible(true); JOptionPane.showMessageDialog(null, "Solo hay " + piezassuficientes + " piezas de "+piezas[i].toString(), "Advertencia", JOptionPane.ERROR_MESSAGE);}
+                    
                 } else {
                     if (piezas[i].toString().equals("pollo crudo")) {
                         cantidaddeproductos = 1 * cantidadparapollocrudo;
                         agregarpiezasaventa(piezas[i].toString());
-                    } else {
-                        cantidaddeproductos = 1 * cantidadparapollocrudo;
+                    } 
+                    else { piezassuficientes(piezas[i].toString());//verifica primero que haya las suficientes piezas para agregar un producto a la venta    
+            if (suficientespiezas == true) {
+                cantidaddeproductos = 1 * cantidadparapollocrudo;
                         acompletarpollo(piezas[i].toString(), cantidaddeproductos);
-                    }
+            }else{ piezasparaacomplettarpollo.setVisible(true); JOptionPane.showMessageDialog(null, "Solo hay " + piezassuficientes + " piezas de "+piezas[i].toString(), "Advertencia", JOptionPane.ERROR_MESSAGE);}
+             }
                 }
             }
-        } else if (nombredepiezaseleccionada.equals("Medio pollo")) {//ESTO INDICA QUE ES MEDIO POLLO
+        } else if (nombredepiezaseleccionada.equals("Medio pollo")&& piezasparaacomplettarpollo.isSelected() == false) {//ESTO INDICA QUE ES MEDIO POLLO
             for (int i = 0; i < piezasdemedio.length; i++) {
                 if (piezasdemedio[i].toString().equals("Pechuga")) {
-                    cantidaddeproductos = (float) medio * cantidadparapollocrudo;
+                    piezassuficientes(piezasdemedio[i].toString());//verifica primero que haya las suficientes piezas para agregar un producto a la venta    
+            if (suficientespiezas == true) {
+                cantidaddeproductos = (float) medio * cantidadparapollocrudo;
                     acompletarpollo(piezasdemedio[i].toString(), cantidaddeproductos);
+            }else{ piezasparaacomplettarpollo.setVisible(true); JOptionPane.showMessageDialog(null, "Solo hay " + piezassuficientes + " piezas de "+piezasdemedio[i].toString(), "Advertencia", JOptionPane.ERROR_MESSAGE);}
+         
+                    
                 } else {
                     if (piezasdemedio[i].toString().equals("Medio pollo")) {
                         cantidaddeproductos = 1 * cantidadparapollocrudo;
                         agregarpiezasaventa(piezasdemedio[i].toString());
                     } else {
-                        cantidaddeproductos = 1 * cantidadparapollocrudo;
+                             piezassuficientes(piezasdemedio[i].toString());//verifica primero que haya las suficientes piezas para agregar un producto a la venta    
+            if (suficientespiezas == true) {
+                   cantidaddeproductos = 1 * cantidadparapollocrudo;
                         acompletarpollo(piezasdemedio[i].toString(), cantidaddeproductos);
-                    }
+            }else{ piezasparaacomplettarpollo.setVisible(true); JOptionPane.showMessageDialog(null, "Solo hay " + piezassuficientes + " piezas de "+piezasdemedio[i].toString(), "Advertencia", JOptionPane.ERROR_MESSAGE);}
+          }
                 }
             }
         } else if (nombredepiezaseleccionada.equals("Huesito") || nombredepiezaseleccionada.equals("Longaniza")) {
@@ -6367,27 +6380,16 @@ get_id_usuario();// 255 -280
                 agregarpiezasaventa("Longaniza");
 
             }
-        } else if (piezasparaacomplettarpollo.isSelected() && nombredepiezaseleccionada.equals("Pechuga")
-                || piezasparaacomplettarpollo.isSelected() && nombredepiezaseleccionada.equals("Muslo")
-                || piezasparaacomplettarpollo.isSelected() && nombredepiezaseleccionada.equals("Pierna")
-                || piezasparaacomplettarpollo.isSelected() && nombredepiezaseleccionada.equals("Ala")
-                || piezasparaacomplettarpollo.isSelected() && nombredepiezaseleccionada.equals("Huacal")
-                || piezasparaacomplettarpollo.isSelected() && nombredepiezaseleccionada.equals("Cadera")
-                || piezasparaacomplettarpollo.isSelected() && nombredepiezaseleccionada.equals("Cabeza")
-                || piezasparaacomplettarpollo.isSelected() && nombredepiezaseleccionada.equals("Molleja")
-                || piezasparaacomplettarpollo.isSelected() && nombredepiezaseleccionada.equals("Patas")) {
-            acompletarpollo(nombredepiezaseleccionada, cantidaddeproductos);
         } else if (nombredepiezaseleccionada.equals("Pechuga en bisteck")) {
-
-            piezassuficientes("Pechuga");//verifica primero que haya las suficientes piezas para agregar un producto a la venta    
+     piezassuficientes("Pechuga");//verifica primero que haya las suficientes piezas para agregar un producto a la venta    
             if (suficientespiezas == true) {
-                insertorupdatepechugaenbisteck("Pechuga", cantidaddeproductos);
+                soypechugaenbisteck=true;
+                agregarpiezasaventa("Pechuga");
             } else {
-                JOptionPane.showMessageDialog(null, "Solo hay " + piezassuficientes + "piezas de Pechuga", "Advertencia", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Solo hay " + piezassuficientes + " piezas de Pechuga", "Advertencia", JOptionPane.ERROR_MESSAGE);
+           }
 
-            }
-
-        } else {
+        } else if(!nombredepiezaseleccionada.equals("pollo crudo")||!nombredepiezaseleccionada.equals("Medio pollo")){
             agregarpiezasaventa(nombredepiezaseleccionada);
         }
 
@@ -6931,7 +6933,9 @@ if(masdeunapiezacocido.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE 
 
     private void jButton42ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton42ActionPerformed
         if(masdeunapiezacrudo.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
-           piezaseleccionadaycantidadvariable(1, "Medio pollo");
+            Calculadora enviar = new Calculadora("Medio pollo","Escribe la cantidad");
+
+            new Calculadora().setVisible(true);
 
         }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
             piezaseleccionadaycantidadvariable(1, "Medio pollo");
@@ -7302,7 +7306,19 @@ if(NoP.equals("Pechuga en bisteck")&&NoPimporte!=0){ //Si el nombre del producto
               block_unlock=false;   //se desactiva la condicion que indica que ya no se agregue otro id venta ya que aún no se ha concluido la primer venta
            if(nombredepieza.equals("Huesito")||nombredepieza.equals("Longaniza")){
         insertorupdateoverbonnie(nombredepieza, cantidaddeproductos);
-          }
+          }else if(soypechugaenbisteck==true){
+                 insertorupdatepechugaenbisteck("Pechuga", cantidaddeproductos);
+          }else if (piezasparaacomplettarpollo.isSelected() && nombredepiezaseleccionada.equals("Pechuga")&&soypechugaenbisteck==false
+                || piezasparaacomplettarpollo.isSelected() && nombredepiezaseleccionada.equals("Muslo")&&soypechugaenbisteck==false
+                || piezasparaacomplettarpollo.isSelected() && nombredepiezaseleccionada.equals("Pierna")&&soypechugaenbisteck==false
+                || piezasparaacomplettarpollo.isSelected() && nombredepiezaseleccionada.equals("Ala")&&soypechugaenbisteck==false
+                || piezasparaacomplettarpollo.isSelected() && nombredepiezaseleccionada.equals("Huacal")&&soypechugaenbisteck==false
+                || piezasparaacomplettarpollo.isSelected() && nombredepiezaseleccionada.equals("Cadera")&&soypechugaenbisteck==false
+                || piezasparaacomplettarpollo.isSelected() && nombredepiezaseleccionada.equals("Cabeza")&&soypechugaenbisteck==false
+                || piezasparaacomplettarpollo.isSelected() && nombredepiezaseleccionada.equals("Molleja")&&soypechugaenbisteck==false
+                || piezasparaacomplettarpollo.isSelected() && nombredepiezaseleccionada.equals("Patas")&&soypechugaenbisteck==false) {
+            acompletarpollo(nombredepiezaseleccionada, cantidaddeproductos);
+        } 
            else{
                comprobar_registro(nombredepieza); // esto es para agregar los productos a la tabla de descripcion de venta y 
            }   
@@ -7316,7 +7332,19 @@ get_id_usuario();// 255 -280
               block_unlock=false;   
              if(nombredepieza.equals("Huesito")||nombredepieza.equals("Longaniza")){
        insertorupdateoverbonnie(nombredepieza, cantidaddeproductos);
-          }
+          }else if(soypechugaenbisteck==true){
+                 insertorupdatepechugaenbisteck("Pechuga", cantidaddeproductos);
+          }else if (piezasparaacomplettarpollo.isSelected() && nombredepiezaseleccionada.equals("Pechuga")
+                || piezasparaacomplettarpollo.isSelected() && nombredepiezaseleccionada.equals("Muslo")
+                || piezasparaacomplettarpollo.isSelected() && nombredepiezaseleccionada.equals("Pierna")
+                || piezasparaacomplettarpollo.isSelected() && nombredepiezaseleccionada.equals("Ala")
+                || piezasparaacomplettarpollo.isSelected() && nombredepiezaseleccionada.equals("Huacal")
+                || piezasparaacomplettarpollo.isSelected() && nombredepiezaseleccionada.equals("Cadera")
+                || piezasparaacomplettarpollo.isSelected() && nombredepiezaseleccionada.equals("Cabeza")
+                || piezasparaacomplettarpollo.isSelected() && nombredepiezaseleccionada.equals("Molleja")
+                || piezasparaacomplettarpollo.isSelected() && nombredepiezaseleccionada.equals("Patas")) {
+            acompletarpollo(nombredepiezaseleccionada, cantidaddeproductos);
+        } 
              else{
                comprobar_registro(nombredepieza); // esto es para agregar los productos a la tabla de descripcion de venta y 
            } 
