@@ -78,7 +78,7 @@ static ArrayList preciounitarioticket = new ArrayList();
 static ArrayList importesticket = new ArrayList();
 //DATA MAX FULL VERSION
 
-  static boolean soypechugaenbisteck=false, voyacobrar=false, descuentoactivo=false, suficientespiezas=true, block_unlock=true,tablaventaactiva=false;
+  static boolean voyacobrar=false, descuentoactivo=false, suficientespiezas=true, block_unlock=true,tablaventaactiva=false;
 static String nombredepiezaseleccionada="";
 static float cantidaddeproductos=0, cantidadparapollocrudo=0;
 static boolean seagregoexterno=false;
@@ -1450,7 +1450,7 @@ public void cantidadenventa(int pieza){
                     NoP="";
  } else{
        descontardeinventario(nombredepieza, cantidaddeproductos);
-       soypechugaenbisteck=false;
+      
                     //  descuentodepollo();                  
                     mostrartabladeventas();
                     tablaventaactiva=true;
@@ -1528,13 +1528,8 @@ if(NoP.equals(nombredepieza)&&NoPimporte!=0){ //Si el nombre del producto es dif
                 id_producto(nombredepieza); 
                 pst.setInt(1,id_producto);
                 noguardaridrepetidoenstorage(id_producto);
-                if(soypechugaenbisteck==true){
-                    pst.setString(2,"Pechuga en bisteck");
-                }else{
-                    pst.setString(2,nombredepieza);
-               
-                }
-                  pst.setFloat(3,cantidaddeproductos);    
+               pst.setString(2,nombredepieza);
+                                 pst.setFloat(3,cantidaddeproductos);    
                 //EL METODO A CONTINUACION VA HACIENDO EL CONTEO DE LAS PIEZAS INDIVIDUALES
                 // PARA UNA VEZ LLEGANDO A UN POLLO ENTERO DESCONTARLO DE LA BASE           
                 precio_producto(nombredepieza);
@@ -6321,79 +6316,81 @@ get_id_usuario();// 255 -280
     }//GEN-LAST:event_pagarventaacreditoActionPerformed
 
     
-    public static void agregandoaventa(String nombredepiezaseleccionada, float cantidaddeproductos){
- if(nombredepiezaseleccionada.equals("Pierna completa")){
-                        String[] piernafull = {"Muslo","Pierna"};
-                           for (int i = 0; i < piernafull.length; i++) {
-                              agregarpiezasaventa(piernafull[i].toString());
-                           }
-                   }else if(nombredepiezaseleccionada.equals("Huacal completo")){
-                       String[] hucalfull = {"Huacal","Cadera"};
-                           for (int i = 0; i < hucalfull.length; i++) {
-                                agregarpiezasaventa(hucalfull[i].toString());
-                           }
-                   }      
- else if(nombredepiezaseleccionada.equals("pollo crudo")&&piezasparaacomplettarpollo.isSelected()==false){//TODAS LAS PIEZAS QUE CORRESONDE A UN POLLO ENTERO
-  for (int i = 0; i < piezas.length; i++) {
-                    if(piezas[i].toString().equals("Muslo")||
-                                   piezas[i].toString().equals("Pierna")||
-                                   piezas[i].toString().equals("Ala")||
-                                           piezas[i].toString().equals("Patas")){
-                      cantidaddeproductos=2*cantidadparapollocrudo;
-                   acompletarpollo(piezas[i].toString(), cantidaddeproductos);
-                        }else{
-                          if(piezas[i].toString().equals("pollo crudo")){
-                           cantidaddeproductos=1*cantidadparapollocrudo;
-                         agregarpiezasaventa(piezas[i].toString());
-                           }else{
-                              cantidaddeproductos=1*cantidadparapollocrudo;  
-          acompletarpollo(piezas[i].toString(), cantidaddeproductos);
-                           }
-                    }  
-                  }
-          }
-          else  if(nombredepiezaseleccionada.equals("Medio pollo")){//ESTO INDICA QUE ES MEDIO POLLO
-          for (int i = 0; i < piezasdemedio.length; i++) {
-                    if(piezasdemedio[i].toString().equals("Pechuga")){
-                      cantidaddeproductos=(float)medio*cantidadparapollocrudo;
-                   acompletarpollo(piezasdemedio[i].toString(), cantidaddeproductos);
-                        }else{
-                          if(piezasdemedio[i].toString().equals("Medio pollo")){
-                           cantidaddeproductos=1*cantidadparapollocrudo;
-                         agregarpiezasaventa(piezasdemedio[i].toString());
-                           }else{
-                              cantidaddeproductos=1*cantidadparapollocrudo;  
-                           acompletarpollo(piezasdemedio[i].toString(), cantidaddeproductos);
-                           }
-                    }  
-                  }      
-          }
-                   else if(nombredepiezaseleccionada.equals("Huesito")||nombredepiezaseleccionada.equals("Longaniza")){
-                       if(nombredepiezaseleccionada.equals("Huesito")){
-                            agregarpiezasaventa("Huesito");
-                       }else{
-                                  agregarpiezasaventa("Longaniza");
-               
-                       }
-                    }else if(piezasparaacomplettarpollo.isSelected()&&nombredepiezaseleccionada.equals("Pechuga")||
-                                piezasparaacomplettarpollo.isSelected()&&nombredepiezaseleccionada.equals("Muslo")||
-                           piezasparaacomplettarpollo.isSelected()&&nombredepiezaseleccionada.equals("Pierna")||
-                           piezasparaacomplettarpollo.isSelected()&&nombredepiezaseleccionada.equals("Ala")||
-                           piezasparaacomplettarpollo.isSelected()&&nombredepiezaseleccionada.equals("Huacal")||
-                           piezasparaacomplettarpollo.isSelected()&&nombredepiezaseleccionada.equals("Cadera")||
-                           piezasparaacomplettarpollo.isSelected()&&nombredepiezaseleccionada.equals("Cabeza")||
-                           piezasparaacomplettarpollo.isSelected()&&nombredepiezaseleccionada.equals("Molleja")||
-                           piezasparaacomplettarpollo.isSelected()&&nombredepiezaseleccionada.equals("Patas")){ 
-                       acompletarpollo(nombredepiezaseleccionada, cantidaddeproductos);
-                   }   
-                   else if(nombredepiezaseleccionada.equals("Pechuga en bisteck")){
-                  soypechugaenbisteck=true;
-                       insertorupdatepechugaenbisteck("Pechuga", cantidaddeproductos);
-                   }
-                       else {
-                        agregarpiezasaventa(nombredepiezaseleccionada);
-                   }
-    
+    public static void agregandoaventa(String nombredepiezaseleccionada, float cantidaddeproductos) {
+        if (nombredepiezaseleccionada.equals("Pierna completa")) {
+            String[] piernafull = {"Muslo", "Pierna"};
+            for (int i = 0; i < piernafull.length; i++) {
+                agregarpiezasaventa(piernafull[i].toString());
+            }
+        } else if (nombredepiezaseleccionada.equals("Huacal completo")) {
+            String[] hucalfull = {"Huacal", "Cadera"};
+            for (int i = 0; i < hucalfull.length; i++) {
+                agregarpiezasaventa(hucalfull[i].toString());
+            }
+        } else if (nombredepiezaseleccionada.equals("pollo crudo") && piezasparaacomplettarpollo.isSelected() == false) {//TODAS LAS PIEZAS QUE CORRESONDE A UN POLLO ENTERO
+            for (int i = 0; i < piezas.length; i++) {
+                if (piezas[i].toString().equals("Muslo")
+                        || piezas[i].toString().equals("Pierna")
+                        || piezas[i].toString().equals("Ala")
+                        || piezas[i].toString().equals("Patas")) {
+                    cantidaddeproductos = 2 * cantidadparapollocrudo;
+                    acompletarpollo(piezas[i].toString(), cantidaddeproductos);
+                } else {
+                    if (piezas[i].toString().equals("pollo crudo")) {
+                        cantidaddeproductos = 1 * cantidadparapollocrudo;
+                        agregarpiezasaventa(piezas[i].toString());
+                    } else {
+                        cantidaddeproductos = 1 * cantidadparapollocrudo;
+                        acompletarpollo(piezas[i].toString(), cantidaddeproductos);
+                    }
+                }
+            }
+        } else if (nombredepiezaseleccionada.equals("Medio pollo")) {//ESTO INDICA QUE ES MEDIO POLLO
+            for (int i = 0; i < piezasdemedio.length; i++) {
+                if (piezasdemedio[i].toString().equals("Pechuga")) {
+                    cantidaddeproductos = (float) medio * cantidadparapollocrudo;
+                    acompletarpollo(piezasdemedio[i].toString(), cantidaddeproductos);
+                } else {
+                    if (piezasdemedio[i].toString().equals("Medio pollo")) {
+                        cantidaddeproductos = 1 * cantidadparapollocrudo;
+                        agregarpiezasaventa(piezasdemedio[i].toString());
+                    } else {
+                        cantidaddeproductos = 1 * cantidadparapollocrudo;
+                        acompletarpollo(piezasdemedio[i].toString(), cantidaddeproductos);
+                    }
+                }
+            }
+        } else if (nombredepiezaseleccionada.equals("Huesito") || nombredepiezaseleccionada.equals("Longaniza")) {
+            if (nombredepiezaseleccionada.equals("Huesito")) {
+                agregarpiezasaventa("Huesito");
+            } else {
+                agregarpiezasaventa("Longaniza");
+
+            }
+        } else if (piezasparaacomplettarpollo.isSelected() && nombredepiezaseleccionada.equals("Pechuga")
+                || piezasparaacomplettarpollo.isSelected() && nombredepiezaseleccionada.equals("Muslo")
+                || piezasparaacomplettarpollo.isSelected() && nombredepiezaseleccionada.equals("Pierna")
+                || piezasparaacomplettarpollo.isSelected() && nombredepiezaseleccionada.equals("Ala")
+                || piezasparaacomplettarpollo.isSelected() && nombredepiezaseleccionada.equals("Huacal")
+                || piezasparaacomplettarpollo.isSelected() && nombredepiezaseleccionada.equals("Cadera")
+                || piezasparaacomplettarpollo.isSelected() && nombredepiezaseleccionada.equals("Cabeza")
+                || piezasparaacomplettarpollo.isSelected() && nombredepiezaseleccionada.equals("Molleja")
+                || piezasparaacomplettarpollo.isSelected() && nombredepiezaseleccionada.equals("Patas")) {
+            acompletarpollo(nombredepiezaseleccionada, cantidaddeproductos);
+        } else if (nombredepiezaseleccionada.equals("Pechuga en bisteck")) {
+
+            piezassuficientes("Pechuga");//verifica primero que haya las suficientes piezas para agregar un producto a la venta    
+            if (suficientespiezas == true) {
+                insertorupdatepechugaenbisteck("Pechuga", cantidaddeproductos);
+            } else {
+                JOptionPane.showMessageDialog(null, "Solo hay " + piezassuficientes + "piezas de Pechuga", "Advertencia", JOptionPane.ERROR_MESSAGE);
+
+            }
+
+        } else {
+            agregarpiezasaventa(nombredepiezaseleccionada);
+        }
+
     }
     
     public static void metodo_de_cobro(float variablepago){
@@ -7195,13 +7192,8 @@ if(NoP.equals(nombredepieza)&&NoPimporte==0){ //Si el nombre del producto es dif
                 id_producto(nombredepieza); 
                 pst.setInt(1,id_producto);
                noguardaridrepetidoenstorage(id_producto);
-               if(soypechugaenbisteck==true){
-                   pst.setString(2,"Pechuga en bisteck");
-                
-               }else{
-                   pst.setString(2,nombredepieza);
-                
-               }
+                pst.setString(2,nombredepieza);
+               
                 pst.setFloat(3,cantidaddeproductos);            
                 //EL METODO A CONTINUACION VA HACIENDO EL CONTEO DE LAS PIEZAS INDIVIDUALES
                 // PARA UNA VEZ LLEGANDO A UN POLLO ENTERO DESCONTARLO DE LA BASE           

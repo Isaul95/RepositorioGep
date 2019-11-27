@@ -32,25 +32,25 @@ import javax.swing.JOptionPane;
         
         auxs+= "Fecha: " + dateFormat.format(date) + " Hora: " + hourFormat.format(date) + "\n";  System.out.println("Fecha: " + dateFormat.format(date) + " Hora: " + hourFormat.format(date) + "\n");
         auxs+= "\n==============================\n";  System.out.println("\n==============================\n");            
-         auxs+= "SE HICIERON:    | "+numerodedescuentos+" DESCUENTOS"+"\n";             System.out.println("SE HICIERON:    | "+numerodedescuentos+" DESCUENTOS"+"\n");  
-         auxs+= "DANDO UN TOTAL DE:    | $"+totaldescuentos+"\n";             System.out.println("DANDO UN TOTAL DE:    | $"+totaldescuentos+"\n");  
-         auxs+= "TOTAL DE VENTAS:    | $"+venta+"\n";             System.out.println("TOTAL DE VENTAS:    | $"+venta+"\n");      
+         auxs+= "SE HICIERON:     "+numerodedescuentos+" DESCUENTOS"+"\n";             System.out.println("SE HICIERON:     "+numerodedescuentos+" DESCUENTOS"+"\n");  
+         auxs+= "DANDO UN TOTAL DE:     $"+totaldescuentos+"\n";             System.out.println("DANDO UN TOTAL DE:     $"+totaldescuentos+"\n");  
+         auxs+= "TOTAL DE VENTAS:     $"+venta+"\n";             System.out.println("TOTAL DE VENTAS:     $"+venta+"\n");      
           auxs+= "+"+"\n";      System.out.println("+"+"\n");
-          auxs+= "TOTAL DE PAGOS:     | $"+totaldepagos+"\n";      System.out.println("TOTAL DE PAGOS:     | $"+totaldepagos+"\n");
+          auxs+= "TOTAL DE PAGOS:      $"+totaldepagos+"\n";      System.out.println("TOTAL DE PAGOS:      $"+totaldepagos+"\n");
           auxs+= "-"+"\n";      System.out.println("-"+"\n");
-          auxs+= "TOTAL DE GASTOS     | $"+gasto+"\n";             System.out.println("TOTAL DE GASTOS     | $"+gasto+"\n");        
+          auxs+= "TOTAL DE GASTOS      $"+gasto+"\n";             System.out.println("TOTAL DE GASTOS      $"+gasto+"\n");        
           auxs+= "="+"\n";      System.out.println("="+"\n");
-          auxs+= "TOTAL DE EFECTIVO:  | $"+ventasmenosgastos+"\n"; System.out.println("TOTAL DE EFECTIVO:  | $"+ventasmenosgastos+"\n");                   
+          auxs+= "TOTAL DE EFECTIVO:   $"+ventasmenosgastos+"\n"; System.out.println("TOTAL DE EFECTIVO:   $"+ventasmenosgastos+"\n");                   
           auxs+= "="+"\n";      System.out.println("="+"\n");
-          auxs+= "TOTAL DE ENTREGADO: | $"+monto+"\n";             System.out.println("TOTAL DE ENTREGADO: | $"+monto+"\n"); 
+          auxs+= "TOTAL DE ENTREGADO:  $"+monto+"\n";             System.out.println("TOTAL DE ENTREGADO:  $"+monto+"\n"); 
         auxs+= "\n==============================\n";  System.out.println("\n==============================\n");       
         if(diferencia>0){
-         auxs+= "SOBRO LA CANTIDAD DE: $ "+String.format("%.10f", diferencia)+"\n";   System.out.println("DIFERENCIA: $ "+String.format("%.10f", diferencia)+"\n");           
+         auxs+= "SOBRO LA CANTIDAD DE: $ "+String.format("%.2f", diferencia)+"\n";   System.out.println("DIFERENCIA: $ "+String.format("%.2f", diferencia)+"\n");           
         //PENDIENTE CORREGIR EL METODO DIFERENCIA
         }else if(diferencia<0){
-          auxs+= "HACE FALTA LA CANTIDAD DE: $ "+String.format("%.10f", diferencia)+"\n";   System.out.println("DIFERENCIA: $ "+String.format("%.10f", diferencia)+"\n");           
+          auxs+= "HACE FALTA LA CANTIDAD DE: $ "+String.format("%.2f", diferencia)+"\n";   System.out.println("DIFERENCIA: $ "+String.format("%.2f", diferencia)+"\n");           
         }else{
-        auxs+= "TODO ESTÁ EN ORDEN:  "+String.format("%.10f", diferencia)+"\n";   System.out.println("DIFERENCIA: $ "+String.format("%.10f", diferencia)+"\n");           
+        auxs+= "TODO ESTÁ EN ORDEN:  "+String.format("%.2f", diferencia)+"\n";   System.out.println("DIFERENCIA: $ "+String.format("%.2f", diferencia)+"\n");           
                    }  
          auxs+= "\n\n\n"; // SALTOS PARA K NO LO CORTE LUEGO
        try {

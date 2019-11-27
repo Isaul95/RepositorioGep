@@ -12,6 +12,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 import static si.Pantalla_CorteCaja.monto;
+import static si.menu_principal.ca;
 
 
 public class Apertura extends javax.swing.JFrame implements Runnable{
@@ -213,11 +214,11 @@ public boolean validarFormulario(String cantidaddecorte) { // VALIDACION DE TXT 
                
                 int a=pst.executeUpdate();
                 if(a>0){
+                    insertarpiezaspordefault();
                     this.setVisible(false);  
                                      // HERE 
                               new menu_principal().setVisible(true);
                                this.setIconImage(null);
-                           
                 }
             }catch(SQLException e)  { //fin de la insersion a la tabla ventas
                 JOptionPane.showMessageDialog(null,"Error de datos por id vacio "+e);
@@ -226,6 +227,58 @@ public boolean validarFormulario(String cantidaddecorte) { // VALIDACION DE TXT 
        
                  }
     }//GEN-LAST:event_Corte_btnImprimirticketActionPerformed
+public void insertarpiezaspordefault(){
+   String nombres[]= {"Pollo rostizado",
+       "Pollo asado",
+       "Pech. broaster",
+       "Muslo broaster",
+       "Pierna broaster",
+       "Ala broaster",
+       "Alitas bbq",
+       "Barbacoa de pollo",
+       "Spagueti blanco",
+       "Spagueti rojo",
+       "Arroz blanco",
+       "Arroz rojo",
+       "Frijoles puercos",
+       "Frijoles peruanos",
+       "Frijoles charros",
+       "Cochinita",
+       "Pure",
+       "Nuggets",
+       "Mininuggets",
+       "Tacos"};
+   int cantidades[]={2,
+       2,
+       7,
+       7,
+       7,
+       7,
+       2,
+       1,
+       2,
+       1,
+       1,
+       2,
+       1,
+       2,
+       2,
+       1,
+       1,
+       4,
+       8,
+       30};
+   for(int a=0; a<nombres.length; a++){
+       try{              
+           PreparedStatement ps = ca.prepareStatement ("UPDATE productos SET cantidad='"+cantidades[a]+"'WHERE nombre_producto='"+nombres[a]+"'");
+                  int b = ps.executeUpdate();
+                if(b>0){   
+                }
+                  }catch(Exception e){
+                               System.err.print(e);
+                     }
+   }
+}
 
     private void montoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_montoFocusGained
         // *********************   CAJA DE TEXTO DE PAGOO *********

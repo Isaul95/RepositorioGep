@@ -63,7 +63,7 @@ int  id_usuario=Integer.parseInt(SI_Inicio.iduser.getText());
         aperturadeldia();
         pagoshechoseneldiaactual();
         total_numeros_y_descuentos();
-           numerosdescuentos.setText(String.valueOf(numerodescuentos)+" descuentos");
+           numerosdescuentos.setText(String.valueOf(numerodescuentos));
            totaldescuentos.setText(String.valueOf("$"+totaldedescuentos));
         aperturacantidad.setText(String.valueOf(montodeapertura));
         Ventasfortoday1.setText(String.valueOf(ventasdeldia));
