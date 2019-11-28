@@ -189,17 +189,17 @@ agregandoaventa(nombredepiezaseleccionada, cantidaddeproductos);
     modelo.addColumn("Fecha"); 
  modelo.addColumn("Ventas");
       modelo.addColumn("Pagos");
-    modelo.addColumn("Devolucion crudo");
+    modelo.addColumn("Dev. crudo");
     modelo.addColumn("Procesados");
-     modelo.addColumn("Pago pollo");
-      modelo.addColumn("Tacos");
+ // 20 X 90 1800    modelo.addColumn("Pago pollo");
+   //60 PESOS   modelo.addColumn("Tacos");
        modelo.addColumn("Utilidad");
-       modelo.addColumn("Almuerzo");
+      // 28 PESOS modelo.addColumn("Almuerzo");
  modelo.addColumn("Diferencia");  
   modelo.addColumn("Gastos");  
   
      utilidad.setModel(modelo);  // Ya una vez asignado todos los nombres se le envia el objeto a la tabla proveedores
-    String []datos = new String[11];     //Un arreglo con la cantidad de nombres en las columnas
+    String []datos = new String[8];     //Un arreglo con la cantidad de nombres en las columnas
     try {
         id_max_de_venta();
              sent = ca.createStatement();   
@@ -210,12 +210,12 @@ agregandoaventa(nombredepiezaseleccionada, cantidaddeproductos);
             datos[2]=rs.getString(3);
             datos[3]=rs.getString(4);
             datos[4]=rs.getString(5);
-            datos[5]=rs.getString(6);
-            datos[6]=rs.getString(7);
-            datos[7]=rs.getString(8);
-            datos[8]=rs.getString(9);
-            datos[9]=rs.getString(10);
-            datos[10]=rs.getString(11);
+            //1800datos[5]=rs.getString(6);
+            //60 datos[6]=rs.getString(7);
+            datos[5]=rs.getString(8);
+           //28 datos[8]=rs.getString(9);
+            datos[6]=rs.getString(10);
+            datos[7]=rs.getString(11);
 
             modelo.addRow(datos); //se asigna el arreglo  entero a todo el objeto llamado modelo  
             }
@@ -2204,6 +2204,9 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         labelingresos = new javax.swing.JLabel();
         jLabel82 = new javax.swing.JLabel();
         labelgastos = new javax.swing.JLabel();
+        jLabel85 = new javax.swing.JLabel();
+        jLabel86 = new javax.swing.JLabel();
+        jLabel87 = new javax.swing.JLabel();
 
         tabla_articulos.setComponentPopupMenu(tabla_articulos);
 
@@ -4988,8 +4991,8 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
 
         jLabel84.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         jLabel84.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel84.setText("Ingresos");
-        jPanel28.add(jLabel84, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 190, 110, -1));
+        jLabel84.setText("Almuerzo $28");
+        jPanel28.add(jLabel84, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 110, 310, -1));
 
         jLabel78.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         jLabel78.setForeground(new java.awt.Color(255, 255, 255));
@@ -5018,6 +5021,21 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         labelgastos.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         labelgastos.setText("00.00");
         jPanel28.add(labelgastos, new org.netbeans.lib.awtextra.AbsoluteConstraints(1170, 190, 120, 28));
+
+        jLabel85.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        jLabel85.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel85.setText("Ingresos");
+        jPanel28.add(jLabel85, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 190, 110, -1));
+
+        jLabel86.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        jLabel86.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel86.setText("Pago pollo (20x90)= $1800");
+        jPanel28.add(jLabel86, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 30, 310, -1));
+
+        jLabel87.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        jLabel87.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel87.setText("Tacos $60");
+        jPanel28.add(jLabel87, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 70, 310, -1));
 
         producto_sobrante.add(jPanel28);
         jPanel28.setBounds(10, 370, 1270, 290);
@@ -6108,10 +6126,11 @@ public void eliminarpolloenterodestorage(int id_producto){
     }//GEN-LAST:event_descuentoActionPerformed
 
     private void CortedecajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CortedecajaActionPerformed
- if(Integer.parseInt(hora)>=17&&Integer.parseInt(minutos)>=15){//Se puede habilitar el corte alas 5:15 pm
-      if(noduplicarcorte==false){
+   if(noduplicarcorte==false){
          new Pantalla_CorteCaja().setVisible(true);
-    }                 
+    }   
+        if(Integer.parseInt(hora)>=17&&Integer.parseInt(minutos)>=15){//Se puede habilitar el corte alas 5:15 pm
+                  
 }
 else 
     JOptionPane.showMessageDialog(null,"Aún es muy pronto, el corte se hace después de las 5:15 pm","Verifica",JOptionPane.INFORMATION_MESSAGE);
@@ -6453,9 +6472,11 @@ get_id_usuario();// 255 -280
                                     id_max_de_venta();
                                     PreparedStatement ps2 = ca.prepareStatement ("UPDATE descripcion_de_venta SET estado= '"+estadorealizado+"' WHERE id_venta='"+id_de_la_venta_incrementable+"'");
                                     int result = ps2.executeUpdate();
-                                         if(result>0){       
-                                                    descripciondelosprouductosparaelticketdeventa(id_de_la_venta_incrementable); //DATOS PARA EL TICKET DE VENTA
-                                 accionesdespuesderealizarcualquierventa();
+                                         if(result>0){
+                                             JOptionPane.showMessageDialog(null, "El cambio es de: "+cambiocombobox.getText()," Se realizo una venta",JOptionPane.YES_OPTION);
+                                        
+                                               descripciondelosprouductosparaelticketdeventa(id_de_la_venta_incrementable); //DATOS PARA EL TICKET DE VENTA
+                                        accionesdespuesderealizarcualquierventa();
                                           
                                          }
                                 }
@@ -6495,8 +6516,10 @@ get_id_usuario();// 255 -280
                                     id_max_de_venta();
                                     PreparedStatement ps2 = ca.prepareStatement ("UPDATE descripcion_de_venta SET estado= '"+estadorealizado+"' WHERE id_venta='"+id_de_la_venta_incrementable+"'");
                                    int resultado=  ps2.executeUpdate();
-                                     if(resultado>0){  
-                                         descripciondelosprouductosparaelticketdeventa(id_de_la_venta_incrementable);//DATOS PARA EL TICKET DE VENTA          
+                                     if(resultado>0){
+                                        
+                                             JOptionPane.showMessageDialog(null, "El cambio es de: "+cambiocombobox.getText()," Se realizo una venta",JOptionPane.YES_OPTION);
+                                             descripciondelosprouductosparaelticketdeventa(id_de_la_venta_incrementable);//DATOS PARA EL TICKET DE VENTA          
                                       accionesdespuesderealizarcualquierventa();
                                       
                                      }
@@ -7132,6 +7155,18 @@ if(masdeunapiezacocido.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE 
 
     private void cancelarventaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarventaActionPerformed
    status_cancelado(id); 
+    fechainicial.cleanup();
+        fechainicial.setDate(null);
+        fechafinal.cleanup();
+        fechafinal.setDate(null);
+        llenartablaidventasconidrealizados(); //CARGA NUEVAMENTE LAS VENTAS POR ID
+        veridventas.setVisible(false);
+        labelparaeltotal.setText("00.00");
+            totalventarealizada.setVisible(false);
+    labelparaeltotal.setVisible(false);
+    imprimirventa.setVisible(false);
+    
+               cancelarventa.setVisible(false);
     }//GEN-LAST:event_cancelarventaActionPerformed
 
  
@@ -7701,6 +7736,9 @@ static SI cc= new SI();
     private javax.swing.JLabel jLabel82;
     private javax.swing.JLabel jLabel83;
     private javax.swing.JLabel jLabel84;
+    private javax.swing.JLabel jLabel85;
+    private javax.swing.JLabel jLabel86;
+    private javax.swing.JLabel jLabel87;
     private javax.swing.JLabel jLabel88;
     private javax.swing.JLabel jLabel89;
     private javax.swing.JLabel jLabel9;
