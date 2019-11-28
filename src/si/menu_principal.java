@@ -157,6 +157,7 @@ this.setLocationRelativeTo(null); // esto elimina los botones de cerrar, minimiz
                descuentolabel.setVisible(true);
                veridventas.setVisible(false);
                imprimirventa.setVisible(false);
+               cancelarventa.setVisible(false);
 deletedescuento.setVisible(false);
    //DE LA TABLA CREDITO PENDIENTE
     labelnombre.setVisible(false);
@@ -336,10 +337,11 @@ borrarventasenestadoenturnoporerrordeusuario_que_no_coincidenconlafechadehoy();/
                   ventasacreditopendiente.setModel(modeloT);  // add modelo ala tabla 
         
        // modeloT.addColumn("id_venta");    // add al modelo las 5 columnas con los nombrs TABLA
-       modeloT.addColumn("Nombre"); 
+       
        modeloT.addColumn("Venta");
         modeloT.addColumn("Total");        
         modeloT.addColumn("Fecha");
+        modeloT.addColumn("Nombre"); 
         
        try {
 String sSQL = " select venta.id_venta, venta.total, venta.fecha_reporte, descripcion_de_venta.nombre_credito from venta INNER JOIN descripcion_de_venta ON venta.id_venta = descripcion_de_venta.id_venta where venta.estado_venta = 'Credito-pendiente' ";
@@ -348,10 +350,11 @@ String sSQL = " select venta.id_venta, venta.total, venta.fecha_reporte, descrip
         try (ResultSet rs = ps.executeQuery(sSQL)) {
             while (rs.next()) {
                // columna[0] = rs.getString("id_venta");
-                columna[0] = rs.getString("descripcion_de_venta.nombre_credito");
-                columna[1] = rs.getString("venta.id_venta");
-                columna[2] = rs.getString("venta.total");
-                columna[3] = rs.getString("venta.fecha_reporte");                
+                
+                columna[0] = rs.getString("venta.id_venta");
+                columna[1] = rs.getString("venta.total");
+                columna[2] = rs.getString("venta.fecha_reporte");    
+                columna[3] = rs.getString("descripcion_de_venta.nombre_credito");
                 modeloT.addRow(columna);
               
             }
@@ -1730,10 +1733,9 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
             JOptionPane.showMessageDialog(null, "ERROR" + e.getMessage());
         } //ELIMINAR DE VENTA EL ARTICULO     
 }
-                public void status_cancelado(){
-       id_max_de_venta();
+                public void status_cancelado(int id){
         try{
-                    PreparedStatement ps = ca.prepareStatement ("UPDATE venta SET total='"+variablede0+"',porcentajedescontado='"+variablede0+"',descuento='"+variablede0+"',pago='"+variablede0+"',cambio='"+variablede0+"',fecha_reporte='"+fecha()+"',estado_venta='"+estadocancelado+"'WHERE id_venta='"+id_de_la_venta_incrementable+"'");
+                    PreparedStatement ps = ca.prepareStatement ("UPDATE venta SET estado_venta='"+estadocancelado+"'WHERE id_venta='"+id+"'");
                 ps.executeUpdate();
         }
             catch (Exception e){
@@ -1742,11 +1744,10 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         
         try{
             id_max_de_venta();
-                PreparedStatement ps = ca.prepareStatement ("UPDATE descripcion_de_venta SET estado= '"+estadocancelado+"' WHERE id_venta='"+id_de_la_venta_incrementable+"'");
+                PreparedStatement ps = ca.prepareStatement ("UPDATE descripcion_de_venta SET estado= '"+estadocancelado+"' WHERE id_venta='"+id+"'");
                 ps.executeUpdate();
-        JOptionPane.showMessageDialog(null, "Venta cancelada","                  Aviso",JOptionPane.WARNING_MESSAGE);
-        descuentoactivo=false; 
-        storage.clear();
+     
+        
         }
         catch(Exception ex){
                            JOptionPane.showMessageDialog(null, "Error en venta" + ex.getMessage());
@@ -2160,6 +2161,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         jScrollPane12 = new javax.swing.JScrollPane();
         jTable2 = new rojerusan.RSTableMetro();
         imprimirventa = new javax.swing.JButton();
+        cancelarventa = new javax.swing.JButton();
         jPanel24 = new javax.swing.JPanel();
         jLabel93 = new javax.swing.JLabel();
         jLabel94 = new javax.swing.JLabel();
@@ -4467,7 +4469,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
                 veridventasActionPerformed(evt);
             }
         });
-        jPanel23.add(veridventas, new org.netbeans.lib.awtextra.AbsoluteConstraints(1030, 70, 230, -1));
+        jPanel23.add(veridventas, new org.netbeans.lib.awtextra.AbsoluteConstraints(1060, 70, -1, -1));
 
         jLabel91.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel91.setForeground(new java.awt.Color(255, 255, 255));
@@ -4628,7 +4630,18 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
                 imprimirventaActionPerformed(evt);
             }
         });
-        jPanel23.add(imprimirventa, new org.netbeans.lib.awtextra.AbsoluteConstraints(1030, 120, 230, -1));
+        jPanel23.add(imprimirventa, new org.netbeans.lib.awtextra.AbsoluteConstraints(1040, 120, 210, -1));
+
+        cancelarventa.setBackground(new java.awt.Color(0, 51, 102));
+        cancelarventa.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        cancelarventa.setForeground(new java.awt.Color(255, 255, 255));
+        cancelarventa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/cancelar2.png"))); // NOI18N
+        cancelarventa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cancelarventaActionPerformed(evt);
+            }
+        });
+        jPanel23.add(cancelarventa, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 70, 60, 90));
 
         Administrador.add(jPanel23);
         jPanel23.setBounds(10, 70, 1260, 300);
@@ -4730,7 +4743,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         deudor.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         deudor.setForeground(new java.awt.Color(255, 255, 255));
         Administrador.add(deudor);
-        deudor.setBounds(900, 520, 130, 50);
+        deudor.setBounds(750, 520, 280, 50);
 
         veridventasacreditopendiente.setBackground(new java.awt.Color(0, 51, 102));
         veridventasacreditopendiente.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
@@ -5309,6 +5322,8 @@ public void obtener_id_del_proveedor(String name){
             totalventarealizada.setVisible(false);
     labelparaeltotal.setVisible(false);
     imprimirventa.setVisible(false);
+    
+               cancelarventa.setVisible(false);
     }//GEN-LAST:event_veridventasActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
@@ -6229,10 +6244,10 @@ get_id_usuario();// 255 -280
     private void ventasacreditopendienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ventasacreditopendienteMouseClicked
       int fila =ventasacreditopendiente.getSelectedRow();
         if(fila>=0){
-            boolean pass =validarFormularioparamostrardescripciondeproductosporid(ventasacreditopendiente.getValueAt(fila,1).toString());
+            boolean pass =validarFormularioparamostrardescripciondeproductosporid(ventasacreditopendiente.getValueAt(fila,0).toString());
             if(pass){
-               id_ventapencredito=Integer.parseInt(ventasacreditopendiente.getValueAt(fila,1).toString());
-            descripciondeproductosenbasealnumerodeventaporcreditopendiente(Integer.parseInt(ventasacreditopendiente.getValueAt(fila,1).toString()));
+               id_ventapencredito=Integer.parseInt(ventasacreditopendiente.getValueAt(fila,0).toString());
+            descripciondeproductosenbasealnumerodeventaporcreditopendiente(Integer.parseInt(ventasacreditopendiente.getValueAt(fila,0).toString()));
                total_venta_creditopendiente(id_ventapencredito);
             totalventacreditoenturno.setText(String.valueOf(sumadeimportescreditopendiente));
               labelnombre.setVisible(true);
@@ -6523,6 +6538,7 @@ get_id_usuario();// 255 -280
     labelparaeltotal.setText(String.valueOf(sumadeimportesparaeltotal));
             totalventarealizada.setVisible(true);
              imprimirventa.setVisible(true);
+ cancelarventa.setVisible(true);
           }
         }
         else
@@ -7114,6 +7130,10 @@ if(masdeunapiezacocido.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE 
         // TODO add your handling code here:
     }//GEN-LAST:event_formWindowClosed
 
+    private void cancelarventaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarventaActionPerformed
+   status_cancelado(id); 
+    }//GEN-LAST:event_cancelarventaActionPerformed
+
  
     public static void insertorupdateoverbonnie(String nombredepieza, float cantidaddeproductos){
    obtenerelnombredeproductoylacantidaddelmismo_en_descripcion_deventa(nombredepieza);
@@ -7540,6 +7560,7 @@ static SI cc= new SI();
     private javax.swing.JButton buscarproductospordia;
     private javax.swing.JButton buscarventasporfecha;
     public static javax.swing.JLabel cambiocombobox;
+    private javax.swing.JButton cancelarventa;
     private javax.swing.JButton cleanall;
     private javax.swing.JButton cobro;
     public static javax.swing.JLabel conteodelasventasrealizadas;
