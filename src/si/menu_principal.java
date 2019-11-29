@@ -2481,7 +2481,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         });
         jScrollPane2.setViewportView(tablaventa);
 
-        venta.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 140, 440, 230));
+        venta.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, 440, 290));
 
         total3.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
         total3.setForeground(new java.awt.Color(255, 255, 255));
@@ -2609,7 +2609,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         piezasparaacomplettarpollo.setFont(new java.awt.Font("Dialog", 1, 20)); // NOI18N
         piezasparaacomplettarpollo.setForeground(new java.awt.Color(255, 255, 255));
         piezasparaacomplettarpollo.setText("Completar pollo");
-        venta.add(piezasparaacomplettarpollo, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 100, 180, -1));
+        venta.add(piezasparaacomplettarpollo, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 60, 180, -1));
 
         jTabbedPane1.setForeground(new java.awt.Color(255, 255, 255));
         jTabbedPane1.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
@@ -6126,11 +6126,10 @@ public void eliminarpolloenterodestorage(int id_producto){
     }//GEN-LAST:event_descuentoActionPerformed
 
     private void CortedecajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CortedecajaActionPerformed
-   if(noduplicarcorte==false){
+ if(Integer.parseInt(hora)>=17&&Integer.parseInt(minutos)>=15){//Se puede habilitar el corte alas 5:15 pm
+               if(noduplicarcorte==false){
          new Pantalla_CorteCaja().setVisible(true);
-    }   
-        if(Integer.parseInt(hora)>=17&&Integer.parseInt(minutos)>=15){//Se puede habilitar el corte alas 5:15 pm
-                  
+    }         
 }
 else 
     JOptionPane.showMessageDialog(null,"Aún es muy pronto, el corte se hace después de las 5:15 pm","Verifica",JOptionPane.INFORMATION_MESSAGE);
