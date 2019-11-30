@@ -680,8 +680,11 @@ public void nombresypiezas(){
               LlenarTableDatosblanca(J_tableLlenados); 
               LlenarTableDatoszapata(J_tableLlenados);
               LlenarTableDatosMercado(J_tableLlenados);
-              menu_principal pho = new menu_principal(true);
+                menu_principal.noduplicarexternos=false;
               this.setVisible(false);
+              menu_principal pho = new menu_principal(true);
+              
+              
     
     }//GEN-LAST:event_jButton1ActionPerformed
 
