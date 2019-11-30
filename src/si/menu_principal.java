@@ -166,7 +166,7 @@ deletedescuento.setVisible(false);
         totalventacreditoenturno.setVisible(false);
         veridventasacreditopendiente.setVisible(false);
          pagarventaacredito.setVisible(false);
-         piezasparaacomplettarpollo.setVisible(false);
+         piezasparaacomplettarpollo.setVisible(true);
     }
       //CUANDO RECIBE LA CANTIDAD POR DEFAULT DE 1
   public void piezaseleccionadaycantidadunica(String piezaseleccionada, int cantidaddeproductos){
@@ -6369,7 +6369,7 @@ get_id_usuario();// 255 -280
             for (int i = 0; i < hucalfull.length; i++) {
                 agregarpiezasaventa(hucalfull[i].toString());
             }
-        } else if (nombredepiezaseleccionada.equals("pollo crudo") && piezasparaacomplettarpollo.isSelected() == false) {//TODAS LAS PIEZAS QUE CORRESONDE A UN POLLO ENTERO
+        } else if (nombredepiezaseleccionada.equals("pollo crudo")) {//TODAS LAS PIEZAS QUE CORRESONDE A UN POLLO ENTERO
             for (int i = 0; i < piezas.length; i++) {
                 if (piezas[i].toString().equals("Muslo")
                         || piezas[i].toString().equals("Pierna")
@@ -6379,7 +6379,7 @@ get_id_usuario();// 255 -280
             if (suficientespiezas == true) {
                 cantidaddeproductos = 2 * cantidadparapollocrudo;
                     acompletarpollo(piezas[i].toString(), cantidaddeproductos);
-            }else{ piezasparaacomplettarpollo.setVisible(true); JOptionPane.showMessageDialog(null, "Solo hay " + piezassuficientes + " piezas de "+piezas[i].toString(), "Advertencia", JOptionPane.ERROR_MESSAGE);}
+            }else{  JOptionPane.showMessageDialog(null, "Solo hay " + piezassuficientes + " piezas de "+piezas[i].toString(), "Advertencia", JOptionPane.ERROR_MESSAGE);}
                     
                 } else {
                     if (piezas[i].toString().equals("pollo crudo")) {
@@ -6390,18 +6390,18 @@ get_id_usuario();// 255 -280
             if (suficientespiezas == true) {
                 cantidaddeproductos = 1 * cantidadparapollocrudo;
                         acompletarpollo(piezas[i].toString(), cantidaddeproductos);
-            }else{ piezasparaacomplettarpollo.setVisible(true); JOptionPane.showMessageDialog(null, "Solo hay " + piezassuficientes + " piezas de "+piezas[i].toString(), "Advertencia", JOptionPane.ERROR_MESSAGE);}
+            }else{  JOptionPane.showMessageDialog(null, "Solo hay " + piezassuficientes + " piezas de "+piezas[i].toString(), "Advertencia", JOptionPane.ERROR_MESSAGE);}
              }
                 }
             }
-        } else if (nombredepiezaseleccionada.equals("Medio pollo")&& piezasparaacomplettarpollo.isSelected() == false) {//ESTO INDICA QUE ES MEDIO POLLO
+        } else if (nombredepiezaseleccionada.equals("Medio pollo")) {//ESTO INDICA QUE ES MEDIO POLLO
             for (int i = 0; i < piezasdemedio.length; i++) {
                 if (piezasdemedio[i].toString().equals("Pechuga")) {
                     piezassuficientes(piezasdemedio[i].toString());//verifica primero que haya las suficientes piezas para agregar un producto a la venta    
             if (suficientespiezas == true) {
                 cantidaddeproductos = (float) medio * cantidadparapollocrudo;
                     acompletarpollo(piezasdemedio[i].toString(), cantidaddeproductos);
-            }else{ piezasparaacomplettarpollo.setVisible(true); JOptionPane.showMessageDialog(null, "Solo hay " + piezassuficientes + " piezas de "+piezasdemedio[i].toString(), "Advertencia", JOptionPane.ERROR_MESSAGE);}
+            }else{  JOptionPane.showMessageDialog(null, "Solo hay " + piezassuficientes + " piezas de "+piezasdemedio[i].toString(), "Advertencia", JOptionPane.ERROR_MESSAGE);}
          
                     
                 } else {
@@ -6413,7 +6413,7 @@ get_id_usuario();// 255 -280
             if (suficientespiezas == true) {
                    cantidaddeproductos = 1 * cantidadparapollocrudo;
                         acompletarpollo(piezasdemedio[i].toString(), cantidaddeproductos);
-            }else{ piezasparaacomplettarpollo.setVisible(true); JOptionPane.showMessageDialog(null, "Solo hay " + piezassuficientes + " piezas de "+piezasdemedio[i].toString(), "Advertencia", JOptionPane.ERROR_MESSAGE);}
+            }else{ JOptionPane.showMessageDialog(null, "Solo hay " + piezassuficientes + " piezas de "+piezasdemedio[i].toString(), "Advertencia", JOptionPane.ERROR_MESSAGE);}
           }
                 }
             }
