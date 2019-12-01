@@ -1,14 +1,9 @@
 package si;
-import com.mxrck.autocompleter.TextAutoCompleter;
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.io.File;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -19,30 +14,15 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;  
           import java.util.Date;             /* HORA DEL SISTEMA LIBRERIAS */
           import java.util.*;             /* HORA DEL SISTEMA LIBRERIAS */
-import java.text.DateFormat;
 import java.text.DecimalFormat;
           import java.text.SimpleDateFormat;  /* HORA DEL SISTEMA LIBRERIAS */
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
-import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.util.JRLoader;
-import net.sf.jasperreports.view.JasperViewer;
-import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
-import javax.imageio.ImageIO;
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
 import javax.swing.JTable;
-import javax.swing.JTextField;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
-import si.Pantalla_Gastos;
-import static si.Pantalla_Gastos.fecha;
 import ticket.ticketventacondescuento;
 import ticket.ticketventa;
 import ticket.ticketventacredito;
@@ -338,7 +318,7 @@ borrarventasenestadoenturnoporerrordeusuario_que_no_coincidenconlafechadehoy();/
         modeloT.addColumn("Nombre"); 
         
        try {
-String sSQL = " select venta.id_venta, venta.total, venta.fecha_reporte, descripcion_de_venta.nombre_credito from venta INNER JOIN descripcion_de_venta ON venta.id_venta = descripcion_de_venta.id_venta where venta.estado_venta = 'Credito-pendiente' ";
+String sSQL = " select distinct venta.id_venta, venta.total, venta.fecha_reporte, descripcion_de_venta.nombre_credito from venta INNER JOIN descripcion_de_venta ON venta.id_venta = descripcion_de_venta.id_venta where venta.estado_venta = 'Credito-pendiente' ";
             
         PreparedStatement ps = ca.prepareStatement(sSQL);       
         try (ResultSet rs = ps.executeQuery(sSQL)) {
@@ -926,7 +906,7 @@ public static void insertandopiezasdepolloporhaberagregadoxcantidaddepollocrudo(
                 this.Proveedores9.setEnabledAt(0, false); //Desactiva la parte de la venta dejando unicamente activo, proveedores
                       //productos y usuarios
                       Proveedores9.setSelectedIndex(1); //Esto hace que la pestaña 1 sea la que se muestre cuando al admin inicie sesión
-
+            
             }
         } catch (SQLException ex) {
              JOptionPane.showMessageDialog(null, "ERROR EN METODO: quienentroalsistema","DEVELOPER HELPER", JOptionPane.ERROR_MESSAGE);      
@@ -4289,7 +4269,6 @@ public void eliminarpolloenterodestorage(int id_producto){
                             int a = ps2.executeUpdate();
                             if(a>0){
                                 accionesdespuesderealizarcualquierventa();
-                                llenartablaconventasacreditopendiente(); //CARGA NUEVAMENTE LAS VENTAS POR ID
                                 pagarventaacredito.setVisible(false);
                                 labelnombre.setVisible(false);
                                 labelcredito.setVisible(false);
