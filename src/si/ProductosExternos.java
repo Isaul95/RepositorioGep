@@ -645,7 +645,6 @@ public void nombresypiezas(){
                       // JOptionPane.showMessageDialog(null, "id_usuario"+id_usuario);                            
                          int a=pst.executeUpdate();
                          if(a>0){   // UPDATE `productoexternoblanca` SET `pieza`=0;
-                  JOptionPane.showMessageDialog(null, "Imprimiendo Ticketc");                 
                   productospaExtras();     
                          }                                                 
       }catch(Exception w){
@@ -672,8 +671,7 @@ public void nombresypiezas(){
             
             }//fin de la insersion a la tabla ventas
         }
-        JOptionPane.showMessageDialog(null, "Productos agregados a inventario");
-        nombres.clear();
+       nombres.clear();
     }
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
     insertarengastos();
@@ -742,8 +740,7 @@ public void nombresypiezas(){
                     }
 
                     if(a>0){
-                        JOptionPane.showMessageDialog(null, "Producto agregado de pechuga");
-                        cantidad.setText("");
+                       cantidad.setText("");
                         totalapagarmetodo();
                         pago.setText(solodosdecimales.format(totalapagar));
 
@@ -776,7 +773,6 @@ public void nombresypiezas(){
                     }
 
                     if(a>0){
-                        JOptionPane.showMessageDialog(null, "Producto agregado de muslo");
                         cantidad.setText("");
                         totalapagarmetodo();
                         pago.setText(solodosdecimales.format(totalapagar));
@@ -811,7 +807,6 @@ public void nombresypiezas(){
                             }
 
                             if(a>0){
-                                JOptionPane.showMessageDialog(null, "Producto agregado de pierna");
                                 cantidad.setText("");
                                 totalapagarmetodo();
                                 pago.setText(solodosdecimales.format(totalapagar));
@@ -843,7 +838,6 @@ public void nombresypiezas(){
                     }
 
                     if(a>0){
-                        JOptionPane.showMessageDialog(null, "Producto agregado  desde ala");
                         cantidad.setText("");
                         totalapagarmetodo();
                         pago.setText(solodosdecimales.format(totalapagar));
@@ -877,7 +871,6 @@ public void nombresypiezas(){
                     }
 
                     if(a>0){
-                        JOptionPane.showMessageDialog(null, "Producto agregado  desde Huacal");
                         cantidad.setText("");
                         totalapagarmetodo();
                         pago.setText(solodosdecimales.format(totalapagar));
@@ -911,8 +904,7 @@ public void nombresypiezas(){
                     }
 
                     if(a>0){
-                        JOptionPane.showMessageDialog(null, "Producto agregado  desde Cadera");
-                        cantidad.setText("");
+                       cantidad.setText("");
                         totalapagarmetodo();
                         pago.setText(solodosdecimales.format(totalapagar));
                     }
@@ -946,7 +938,6 @@ public void nombresypiezas(){
                     }
 
                     if(a>0){
-                        JOptionPane.showMessageDialog(null, "Producto agregado desde defaultttt");
                         cantidad.setText("");
                         totalapagarmetodo();
                         pago.setText(solodosdecimales.format(totalapagar));
