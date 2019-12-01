@@ -922,7 +922,8 @@ public static void insertandopiezasdepolloporhaberagregadoxcantidaddepollocrudo(
               this.Proveedores9.setEnabledAt(3, false); //Desactiva la parte de estadisticas
              } 
             else{ //No entro un usuario y entro el administrador
-                     this.Proveedores9.setEnabledAt(0, false); //Desactiva la parte de la venta dejando unicamente activo, proveedores
+                //JOptionPane.showMessageDialog(null, "ERROR quienentroalsistema ADMIN:" + usuario + usuarioname );    
+                this.Proveedores9.setEnabledAt(0, false); //Desactiva la parte de la venta dejando unicamente activo, proveedores
                       //productos y usuarios
                       Proveedores9.setSelectedIndex(1); //Esto hace que la pestaña 1 sea la que se muestre cuando al admin inicie sesión
 
@@ -4143,7 +4144,7 @@ public void eliminarpolloenterodestorage(int id_producto){
                                          if(result>0){
                                              JOptionPane.showMessageDialog(null, "El cambio es de: "+cambiocombobox.getText()," Se realizo una venta",JOptionPane.YES_OPTION);
                                         
-                                               descripciondelosprouductosparaelticketdeventa(id_de_la_venta_incrementable); //DATOS PARA EL TICKET DE VENTA
+                               descripciondelosprouductosparaelticketdeventa(id_de_la_venta_incrementable); //DATOS PARA EL TICKET DE VENTA
                                         accionesdespuesderealizarcualquierventa();
                                           
                                          }
