@@ -29,7 +29,7 @@ public class ticketventacondescuento {
         // Se llama al metodo para imprimir una cadena
          auxs+= "TICKET CON DESCUENTO\n\n";          System.out.println("TICKET CON DESCUENTO\n\n");
          auxs += "POLLERIA LA GRANJA\n";             System.out.println("POLLERIA LA GRANJA\n");
-        auxs+= "PROP.JOSE MIGUEL CASTREZANA B.\n";  System.out.println("PROP.JOSE MIGUEL CASTREZANA B.\n");
+       // auxs+= "PROP.JOSE MIGUEL CASTREZANA B.\n";  System.out.println("PROP.JOSE MIGUEL CASTREZANA B.\n");
         auxs+= "R.F.C. CABM850201PR1\n";            System.out.println("R.F.C. CABM850201PR1\n");        
         auxs += "CARR. IGUALA-TAXCO KM.1.5\n";          System.out.println("CARR. IGUALA-TAXCO KM.1.5\n");
         auxs += "LOCAL 10 Y 11\n";                      System.out.println("LOCAL 10 Y 11\n");
@@ -51,15 +51,15 @@ public class ticketventacondescuento {
          auxs+= String.format("%-13s" + " " + "%-3s"+"  "+"$%-4s"+"  "+"$%-4s\n", nom1, piezas.get(n), precio.get(n), importe.get(n)); System.out.println(String.format("%-13s" + " " + "%-3s"+"  "+"$%-4s"+"  "+"$%-4s", nom1, piezas.get(n), precio.get(n), importe.get(n)));      
              } 
        auxs+= "\n==============================\n";  System.out.println("\n==============================\n");  
-       auxs+= String.format("Sub total: "+"$%-20s", subtotal); System.out.println(String.format("Sub total : "+"$%-20s", subtotal));
+       auxs+= String.format("Sub total:   " +"$%-20s", subtotal);  System.out.println(String.format("Sub total:  " +"$%-20s", subtotal));
        auxs+= "\n"; 
-       auxs+= String.format("Descuento: "+"$%-20s", descuento); System.out.println(String.format("Descuento: "+"$%-20s", descuento));
+       auxs+= String.format("Descuento:   " +"$%-20s", descuento); System.out.println(String.format("Descuento:  " +"$%-20s", descuento));
        auxs+= "\n";   
-        auxs+= String.format("Total: "+"$%-20s", total); System.out.println(String.format("Total: "+"$%-20s", total));
+       auxs+= String.format("Total:       " +"$%-20s", total);     System.out.println(String.format("Total:      " +"$%-20s", total));
        auxs+= "\n";  
-       auxs+= String.format("Pago: "+"$%-20s", pago); System.out.println(String.format("Pago: "+"$%-20s", pago));
+       auxs+= String.format("Pago:        " +"$%-20s", pago);      System.out.println(String.format("Pago:       " +"$%-20s", pago));
        auxs+= "\n";
-       auxs+= String.format("Cambio: "+"$%-20s", cambio); System.out.println(String.format("Cambio: "+"$%-20s", cambio));
+       auxs+= String.format("Cambio:      " +"$%-20s", cambio);    System.out.println(String.format("Cambio:     " +"$%-20s", cambio));
        auxs+= "\n";   
        
        
