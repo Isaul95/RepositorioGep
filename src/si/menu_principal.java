@@ -142,14 +142,8 @@ llenartablautilidad();
 //        autocompletar(); //metodo autocompletar que sirve para cuando el usuario escriba un articulo y encuentre coincidencias en la base de datos
 this.setLocationRelativeTo(null); // esto elimina los botones de cerrar, minimizar y maximizar
        // update.setEnabled(false); //mantiene el boton de actualizar usuarios oculto hasta ser llamado cuando se le necesite
-        actualizarpro.setEnabled(false); //de igual manera que el anterior, solo que este es para los proveedores
-                agregarpro.setEnabled(false);
-      update_users.setEnabled(false);
-       
-      // AutoCompleteDecorator.decorate(searchforproducts);  //es un metodo parte de la libreria autocompleter
+  // AutoCompleteDecorator.decorate(searchforproducts);  //es un metodo parte de la libreria autocompleter
       user.setText(usuarioname);
-    TablaDatosUsuarios();   /********* METODO LLAMADO AL INICIAR EL SISTEMA LOS DATOS YA ESTAN CARAGADOS  *********/
-    Ocultoetiquetas();
     totalventarealizada.setVisible(false);
     labelparaeltotal.setVisible(false);
     labeldescuento.setVisible(true);
@@ -925,11 +919,8 @@ public static void insertandopiezasdepolloporhaberagregadoxcantidaddepollocrudo(
             usuario=rs.getString(1);
             }
             if(!usuario.equals("")){ //Si el nombre del usuario se encontro en la base de datos quiere decir que entro un usuario al sistema
-                this.Proveedores9.setEnabledAt(1, false); //Desactiva la parte de proveedores
-                        this.Proveedores9.setEnabledAt(3, false); //Desactiva la parte de usuarios
-                         this.Proveedores9.setEnabledAt(5, false);
-                               //Dejando unicamente activa la parte de venta y de consulta de productos
-            } 
+              this.Proveedores9.setEnabledAt(3, false); //Desactiva la parte de estadisticas
+             } 
             else{ //No entro un usuario y entro el administrador
                      this.Proveedores9.setEnabledAt(0, false); //Desactiva la parte de la venta dejando unicamente activo, proveedores
                       //productos y usuarios
@@ -991,132 +982,7 @@ public static void insertandopiezasdepolloporhaberagregadoxcantidaddepollocrudo(
           }
     }
     //METODO PARA VERIFICAR QUE HAYA SUFICIENTES PIEZAS DE ALGÚN PRODUCTO PARA HACER UNA VENTA
-    
-    
-    
-   public void TablaDatosUsuarios(){  /********* METODOS DE LA TABLA DE LOS USUARIOS  *********/
-       tabla_usuariosnuevo.setVisible(true);
-              DefaultTableModel modelo = new DefaultTableModel();
-    
-    modelo.addColumn("Id Usuario");           modelo.addColumn("Nombre");
-    modelo.addColumn("Usuario");              modelo.addColumn("Apellido Paterno");
-    modelo.addColumn("Apellido Materno");     modelo.addColumn("ContraseÃ±a");
-    modelo.addColumn("Email");                modelo.addColumn("RFC");
-    modelo.addColumn("Telefono");             modelo.addColumn("Estado");
-    modelo.addColumn("Fecha y Hora de registro");
-    
-     tabla_usuariosnuevo.setModel(modelo);
-    String []datos = new String[11];    
-    try {
-            Statement st = ca.createStatement();
-            ResultSet rs= st.executeQuery("select * from  user");
-            while(rs.next()){
-            datos[0]=rs.getString(1);        datos[1]=rs.getString(2);
-            datos[2]=rs.getString(3);        datos[3]=rs.getString(4);
-            datos[4]=rs.getString(5);        datos[5]=rs.getString(6);
-            datos[6]=rs.getString(7);        datos[7]=rs.getString(8);
-            datos[8]=rs.getString(9);        datos[9]=rs.getString(10);
-            datos[10]=rs.getString(11);
-        
-            modelo.addRow(datos);
-            }
-           tabla_usuariosnuevo.setModel(modelo);
-        } catch (SQLException ex) {
-             JOptionPane.showMessageDialog(null, "ERROR EN METODO: TablaDatosUsuarios","DEVELOPER HELPER", JOptionPane.ERROR_MESSAGE);      
-       } 
-    }  // FIN DE LA TABLA DE DATOS DE LOS USUSARIOS ******************
-    
    
-    
-    public void Ocultoetiquetas(){  // ETIKETAS CORRECTOS/INCO... OCULTAS AL INICIO DE SISTEMA LA PARTE DE LOS PROVEEDORES
-    jLabel38.setVisible(false);        jLabel67.setVisible(false);      jLabel47.setVisible(false);      jLabel51.setVisible(false);  
-    jLabel45.setVisible(false);        jLabel36.setVisible(false);      jLabel68.setVisible(false);      jLabel34.setVisible(false); 
-    jLabel44.setVisible(false);        jLabel37.setVisible(false);      jLabel73.setVisible(false);      jLabel66.setVisible(false);
-    jLabel50.setVisible(false);        jLabel40.setVisible(false);      jLabel48.setVisible(false);      jLabel49.setVisible(false); 
-    jLabel39.setVisible(false);        jLabel65.setVisible(false);      jLabel72.setVisible(false);      jLabel46.setVisible(false);
-    jLabel70.setVisible(false);        jLabel43.setVisible(false);      jLabel35.setVisible(false);      jLabel69.setVisible(false);  
-    jLabel41.setVisible(false);        jLabel42.setVisible(false);      jLabel71.setVisible(false);
-       agregarpro.setEnabled(false);  /* BOTON DE AGREGAR AL INICIAR EL SISTEMA PERMANECE OCULTO */
-    }
-    
-    
-    
-    
-      public boolean TodoValido(){ // Creacion del metodo de las validaciones de los campos de texto  ---->>> PROVEEDORESS
-    if(!proem.getForeground().equals(new Color(236, 240, 0xf1)) || !proname.getForeground().equals(new Color(236, 240, 0xf1)) || !propater.getForeground().equals(new Color(236, 240, 0xf1)) || !promater.getForeground().equals(new Color(236, 240, 0xf1)) ||
-            !promail.getForeground().equals(new Color(236, 240, 0xf1)) || !prorfc.getForeground().equals(new Color(236, 240, 0xf1)) || !protel.getForeground().equals(new Color(236, 240, 0xf1)) || !tipopro.getForeground().equals(new Color(236, 240, 0xf1)) || !despro.getForeground().equals(new Color(236, 240, 0xf1))){  
-           return true; 
-        }    
-        return false;
-    }
-      
-      
-    
-           public void RetornaValorAddProduct(){ /* UN AVEZ K SE INGRESAN LOS DATOS RETORNA LOS VALORES DE LOS PLACEHOLD */
-   proem.setText("Micro Computer Systems");
-      proem.setFont(new Font("Arial",Font.ITALIC, 17));
-        proem.setForeground(new  Color (34,167,240));
-                 proname.setText("Alexis");
-                    proname.setFont(new Font("Arial",Font.ITALIC, 17));
-                       proname.setForeground(new  Color (34,167,240));
-          propater.setText("Rodriguez");
-              propater.setFont(new Font("Arial",Font.ITALIC, 17));
-                  propater.setForeground(new  Color (34,167,240));
-                              promater.setText("Reyes");
-                                   promater.setFont(new Font("Arial",Font.ITALIC, 17));
-                                      promater.setForeground(new  Color (34,167,240));
-        promail.setText("usuario@hotmail.com");
-           promail.setFont(new Font("Arial",Font.ITALIC, 17));
-               promail.setForeground(new  Color (34,167,240));
-                               prorfc.setText("COGR830816T88");
-                                   prorfc.setFont(new Font("Arial",Font.ITALIC, 17));
-                                   prorfc.setForeground(new  Color (34,167,240));
-      protel.setText("733-117-0056");
-         protel.setFont(new Font("Arial",Font.ITALIC, 17));
-           protel.setForeground(new  Color (34,167,240));
-                             tipopro.setText("Ejemplo: Lacteos");
-                                 tipopro.setFont(new Font("Arial",Font.ITALIC, 17));
-                                    tipopro.setForeground(new  Color (34,167,240));
-          despro.setText("Productos de Origen Animal");
-              despro.setFont(new Font("Arial",Font.ITALIC, 17));
-                  despro.setForeground(new  Color (34,167,240));
-    }
-           
-     
-               
-               public void restaurarmodificacionesregistrousuario(){
-       user_UserUp.setText("USUARIO");
-       user_ContraUp.setText("COTRASEÑA");
-       user_EmailUp.setText("EMAIL");
-       user_TelefonoUp.setText("TELEFONO");
-    }
-           
-           public void RetornaValorUpdate(){ /* UN AVEZ K SE INGRESAN LOS DATOS RETORNA LOS VALORES DE LOS PLACEHOLD */
-   proem.setText("");
-   proem.setFont(new Font("Tahoma",Font.BOLD, 17));
-   proem.setForeground(new Color(236, 240, 241));
-                 proname.setText("");
-                 proname.setFont(new Font("Tahoma",Font.BOLD, 17));
-                 proname.setForeground(new Color(236, 240, 241));
-          propater.setText("");
-          propater.setFont(new Font("Tahoma",Font.BOLD, 17));
-          propater.setForeground(new Color(236, 240, 241));
-                              promater.setText("");
-                              promater.setFont(new Font("Tahoma",Font.BOLD, 17));
-                              promater.setForeground(new Color(236, 240, 241));
-        promail.setText("");
-        promail.setFont(new Font("Tahoma",Font.BOLD, 17));
-        promail.setForeground(new Color(236, 240, 241));
-                               prorfc.setText("");
-                               prorfc.setFont(new Font("Tahoma",Font.BOLD, 17));
-                               prorfc.setForeground(new Color(236, 240, 241));
-      protel.setText("");
-      protel.setFont(new Font("Tahoma",Font.BOLD, 17));
-      protel.setForeground(new Color(236, 240, 241));
-              tipopro.setText(""); tipopro.setFont(new Font("Tahoma",Font.BOLD, 17)); tipopro.setForeground(new Color(236, 240, 241));
-    despro.setText(""); despro.setFont(new Font("Tahoma",Font.BOLD, 17)); despro.setForeground(new Color(236, 240, 241));  
-    }
-         
            public void descontarpiernacompleta(float cantidaddeproductos){
                 String[] piernafull = {"Muslo","Pierna"};
 
@@ -1849,62 +1715,6 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
     
     // FIN DE METODOS PARA EL AREA DE VENTAS -----------------------------------------------------------------------------------------------------------------------------------------------------
 
-    
-    
-   
-
-// METODOS PARA MOSTRAR TABLAS --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-    void mostrartablaproveedores(){ // solo muestra la tabla de proveedores 
-
-         proveedores.setVisible(true);    //hace visible la tabla de proveedores 
-              DefaultTableModel modelo = new DefaultTableModel(); // Se crea un objeto para agregar los nombres de las columnas a la tabla
-    modelo.addColumn("Id del proveedor");
-    modelo.addColumn("Nombre de la empresa");
-    modelo.addColumn("Nombre del proveedor");
-     modelo.addColumn("Apellido paterno");
-     modelo.addColumn("Apellido materno");
-     modelo.addColumn("E-mail");
-    modelo.addColumn("RFC");
-    modelo.addColumn("Telefono");
-      modelo.addColumn("Fecha y hora de registro");
-     proveedores.setModel(modelo);  // Ya una vez asignado todos los nombres se le envia el objeto a la tabla proveedores
-    String []datos = new String[9];     //Un arreglo con la cantidad de nombres en las columnas
-    try {
-             sent = ca.createStatement();   
-            rs= sent.executeQuery("select * from  proveedores"); // se ejecuta la sentencia dentro del parentesis
-            while(rs.next()){        
-            datos[0]=rs.getString(1);
-            datos[1]=rs.getString(2);
-            datos[2]=rs.getString(3);
-            datos[3]=rs.getString(4);
-            datos[4]=rs.getString(5);
-            datos[5]=rs.getString(6);
-            datos[6]=rs.getString(7);
-            datos[7]=rs.getString(8);
-            datos[8]=rs.getString(10);
-            
-        
-            modelo.addRow(datos); //se asigna el arreglo  entero a todo el objeto llamado modelo  
-            }
-           proveedores.setModel(modelo); // Se vuelve a enviar nuevamente el objeto modelo a la tabla
-        } catch (SQLException ex) {
-            Logger.getLogger(menu_principal.class.getName()).log(Level.SEVERE, null, ex);
-        } 
-    }
-    
-    
-    
-    
-   
-    void limpiardatosproveedores(){
-           proem.setText("");
-           proname.setText("");
-           propater.setText("");
-           promater.setText("");
-           promail.setText("");
-           prorfc.setText("");
-           protel.setText("");
-    }
        
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -2018,75 +1828,6 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         jButton21 = new javax.swing.JButton();
         jButton22 = new javax.swing.JButton();
         masdeunapieza = new javax.swing.JCheckBox();
-        agregar_proveedor = new javax.swing.JPanel();
-        agregarpro = new javax.swing.JButton();
-        jLabel12 = new javax.swing.JLabel();
-        jLabel23 = new javax.swing.JLabel();
-        jLabel24 = new javax.swing.JLabel();
-        filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 32767));
-        agregarpro1 = new javax.swing.JButton();
-        actualizarpro = new javax.swing.JButton();
-        tipopro = new javax.swing.JTextField();
-        despro = new javax.swing.JTextField();
-        jPanel3 = new javax.swing.JPanel();
-        jLabel10 = new javax.swing.JLabel();
-        jLabel15 = new javax.swing.JLabel();
-        jButton3 = new javax.swing.JButton();
-        jLabel33 = new javax.swing.JLabel();
-        jPanel6 = new javax.swing.JPanel();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel17 = new javax.swing.JLabel();
-        jLabel19 = new javax.swing.JLabel();
-        jLabel21 = new javax.swing.JLabel();
-        proname = new javax.swing.JTextField();
-        promater = new javax.swing.JTextField();
-        prorfc = new javax.swing.JTextField();
-        jLabel16 = new javax.swing.JLabel();
-        jLabel18 = new javax.swing.JLabel();
-        jLabel20 = new javax.swing.JLabel();
-        proem = new javax.swing.JTextField();
-        protel = new javax.swing.JTextField();
-        promail = new javax.swing.JTextField();
-        propater = new javax.swing.JTextField();
-        jSeparator9 = new javax.swing.JSeparator();
-        jSeparator10 = new javax.swing.JSeparator();
-        jSeparator11 = new javax.swing.JSeparator();
-        jSeparator12 = new javax.swing.JSeparator();
-        jSeparator13 = new javax.swing.JSeparator();
-        jSeparator14 = new javax.swing.JSeparator();
-        jSeparator15 = new javax.swing.JSeparator();
-        jLabel35 = new javax.swing.JLabel();
-        jLabel65 = new javax.swing.JLabel();
-        jLabel36 = new javax.swing.JLabel();
-        jLabel37 = new javax.swing.JLabel();
-        jLabel38 = new javax.swing.JLabel();
-        jLabel39 = new javax.swing.JLabel();
-        jLabel40 = new javax.swing.JLabel();
-        jLabel41 = new javax.swing.JLabel();
-        jLabel42 = new javax.swing.JLabel();
-        jLabel44 = new javax.swing.JLabel();
-        jLabel45 = new javax.swing.JLabel();
-        jLabel47 = new javax.swing.JLabel();
-        jLabel48 = new javax.swing.JLabel();
-        jLabel49 = new javax.swing.JLabel();
-        jLabel50 = new javax.swing.JLabel();
-        jLabel67 = new javax.swing.JLabel();
-        jLabel68 = new javax.swing.JLabel();
-        jLabel70 = new javax.swing.JLabel();
-        jLabel71 = new javax.swing.JLabel();
-        jLabel72 = new javax.swing.JLabel();
-        jLabel73 = new javax.swing.JLabel();
-        jSeparator16 = new javax.swing.JSeparator();
-        jSeparator17 = new javax.swing.JSeparator();
-        jLabel34 = new javax.swing.JLabel();
-        jLabel43 = new javax.swing.JLabel();
-        jLabel46 = new javax.swing.JLabel();
-        jLabel51 = new javax.swing.JLabel();
-        jLabel66 = new javax.swing.JLabel();
-        jLabel69 = new javax.swing.JLabel();
-        Reportes = new javax.swing.JButton();
-        jScrollPane9 = new javax.swing.JScrollPane();
-        proveedores = new rojerusan.RSTableMetro();
         agregar_articulo = new javax.swing.JPanel();
         producto_sobrante3 = new javax.swing.JPanel();
         jPanel31 = new javax.swing.JPanel();
@@ -2104,37 +1845,6 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         Jtable_ProductosEntradas = new rojerusan.RSTableMetro();
         jLabel102 = new javax.swing.JLabel();
         ventascanceladaseneldia3 = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
-        agregar_usuario = new javax.swing.JPanel();
-        jPanel7 = new javax.swing.JPanel();
-        user_NombreUp = new javax.swing.JTextField();
-        user_UserUp = new javax.swing.JTextField();
-        user_ContraUp = new javax.swing.JTextField();
-        user_EmailUp = new javax.swing.JTextField();
-        user_TelefonoUp = new javax.swing.JTextField();
-        jSeparator2 = new javax.swing.JSeparator();
-        jSeparator3 = new javax.swing.JSeparator();
-        jSeparator4 = new javax.swing.JSeparator();
-        jSeparator5 = new javax.swing.JSeparator();
-        jSeparator6 = new javax.swing.JSeparator();
-        jLabel11 = new javax.swing.JLabel();
-        jLabel25 = new javax.swing.JLabel();
-        jLabel26 = new javax.swing.JLabel();
-        jLabel27 = new javax.swing.JLabel();
-        jLabel54 = new javax.swing.JLabel();
-        jPanel9 = new javax.swing.JPanel();
-        Reporte_user = new javax.swing.JButton();
-        Reporte_user1 = new javax.swing.JButton();
-        jPanel8 = new javax.swing.JPanel();
-        agregar3 = new javax.swing.JButton();
-        update_users = new javax.swing.JButton();
-        jPanel5 = new javax.swing.JPanel();
-        jLabel13 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
-        jButton4 = new javax.swing.JButton();
-        jLabel58 = new javax.swing.JLabel();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        tabla_usuariosnuevo = new rojerusan.RSTableMetro();
         jPanel12 = new javax.swing.JPanel();
         Administrador = new javax.swing.JPanel();
         jPanel23 = new javax.swing.JPanel();
@@ -3373,602 +3083,6 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
 
         Proveedores9.addTab("      Venta      ", venta);
 
-        agregar_proveedor.setBackground(new java.awt.Color(0, 51, 102));
-        agregar_proveedor.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        agregarpro.setBackground(new java.awt.Color(0, 51, 102));
-        agregarpro.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        agregarpro.setForeground(new java.awt.Color(255, 255, 255));
-        agregarpro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/Add1.png"))); // NOI18N
-        agregarpro.setText("Agregar ");
-        agregarpro.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        agregarpro.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        agregarpro.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-        agregarpro.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        agregarpro.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                agregarproActionPerformed(evt);
-            }
-        });
-        agregar_proveedor.add(agregarpro, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 340, -1, 97));
-
-        jLabel12.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        jLabel12.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel12.setText("¿QUÉ TIPO DE PRODUCTOS OFRECE?");
-        agregar_proveedor.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 310, 350, -1));
-
-        jLabel23.setFont(new java.awt.Font("Tahoma", 1, 17)); // NOI18N
-        jLabel23.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel23.setText("Tipo de producto:");
-        agregar_proveedor.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 350, 160, -1));
-
-        jLabel24.setFont(new java.awt.Font("Tahoma", 1, 17)); // NOI18N
-        jLabel24.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel24.setText("Descripción :");
-        agregar_proveedor.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 400, 120, -1));
-        agregar_proveedor.add(filler1, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 343, -1, -1));
-
-        agregarpro1.setBackground(new java.awt.Color(0, 51, 102));
-        agregarpro1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        agregarpro1.setForeground(new java.awt.Color(255, 255, 255));
-        agregarpro1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/plan-de-estudios.png"))); // NOI18N
-        agregarpro1.setText("Mostrar");
-        agregarpro1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        agregarpro1.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-        agregarpro1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        agregarpro1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                agregarpro1ActionPerformed(evt);
-            }
-        });
-        agregar_proveedor.add(agregarpro1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1000, 340, 100, 97));
-
-        actualizarpro.setBackground(new java.awt.Color(0, 51, 102));
-        actualizarpro.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        actualizarpro.setForeground(new java.awt.Color(255, 255, 255));
-        actualizarpro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/actualizar.png"))); // NOI18N
-        actualizarpro.setText("Actualizar");
-        actualizarpro.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        actualizarpro.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-        actualizarpro.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        actualizarpro.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                actualizarproActionPerformed(evt);
-            }
-        });
-        agregar_proveedor.add(actualizarpro, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 340, 100, 97));
-
-        tipopro.setBackground(new java.awt.Color(0, 51, 102));
-        tipopro.setFont(new java.awt.Font("Arial", 2, 17)); // NOI18N
-        tipopro.setForeground(new java.awt.Color(255, 255, 255));
-        tipopro.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        tipopro.setText("Ejemplo: Lacteos");
-        tipopro.setBorder(null);
-        tipopro.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                tipoproFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                tipoproFocusLost(evt);
-            }
-        });
-        tipopro.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tipoproActionPerformed(evt);
-            }
-        });
-        tipopro.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                tipoproKeyTyped(evt);
-            }
-        });
-        agregar_proveedor.add(tipopro, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 340, 221, 30));
-
-        despro.setBackground(new java.awt.Color(0, 51, 102));
-        despro.setFont(new java.awt.Font("Arial", 2, 17)); // NOI18N
-        despro.setForeground(new java.awt.Color(255, 255, 255));
-        despro.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        despro.setText("Productos de Origen Animal");
-        despro.setBorder(null);
-        despro.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                desproFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                desproFocusLost(evt);
-            }
-        });
-        despro.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                desproActionPerformed(evt);
-            }
-        });
-        despro.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                desproKeyTyped(evt);
-            }
-        });
-        agregar_proveedor.add(despro, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 390, 221, 30));
-
-        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
-
-        jLabel10.setBackground(new java.awt.Color(204, 255, 0));
-        jLabel10.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel10.setText("Agregar Nuevo Proveedor");
-
-        jLabel15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/user022.png"))); // NOI18N
-
-        jButton3.setBackground(new java.awt.Color(255, 255, 255));
-        jButton3.setFont(new java.awt.Font("Tahoma", 1, 23)); // NOI18N
-        jButton3.setForeground(new java.awt.Color(255, 0, 0));
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/salir-flecha-derecha (1).png"))); // NOI18N
-        jButton3.setText("Salir");
-        jButton3.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
-
-        jLabel33.setBackground(new java.awt.Color(0, 160, 204));
-        jLabel33.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
-        jLabel33.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel33.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/bloggif_5bd54d091a235.jpeg"))); // NOI18N
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addComponent(jLabel33, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(55, 55, 55)
-                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 414, Short.MAX_VALUE)
-                .addComponent(jButton3)
-                .addGap(24, 24, 24))
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel15)
-                    .addComponent(jLabel33)
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
-
-        agregar_proveedor.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1290, 60));
-
-        jPanel6.setBackground(new java.awt.Color(0, 51, 102));
-        jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "     DATOS GENERALES     ", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 1, 14), new java.awt.Color(255, 255, 255))); // NOI18N
-        jPanel6.setLayout(null);
-
-        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 17)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel9.setText("Nombre de la empresa:");
-        jPanel6.add(jLabel9);
-        jLabel9.setBounds(16, 41, 198, 21);
-
-        jLabel17.setFont(new java.awt.Font("Tahoma", 1, 17)); // NOI18N
-        jLabel17.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel17.setText("Apellido paterno:");
-        jPanel6.add(jLabel17);
-        jLabel17.setBounds(16, 139, 158, 21);
-
-        jLabel19.setFont(new java.awt.Font("Tahoma", 1, 17)); // NOI18N
-        jLabel19.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel19.setText("Email:");
-        jPanel6.add(jLabel19);
-        jLabel19.setBounds(629, 78, 52, 21);
-
-        jLabel21.setFont(new java.awt.Font("Tahoma", 1, 17)); // NOI18N
-        jLabel21.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel21.setText("Telefono:");
-        jPanel6.add(jLabel21);
-        jLabel21.setBounds(630, 180, 81, 21);
-
-        proname.setBackground(new java.awt.Color(0, 51, 102));
-        proname.setFont(new java.awt.Font("Arial", 2, 17)); // NOI18N
-        proname.setForeground(new java.awt.Color(255, 255, 255));
-        proname.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        proname.setText("Alexis");
-        proname.setBorder(null);
-        proname.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                pronameFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                pronameFocusLost(evt);
-            }
-        });
-        proname.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pronameActionPerformed(evt);
-            }
-        });
-        proname.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                pronameKeyTyped(evt);
-            }
-        });
-        jPanel6.add(proname);
-        proname.setBounds(230, 80, 221, 30);
-
-        promater.setBackground(new java.awt.Color(0, 51, 102));
-        promater.setFont(new java.awt.Font("Arial", 2, 16)); // NOI18N
-        promater.setForeground(new java.awt.Color(255, 255, 255));
-        promater.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        promater.setText("Reyes");
-        promater.setBorder(null);
-        promater.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                promaterFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                promaterFocusLost(evt);
-            }
-        });
-        promater.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                promaterActionPerformed(evt);
-            }
-        });
-        promater.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                promaterKeyTyped(evt);
-            }
-        });
-        jPanel6.add(promater);
-        promater.setBounds(800, 20, 221, 30);
-
-        prorfc.setBackground(new java.awt.Color(0, 51, 102));
-        prorfc.setFont(new java.awt.Font("Arial", 2, 17)); // NOI18N
-        prorfc.setForeground(new java.awt.Color(255, 255, 255));
-        prorfc.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        prorfc.setText("COGR830816T88");
-        prorfc.setBorder(null);
-        prorfc.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                prorfcFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                prorfcFocusLost(evt);
-            }
-        });
-        prorfc.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                prorfcActionPerformed(evt);
-            }
-        });
-        prorfc.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                prorfcKeyTyped(evt);
-            }
-        });
-        jPanel6.add(prorfc);
-        prorfc.setBounds(800, 120, 221, 30);
-
-        jLabel16.setFont(new java.awt.Font("Tahoma", 1, 17)); // NOI18N
-        jLabel16.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel16.setText("Nombre del proveedor:");
-        jPanel6.add(jLabel16);
-        jLabel16.setBounds(16, 92, 198, 21);
-
-        jLabel18.setFont(new java.awt.Font("Tahoma", 1, 17)); // NOI18N
-        jLabel18.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel18.setText("Apellido materno:");
-        jPanel6.add(jLabel18);
-        jLabel18.setBounds(629, 33, 153, 21);
-
-        jLabel20.setFont(new java.awt.Font("Tahoma", 1, 17)); // NOI18N
-        jLabel20.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel20.setText("RFC:");
-        jPanel6.add(jLabel20);
-        jLabel20.setBounds(630, 130, 52, 21);
-
-        proem.setBackground(new java.awt.Color(0, 51, 102));
-        proem.setFont(new java.awt.Font("Arial", 2, 17)); // NOI18N
-        proem.setForeground(new java.awt.Color(255, 255, 255));
-        proem.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        proem.setText("Micro Computer Systems");
-        proem.setBorder(null);
-        proem.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                proemFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                proemFocusLost(evt);
-            }
-        });
-        proem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                proemActionPerformed(evt);
-            }
-        });
-        proem.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                proemKeyTyped(evt);
-            }
-        });
-        jPanel6.add(proem);
-        proem.setBounds(230, 30, 221, 30);
-
-        protel.setBackground(new java.awt.Color(0, 51, 102));
-        protel.setFont(new java.awt.Font("Arial", 2, 17)); // NOI18N
-        protel.setForeground(new java.awt.Color(255, 255, 255));
-        protel.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        protel.setText("733-117-0056");
-        protel.setBorder(null);
-        protel.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                protelFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                protelFocusLost(evt);
-            }
-        });
-        protel.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                protelActionPerformed(evt);
-            }
-        });
-        protel.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                protelKeyTyped(evt);
-            }
-        });
-        jPanel6.add(protel);
-        protel.setBounds(800, 170, 221, 30);
-
-        promail.setBackground(new java.awt.Color(0, 51, 102));
-        promail.setFont(new java.awt.Font("Arial", 2, 17)); // NOI18N
-        promail.setForeground(new java.awt.Color(255, 255, 255));
-        promail.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        promail.setText("usuario@hotmail.com");
-        promail.setBorder(null);
-        promail.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                promailFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                promailFocusLost(evt);
-            }
-        });
-        promail.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                promailActionPerformed(evt);
-            }
-        });
-        promail.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                promailKeyTyped(evt);
-            }
-        });
-        jPanel6.add(promail);
-        promail.setBounds(800, 70, 221, 30);
-
-        propater.setBackground(new java.awt.Color(0, 51, 102));
-        propater.setFont(new java.awt.Font("Arial", 2, 17)); // NOI18N
-        propater.setForeground(new java.awt.Color(255, 255, 255));
-        propater.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        propater.setText("Rodriguez");
-        propater.setBorder(null);
-        propater.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                propaterFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                propaterFocusLost(evt);
-            }
-        });
-        propater.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                propaterActionPerformed(evt);
-            }
-        });
-        propater.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                propaterKeyTyped(evt);
-            }
-        });
-        jPanel6.add(propater);
-        propater.setBounds(230, 131, 221, 30);
-        jPanel6.add(jSeparator9);
-        jSeparator9.setBounds(230, 60, 220, 20);
-        jPanel6.add(jSeparator10);
-        jSeparator10.setBounds(230, 160, 220, 20);
-        jPanel6.add(jSeparator11);
-        jSeparator11.setBounds(230, 110, 220, 20);
-        jPanel6.add(jSeparator12);
-        jSeparator12.setBounds(800, 150, 220, 10);
-        jPanel6.add(jSeparator13);
-        jSeparator13.setBounds(800, 50, 220, 10);
-        jPanel6.add(jSeparator14);
-        jSeparator14.setBounds(800, 200, 220, 20);
-        jPanel6.add(jSeparator15);
-        jSeparator15.setBounds(800, 100, 220, 10);
-
-        jLabel35.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel35.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/image/borrado.gif"))); // NOI18N
-        jPanel6.add(jLabel35);
-        jLabel35.setBounds(1030, 170, 30, 30);
-
-        jLabel65.setFont(new java.awt.Font("Arial Black", 3, 18)); // NOI18N
-        jLabel65.setForeground(new java.awt.Color(255, 51, 51));
-        jLabel65.setText("CAMPO VACIO");
-        jPanel6.add(jLabel65);
-        jLabel65.setBounds(1030, 20, 160, 30);
-
-        jLabel36.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/image/correcto.gif"))); // NOI18N
-        jPanel6.add(jLabel36);
-        jLabel36.setBounds(460, 70, 48, 48);
-
-        jLabel37.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/image/correcto.gif"))); // NOI18N
-        jPanel6.add(jLabel37);
-        jLabel37.setBounds(460, 120, 48, 48);
-
-        jLabel38.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/image/correcto.gif"))); // NOI18N
-        jPanel6.add(jLabel38);
-        jLabel38.setBounds(460, 20, 48, 48);
-
-        jLabel39.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/image/correcto.gif"))); // NOI18N
-        jPanel6.add(jLabel39);
-        jLabel39.setBounds(1040, 10, 48, 48);
-
-        jLabel40.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/image/correcto.gif"))); // NOI18N
-        jPanel6.add(jLabel40);
-        jLabel40.setBounds(1040, 60, 48, 48);
-
-        jLabel41.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/image/correcto.gif"))); // NOI18N
-        jPanel6.add(jLabel41);
-        jLabel41.setBounds(1040, 100, 48, 48);
-
-        jLabel42.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/image/correcto.gif"))); // NOI18N
-        jPanel6.add(jLabel42);
-        jLabel42.setBounds(1040, 150, 48, 48);
-
-        jLabel44.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel44.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/image/borrado.gif"))); // NOI18N
-        jPanel6.add(jLabel44);
-        jLabel44.setBounds(460, 80, 30, 30);
-
-        jLabel45.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel45.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/image/borrado.gif"))); // NOI18N
-        jPanel6.add(jLabel45);
-        jLabel45.setBounds(460, 30, 30, 30);
-
-        jLabel47.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel47.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/image/borrado.gif"))); // NOI18N
-        jPanel6.add(jLabel47);
-        jLabel47.setBounds(1030, 20, 30, 30);
-
-        jLabel48.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel48.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/image/borrado.gif"))); // NOI18N
-        jPanel6.add(jLabel48);
-        jLabel48.setBounds(1030, 70, 30, 30);
-
-        jLabel49.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel49.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/image/borrado.gif"))); // NOI18N
-        jPanel6.add(jLabel49);
-        jLabel49.setBounds(1030, 120, 30, 30);
-
-        jLabel50.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel50.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/image/borrado.gif"))); // NOI18N
-        jPanel6.add(jLabel50);
-        jLabel50.setBounds(460, 130, 30, 30);
-
-        jLabel67.setFont(new java.awt.Font("Arial Black", 3, 18)); // NOI18N
-        jLabel67.setForeground(new java.awt.Color(255, 51, 51));
-        jLabel67.setText("CAMPO VACIO");
-        jPanel6.add(jLabel67);
-        jLabel67.setBounds(460, 30, 160, 30);
-
-        jLabel68.setFont(new java.awt.Font("Arial Black", 3, 18)); // NOI18N
-        jLabel68.setForeground(new java.awt.Color(255, 51, 51));
-        jLabel68.setText("CAMPO VACIO");
-        jPanel6.add(jLabel68);
-        jLabel68.setBounds(460, 80, 160, 30);
-
-        jLabel70.setFont(new java.awt.Font("Arial Black", 3, 18)); // NOI18N
-        jLabel70.setForeground(new java.awt.Color(255, 51, 51));
-        jLabel70.setText("CAMPO VACIO");
-        jPanel6.add(jLabel70);
-        jLabel70.setBounds(1030, 60, 160, 30);
-
-        jLabel71.setFont(new java.awt.Font("Arial Black", 3, 18)); // NOI18N
-        jLabel71.setForeground(new java.awt.Color(255, 51, 51));
-        jLabel71.setText("CAMPO VACIO");
-        jPanel6.add(jLabel71);
-        jLabel71.setBounds(1030, 110, 160, 30);
-
-        jLabel72.setFont(new java.awt.Font("Arial Black", 3, 18)); // NOI18N
-        jLabel72.setForeground(new java.awt.Color(255, 51, 51));
-        jLabel72.setText("CAMPO VACIO");
-        jPanel6.add(jLabel72);
-        jLabel72.setBounds(1030, 170, 160, 30);
-
-        jLabel73.setFont(new java.awt.Font("Arial Black", 3, 18)); // NOI18N
-        jLabel73.setForeground(new java.awt.Color(255, 51, 51));
-        jLabel73.setText("CAMPO VACIO");
-        jPanel6.add(jLabel73);
-        jLabel73.setBounds(460, 130, 160, 30);
-
-        agregar_proveedor.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 80, 1200, 220));
-        agregar_proveedor.add(jSeparator16, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 420, 220, 20));
-        agregar_proveedor.add(jSeparator17, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 370, 220, 20));
-
-        jLabel34.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/image/correcto.gif"))); // NOI18N
-        agregar_proveedor.add(jLabel34, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 380, -1, -1));
-
-        jLabel43.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/image/correcto.gif"))); // NOI18N
-        agregar_proveedor.add(jLabel43, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 330, -1, -1));
-
-        jLabel46.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel46.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/image/borrado.gif"))); // NOI18N
-        agregar_proveedor.add(jLabel46, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 390, 30, 30));
-
-        jLabel51.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel51.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/image/borrado.gif"))); // NOI18N
-        agregar_proveedor.add(jLabel51, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 340, 30, 30));
-
-        jLabel66.setFont(new java.awt.Font("Arial Black", 3, 18)); // NOI18N
-        jLabel66.setForeground(new java.awt.Color(255, 51, 51));
-        jLabel66.setText("CAMPO VACIO");
-        agregar_proveedor.add(jLabel66, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 350, 160, 30));
-
-        jLabel69.setFont(new java.awt.Font("Arial Black", 3, 18)); // NOI18N
-        jLabel69.setForeground(new java.awt.Color(255, 51, 51));
-        jLabel69.setText("CAMPO VACIO");
-        agregar_proveedor.add(jLabel69, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 390, 160, 30));
-
-        Reportes.setBackground(new java.awt.Color(0, 51, 102));
-        Reportes.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        Reportes.setForeground(new java.awt.Color(255, 255, 255));
-        Reportes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/pdf.png"))); // NOI18N
-        Reportes.setText("Proveedores");
-        Reportes.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        Reportes.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-        Reportes.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        Reportes.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ReportesActionPerformed(evt);
-            }
-        });
-        agregar_proveedor.add(Reportes, new org.netbeans.lib.awtextra.AbsoluteConstraints(1110, 340, 130, 97));
-
-        proveedores = new rojerusan.RSTableMetro(){
-            public boolean isCellEditable(int filas, int columnas){
-                return false;
-            }
-        };
-        proveedores.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-
-            }
-        ));
-        proveedores.setColorFilasForeground1(new java.awt.Color(0, 0, 0));
-        proveedores.setColorFilasForeground2(new java.awt.Color(0, 0, 0));
-        proveedores.setColorSelForeground(new java.awt.Color(0, 0, 0));
-        proveedores.setGrosorBordeFilas(0);
-        proveedores.setGrosorBordeHead(0);
-        proveedores.setMultipleSeleccion(false);
-        proveedores.setRowHeight(25);
-        jScrollPane9.setViewportView(proveedores);
-
-        agregar_proveedor.add(jScrollPane9, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 440, 1240, 210));
-
-        Proveedores9.addTab("      Nuevo  Proveedor      ", agregar_proveedor);
-
         agregar_articulo.setBackground(new java.awt.Color(0, 51, 102));
         agregar_articulo.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         agregar_articulo.setDoubleBuffered(false);
@@ -4152,273 +3266,6 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         agregar_articulo.add(producto_sobrante3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1290, 670));
 
         Proveedores9.addTab("      Entradas Productos      ", agregar_articulo);
-
-        agregar_usuario.setBackground(new java.awt.Color(0, 51, 102));
-        agregar_usuario.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        agregar_usuario.setDoubleBuffered(false);
-        agregar_usuario.setLayout(null);
-
-        jPanel7.setBackground(new java.awt.Color(0, 51, 102));
-        jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "  Datos a Modificar  ", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Arial", 1, 14), new java.awt.Color(255, 255, 255))); // NOI18N
-        jPanel7.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        user_NombreUp.setBackground(new java.awt.Color(0, 51, 102));
-        user_NombreUp.setFont(new java.awt.Font("Tahoma", 1, 17)); // NOI18N
-        user_NombreUp.setForeground(new java.awt.Color(255, 255, 255));
-        user_NombreUp.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        user_NombreUp.setText("NOMBRE");
-        user_NombreUp.setBorder(null);
-        user_NombreUp.setEnabled(false);
-        jPanel7.add(user_NombreUp, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 40, 210, 30));
-
-        user_UserUp.setBackground(new java.awt.Color(0, 51, 102));
-        user_UserUp.setFont(new java.awt.Font("Tahoma", 1, 17)); // NOI18N
-        user_UserUp.setForeground(new java.awt.Color(255, 255, 255));
-        user_UserUp.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        user_UserUp.setText("USUARIO");
-        user_UserUp.setBorder(null);
-        user_UserUp.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                user_UserUpActionPerformed(evt);
-            }
-        });
-        jPanel7.add(user_UserUp, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 90, 210, 30));
-
-        user_ContraUp.setBackground(new java.awt.Color(0, 51, 102));
-        user_ContraUp.setFont(new java.awt.Font("Tahoma", 1, 17)); // NOI18N
-        user_ContraUp.setForeground(new java.awt.Color(255, 255, 255));
-        user_ContraUp.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        user_ContraUp.setText("CONTRASEÑA");
-        user_ContraUp.setBorder(null);
-        jPanel7.add(user_ContraUp, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 140, 210, 30));
-
-        user_EmailUp.setBackground(new java.awt.Color(0, 51, 102));
-        user_EmailUp.setFont(new java.awt.Font("Tahoma", 1, 17)); // NOI18N
-        user_EmailUp.setForeground(new java.awt.Color(255, 255, 255));
-        user_EmailUp.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        user_EmailUp.setText("EMAIL");
-        user_EmailUp.setBorder(null);
-        jPanel7.add(user_EmailUp, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 190, 210, 30));
-
-        user_TelefonoUp.setBackground(new java.awt.Color(0, 51, 102));
-        user_TelefonoUp.setFont(new java.awt.Font("Tahoma", 1, 17)); // NOI18N
-        user_TelefonoUp.setForeground(new java.awt.Color(255, 255, 255));
-        user_TelefonoUp.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        user_TelefonoUp.setText("TELEFONO");
-        user_TelefonoUp.setBorder(null);
-        jPanel7.add(user_TelefonoUp, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 240, 210, 30));
-        jPanel7.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 270, 210, 10));
-        jPanel7.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 70, 210, 10));
-        jPanel7.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 120, 210, 10));
-        jPanel7.add(jSeparator5, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 170, 210, 10));
-        jPanel7.add(jSeparator6, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 220, 210, 10));
-
-        jLabel11.setFont(new java.awt.Font("Tahoma", 1, 17)); // NOI18N
-        jLabel11.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel11.setText("  Telefono:");
-        jPanel7.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 240, 100, 30));
-
-        jLabel25.setFont(new java.awt.Font("Tahoma", 1, 17)); // NOI18N
-        jLabel25.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel25.setText("  Nombre:");
-        jPanel7.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 40, 100, 30));
-
-        jLabel26.setFont(new java.awt.Font("Tahoma", 1, 17)); // NOI18N
-        jLabel26.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel26.setText("  Usuario:");
-        jPanel7.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, 100, 30));
-
-        jLabel27.setFont(new java.awt.Font("Tahoma", 1, 17)); // NOI18N
-        jLabel27.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel27.setText("  Contraseña:");
-        jPanel7.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 140, 120, 30));
-
-        jLabel54.setFont(new java.awt.Font("Tahoma", 1, 17)); // NOI18N
-        jLabel54.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel54.setText("  Email:");
-        jPanel7.add(jLabel54, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 190, 100, 30));
-
-        agregar_usuario.add(jPanel7);
-        jPanel7.setBounds(40, 120, 400, 300);
-        jPanel7.getAccessibleContext().setAccessibleName("Registro ");
-
-        jPanel9.setBackground(new java.awt.Color(0, 51, 102));
-        jPanel9.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "   Reportes   ", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Arial", 1, 14), new java.awt.Color(255, 255, 255))); // NOI18N
-        jPanel9.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        Reporte_user.setBackground(new java.awt.Color(0, 51, 102));
-        Reporte_user.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        Reporte_user.setForeground(new java.awt.Color(255, 255, 255));
-        Reporte_user.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/pdf.png"))); // NOI18N
-        Reporte_user.setText("Usuarios");
-        Reporte_user.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        Reporte_user.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-        Reporte_user.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        Reporte_user.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Reporte_userActionPerformed(evt);
-            }
-        });
-        jPanel9.add(Reporte_user, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 40, 100, 97));
-
-        Reporte_user1.setBackground(new java.awt.Color(0, 51, 102));
-        Reporte_user1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        Reporte_user1.setForeground(new java.awt.Color(255, 255, 255));
-        Reporte_user1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/verificacion-de-la-lista-de-entrega-simbolo-de-portapapeles.png"))); // NOI18N
-        Reporte_user1.setText("Detalles de Ventas");
-        Reporte_user1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        Reporte_user1.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-        Reporte_user1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        Reporte_user1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Reporte_user1ActionPerformed(evt);
-            }
-        });
-        jPanel9.add(Reporte_user1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 150, 160, 100));
-
-        agregar_usuario.add(jPanel9);
-        jPanel9.setBounds(860, 120, 300, 300);
-
-        jPanel8.setBackground(new java.awt.Color(0, 51, 102));
-        jPanel8.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "   Usuarios   ", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Arial", 1, 14), new java.awt.Color(255, 255, 255))); // NOI18N
-        jPanel8.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        agregar3.setBackground(new java.awt.Color(0, 51, 102));
-        agregar3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        agregar3.setForeground(new java.awt.Color(255, 255, 255));
-        agregar3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/trabajo-en-equipo.png"))); // NOI18N
-        agregar3.setText("Nuevo Usuario");
-        agregar3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        agregar3.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-        agregar3.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        agregar3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                agregar3ActionPerformed(evt);
-            }
-        });
-        jPanel8.add(agregar3, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 40, 145, 100));
-
-        update_users.setBackground(new java.awt.Color(0, 51, 102));
-        update_users.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        update_users.setForeground(new java.awt.Color(255, 255, 255));
-        update_users.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/actualizar.png"))); // NOI18N
-        update_users.setText("Actualizar");
-        update_users.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        update_users.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-        update_users.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        update_users.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                update_usersActionPerformed(evt);
-            }
-        });
-        jPanel8.add(update_users, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 170, 100, 97));
-
-        agregar_usuario.add(jPanel8);
-        jPanel8.setBounds(500, 120, 300, 300);
-
-        jPanel5.setBackground(new java.awt.Color(255, 255, 255));
-
-        jLabel13.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel13.setText("Agregar Nuevo Usuario ");
-
-        jLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/Usuario02.png"))); // NOI18N
-
-        jButton4.setBackground(new java.awt.Color(255, 255, 255));
-        jButton4.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jButton4.setForeground(new java.awt.Color(255, 0, 0));
-        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/salir-flecha-derecha (1).png"))); // NOI18N
-        jButton4.setText("Salir");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
-            }
-        });
-
-        jLabel58.setBackground(new java.awt.Color(0, 160, 204));
-        jLabel58.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
-        jLabel58.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel58.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/bloggif_5bd54d091a235.jpeg"))); // NOI18N
-
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addComponent(jLabel58)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 67, Short.MAX_VALUE)
-                .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 324, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(393, 393, 393)
-                .addComponent(jButton4)
-                .addGap(41, 41, 41))
-        );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel58)
-                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel5Layout.createSequentialGroup()
-                            .addGap(6, 6, 6)
-                            .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(4, 4, 4))
-                        .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-        );
-
-        agregar_usuario.add(jPanel5);
-        jPanel5.setBounds(0, 0, 1288, 60);
-
-        tabla_usuariosnuevo = new rojerusan.RSTableMetro(){
-            public boolean isCellEditable(int filas, int columnas){
-                return false;
-            }
-        };
-        tabla_usuariosnuevo.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Id Usuario", "Nombre", "Usuario", "Apellido Paterno", "Apellido Materno", "ContraseÃ±a", "Email", "RFC", "Telefono", "Estado", "Fecha y Hora de registro"
-            }
-        ));
-        tabla_usuariosnuevo.setColorFilasForeground1(new java.awt.Color(0, 0, 0));
-        tabla_usuariosnuevo.setColorFilasForeground2(new java.awt.Color(0, 0, 0));
-        tabla_usuariosnuevo.setColorSelForeground(new java.awt.Color(0, 0, 0));
-        tabla_usuariosnuevo.setGrosorBordeFilas(0);
-        tabla_usuariosnuevo.setGrosorBordeHead(0);
-        tabla_usuariosnuevo.setMultipleSeleccion(false);
-        tabla_usuariosnuevo.setRowHeight(25);
-        jScrollPane3.setViewportView(tabla_usuariosnuevo);
-
-        agregar_usuario.add(jScrollPane3);
-        jScrollPane3.setBounds(10, 452, 1260, 210);
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1288, Short.MAX_VALUE)
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(agregar_usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 1288, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 707, Short.MAX_VALUE)
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addGap(0, 16, Short.MAX_VALUE)
-                    .addComponent(agregar_usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 674, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 17, Short.MAX_VALUE)))
-        );
-
-        Proveedores9.addTab("      Usuarios      ", jPanel1);
 
         Administrador.setBackground(new java.awt.Color(0, 51, 102));
         Administrador.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -5078,86 +3925,11 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
     }//GEN-LAST:event_eliminarActionPerformed
 
     private void modificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modificarActionPerformed
-   
-        int fila =proveedores.getSelectedRow();
-               
-   RetornaValorUpdate();  
-   if(fila>=0){    
-actualizarpro.setEnabled(false);
-        proem.setText(proveedores.getValueAt(fila,1).toString());
-        proname.setText(proveedores.getValueAt(fila,2).toString());
-        propater.setText(proveedores.getValueAt(fila,3).toString());
-        promater.setText(proveedores.getValueAt(fila,4).toString());
-        promail.setText(proveedores.getValueAt(fila,5).toString());
-        prorfc.setText(proveedores.getValueAt(fila,6).toString());
-        protel.setText(proveedores.getValueAt(fila,7).toString());
-         actualizarpro.setEnabled(true); 
-         
-         try{
-                            sent  =(Statement)ca.createStatement();
-                            rs = sent.executeQuery("select * from categoria_producto where id_categoria='"+proveedores.getValueAt(fila,0).toString()+"'");
-                            while(rs.next()){
-                                tipopro.setText(rs.getString("tipo_producto"));
-                 despro.setText(rs.getString("descripcion"));
-                            }
 
-                        }catch (Exception f){
-                            JOptionPane.showMessageDialog(null, "Error en inventario" + f.getMessage());
-                        }
-         
-         
-                
-   }
-   else
-          JOptionPane.showMessageDialog(null,"Por favor, seleccione una fila primero","Aviso",JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_modificarActionPerformed
 
     private void dropActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dropActionPerformed
-    //eliminar datos 
-        int fila = proveedores.getSelectedRow();
-           if(fila>=0){
-              try{
-            String sql = "DELETE from proveedores where id_proveedor=" +proveedores.getValueAt(fila, 0);
-            String sql1 = "DELETE from categoria_producto  where id_categoria=" +proveedores.getValueAt(fila, 0);
-            
-            sent = ca.createStatement();  
-            int n = sent.executeUpdate(sql); 
-            int n1 = sent.executeUpdate(sql1);
 
-            if(n>0){
-                JOptionPane.showMessageDialog(null,"Datos eliminados");
-                mostrartablaproveedores();
-               
-            }
-
-        }catch(Exception e){
-            int respuesta =JOptionPane.showConfirmDialog(null, "Si desea eliminar éste proveedor, también se eliminarán los productos que se la han asignado anteriormente \n                                                                 ¿Está de acuerdo?" ,"                                                                                                Advertencia",JOptionPane.YES_NO_OPTION);
-           
-            if(respuesta==0){
-               if(fila>=0){
-                   try{
-                         String sql = "DELETE from proveedores where id_proveedor=" +proveedores.getValueAt(fila, 0);
-                        String sql1 = "DELETE from categoria_producto  where id_categoria=" +proveedores.getValueAt(fila, 0);
-                         String sql2 = "DELETE from productos  where id_proveedor=" +proveedores.getValueAt(fila, 0);
-            
-            sent = ca.createStatement();  
-            int n2  = sent.executeUpdate(sql2), n1 = sent.executeUpdate(sql1), n = sent.executeUpdate(sql);
-
-            if(n>0&&n1>0&&n2>0){
-                JOptionPane.showMessageDialog(null,"                       Provedor y articulos eliminados");
-                mostrartablaproveedores();
-                
-            }
-                   }catch(Exception a){
-                       JOptionPane.showConfirmDialog(null,"Error"+a.getMessage());
-                   }
-               }
-          }
-        }  
-            }
-           else
-                JOptionPane.showMessageDialog(null,"Por favor, seleccione una fila primero","Aviso",JOptionPane.INFORMATION_MESSAGE);
-        
     }//GEN-LAST:event_dropActionPerformed
 public void obtener_id_del_proveedor(String name){
     String nombredelaempresa=name;
@@ -5191,882 +3963,16 @@ public void obtener_id_del_proveedor(String name){
     }//BOTON CERRAR SESION, PERO COMPRUEBA SI HAY UNA VENTA PEN PARA CANCELAR EN CASO DE SALIR
     
     private void modificarusuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modificarusuariosActionPerformed
-        int fila =tabla_usuariosnuevo.getSelectedRow();
-            // RetornaValorUpdateProducts();
-      if(fila>=0){
-             update_users.setEnabled(true);
-             
-          user_UserUp.setText(tabla_usuariosnuevo.getValueAt(fila,2).toString());
-                user_ContraUp.setText(tabla_usuariosnuevo.getValueAt(fila,5).toString());
-         user_EmailUp.setText(tabla_usuariosnuevo.getValueAt(fila,6).toString());
-         user_TelefonoUp.setText(tabla_usuariosnuevo.getValueAt(fila,8).toString());
-         
-      }
-      else
-          JOptionPane.showMessageDialog(null,"Por favor, seleccione una fila primero","Aviso",JOptionPane.INFORMATION_MESSAGE);
+
     }//GEN-LAST:event_modificarusuariosActionPerformed
 
     private void eliminarusuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarusuariosActionPerformed
-        //eliminar datos 
-        int fila = tabla_usuariosnuevo.getSelectedRow();
-           if(fila>=0){
-              try{
-            String sql = "update user set estado_activo_inactivo='"+estadoinactivo+"'  where id_usuario=" +tabla_usuariosnuevo.getValueAt(fila, 0);
-            sent = ca.createStatement();
-            int n = sent.executeUpdate(sql);
-            if(n>0){
-                JOptionPane.showMessageDialog(null,"Datos eliminados");
-          restaurarmodificacionesregistrousuario();                      
-                TablaDatosUsuarios();
-            }
 
-        }catch(Exception e){
-            JOptionPane.showMessageDialog(null, "Error" + e.getMessage());
-        }  
-            }
-           else
-                JOptionPane.showMessageDialog(null,"Por favor, seleccione una fila primero","Aviso",JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_eliminarusuariosActionPerformed
 
     private void activarusuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_activarusuarioActionPerformed
-        // TODO add your handling code here:
-        //Activando usuario 
-        int fila = tabla_usuariosnuevo.getSelectedRow();
-           if(fila>=0){
-              try{
-            String sql = "update user set estado_activo_inactivo='"+estadoactivo+"'  where id_usuario=" +tabla_usuariosnuevo.getValueAt(fila, 0);
-            sent = ca.createStatement();
-            int n = sent.executeUpdate(sql);
-            if(n>0){
-                JOptionPane.showMessageDialog(null," Usuario re - activado");
-          restaurarmodificacionesregistrousuario();                      
-                TablaDatosUsuarios();
-            }
-
-        }catch(Exception e){
-            JOptionPane.showMessageDialog(null, "Error" + e.getMessage());
-        }  
-            }
-           else
-                JOptionPane.showMessageDialog(null,"Por favor, seleccione una fila primero","Aviso",JOptionPane.INFORMATION_MESSAGE);
-    }//GEN-LAST:event_activarusuarioActionPerformed
-
-    private void buscarproductospordiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarproductospordiaActionPerformed
-        productosmasvendidos(Jtable_productosmasven);
-        fecha_inicioestadis.cleanup();
-        fecha_inicioestadis.setDate(null);
-        fecha_finalestadis.cleanup();
-        fecha_finalestadis.setDate(null);
-    }//GEN-LAST:event_buscarproductospordiaActionPerformed
-
-    private void buscarproductosfechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarproductosfechaActionPerformed
-        // BOTON PARA LA CONSULTA DE  GASTOS
-        try{
-            String fechadesde= llenarfechadesde();
-        String fechahasta= llenarfechahasta();
-        if(fechadesde.equals("")&&fechahasta.equals("")){
-            JOptionPane.showMessageDialog(null, "Primero debe elegir un rango de fechas en los calendarios");
-        }else{
-            LlenarTablaBusquedproMasvendidosfecha(Jtable_productosmasven, llenarfechadesde(),llenarfechahasta());
-        }
-        }catch(NullPointerException NP){
-             JOptionPane.showMessageDialog(null,"Debes de elegir un rango de fechas en los botones para la fecha", "ERROR", JOptionPane.ERROR_MESSAGE);
-        }
-    }//GEN-LAST:event_buscarproductosfechaActionPerformed
-
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-      if(tablaventaactiva==true&&(storage.size())>0){
-            int decision=JOptionPane.showConfirmDialog(null,"¿Desea continuar?","Advertencia: Tiene una venta inconclusa",JOptionPane.CANCEL_OPTION);
-            if(decision==0){ //opción si
-                cerrandosesion_o_limpiandoventa();
-                JOptionPane.showMessageDialog(null,"Nos vemos pronto","Saliendo del sistema...",JOptionPane.INFORMATION_MESSAGE);
-                new SI_Inicio().setVisible(true);
-               this.setVisible(false);
-             }
-       }
-       else{
-        int decision2=JOptionPane.showConfirmDialog(null,"¿Desea continuar?","Saliendo del sistema",JOptionPane.CANCEL_OPTION);
-            if(decision2==0){
-                JOptionPane.showMessageDialog(null,"Nos vemos pronto","Saliendo del sistema...",JOptionPane.INFORMATION_MESSAGE);
-                new SI_Inicio().setVisible(true);
-               this.setVisible(false);
-            }
-       }
-    }//GEN-LAST:event_jButton6ActionPerformed
-
-    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-      if(tablaventaactiva==true&&(storage.size())>0){
-            int decision=JOptionPane.showConfirmDialog(null,"¿Desea continuar?","Advertencia: Tiene una venta inconclusa",JOptionPane.CANCEL_OPTION);
-            if(decision==0){ //opción si
-                cerrandosesion_o_limpiandoventa();
-                JOptionPane.showMessageDialog(null,"Nos vemos pronto","Saliendo del sistema...",JOptionPane.INFORMATION_MESSAGE);
-                new SI_Inicio().setVisible(true);
-               this.setVisible(false);
-             }
-       }
-       else{
-        int decision2=JOptionPane.showConfirmDialog(null,"¿Desea continuar?","Saliendo del sistema",JOptionPane.CANCEL_OPTION);
-            if(decision2==0){
-                JOptionPane.showMessageDialog(null,"Nos vemos pronto","Saliendo del sistema...",JOptionPane.INFORMATION_MESSAGE);
-                new SI_Inicio().setVisible(true);
-               this.setVisible(false);
-            }
-       }
-    }//GEN-LAST:event_jButton8ActionPerformed
-
-    private void buscarventasporfechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarventasporfechaActionPerformed
-      try{
-          String fechaparaventasdesde= llenarfechadesdeparamostrarlosidventas();
-        String fechaparaventashasta= llenarfechahastaparamostrarlosidventas();
-        if(fechaparaventasdesde.equals("")&&fechaparaventashasta.equals("")){
-            JOptionPane.showMessageDialog(null, "Primero debe elegir un rango de fechas en los calendarios");
-        }else{
-
-            showidventasporfechas(jTable2, llenarfechadesdeparamostrarlosidventas(),llenarfechahastaparamostrarlosidventas());
-        }
-      }catch(NullPointerException NP){
-           JOptionPane.showMessageDialog(null,"Debes de elegir un rango de fechas en los botones para la fecha", "ERROR", JOptionPane.ERROR_MESSAGE);
-      }
-    }//GEN-LAST:event_buscarventasporfechaActionPerformed
-
-    private void veridventasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_veridventasActionPerformed
-        fechainicial.cleanup();
-        fechainicial.setDate(null);
-        fechafinal.cleanup();
-        fechafinal.setDate(null);
-        llenartablaidventasconidrealizados(); //CARGA NUEVAMENTE LAS VENTAS POR ID
-        veridventas.setVisible(false);
-        labelparaeltotal.setText("00.00");
-            totalventarealizada.setVisible(false);
-    labelparaeltotal.setVisible(false);
-    imprimirventa.setVisible(false);
     
-               cancelarventa.setVisible(false);
-    }//GEN-LAST:event_veridventasActionPerformed
-
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-       if(tablaventaactiva==true&&(storage.size())>0){
-            int decision=JOptionPane.showConfirmDialog(null,"¿Desea continuar?","Advertencia: Tiene una venta inconclusa",JOptionPane.CANCEL_OPTION);
-            if(decision==0){ //opción si
-                cerrandosesion_o_limpiandoventa();
-                JOptionPane.showMessageDialog(null,"Nos vemos pronto","Saliendo del sistema...",JOptionPane.INFORMATION_MESSAGE);
-                new SI_Inicio().setVisible(true);
-               this.setVisible(false);
-             }
-       }
-       else{
-        int decision2=JOptionPane.showConfirmDialog(null,"¿Desea continuar?","Saliendo del sistema",JOptionPane.CANCEL_OPTION);
-            if(decision2==0){
-                JOptionPane.showMessageDialog(null,"Nos vemos pronto","Saliendo del sistema...",JOptionPane.INFORMATION_MESSAGE);
-                new SI_Inicio().setVisible(true);
-               this.setVisible(false);
-            }
-       }
-    }//GEN-LAST:event_jButton4ActionPerformed
-
-    private void update_usersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_update_usersActionPerformed
-        //  MODIFICAR  DATOS DE LOS     ------- >>>>>>>>>>>>>>>>>>>>>>>>>>>>
-        //codigo para actualizar  TABLA DE usuarios
-        if(user_UserUp.getText().isEmpty()||user_ContraUp.getText().isEmpty()||user_EmailUp.getText().isEmpty()||user_TelefonoUp.getText().isEmpty()){
-            JOptionPane.showMessageDialog(null,"Llene todos los campos de texto antes de guardar cambios","                              AVISO",JOptionPane.INFORMATION_MESSAGE);
-        }
-        else{
-            try{
-                int fila =tabla_usuariosnuevo.getSelectedRow();
-
-                PreparedStatement ps = ca.prepareStatement ("UPDATE user SET nombre_usuario='"+user_UserUp.getText()+"',contraseña='"+user_ContraUp.getText()+"',email='"+user_EmailUp.getText()+"',Telefono='"+user_TelefonoUp.getText()+"'WHERE id_usuario='"+tabla_usuariosnuevo.getValueAt(fila,0).toString()+"'");
-                ps.executeUpdate();
-                JOptionPane.showMessageDialog(null,"Datos modificados");
-                restaurarmodificacionesregistrousuario();
-                update_users.setEnabled(false);
-                TablaDatosUsuarios();
-                //limpiardatosarticulos();
-                //RetornaValorProducts();
-                // OcultosProductos();
-            }catch(Exception ex){
-                JOptionPane.showMessageDialog(null, "Error" + ex.getMessage());
-            }
-
-        }
-    }//GEN-LAST:event_update_usersActionPerformed
-
-    private void agregar3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregar3ActionPerformed
-        // ABRE NUEVA VENTANA PARA INGRESO DE NUEVO USUARIO
-        new Registro().setVisible(true);
-    }//GEN-LAST:event_agregar3ActionPerformed
-
-    private void Reporte_user1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Reporte_user1ActionPerformed
-        //  MOSTRAR NUEVA VENTANA, VENTANA DE LOS REPORTES
-        new Reportes().setVisible(true);
-    }//GEN-LAST:event_Reporte_user1ActionPerformed
-
-    private void Reporte_userActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Reporte_userActionPerformed
-        // ***********************    REPORTE DE USUARIOS    **************************
-        int dialogButton = JOptionPane.YES_NO_OPTION;
-        int result = JOptionPane.showConfirmDialog(null, "¿Desea Generar Reporte De Los Usuarios?", "REPORTE GENERAL DE USUARIOS ",dialogButton);
-        if(result == 0){
-            try {
-                Map parametro4 = new HashMap(); /* parameter1 <<-- ESTE PARAMETRO VIENE DESDE EL REPORTE SOLO SE ESTA LLAMANDO */
-                parametro4.put("logo4", this.getClass().getResourceAsStream(logotipo));
-
-                JasperReport reporte = null;
-                String path = "src\\Reportes\\Usuarios.jasper";
-
-                //  reporte = (JasperReport) JRLoader.loadObjectFromFile(path);
-                reporte = (JasperReport) JRLoader.loadObject(getClass().getResource("/Reportes/Usuarios.jasper")); /*ASI MANDO A LLAMAR LOS REPORTES CON .jar */
-                /* ========================= LLENADO DEL REPORTE  ======================  */
-                //  path --> LA RUTA DEL REPORTE
-                //     --> LOS PARAMETROS K SE LE PUEDE ENVIAR ALA REPORTE IN THIS CASE ES NULL y la concion-->(ca) B.D
-                JasperPrint jprint = JasperFillManager.fillReport(reporte, parametro4, ca);
-
-                /* ========================= CREAR LA VISTA DEL REPORTE  ======================  */
-                JasperViewer vista = new JasperViewer(jprint, false);
-
-                /* ============= UN CIERRE LA VISTA DEL REPORTE CUANDO SE PRESIONE LA X de cerrar ============  */
-                vista.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-                /* ==================== MOSTRAR CMO VISIBLE ESTE REPORTE  ======================  */
-                vista.setVisible(true);
-                vista.setTitle("REPORTE GENERAL DE USUARIOS");
-            } catch (JRException ex) {
-                Logger.getLogger(menu_principal.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-    }//GEN-LAST:event_Reporte_userActionPerformed
-
-    private void user_UserUpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_user_UserUpActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_user_UserUpActionPerformed
-
-    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
-       if(tablaventaactiva==true&&(storage.size())>0){
-            int decision=JOptionPane.showConfirmDialog(null,"¿Desea continuar?","Advertencia: Tiene una venta inconclusa",JOptionPane.CANCEL_OPTION);
-            if(decision==0){ //opción si
-                cerrandosesion_o_limpiandoventa();
-                JOptionPane.showMessageDialog(null,"Nos vemos pronto","Saliendo del sistema...",JOptionPane.INFORMATION_MESSAGE);
-                new SI_Inicio().setVisible(true);
-               this.setVisible(false);
-             }
-       }
-       else{
-        int decision2=JOptionPane.showConfirmDialog(null,"¿Desea continuar?","Saliendo del sistema",JOptionPane.CANCEL_OPTION);
-            if(decision2==0){
-                JOptionPane.showMessageDialog(null,"Nos vemos pronto","Saliendo del sistema...",JOptionPane.INFORMATION_MESSAGE);
-                new SI_Inicio().setVisible(true);
-               this.setVisible(false);
-            }
-       }
-    }//GEN-LAST:event_jButton10ActionPerformed
-
-    private void ReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReportesActionPerformed
-        //  *******************  REPORTES  DE LOS PROVEEDORES    *******************
-        int dialogButton = JOptionPane.YES_NO_OPTION;
-        int result = JOptionPane.showConfirmDialog(null, "¿Desea Generar Reporte De los Proveedores?", "REPORTE GENRAL DE PROVEEDORES ",dialogButton);
-        if(result == 0){
-            try {
-                Map parametro = new HashMap(); /* parameter1 <<-- ESTE PARAMETRO VIENE DESDE EL REPORTE SOLO SE ESTA LLAMANDO */
-                parametro.put("logo1", this.getClass().getResourceAsStream(logotipo));
-
-                JasperReport reporte = null;
-                //String path = "src/Reportes/Proveedores.jasper";
-
-                // reporte = (JasperReport) JRLoader.loadObjectFromFile(path);
-                reporte = (JasperReport) JRLoader.loadObject(getClass().getResource("/Reportes/Prove.jasper")); /*ASI MANDO A LLAMAR LOS REPORTES CON .jar */
-                /* ========================= LLENADO DEL REPORTE  ======================  */
-                //  path --> LA RUTA DEL REPORTE
-                //     --> LOS PARAMETROS K SE LE PUEDE ENVIAR ALA REPORTE IN THIS CASE ES NULL y la concion-->(ca) B.D
-                JasperPrint jprint = JasperFillManager.fillReport(reporte, parametro, ca);
-
-                /* ========================= CREAR LA VISTA DEL REPORTE  ======================  */
-                JasperViewer vista = new JasperViewer(jprint, false);
-
-                /* ============= UN CIERRE LA VISTA DEL REPORTE CUANDO SE PRESIONE LA X de cerrar ============  */
-                vista.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-                /* ==================== MOSTRAR CMO VISIBLE ESTE REPORTE  ======================  */
-                vista.setVisible(true);
-            } catch (JRException ex) {
-                Logger.getLogger(menu_principal.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-    }//GEN-LAST:event_ReportesActionPerformed
-
-    private void propaterKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_propaterKeyTyped
-        // APELLIDO PATERNO
-        String cadena = propater.getText();
-        Pattern pat = Pattern.compile("^([a-zA-ZÁÉÍÓÚ]{1}[a-zñáéíóú]{1,24})+$");
-        Matcher mat = pat.matcher(cadena);
-        if (mat.matches()) {
-            jLabel37.setVisible(true);/* -->> ACTIVO CORRECTO */
-            jLabel50.setVisible(false);/* -->>NO ACTIVO INCORRECTO */
-            jLabel73.setVisible(false);
-            propater.setFont(new Font("Tahoma",Font.BOLD, 17)); // CUANDO ES CORRECTI CAMBIA DE COLOR Y TAMAÑO ES EL MISMO
-            propater.setForeground(new Color(236, 240, 241));
-        } else if (propater.getText().isEmpty()) {      // vaciooo
-            jLabel37.setVisible(false);
-            jLabel50.setVisible(false);
-            jLabel73.setVisible(true);
-        } else {
-            jLabel50.setVisible(true);
-            jLabel37.setVisible(false);  jLabel73.setVisible(false);
-            propater.setFont(new Font("Arial",Font.ITALIC, 17));
-            propater.setForeground(Color.red);
-        }
-        // LLAMADO DEL METODO DE LAS VALIDACIONES DE LOS CAMPOS DE TEXTOS HABILITAR/DEHABILITAR EL BOTON
-        if(TodoValido()){
-            agregarpro.setEnabled(false); // BOTON ADD ACTIVO
-        }else{
-            agregarpro.setEnabled(true); // BOTON ADD OCULTO
-        }
-    }//GEN-LAST:event_propaterKeyTyped
-
-    private void propaterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_propaterActionPerformed
-
-    }//GEN-LAST:event_propaterActionPerformed
-
-    private void propaterFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_propaterFocusLost
-        if(propater.getText().trim().equals("")){
-            propater.setText("Rodriguez");
-        }
-    }//GEN-LAST:event_propaterFocusLost
-
-    private void propaterFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_propaterFocusGained
-        // ****************+ PLACEHOLD APELLIDO PATERNO DEL PROVEEDOR  ****************+
-        if(propater.getText().trim().equals("Rodriguez")){
-            propater.setText("");
-            propater.setForeground(new  Color (34,167,240));
-        }
-    }//GEN-LAST:event_propaterFocusGained
-
-    private void promailKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_promailKeyTyped
-        // CORREO
-        String cadena = promail.getText();
-        Pattern pat = Pattern.compile("^[_A-zA-Z0-9-\\+]+(\\.[_a-za-z0-9-]+)*@" + "[a-za-z0-9-]+(\\.[a-za-z0-9]+)*(\\.[a-za-z]{2,})$");
-        Matcher mat = pat.matcher(cadena);
-        if (mat.matches()) {
-            jLabel40.setVisible(true);
-            jLabel48.setVisible(false);
-            jLabel70.setVisible(false);
-            promail.setFont(new Font("Tahoma",Font.BOLD, 17)); // CUANDO ES CORRECTI CAMBIA DE COLOR Y TAMAÑO ES EL MISMO
-            promail.setForeground(new Color(236, 240, 241));
-        } else if (promail.getText().isEmpty()) {      // vaciooo
-            jLabel40.setVisible(false);
-            jLabel48.setVisible(false);
-            jLabel70.setVisible(true);
-        } else {
-            jLabel48.setVisible(true);
-            jLabel40.setVisible(false);  jLabel70.setVisible(false);
-            promail.setFont(new Font("Arial",Font.ITALIC, 17));
-            promail.setForeground(Color.red);
-        }
-        // LLAMADO DEL METODO DE LAS VALIDACIONES DE LOS CAMPOS DE TEXTOS HABILITAR/DEHABILITAR EL BOTON
-        if(TodoValido()){
-            agregarpro.setEnabled(false); // BOTON ADD ACTIVO
-        }else{
-            agregarpro.setEnabled(true); // BOTON ADD OCULTO
-        }
-    }//GEN-LAST:event_promailKeyTyped
-
-    private void promailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_promailActionPerformed
-
-    }//GEN-LAST:event_promailActionPerformed
-
-    private void promailFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_promailFocusLost
-        if(promail.getText().trim().equals("")){
-            promail.setText("usuario@hotmail.com");
-        }
-    }//GEN-LAST:event_promailFocusLost
-
-    private void promailFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_promailFocusGained
-        // ****************+ PLACEHOLD  CORREO DEL PROVEEDOR  ****************+
-        if(promail.getText().trim().equals("usuario@hotmail.com")){
-            promail.setText("");
-            promail.setForeground(new  Color (34,167,240));
-        }
-    }//GEN-LAST:event_promailFocusGained
-
-    private void protelKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_protelKeyTyped
-        // ***************  VALIDAR  TELEFONO DEL USUARIO  ******************
-        // Pattern pat = Pattern.compile("\\d{3}\\d{3}");  PERMITE UN TELEFONO SIN LADA SOLO 7 DIJISTOS
-        String cadena = protel.getText();
-        Pattern pat = Pattern.compile("\\d{3}-\\d{3}-\\d{3}");
-        Matcher mat = pat.matcher(cadena);
-        if (mat.matches()) {
-            jLabel42.setVisible(true);
-            jLabel35.setVisible(false);
-            jLabel72.setVisible(false);
-            protel.setFont(new Font("Tahoma",Font.BOLD, 17));
-            protel.setForeground(new Color(236, 240, 241));
-        } else if (protel.getText().isEmpty()) {      // vaciooo
-            jLabel42.setVisible(false);
-            jLabel35.setVisible(false);
-            jLabel72.setVisible(true);
-        } else {
-            jLabel35.setVisible(true);
-            jLabel42.setVisible(false);  jLabel72.setVisible(false);
-            protel.setFont(new Font("Arial",Font.ITALIC, 17));
-            protel.setForeground(Color.red);
-        }
-        // LLAMADO DEL METODO DE LAS VALIDACIONES DE LOS CAMPOS DE TEXTOS HABILITAR/DEHABILITAR EL BOTON
-        if(TodoValido()){
-            agregarpro.setEnabled(false); // BOTON ADD ACTIVO
-        }else{
-            agregarpro.setEnabled(true); // BOTON ADD OCULTO
-        }
-    }//GEN-LAST:event_protelKeyTyped
-
-    private void protelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_protelActionPerformed
-
-    }//GEN-LAST:event_protelActionPerformed
-
-    private void protelFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_protelFocusLost
-        if(protel.getText().trim().equals("")){
-            protel.setText("733-117-0056");
-        }
-    }//GEN-LAST:event_protelFocusLost
-
-    private void protelFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_protelFocusGained
-        // ****************+ PLACEHOLD   TELEFONO DEL PROVEEDOR  ****************+
-        if(protel.getText().trim().equals("733-117-0056")){
-            protel.setText("");
-            protel.setForeground(new  Color (34,167,240));
-        }
-    }//GEN-LAST:event_protelFocusGained
-
-    private void proemKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_proemKeyTyped
-        // NOMBRE DE LA EMPRESA
-        String cadena = proem.getText();
-        Pattern pat = Pattern.compile("^([a-zA-ZÁÉÍÓÚ]{1}[a-zñáéíóú]{1,24}[\\s]*)+$");
-        Matcher mat = pat.matcher(cadena);
-        if (mat.matches()) {
-            jLabel38.setVisible(true);/* -->> ACTIVO CORRECTO */
-            jLabel45.setVisible(false);/* -->>NO ACTIVO INCORRECTO */
-            jLabel67.setVisible(false);
-            proem.setFont(new Font("Tahoma",Font.BOLD, 17)); // CUANDO ES CORRECTI CAMBIA DE COLOR Y TAMAÑO ES EL MISMO
-            proem.setForeground(new Color(236, 240, 241));
-        } else if (proem.getText().isEmpty()) {
-            jLabel38.setVisible(false);
-            jLabel45.setVisible(false);
-            jLabel67.setVisible(true);  // ETIKETA DE VACIOO EN ACCION
-
-        } else {
-            jLabel45.setVisible(true);
-            jLabel38.setVisible(false);  jLabel67.setVisible(false);
-            proem.setFont(new Font("Arial",Font.ITALIC, 17));
-            proem.setForeground(Color.red);
-        }
-        // LLAMADO DEL METODO DE LAS VALIDACIONES DE LOS CAMPOS DE TEXTOS HABILITAR/DEHABILITAR EL BOTON
-        if(TodoValido()){
-            agregarpro.setEnabled(false); // BOTON ADD ACTIVO
-        }else{
-            agregarpro.setEnabled(true); // BOTON ADD OCULTO
-        }
-    }//GEN-LAST:event_proemKeyTyped
-
-    private void proemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_proemActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_proemActionPerformed
-
-    private void proemFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_proemFocusLost
-        // ****************+ PLACEHOLD NOMBRE DE LA EMPRESA  ****************+
-        if(proem.getText().trim().equals("")){
-            proem.setText("Micro Computer Systems");
-        }
-    }//GEN-LAST:event_proemFocusLost
-
-    private void proemFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_proemFocusGained
-        // ****************+ PLACEHOLD NOMBRE DE LA EMPRESA  ****************+
-        if(proem.getText().trim().equals("Micro Computer Systems")){
-            proem.setText("");
-            proem.setForeground(new  Color (34,167,240));
-        }
-    }//GEN-LAST:event_proemFocusGained
-
-    private void prorfcKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_prorfcKeyTyped
-        // RFC   example:  CUPU800825569
-
-        String cadena = prorfc.getText();
-        Pattern pat = Pattern.compile("^([A-ZÑ\\x26]{3,4}([0-9]{2})(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1]))([A-Z\\d]{3})?$");
-        Matcher mat = pat.matcher(cadena);
-        if (mat.matches()) {
-            jLabel41.setVisible(true);
-            jLabel49.setVisible(false);
-            jLabel71.setVisible(false);
-            prorfc.setFont(new Font("Tahoma",Font.BOLD, 17)); // CUANDO ES CORRECTI CAMBIA DE COLOR Y TAMAÑO ES EL MISMO
-            prorfc.setForeground(new Color(236, 240, 241));
-        } else if (prorfc.getText().isEmpty()) {      // vaciooo
-            jLabel41.setVisible(false);
-            jLabel49.setVisible(false);
-            jLabel71.setVisible(true);
-        } else {
-            jLabel49.setVisible(true);
-            jLabel41.setVisible(false);  jLabel71.setVisible(false);
-            prorfc.setFont(new Font("Arial",Font.ITALIC, 17));
-            prorfc.setForeground(Color.red);
-        }
-        // LLAMADO DEL METODO DE LAS VALIDACIONES DE LOS CAMPOS DE TEXTOS HABILITAR/DEHABILITAR EL BOTON
-        if(TodoValido()){
-            agregarpro.setEnabled(false); // BOTON ADD ACTIVO
-        }else{
-            agregarpro.setEnabled(true); // BOTON ADD OCULTO
-        }
-    }//GEN-LAST:event_prorfcKeyTyped
-
-    private void prorfcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_prorfcActionPerformed
-
-    }//GEN-LAST:event_prorfcActionPerformed
-
-    private void prorfcFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_prorfcFocusLost
-        if(prorfc.getText().trim().equals("")){
-            prorfc.setText("COGR830816T88");
-        }
-    }//GEN-LAST:event_prorfcFocusLost
-
-    private void prorfcFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_prorfcFocusGained
-        // ****************+ PLACEHOLD   RFC DEL PROVEEDOR  ****************+
-        if(prorfc.getText().trim().equals("COGR830816T88")){
-            prorfc.setText("");
-            prorfc.setForeground(new  Color (34,167,240));
-        }
-    }//GEN-LAST:event_prorfcFocusGained
-
-    private void promaterKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_promaterKeyTyped
-        // APELLIDO MATERNO
-        String cadena = promater.getText();
-        Pattern pat = Pattern.compile("^([a-zA-ZÁÉÍÓÚ]{1}[a-zñáéíóú]{1,24})+$");
-        Matcher mat = pat.matcher(cadena);
-        if (mat.matches()) {
-            jLabel39.setVisible(true);
-            jLabel47.setVisible(false);
-            jLabel65.setVisible(false);
-            promater.setFont(new Font("Tahoma",Font.BOLD, 17)); // CUANDO ES CORRECTI CAMBIA DE COLOR Y TAMAÑO ES EL MISMO
-            promater.setForeground(new Color(236, 240, 241));
-        } else if (promater.getText().isEmpty()) {      // vaciooo
-            jLabel39.setVisible(false);
-            jLabel47.setVisible(false);
-            jLabel65.setVisible(true);
-        } else {
-            jLabel47.setVisible(true);
-            jLabel39.setVisible(false);  jLabel65.setVisible(false);
-            promater.setFont(new Font("Arial",Font.ITALIC, 17));
-            promater.setForeground(Color.red);
-        }
-        // LLAMADO DEL METODO DE LAS VALIDACIONES DE LOS CAMPOS DE TEXTOS HABILITAR/DEHABILITAR EL BOTON
-        if(TodoValido()){
-            agregarpro.setEnabled(false); // BOTON ADD ACTIVO
-        }else{
-            agregarpro.setEnabled(true); // BOTON ADD OCULTO
-        }
-    }//GEN-LAST:event_promaterKeyTyped
-
-    private void promaterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_promaterActionPerformed
-
-    }//GEN-LAST:event_promaterActionPerformed
-
-    private void promaterFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_promaterFocusLost
-        if(promater.getText().trim().equals("")){
-            promater.setText("Reyes");
-        }
-    }//GEN-LAST:event_promaterFocusLost
-
-    private void promaterFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_promaterFocusGained
-        // ****************+ PLACEHOLD  APELLIDO MATERNO DEL PROVEEDOR  ****************+
-        if(promater.getText().trim().equals("Reyes")){
-            promater.setText("");
-            promater.setForeground(new  Color (34,167,240));
-        }
-    }//GEN-LAST:event_promaterFocusGained
-
-    private void pronameKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_pronameKeyTyped
-        // NOMBRE DEL PROVEEDOR
-        String cadena = proname.getText();
-        Pattern pat = Pattern.compile("^([a-zA-ZÁÉÍÓÚ]{1}[a-zñáéíóú]{1,24}[\\s]*)+$");
-        Matcher mat = pat.matcher(cadena);
-        if (mat.matches()) {
-            jLabel36.setVisible(true);
-            jLabel44.setVisible(false);
-            jLabel68.setVisible(false);
-            proname.setFont(new Font("Tahoma",Font.BOLD, 17)); // CUANDO ES CORRECTI CAMBIA DE COLOR Y TAMAÑO ES EL MISMO
-            proname.setForeground(new Color(236, 240, 241));
-        } else if (proname.getText().isEmpty()) {      // vaciooo
-            jLabel36.setVisible(false);
-            jLabel44.setVisible(false);
-            jLabel68.setVisible(true);  // ETIKETA DE VACIOO EN ACCION
-        } else {
-            jLabel44.setVisible(true);
-            jLabel36.setVisible(false);  jLabel68.setVisible(false);
-            proname.setFont(new Font("Arial",Font.ITALIC, 17));
-            proname.setForeground(Color.red);
-        }
-        // LLAMADO DEL METODO DE LAS VALIDACIONES DE LOS CAMPOS DE TEXTOS HABILITAR/DEHABILITAR EL BOTON
-        if(TodoValido()){
-            agregarpro.setEnabled(false); // BOTON ADD ACTIVO
-        }else{
-            agregarpro.setEnabled(true); // BOTON ADD OCULTO
-        }
-    }//GEN-LAST:event_pronameKeyTyped
-
-    private void pronameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pronameActionPerformed
-
-    }//GEN-LAST:event_pronameActionPerformed
-
-    private void pronameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_pronameFocusLost
-        if(proname.getText().trim().equals("")){
-            proname.setText("Alexis");
-        }
-    }//GEN-LAST:event_pronameFocusLost
-
-    private void pronameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_pronameFocusGained
-        // ****************+ PLACEHOLD NOMBRE DEL PROVEEDOR  ****************+
-        if(proname.getText().trim().equals("Alexis")){
-            proname.setText("");
-            proname.setForeground(new  Color (34,167,240));
-        }
-    }//GEN-LAST:event_pronameFocusGained
-
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-       if(tablaventaactiva==true&&(storage.size())>0){
-            int decision=JOptionPane.showConfirmDialog(null,"¿Desea continuar?","Advertencia: Tiene una venta inconclusa",JOptionPane.CANCEL_OPTION);
-            if(decision==0){ //opción si
-                cerrandosesion_o_limpiandoventa();
-                JOptionPane.showMessageDialog(null,"Nos vemos pronto","Saliendo del sistema...",JOptionPane.INFORMATION_MESSAGE);
-                new SI_Inicio().setVisible(true);
-               this.setVisible(false);
-             }
-       }
-       else{
-        int decision2=JOptionPane.showConfirmDialog(null,"¿Desea continuar?","Saliendo del sistema",JOptionPane.CANCEL_OPTION);
-            if(decision2==0){
-                JOptionPane.showMessageDialog(null,"Nos vemos pronto","Saliendo del sistema...",JOptionPane.INFORMATION_MESSAGE);
-                new SI_Inicio().setVisible(true);
-               this.setVisible(false);
-            }
-       }
-    }//GEN-LAST:event_jButton3ActionPerformed
-
-    private void desproKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_desproKeyTyped
-        // DESCRIPCION
-        String cadena = despro.getText();
-        Pattern pat = Pattern.compile("^([.a-zA.-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ\\s]{4,50})$");
-        Matcher mat = pat.matcher(cadena);
-        if (mat.matches()) {
-            jLabel34.setVisible(true);
-            jLabel46.setVisible(false);
-            jLabel69.setVisible(false);
-            despro.setFont(new Font("Tahoma",Font.BOLD, 17));
-            despro.setForeground(new Color(236, 240, 241));
-        } else if (despro.getText().isEmpty()) {      // vaciooo
-            jLabel34.setVisible(false);
-            jLabel46.setVisible(false);
-            jLabel69.setVisible(true);
-        } else {
-            jLabel34.setVisible(false);
-            jLabel46.setVisible(true);
-            jLabel69.setVisible(false);
-            despro.setFont(new Font("Arial",Font.ITALIC, 17));
-            despro.setForeground(Color.red);
-        }
-        // LLAMADO DEL METODO DE LAS VALIDACIONES DE LOS CAMPOS DE TEXTOS HABILITAR/DEHABILITAR EL BOTON
-        if(TodoValido()){
-            agregarpro.setEnabled(false); // BOTON ADD ACTIVO
-        }else{
-            agregarpro.setEnabled(true); // BOTON ADD OCULTO
-        }
-    }//GEN-LAST:event_desproKeyTyped
-
-    private void desproActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_desproActionPerformed
-
-    }//GEN-LAST:event_desproActionPerformed
-
-    private void desproFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_desproFocusLost
-        if(despro.getText().trim().equals("")){
-            despro.setText("Productos de Origen Animal");
-        }
-    }//GEN-LAST:event_desproFocusLost
-
-    private void desproFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_desproFocusGained
-        // ****************+ PLACEHOLD  DESCRIPCION DE PRODUCTO  ****************+
-        if(despro.getText().trim().equals("Productos de Origen Animal")){
-            despro.setText("");
-            despro.setForeground(new  Color (34,167,240));
-        }
-    }//GEN-LAST:event_desproFocusGained
-
-    private void tipoproKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tipoproKeyTyped
-        // TIPO DE PRODUCTO
-        String cadena = tipopro.getText();
-        Pattern pat = Pattern.compile("^([a-zA-ZÁÉÍÓÚ]{1}[a-zñáéíóú]{1,24}[\\s]*)+$");
-        Matcher mat = pat.matcher(cadena);
-        if (mat.matches()) {
-            jLabel43.setVisible(true);
-            jLabel51.setVisible(false);
-            jLabel66.setVisible(false);
-            tipopro.setFont(new Font("Tahoma",Font.BOLD, 17));
-            tipopro.setForeground(new Color(236, 240, 241));
-        } else if (tipopro.getText().isEmpty()) {      // vaciooo
-            jLabel43.setVisible(false);
-            jLabel51.setVisible(false);
-            jLabel66.setVisible(true);
-        } else {
-            jLabel51.setVisible(true);
-            jLabel43.setVisible(false);
-            jLabel66.setVisible(false);
-            tipopro.setFont(new Font("Arial",Font.ITALIC, 17));
-            tipopro.setForeground(Color.red);
-        }
-        // LLAMADO DEL METODO DE LAS VALIDACIONES DE LOS CAMPOS DE TEXTOS HABILITAR/DEHABILITAR EL BOTON
-        if(TodoValido()){
-            agregarpro.setEnabled(false); // BOTON ADD ACTIVO
-        }else{
-            agregarpro.setEnabled(true); // BOTON ADD OCULTO
-        }
-    }//GEN-LAST:event_tipoproKeyTyped
-
-    private void tipoproActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tipoproActionPerformed
-
-    }//GEN-LAST:event_tipoproActionPerformed
-
-    private void tipoproFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tipoproFocusLost
-        if(tipopro.getText().trim().equals("")){
-            tipopro.setText("Ejemplo: Lacteos");
-        }
-    }//GEN-LAST:event_tipoproFocusLost
-
-    private void tipoproFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tipoproFocusGained
-        // ****************+ PLACEHOLD   TIPO DE PRODUCTO  ****************+
-        if(tipopro.getText().trim().equals("Ejemplo: Lacteos")){
-            tipopro.setText("");
-            tipopro.setForeground(new  Color (34,167,240));
-        }
-    }//GEN-LAST:event_tipoproFocusGained
-
-    private void actualizarproActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_actualizarproActionPerformed
-        // agregarpro.setEnabled(false);
-
-        int fila = proveedores.getSelectedRow();
-        String id_categoria="";agregarpro.setEnabled(false);
-        if(proem.getText().isEmpty()||proname.getText().isEmpty()||propater.getText().isEmpty()||promater.getText().isEmpty()||protel.getText().isEmpty()||prorfc.getText().isEmpty()||promail.getText().isEmpty()||tipopro.getText().isEmpty()||despro.getText().isEmpty()){
-            JOptionPane.showMessageDialog(null,"Llene todos los campos de texto antes de guardar cambios, 1: "+proem.getText()+"2: "+proname.getText()+"3: "+propater.getText()+"4: "+promater.getText()+"5: "+promail.getText()+" 6: "+prorfc.getText()+"7: "+protel.getText(),"                                                           AVISO",JOptionPane.INFORMATION_MESSAGE);
-        }
-        else{
-            try{
-                PreparedStatement ps1 = ca.prepareStatement ("UPDATE categoria_producto SET tipo_producto='"+tipopro.getText()+"', descripcion='"+despro.getText()+"'WHERE id_categoria='"+proveedores.getValueAt(fila,0).toString()+"'");
-                ps1.executeUpdate();
-
-                try{
-                    PreparedStatement ps = ca.prepareStatement ("UPDATE proveedores SET nombre_de_la_empresa='"+proem.getText()+"',nombre_del_proveedor='"+proname.getText()+"',apellido_paterno='"+propater.getText()+"',apellido_materno='"+promater.getText()+"',email='"+promail.getText()+"',RFC='"+prorfc.getText()+"',Telefono='"+protel.getText()+"'WHERE id_proveedor='"+proveedores.getValueAt(fila,0).toString()+"'");
-                    ps.executeUpdate();
-                    JOptionPane.showMessageDialog(null,"Datos modificados correctamente: ");
-                    limpiardatosproveedores();
-                    mostrartablaproveedores();
-                    RetornaValorAddProduct();
-                    Ocultoetiquetas();
-                }catch(Exception ex1){
-                    JOptionPane.showMessageDialog(null, "Error" + ex1.getMessage());
-                }
-
-                actualizarpro.setEnabled(false);
-
-            }catch(Exception ex){
-                JOptionPane.showMessageDialog(null, "Error" + ex.getMessage());
-            }
-        }
-
-    }//GEN-LAST:event_actualizarproActionPerformed
-
-    private void agregarpro1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarpro1ActionPerformed
-        mostrartablaproveedores();
-
-    }//GEN-LAST:event_agregarpro1ActionPerformed
-
-    private void agregarproActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarproActionPerformed
-        //codigo para agregar un nuevo proveedor
-        if(proem.getText().isEmpty()||proname.getText().isEmpty()||propater.getText().isEmpty()||promater.getText().isEmpty()||promail.getText().isEmpty()||prorfc.getText().isEmpty()||protel.getText().isEmpty()){
-            JOptionPane.showMessageDialog(null,"Debe de llenar todos los campos de texto antes de guardar un nuevo articulo","                    AVISO",JOptionPane.INFORMATION_MESSAGE);
-        }
-        else{
-            //Verificando si ya hay al menos un proveedor creado
-            try {
-                sent = ca.createStatement();
-                rs = sent.executeQuery("select * from proveedores where  nombre_de_la_empresa='"+proem.getText()+"' and  nombre_del_proveedor='"+proname.getText()+"'and apellido_paterno='"+propater.getText()+"'and  apellido_materno='"+promater.getText()+"'        ");
-                while(rs.next()){
-                    resultadoprimerproveedor=Integer.parseInt(rs.getString(1)); //Obtiene el id del proveedor
-                }
-                if(resultadoprimerproveedor!=0){ //si el id resultante de la consulta es diferente de 0 quiere decir que ya hay por lo menos una venta en el sistema
-                    JOptionPane.showMessageDialog(null,"Proveedor ya registrado");
-                    // resultadoprimerproveedor=0;
-                }
-                else{
-                    try{
-                        String sql = "INSERT INTO proveedores(nombre_de_la_empresa,nombre_del_proveedor,apellido_paterno,apellido_materno,email,RFC,Telefono)  VALUES (?,?,?,?,?,?,?)";
-                        PreparedStatement pst = ca.prepareCall(sql);
-                        pst.setString(1,proem.getText());
-                        pst.setString(2,proname.getText());
-                        pst.setString(3,propater.getText());
-                        pst.setString(4,promater.getText());
-                        pst.setString(5,promail.getText());
-                        pst.setString(6,prorfc.getText());
-                        pst.setString(7,protel.getText());
-
-                        String sql1 = "INSERT INTO categoria_producto(tipo_producto,descripcion)  VALUES (?,?)";
-                        PreparedStatement pst1 = ca.prepareCall(sql1);
-                        pst1.setString(1,tipopro.getText());
-                        pst1.setString(2,despro.getText());
-
-                        int a=pst.executeUpdate(),b=pst1.executeUpdate();
-                        if(a>0&&b>0){
-                            JOptionPane.showMessageDialog(null,"Datos guardados correctamente");
-                            limpiardatosproveedores();
-                            mostrartablaproveedores();
-
-                            RetornaValorAddProduct();
-                            Ocultoetiquetas();
-                        }
-                    } catch(SQLException e)  {
-                        JOptionPane.showMessageDialog(null, "Entro al error" + e.getMessage());
-                    }
-                }
-            }
-            catch (SQLException ex) {
-                // Logger.getLogger(menu_principal.class.getName()).log(Level.SEVERE, null, ex);
-                try{
-                    String sql = "INSERT INTO proveedores(nombre_de_la_empresa,nombre_del_proveedor,apellido_paterno,apellido_materno,email,RFC,Telefono)  VALUES (?,?,?,?,?,?,?)";
-                    PreparedStatement pst = ca.prepareCall(sql);
-                    pst.setString(1,proem.getText());
-                    pst.setString(2,proname.getText());
-                    pst.setString(3,propater.getText());
-                    pst.setString(4,promater.getText());
-                    pst.setString(5,promail.getText());
-                    pst.setString(6,prorfc.getText());
-                    pst.setString(7,protel.getText());
-
-                    String sql1 = "INSERT INTO categoria_producto(tipo_producto,descripcion)  VALUES (?,?)";
-                    PreparedStatement pst1 = ca.prepareCall(sql1);
-                    pst1.setString(1,tipopro.getText());
-                    pst1.setString(2,despro.getText());
-
-                    int a=pst.executeUpdate(),b=pst1.executeUpdate();
-                    if(a>0&&b>0){
-                        JOptionPane.showMessageDialog(null,"Datos guardados correctamente");
-                        limpiardatosproveedores();
-                        mostrartablaproveedores();
-
-                        RetornaValorAddProduct();
-                        Ocultoetiquetas();
-                    }
-                } catch(SQLException e)  {
-                    JOptionPane.showMessageDialog(null, "Entro al error" + e.getMessage());
-                }
-
-            }
-            //FIN DE LA COMPROBACIÓN DEL PRIMER PROVEEDOR
-        }        // TODO add your handling code here:
-    }//GEN-LAST:event_agregarproActionPerformed
-
-    private void ExistenciasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExistenciasActionPerformed
-  if(noduplicarexistencias==false){
-      new Existencias().setVisible(true);
-  }
-        
-    }//GEN-LAST:event_ExistenciasActionPerformed
+    }//GEN-LAST:event_activarusuarioActionPerformed
 public void eliminarhuesito(int id){
     try{
         String sql = "delete from descripcion_de_venta where id_producto = '"+id+"' ";
@@ -6085,95 +3991,6 @@ public void eliminarpolloenterodestorage(int id_producto){
                  }
              }
 }
-
-    private void tablaventaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaventaMouseClicked
-        //ESTO DESCUENTA UN PRODUCTO A LA VEZ Y LO DEVUELVE A INVENTARIO
-        fila =tablaventa.getSelectedRow();
-
-        if(fila>=0){// CUANDO UNA CELDA SE SELECCIONO
-            nombredepiezaseleccionada=tablaventa.getValueAt(fila,0).toString();       
-            if(nombredepiezaseleccionada.equals("Huesito")||nombredepiezaseleccionada.equals("Longaniza")){
-                if(nombredepiezaseleccionada.equals("Huesito")){
-                     id_producto(nombredepiezaseleccionada);
-                     eliminarhuesito(id_producto);
-              accionesdespuesderegresarproductosainventarios();
-           mostrartabladeventas();
-                }else{
-                    id_producto(nombredepiezaseleccionada);
-                     eliminarhuesito(id_producto);
-              accionesdespuesderegresarproductosainventarios();
-           mostrartabladeventas();
-                }
-               
-            } // BOOLEANAS PARA SABER CUALES NO SE VA A REGRESAR
-            else if(nombredepiezaseleccionada.equals("Pechuga en bisteck")){
-            regresarproductos_pechugaenbisteck("Pechuga");
-            mostrartabladeventas();
-                    }
-                else{
-                  regresarproductos_a_inventario(nombredepiezaseleccionada); //pone en estatus de cancelada la venta inconclusa
-         //descuentodepollo();
-          mostrartabladeventas();
-            }
-        }else{
-            JOptionPane.showMessageDialog(null,"Por favor, seleccione una fila primero","Aviso",JOptionPane.INFORMATION_MESSAGE);
-        }
-        //ESTO DESCUENTA UN PRODUCTO A LA VEZ Y LO DEVUELVE A INVENTARIO
-    }//GEN-LAST:event_tablaventaMouseClicked
-
-    private void descuentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_descuentoActionPerformed
-        descuentos();
-    }//GEN-LAST:event_descuentoActionPerformed
-
-    private void CortedecajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CortedecajaActionPerformed
- if(Integer.parseInt(hora)>=17&&Integer.parseInt(minutos)>=15){//Se puede habilitar el corte alas 5:15 pm
-               if(noduplicarcorte==false){
-         new Pantalla_CorteCaja().setVisible(true);
-    }         
-}
-else 
-    JOptionPane.showMessageDialog(null,"Aún es muy pronto, el corte se hace después de las 5:15 pm","Verifica",JOptionPane.INFORMATION_MESSAGE);
-        
-    }//GEN-LAST:event_CortedecajaActionPerformed
-
-    private void AgregarGastosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AgregarGastosActionPerformed
-if(noduplicargastos==false){new Pantalla_Gastos().setVisible(true);}
-    }//GEN-LAST:event_AgregarGastosActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-           if(tablaventaactiva==true&&(storage.size())>0){
-            int decision=JOptionPane.showConfirmDialog(null,"¿Desea continuar?","Advertencia: Tiene una venta inconclusa",JOptionPane.CANCEL_OPTION);
-            if(decision==0){ //opción si
-                cerrandosesion_o_limpiandoventa();
-                JOptionPane.showMessageDialog(null,"Nos vemos pronto","Saliendo del sistema...",JOptionPane.INFORMATION_MESSAGE);
-                new SI_Inicio().setVisible(true);
-               this.setVisible(false);
-             }
-       }
-       else{
-        int decision2=JOptionPane.showConfirmDialog(null,"¿Desea continuar?","Saliendo del sistema",JOptionPane.CANCEL_OPTION);
-            if(decision2==0){
-                JOptionPane.showMessageDialog(null,"Nos vemos pronto","Saliendo del sistema...",JOptionPane.INFORMATION_MESSAGE);
-                new SI_Inicio().setVisible(true);
-               this.setVisible(false);
-            }
-       }
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void cleanallActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cleanallActionPerformed
-        // ************************  BTN CANCELARR   ***********************
-        //ESTO ELIMINA TODA LA VENTA
-        if(tablaventaactiva==true){
-           cerrandosesion_o_limpiandoventa();  
-         }
-        else{
-             JOptionPane.showMessageDialog(null, "No hay datos en la tabla de venta","No se puede borrar", JOptionPane.INFORMATION_MESSAGE); 
-        }
-    }//GEN-LAST:event_cleanallActionPerformed
-
-    private void cleanallMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cleanallMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cleanallMouseClicked
 
     public static void accionesdespuesderealizarcualquierventa(){
       //  descuentodepollo();
@@ -6209,154 +4026,6 @@ if(noduplicargastos==false){new Pantalla_Gastos().setVisible(true);}
         return next;
     }     
     
-    private void ventaacreditoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ventaacreditoActionPerformed
-   float totalparaventaacredito = Float.parseFloat(subtotal.getText());
-                      
-               if(totalparaventaacredito!=0){//SI EL TOTAL NO ES VACIO
-                   try{
-                       String nombre="";
-            boolean pass2 = validarFormulariotexto(nombre=JOptionPane.showInputDialog(null,"¿A nombre de quien va ésta venta a credito?"));
-                 if(pass2){//ESTO VALIDA QUE EL TEXTO ESCRITO NO TENGA INCOHERENCIAS
-                  int decision=JOptionPane.showConfirmDialog(null,"¿Desea continuar?","Estás por agregar una venta a credito",JOptionPane.CANCEL_OPTION);
-                     if(decision==0){ //opción si
-            try{
-                  comprobar_venta_resagada();//579 - 605 verifica que no haya una venta cancelada
-get_id_usuario();// 255 -280
-              block_unlock=false;   
-                 tablaventaactiva=false;
-                     
-          total_venta_enturno();
-          float variable0=0;
-
-         id_max_de_venta();
-        PreparedStatement ps = ca.prepareStatement ("UPDATE venta SET total='"+sumadeimportes+"',descuento='"+ variable0+"',pago='"+variable0+"',cambio='"+variable0+"',fecha_reporte='"+fecha()+"',estado_venta='"+creditopendiente+"'WHERE id_venta='"+id_de_la_venta_incrementable+"'");
-                                    ps.executeUpdate();
-        
-        }catch(Exception ex){
-                                    JOptionPane.showMessageDialog(null, "Error en venta" + ex.getMessage());
-       }
-                                 try{
-                                    id_max_de_venta();
-                                    PreparedStatement ps2 = ca.prepareStatement ("UPDATE descripcion_de_venta SET estado= '"+creditopendiente+"',nombre_credito='"+nombre+"' WHERE id_venta='"+id_de_la_venta_incrementable+"'");
-                                    ps2.executeUpdate();
-                                
- descripciondelosprouductosparaelticketdeventacredito(id_de_la_venta_incrementable);//DATOS PARA EL TICKET DE VENTA          
- descripciondelosprouductosparaelticketdeventacredito(id_de_la_venta_incrementable);//DATOS PARA EL TICKET DE VENTA          
-                                                                         
- block_unlock=true;
-                                    accionesdespuesderealizarcualquierventa();
-                                }
-                                catch(Exception ex){
-                                    JOptionPane.showMessageDialog(null, "Error en venta" + ex.getMessage());
-                                }     
-            }
-                 }   
-                   }catch(NullPointerException NP){}
-                   
-               }//SI EL TOTAL NO ES VACIO
-                 else{//CUANDO EL TOTAL ES VACIO
-                   JOptionPane.showMessageDialog(null, "Aún no hay productos para hacer una venta a credito");
-               }//CUANDO EL TOTAL ES VACIO     
-    }//GEN-LAST:event_ventaacreditoActionPerformed
-
-    private void ventasacreditopendienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ventasacreditopendienteMouseClicked
-      int fila =ventasacreditopendiente.getSelectedRow();
-        if(fila>=0){
-            boolean pass =validarFormularioparamostrardescripciondeproductosporid(ventasacreditopendiente.getValueAt(fila,0).toString());
-            if(pass){
-               id_ventapencredito=Integer.parseInt(ventasacreditopendiente.getValueAt(fila,0).toString());
-            descripciondeproductosenbasealnumerodeventaporcreditopendiente(Integer.parseInt(ventasacreditopendiente.getValueAt(fila,0).toString()));
-               total_venta_creditopendiente(id_ventapencredito);
-            totalventacreditoenturno.setText(String.valueOf(sumadeimportescreditopendiente));
-              labelnombre.setVisible(true);
-        labelcredito.setVisible(true);
-        deudor.setVisible(true);
-        totalventacreditoenturno.setVisible(true); 
-            veridventasacreditopendiente.setVisible(true);
-            pagarventaacredito.setVisible(true);
-            }
-        }
-        else
-        JOptionPane.showMessageDialog(null,"Por favor, seleccione una fila primero","Aviso",JOptionPane.INFORMATION_MESSAGE);
-    }//GEN-LAST:event_ventasacreditopendienteMouseClicked
-
-    private void veridventasacreditopendienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_veridventasacreditopendienteActionPerformed
-           
-        llenartablaconventasacreditopendiente(); //CARGA NUEVAMENTE LAS VENTAS POR ID
-        
-        labelnombre.setVisible(false);
-        labelcredito.setVisible(false);
-        deudor.setVisible(false);
-        totalventacreditoenturno.setVisible(false);
-        veridventasacreditopendiente.setVisible(false);
-         pagarventaacredito.setVisible(false);
-    }//GEN-LAST:event_veridventasacreditopendienteActionPerformed
-
-    private void pagarventaacreditoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pagarventaacreditoActionPerformed
-   try{
-        String pagodeventacredito="";
-            float variable0=0, totalacredito=0, cambio=0;
-            boolean pass2 = validarFormulario(pagodeventacredito= JOptionPane.showInputDialog(null,"Escriba el monto de pago","Pagando venta a credito", JOptionPane.INFORMATION_MESSAGE));
-                 if(pass2){//ESTO VALIDA QUE EL TEXTO ESCRITO NO TENGA INCOHERENCIAS           
-                 
-                      int decision=JOptionPane.showConfirmDialog(null,"¿Desea continuar?","Estás por pagar una venta a credito",JOptionPane.CANCEL_OPTION);
-            if(decision==0){ //opción si
-                  total_venta_creditopendiente(id_ventapencredito);
-       if(Float.parseFloat(pagodeventacredito)>=sumadeimportescreditopendiente){
-        try{          
-  cambio = Float.parseFloat(pagodeventacredito)-sumadeimportescreditopendiente;       
-        PreparedStatement ps = ca.prepareStatement ("UPDATE venta SET descuento='"+ variable0+"',pago='"+solodosdecimales.format(Float.parseFloat(pagodeventacredito))+"',cambio='"+solodosdecimales.format(cambio)+"',fecha_reporte='"+fecha()+"',estado_venta='"+creditopagado+"'WHERE id_venta='"+id_ventapencredito+"'");
-                                    ps.executeUpdate();
-        }catch(Exception ex){
-                                    JOptionPane.showMessageDialog(null, "Error en venta" + ex.getMessage());
-       }
-                                 try{
-                                    id_max_de_venta();
-                                    PreparedStatement ps2 = ca.prepareStatement ("UPDATE descripcion_de_venta SET estado= '"+creditopagado+"' WHERE id_venta='"+id_ventapencredito+"'");
-                                    int a = ps2.executeUpdate();
-                                     if(a>0){
-                                              accionesdespuesderealizarcualquierventa();
-                                    llenartablaconventasacreditopendiente(); //CARGA NUEVAMENTE LAS VENTAS POR ID
-                                   pagarventaacredito.setVisible(false);
-                                   labelnombre.setVisible(false);
-                                   labelcredito.setVisible(false);
-                                   totalventacreditoenturno.setVisible(false);
-                                  deudor.setVisible(false);
-                                   veridventasacreditopendiente.setVisible(false);
-                                    JOptionPane.showMessageDialog(null, "Venta a credito pagada");
-                               
-                                     }
-                               }
-                                catch(Exception ex){
-                                    JOptionPane.showMessageDialog(null, "Error en venta" + ex.getMessage());
-                                }
-                 }else{
-                  JOptionPane.showMessageDialog(null, "El pago es menor al total", "Verifique por favor", JOptionPane.INFORMATION_MESSAGE);
-              }
-              /* ESTO ES PARA ABONOS
-              else if (Float.parseFloat(pagodeventacredito)<totalacredito){
-                    try{
-                                    
-     cambio = Float.parseFloat(pagodeventacredito)-sumadeimportescreditopendiente;
-     
-        PreparedStatement ps = ca.prepareStatement ("UPDATE porcentajedescontado='"+variable0+"',descuento='"+ variable0+"',pago='"+Float.parseFloat(pagodeventacredito)+"',cambio='"+cambio+"',fecha_reporte='"+fecha()+"'WHERE id_venta='"+id_ventapencredito+"'");
-                                    ps.executeUpdate();
-        
-        }catch(Exception ex){
-                                    JOptionPane.showMessageDialog(null, "Error en venta" + ex.getMessage());
-       }
-              }
-               */
-            
-                 
-            }
-                 
-                 }
-   }catch(NullPointerException NP){//ESTO EVITA QUE EL USUARIO META UN VALOR VACIO
-       
-   }
-    }//GEN-LAST:event_pagarventaacreditoActionPerformed
-
     
     public static void agregandoaventa(String nombredepiezaseleccionada, float cantidaddeproductos) {
         if (nombredepiezaseleccionada.equals("Pierna completa")) {
@@ -6545,65 +4214,419 @@ get_id_usuario();// 255 -280
                 JOptionPane.showMessageDialog(null,"No tiene valor la cantidad recibida","!Espera!",JOptionPane.INFORMATION_MESSAGE);
 }
     }
-    private void jTable2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable2MouseClicked
-
-        int fila =jTable2.getSelectedRow();
-      
-        if(fila>=0){
-            boolean pass= validarFormularioparamostrardescripciondeproductosporid(jTable2.getValueAt(fila,0).toString());
-          if(pass){
-                 veridventas.setVisible(true);
-          id=Integer.parseInt(jTable2.getValueAt(fila,0).toString());
-            descripciondeproductosenbasealnumerodeventa(id); 
-            total_ventaporid(id);
-            labelparaeltotal.setVisible(true);
-    labelparaeltotal.setText(String.valueOf(sumadeimportesparaeltotal));
-            totalventarealizada.setVisible(true);
-             imprimirventa.setVisible(true);
- cancelarventa.setVisible(true);
-          }
-        }
-        else
-        JOptionPane.showMessageDialog(null,"Por favor, seleccione una fila primero","Aviso",JOptionPane.INFORMATION_MESSAGE);   
-    }//GEN-LAST:event_jTable2MouseClicked
-
-    private void cobroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cobroActionPerformed
-     if(tablaventaactiva==true&&!subtotal.getText().equals("")){
-         String cobrando="Cobrando";
- CalculadoraCobro enviar = new CalculadoraCobro(Float.parseFloat(subtotal.getText().toString()), cobrando);
-         new CalculadoraCobro().setVisible(true); 
-     }else
-         JOptionPane.showMessageDialog(null, "Aún no hay productos en venta para cobrar", "Verifique", JOptionPane.INFORMATION_MESSAGE);
-    }//GEN-LAST:event_cobroActionPerformed
-
-    private void bonesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bonesActionPerformed
-if(masdeunapiezacocido.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
-            Calculadora enviar = new Calculadora("Huesito","Escribe la cantidad en pesos");
-  new Calculadora().setVisible(true);
-        }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
-            Calculadora enviar = new Calculadora("Huesito","Escribe la cantidad en pesos");
-         new Calculadora().setVisible(true);
-        }
-    }//GEN-LAST:event_bonesActionPerformed
-
-    private void imprimirventaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_imprimirventaActionPerformed
-    reimpresiondeventa(id);
-    }//GEN-LAST:event_imprimirventaActionPerformed
-
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {                                         
    new ProductosExternos().setVisible(true);        
     }                                        
-    private void deletedescuentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deletedescuentoActionPerformed
-descuentoactivo=false;
-descuentocombo.setText("00.00");
-     total.setText(subtotal.getText());
-         deletedescuento.setVisible(false);
-    }//GEN-LAST:event_deletedescuentoActionPerformed
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_formWindowClosed
+
+    private void buscarproductospordiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarproductospordiaActionPerformed
+        productosmasvendidos(Jtable_productosmasven);
+        fecha_inicioestadis.cleanup();
+        fecha_inicioestadis.setDate(null);
+        fecha_finalestadis.cleanup();
+        fecha_finalestadis.setDate(null);
+    }//GEN-LAST:event_buscarproductospordiaActionPerformed
+
+    private void buscarproductosfechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarproductosfechaActionPerformed
+        // BOTON PARA LA CONSULTA DE  GASTOS
+        try{
+            String fechadesde= llenarfechadesde();
+            String fechahasta= llenarfechahasta();
+            if(fechadesde.equals("")&&fechahasta.equals("")){
+                JOptionPane.showMessageDialog(null, "Primero debe elegir un rango de fechas en los calendarios");
+            }else{
+                LlenarTablaBusquedproMasvendidosfecha(Jtable_productosmasven, llenarfechadesde(),llenarfechahasta());
+            }
+        }catch(NullPointerException NP){
+            JOptionPane.showMessageDialog(null,"Debes de elegir un rango de fechas en los botones para la fecha", "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_buscarproductosfechaActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        if(tablaventaactiva==true&&(storage.size())>0){
+            int decision=JOptionPane.showConfirmDialog(null,"¿Desea continuar?","Advertencia: Tiene una venta inconclusa",JOptionPane.CANCEL_OPTION);
+            if(decision==0){ //opción si
+                cerrandosesion_o_limpiandoventa();
+                JOptionPane.showMessageDialog(null,"Nos vemos pronto","Saliendo del sistema...",JOptionPane.INFORMATION_MESSAGE);
+                new SI_Inicio().setVisible(true);
+                this.setVisible(false);
+            }
+        }
+        else{
+            int decision2=JOptionPane.showConfirmDialog(null,"¿Desea continuar?","Saliendo del sistema",JOptionPane.CANCEL_OPTION);
+            if(decision2==0){
+                JOptionPane.showMessageDialog(null,"Nos vemos pronto","Saliendo del sistema...",JOptionPane.INFORMATION_MESSAGE);
+                new SI_Inicio().setVisible(true);
+                this.setVisible(false);
+            }
+        }
+    }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void pagarventaacreditoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pagarventaacreditoActionPerformed
+        try{
+            String pagodeventacredito="";
+            float variable0=0, totalacredito=0, cambio=0;
+            boolean pass2 = validarFormulario(pagodeventacredito= JOptionPane.showInputDialog(null,"Escriba el monto de pago","Pagando venta a credito", JOptionPane.INFORMATION_MESSAGE));
+            if(pass2){//ESTO VALIDA QUE EL TEXTO ESCRITO NO TENGA INCOHERENCIAS
+
+                int decision=JOptionPane.showConfirmDialog(null,"¿Desea continuar?","Estás por pagar una venta a credito",JOptionPane.CANCEL_OPTION);
+                if(decision==0){ //opción si
+                    total_venta_creditopendiente(id_ventapencredito);
+                    if(Float.parseFloat(pagodeventacredito)>=sumadeimportescreditopendiente){
+                        try{
+                            cambio = Float.parseFloat(pagodeventacredito)-sumadeimportescreditopendiente;
+                            PreparedStatement ps = ca.prepareStatement ("UPDATE venta SET descuento='"+ variable0+"',pago='"+solodosdecimales.format(Float.parseFloat(pagodeventacredito))+"',cambio='"+solodosdecimales.format(cambio)+"',fecha_reporte='"+fecha()+"',estado_venta='"+creditopagado+"'WHERE id_venta='"+id_ventapencredito+"'");
+                            ps.executeUpdate();
+                        }catch(Exception ex){
+                            JOptionPane.showMessageDialog(null, "Error en venta" + ex.getMessage());
+                        }
+                        try{
+                            id_max_de_venta();
+                            PreparedStatement ps2 = ca.prepareStatement ("UPDATE descripcion_de_venta SET estado= '"+creditopagado+"' WHERE id_venta='"+id_ventapencredito+"'");
+                            int a = ps2.executeUpdate();
+                            if(a>0){
+                                accionesdespuesderealizarcualquierventa();
+                                llenartablaconventasacreditopendiente(); //CARGA NUEVAMENTE LAS VENTAS POR ID
+                                pagarventaacredito.setVisible(false);
+                                labelnombre.setVisible(false);
+                                labelcredito.setVisible(false);
+                                totalventacreditoenturno.setVisible(false);
+                                deudor.setVisible(false);
+                                veridventasacreditopendiente.setVisible(false);
+                                JOptionPane.showMessageDialog(null, "Venta a credito pagada");
+
+                            }
+                        }
+                        catch(Exception ex){
+                            JOptionPane.showMessageDialog(null, "Error en venta" + ex.getMessage());
+                        }
+                    }else{
+                        JOptionPane.showMessageDialog(null, "El pago es menor al total", "Verifique por favor", JOptionPane.INFORMATION_MESSAGE);
+                    }
+                    /* ESTO ES PARA ABONOS
+                    else if (Float.parseFloat(pagodeventacredito)<totalacredito){
+                        try{
+
+                            cambio = Float.parseFloat(pagodeventacredito)-sumadeimportescreditopendiente;
+
+                            PreparedStatement ps = ca.prepareStatement ("UPDATE porcentajedescontado='"+variable0+"',descuento='"+ variable0+"',pago='"+Float.parseFloat(pagodeventacredito)+"',cambio='"+cambio+"',fecha_reporte='"+fecha()+"'WHERE id_venta='"+id_ventapencredito+"'");
+                            ps.executeUpdate();
+
+                        }catch(Exception ex){
+                            JOptionPane.showMessageDialog(null, "Error en venta" + ex.getMessage());
+                        }
+                    }
+                    */
+
+                }
+
+            }
+        }catch(NullPointerException NP){//ESTO EVITA QUE EL USUARIO META UN VALOR VACIO
+
+        }
+    }//GEN-LAST:event_pagarventaacreditoActionPerformed
+
+    private void veridventasacreditopendienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_veridventasacreditopendienteActionPerformed
+
+        llenartablaconventasacreditopendiente(); //CARGA NUEVAMENTE LAS VENTAS POR ID
+
+        labelnombre.setVisible(false);
+        labelcredito.setVisible(false);
+        deudor.setVisible(false);
+        totalventacreditoenturno.setVisible(false);
+        veridventasacreditopendiente.setVisible(false);
+        pagarventaacredito.setVisible(false);
+    }//GEN-LAST:event_veridventasacreditopendienteActionPerformed
+
+    private void ventasacreditopendienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ventasacreditopendienteMouseClicked
+        int fila =ventasacreditopendiente.getSelectedRow();
+        if(fila>=0){
+            boolean pass =validarFormularioparamostrardescripciondeproductosporid(ventasacreditopendiente.getValueAt(fila,0).toString());
+            if(pass){
+                id_ventapencredito=Integer.parseInt(ventasacreditopendiente.getValueAt(fila,0).toString());
+                descripciondeproductosenbasealnumerodeventaporcreditopendiente(Integer.parseInt(ventasacreditopendiente.getValueAt(fila,0).toString()));
+                total_venta_creditopendiente(id_ventapencredito);
+                totalventacreditoenturno.setText(String.valueOf(sumadeimportescreditopendiente));
+                labelnombre.setVisible(true);
+                labelcredito.setVisible(true);
+                deudor.setVisible(true);
+                totalventacreditoenturno.setVisible(true);
+                veridventasacreditopendiente.setVisible(true);
+                pagarventaacredito.setVisible(true);
+            }
+        }
+        else
+        JOptionPane.showMessageDialog(null,"Por favor, seleccione una fila primero","Aviso",JOptionPane.INFORMATION_MESSAGE);
+    }//GEN-LAST:event_ventasacreditopendienteMouseClicked
+
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        if(tablaventaactiva==true&&(storage.size())>0){
+            int decision=JOptionPane.showConfirmDialog(null,"¿Desea continuar?","Advertencia: Tiene una venta inconclusa",JOptionPane.CANCEL_OPTION);
+            if(decision==0){ //opción si
+                cerrandosesion_o_limpiandoventa();
+                JOptionPane.showMessageDialog(null,"Nos vemos pronto","Saliendo del sistema...",JOptionPane.INFORMATION_MESSAGE);
+                new SI_Inicio().setVisible(true);
+                this.setVisible(false);
+            }
+        }
+        else{
+            int decision2=JOptionPane.showConfirmDialog(null,"¿Desea continuar?","Saliendo del sistema",JOptionPane.CANCEL_OPTION);
+            if(decision2==0){
+                JOptionPane.showMessageDialog(null,"Nos vemos pronto","Saliendo del sistema...",JOptionPane.INFORMATION_MESSAGE);
+                new SI_Inicio().setVisible(true);
+                this.setVisible(false);
+            }
+        }
+    }//GEN-LAST:event_jButton8ActionPerformed
+
+    private void cancelarventaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarventaActionPerformed
+        status_cancelado(id);
+        fechainicial.cleanup();
+        fechainicial.setDate(null);
+        fechafinal.cleanup();
+        fechafinal.setDate(null);
+        llenartablaidventasconidrealizados(); //CARGA NUEVAMENTE LAS VENTAS POR ID
+        veridventas.setVisible(false);
+        labelparaeltotal.setText("00.00");
+        totalventarealizada.setVisible(false);
+        labelparaeltotal.setVisible(false);
+        imprimirventa.setVisible(false);
+
+        cancelarventa.setVisible(false);
+    }//GEN-LAST:event_cancelarventaActionPerformed
+
+    private void imprimirventaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_imprimirventaActionPerformed
+        reimpresiondeventa(id);
+    }//GEN-LAST:event_imprimirventaActionPerformed
+
+    private void jTable2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable2MouseClicked
+
+        int fila =jTable2.getSelectedRow();
+
+        if(fila>=0){
+            boolean pass= validarFormularioparamostrardescripciondeproductosporid(jTable2.getValueAt(fila,0).toString());
+            if(pass){
+                veridventas.setVisible(true);
+                id=Integer.parseInt(jTable2.getValueAt(fila,0).toString());
+                descripciondeproductosenbasealnumerodeventa(id);
+                total_ventaporid(id);
+                labelparaeltotal.setVisible(true);
+                labelparaeltotal.setText(String.valueOf(sumadeimportesparaeltotal));
+                totalventarealizada.setVisible(true);
+                imprimirventa.setVisible(true);
+                cancelarventa.setVisible(true);
+            }
+        }
+        else
+        JOptionPane.showMessageDialog(null,"Por favor, seleccione una fila primero","Aviso",JOptionPane.INFORMATION_MESSAGE);
+    }//GEN-LAST:event_jTable2MouseClicked
+
+    private void buscarventasporfechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarventasporfechaActionPerformed
+        try{
+            String fechaparaventasdesde= llenarfechadesdeparamostrarlosidventas();
+            String fechaparaventashasta= llenarfechahastaparamostrarlosidventas();
+            if(fechaparaventasdesde.equals("")&&fechaparaventashasta.equals("")){
+                JOptionPane.showMessageDialog(null, "Primero debe elegir un rango de fechas en los calendarios");
+            }else{
+
+                showidventasporfechas(jTable2, llenarfechadesdeparamostrarlosidventas(),llenarfechahastaparamostrarlosidventas());
+            }
+        }catch(NullPointerException NP){
+            JOptionPane.showMessageDialog(null,"Debes de elegir un rango de fechas en los botones para la fecha", "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_buscarventasporfechaActionPerformed
+
+    private void veridventasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_veridventasActionPerformed
+        fechainicial.cleanup();
+        fechainicial.setDate(null);
+        fechafinal.cleanup();
+        fechafinal.setDate(null);
+        llenartablaidventasconidrealizados(); //CARGA NUEVAMENTE LAS VENTAS POR ID
+        veridventas.setVisible(false);
+        labelparaeltotal.setText("00.00");
+        totalventarealizada.setVisible(false);
+        labelparaeltotal.setVisible(false);
+        imprimirventa.setVisible(false);
+
+        cancelarventa.setVisible(false);
+    }//GEN-LAST:event_veridventasActionPerformed
 
     private void agregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarActionPerformed
-if(noduplicarexternos==false){new ProductosExternos().setVisible(true); }
-       
+        if(noduplicarexternos==false){new ProductosExternos().setVisible(true); }
+
     }//GEN-LAST:event_agregarActionPerformed
+
+    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
+        if(tablaventaactiva==true&&(storage.size())>0){
+            int decision=JOptionPane.showConfirmDialog(null,"¿Desea continuar?","Advertencia: Tiene una venta inconclusa",JOptionPane.CANCEL_OPTION);
+            if(decision==0){ //opción si
+                cerrandosesion_o_limpiandoventa();
+                JOptionPane.showMessageDialog(null,"Nos vemos pronto","Saliendo del sistema...",JOptionPane.INFORMATION_MESSAGE);
+                new SI_Inicio().setVisible(true);
+                this.setVisible(false);
+            }
+        }
+        else{
+            int decision2=JOptionPane.showConfirmDialog(null,"¿Desea continuar?","Saliendo del sistema",JOptionPane.CANCEL_OPTION);
+            if(decision2==0){
+                JOptionPane.showMessageDialog(null,"Nos vemos pronto","Saliendo del sistema...",JOptionPane.INFORMATION_MESSAGE);
+                new SI_Inicio().setVisible(true);
+                this.setVisible(false);
+            }
+        }
+    }//GEN-LAST:event_jButton10ActionPerformed
+
+    private void jButton22ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton22ActionPerformed
+        if(masdeunapieza.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
+            Calculadora enviar = new Calculadora("Ver. encurtidas","Escribe la cantidad");
+
+            new Calculadora().setVisible(true);
+        }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
+            piezaseleccionadaycantidadunica("Ver. encurtidas",1);
+        }
+    }//GEN-LAST:event_jButton22ActionPerformed
+
+    private void jButton21ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton21ActionPerformed
+        if(masdeunapieza.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
+            Calculadora enviar = new Calculadora("Ensalada rusa","Escribe la cantidad");
+
+            new Calculadora().setVisible(true);
+        }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
+            piezaseleccionadaycantidadunica("Ensalada rusa",1);
+        }
+    }//GEN-LAST:event_jButton21ActionPerformed
+
+    private void jButton20ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton20ActionPerformed
+        if(masdeunapieza.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
+            Calculadora enviar = new Calculadora("Pasta de codito","Escribe la cantidad");
+
+            new Calculadora().setVisible(true);
+        }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
+            piezaseleccionadaycantidadunica("Pasta de codito",1);
+        }
+    }//GEN-LAST:event_jButton20ActionPerformed
+
+    private void jButton19ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton19ActionPerformed
+        if(masdeunapieza.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
+            Calculadora enviar = new Calculadora("Chiles en vinagre","Escribe la cantidad");
+
+            new Calculadora().setVisible(true);
+        }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
+            piezaseleccionadaycantidadunica("Chiles en vinagre",1);
+        }
+    }//GEN-LAST:event_jButton19ActionPerformed
+
+    private void jButton18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton18ActionPerformed
+        if(masdeunapieza.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
+            Calculadora enviar = new Calculadora("Ensalada de col","Escribe la cantidad");
+
+            new Calculadora().setVisible(true);
+        }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
+            piezaseleccionadaycantidadunica("Ensalada de col",1);
+        }
+    }//GEN-LAST:event_jButton18ActionPerformed
+
+    private void jButton17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton17ActionPerformed
+        if(masdeunapieza.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
+            Calculadora enviar = new Calculadora("Ens. de manzana","Escribe la cantidad");
+
+            new Calculadora().setVisible(true);
+        }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
+            piezaseleccionadaycantidadunica("Ens. de manzana",1);
+        }
+    }//GEN-LAST:event_jButton17ActionPerformed
+
+    private void jButton16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton16ActionPerformed
+        if(masdeunapieza.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
+            Calculadora enviar = new Calculadora("Pure","Escribe la cantidad");
+
+            new Calculadora().setVisible(true);
+        }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
+            piezaseleccionadaycantidadunica("Pure",1);
+        }
+    }//GEN-LAST:event_jButton16ActionPerformed
+
+    private void jButton15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton15ActionPerformed
+        if(masdeunapieza.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
+            Calculadora enviar = new Calculadora("Frijoles peruanos","Escribe la cantidad");
+
+            new Calculadora().setVisible(true);
+        }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
+            piezaseleccionadaycantidadunica("Frijoles peruanos",1);
+        }
+    }//GEN-LAST:event_jButton15ActionPerformed
+
+    private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
+        if(masdeunapieza.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
+            Calculadora enviar = new Calculadora("Frijoles charros","Escribe la cantidad");
+
+            new Calculadora().setVisible(true);
+        }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
+            piezaseleccionadaycantidadunica("Frijoles charros",1);
+        }
+    }//GEN-LAST:event_jButton14ActionPerformed
+
+    private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
+        if(masdeunapieza.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
+            Calculadora enviar = new Calculadora("Cochinita","Escribe la cantidad");
+
+            new Calculadora().setVisible(true);
+        }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
+            piezaseleccionadaycantidadunica("Cochinita",1);
+        }
+    }//GEN-LAST:event_jButton13ActionPerformed
+
+    private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
+        if(masdeunapieza.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
+            Calculadora enviar = new Calculadora("Frijoles puercos","Escribe la cantidad");
+
+            new Calculadora().setVisible(true);
+        }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
+            piezaseleccionadaycantidadunica("Frijoles puercos",1);
+        }
+    }//GEN-LAST:event_jButton12ActionPerformed
+
+    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
+
+        if(masdeunapieza.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
+            Calculadora enviar = new Calculadora("Spagueti rojo","Escribe la cantidad");
+            new Calculadora().setVisible(true);
+        }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
+            piezaseleccionadaycantidadunica("Spagueti rojo",1);
+        }
+    }//GEN-LAST:event_jButton11ActionPerformed
+
+    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+        if(masdeunapieza.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
+            Calculadora enviar = new Calculadora("Arroz rojo","Escribe la cantidad");
+
+            new Calculadora().setVisible(true);
+        }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
+            piezaseleccionadaycantidadunica("Arroz rojo",1);
+        }
+    }//GEN-LAST:event_jButton9ActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        if(masdeunapieza.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
+            Calculadora enviar = new Calculadora("Arroz blanco","Escribe la cantidad");
+
+            new Calculadora().setVisible(true);
+        }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
+            piezaseleccionadaycantidadunica("Arroz blanco",1);
+        }
+    }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        if(masdeunapieza.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
+            Calculadora enviar = new Calculadora("Spagueti blanco","Escribe la cantidad");
+
+            new Calculadora().setVisible(true);
+        }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
+            piezaseleccionadaycantidadunica("Spagueti blanco",1);
+        }
+    }//GEN-LAST:event_jButton5ActionPerformed
 
     private void salsaguajilloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salsaguajilloActionPerformed
         if(masdeunapieza.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
@@ -6614,308 +4637,55 @@ if(noduplicarexternos==false){new ProductosExternos().setVisible(true); }
         }
     }//GEN-LAST:event_salsaguajilloActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        if(masdeunapieza.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
-            Calculadora enviar = new Calculadora("Spagueti blanco","Escribe la cantidad");
-           
-            new Calculadora().setVisible(true);
-        }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
-                  piezaseleccionadaycantidadunica("Spagueti blanco",1);
-        }
-    }//GEN-LAST:event_jButton5ActionPerformed
+    private void jButton41ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton41ActionPerformed
 
-    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        if(masdeunapieza.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
-            Calculadora enviar = new Calculadora("Arroz blanco","Escribe la cantidad");
-         
-            new Calculadora().setVisible(true);
-        }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
-            piezaseleccionadaycantidadunica("Arroz blanco",1);
-        }
-
-    }//GEN-LAST:event_jButton7ActionPerformed
-
-    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
-        if(masdeunapieza.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
-            Calculadora enviar = new Calculadora("Arroz rojo","Escribe la cantidad");
-          
-            new Calculadora().setVisible(true);
-        }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
-              piezaseleccionadaycantidadunica("Arroz rojo",1);
-        }
-    }//GEN-LAST:event_jButton9ActionPerformed
-
-    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
-
-        if(masdeunapieza.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
-            Calculadora enviar = new Calculadora("Spagueti rojo","Escribe la cantidad");
-           new Calculadora().setVisible(true);
-        }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
-            piezaseleccionadaycantidadunica("Spagueti rojo",1);
-        }
-    }//GEN-LAST:event_jButton11ActionPerformed
-
-    private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
-        if(masdeunapieza.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
-            Calculadora enviar = new Calculadora("Frijoles puercos","Escribe la cantidad");
-           
-            new Calculadora().setVisible(true);
-        }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
-             piezaseleccionadaycantidadunica("Frijoles puercos",1);
-        }
-    }//GEN-LAST:event_jButton12ActionPerformed
-
-    private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
-        if(masdeunapieza.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
-            Calculadora enviar = new Calculadora("Cochinita","Escribe la cantidad");
-           
-            new Calculadora().setVisible(true);
-        }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
-           piezaseleccionadaycantidadunica("Cochinita",1);
-        }
-    }//GEN-LAST:event_jButton13ActionPerformed
-
-    private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
-        if(masdeunapieza.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
-            Calculadora enviar = new Calculadora("Frijoles charros","Escribe la cantidad");
-          
-            new Calculadora().setVisible(true);
-        }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
-            piezaseleccionadaycantidadunica("Frijoles charros",1);
-        }
-    }//GEN-LAST:event_jButton14ActionPerformed
-
-    private void jButton15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton15ActionPerformed
-        if(masdeunapieza.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
-            Calculadora enviar = new Calculadora("Frijoles peruanos","Escribe la cantidad");
-        
-            new Calculadora().setVisible(true);
-        }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
-            piezaseleccionadaycantidadunica("Frijoles peruanos",1);
-        }
-    }//GEN-LAST:event_jButton15ActionPerformed
-
-    private void jButton16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton16ActionPerformed
-        if(masdeunapieza.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
-            Calculadora enviar = new Calculadora("Pure","Escribe la cantidad");
-         
-            new Calculadora().setVisible(true);
-        }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
-         piezaseleccionadaycantidadunica("Pure",1);
-        }
-    }//GEN-LAST:event_jButton16ActionPerformed
-
-    private void jButton17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton17ActionPerformed
-        if(masdeunapieza.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
-            Calculadora enviar = new Calculadora("Ens. de manzana","Escribe la cantidad");
-          
-            new Calculadora().setVisible(true);
-        }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
-           piezaseleccionadaycantidadunica("Ens. de manzana",1);
-        }
-    }//GEN-LAST:event_jButton17ActionPerformed
-
-    private void jButton18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton18ActionPerformed
-        if(masdeunapieza.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
-            Calculadora enviar = new Calculadora("Ensalada de col","Escribe la cantidad");
-         
-            new Calculadora().setVisible(true);
-        }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
-          piezaseleccionadaycantidadunica("Ensalada de col",1);  
-        }
-    }//GEN-LAST:event_jButton18ActionPerformed
-
-    private void jButton19ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton19ActionPerformed
-        if(masdeunapieza.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
-            Calculadora enviar = new Calculadora("Chiles en vinagre","Escribe la cantidad");
-           
-            new Calculadora().setVisible(true);
-        }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
-         piezaseleccionadaycantidadunica("Chiles en vinagre",1);  
-        }
-    }//GEN-LAST:event_jButton19ActionPerformed
-
-    private void jButton20ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton20ActionPerformed
-        if(masdeunapieza.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
-            Calculadora enviar = new Calculadora("Pasta de codito","Escribe la cantidad");
-        
-            new Calculadora().setVisible(true);
-        }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
-            piezaseleccionadaycantidadunica("Pasta de codito",1);  
-        }
-    }//GEN-LAST:event_jButton20ActionPerformed
-
-    private void jButton21ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton21ActionPerformed
-        if(masdeunapieza.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
-            Calculadora enviar = new Calculadora("Ensalada rusa","Escribe la cantidad");
-         
-            new Calculadora().setVisible(true);
-        }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
-           piezaseleccionadaycantidadunica("Ensalada rusa",1);  
-        }
-    }//GEN-LAST:event_jButton21ActionPerformed
-
-    private void jButton22ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton22ActionPerformed
-        if(masdeunapieza.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
-            Calculadora enviar = new Calculadora("Ver. encurtidas","Escribe la cantidad");
-        
-            new Calculadora().setVisible(true);
-        }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
-          piezaseleccionadaycantidadunica("Ver. encurtidas",1);  
-        }
-    }//GEN-LAST:event_jButton22ActionPerformed
-
-    private void polloasadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_polloasadoActionPerformed
-     if(masdeunapiezacocido.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
-            Calculadora enviar = new Calculadora("Pollo asado","Escribe la cantidad");
-          
-            new Calculadora().setVisible(true);
-        }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
-            piezaseleccionadaycantidadunica("Pollo asado",1);
-        }
-    }//GEN-LAST:event_polloasadoActionPerformed
-
-    private void jButton23ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton23ActionPerformed
         if(masdeunapiezacocido.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
-            Calculadora enviar = new Calculadora("Pollo rostizado","Escribe la cantidad");
-           
+            Calculadora enviar = new Calculadora("Miel","Escribe la cantidad");
+
             new Calculadora().setVisible(true);
         }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
-                 piezaseleccionadaycantidadunica("Pollo rostizado",1);
-        }
-    }//GEN-LAST:event_jButton23ActionPerformed
+            piezaseleccionadaycantidadunica("Miel",1);
 
-    private void jButton24ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton24ActionPerformed
-     if(masdeunapiezacocido.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
-            Calculadora enviar = new Calculadora("Pech. broaster","Escribe la cantidad");
-         
+        }
+    }//GEN-LAST:event_jButton41ActionPerformed
+
+    private void jButton40ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton40ActionPerformed
+
+        if(masdeunapiezacocido.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
+            Calculadora enviar = new Calculadora("Longaniza","Escribe la cantidad en pesos");
+
             new Calculadora().setVisible(true);
         }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
-            piezaseleccionadaycantidadunica("Pech. broaster",1);
-        }
-    }//GEN-LAST:event_jButton24ActionPerformed
+            Calculadora enviar = new Calculadora("Longaniza","Escribe la cantidad en pesos");
 
-    private void jButton25ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton25ActionPerformed
-    if(masdeunapiezacocido.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
-            Calculadora enviar = new Calculadora("Pierna broaster","Escribe la cantidad");
-           
+            new Calculadora().setVisible(true);
+        }
+    }//GEN-LAST:event_jButton40ActionPerformed
+
+    private void jButton39ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton39ActionPerformed
+
+        if(masdeunapiezacocido.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
+            Calculadora enviar = new Calculadora("Mininuggets","Escribe la cantidad");
+
             new Calculadora().setVisible(true);
         }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
-            piezaseleccionadaycantidadunica("Pierna broaster",1);
+            piezaseleccionadaycantidadunica("Mininuggets",1);
         }
-    }//GEN-LAST:event_jButton25ActionPerformed
+    }//GEN-LAST:event_jButton39ActionPerformed
 
-    private void jButton26ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton26ActionPerformed
-        if(masdeunapieza.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
-        piezaseleccionadaycantidadvariable((float)medio, "Pollo asado");
-    }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
-             piezaseleccionadaycantidadvariable((float)medio, "Pollo asado");
-        }
-    }//GEN-LAST:event_jButton26ActionPerformed
+    private void jButton38ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton38ActionPerformed
 
-    private void jButton27ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton27ActionPerformed
-    if(masdeunapiezacocido.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
-           piezaseleccionadaycantidadvariable((float)medio, "Pollo rostizado");
-           
-        }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
-          piezaseleccionadaycantidadvariable((float)medio, "Pollo rostizado");
-           
-        }
-    }//GEN-LAST:event_jButton27ActionPerformed
+        if(masdeunapiezacocido.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
+            Calculadora enviar = new Calculadora("Mole rojo","Escribe la cantidad");
 
-    private void jButton28ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton28ActionPerformed
-if(masdeunapiezacocido.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
-             piezaseleccionadaycantidadvariable((float)cuarto, "Pollo rostizado");
-        }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
-         piezaseleccionadaycantidadvariable((float)cuarto, "Pollo rostizado");          
-        }
-    }//GEN-LAST:event_jButton28ActionPerformed
-
-    private void jButton29ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton29ActionPerformed
-   if(masdeunapiezacocido.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
-            piezaseleccionadaycantidadvariable((float)cuarto, "Pollo asado");  
-          
-        }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
-          piezaseleccionadaycantidadvariable((float)cuarto, "Pollo asado");  
-        }
-    }//GEN-LAST:event_jButton29ActionPerformed
-
-    private void jButton30ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton30ActionPerformed
-
-     if(masdeunapiezacocido.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
-              Calculadora enviar = new Calculadora("Ala broaster","Escribe la cantidad");
-             new Calculadora().setVisible(true);
-        }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
-          piezaseleccionadaycantidadunica("Ala broaster",1);
-        }
-    }//GEN-LAST:event_jButton30ActionPerformed
-
-    private void jButton31ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton31ActionPerformed
-
-      if(masdeunapiezacocido.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
-            Calculadora enviar = new Calculadora("Nuggets","Escribe la cantidad");
-     
             new Calculadora().setVisible(true);
         }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
-        piezaseleccionadaycantidadunica("Nuggets",1);
+            piezaseleccionadaycantidadunica("Mole rojo",1);
         }
-    }//GEN-LAST:event_jButton31ActionPerformed
-
-    private void jButton32ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton32ActionPerformed
-
-      if(masdeunapiezacocido.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
-            Calculadora enviar = new Calculadora("Barbacoa de pollo","Escribe la cantidad");
-          
-            new Calculadora().setVisible(true);
-        }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
-              piezaseleccionadaycantidadunica("Barbacoa de pollo",1);
-        }
-    }//GEN-LAST:event_jButton32ActionPerformed
-
-    private void jButton33ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton33ActionPerformed
-    if(masdeunapiezacocido.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
-             Calculadora enviar = new Calculadora("Muslo broaster","Escribe la cantidad");
-         
-            new Calculadora().setVisible(true);
-        }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
-             piezaseleccionadaycantidadunica("Muslo broaster",1);
-        }
-    }//GEN-LAST:event_jButton33ActionPerformed
-
-    private void jButton34ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton34ActionPerformed
-
-        if(masdeunapieza.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
-            Calculadora enviar = new Calculadora("Alitas bbq","Escribe la cantidad");
-       
-            new Calculadora().setVisible(true);
-        }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
-     piezaseleccionadaycantidadunica("Alitas bbq",1);
-        }
-    }//GEN-LAST:event_jButton34ActionPerformed
-
-    private void jButton35ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton35ActionPerformed
-
-    if(masdeunapiezacocido.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
-             Calculadora enviar = new Calculadora("Tacos","Escribe la cantidad");
-           
-            new Calculadora().setVisible(true);
-        }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
-             piezaseleccionadaycantidadunica("Tacos",1);
-        }
-    }//GEN-LAST:event_jButton35ActionPerformed
-
-    private void jButton36ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton36ActionPerformed
-if(masdeunapiezacocido.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
-              Calculadora enviar = new Calculadora("Brochetas","Escribe la cantidad");
-        
-            new Calculadora().setVisible(true);
-        }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
-             piezaseleccionadaycantidadunica("Brochetas",1);
-        }
-    }//GEN-LAST:event_jButton36ActionPerformed
+    }//GEN-LAST:event_jButton38ActionPerformed
 
     private void jButton37ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton37ActionPerformed
-     if(masdeunapiezacocido.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
+        if(masdeunapiezacocido.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
             Calculadora enviar = new Calculadora("Mole verde","Escribe la cantidad");
 
             new Calculadora().setVisible(true);
@@ -6924,62 +4694,285 @@ if(masdeunapiezacocido.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE 
         }
     }//GEN-LAST:event_jButton37ActionPerformed
 
-    private void jButton38ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton38ActionPerformed
+    private void jButton36ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton36ActionPerformed
+        if(masdeunapiezacocido.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
+            Calculadora enviar = new Calculadora("Brochetas","Escribe la cantidad");
 
-     if(masdeunapiezacocido.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
-            Calculadora enviar = new Calculadora("Mole rojo","Escribe la cantidad");
-           
             new Calculadora().setVisible(true);
         }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
-            piezaseleccionadaycantidadunica("Mole rojo",1);
+            piezaseleccionadaycantidadunica("Brochetas",1);
         }
-    }//GEN-LAST:event_jButton38ActionPerformed
+    }//GEN-LAST:event_jButton36ActionPerformed
 
-    private void jButton39ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton39ActionPerformed
-
- if(masdeunapiezacocido.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
-                Calculadora enviar = new Calculadora("Mininuggets","Escribe la cantidad");
-         
-            new Calculadora().setVisible(true);
-        }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
-              piezaseleccionadaycantidadunica("Mininuggets",1);
-        }
-    }//GEN-LAST:event_jButton39ActionPerformed
-
-    private void jButton40ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton40ActionPerformed
-
-       if(masdeunapiezacocido.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
-            Calculadora enviar = new Calculadora("Longaniza","Escribe la cantidad en pesos");
-          
-            new Calculadora().setVisible(true);
-        }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
-            Calculadora enviar = new Calculadora("Longaniza","Escribe la cantidad en pesos");
-           
-            new Calculadora().setVisible(true);
-        }
-    }//GEN-LAST:event_jButton40ActionPerformed
-
-    private void jButton41ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton41ActionPerformed
+    private void jButton35ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton35ActionPerformed
 
         if(masdeunapiezacocido.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
-            Calculadora enviar = new Calculadora("Miel","Escribe la cantidad");
-        
+            Calculadora enviar = new Calculadora("Tacos","Escribe la cantidad");
+
             new Calculadora().setVisible(true);
         }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
-     piezaseleccionadaycantidadunica("Miel",1);
-        
+            piezaseleccionadaycantidadunica("Tacos",1);
         }
-    }//GEN-LAST:event_jButton41ActionPerformed
+    }//GEN-LAST:event_jButton35ActionPerformed
 
-    private void crudoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_crudoActionPerformed
+    private void jButton34ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton34ActionPerformed
+
+        if(masdeunapieza.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
+            Calculadora enviar = new Calculadora("Alitas bbq","Escribe la cantidad");
+
+            new Calculadora().setVisible(true);
+        }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
+            piezaseleccionadaycantidadunica("Alitas bbq",1);
+        }
+    }//GEN-LAST:event_jButton34ActionPerformed
+
+    private void jButton33ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton33ActionPerformed
+        if(masdeunapiezacocido.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
+            Calculadora enviar = new Calculadora("Muslo broaster","Escribe la cantidad");
+
+            new Calculadora().setVisible(true);
+        }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
+            piezaseleccionadaycantidadunica("Muslo broaster",1);
+        }
+    }//GEN-LAST:event_jButton33ActionPerformed
+
+    private void jButton32ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton32ActionPerformed
+
+        if(masdeunapiezacocido.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
+            Calculadora enviar = new Calculadora("Barbacoa de pollo","Escribe la cantidad");
+
+            new Calculadora().setVisible(true);
+        }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
+            piezaseleccionadaycantidadunica("Barbacoa de pollo",1);
+        }
+    }//GEN-LAST:event_jButton32ActionPerformed
+
+    private void jButton31ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton31ActionPerformed
+
+        if(masdeunapiezacocido.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
+            Calculadora enviar = new Calculadora("Nuggets","Escribe la cantidad");
+
+            new Calculadora().setVisible(true);
+        }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
+            piezaseleccionadaycantidadunica("Nuggets",1);
+        }
+    }//GEN-LAST:event_jButton31ActionPerformed
+
+    private void jButton30ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton30ActionPerformed
+
+        if(masdeunapiezacocido.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
+            Calculadora enviar = new Calculadora("Ala broaster","Escribe la cantidad");
+            new Calculadora().setVisible(true);
+        }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
+            piezaseleccionadaycantidadunica("Ala broaster",1);
+        }
+    }//GEN-LAST:event_jButton30ActionPerformed
+
+    private void jButton29ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton29ActionPerformed
+        if(masdeunapiezacocido.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
+            piezaseleccionadaycantidadvariable((float)cuarto, "Pollo asado");
+
+        }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
+            piezaseleccionadaycantidadvariable((float)cuarto, "Pollo asado");
+        }
+    }//GEN-LAST:event_jButton29ActionPerformed
+
+    private void jButton28ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton28ActionPerformed
+        if(masdeunapiezacocido.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
+            piezaseleccionadaycantidadvariable((float)cuarto, "Pollo rostizado");
+        }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
+            piezaseleccionadaycantidadvariable((float)cuarto, "Pollo rostizado");
+        }
+    }//GEN-LAST:event_jButton28ActionPerformed
+
+    private void jButton27ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton27ActionPerformed
+        if(masdeunapiezacocido.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
+            piezaseleccionadaycantidadvariable((float)medio, "Pollo rostizado");
+
+        }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
+            piezaseleccionadaycantidadvariable((float)medio, "Pollo rostizado");
+
+        }
+    }//GEN-LAST:event_jButton27ActionPerformed
+
+    private void jButton26ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton26ActionPerformed
+        if(masdeunapieza.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
+            piezaseleccionadaycantidadvariable((float)medio, "Pollo asado");
+        }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
+            piezaseleccionadaycantidadvariable((float)medio, "Pollo asado");
+        }
+    }//GEN-LAST:event_jButton26ActionPerformed
+
+    private void jButton25ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton25ActionPerformed
+        if(masdeunapiezacocido.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
+            Calculadora enviar = new Calculadora("Pierna broaster","Escribe la cantidad");
+
+            new Calculadora().setVisible(true);
+        }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
+            piezaseleccionadaycantidadunica("Pierna broaster",1);
+        }
+    }//GEN-LAST:event_jButton25ActionPerformed
+
+    private void jButton24ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton24ActionPerformed
+        if(masdeunapiezacocido.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
+            Calculadora enviar = new Calculadora("Pech. broaster","Escribe la cantidad");
+
+            new Calculadora().setVisible(true);
+        }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
+            piezaseleccionadaycantidadunica("Pech. broaster",1);
+        }
+    }//GEN-LAST:event_jButton24ActionPerformed
+
+    private void jButton23ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton23ActionPerformed
+        if(masdeunapiezacocido.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
+            Calculadora enviar = new Calculadora("Pollo rostizado","Escribe la cantidad");
+
+            new Calculadora().setVisible(true);
+        }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
+            piezaseleccionadaycantidadunica("Pollo rostizado",1);
+        }
+    }//GEN-LAST:event_jButton23ActionPerformed
+
+    private void polloasadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_polloasadoActionPerformed
+        if(masdeunapiezacocido.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
+            Calculadora enviar = new Calculadora("Pollo asado","Escribe la cantidad");
+
+            new Calculadora().setVisible(true);
+        }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
+            piezaseleccionadaycantidadunica("Pollo asado",1);
+        }
+    }//GEN-LAST:event_polloasadoActionPerformed
+
+    private void bonesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bonesActionPerformed
+        if(masdeunapiezacocido.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
+            Calculadora enviar = new Calculadora("Huesito","Escribe la cantidad en pesos");
+            new Calculadora().setVisible(true);
+        }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
+            Calculadora enviar = new Calculadora("Huesito","Escribe la cantidad en pesos");
+            new Calculadora().setVisible(true);
+        }
+    }//GEN-LAST:event_bonesActionPerformed
+
+    private void jButton55ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton55ActionPerformed
         if(masdeunapiezacrudo.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
-            Calculadora enviar = new Calculadora("pollo crudo","Escribe la cantidad");
+            Calculadora enviar = new Calculadora("Pechuga en bisteck","Escribe la cantidad");
+            new Calculadora().setVisible(true);
+        }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
+            piezaseleccionadaycantidadunica("Pechuga en bisteck",1);
+        }
+    }//GEN-LAST:event_jButton55ActionPerformed
+
+    private void jButton54ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton54ActionPerformed
+        if(masdeunapiezacrudo.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
+            Calculadora enviar = new Calculadora("Patas","Escribe la cantidad");
+            new Calculadora().setVisible(true);
+        }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
+            piezaseleccionadaycantidadunica("Patas",1);
+        }
+    }//GEN-LAST:event_jButton54ActionPerformed
+
+    private void jButton53ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton53ActionPerformed
+        if(masdeunapiezacrudo.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
+            Calculadora enviar = new Calculadora("Molleja","Escribe la cantidad");
+            new Calculadora().setVisible(true);
+        }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
+            piezaseleccionadaycantidadunica("Molleja",1);
+        }
+    }//GEN-LAST:event_jButton53ActionPerformed
+
+    private void jButton52ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton52ActionPerformed
+        if(masdeunapiezacrudo.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
+            Calculadora enviar = new Calculadora("Huacal","Escribe la cantidad");
+            new Calculadora().setVisible(true);
+        }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
+            piezaseleccionadaycantidadunica("Huacal",1);
+        }
+    }//GEN-LAST:event_jButton52ActionPerformed
+
+    private void jButton51ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton51ActionPerformed
+        if(masdeunapiezacrudo.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
+            Calculadora enviar = new Calculadora("Cadera","Escribe la cantidad");
+            new Calculadora().setVisible(true);
+        }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
+            piezaseleccionadaycantidadunica("Cadera",1);
+        }
+    }//GEN-LAST:event_jButton51ActionPerformed
+
+    private void jButton50ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton50ActionPerformed
+        if(masdeunapiezacrudo.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
+            Calculadora enviar = new Calculadora("Cabeza","Escribe la cantidad");
+            new Calculadora().setVisible(true);
+        }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
+            piezaseleccionadaycantidadunica("Cabeza",1);
+        }
+    }//GEN-LAST:event_jButton50ActionPerformed
+
+    private void jButton49ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton49ActionPerformed
+        if(masdeunapiezacrudo.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
+            Calculadora enviar = new Calculadora("Ala","Escribe la cantidad");
+            new Calculadora().setVisible(true);
+        }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
+            piezaseleccionadaycantidadunica("Ala",1);
+        }
+    }//GEN-LAST:event_jButton49ActionPerformed
+
+    private void jButton48ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton48ActionPerformed
+        if(masdeunapiezacrudo.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
+            Calculadora enviar = new Calculadora("Pierna","Escribe la cantidad");
+            new Calculadora().setVisible(true);
+        }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
+            piezaseleccionadaycantidadunica("Pierna",1);
+        }
+    }//GEN-LAST:event_jButton48ActionPerformed
+
+    private void jButton47ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton47ActionPerformed
+        if(masdeunapiezacrudo.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
+            Calculadora enviar = new Calculadora("Muslo","Escribe la cantidad");
+            new Calculadora().setVisible(true);
+        }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
+            piezaseleccionadaycantidadunica("Muslo",1);
+        }
+    }//GEN-LAST:event_jButton47ActionPerformed
+
+    private void jButton46ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton46ActionPerformed
+
+        if(masdeunapiezacrudo.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
+            Calculadora enviar = new Calculadora("Pierna completa","Escribe la cantidad");
 
             new Calculadora().setVisible(true);
         }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
-           piezaseleccionadaycantidadunica("pollo crudo",1);
+            piezaseleccionadaycantidadunica("Pierna completa",1);
         }
-    }//GEN-LAST:event_crudoActionPerformed
+    }//GEN-LAST:event_jButton46ActionPerformed
+
+    private void jButton45ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton45ActionPerformed
+        if(masdeunapiezacrudo.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
+            Calculadora enviar = new Calculadora("Huacal completo","Escribe la cantidad");
+
+            new Calculadora().setVisible(true);
+        }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
+            piezaseleccionadaycantidadunica("Huacal completo",1);
+        }
+    }//GEN-LAST:event_jButton45ActionPerformed
+
+    private void jButton44ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton44ActionPerformed
+
+        if(masdeunapiezacrudo.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
+            Calculadora enviar = new Calculadora("Pechuga","Escribe la cantidad");
+
+            new Calculadora().setVisible(true);
+        }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
+            piezaseleccionadaycantidadunica("Pechuga",1);
+        }
+    }//GEN-LAST:event_jButton44ActionPerformed
+
+    private void jButton43ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton43ActionPerformed
+        if(masdeunapiezacrudo.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
+            piezaseleccionadaycantidadvariable((float)medio, "Pechuga");
+        }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
+            piezaseleccionadaycantidadvariable((float)medio, "Pechuga");
+        }
+    }//GEN-LAST:event_jButton43ActionPerformed
 
     private void jButton42ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton42ActionPerformed
         if(masdeunapiezacrudo.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
@@ -6992,136 +4985,194 @@ if(masdeunapiezacocido.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE 
         }
     }//GEN-LAST:event_jButton42ActionPerformed
 
-    private void jButton43ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton43ActionPerformed
+    private void crudoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_crudoActionPerformed
         if(masdeunapiezacrudo.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
-         piezaseleccionadaycantidadvariable((float)medio, "Pechuga");
-        }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
-             piezaseleccionadaycantidadvariable((float)medio, "Pechuga");
-        }
-    }//GEN-LAST:event_jButton43ActionPerformed
-
-    private void jButton44ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton44ActionPerformed
-
-        if(masdeunapiezacrudo.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
-            Calculadora enviar = new Calculadora("Pechuga","Escribe la cantidad");
+            Calculadora enviar = new Calculadora("pollo crudo","Escribe la cantidad");
 
             new Calculadora().setVisible(true);
         }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
-           piezaseleccionadaycantidadunica("Pechuga",1);
+            piezaseleccionadaycantidadunica("pollo crudo",1);
         }
-    }//GEN-LAST:event_jButton44ActionPerformed
+    }//GEN-LAST:event_crudoActionPerformed
 
-    private void jButton45ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton45ActionPerformed
-        if(masdeunapiezacrudo.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
-            Calculadora enviar = new Calculadora("Huacal completo","Escribe la cantidad");
-
-            new Calculadora().setVisible(true);
-        }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
-            piezaseleccionadaycantidadunica("Huacal completo",1);
-        }
-    }//GEN-LAST:event_jButton45ActionPerformed
-
-    private void jButton46ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton46ActionPerformed
-
-        if(masdeunapiezacrudo.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
-            Calculadora enviar = new Calculadora("Pierna completa","Escribe la cantidad");
-
-            new Calculadora().setVisible(true);
-        }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
-             piezaseleccionadaycantidadunica("Pierna completa",1);
-        }
-    }//GEN-LAST:event_jButton46ActionPerformed
-
-    private void jButton47ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton47ActionPerformed
-        if(masdeunapiezacrudo.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
-            Calculadora enviar = new Calculadora("Muslo","Escribe la cantidad");
-            new Calculadora().setVisible(true);
-        }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
-                piezaseleccionadaycantidadunica("Muslo",1);
+    private void ExistenciasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExistenciasActionPerformed
+        if(noduplicarexistencias==false){
+            new Existencias().setVisible(true);
         }
 
-    }//GEN-LAST:event_jButton47ActionPerformed
+    }//GEN-LAST:event_ExistenciasActionPerformed
 
-    private void jButton48ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton48ActionPerformed
-        if(masdeunapiezacrudo.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
-            Calculadora enviar = new Calculadora("Pierna","Escribe la cantidad");
-            new Calculadora().setVisible(true);
-        }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
-            piezaseleccionadaycantidadunica("Pierna",1);
-        }
-    }//GEN-LAST:event_jButton48ActionPerformed
+    private void cobroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cobroActionPerformed
+        if(tablaventaactiva==true&&!subtotal.getText().equals("")){
+            String cobrando="Cobrando";
+            CalculadoraCobro enviar = new CalculadoraCobro(Float.parseFloat(subtotal.getText().toString()), cobrando);
+            new CalculadoraCobro().setVisible(true);
+        }else
+        JOptionPane.showMessageDialog(null, "Aún no hay productos en venta para cobrar", "Verifique", JOptionPane.INFORMATION_MESSAGE);
+    }//GEN-LAST:event_cobroActionPerformed
 
-    private void jButton49ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton49ActionPerformed
-        if(masdeunapiezacrudo.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
-            Calculadora enviar = new Calculadora("Ala","Escribe la cantidad");
-            new Calculadora().setVisible(true);
-        }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
-            piezaseleccionadaycantidadunica("Ala",1);
+    private void cleanallActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cleanallActionPerformed
+        // ************************  BTN CANCELARR   ***********************
+        //ESTO ELIMINA TODA LA VENTA
+        if(tablaventaactiva==true){
+            cerrandosesion_o_limpiandoventa();
         }
-    }//GEN-LAST:event_jButton49ActionPerformed
+        else{
+            JOptionPane.showMessageDialog(null, "No hay datos en la tabla de venta","No se puede borrar", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_cleanallActionPerformed
 
-    private void jButton50ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton50ActionPerformed
-        if(masdeunapiezacrudo.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
-            Calculadora enviar = new Calculadora("Cabeza","Escribe la cantidad");
-            new Calculadora().setVisible(true);
-        }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
-            piezaseleccionadaycantidadunica("Cabeza",1);
-        }
-    }//GEN-LAST:event_jButton50ActionPerformed
+    private void cleanallMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cleanallMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cleanallMouseClicked
 
-    private void jButton51ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton51ActionPerformed
-        if(masdeunapiezacrudo.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
-            Calculadora enviar = new Calculadora("Cadera","Escribe la cantidad");
-            new Calculadora().setVisible(true);
-        }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
-            piezaseleccionadaycantidadunica("Cadera",1);
-        }
-    }//GEN-LAST:event_jButton51ActionPerformed
+    private void deletedescuentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deletedescuentoActionPerformed
+        descuentoactivo=false;
+        descuentocombo.setText("00.00");
+        total.setText(subtotal.getText());
+        deletedescuento.setVisible(false);
+    }//GEN-LAST:event_deletedescuentoActionPerformed
 
-    private void jButton52ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton52ActionPerformed
-        if(masdeunapiezacrudo.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
-            Calculadora enviar = new Calculadora("Huacal","Escribe la cantidad");
-            new Calculadora().setVisible(true);
-        }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
-         piezaseleccionadaycantidadunica("Huacal",1);
-        }
-    }//GEN-LAST:event_jButton52ActionPerformed
+    private void ventaacreditoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ventaacreditoActionPerformed
+        float totalparaventaacredito = Float.parseFloat(subtotal.getText());
 
-    private void jButton53ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton53ActionPerformed
-        if(masdeunapiezacrudo.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
-            Calculadora enviar = new Calculadora("Molleja","Escribe la cantidad");
-            new Calculadora().setVisible(true);
-        }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
-         piezaseleccionadaycantidadunica("Molleja",1);
-        }
-    }//GEN-LAST:event_jButton53ActionPerformed
+        if(totalparaventaacredito!=0){//SI EL TOTAL NO ES VACIO
+            try{
+                String nombre="";
+                boolean pass2 = validarFormulariotexto(nombre=JOptionPane.showInputDialog(null,"¿A nombre de quien va ésta venta a credito?"));
+                if(pass2){//ESTO VALIDA QUE EL TEXTO ESCRITO NO TENGA INCOHERENCIAS
+                    int decision=JOptionPane.showConfirmDialog(null,"¿Desea continuar?","Estás por agregar una venta a credito",JOptionPane.CANCEL_OPTION);
+                    if(decision==0){ //opción si
+                        try{
+                            comprobar_venta_resagada();//579 - 605 verifica que no haya una venta cancelada
+                            get_id_usuario();// 255 -280
+                            block_unlock=false;
+                            tablaventaactiva=false;
 
-    private void jButton54ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton54ActionPerformed
-        if(masdeunapiezacrudo.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
-            Calculadora enviar = new Calculadora("Patas","Escribe la cantidad");
-            new Calculadora().setVisible(true);
-        }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
-               piezaseleccionadaycantidadunica("Patas",1);
-        }
-    }//GEN-LAST:event_jButton54ActionPerformed
+                            total_venta_enturno();
+                            float variable0=0;
 
-    private void jButton55ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton55ActionPerformed
-        if(masdeunapiezacrudo.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE UNA PIEZA, TE HABILITA LA CALCU
-            Calculadora enviar = new Calculadora("Pechuga en bisteck","Escribe la cantidad");
-            new Calculadora().setVisible(true);
-        }else{ //CUANDO NO, SE AGREGA UNA PIEZA POR BOTON SELECCIONADO
-             piezaseleccionadaycantidadunica("Pechuga en bisteck",1);
-        }
-    }//GEN-LAST:event_jButton55ActionPerformed
+                            id_max_de_venta();
+                            PreparedStatement ps = ca.prepareStatement ("UPDATE venta SET total='"+sumadeimportes+"',descuento='"+ variable0+"',pago='"+variable0+"',cambio='"+variable0+"',fecha_reporte='"+fecha()+"',estado_venta='"+creditopendiente+"'WHERE id_venta='"+id_de_la_venta_incrementable+"'");
+                            ps.executeUpdate();
 
-    private void montoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_montoFocusGained
-        // *********************   CAJA DE TEXTO DE PAGOO *********
-        if(monto.getText().trim().equals("00.00")){
-            monto.setText("");
-            //user_usuario.setForeground(Color.red);
+                        }catch(Exception ex){
+                            JOptionPane.showMessageDialog(null, "Error en venta" + ex.getMessage());
+                        }
+                        try{
+                            id_max_de_venta();
+                            PreparedStatement ps2 = ca.prepareStatement ("UPDATE descripcion_de_venta SET estado= '"+creditopendiente+"',nombre_credito='"+nombre+"' WHERE id_venta='"+id_de_la_venta_incrementable+"'");
+                            ps2.executeUpdate();
+
+                            descripciondelosprouductosparaelticketdeventacredito(id_de_la_venta_incrementable);//DATOS PARA EL TICKET DE VENTA
+                            descripciondelosprouductosparaelticketdeventacredito(id_de_la_venta_incrementable);//DATOS PARA EL TICKET DE VENTA
+
+                            block_unlock=true;
+                            accionesdespuesderealizarcualquierventa();
+                        }
+                        catch(Exception ex){
+                            JOptionPane.showMessageDialog(null, "Error en venta" + ex.getMessage());
+                        }
+                    }
+                }
+            }catch(NullPointerException NP){}
+
+        }//SI EL TOTAL NO ES VACIO
+        else{//CUANDO EL TOTAL ES VACIO
+            JOptionPane.showMessageDialog(null, "Aún no hay productos para hacer una venta a credito");
+        }//CUANDO EL TOTAL ES VACIO
+    }//GEN-LAST:event_ventaacreditoActionPerformed
+
+    private void descuentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_descuentoActionPerformed
+        descuentos();
+    }//GEN-LAST:event_descuentoActionPerformed
+
+    private void AgregarGastosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AgregarGastosActionPerformed
+        if(noduplicargastos==false){new Pantalla_Gastos().setVisible(true);}
+    }//GEN-LAST:event_AgregarGastosActionPerformed
+
+    private void CortedecajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CortedecajaActionPerformed
+        if(Integer.parseInt(hora)>=17&&Integer.parseInt(minutos)>=15){//Se puede habilitar el corte alas 5:15 pm
+            if(noduplicarcorte==false){
+                new Pantalla_CorteCaja().setVisible(true);
+            }
         }
-        monto.setForeground(Color.blue);
-    }//GEN-LAST:event_montoFocusGained
+        else
+        JOptionPane.showMessageDialog(null,"Aún es muy pronto, el corte se hace después de las 5:15 pm","Verifica",JOptionPane.INFORMATION_MESSAGE);
+
+    }//GEN-LAST:event_CortedecajaActionPerformed
+
+    private void tablaventaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaventaMouseClicked
+        //ESTO DESCUENTA UN PRODUCTO A LA VEZ Y LO DEVUELVE A INVENTARIO
+        fila =tablaventa.getSelectedRow();
+
+        if(fila>=0){// CUANDO UNA CELDA SE SELECCIONO
+            nombredepiezaseleccionada=tablaventa.getValueAt(fila,0).toString();
+            if(nombredepiezaseleccionada.equals("Huesito")||nombredepiezaseleccionada.equals("Longaniza")){
+                if(nombredepiezaseleccionada.equals("Huesito")){
+                    id_producto(nombredepiezaseleccionada);
+                    eliminarhuesito(id_producto);
+                    accionesdespuesderegresarproductosainventarios();
+                    mostrartabladeventas();
+                }else{
+                    id_producto(nombredepiezaseleccionada);
+                    eliminarhuesito(id_producto);
+                    accionesdespuesderegresarproductosainventarios();
+                    mostrartabladeventas();
+                }
+
+            } // BOOLEANAS PARA SABER CUALES NO SE VA A REGRESAR
+            else if(nombredepiezaseleccionada.equals("Pechuga en bisteck")){
+                regresarproductos_pechugaenbisteck("Pechuga");
+                mostrartabladeventas();
+            }
+            else{
+                regresarproductos_a_inventario(nombredepiezaseleccionada); //pone en estatus de cancelada la venta inconclusa
+                //descuentodepollo();
+                mostrartabladeventas();
+            }
+        }else{
+            JOptionPane.showMessageDialog(null,"Por favor, seleccione una fila primero","Aviso",JOptionPane.INFORMATION_MESSAGE);
+        }
+        //ESTO DESCUENTA UN PRODUCTO A LA VEZ Y LO DEVUELVE A INVENTARIO
+    }//GEN-LAST:event_tablaventaMouseClicked
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        if(tablaventaactiva==true&&(storage.size())>0){
+            int decision=JOptionPane.showConfirmDialog(null,"¿Desea continuar?","Advertencia: Tiene una venta inconclusa",JOptionPane.CANCEL_OPTION);
+            if(decision==0){ //opción si
+                cerrandosesion_o_limpiandoventa();
+                JOptionPane.showMessageDialog(null,"Nos vemos pronto","Saliendo del sistema...",JOptionPane.INFORMATION_MESSAGE);
+                new SI_Inicio().setVisible(true);
+                this.setVisible(false);
+            }
+        }
+        else{
+            int decision2=JOptionPane.showConfirmDialog(null,"¿Desea continuar?","Saliendo del sistema",JOptionPane.CANCEL_OPTION);
+            if(decision2==0){
+                JOptionPane.showMessageDialog(null,"Nos vemos pronto","Saliendo del sistema...",JOptionPane.INFORMATION_MESSAGE);
+                new SI_Inicio().setVisible(true);
+                this.setVisible(false);
+            }
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void montoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_montoKeyReleased
+
+        char tecla = evt.getKeyChar();
+        if(tecla==KeyEvent.VK_ENTER){
+            boolean pass2 = validarFormulario(monto.getText());
+            if(pass2){//ESTO VALIDA QUE EL TEXTO ESCRITO NO TENGA INCOHERENCIAS
+                metodo_de_cobro(Float.parseFloat(monto.getText()));
+                monto.setText("00.00");
+            }
+        }
+
+    }//GEN-LAST:event_montoKeyReleased
+
+    private void montoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_montoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_montoActionPerformed
 
     private void montoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_montoFocusLost
         // *********************   CAJA DE TEXTO DE PAGOO *********
@@ -7131,42 +5182,14 @@ if(masdeunapiezacocido.isSelected()){//CUANDO SE SELECCIONÓ LA CASILLA MÁS DE 
         monto.setForeground(new Color(236, 240, 241));
     }//GEN-LAST:event_montoFocusLost
 
-    private void montoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_montoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_montoActionPerformed
-
-    private void montoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_montoKeyReleased
-       
-        char tecla = evt.getKeyChar();
-        if(tecla==KeyEvent.VK_ENTER){
-        boolean pass2 = validarFormulario(monto.getText());
-                 if(pass2){//ESTO VALIDA QUE EL TEXTO ESCRITO NO TENGA INCOHERENCIAS   
-                 metodo_de_cobro(Float.parseFloat(monto.getText()));
-                 monto.setText("00.00");
-                 }
+    private void montoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_montoFocusGained
+        // *********************   CAJA DE TEXTO DE PAGOO *********
+        if(monto.getText().trim().equals("00.00")){
+            monto.setText("");
+            //user_usuario.setForeground(Color.red);
         }
-        
-    }//GEN-LAST:event_montoKeyReleased
-
-    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_formWindowClosed
-
-    private void cancelarventaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarventaActionPerformed
-   status_cancelado(id); 
-    fechainicial.cleanup();
-        fechainicial.setDate(null);
-        fechafinal.cleanup();
-        fechafinal.setDate(null);
-        llenartablaidventasconidrealizados(); //CARGA NUEVAMENTE LAS VENTAS POR ID
-        veridventas.setVisible(false);
-        labelparaeltotal.setText("00.00");
-            totalventarealizada.setVisible(false);
-    labelparaeltotal.setVisible(false);
-    imprimirventa.setVisible(false);
-    
-               cancelarventa.setVisible(false);
-    }//GEN-LAST:event_cancelarventaActionPerformed
+        monto.setForeground(Color.blue);
+    }//GEN-LAST:event_montoFocusGained
 
  
     public static void insertorupdateoverbonnie(String nombredepieza, float cantidaddeproductos){
@@ -7577,18 +5600,9 @@ static SI cc= new SI();
     public static rojerusan.RSTableMetro JtablepaLaVenta;
     public static javax.swing.JTabbedPane Proveedores9;
     private javax.swing.JLabel Reloj;
-    private javax.swing.JButton Reporte_user;
-    private javax.swing.JButton Reporte_user1;
-    public javax.swing.JButton Reportes;
     private javax.swing.JMenuItem activarusuario;
-    public javax.swing.JButton actualizarpro;
     private javax.swing.JButton agregar;
-    private javax.swing.JButton agregar3;
     public static javax.swing.JPanel agregar_articulo;
-    public static javax.swing.JPanel agregar_proveedor;
-    public static javax.swing.JPanel agregar_usuario;
-    private javax.swing.JButton agregarpro;
-    public static javax.swing.JButton agregarpro1;
     private javax.swing.JButton bones;
     private javax.swing.JButton buscarproductosfecha;
     private javax.swing.JButton buscarproductospordia;
@@ -7604,7 +5618,6 @@ static SI cc= new SI();
     public static javax.swing.JLabel descuentocombo;
     private javax.swing.JLabel descuentolabel;
     private javax.swing.JLabel descuentolabel1;
-    public static javax.swing.JTextField despro;
     private javax.swing.JLabel deudor;
     private javax.swing.JMenuItem drop;
     private javax.swing.JMenuItem eliminar;
@@ -7613,7 +5626,6 @@ static SI cc= new SI();
     private com.toedter.calendar.JDateChooser fecha_inicioestadis;
     private com.toedter.calendar.JDateChooser fechafinal;
     private com.toedter.calendar.JDateChooser fechainicial;
-    private javax.swing.Box.Filler filler1;
     private javax.swing.JButton imprimirventa;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
@@ -7636,7 +5648,6 @@ static SI cc= new SI();
     private javax.swing.JButton jButton27;
     private javax.swing.JButton jButton28;
     private javax.swing.JButton jButton29;
-    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton30;
     private javax.swing.JButton jButton31;
     private javax.swing.JButton jButton32;
@@ -7647,7 +5658,6 @@ static SI cc= new SI();
     private javax.swing.JButton jButton37;
     private javax.swing.JButton jButton38;
     private javax.swing.JButton jButton39;
-    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton40;
     private javax.swing.JButton jButton41;
     private javax.swing.JButton jButton42;
@@ -7669,61 +5679,14 @@ static SI cc= new SI();
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel100;
     private javax.swing.JLabel jLabel101;
     private javax.swing.JLabel jLabel102;
     private javax.swing.JLabel jLabel103;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel18;
-    private javax.swing.JLabel jLabel19;
-    private javax.swing.JLabel jLabel20;
-    private javax.swing.JLabel jLabel21;
-    private javax.swing.JLabel jLabel23;
-    private javax.swing.JLabel jLabel24;
-    private javax.swing.JLabel jLabel25;
-    private javax.swing.JLabel jLabel26;
-    private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel31;
-    private javax.swing.JLabel jLabel33;
-    private javax.swing.JLabel jLabel34;
-    private javax.swing.JLabel jLabel35;
-    private javax.swing.JLabel jLabel36;
-    private javax.swing.JLabel jLabel37;
-    private javax.swing.JLabel jLabel38;
-    private javax.swing.JLabel jLabel39;
-    private javax.swing.JLabel jLabel40;
-    private javax.swing.JLabel jLabel41;
-    private javax.swing.JLabel jLabel42;
-    private javax.swing.JLabel jLabel43;
-    private javax.swing.JLabel jLabel44;
-    private javax.swing.JLabel jLabel45;
-    private javax.swing.JLabel jLabel46;
-    private javax.swing.JLabel jLabel47;
-    private javax.swing.JLabel jLabel48;
-    private javax.swing.JLabel jLabel49;
-    private javax.swing.JLabel jLabel50;
-    private javax.swing.JLabel jLabel51;
-    private javax.swing.JLabel jLabel54;
-    private javax.swing.JLabel jLabel58;
     private javax.swing.JLabel jLabel60;
     private javax.swing.JLabel jLabel63;
-    private javax.swing.JLabel jLabel65;
-    private javax.swing.JLabel jLabel66;
-    private javax.swing.JLabel jLabel67;
-    private javax.swing.JLabel jLabel68;
-    private javax.swing.JLabel jLabel69;
-    private javax.swing.JLabel jLabel70;
-    private javax.swing.JLabel jLabel71;
-    private javax.swing.JLabel jLabel72;
-    private javax.swing.JLabel jLabel73;
     private javax.swing.JLabel jLabel74;
     private javax.swing.JLabel jLabel76;
     private javax.swing.JLabel jLabel77;
@@ -7740,7 +5703,6 @@ static SI cc= new SI();
     private javax.swing.JLabel jLabel87;
     private javax.swing.JLabel jLabel88;
     private javax.swing.JLabel jLabel89;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel jLabel91;
     private javax.swing.JLabel jLabel92;
     private javax.swing.JLabel jLabel93;
@@ -7748,7 +5710,6 @@ static SI cc= new SI();
     private javax.swing.JLabel jLabel95;
     private javax.swing.JLabel jLabel96;
     private javax.swing.JLabel jLabel99;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel13;
@@ -7760,45 +5721,23 @@ static SI cc= new SI();
     private javax.swing.JPanel jPanel26;
     private javax.swing.JPanel jPanel27;
     private javax.swing.JPanel jPanel28;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel31;
     private javax.swing.JPanel jPanel32;
     private javax.swing.JPanel jPanel33;
-    private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
-    private javax.swing.JPanel jPanel7;
-    private javax.swing.JPanel jPanel8;
-    private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane12;
     private javax.swing.JScrollPane jScrollPane13;
     private javax.swing.JScrollPane jScrollPane14;
     private javax.swing.JScrollPane jScrollPane16;
     private javax.swing.JScrollPane jScrollPane17;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JScrollPane jScrollPane8;
-    private javax.swing.JScrollPane jScrollPane9;
-    private javax.swing.JSeparator jSeparator10;
-    private javax.swing.JSeparator jSeparator11;
-    private javax.swing.JSeparator jSeparator12;
-    private javax.swing.JSeparator jSeparator13;
-    private javax.swing.JSeparator jSeparator14;
-    private javax.swing.JSeparator jSeparator15;
-    private javax.swing.JSeparator jSeparator16;
-    private javax.swing.JSeparator jSeparator17;
-    private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator20;
     private javax.swing.JSeparator jSeparator21;
     private javax.swing.JSeparator jSeparator22;
-    private javax.swing.JSeparator jSeparator3;
-    private javax.swing.JSeparator jSeparator4;
-    private javax.swing.JSeparator jSeparator5;
-    private javax.swing.JSeparator jSeparator6;
     private javax.swing.JSeparator jSeparator7;
-    private javax.swing.JSeparator jSeparator9;
     private javax.swing.JTabbedPane jTabbedPane1;
     public static rojerusan.RSTableMetro jTable2;
     public static rojerusan.RSTableMetro jTable3;
@@ -7821,35 +5760,19 @@ static SI cc= new SI();
     private javax.swing.JButton polloasado;
     public static javax.swing.JPanel producto_sobrante;
     public static javax.swing.JPanel producto_sobrante3;
-    public static javax.swing.JTextField proem;
-    public static javax.swing.JTextField promail;
-    public static javax.swing.JTextField promater;
-    public static javax.swing.JTextField proname;
-    public static javax.swing.JTextField propater;
-    public static javax.swing.JTextField prorfc;
-    public static javax.swing.JTextField protel;
-    private rojerusan.RSTableMetro proveedores;
     private javax.swing.JButton salsaguajillo;
     public static javax.swing.JLabel subtotal;
     private javax.swing.JPopupMenu tabla_articulos;
     private javax.swing.JPopupMenu tabla_proveedores;
-    public static rojerusan.RSTableMetro tabla_usuariosnuevo;
     private rojerusan.RSTableMetro tabladeidventas;
     private javax.swing.JPopupMenu tablausuarios;
     public static rojerusan.RSTableMetro tablaventa;
-    public static javax.swing.JTextField tipopro;
     public static javax.swing.JLabel total;
     private javax.swing.JLabel total3;
     private javax.swing.JLabel totalventacreditoenturno;
     private javax.swing.JLabel totalventarealizada;
-    private javax.swing.JButton update_users;
     private javax.swing.JLabel user;
     private javax.swing.JLabel user1;
-    private javax.swing.JTextField user_ContraUp;
-    private javax.swing.JTextField user_EmailUp;
-    private javax.swing.JTextField user_NombreUp;
-    private javax.swing.JTextField user_TelefonoUp;
-    private javax.swing.JTextField user_UserUp;
     private rojerusan.RSTableMetro utilidad;
     public static javax.swing.JPanel venta;
     private javax.swing.JButton ventaacredito;
