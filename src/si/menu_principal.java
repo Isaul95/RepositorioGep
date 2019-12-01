@@ -26,9 +26,6 @@ import javax.swing.event.TableModelListener;
 import ticket.ticketventacondescuento;
 import ticket.ticketventa;
 import ticket.ticketventacredito;
-
-
-
 public final class menu_principal extends javax.swing.JFrame implements Runnable{
      static boolean noduplicarexistencias=false, noduplicarcorte=false, noduplicargastos=false, noduplicarexternos=false;
                   private final String logotipo = "/Reportes/logo1.jpeg"; // icono de DATAMAX
@@ -82,15 +79,12 @@ static boolean seagregoexterno=false;
       this.cantidadparapollocrudo=cantidaddeproductos;
      agregandoaventa(nombredepiezaseleccionada, cantidaddeproductos);
   }
-  
-
-    //CUANDO SE VA A HACER EL PAGO
+ //CUANDO SE VA A HACER EL PAGO
   menu_principal(float variablepago){
       this.variablepago=variablepago;
  metodo_de_cobro(this.variablepago); 
   }
- 
-            public menu_principal() {
+    public menu_principal() {
         initComponents();
             //  this.setExtendedState(MAXIMIZED_BOTH);
         sumadeutilidades();
@@ -785,7 +779,6 @@ public static void insertandopiezasdepolloporhaberagregadoxcantidaddepollocrudo(
             usuario=rs.getString(1);
             }
             if(!usuario.equals("")){ //Si el nombre del usuario se encontro en la base de datos quiere decir que entro un usuario al sistema
-              this.Proveedores9.setEnabledAt(3, false); //Desactiva la parte de estadisticas
              } 
             else{ //No entro un usuario y entro el administrador
                 //JOptionPane.showMessageDialog(null, "ERROR quienentroalsistema ADMIN:" + usuario + usuarioname );    
@@ -1268,13 +1261,10 @@ if(NoP.equals(nombredepieza)&&NoPimporte!=0){ //Si el nombre del producto es dif
                 //EL METODO A CONTINUACION VA HACIENDO EL CONTEO DE LAS PIEZAS INDIVIDUALES
                 // PARA UNA VEZ LLEGANDO A UN POLLO ENTERO DESCONTARLO DE LA BASE           
                 precio_producto(nombredepieza);
-                pst.setFloat(4,precio);
-                
-                     importe = (float)cantidaddeproductos*precio;        
+               pst.setFloat(4,precio);
+                importe = (float)cantidaddeproductos*precio;        
                 pst.setFloat(5,importe);
-               
-                
-                id_max_de_venta();
+               id_max_de_venta();
                 pst.setInt(6,(id_de_la_venta_incrementable));
                 pst.setString(7, estadoenturno);
                 pst.setString(8, fecha());
