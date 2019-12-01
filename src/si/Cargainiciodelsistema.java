@@ -169,10 +169,7 @@ Statement sent;
                 new SI_Inicio().setVisible(true);
             } 
             else{ //No entro un usuario y entro el administrador
-                               JOptionPane.showMessageDialog(null, "Para empezar aún no se crea el administrador del sistema, por favor acompañame al siguiente formulario para crearlo","                                                                                        Bienvenido a Data Max",JOptionPane.INFORMATION_MESSAGE);
-                this.dispose();
-                new Registrodeladmin().setVisible(true);
-            }
+             }
         } catch (SQLException ex) {
             Logger.getLogger(menu_principal.class.getName()).log(Level.SEVERE, null, ex);
           
