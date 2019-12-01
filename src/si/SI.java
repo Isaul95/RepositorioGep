@@ -16,7 +16,7 @@ public class SI {
        public Connection conexion(){
                   try{
           Class.forName("com.mysql.jdbc.Driver");
-         conectar=DriverManager.getConnection("jdbc:mysql://localhost:3308/inventariostore","root",MySQLpassword);  
+         conectar=DriverManager.getConnection("jdbc:mysql://localhost/inventariostore","root",MySQLpassword);  
           System.out.println("Se hizo la conexion exitosa");
       }catch(Exception e){
           JOptionPane.showMessageDialog(null,"Error la conexion"+e);

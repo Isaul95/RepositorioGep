@@ -29,7 +29,7 @@ public class ticketventa {
        // Se llama al metodo para imprimir una cadena
         auxs += "COMPROBANTE DE VENTA\n\n";   System.out.println("COMPROBANTE DE VENTA\n\n");
          auxs += "POLLERIA LA GRANJA\n";             System.out.println("POLLERIA LA GRANJA\n");
-        auxs+= "PROP.JOSE MIGUEL CASTREZANA B.\n";  System.out.println("PROP.JOSE MIGUEL CASTREZANA B.\n");
+        //auxs+= "PROP.JOSE MIGUEL CASTREZANA B.\n";  System.out.println("PROP.JOSE MIGUEL CASTREZANA B.\n");
         auxs+= "R.F.C. CABM850201PR1\n";            System.out.println("R.F.C. CABM850201PR1\n");       
         auxs += "CARR. IGUALA-TAXCO KM.1.5\n";          System.out.println("CARR. IGUALA-TAXCO KM.1.5\n");
         auxs += "LOCAL 10 Y 11\n";                      System.out.println("LOCAL 10 Y 11\n");

@@ -16,6 +16,7 @@ import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 import static si.Apertura.fecha;
 import static si.Apertura.monto;
+import ticket.ListaGastos;
 import ticket.ticketcortedecaja;
 import ticket.ticketpollocrudo;
 import ticket.ticketpollocrudosolopiezas;
@@ -34,7 +35,7 @@ public class Pantalla_CorteCaja extends javax.swing.JFrame  implements Runnable{
   ResultSet rs;    
   
   TicketVentasAll TicketVenAll;
-  
+  ListaGastos TicketGastosAll ;          
   PolloCrudoxPiezas PolloCrudoxPiezas;
   
   ticketcortedecaja tikectcorte; 
@@ -454,6 +455,26 @@ public void metodogastosdeldia(){
        JOptionPane.showMessageDialog(null, "ERROR EN METODO: productosvendidoseneldia","DEVELOPER HELPER", JOptionPane.ERROR_MESSAGE);      
       }
 }
+     
+       public void ListadeGastosAlHacerCorteCaja(){ // recibe como parametro                          
+        try {
+            ArrayList columna1 = new ArrayList(); 
+            ArrayList columna2 = new ArrayList();          
+           
+            sent  = (Statement)ca.createStatement();
+           rs = sent.executeQuery("select tipo, total from egreso");
+
+            while (rs.next()) {                
+                             columna1.add(rs.getString(1));
+                             columna2.add(rs.getFloat(2));
+            }            ListaGastos TicketGastosAll ; 
+        TicketGastosAll = new ListaGastos();          
+  TicketGastosAll.ListaGastos(columna1,columna2); 
+
+    } catch (Exception e) {
+       JOptionPane.showMessageDialog(null, "ERROR EN METODO: productosvendidoseneldia","DEVELOPER HELPER", JOptionPane.ERROR_MESSAGE);      
+      }
+}
  
  
  
@@ -576,6 +597,7 @@ public void metodogastosdeldia(){
 //YA NO SE IMPRIME ÉSTE TICKET sobrantedepollococidodeldiaparaticketcantidadesypiezas();//SOBRANTE DE COCIDO PARA TICKET MOSTRANDO CANTIDADES Y TOTALES
  // YA NO SE IMPRIME ÉSTE TICKET sobrantedepollococidodeldiaparaticketperosolocantidades();//SOBRANTE DE COCIDO PARA TICKET MOSTRANDO CANTIDADES
  productosvendidoseneldia();//TODOS LOS PRODUCTOS VENDIDOS
+ListadeGastosAlHacerCorteCaja();  // TOCKET DE GASTOS
  // YA NO SE IMPRIME ÉSTE TICKET sobrantedepollocrudodeldiaparaticketperosolocantidades();//SOBRANTE DE TODO MENOS PECHUGA, PIERNA ALA, MUSLO, VA PARA TICKET
  total_numeros_y_descuentos();    
  /*sii*/obteniendolosvaloresdelcortedecajadeldiadehoyparaelticket(numerodescuentos, totaldedescuentos);//LOS DATOS DEL TICKET CORTE DE CAJA                                                      

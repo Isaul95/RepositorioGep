@@ -931,7 +931,7 @@ public static void insertandopiezasdepolloporhaberagregadoxcantidaddepollocrudo(
         } catch (SQLException ex) {
              JOptionPane.showMessageDialog(null, "ERROR EN METODO: quienentroalsistema","DEVELOPER HELPER", JOptionPane.ERROR_MESSAGE);      
            }
-            }
+            }  
     
      public static String fecha(){ /* SE DECARA LA FECHA DEL SISTEMA */
         Date fecha=new Date();
@@ -5100,7 +5100,6 @@ public void eliminarpolloenterodestorage(int id_producto){
         }
         else
         JOptionPane.showMessageDialog(null,"Aún es muy pronto, el corte se hace después de las 5:15 pm","Verifica",JOptionPane.INFORMATION_MESSAGE);
-
     }//GEN-LAST:event_CortedecajaActionPerformed
 
     private void tablaventaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaventaMouseClicked
