@@ -920,18 +920,20 @@ public static void insertandopiezasdepolloporhaberagregadoxcantidaddepollocrudo(
                 String usuario="";
                 try {
             Statement st = ca.createStatement();
-            ResultSet rs= st.executeQuery("select * from  user where nombre_usuario ='"+usuarioname+"'");
+            ResultSet rs= st.executeQuery("select * from user where nombre_usuario ='"+usuarioname+"'");
             while(rs.next()){
             usuario=rs.getString(1);
             }
             if(!usuario.equals("")){ //Si el nombre del usuario se encontro en la base de datos quiere decir que entro un usuario al sistema
-                this.Proveedores9.setEnabledAt(1, false); //Desactiva la parte de proveedores
-                        this.Proveedores9.setEnabledAt(3, false); //Desactiva la parte de usuarios
-                         this.Proveedores9.setEnabledAt(5, false);
+              // JOptionPane.showMessageDialog(null, "ERROR quienentroalsistemaUSER:" + usuario + usuarioname );
+               this.Proveedores9.setEnabledAt(1, false); //Desactiva la parte de proveedores
+                      this.Proveedores9.setEnabledAt(3, false); //Desactiva la parte de usuarios
+                        this.Proveedores9.setEnabledAt(5, false);
                                //Dejando unicamente activa la parte de venta y de consulta de productos
             } 
             else{ //No entro un usuario y entro el administrador
-                     this.Proveedores9.setEnabledAt(0, false); //Desactiva la parte de la venta dejando unicamente activo, proveedores
+                //JOptionPane.showMessageDialog(null, "ERROR quienentroalsistema ADMIN:" + usuario + usuarioname );    
+                this.Proveedores9.setEnabledAt(0, false); //Desactiva la parte de la venta dejando unicamente activo, proveedores
                       //productos y usuarios
                       Proveedores9.setSelectedIndex(1); //Esto hace que la pestaña 1 sea la que se muestre cuando al admin inicie sesión
 
@@ -6474,7 +6476,7 @@ get_id_usuario();// 255 -280
                                          if(result>0){
                                              JOptionPane.showMessageDialog(null, "El cambio es de: "+cambiocombobox.getText()," Se realizo una venta",JOptionPane.YES_OPTION);
                                         
-                                               descripciondelosprouductosparaelticketdeventa(id_de_la_venta_incrementable); //DATOS PARA EL TICKET DE VENTA
+                               descripciondelosprouductosparaelticketdeventa(id_de_la_venta_incrementable); //DATOS PARA EL TICKET DE VENTA
                                         accionesdespuesderealizarcualquierventa();
                                           
                                          }
