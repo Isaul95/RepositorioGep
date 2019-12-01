@@ -10,7 +10,7 @@ import javax.swing.JOptionPane;
 
 public class TicketVentasAll {
 
-    public void TicketVentasAll(ArrayList columna1, ArrayList columna2, ArrayList columna3) {
+    public void TicketVentasAll(ArrayList columna1, ArrayList columna2, ArrayList columna3, float totaldeventas) {
         
           Date date = new Date();
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -40,12 +40,12 @@ public class TicketVentasAll {
              for(int n=0;n<=columna1.size()-1;n++){                 
                   auxs+= String.format("%-14s" + "%-10s" + "$%-11s" , columna1.get(n), columna2.get(n), columna3.get(n)); System.out.println(String.format("%-14s" + "%-10s" + "$%-11s" , columna1.get(n), columna2.get(n), columna3.get(n)));
                   auxs+= "\n"; // SALTOS PARA K NO LO CORTE LUEGO     "%-11s" + "%-10s" + "$%-12s"  
-                  total+=Float.parseFloat(String.valueOf(columna3.get(n)));
+                  
              }                             
               
        auxs+= "==============================\n";  System.out.println("==============================\n");       
        
-       auxs+= String.format("  "+"TOTAL :"+ "$" + total);    System.out.println(String.format("  "+"TOTAL :"+ "$" + total));
+       auxs+= String.format("  "+"TOTAL :"+ "$" + totaldeventas);    System.out.println(String.format("  "+"TOTAL :"+ "$" + totaldeventas));
                   auxs+= "\n\n\n\n"; // SALTOS PARA K NO LO CORTE LUEGO
          try {
             impServicio.printCadena(impra, auxs);

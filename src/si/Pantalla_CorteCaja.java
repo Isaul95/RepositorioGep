@@ -114,7 +114,7 @@ public void ventaseneldia(){
         try{ // La suma de todos los importes
     
                                          Statement sent  =(Statement)ca.createStatement();
-                                         ResultSet  rs = sent.executeQuery("select SUM(total) from venta where fecha_reporte= '"+fecha()+"'");
+                                         ResultSet  rs = sent.executeQuery("select SUM(total) from venta where estaodo_venta = 'Realizada' and fecha_reporte= '"+fecha()+"'");
                                             while(rs.next()){
                                                       ventasdeldia =Float.parseFloat(rs.getString("SUM(total)"));
                                                       }
@@ -434,7 +434,7 @@ public void metodogastosdeldia(){
  
  
 
-     public void productosvendidoseneldia(){ // recibe como parametro                          
+     public void productosvendidoseneldia(float totaldeventas){ // recibe como parametro                          
         try {
             ArrayList columna1 = new ArrayList(); 
             ArrayList columna2 = new ArrayList();          
@@ -449,7 +449,7 @@ public void metodogastosdeldia(){
                              columna3.add(rs.getFloat(3));                            
             }            
         TicketVenAll = new TicketVentasAll();          
-  TicketVenAll.TicketVentasAll(columna1,columna2,columna3); 
+  TicketVenAll.TicketVentasAll(columna1,columna2,columna3, totaldeventas); 
 
     } catch (Exception e) {
        JOptionPane.showMessageDialog(null, "ERROR EN METODO: productosvendidoseneldia","DEVELOPER HELPER", JOptionPane.ERROR_MESSAGE);      
@@ -596,7 +596,7 @@ public void metodogastosdeldia(){
              //LUEGO AQUI SE PUEDE REALIZAR CADA TICKET CORRESPONDIENTE (ESTOS SON LOS 5 TICKET)
 //YA NO SE IMPRIME ÉSTE TICKET sobrantedepollococidodeldiaparaticketcantidadesypiezas();//SOBRANTE DE COCIDO PARA TICKET MOSTRANDO CANTIDADES Y TOTALES
  // YA NO SE IMPRIME ÉSTE TICKET sobrantedepollococidodeldiaparaticketperosolocantidades();//SOBRANTE DE COCIDO PARA TICKET MOSTRANDO CANTIDADES
- productosvendidoseneldia();//TODOS LOS PRODUCTOS VENDIDOS
+ productosvendidoseneldia(ventasdeldia);//TODOS LOS PRODUCTOS VENDIDOS
 ListadeGastosAlHacerCorteCaja();  // TOCKET DE GASTOS
  // YA NO SE IMPRIME ÉSTE TICKET sobrantedepollocrudodeldiaparaticketperosolocantidades();//SOBRANTE DE TODO MENOS PECHUGA, PIERNA ALA, MUSLO, VA PARA TICKET
  total_numeros_y_descuentos();    

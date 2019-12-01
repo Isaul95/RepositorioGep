@@ -95,10 +95,7 @@ static boolean seagregoexterno=false;
             //  this.setExtendedState(MAXIMIZED_BOTH);
         sumadeutilidades();
         sumadegastos();
-        labelingresos.setText(String.valueOf(utilidades));
-        labelgastos.setText(String.valueOf(gastos));
         utilidadfinal=utilidades-gastos;
-        labelutilidad.setText(String.valueOf(solodosdecimales.format(utilidadfinal)));
         ids_y_cantidades_enturno_por_error_de_usuario();
        // borrarventasenestadoenturnoporerrordeusuario();//ESTO ES CUANDO EL USUARIO SE EQUIVOCA Y CIERRA SESION DIRECTAMENTE EN LA X
        totaldelasventasdehoy(); // PARA LA SUMA DE LOS TOTALES DE LA VENTA
@@ -108,10 +105,8 @@ static boolean seagregoexterno=false;
                  llenartablaidventasconidrealizados();
                          productosvendidoseneldia();//MUESTRA LAS VENTAS REA
                   llenartablaconventasacreditopendiente();
-                  productosmasvendidos(Jtable_productosmasven);
                   TablallenadoparaEntradas(Jtable_ProductosEntradas);
                   ParaLAVenta(JtablepaLaVenta);
-llenartablautilidad();
  
         setIconImage(getIconImage());  //La variable que le manda la imagen (DataMax) al proyecto 
         quienentroalsistema();//Dependiendo quien entre al sistema serán las opciones que se le activarán
@@ -127,8 +122,7 @@ this.setLocationRelativeTo(null); // esto elimina los botones de cerrar, minimiz
     totalventarealizada.setVisible(false);
     labelparaeltotal.setVisible(false);
     labeldescuento.setVisible(true);
-             
-               descuentolabel.setVisible(true);
+     descuentolabel.setVisible(true);
                veridventas.setVisible(false);
                imprimirventa.setVisible(false);
                cancelarventa.setVisible(false);
@@ -155,49 +149,6 @@ agregandoaventa(nombredepiezaseleccionada, cantidaddeproductos);
       this.nombredepiezaseleccionada=piezaseleccionada;
       this.cantidadparapollocrudo=cantidaddeproductos;
      agregandoaventa(nombredepiezaseleccionada, cantidaddeproductos);
-  }
-            
-  public void llenartablautilidad(){
-        utilidad.setVisible(true);    //hace visible la tabla de proveedores 
-              DefaultTableModel modelo = new DefaultTableModel(); // Se crea un objeto para agregar los nombres de las columnas a la tabla
-    modelo.addColumn("Fecha"); 
- modelo.addColumn("Ventas");
-      modelo.addColumn("Pagos");
-    modelo.addColumn("Dev. crudo");
-    modelo.addColumn("Procesados");
- // 20 X 90 1800    modelo.addColumn("Pago pollo");
-   //60 PESOS   modelo.addColumn("Tacos");
-       modelo.addColumn("Utilidad");
-      // 28 PESOS modelo.addColumn("Almuerzo");
- modelo.addColumn("Diferencia");  
-  modelo.addColumn("Gastos");  
-  
-     utilidad.setModel(modelo);  // Ya una vez asignado todos los nombres se le envia el objeto a la tabla proveedores
-    String []datos = new String[8];     //Un arreglo con la cantidad de nombres en las columnas
-    try {
-        id_max_de_venta();
-             sent = ca.createStatement();   
-            rs= sent.executeQuery("select * from utilidad"); // se ejecuta la sentencia dentro del parentesis
-            while(rs.next()){        
-            datos[0]=rs.getString(12);
-            datos[1]=rs.getString(2);
-            datos[2]=rs.getString(3);
-            datos[3]=rs.getString(4);
-            datos[4]=rs.getString(5);
-            //1800datos[5]=rs.getString(6);
-            //60 datos[6]=rs.getString(7);
-            datos[5]=rs.getString(8);
-           //28 datos[8]=rs.getString(9);
-            datos[6]=rs.getString(10);
-            datos[7]=rs.getString(11);
-
-            modelo.addRow(datos); //se asigna el arreglo  entero a todo el objeto llamado modelo  
-            }
-           utilidad.setModel(modelo); // Se vuelve a enviar nuevamente el objeto modelo a la tabla
-        } catch (SQLException ex) {
-            Logger.getLogger(menu_principal.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(null, "No se pudo mostrar ningun dato porque tu consulta está mal");
-        } 
   }
   public void sumadeutilidades(){
               try{ // La suma de las utilidades
@@ -784,72 +735,7 @@ public static void insertandopiezasdepolloporhaberagregadoxcantidaddepollocrudo(
            fechaparaventashasta= año+"/"+mes+"/"+dia;
        }
         return fechaparaventashasta;
-    }
-     
-     
-     public String llenarfechadesde(){ // Ordena la fecha del componente Jcalendar  que esta de la sig. manera:  dia /mes / aÃ±o, lo cual para la base de datos no es la manera correcta de ingresarlo, sino asÃ­: aÃ±o/mes/dia
-        
-       int año= fecha_inicioestadis.getCalendar().get(Calendar.YEAR);
-       int mes= fecha_inicioestadis.getCalendar().get(Calendar.MONTH)+1;
-       int dia= fecha_inicioestadis.getCalendar().get(Calendar.DAY_OF_MONTH);
-       if(dia<10){
-           String nuevodia= "0"+dia;
-             fechadesde= año+"/"+mes+"/"+nuevodia;
-       }
-       else{
-           fechadesde= año+"/"+mes+"/"+dia;
-       }
-     
-        return fechadesde;
-    }
-    
-     public String llenarfechahasta(){ // Ordena la fecha del componente Jcalendar  que esta de la sig. manera:  dia /mes / aÃ±o, lo cual para la base de datos no es la manera correcta de ingresarlo, sino asÃ­: aÃ±o/mes/dia
-        
-       int año= fecha_finalestadis.getCalendar().get(Calendar.YEAR);
-       int mes= fecha_finalestadis.getCalendar().get(Calendar.MONTH)+1;
-       int dia= fecha_finalestadis.getCalendar().get(Calendar.DAY_OF_MONTH);
-      if(dia<10){
-           String newday= "0"+dia;
-             fechahasta= año+"/"+mes+"/"+newday;
-       }
-       else{
-           fechahasta= año+"/"+mes+"/"+dia;
-       }
-        return fechahasta;
-    }
-     
-     
-      /*  ======   HACIENDO UNA CONSULTA MAS VENDIDOS RANGO DE FECHAs =======A*/          
-          public void LlenarTablaBusquedproMasvendidosfecha(JTable tablaD, String fecha_inicioestadis, String fecha_finalestadis){ // recibe como parametro 
-       
-               Object[] columna = new Object[3];  //crear un obj con el nombre de colunna
-            Connection ca= cc.conexion(); // CONEXION DB 
-              DefaultTableModel modeloT = new DefaultTableModel(); 
-                  tablaD.setModel(modeloT);  // add modelo ala tabla 
-        
-        modeloT.addColumn("Nombre");
-        modeloT.addColumn("Piezas");        
-  
-        try {
-         String sSQL = "SELECT nombre_producto, SUM(cantidad) FROM descripcion_de_venta where estado= 'Realizada' and fecha BETWEEN '"+llenarfechadesde()+"' AND '"+llenarfechahasta()+"' GROUP BY  nombre_producto ORDER BY SUM(cantidad) DESC";
-         
-                 
-        PreparedStatement ps = ca.prepareStatement(sSQL);       
-        try (ResultSet rs = ps.executeQuery(sSQL)) {
-            while (rs.next()) {
-                columna[0] = rs.getString(1);
-                columna[1] = rs.getFloat(2);
-                modeloT.addRow(columna);
-            }
-        }
-        ps.close();
-    } catch (Exception e) {
-         JOptionPane.showMessageDialog(null, "ERROR EN METODO: LlenarTablaBusquedproMasvendidosfecha","DEVELOPER HELPER", JOptionPane.ERROR_MESSAGE);      
-       }
-}
-          
-          
-   // CONSULTA DE VENTAS  REALIZADAS
+    } // CONSULTA DE VENTAS  REALIZADAS
             
      public static void productosvendidoseneldia(){ // recibe como parametro 
          Object[] columna = new Object[3];  //crear un obj con el nombre de colunna
@@ -1867,37 +1753,6 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         totalventacreditoenturno = new javax.swing.JLabel();
         labelcredito = new javax.swing.JLabel();
         labelnombre = new javax.swing.JLabel();
-        jPanel13 = new javax.swing.JPanel();
-        producto_sobrante = new javax.swing.JPanel();
-        jPanel20 = new javax.swing.JPanel();
-        jLabel79 = new javax.swing.JLabel();
-        jLabel88 = new javax.swing.JLabel();
-        jButton6 = new javax.swing.JButton();
-        jLabel89 = new javax.swing.JLabel();
-        jPanel25 = new javax.swing.JPanel();
-        fecha_inicioestadis = new com.toedter.calendar.JDateChooser();
-        jLabel60 = new javax.swing.JLabel();
-        fecha_finalestadis = new com.toedter.calendar.JDateChooser();
-        buscarproductosfecha = new javax.swing.JButton();
-        jScrollPane5 = new javax.swing.JScrollPane();
-        Jtable_productosmasven = new rojerusan.RSTableMetro();
-        buscarproductospordia = new javax.swing.JButton();
-        jLabel76 = new javax.swing.JLabel();
-        jLabel77 = new javax.swing.JLabel();
-        jLabel80 = new javax.swing.JLabel();
-        jLabel81 = new javax.swing.JLabel();
-        jPanel28 = new javax.swing.JPanel();
-        jScrollPane8 = new javax.swing.JScrollPane();
-        utilidad = new rojerusan.RSTableMetro();
-        jLabel84 = new javax.swing.JLabel();
-        jLabel78 = new javax.swing.JLabel();
-        labelutilidad = new javax.swing.JLabel();
-        labelingresos = new javax.swing.JLabel();
-        jLabel82 = new javax.swing.JLabel();
-        labelgastos = new javax.swing.JLabel();
-        jLabel85 = new javax.swing.JLabel();
-        jLabel86 = new javax.swing.JLabel();
-        jLabel87 = new javax.swing.JLabel();
 
         tabla_articulos.setComponentPopupMenu(tabla_articulos);
 
@@ -3636,261 +3491,6 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
 
         Proveedores9.addTab("      Inventario Ventas      ", jPanel12);
 
-        producto_sobrante.setBackground(new java.awt.Color(0, 51, 102));
-        producto_sobrante.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        producto_sobrante.setDoubleBuffered(false);
-        producto_sobrante.setLayout(null);
-
-        jPanel20.setBackground(new java.awt.Color(255, 255, 255));
-
-        jLabel79.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel79.setText("Estadisticas");
-
-        jLabel88.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/portapapeles.png"))); // NOI18N
-
-        jButton6.setBackground(new java.awt.Color(255, 255, 255));
-        jButton6.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jButton6.setForeground(new java.awt.Color(255, 0, 0));
-        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/salir-flecha-derecha (1).png"))); // NOI18N
-        jButton6.setText("Salir");
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
-            }
-        });
-
-        jLabel89.setBackground(new java.awt.Color(0, 160, 204));
-        jLabel89.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
-        jLabel89.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel89.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/bloggif_5bd54d091a235.jpeg"))); // NOI18N
-
-        javax.swing.GroupLayout jPanel20Layout = new javax.swing.GroupLayout(jPanel20);
-        jPanel20.setLayout(jPanel20Layout);
-        jPanel20Layout.setHorizontalGroup(
-            jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel20Layout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addComponent(jLabel89)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 67, Short.MAX_VALUE)
-                .addComponent(jLabel79, javax.swing.GroupLayout.PREFERRED_SIZE, 324, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel88, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(414, 414, 414)
-                .addComponent(jButton6)
-                .addGap(41, 41, 41))
-        );
-        jPanel20Layout.setVerticalGroup(
-            jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel20Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel79, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel20Layout.createSequentialGroup()
-                        .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel88, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                            .addComponent(jLabel89)
-                            .addGroup(jPanel20Layout.createSequentialGroup()
-                                .addGap(6, 6, 6)
-                                .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap())))
-        );
-
-        producto_sobrante.add(jPanel20);
-        jPanel20.setBounds(0, 0, 1288, 66);
-
-        jPanel25.setBackground(new java.awt.Color(0, 51, 102));
-        jPanel25.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Productos más vendidos", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Arial", 1, 18), new java.awt.Color(255, 255, 255))); // NOI18N
-        jPanel25.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        fecha_inicioestadis.setBackground(new java.awt.Color(0, 51, 102));
-        fecha_inicioestadis.setForeground(new java.awt.Color(0, 96, 255));
-        fecha_inicioestadis.setFont(new java.awt.Font("Tahoma", 1, 17)); // NOI18N
-        jPanel25.add(fecha_inicioestadis, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 60, 210, 40));
-
-        jLabel60.setFont(new java.awt.Font("Arial Black", 1, 24)); // NOI18N
-        jLabel60.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel60.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel60.setText("Desde");
-        jPanel25.add(jLabel60, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 130, 40));
-
-        fecha_finalestadis.setBackground(new java.awt.Color(0, 51, 102));
-        fecha_finalestadis.setForeground(new java.awt.Color(0, 96, 255));
-        fecha_finalestadis.setFont(new java.awt.Font("Tahoma", 1, 17)); // NOI18N
-        jPanel25.add(fecha_finalestadis, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 60, 210, 40));
-
-        buscarproductosfecha.setBackground(new java.awt.Color(0, 51, 102));
-        buscarproductosfecha.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        buscarproductosfecha.setForeground(new java.awt.Color(255, 255, 255));
-        buscarproductosfecha.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/image/magnifier.png"))); // NOI18N
-        buscarproductosfecha.setText("Buscar");
-        buscarproductosfecha.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-        buscarproductosfecha.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buscarproductosfechaActionPerformed(evt);
-            }
-        });
-        jPanel25.add(buscarproductosfecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 50, 180, 50));
-
-        Jtable_productosmasven = new rojerusan.RSTableMetro(){
-            public boolean isCellEditable(int filas, int columnas){
-                return false;
-            }
-        };
-        Jtable_productosmasven.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-
-            }
-        ));
-        Jtable_productosmasven.setColorFilasForeground1(new java.awt.Color(0, 0, 0));
-        Jtable_productosmasven.setColorFilasForeground2(new java.awt.Color(0, 0, 0));
-        Jtable_productosmasven.setGrosorBordeFilas(0);
-        Jtable_productosmasven.setGrosorBordeHead(0);
-        Jtable_productosmasven.setMultipleSeleccion(false);
-        Jtable_productosmasven.setRowHeight(20);
-        jScrollPane5.setViewportView(Jtable_productosmasven);
-
-        jPanel25.add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, 580, 170));
-
-        buscarproductospordia.setBackground(new java.awt.Color(0, 51, 102));
-        buscarproductospordia.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        buscarproductospordia.setForeground(new java.awt.Color(255, 255, 255));
-        buscarproductospordia.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/image/magnifier.png"))); // NOI18N
-        buscarproductospordia.setText("Del día");
-        buscarproductospordia.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-        buscarproductospordia.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buscarproductospordiaActionPerformed(evt);
-            }
-        });
-        jPanel25.add(buscarproductospordia, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 50, 180, 50));
-
-        jLabel76.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jLabel76.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel76.setText("El día de hoy");
-        jPanel25.add(jLabel76, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 20, 270, 30));
-
-        jLabel77.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jLabel77.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel77.setText("Selecciona el rango de fechas que quieres ver");
-        jPanel25.add(jLabel77, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 30, 360, -1));
-
-        jLabel80.setFont(new java.awt.Font("Arial Black", 1, 24)); // NOI18N
-        jLabel80.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel80.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel80.setText("Hasta");
-        jPanel25.add(jLabel80, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 60, -1, 40));
-
-        jLabel81.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jLabel81.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel81.setText("Por rango de fechas");
-        jPanel25.add(jLabel81, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 20, 270, 30));
-
-        producto_sobrante.add(jPanel25);
-        jPanel25.setBounds(10, 70, 1270, 300);
-
-        jPanel28.setBackground(new java.awt.Color(0, 51, 102));
-        jPanel28.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Utilidad", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Arial", 1, 18), new java.awt.Color(255, 255, 255))); // NOI18N
-        jPanel28.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        utilidad = new rojerusan.RSTableMetro(){
-            public boolean isCellEditable(int filas, int columnas){
-                return false;
-            }
-        };
-        utilidad.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-
-            }
-        ));
-        utilidad.setColorFilasForeground1(new java.awt.Color(0, 0, 0));
-        utilidad.setColorFilasForeground2(new java.awt.Color(0, 0, 0));
-        utilidad.setGrosorBordeFilas(0);
-        utilidad.setGrosorBordeHead(0);
-        utilidad.setRowHeight(25);
-        jScrollPane8.setViewportView(utilidad);
-
-        jPanel28.add(jScrollPane8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 860, 250));
-
-        jLabel84.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
-        jLabel84.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel84.setText("Almuerzo $28");
-        jPanel28.add(jLabel84, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 110, 310, -1));
-
-        jLabel78.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
-        jLabel78.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel78.setText("Utilidad");
-        jPanel28.add(jLabel78, new org.netbeans.lib.awtextra.AbsoluteConstraints(1090, 240, 100, -1));
-
-        labelutilidad.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
-        labelutilidad.setForeground(new java.awt.Color(255, 255, 255));
-        labelutilidad.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        labelutilidad.setText("00.00");
-        jPanel28.add(labelutilidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(1160, 240, 140, 28));
-
-        labelingresos.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
-        labelingresos.setForeground(new java.awt.Color(255, 255, 255));
-        labelingresos.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        labelingresos.setText("00.00");
-        jPanel28.add(labelingresos, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 190, 140, 28));
-
-        jLabel82.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
-        jLabel82.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel82.setText("Gastos");
-        jPanel28.add(jLabel82, new org.netbeans.lib.awtextra.AbsoluteConstraints(1090, 190, 90, -1));
-
-        labelgastos.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
-        labelgastos.setForeground(new java.awt.Color(255, 255, 255));
-        labelgastos.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        labelgastos.setText("00.00");
-        jPanel28.add(labelgastos, new org.netbeans.lib.awtextra.AbsoluteConstraints(1170, 190, 120, 28));
-
-        jLabel85.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
-        jLabel85.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel85.setText("Ingresos");
-        jPanel28.add(jLabel85, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 190, 110, -1));
-
-        jLabel86.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
-        jLabel86.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel86.setText("Pago pollo (20x90)= $1800");
-        jPanel28.add(jLabel86, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 30, 310, -1));
-
-        jLabel87.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
-        jLabel87.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel87.setText("Tacos $60");
-        jPanel28.add(jLabel87, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 70, 310, -1));
-
-        producto_sobrante.add(jPanel28);
-        jPanel28.setBounds(10, 370, 1270, 290);
-
-        javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
-        jPanel13.setLayout(jPanel13Layout);
-        jPanel13Layout.setHorizontalGroup(
-            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1288, Short.MAX_VALUE)
-            .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel13Layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(producto_sobrante, javax.swing.GroupLayout.PREFERRED_SIZE, 1288, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
-        );
-        jPanel13Layout.setVerticalGroup(
-            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 707, Short.MAX_VALUE)
-            .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel13Layout.createSequentialGroup()
-                    .addGap(0, 16, Short.MAX_VALUE)
-                    .addComponent(producto_sobrante, javax.swing.GroupLayout.PREFERRED_SIZE, 674, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 17, Short.MAX_VALUE)))
-        );
-
-        Proveedores9.addTab("      Estadisticas      ", jPanel13);
-
         getContentPane().add(Proveedores9, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1290, 740));
 
         pack();
@@ -3983,7 +3583,6 @@ public void eliminarpolloenterodestorage(int id_producto){
                                 llenartablaidventasconidrealizados();
                                 productosvendidoseneldia();//MUESTRA LAS VENTAS REA
                                 llenartablaconventasacreditopendiente();
-                                productosmasvendidos(Jtable_productosmasven);
                                 TablallenadoparaEntradas(Jtable_ProductosEntradas);
                                 ParaLAVenta(JtablepaLaVenta);
                                     limpiardatosdeventa(); //Los datos que aparecen en la venta se mostraran
@@ -4201,49 +3800,6 @@ public void eliminarpolloenterodestorage(int id_producto){
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
         // TODO add your handling code here:
     }//GEN-LAST:event_formWindowClosed
-
-    private void buscarproductospordiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarproductospordiaActionPerformed
-        productosmasvendidos(Jtable_productosmasven);
-        fecha_inicioestadis.cleanup();
-        fecha_inicioestadis.setDate(null);
-        fecha_finalestadis.cleanup();
-        fecha_finalestadis.setDate(null);
-    }//GEN-LAST:event_buscarproductospordiaActionPerformed
-
-    private void buscarproductosfechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarproductosfechaActionPerformed
-        // BOTON PARA LA CONSULTA DE  GASTOS
-        try{
-            String fechadesde= llenarfechadesde();
-            String fechahasta= llenarfechahasta();
-            if(fechadesde.equals("")&&fechahasta.equals("")){
-                JOptionPane.showMessageDialog(null, "Primero debe elegir un rango de fechas en los calendarios");
-            }else{
-                LlenarTablaBusquedproMasvendidosfecha(Jtable_productosmasven, llenarfechadesde(),llenarfechahasta());
-            }
-        }catch(NullPointerException NP){
-            JOptionPane.showMessageDialog(null,"Debes de elegir un rango de fechas en los botones para la fecha", "ERROR", JOptionPane.ERROR_MESSAGE);
-        }
-    }//GEN-LAST:event_buscarproductosfechaActionPerformed
-
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        if(tablaventaactiva==true&&(storage.size())>0){
-            int decision=JOptionPane.showConfirmDialog(null,"¿Desea continuar?","Advertencia: Tiene una venta inconclusa",JOptionPane.CANCEL_OPTION);
-            if(decision==0){ //opción si
-                cerrandosesion_o_limpiandoventa();
-                JOptionPane.showMessageDialog(null,"Nos vemos pronto","Saliendo del sistema...",JOptionPane.INFORMATION_MESSAGE);
-                new SI_Inicio().setVisible(true);
-                this.setVisible(false);
-            }
-        }
-        else{
-            int decision2=JOptionPane.showConfirmDialog(null,"¿Desea continuar?","Saliendo del sistema",JOptionPane.CANCEL_OPTION);
-            if(decision2==0){
-                JOptionPane.showMessageDialog(null,"Nos vemos pronto","Saliendo del sistema...",JOptionPane.INFORMATION_MESSAGE);
-                new SI_Inicio().setVisible(true);
-                this.setVisible(false);
-            }
-        }
-    }//GEN-LAST:event_jButton6ActionPerformed
 
     private void pagarventaacreditoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pagarventaacreditoActionPerformed
         try{
@@ -5574,7 +5130,6 @@ static SI cc= new SI();
     private javax.swing.JLabel Fecha;
     private javax.swing.JLabel IblReloj;
     public static rojerusan.RSTableMetro Jtable_ProductosEntradas;
-    public static rojerusan.RSTableMetro Jtable_productosmasven;
     private rojerusan.RSTableMetro Jtable_ventasRealizadas;
     public static rojerusan.RSTableMetro JtablepaLaVenta;
     public static javax.swing.JTabbedPane Proveedores9;
@@ -5583,8 +5138,6 @@ static SI cc= new SI();
     private javax.swing.JButton agregar;
     public static javax.swing.JPanel agregar_articulo;
     private javax.swing.JButton bones;
-    private javax.swing.JButton buscarproductosfecha;
-    private javax.swing.JButton buscarproductospordia;
     private javax.swing.JButton buscarventasporfecha;
     public static javax.swing.JLabel cambiocombobox;
     private javax.swing.JButton cancelarventa;
@@ -5601,8 +5154,6 @@ static SI cc= new SI();
     private javax.swing.JMenuItem drop;
     private javax.swing.JMenuItem eliminar;
     private javax.swing.JMenuItem eliminarusuarios;
-    private com.toedter.calendar.JDateChooser fecha_finalestadis;
-    private com.toedter.calendar.JDateChooser fecha_inicioestadis;
     private com.toedter.calendar.JDateChooser fechafinal;
     private com.toedter.calendar.JDateChooser fechainicial;
     private javax.swing.JButton imprimirventa;
@@ -5654,7 +5205,6 @@ static SI cc= new SI();
     private javax.swing.JButton jButton53;
     private javax.swing.JButton jButton54;
     private javax.swing.JButton jButton55;
-    private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
@@ -5664,24 +5214,10 @@ static SI cc= new SI();
     private javax.swing.JLabel jLabel103;
     private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel31;
-    private javax.swing.JLabel jLabel60;
     private javax.swing.JLabel jLabel63;
     private javax.swing.JLabel jLabel74;
-    private javax.swing.JLabel jLabel76;
-    private javax.swing.JLabel jLabel77;
-    private javax.swing.JLabel jLabel78;
-    private javax.swing.JLabel jLabel79;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel80;
-    private javax.swing.JLabel jLabel81;
-    private javax.swing.JLabel jLabel82;
     private javax.swing.JLabel jLabel83;
-    private javax.swing.JLabel jLabel84;
-    private javax.swing.JLabel jLabel85;
-    private javax.swing.JLabel jLabel86;
-    private javax.swing.JLabel jLabel87;
-    private javax.swing.JLabel jLabel88;
-    private javax.swing.JLabel jLabel89;
     private javax.swing.JLabel jLabel91;
     private javax.swing.JLabel jLabel92;
     private javax.swing.JLabel jLabel93;
@@ -5691,15 +5227,11 @@ static SI cc= new SI();
     private javax.swing.JLabel jLabel99;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel12;
-    private javax.swing.JPanel jPanel13;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel20;
     private javax.swing.JPanel jPanel23;
     private javax.swing.JPanel jPanel24;
-    private javax.swing.JPanel jPanel25;
     private javax.swing.JPanel jPanel26;
     private javax.swing.JPanel jPanel27;
-    private javax.swing.JPanel jPanel28;
     private javax.swing.JPanel jPanel31;
     private javax.swing.JPanel jPanel32;
     private javax.swing.JPanel jPanel33;
@@ -5709,10 +5241,8 @@ static SI cc= new SI();
     private javax.swing.JScrollPane jScrollPane16;
     private javax.swing.JScrollPane jScrollPane17;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
-    private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JSeparator jSeparator20;
     private javax.swing.JSeparator jSeparator21;
     private javax.swing.JSeparator jSeparator22;
@@ -5722,11 +5252,8 @@ static SI cc= new SI();
     public static rojerusan.RSTableMetro jTable3;
     private javax.swing.JLabel labelcredito;
     private javax.swing.JLabel labeldescuento;
-    private javax.swing.JLabel labelgastos;
-    private javax.swing.JLabel labelingresos;
     private javax.swing.JLabel labelnombre;
     private javax.swing.JLabel labelparaeltotal;
-    private javax.swing.JLabel labelutilidad;
     private javax.swing.JCheckBox masdeunapieza;
     private javax.swing.JCheckBox masdeunapiezacocido;
     private javax.swing.JCheckBox masdeunapiezacrudo;
@@ -5737,7 +5264,6 @@ static SI cc= new SI();
     private javax.swing.JButton pagarventaacredito;
     public static javax.swing.JCheckBox piezasparaacomplettarpollo;
     private javax.swing.JButton polloasado;
-    public static javax.swing.JPanel producto_sobrante;
     public static javax.swing.JPanel producto_sobrante3;
     private javax.swing.JButton salsaguajillo;
     public static javax.swing.JLabel subtotal;
@@ -5752,7 +5278,6 @@ static SI cc= new SI();
     private javax.swing.JLabel totalventarealizada;
     private javax.swing.JLabel user;
     private javax.swing.JLabel user1;
-    private rojerusan.RSTableMetro utilidad;
     public static javax.swing.JPanel venta;
     private javax.swing.JButton ventaacredito;
     public static rojerusan.RSTableMetro ventasacreditopendiente;
