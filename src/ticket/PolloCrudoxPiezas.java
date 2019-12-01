@@ -10,7 +10,7 @@ import javax.swing.JOptionPane;
 
 public class PolloCrudoxPiezas {
     
-      public void PolloCrudoxPiezas(ArrayList pollocrudnombre, ArrayList pollocrudpieza,ArrayList pollocrudtotal, float totaldecrudo){
+      public void PolloCrudoxPiezas(ArrayList pollocrudnombre, ArrayList sobrante, ArrayList pollocrudpieza,ArrayList pollocrudtotal, float totaldecrudo){
        
         Date date = new Date();
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -35,10 +35,10 @@ public class PolloCrudoxPiezas {
          
        auxs+= "Fecha: " + dateFormat.format(date) + " Hora: " + hourFormat.format(date) + "\n";  System.out.println("Fecha: " + dateFormat.format(date) + " Hora: " + hourFormat.format(date) + "\n");
         System.out.println("\n==============================\n");  auxs+= "\n==============================\n";                
-                       auxs+= "Nombre      Piezas     Total\n"; System.out.println("Nombre      Piezas     Total\n");        
+                       auxs+= "Nombre      Sobro     Vendio     Total\n"; System.out.println("Nombre      Sobro     Vendio     Total\n");        
          auxs+= "\n==============================\n";   System.out.println("\n==============================\n");                 
         for(int n=0;n<=pollocrudnombre.size()-1;n++){                 
-            auxs+= String.format("%-11s" + "%-10s" + "$%-12s", pollocrudnombre.get(n), pollocrudpieza.get(n), pollocrudtotal.get(n)); System.out.println(String.format("%-11s" + "%-10s" + "$%-12s", pollocrudnombre.get(n), pollocrudpieza.get(n), pollocrudtotal.get(n)));
+            auxs+= String.format("%-11s" + "%-10s" + "$%-12s", pollocrudnombre.get(n), sobrante.get(n), pollocrudpieza.get(n), pollocrudtotal.get(n)); System.out.println(String.format("%-11s" + "%-10s" +"%-10s"+ "$%-12s", pollocrudnombre.get(n), sobrante.get(n),pollocrudpieza.get(n), pollocrudtotal.get(n)));
              auxs+= "\n";   
         }                  
             auxs+= "\n==============================\n";  System.out.println("\n==============================\n");  

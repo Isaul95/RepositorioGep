@@ -4618,8 +4618,9 @@ public void eliminarpolloenterodestorage(int id_producto){
     }//GEN-LAST:event_AgregarGastosActionPerformed
 
     private void CortedecajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CortedecajaActionPerformed
-        if(Integer.parseInt(hora)>=17&&Integer.parseInt(minutos)>=15){//Se puede habilitar el corte alas 5:15 pm
-            if(noduplicarcorte==false){
+        
+        if(Integer.parseInt(hora)>=17||Integer.parseInt(hora)>=16){//Se puede habilitar el corte alas 5:15 pm
+        if(noduplicarcorte==false){
                 new Pantalla_CorteCaja().setVisible(true);
             }
         }

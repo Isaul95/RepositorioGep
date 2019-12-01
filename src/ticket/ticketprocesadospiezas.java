@@ -9,7 +9,7 @@ import javax.swing.JOptionPane;
 
 public class ticketprocesadospiezas {
     
-     public void ticketprocesadospiezas(ArrayList procesadosnombre, ArrayList procesadospiezas, ArrayList procesadostotal, float totaldeprocesados) {
+     public void ticketprocesadospiezas(ArrayList procesadosnombre, ArrayList sobrante, ArrayList procesadospiezas, ArrayList procesadostotal, float totaldeprocesados) {
        
         Date date = new Date();
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -22,7 +22,7 @@ public class ticketprocesadospiezas {
         String impra = "Juarez"; // Nombre de la impresora
 
         // Se llama al metodo para imprimir una cadena
-         auxs+= "PROCESADOS CON PIEZAS\n";               System.out.println("PROCESADOS CON PIEZAS\n");
+         auxs+= "PROCESADOS VENDIDOS\n";               System.out.println("PROCESADOS CON PIEZAS\n");
           auxs+= "POLLERIA LA GRANJA\n"; System.out.println("POLLERIA LA GRANJA\n");
          //auxs+= "PROP.JOSE MIGUEL CASTREZANA B.\n";  System.out.println("PROP.JOSE MIGUEL CASTREZANA B.\n");
         auxs+= "R.F.C. CABM850201PR1\n"; System.out.println("R.F.C. CABM850201PR1\n");        
@@ -34,10 +34,10 @@ public class ticketprocesadospiezas {
          
        auxs+= "Fecha: " + dateFormat.format(date) + " Hora: " + hourFormat.format(date) + "\n";  System.out.println("Fecha: " + dateFormat.format(date) + " Hora: " + hourFormat.format(date) + "\n");
       System.out.println("\n==============================\n");          auxs+= "\n==============================\n";                
-                    auxs+= "Nombre      Piezas     Total\n";    System.out.println("Nombre      Piezas     Total\n");               
+                    auxs+= "Nombre      Sobro     Vendio     Total\n";    System.out.println("Nombre      Sobro    Vendio     Total\n");               
          auxs+= "\n==============================\n";   System.out.println("\n==============================\n");                           
              for(int n=0;n<=procesadosnombre.size()-1;n++){                 
-                  auxs+= String.format("%-20s" + "%-7s" + "$%-7s" , procesadosnombre.get(n), procesadospiezas.get(n), procesadostotal.get(n)); System.out.println(String.format("%-22s" + "%-8s" + "$%-8s" , procesadosnombre.get(n), procesadospiezas.get(n), procesadostotal.get(n)));
+                  auxs+= String.format("%-20s" + "%-7s" +"%-7s" + "$%-7s" , procesadosnombre.get(n), sobrante.get(n), procesadospiezas.get(n), procesadostotal.get(n)); System.out.println(String.format("%-22s" + "%-8s" +"%-8s" + "$%-8s" , procesadosnombre.get(n), sobrante.get(n), procesadospiezas.get(n), procesadostotal.get(n)));
                   auxs+= "\n"; // SALTOS PARA K NO LO CORTE LUEGO     "%-11s" + "%-10s" + "$%-12s"  
              }                             
               

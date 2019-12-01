@@ -45,7 +45,24 @@ public class Pantalla_CorteCaja extends javax.swing.JFrame  implements Runnable{
   tikectprocesados tikectprocesados;
   ticketprocesadospiezas ticketprocesadospiezas;
   DecimalFormat solodosdecimales = new DecimalFormat("#.##");
-            
+  static String[] productosvendidos = {"Pechuga", "Muslo","Pierna","Ala","Huacal","Cadera","Cabeza","Molleja", "Patas",
+  "Longaniza","Mole rojo","Mole verde","Miel","Pollo rostizado","Pollo asado",
+  "Pech. broaster","Muslo broaster","Pierna broaster","Ala broaster",
+  "Alitas bbq",
+  "Barbacoa de pollo","Salsa guajillo (gde","Spagueti blanco","Spagueti rojo","Spagueti rojo","Arroz blanco","Arroz rojo",
+  "Frijoles puercos","Frijoles peruanos", "Frijoles charros",
+  "Cochinita","Pure","Ens. de manzana","Ensalada de col","Ensalada rusa",
+  "Pasta de codito","Chiles en vinagre","Ver. encurtidas",
+  "Nuggets","Mininuggets","Tacos","Brochetas","Pechuga en bisteck"};
+
+
+
+
+
+
+
+
+
   final float pagopollo=20*90, tacos=60, almuerzo=28;//datos para la tabla utilidad
 float  totaldedescuentos, totaldepagos,diferenciaentablautilidad, utilidades, total_de_crudo, total_de_procesados, ventasdeldia, gastosdeldia, montodeapertura, diferencia, diferenciafinal, precio;
 int apertura, numerodescuentos;
@@ -114,7 +131,7 @@ public void ventaseneldia(){
         try{ // La suma de todos los importes
     
                                          Statement sent  =(Statement)ca.createStatement();
-                                         ResultSet  rs = sent.executeQuery("select SUM(total) from venta where estaodo_venta = 'Realizada' and fecha_reporte= '"+fecha()+"'");
+                                         ResultSet  rs = sent.executeQuery("select SUM(total) from venta where estado_venta = 'Realizada' and fecha_reporte= '"+fecha()+"'");
                                             while(rs.next()){
                                                       ventasdeldia =Float.parseFloat(rs.getString("SUM(total)"));
                                                       }
@@ -376,7 +393,7 @@ public void metodogastosdeldia(){
             }
     public void vaciartodoelpollococidoenprocesados(){
               try{              
-           PreparedStatement ps = ca.prepareStatement ("UPDATE procesados SET total= 0, piezas=0");
+           PreparedStatement ps = ca.prepareStatement ("UPDATE procesados SET total= 0, piezas=0, sobrante=0");
                   int a = ps.executeUpdate();
                 if(a>0){    
                 }
@@ -386,7 +403,7 @@ public void metodogastosdeldia(){
             }
         public void vaciartodoelpollocrudoendevolucioncrudo(){
               try{              
-           PreparedStatement ps = ca.prepareStatement ("UPDATE devolucion_crudo SET total= 0, piezas=0");
+           PreparedStatement ps = ca.prepareStatement ("UPDATE devolucion_crudo SET total= 0, piezas=0, sobrante=0");
                   int a = ps.executeUpdate();
                 if(a>0){    
                 }
@@ -400,18 +417,20 @@ public void metodogastosdeldia(){
            ArrayList columna = new ArrayList(); 
             ArrayList columna2 = new ArrayList();          
              ArrayList columna3 = new ArrayList();
+             ArrayList columna4 = new ArrayList();
           sent  = (Statement)ca.createStatement();
-                      rs = sent.executeQuery("select nombre, piezas, total from devolucion_crudo where nombre in ( 'Pechuga', 'Muslo', 'Pierna', 'Ala')");
+                      rs = sent.executeQuery("select nombre, sobrante, piezas, total from devolucion_crudo");
                          while(rs.next()){
                              columna.add(rs.getString(1));
                              columna2.add(rs.getFloat(2));
                              columna3.add(rs.getFloat(3));
+                              columna4.add(rs.getFloat(4));
                          }
                          total_del_día_devolucion_crudo();
    PolloCrudoxPiezas = new PolloCrudoxPiezas();          
-   PolloCrudoxPiezas.PolloCrudoxPiezas(columna, columna2, columna3,Float.parseFloat(solodosdecimales.format(total_de_crudo)));                       
+   PolloCrudoxPiezas.PolloCrudoxPiezas(columna, columna2, columna3,columna4, Float.parseFloat(solodosdecimales.format(total_de_crudo)));                       
       }catch(Exception e){                                             
-          System.out.println("ERROR en pantalla gasts: " + e.getMessage());
+          System.out.println("ERROR en sobrantedepollocrudodeldiaparaticketcantidadesypiezas: " + e.getMessage());
       }
  }//TICKET DEVOLUCION CRUDO,  LAS CANTIDADES Y PIEZAS
  public void sobrantedepollocrudodeldiaparaticketperosolocantidades(){ //TICKET DEVOLUCION CRUDO, SOLO LAS CANTIDADES
@@ -434,27 +453,7 @@ public void metodogastosdeldia(){
  
  
 
-     public void productosvendidoseneldia(float totaldeventas){ // recibe como parametro                          
-        try {
-            ArrayList columna1 = new ArrayList(); 
-            ArrayList columna2 = new ArrayList();          
-            ArrayList columna3 = new ArrayList();
-            
-            sent  = (Statement)ca.createStatement();
-           rs = sent.executeQuery("SELECT nombre_producto, SUM(cantidad), SUM(importe) FROM  descripcion_de_venta WHERE estado = 'Realizada' AND fecha = CURDATE() GROUP BY nombre_producto");
-
-            while (rs.next()) {                
-                             columna1.add(rs.getString(1));
-                             columna2.add(rs.getFloat(2));
-                             columna3.add(rs.getFloat(3));                            
-            }            
-        TicketVenAll = new TicketVentasAll();          
-  TicketVenAll.TicketVentasAll(columna1,columna2,columna3, totaldeventas); 
-
-    } catch (Exception e) {
-       JOptionPane.showMessageDialog(null, "ERROR EN METODO: productosvendidoseneldia","DEVELOPER HELPER", JOptionPane.ERROR_MESSAGE);      
-      }
-}
+   
      
        public void ListadeGastosAlHacerCorteCaja(){ // recibe como parametro                          
         try {
@@ -486,17 +485,20 @@ public void metodogastosdeldia(){
              ArrayList columna = new ArrayList();
              ArrayList columna1 = new ArrayList();    
              ArrayList columna2 = new ArrayList();
+                          ArrayList columna3 = new ArrayList();
           sent  = (Statement)ca.createStatement();
-                      rs = sent.executeQuery("select nombre, piezas, total from procesados");
+                      rs = sent.executeQuery("select nombre, sobrante, piezas, total from procesados");
                          while(rs.next()){
                              columna.add(rs.getString(1));
                              columna1.add(rs.getFloat(2));
                              columna2.add(rs.getFloat(3));
+                              columna3.add(rs.getFloat(4));
+                             
                          }
                         
-   // ticketprocesadospiezas = new ticketprocesadospiezas();       
-     // total_del_día_procesados();    
-    // ticketprocesadospiezas.ticketprocesadospiezas(columna,columna1,columna2, Float.parseFloat(solodosdecimales.format(total_de_procesados)));                
+    ticketprocesadospiezas = new ticketprocesadospiezas();       
+     total_del_día_procesados();    
+     ticketprocesadospiezas.ticketprocesadospiezas(columna,columna1,columna2, columna3, Float.parseFloat(solodosdecimales.format(total_de_procesados)));                
       }catch(Exception e){                                                     
           // System.out.println("DESDE PROCESADOS"+ total_de_procesados);
       }
@@ -594,14 +596,14 @@ public void metodogastosdeldia(){
                 insertaradevoluciondecrudopiezasycantidades();//SE REGISTRAN LAS PIEZAS, CANTIDADES Y TOTALES DE TODO CRUDO
                 insertaradevoluciondecocidopiezasycantidades();//SE REGISTRAN LAS PIEZAS, CANTIDADES Y TOTALES DE TODO COCIDO                
              //LUEGO AQUI SE PUEDE REALIZAR CADA TICKET CORRESPONDIENTE (ESTOS SON LOS 5 TICKET)
-//YA NO SE IMPRIME ÉSTE TICKET sobrantedepollococidodeldiaparaticketcantidadesypiezas();//SOBRANTE DE COCIDO PARA TICKET MOSTRANDO CANTIDADES Y TOTALES
+/*sii*/ sobrantedepollocrudodeldiaparaticketcantidadesypiezas();//SOBRANTE DE PECHUGA, PIERNA ALA, MUSLO, VA PARA TICKET
+   sobrantedepollococidodeldiaparaticketcantidadesypiezas();//SOBRANTE DE COCIDO PARA TICKET MOSTRANDO CANTIDADES Y TOTALES
+   
  // YA NO SE IMPRIME ÉSTE TICKET sobrantedepollococidodeldiaparaticketperosolocantidades();//SOBRANTE DE COCIDO PARA TICKET MOSTRANDO CANTIDADES
- productosvendidoseneldia(ventasdeldia);//TODOS LOS PRODUCTOS VENDIDOS
 ListadeGastosAlHacerCorteCaja();  // TOCKET DE GASTOS
  // YA NO SE IMPRIME ÉSTE TICKET sobrantedepollocrudodeldiaparaticketperosolocantidades();//SOBRANTE DE TODO MENOS PECHUGA, PIERNA ALA, MUSLO, VA PARA TICKET
  total_numeros_y_descuentos();    
  /*sii*/obteniendolosvaloresdelcortedecajadeldiadehoyparaelticket(numerodescuentos, totaldedescuentos);//LOS DATOS DEL TICKET CORTE DE CAJA                                                      
-    /*sii*/ sobrantedepollocrudodeldiaparaticketcantidadesypiezas();//SOBRANTE DE PECHUGA, PIERNA ALA, MUSLO, VA PARA TICKET
            
             llenar_tabla_utilidad(gastosdeldia, ventasdeldia);
       vaciartodoelpollococidoenprocesados();
@@ -623,7 +625,7 @@ else{//CUANDO EL MONTO ESTA VACIO
 
  public void total_del_día_devolucion_crudo(){
     try{
-        String sql = "select  SUM(total) from devolucion_crudo";
+        String sql = "select SUM(total) from devolucion_crudo";
         PreparedStatement ps= ca.prepareStatement(sql);
         rs= ps.executeQuery();
         if(rs.next()){
@@ -691,12 +693,14 @@ public void pagoshechoseneldiaactual(){
     public void insertaradevoluciondecrudopiezasycantidades(){//AQUI SE INSERTAN LAS PIEZAS Y CANTIDADES DE PECHUGA, MUSLO ALA Y PIERNA
          ArrayList cantidades = new  ArrayList();
          ArrayList nombres = new  ArrayList();
-double []totales = {35.0, 7.70, 7.70, 5.50, 0, 0, 0, 0, 0};
+         ArrayList sobrante= new  ArrayList();
+double []totales = {62.0, 11.00, 11.00, 6.50, 7.00, 3.50, 2.50, 2.50, 1.50};
         try{//SOLO SE LLAMA A LA CANTIDAD PORQUE EN EL TICKET YA SE DEFINIRÁN LOS NOMBRES DE CADA ARTICULO
                       sent  = (Statement)ca.createStatement();
-                      rs = sent.executeQuery("select nombre_producto, cantidad from productos where nombre_producto in ('Pechuga', 'Muslo', 'Pierna', 'Ala', 'Huacal', 'Cadera', 'Cabeza', 'Molleja', 'Patas')");
-                         while(rs.next()){
+                       rs = sent.executeQuery("select nombre_producto, SUM(cantidad) from descripcion_de_venta where id_producto in (15,16,17,18,19,20,21,22,23) and estado='Realizada' and fecha= '"+fecha()+"' GROUP BY nombre_producto");
+                      while(rs.next()){
                              nombres.add(rs.getString(1));
+                             JOptionPane.showMessageDialog(null, "NOMBRE EN NOMBRES "+rs.getString(1));
                              cantidades.add(rs.getFloat(2));
                               
                        
@@ -705,9 +709,24 @@ double []totales = {35.0, 7.70, 7.70, 5.50, 0, 0, 0, 0, 0};
       }
         for(int aa =0; aa<=nombres.size()-1; aa++){
             double total=0;   
+            JOptionPane.showMessageDialog(null,"CANTIDAD VENDIDA"+cantidades.get(aa)+"x"+"PRECIO"+totales[aa]);
             total= Double.parseDouble(String.valueOf(cantidades.get(aa)))*totales[aa];
-              try{ //la insersion a la tabla ventas
-                PreparedStatement ps = ca.prepareStatement ("UPDATE devolucion_crudo SET piezas='"+cantidades.get(aa)+"',total = '"+solodosdecimales.format(total)+"',fecha = '"+fecha()+"'WHERE nombre= '"+nombres.get(aa)+"' ");  
+               JOptionPane.showMessageDialog(null,"TOTAL"+total);
+           
+            try{//SOLO SE LLAMA A LA CANTIDAD PORQUE EN EL TICKET YA SE DEFINIRÁN LOS NOMBRES DE CADA ARTICULO
+                      sent  = (Statement)ca.createStatement();
+                      rs = sent.executeQuery("select cantidad from productos WHERE nombre_producto='" +nombres.get(aa)+"' ");
+                   
+                      while(rs.next()){
+                          JOptionPane.showMessageDialog(null, rs.getFloat("cantidad"));
+                             sobrante.add(rs.getFloat("cantidad"));
+                        }
+      }catch(Exception e){                                             
+      }  
+            try{ //la insersion a la tabla ventas
+                   JOptionPane.showMessageDialog(null,"SE INSERTO TOTAL EN "+solodosdecimales.format(total));
+           JOptionPane.showMessageDialog(null, "NOMBRE EN UPDATE NOMBRES "+nombres.get(aa));
+                PreparedStatement ps = ca.prepareStatement ("UPDATE devolucion_crudo SET piezas='"+cantidades.get(aa)+"',total = '"+solodosdecimales.format(total)+"',fecha = '"+fecha()+"',sobrante = '"+sobrante.get(aa)+"'WHERE nombre= '"+nombres.get(aa)+"' ");  
                 int a=ps.executeUpdate();
                 if(a>0){
                  }
@@ -723,8 +742,9 @@ double []totales = {35.0, 7.70, 7.70, 5.50, 0, 0, 0, 0, 0};
    
    public void insertaradevoluciondecocidopiezasycantidades(){//AQUI SE INSERTAN LAS PIEZAS Y CANTIDADES DE PECHUGA, MUSLO ALA Y PIERNA
          ArrayList cantidades = new  ArrayList();
+         ArrayList sobrante = new  ArrayList();
          ArrayList nombres = new  ArrayList();
-double []totales = {68.0, 68.0, 7.68, 8.15, 7.50, 5.95, 23.00, 16.00, 0.00, 11.00, 11.00, 11.00, 11.00, 17.00, 11.00, 11.00, 18.00, 11.00, 13.00, 11.50, 13.00, 11.00, 11.00, 11.00, 5.00, 2.00, 1.00, 8.50};
+double []totales = {94.0, 94.0, 18.50, 18.50, 18.50, 17.00, 12.00, 25.00, 18.50, 0.00, 15.00, 15.00, 15.00, 15.00, 18.00, 15.00, 15.00, 20.00, 15.00, 19.50, 15.00, 15.00, 15.00, 12.00, 12.00, 8.50, 2.75, 2.50, 9.50};
         try{//SOLO SE LLAMA A LA CANTIDAD PORQUE EN EL TICKET YA SE DEFINIRÁN LOS NOMBRES DE CADA ARTICULO
                       sent  = (Statement)ca.createStatement();
                       rs = sent.executeQuery("select nombre_producto, SUM(cantidad) from descripcion_de_venta where id_producto in (24, 25, 26, 27, 28, 29, 30, 31, 32, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52) and estado='Realizada' and fecha= '"+fecha()+"' GROUP BY nombre_producto");
@@ -732,16 +752,31 @@ double []totales = {68.0, 68.0, 7.68, 8.15, 7.50, 5.95, 23.00, 16.00, 0.00, 11.0
                       while(rs.next()){
                              nombres.add(rs.getString(1));
                              cantidades.add(rs.getFloat(2));
-                              
-                       
-                         }
+                        }
       }catch(Exception e){                                             
       }
+         
         for(int aa =0; aa<=nombres.size()-1; aa++){
             double total=0;   
+             JOptionPane.showMessageDialog(null,"CANTIDAD VENDIDAP"+cantidades.get(aa)+"x"+"PRECIOP"+totales[aa]);
+           
             total= Double.parseDouble(String.valueOf(cantidades.get(aa)))*totales[aa];
+            JOptionPane.showMessageDialog(null,"TOTALP"+total);
+           
+            try{//SOLO SE LLAMA A LA CANTIDAD PORQUE EN EL TICKET YA SE DEFINIRÁN LOS NOMBRES DE CADA ARTICULO
+                      sent  = (Statement)ca.createStatement();
+                      rs = sent.executeQuery("select cantidad from productos WHERE nombre_producto='" +nombres.get(aa)+"' ");
+                   
+                      while(rs.next()){
+                          JOptionPane.showMessageDialog(null, rs.getFloat("cantidad"));
+                             sobrante.add(rs.getFloat("cantidad"));
+                        }
+      }catch(Exception e){                                             
+      }
             try{ //la insersion a la tabla ventas
-                PreparedStatement ps = ca.prepareStatement ("UPDATE procesados SET piezas='"+cantidades.get(aa)+"',total = '"+ solodosdecimales.format(total)+"',fecha = '"+fecha()+"'WHERE nombre= '"+nombres.get(aa)+"' ");  
+                 JOptionPane.showMessageDialog(null,"SE INSERTO TOTAL EN P"+solodosdecimales.format(total));
+           
+                PreparedStatement ps = ca.prepareStatement ("UPDATE procesados SET piezas='"+cantidades.get(aa)+"',total = '"+ solodosdecimales.format(total)+"',fecha = '"+fecha()+"',sobrante = '"+sobrante.get(aa)+"'WHERE nombre= '"+nombres.get(aa)+"' ");  
                 int a=ps.executeUpdate();
                 if(a>0){
                  }
