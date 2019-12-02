@@ -197,9 +197,9 @@ borrarventasenestadoenturnoporerrordeusuario_que_no_coincidenconlafechadehoy();/
              } 
     }
   public void regresar_cantidades_enturno_por_error_de_usuario(){
-      Connection ca= cc.conexion(); 
+     
       for (int i = 0; i < idsenturno.size(); i++) {    
-             try {
+             try { Connection ca= cc.conexion(); 
              sent = ca.createStatement();   
                        rs= sent.executeQuery("select cantidad from productos where id_producto= '"+idsenturno.get(i)+"'"); // se ejecuta la sentencia dentro del parentesis
             while(rs.next()){        
@@ -211,8 +211,8 @@ borrarventasenestadoenturnoporerrordeusuario_que_no_coincidenconlafechadehoy();/
                   cc.getClose();
              } 
              //DEVOLVIENDO LA CANTIDAD DE PRODUCTOS EN TURNO A LA TABLA PRODUCTOS
-           try{
-                 PreparedStatement ps = ca.prepareStatement ("UPDATE productos SET cantidad= ? WHERE id_producto= ? ");
+           try{Connection cu= cc.conexion(); 
+                 PreparedStatement ps = cu.prepareStatement ("UPDATE productos SET cantidad= ? WHERE id_producto= ? ");
                  ps.setFloat(1, cantidadporerrordeusuario+=Float.parseFloat(cantidaddecadaidenturno.get(i).toString()));
                  ps.setInt(2, Integer.parseInt(idsenturno.get(i).toString()));
                  ps.executeUpdate();
@@ -247,21 +247,21 @@ borrarventasenestadoenturnoporerrordeusuario_que_no_coincidenconlafechadehoy();/
             if(n>0){
              }
         }catch(Exception e){
-         JOptionPane.showMessageDialog(null, "ERROR EN METODO: borrarventasenestadoenturnoporerrordeusuario_limpiarventa_o_cerrarsesion","DEVELOPER HELPER", JOptionPane.ERROR_MESSAGE);      
+         JOptionPane.showMessageDialog(null, "ERROR EN METODO: borrarventasenestadoenturnoporerrordeusuario_que_no_coincidenconlafechadehoy","DEVELOPER HELPER", JOptionPane.ERROR_MESSAGE);      
       }    finally{
                   cc.getClose();
              }  
      }
  public static void llenartablaconventasacreditopendiente(){
         Object[] columna = new Object[4];  //crear un obj con el nombre de colunna
-            Connection ca= cc.conexion(); // CONEXION DB 
+         
               DefaultTableModel modeloT = new DefaultTableModel(); 
                   ventasacreditopendiente.setModel(modeloT);  // add modelo ala tabla 
        modeloT.addColumn("Venta");
         modeloT.addColumn("Total");        
         modeloT.addColumn("Fecha");
         modeloT.addColumn("Nombre"); 
-       try {
+       try {   Connection ca= cc.conexion(); // CONEXION DB 
 String sSQL = " select distinct venta.id_venta, venta.total, venta.fecha_reporte, descripcion_de_venta.nombre_credito from venta INNER JOIN descripcion_de_venta ON venta.id_venta = descripcion_de_venta.id_venta where venta.estado_venta = 'Credito-pendiente' ";
         PreparedStatement ps = ca.prepareStatement(sSQL);       
         try (ResultSet rs = ps.executeQuery(sSQL)) {
@@ -281,14 +281,14 @@ String sSQL = " select distinct venta.id_venta, venta.total, venta.fecha_reporte
     }
           public static void llenartablaidventasconidrealizados(){ // recibe como parametro 
          Object[] columna = new Object[3];  //crear un obj con el nombre de colunna
-            Connection ca= cc.conexion(); // CONEXION DB 
+          
               DefaultTableModel modeloTE = new DefaultTableModel(); 
                   jTable2.setModel(modeloTE);  // add modelo ala tabla 
         modeloTE.addColumn("Venta");
         modeloTE.addColumn("Total");        
         modeloTE.addColumn("Fecha");
     jTable2.setModel(modeloTE);  // add modelo ala tabla         
-        try {
+        try {  Connection ca= cc.conexion(); // CONEXION DB 
          String sSQL = "SELECT id_venta, total, fecha_reporte FROM venta WHERE estado_venta='"+estadorealizado+"' AND fecha_reporte = '"+fecha()+"' ";
         PreparedStatement ps = ca.prepareStatement(sSQL);       
         ResultSet rs = ps.executeQuery(sSQL);
@@ -333,7 +333,7 @@ String sSQL = " select distinct venta.id_venta, venta.total, venta.fecha_reporte
             //totalcdescticket agregar al metodo de arriba
                  vaciarlistasdeticket();
     } catch (Exception e) {
-          JOptionPane.showMessageDialog(null, "ERROR EN METODO: descripciondelosprouductosparaelticketdeventa","DEVELOPER HELPER", JOptionPane.ERROR_MESSAGE);      
+          JOptionPane.showMessageDialog(null, "ERROR EN METODO: reimpresiondeventa","DEVELOPER HELPER", JOptionPane.ERROR_MESSAGE);      
       }finally{
                   cc.getClose();
              }
@@ -361,7 +361,7 @@ String sSQL = " select distinct venta.id_venta, venta.total, venta.fecha_reporte
                          subtotalticket, totalticket, pagoticket, cambioticket, numerodeventa);
  vaciarlistasdeticket();
     } catch (Exception e) {
-          JOptionPane.showMessageDialog(null, "ERROR EN METODO: descripciondelosprouductosparaelticketdeventa","DEVELOPER HELPER", JOptionPane.ERROR_MESSAGE);      
+          JOptionPane.showMessageDialog(null, "ERROR EN METODO: descripciondelosprouductosparaelticketdeventacredito","DEVELOPER HELPER", JOptionPane.ERROR_MESSAGE);      
       }finally{
                   cc.getClose();
              }
@@ -437,7 +437,7 @@ String sSQL = " select distinct venta.id_venta, venta.total, venta.fecha_reporte
                  descuentoticket = rs.getFloat(5);           
           }  
     } catch (Exception e) {
-         JOptionPane.showMessageDialog(null, "ERROR EN METODO: total_pagoycambiopararelticketdeventa","DEVELOPER HELPER", JOptionPane.ERROR_MESSAGE);      
+         JOptionPane.showMessageDialog(null, "ERROR EN METODO: total_pagoycambiopararelticketdeventacredito","DEVELOPER HELPER", JOptionPane.ERROR_MESSAGE);      
        }finally{
                   cc.getClose();
              }
@@ -475,13 +475,13 @@ String sSQL = " select distinct venta.id_venta, venta.total, venta.fecha_reporte
  // CONSULTA DE PRODUCTOS MAS DENVIDOS            
      public static void productosmasvendidos(JTable tablaD){ // recibe como parametro 
          Object[] columna = new Object[3];  //crear un obj con el nombre de colunna
-            Connection ca= cc.conexion(); // CONEXION DB 
+         
               DefaultTableModel modeloTE = new DefaultTableModel(); 
                   tablaD.setModel(modeloTE);  // add modelo ala tabla 
         modeloTE.addColumn("Nombre");
         modeloTE.addColumn("PIezas");        
         modeloTE.addColumn("Fecha");
-        try {
+        try {   Connection ca= cc.conexion(); // CONEXION DB 
          String sSQL = "SELECT nombre_producto, SUM(cantidad), fecha FROM descripcion_de_venta WHERE estado='Realizada' AND fecha = '"+fecha()+"' GROUP BY nombre_producto ORDER by SUM(cantidad) DESC";
         PreparedStatement ps = ca.prepareStatement(sSQL);       
         try (ResultSet rs = ps.executeQuery(sSQL)) {
@@ -503,13 +503,13 @@ String sSQL = " select distinct venta.id_venta, venta.total, venta.fecha_reporte
       // CONSULTA DE PRODUCTOS CON PRECIOS PARA LA VENTA           
      public static void ParaLAVenta(JTable tablaD){ // recibe como parametro 
          Object[] columna = new Object[3];  //crear un obj con el nombre de colunna
-            Connection ca= cc.conexion(); // CONEXION DB 
+           
               DefaultTableModel modeloT = new DefaultTableModel(); 
                   tablaD.setModel(modeloT);  // add modelo ala tabla         
         modeloT.addColumn("nombre_producto");    
         modeloT.addColumn("precio");
         modeloT.addColumn("cantidad");
-        try {
+        try { Connection ca= cc.conexion(); // CONEXION DB 
          String sSQL = "SELECT nombre_producto, precio, cantidad FROM productos WHERE nombre_producto NOT IN ('Huesito', 'Medio pollo','Pechuga en bisteck')";
          PreparedStatement ps = ca.prepareStatement(sSQL);       
         try (ResultSet rs = ps.executeQuery(sSQL)) {
@@ -563,9 +563,9 @@ String sSQL = " select distinct venta.id_venta, venta.total, venta.fecha_reporte
  
 public static void insertandopiezasdepolloporhaberagregadoxcantidaddepollocrudo(String valor, float cantidaddesdelatablaeditable){
   if(valor.equals("pollo crudo")){// si estan modificando sobre pollo crudo, se inserta primero en la linea de arriba y luego las otras piezas de pollo a su equivalente
-               Connection ca= cc.conexion();             
+                       
  for(int i=0; i<piezas.length; i++) {//RECORRIENDO EL ARREGLO DE POLLOS
-      try{// el id del usuario
+      try{    Connection ca= cc.conexion(); // el id del usuario
                 if(piezas[i].equals("Muslo")||
                    piezas[i].equals("Pierna")||
                    piezas[i].equals("Ala")||
@@ -602,12 +602,12 @@ public static void insertandopiezasdepolloporhaberagregadoxcantidaddepollocrudo(
       // CONSULTA DE PRODUCTOS EN EXITENCIA EN INVENTARIO            
      public static void TablallenadoparaEntradas(JTable tablaD){ // recibe como parametro 
            Object[] columna = new Object[2];  //crear un obj con el nombre de colunna
-            Connection ca= cc.conexion(); // CONEXION DB 
+           
               DefaultTableModel modeloT = new DefaultTableModel(); 
                   tablaD.setModel(modeloT);  // add modelo ala tabla 
         modeloT.addColumn("nombre_producto");
         modeloT.addColumn("cantidad");
-        try {
+        try { Connection ca= cc.conexion(); // CONEXION DB 
          String sSQL = "SELECT  nombre_producto, cantidad FROM productos WHERE nombre_producto NOT IN('Huesito', 'Medio pollo','Pechuga en bisteck')";
         PreparedStatement ps = ca.prepareStatement(sSQL);       
         try (ResultSet rs = ps.executeQuery(sSQL)) {
@@ -634,13 +634,13 @@ public static void insertandopiezasdepolloporhaberagregadoxcantidaddepollocrudo(
                               String sql = "UPDATE productos SET cantidad='"+cantidaddesdelatablaeditable+"' WHERE id_producto="+id_producto;            
     insertandopiezasdepolloporhaberagregadoxcantidaddepollocrudo(valor, cantidaddesdelatablaeditable);
                           PreparedStatement pst;
-                          try{
+                          try{Connection ca= cc.conexion();
                                pst = ca.prepareStatement(sql);
                                int rows = pst.executeUpdate();
                        ParaLAVenta(JtablepaLaVenta);  // ***********************
                           } catch (SQLException ex) {
                                JOptionPane.showMessageDialog(null, "ERROR EN METODO: tableChanged","DEVELOPER HELPER", JOptionPane.ERROR_MESSAGE);      
-                           }
+                           }finally{cc.getClose();}
       }
                              }                             
                     }
@@ -681,14 +681,14 @@ public static void insertandopiezasdepolloporhaberagregadoxcantidaddepollocrudo(
     } // CONSULTA DE VENTAS  REALIZADAS
      public static void productosvendidoseneldia(){ // recibe como parametro 
          Object[] columna = new Object[3];  //crear un obj con el nombre de colunna
-            Connection ca= cc.conexion(); // CONEXION DB 
+         
               DefaultTableModel modeloT = new DefaultTableModel(); 
                   jTable3.setModel(modeloT);  // add modelo ala tabla 
         modeloT.addColumn("Producto");
         modeloT.addColumn("Cantidad");        
         modeloT.addColumn("importe");
           jTable3.setModel(modeloT);  // add modelo ala tabla 
-         try {
+         try {   Connection ca= cc.conexion(); // CONEXION DB 
          String sSQL = "SELECT nombre_producto, SUM(cantidad), SUM(importe) FROM  descripcion_de_venta WHERE estado = 'Realizada' AND fecha = CURDATE() GROUP BY nombre_producto";
         PreparedStatement ps = ca.prepareStatement(sSQL);       
         ResultSet rs = ps.executeQuery(sSQL);
@@ -783,17 +783,17 @@ public static void insertandopiezasdepolloporhaberagregadoxcantidaddepollocrudo(
    
            public void descontarpiernacompleta(float cantidaddeproductos){
                 String[] piernafull = {"Muslo","Pierna"};
-Connection ca= cc.conexion();
+
                for (int i = 0; i < piernafull.length; i++) {
                    id_producto(piernafull[i]);
                cantidadpolloenDByname(id_producto);
                cantidadpolloenDB-=cantidaddeproductos;
-               try{
+               try{Connection ca= cc.conexion();
                PreparedStatement ps = ca.prepareStatement ("UPDATE productos SET cantidad='"+cantidadpolloenDB+"'WHERE id_producto='"+id_producto+"'");
                 ps.executeUpdate();
                  }//fin del id del usuario
                  catch(Exception w){
-               JOptionPane.showMessageDialog(null, "Error" + w.getMessage());
+               JOptionPane.showMessageDialog(null, "Error en descontarpiernacompleta","DEVELOPER HELPER" ,JOptionPane.INFORMATION_MESSAGE);
                  }//fin del id del usuario
                finally{
                   cc.getClose();
@@ -811,7 +811,7 @@ Connection ca= cc.conexion();
                 ps.executeUpdate();
                  }//fin del id del usuario
                  catch(Exception w){
-                 JOptionPane.showMessageDialog(null, "Error" + w.getMessage());
+                 JOptionPane.showMessageDialog(null, "Error en descontardeinventario","DEVELOPER HELPER",JOptionPane.INFORMATION_MESSAGE);
                  }finally{
                   cc.getClose();
              }//fin del id del usuario
@@ -827,7 +827,7 @@ public static void cantidadpolloenDByname(int pieza){
         cantidadpolloenDB =rs.getFloat("cantidad"); // piezas en la db
      }                                          
     }catch (Exception f){
-                    JOptionPane.showMessageDialog(null, "Error, nombre de producto no registrado" + f.getMessage()); 
+                    JOptionPane.showMessageDialog(null, "Error, cantidadpolloenDByname","HELPER DEVELOPER",JOptionPane.INFORMATION_MESSAGE); 
          }finally{
                   cc.getClose();
              }
@@ -843,6 +843,7 @@ public void cantidadenventa(int pieza){
                     nameenventa=rs.getString("nombre_producto");
                 }
                 }catch(Exception e){
+ JOptionPane.showMessageDialog(null, "Error, cantidadenventa","HELPER DEVELOPER",JOptionPane.INFORMATION_MESSAGE); 
                 }finally{
                   cc.getClose();
              }
@@ -856,8 +857,8 @@ public void cantidadenventa(int pieza){
                        }else{
                      }
   }   catch(Exception w){
-                     JOptionPane.showMessageDialog(null, "Error" + w.getMessage());
-                 }finally{
+           JOptionPane.showMessageDialog(null, "Error, regresarpiezasdepollocrudodeinventario","HELPER DEVELOPER",JOptionPane.INFORMATION_MESSAGE); 
+                }finally{
                   cc.getClose();
              }//fin del id del usuario
    }//FIN DE DESCONTAR POLLO CRUDO DE INVENTARIO
@@ -871,6 +872,7 @@ public void cantidadenventa(int pieza){
                                                       }
                                                       }//fin del try-precio del producto
                                                       catch (Exception e){
+    JOptionPane.showMessageDialog(null, "Error, precio_producto","HELPER DEVELOPER",JOptionPane.INFORMATION_MESSAGE); 
                                                       }finally{
                   cc.getClose();
              }// fin del precio-catch del producto
@@ -885,6 +887,7 @@ public void cantidadenventa(int pieza){
                                                       }
                                                       }//fin del try - id del producto
                                                       catch (Exception e){
+                                                            JOptionPane.showMessageDialog(null, "Error, id_producto","HELPER DEVELOPER",JOptionPane.INFORMATION_MESSAGE); 
                                                       } finally{
                   cc.getClose();
              }//fin del id-catch del producto
@@ -906,20 +909,21 @@ public void cantidadenventa(int pieza){
                                    id_usuario=Integer.parseInt(rs.getString("id_usuario"));
                          }
                          }catch(Exception a){
-                         }finally{
+                                       JOptionPane.showMessageDialog(null, "Error, get_id_usuario; SELECT *  FROM  user where nombre_usuario = ","HELPER DEVELOPER",JOptionPane.INFORMATION_MESSAGE); 
+   }finally{
                   cc.getClose();
              }
-                         if(block_unlock==true){
+                         if(block_unlock==true){Connection cu= cc.conexion();
                                String sql = "INSERT INTO  venta(id_usuario)  VALUES (?)";
-                         PreparedStatement pst = ca.prepareCall(sql); 
+                         PreparedStatement pst = cu.prepareCall(sql); 
                          pst.setInt(1,id_usuario);
                          int a=pst.executeUpdate();
                          if(a>0){
                          }
                          }
       }catch(Exception w){
-                     JOptionPane.showMessageDialog(null,"error en id usuario"+w);
-      }finally{
+                                       JOptionPane.showMessageDialog(null, "Error, get_id_usuario; INSERT INTO  venta ","HELPER DEVELOPER",JOptionPane.INFORMATION_MESSAGE); 
+   }finally{
                   cc.getClose();
              }//fin del id del usuario para comprobar si hay o no elementos ya guardados
   }
@@ -932,8 +936,8 @@ public void cantidadenventa(int pieza){
                                    id_de_la_venta_incrementable=rs.getInt(1);
                          }
                          }catch(Exception a){
-                              JOptionPane.showMessageDialog(null,a,"error ",JOptionPane.INFORMATION_MESSAGE);
-                         }finally{
+                                JOptionPane.showMessageDialog(null, "Error, id_max_de_venta","HELPER DEVELOPER",JOptionPane.INFORMATION_MESSAGE); 
+                                                     }finally{
                   cc.getClose();
              }
   }
@@ -960,8 +964,8 @@ public void cantidadenventa(int pieza){
            tablaventa.setModel(modelo); // Se vuelve a enviar nuevamente el objeto modelo a la tabla
         } catch (SQLException ex) {
             Logger.getLogger(menu_principal.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(null, "No se pudo mostrar ningun dato porque tu consulta está mal");
-        } finally{
+          JOptionPane.showMessageDialog(null, "Error, mostrartabladeventas","HELPER DEVELOPER",JOptionPane.INFORMATION_MESSAGE); 
+                                         } finally{
                   cc.getClose();
              }
     }
@@ -978,7 +982,8 @@ public void cantidadenventa(int pieza){
         } 
              catch (SQLException ex) {
             Logger.getLogger(menu_principal.class.getName()).log(Level.SEVERE, null, ex);
-        }
+             JOptionPane.showMessageDialog(null, "Error, primer_ventadelsistema","HELPER DEVELOPER",JOptionPane.INFORMATION_MESSAGE); 
+         }
          catch(NumberFormatException NFE){ // caso contrario que la variable resultfirstselling tuviese un valor null indicaria que no hay ninguna venta en el sistema
                     primerventa=0; //y por tal la variable primerventa tendra el valor de 0
         }finally{
@@ -992,8 +997,8 @@ public void cantidadenventa(int pieza){
                 if(a>0){    
                 }
                            }catch(Exception e){
-                               System.err.print(e);
-                           }finally{
+                                   JOptionPane.showMessageDialog(null, "Error, vaciartodoelpollocrudodeinventario","HELPER DEVELOPER",JOptionPane.INFORMATION_MESSAGE); 
+            }finally{
                   cc.getClose();
              }
             }
@@ -1040,7 +1045,7 @@ public void cantidadenventa(int pieza){
                 if(a>0){    
                 }
                            }catch(Exception e){
-                               System.err.print(e);
+    JOptionPane.showMessageDialog(null, "Error, actualizarpollocrudoeninventario","HELPER DEVELOPER",JOptionPane.INFORMATION_MESSAGE); 
                            }finally{
                   cc.getClose();
              }
@@ -1054,7 +1059,8 @@ public void cantidadenventa(int pieza){
                                        while(rs.next()){
                                                       pollo_crudoeninventario =rs.getFloat(1);//Esto muestra la cantidad actual para compararlo
                                                         }
-                 }catch(Exception e){  
+                 }catch(Exception e){
+                       JOptionPane.showMessageDialog(null, "Error, pollocrudoeninventario","HELPER DEVELOPER",JOptionPane.INFORMATION_MESSAGE);                  
                 }finally{
                   cc.getClose();
              }
@@ -1067,7 +1073,8 @@ public void cantidadenventa(int pieza){
                                        while(rs.next()){
                                                       minimodelaspiezasinparesdepollocrudoeninventario =rs.getFloat(1);//Esto muestra la cantidad actual para compararlo
                                                         }
-                 }catch(Exception e){  
+                 }catch(Exception e){ 
+                                JOptionPane.showMessageDialog(null, "Error, minimodelaspiezasdepollocrudoquesoninparesentablaproductos","HELPER DEVELOPER",JOptionPane.INFORMATION_MESSAGE);                  
                 }finally{
                   cc.getClose();
              }
@@ -1080,7 +1087,8 @@ public void cantidadenventa(int pieza){
                                        while(rs.next()){
                                                       minimodelaspiezasparesdepollocrudoeninventario =rs.getFloat(1);//Esto muestra la cantidad actual para compararlo
                                                         }
-                 }catch(Exception e){  
+                 }catch(Exception e){ 
+              JOptionPane.showMessageDialog(null, "Error, minimodelaspiezasdepollocrudoquesoninparesentablaproductos","HELPER DEVELOPER",JOptionPane.INFORMATION_MESSAGE);                  
                  }finally{
                   cc.getClose();
              }
@@ -1125,8 +1133,8 @@ public void cantidadenventa(int pieza){
                                             NoPimporte = Float.parseFloat(rs.getString("importe"));         
                                             }
  }catch (Exception f){
-                    JOptionPane.showMessageDialog(null, "Error, nombre de producto no registrado" + f.getMessage());
-         }finally{
+     JOptionPane.showMessageDialog(null, "Error, obtenerelnombredeproductoylacantidaddelmismo_en_descripcion_deventa","HELPER DEVELOPER",JOptionPane.INFORMATION_MESSAGE);                  
+                    }finally{
                   cc.getClose();
              }
  }
@@ -1169,8 +1177,8 @@ if(NoP.equals(nombredepieza)&&NoPimporte!=0){ //Si el nombre del producto es dif
                }
         }//fin del id del usuario
                  catch(Exception w){
-                     JOptionPane.showMessageDialog(null, "Error en todo el codigo de update de metodo comprobar_registro" + w.getMessage());
-                 }finally{
+               JOptionPane.showMessageDialog(null, "Error, comprobar_registro UPDATE","HELPER DEVELOPER",JOptionPane.INFORMATION_MESSAGE);                  
+                      }finally{
                   cc.getClose();
              }//fin del id del usuario
                }
