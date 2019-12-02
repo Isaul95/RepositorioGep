@@ -10,6 +10,20 @@ package si;
  * @author Alexis
  */
 public class metodoscomentados {
+      /* ESTO ES PARA ABONOS
+                    else if (Float.parseFloat(pagodeventacredito)<totalacredito){
+                        try{
+
+                            cambio = Float.parseFloat(pagodeventacredito)-sumadeimportescreditopendiente;
+
+                            PreparedStatement ps = ca.prepareStatement ("UPDATE porcentajedescontado='"+variable0+"',descuento='"+ variable0+"',pago='"+Float.parseFloat(pagodeventacredito)+"',cambio='"+cambio+"',fecha_reporte='"+fecha()+"'WHERE id_venta='"+id_ventapencredito+"'");
+                            ps.executeUpdate();
+
+                        }catch(Exception ex){
+                            JOptionPane.showMessageDialog(null, "Error en venta" + ex.getMessage());
+                        }
+                    }
+                    */
     //3
     /*REGRESAR PRODUCTOS A INVENTARIO POR DESCUENTO DE PIEZA
 public void regresarproductos_a_inventario(String nombredepieza){ // este metodo devuelve los productos que fueron agregados a la venta y posteriormente fueron cancelados

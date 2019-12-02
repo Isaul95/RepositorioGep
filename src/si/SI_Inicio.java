@@ -9,7 +9,9 @@ import java.sql.Connection;
 import java.util.logging.Logger;
 import java.awt.Toolkit;
 import java.text.SimpleDateFormat;
+import static si.menu_principal.cc;
 public class SI_Inicio extends javax.swing.JFrame {
+    SI cc= new SI();
       int timer; //variable conteo de los intentos de acceso
     /**
      * Creates new form SI_Inicio  ============ placeholrd --->> https://www.youtube.com/watch?v=oYs4mPvfNzU   new diseños -- https://www.youtube.com/watch?v=XAowXcmQ-kA
@@ -246,21 +248,25 @@ public static String fecha(){ /* SE DECARA LA FECHA DEL SISTEMA */
     }
     public void yaseabriosistema(){
              try {
+                 Connection ca= cc.conexion(); 
              Statement sent = ca.createStatement();   
               ResultSet rs = sent.executeQuery("select * from apertura where fecha='"+fechadehoy+"' ");
             while(rs.next()){        
             resultopen=Integer.parseInt(rs.getString(1)); //Obtiene el id de la venta
             }
+           
             if(resultopen!=0){ //si el id resultante de la consulta es diferente de 0 quiere decir que ya hay por lo menos una venta en el sistema
             aperturahecha=1; //entonces el valor de "primerventa" se convertirá en 1, indicando que ya hay por lo menos una venta
             }
         } 
              catch (SQLException ex) {
             Logger.getLogger(menu_principal.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        }finally{
+                  cc.getClose();
+             }
     }
     public void yacerrosistema(){
-             try {
+             try { Connection ca= cc.conexion(); 
              Statement sent = ca.createStatement();   
               ResultSet rs = sent.executeQuery("select * from cortes where fecha='"+fechadehoy+"' ");
             while(rs.next()){        
@@ -272,7 +278,9 @@ public static String fecha(){ /* SE DECARA LA FECHA DEL SISTEMA */
         } 
              catch (SQLException ex) {
             Logger.getLogger(menu_principal.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        }finally{
+                  cc.getClose();
+             }
     }
     private void usuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usuarioActionPerformed
         // BOTON DE INGRESO PARA LOS USUARIOS
@@ -281,7 +289,7 @@ public static String fecha(){ /* SE DECARA LA FECHA DEL SISTEMA */
         } else { 
         user=text_user.getText();
       pass=pass_user.getText(); //se guardan los datos del usuario
-    try {
+    try { Connection ca= cc.conexion(); 
             Statement st = ca.createStatement();
             ResultSet rs= st.executeQuery( "SELECT * FROM user WHERE nombre_usuario='"+text_user.getText()+"' or contraseña='"+pass_user.getText()+"'");
             while(rs.next()){ //ciclo para leer los datos en la variable rs
@@ -326,7 +334,9 @@ public static String fecha(){ /* SE DECARA LA FECHA DEL SISTEMA */
  JOptionPane.showMessageDialog(null,"Tu usuario ha sido bloqueado, por favor comunicate con tu administrador para recuperar tu usuario","Lo sentimos",JOptionPane.WARNING_MESSAGE);
         }catch(Exception e){
             JOptionPane.showMessageDialog(null, "ERROR" + e.getMessage());
-        }  //Procediendo a bloquear usuario
+        }finally{
+                  cc.getClose();
+             }  //Procediendo a bloquear usuario
                        System.exit(0);  //Y ya una vez bloqueado el usuario, el programa se cerrara automaticamente
                      }
             }
@@ -339,7 +349,9 @@ public static String fecha(){ /* SE DECARA LA FECHA DEL SISTEMA */
                text_user.setText("");
                     pass_user.setText("");
                timer=0;
-           }
+           }finally{
+                  cc.getClose();
+             }
      }
     }//GEN-LAST:event_usuarioActionPerformed
 
@@ -361,7 +373,7 @@ public static String fecha(){ /* SE DECARA LA FECHA DEL SISTEMA */
             user=text_user.getText();
             pass=pass_user.getText(); //se guardan los datos del admi
             String []datos = new String[2];
-            try {
+            try { Connection ca= cc.conexion(); 
                 Statement st = ca.createStatement();
                 ResultSet rs= st.executeQuery("select * from admin");
                 while(rs.next()){ //ciclo para leer los datos en la variable rs
@@ -385,7 +397,9 @@ public static String fecha(){ /* SE DECARA LA FECHA DEL SISTEMA */
                 }
             } catch (SQLException ex) {
                 Logger.getLogger(SI_Inicio.class.getName()).log(Level.SEVERE, null, ex);
-            }        }
+            }finally{
+                  cc.getClose();
+             }        }
     }//GEN-LAST:event_adminActionPerformed
 
     private void text_userMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_text_userMouseClicked
@@ -488,8 +502,8 @@ public static String fecha(){ /* SE DECARA LA FECHA DEL SISTEMA */
             }
         });
     }
-SI cc= new SI();
- Connection ca= cc.conexion();
+
+
   
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton admin;

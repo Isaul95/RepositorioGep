@@ -13,6 +13,7 @@ import java.util.logging.Logger;
 import javax.swing.Timer;
 
 public class Cargainiciodelsistema extends javax.swing.JFrame implements Runnable{
+        SI cc= new SI();
     private Thread tiempo = null;
        private Timer t ;
           private ActionListener time;
@@ -145,6 +146,7 @@ Statement sent;
                 tiempo = null;
                  int admin=0;
                 try {
+ Connection ca= cc.conexion();
             Statement st = ca.createStatement();
             ResultSet rs= st.executeQuery("select * from  admin");
             while(rs.next()){
@@ -161,10 +163,9 @@ Statement sent;
         }            
             } catch (InterruptedException ex) {
                 Logger.getLogger(Cargainiciodelsistema.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            }finally{cc.getClose();}
         }
     }
       /** CONEXION ALA BASE DE DATOS */
-    SI cc= new SI();
- Connection ca= cc.conexion();
+
 }
