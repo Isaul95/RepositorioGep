@@ -1,6 +1,5 @@
 package si;
 
-import com.sun.awt.AWTUtilities;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -11,19 +10,15 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 import javax.swing.Timer;
-//import static si.menu_principal.Proveedores9;
 
 public class Cargainiciodelsistema extends javax.swing.JFrame implements Runnable{
-
     private Thread tiempo = null;
        private Timer t ;
           private ActionListener time;
           private int x = 0;
     
-    public Cargainiciodelsistema() {
-        
+    public Cargainiciodelsistema() {        
                   time = new ActionListener() {
              @Override
             public void actionPerformed(ActionEvent e) {
@@ -32,17 +27,13 @@ public class Cargainiciodelsistema extends javax.swing.JFrame implements Runnabl
                     jProgressBar1.setValue(x);
                 } else{
                     t.stop();
-                   // JOptionPane.showMessageDialog(null, "acabo el progreso");
                 }
             } 
         };
-        
         t = new Timer(90, time); // milisengusndos
        t.start();         
-        
         initComponents();
         this.setLocationRelativeTo(null);
-        AWTUtilities.setWindowOpaque(this, false);
         tiempo = new Thread(this);
         tiempo.start();
     }
@@ -51,12 +42,9 @@ public class Cargainiciodelsistema extends javax.swing.JFrame implements Runnabl
                      Image retValue = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("Reportes/logo5.png"));
                      return retValue;
                  }
-             // FIN DEL ICONO
-       
+             // FIN DEL ICONO       
 Statement sent;  
   ResultSet rs;     
-
-   
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -108,8 +96,7 @@ Statement sent;
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-   
+  
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -156,7 +143,6 @@ Statement sent;
             try {
                 Thread.sleep(10000);
                 tiempo = null;
-                
                  int admin=0;
                 try {
             Statement st = ca.createStatement();
@@ -172,10 +158,7 @@ Statement sent;
              }
         } catch (SQLException ex) {
             Logger.getLogger(menu_principal.class.getName()).log(Level.SEVERE, null, ex);
-          
-                    
-        }
-            
+        }            
             } catch (InterruptedException ex) {
                 Logger.getLogger(Cargainiciodelsistema.class.getName()).log(Level.SEVERE, null, ex);
             }

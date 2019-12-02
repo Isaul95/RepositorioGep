@@ -2,19 +2,14 @@ package si;
 
 import java.awt.Image;
 import java.awt.Toolkit;
-import java.io.File;
 import java.sql.Connection;
 import java.sql.ResultSet;
-import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
-//import net.sf.jasperreports.engine.JasperReport;  //import net.sf.jasperreports.view.JasperViewer;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
@@ -23,18 +18,14 @@ import net.sf.jasperreports.engine.util.JRLoader;
 import net.sf.jasperreports.view.JasperViewer;
 
 public class Reportes extends javax.swing.JFrame {
-    
  ResultSet rs; 
  private final String logotipo = "/Reportes/logo1.jpeg";
-                 /**       Creates new form Reportes      */
     public Reportes() {
         initComponents();
                 setIconImage(getIconImage());  //La variable que le manda la imagen (DataMax) al proyecto 
     this.setLocationRelativeTo(null); // CENTRAR FORMULARIO
-       
     }
     String fechadesde="",fechahasta="", fechahoy="";
-    
      //  ICONO AL EJECUTAR EL PROYECTO
                  public Image getIconImage(){
                      Image retValue = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("Reportes/logo5.png"));
@@ -181,7 +172,6 @@ public class Reportes extends javax.swing.JFrame {
          parametro.put("logo", this.getClass().getResourceAsStream(logotipo)); 
                 JasperReport reporte = null;
                 String path = "src/Reportes/Reporte_detalleVentas.jasper";
-                
 
               // reporte = (JasperReport) JRLoader.loadObjectFromFile(path);
                  reporte = (JasperReport) JRLoader.loadObject(getClass().getResource("/Reportes/Reporte_detalleVentas.jasper")); /*ASI MANDO A LLAMAR LOS REPORTES CON .jar */

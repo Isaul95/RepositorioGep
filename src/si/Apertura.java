@@ -11,14 +11,10 @@ import java.util.GregorianCalendar;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
-import static si.Pantalla_CorteCaja.monto;
-import static si.menu_principal.ca;
-
 
 public class Apertura extends javax.swing.JFrame implements Runnable{
 Thread hilo;
     String hora,minutos,segundos;
-    
    String  usuarioname=SI_Inicio.text_user.getText();
    int  id_usuario=Integer.parseInt(SI_Inicio.iduser.getText());
     Calendar fecha_actual = new GregorianCalendar();
@@ -30,9 +26,6 @@ Thread hilo;
         this.setLocationRelativeTo(null); // CENTRAR FORMULARIO
    Fecha.setText(fecha());
    Calendar calendario = Calendar.getInstance();
-   
-
-
     }
     
 public static String fecha(){ /* SE DECARA LA FECHA DEL SISTEMA */
@@ -192,44 +185,35 @@ public boolean validarFormulario(String cantidaddecorte) { // VALIDACION DE TXT 
         boolean next = false;
         Pattern patGastos = Pattern.compile("^[0-9]+([.])?([0-9]+)?$");
         Matcher matGastos = patGastos.matcher(cantidaddecorte);
-
         if (matGastos.matches()&&!cantidaddecorte.equals("")&&!cantidaddecorte.equals("0")) {
             next = true;
-
         } else {
             JOptionPane.showMessageDialog(null, "Solo escribe numeros, así como no puede quedar vacio", "Advertencia", JOptionPane.INFORMATION_MESSAGE);
             monto.setText("");
-            
         }
         return next;
     }
     private void Corte_btnImprimirticketActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Corte_btnImprimirticketActionPerformed
   boolean pass2 = validarFormulario(monto.getText());
-  //prueba
                  if(pass2){//ESTO VALIDA QUE EL TEXTO ESCRITO NO TENGA INCOHERENCIAS   
                        try{ //la insersion a la tabla ventas
 
     String sql = "INSERT INTO  apertura(monto,fecha,hora,usuario)  VALUES (?,?,?,?)";
                 PreparedStatement pst = ca.prepareCall(sql); //hasta aqui vamos
-               
                 pst.setFloat(1,Float.parseFloat(monto.getText()));
                 pst.setString(2,fecha());
                 pst.setString(3,Reloj.getText());
                 pst.setInt(4,id_usuario);
-               
                 int a=pst.executeUpdate();
                 if(a>0){
                     insertarpiezaspordefault();
                     this.setVisible(false);  
-                                     // HERE 
                               new menu_principal().setVisible(true);
                                this.setIconImage(null);
                 }
             }catch(SQLException e)  { //fin de la insersion a la tabla ventas
                 JOptionPane.showMessageDialog(null,"Error de datos por id vacio "+e);
-            }//fin de la insersion a la tabla ventas
- 
-       
+            }//fin de la insersion a la tabla ventas 
                  }
     }//GEN-LAST:event_Corte_btnImprimirticketActionPerformed
 public void insertarpiezaspordefault(){
@@ -281,7 +265,7 @@ public void insertarpiezaspordefault(){
                 }
                   }catch(Exception e){
                                System.err.print(e);
-                     }
+                     } 
    }
 }
 
@@ -289,7 +273,6 @@ public void insertarpiezaspordefault(){
         // *********************   CAJA DE TEXTO DE PAGOO *********
         if(monto.getText().trim().equals("00.00")){
             monto.setText("");
-            //user_usuario.setForeground(Color.red);
         }
         monto.setForeground(Color.blue);
     }//GEN-LAST:event_montoFocusGained

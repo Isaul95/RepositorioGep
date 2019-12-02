@@ -1,23 +1,11 @@
 
 package si;
-
-import com.mysql.jdbc.Statement;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Calendar;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.sql.ResultSet;
-import java.util.ArrayList;
 import java.util.GregorianCalendar;
-import javax.swing.JOptionPane;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
-import static si.SI_Inicio.text_user;
-import si.Pantalla_Gastos;
 
 public class Gastos {
     int idegreso;
@@ -27,9 +15,6 @@ public class Gastos {
      String fecha;
      Calendar fechahoy;
      int id_usuario;
-     
-     
-     //String nombre_producto;
      String[] piezas;
      float precioxpieza;
      float totalpiezaspollo;
@@ -68,14 +53,9 @@ public class Gastos {
 
      java.sql.Statement sent;  
   ResultSet rs;
-
   private Connection con;
     SI conn = new SI();
-   /*  private Connection con;
-    SI conectar = new SI();  */
-    
     Calendar fecha_actual = new GregorianCalendar();
-  
     public Calendar getFechahoy() {
         return fechahoy;
     }
@@ -85,23 +65,18 @@ public class Gastos {
     }
     
      public Gastos(){
-   //  idegreso = 0;
      cantidad =0;
      tipo = "";
      total=0;
      fecha = "";
-     //id_usuario = "";
     }
      
-      Gastos(/*String descripcion,*/String[] piezaspollo, float precioxpieza, float totalpiezaspollo) {
-         //this.tipo = descripcion;
+      Gastos(String[] piezaspollo, float precioxpieza, float totalpiezaspollo) {
          this.piezas[0] = piezaspollo[0];
          this.piezas[1] = piezaspollo[1];
          this.piezas[2] = piezaspollo[2];
-         
           this.precioxpieza = precioxpieza;
          this.totalpiezaspollo = totalpiezaspollo;
-        //this.fecha = fecha;
     }
      
 
@@ -118,7 +93,6 @@ public class Gastos {
        this.tipo = descripcion; // tipo lo almaceno en descirpcion
         this.total = total;      
         this.id_usuario = nombre; 
-        
         this.fecha_actual = fechahoy;
         return null;
     }
@@ -161,35 +135,26 @@ public class Gastos {
 
     SI cc= new SI(); // CONEXION ALA DB
  Connection ca= cc.conexion();
- 
- 
     
-    public boolean Gastosinsert() /*throws SQLException*/ {
+    public boolean Gastosinsert(){
         String sql = null;
         try {
-            
            sent = ca.createStatement(); 
           sql = "INSERT INTO egreso (cantidad, tipo, fecha, total, usuario)  VALUES (?,?,?,?,?)";
          PreparedStatement pst = ca.prepareCall(sql);
-           // sql = "INSERT INTO egreso (tipo,fecha, total, user_id_usuario)  VALUES (?,?,?,?)";
            pst.setFloat(1, getCantidad());
            pst.setString(2, getTipo());
            pst.setString(3, getFecha());
            pst.setFloat(4, getTotal());
            pst.setInt(5, getId_usuario());
-                      
             pst.executeUpdate();
             pst.close();
-             
         } catch (SQLException ex) {
             System.err.print(ex);
             return false;
-        } /*finally{
-            ca.close();
-        }  */
+        } 
        return true;
     }    
-    
     }
 
 

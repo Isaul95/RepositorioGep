@@ -1,7 +1,5 @@
 package si;
-import java.awt.Color;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -14,11 +12,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import static si.Apertura.fecha;
-import static si.Apertura.monto;
-import static si.menu_principal.fecha;
 import ticket.ticketcortedecaja;
-
 
 public class Existencias extends javax.swing.JFrame  implements Runnable{
     Thread hilo;    
@@ -43,7 +37,6 @@ int  id_usuario=Integer.parseInt(SI_Inicio.iduser.getText());
         Fecha.setText(fecha());
         user.setText(usuarioname);
         mostrartodoslosproductosenexistencias();
-        
     }
     
     public void hora(){
@@ -76,9 +69,7 @@ int  id_usuario=Integer.parseInt(SI_Inicio.iduser.getText());
      existenciadeproductos.setModel(modelo);  // Ya una vez asignado todos los nombres se le envia el objeto a la tabla proveedores
     String []datos = new String[2];     //Un arreglo con la cantidad de nombres en las columnas
     try {
-      
              sent = ca.createStatement();   
-                               //      rs = sent.executeQuery("select * from descripcion_de_venta where id_venta= '"+id_de_la_venta_incrementable+"'");
                        rs= sent.executeQuery("select nombre_producto, cantidad  from  productos"); // se ejecuta la sentencia dentro del parentesis
             while(rs.next()){        
             datos[0]=rs.getString(1);
@@ -100,17 +91,12 @@ int  id_usuario=Integer.parseInt(SI_Inicio.iduser.getText());
      existenciadeproductos.setModel(modelo);  // Ya una vez asignado todos los nombres se le envia el objeto a la tabla proveedores
     String []datos = new String[2];     //Un arreglo con la cantidad de nombres en las columnas
     try {
-      
              sent = ca.createStatement();   
-                               //      rs = sent.executeQuery("select * from descripcion_de_venta where id_venta= '"+id_de_la_venta_incrementable+"'");
                        if(textoabuscar.equals("")){
                           rs= sent.executeQuery("select nombre_producto, cantidad  from  productos"); // se ejecuta la sentencia dentro del parentesis
-     
                        }
                        else{
-                   
                            rs= sent.executeQuery("select nombre_producto, cantidad  from  productos where nombre_producto LIKE '%" +textoabuscar+"%' "); // se ejecuta la sentencia dentro del parentesis
-           
                        }
              while(rs.next()){        
             datos[0]=rs.getString(1);
@@ -124,7 +110,6 @@ int  id_usuario=Integer.parseInt(SI_Inicio.iduser.getText());
         } 
     }
 
-    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {

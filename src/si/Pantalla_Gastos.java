@@ -1,15 +1,11 @@
 package si;
-
 import java.awt.Color;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -20,20 +16,10 @@ import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
-import si.Gastos;
-//import static si.menu_principal.searchforproducts;
 import ticket.TikectGasto;
-//import static si.menu_principal.venta; // DANDO ACCESOO ALA INTERFAZ PRINCIPAL
-
 
 public class Pantalla_Gastos extends javax.swing.JFrame {  
-    
-                 
-              // menu_principal Objeto = menu_principal();
-               //Objeto.
      String[] piezas = {"Pechuga", "Muslo","Pierna","Ala","Huacal","Cadera","Cabeza", "Molleja", "Patas"};
-                       
        
                 Calendar fecha_actual = new GregorianCalendar();
                 String fechahoy="", buscap = "";
@@ -42,36 +28,25 @@ public class Pantalla_Gastos extends javax.swing.JFrame {
                 Gastos gastos;
                 float cantidad;
                 float  piezasxunpollo=14, piezasdepollopares=2, piezasdepollosinpares=1, resultadodepiezaspares,resultadodepiezasinpares;
-               // String id_usuario; 
                 TikectGasto tikectGastos;
                   float cantidadpolloenDB, pollosdivididos, addpiezas;
                 String  usuarioname=SI_Inicio.text_user.getText();
                int  id_usuario=Integer.parseInt(SI_Inicio.iduser.getText()), id_proveedor;
                   String tipo, total, pollocrudo;
-              //  String usuarioname=SI_Inicio.text_user.getText(); //variable para obtener el nombre del usuario o administrador que ingreso al sistema
-    //private Object rs;
                 ResultSet rs;
     public Pantalla_Gastos() {
         initComponents();
-        //menu_principal.autocompletar();
-       // Actualizar();
-//       autocompletar();
 menu_principal.noduplicargastos=true;
         this.setLocationRelativeTo(null); // CENTRAR FORMULARIO
-         //AutoCompleteDecorator.decorate(menu_principal.searchforproducts);
         jDateChooserFecha.setCalendar(fecha_actual);
-        //txtpiezas.setEnabled(false);
-       // txtpiezas.setText("0");
     }
         
      public boolean validarFormulario(String gastos) { // VALIDACION DE TXT MONTO
         boolean next = false;
         Pattern patGastos = Pattern.compile("^[0-9]+([.])?([0-9]+)?$");
         Matcher matGastos = patGastos.matcher(gastos);
-
         if (matGastos.matches()) {
             next = true;
-
         } else {
             JOptionPane.showMessageDialog(null, "Solo Numeros");
             txtmonto.setBackground(Color.red);
@@ -83,10 +58,8 @@ menu_principal.noduplicargastos=true;
         boolean next = false;
         Pattern patGastos = Pattern.compile("^[0-9]+([.])?([0-9]+)?$");
         Matcher matGastos = patGastos.matcher(gastos);
-
         if (matGastos.matches()) {
             next = true;
-
         } else {
             JOptionPane.showMessageDialog(null, "Solo Numeros");
             txtpiezas.setBackground(Color.red);
@@ -94,55 +67,40 @@ menu_principal.noduplicargastos=true;
         return next;
     }
      
-                               
              public boolean validarFormulariotexto(String gastos) { // VALIDACION DE TXTDESCRIPCION
         boolean next = false;      //"^([a-zA-ZÁÉÍÓÚ]{1}[a-zñáéíóú]{1,24}[\\s]*)+$"
         Pattern patGastos = Pattern.compile("^[A-Za-z\\s]+$");// ^([a-zA-ZÁÉÍÓÚ]{1}[a-zñáéíóú]{1,24}[\\s]*)+$
         Matcher matGastos = patGastos.matcher(gastos);
-
         if (matGastos.matches()) {
             next = true;
-
         } else {
             JOptionPane.showMessageDialog(null, "Solo letras");
             txtdescripcion.setBackground(Color.red);
         }
         return next;
     }             
-             
              public static String fecha(){ /* SE DECARA LA FECHA DEL SISTEMA */
         Date fecha=new Date();
         SimpleDateFormat formatoFecha= new SimpleDateFormat("YYYY/MM/dd");
         return formatoFecha.format(fecha);
     }
              
-             
-             
-              public void mostrartodoslosproductosenexistenciasporbusqueda(String textobusqueda){
+             public void mostrartodoslosproductosenexistenciasporbusqueda(String textobusqueda){
             jTableGastos.setVisible(true);    //hace visible la tabla de proveedores 
               DefaultTableModel modelo = new DefaultTableModel(); // Se crea un objeto para agregar los nombres de las columnas a la tabla
-   
-           // add al modelo las 5 columnas con los nombrs TABLA
         modelo.addColumn("Tipo"); 
            modelo.addColumn("Cantidad");       
         modelo.addColumn("Fecha");
         modelo.addColumn("Total");
-      
-              
      jTableGastos.setModel(modelo);  // Ya una vez asignado todos los nombres se le envia el objeto a la tabla proveedores
     String []datos = new String[4];     //Un arreglo con la cantidad de nombres en las columnas
     try {
-      
              sent = ca.createStatement();   
-                               //      rs = sent.executeQuery("select * from descripcion_de_venta where id_venta= '"+id_de_la_venta_incrementable+"'");
                        if(textobusqueda.equals("")){
                           rs= sent.executeQuery("SELECT * FROM `egreso` order by fecha desc"); // se ejecuta la sentencia dentro del parentesis
- //  SELECT `idegreso`,`cantidad`,`tipo`,`fecha`,`total`,`nombre` FROM `egreso` INNER JOIN user WHERE egreso.`usuario` = user.id_usuario and fecha = curdate()";   
                        }
                        else{
-                   
                            rs= sent.executeQuery("SELECT * FROM egreso where tipo LIKE '%" +textobusqueda+"%' or total LIKE '%" +textobusqueda+"%'  or fecha LIKE '%" +textobusqueda+"%'  or cantidad LIKE '%" +textobusqueda+"%' order by fecha desc" ); // se ejecuta la sentencia dentro del parentesis
-           
                        }
              while(rs.next()){        
             datos[0]=rs.getString(3);
@@ -158,15 +116,11 @@ menu_principal.noduplicargastos=true;
         } 
     }
 
-             
-    
-     
       public void LlenarTabla(JTable tablaD){ // recibe como parametro 
          Object[] columna = new Object[6];  //crear un obj con el nombre de colunna
             Connection ca= cc.conexion(); // CONEXION DB 
               DefaultTableModel modeloT = new DefaultTableModel(); 
                   tablaD.setModel(modeloT);  // add modelo ala tabla 
-        
         modeloT.addColumn("Idegreso");    // add al modelo las 5 columnas con los nombrs TABLA
         modeloT.addColumn("Tipo"); 
         modeloT.addColumn("Cantidad");       
@@ -196,8 +150,6 @@ menu_principal.noduplicargastos=true;
      public void limpiar(){     /*====  VACIAR CAMPOS */
             txtdescripcion.setText(null);
             txtmonto.setText(null);
-
-           // vistaGastos.jDateChooserFecha.setDate(null);
          }         
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -364,25 +316,7 @@ menu_principal.noduplicargastos=true;
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-/*
-    public void autocompletar(){ //metodo sin retorno para obtener la lista de campos de la tabla productos la cual obtiene cada uno de los nombres para poder hacer algunas coincidencias al momento que el usuario estÃ¡ escribiendo
-          ArrayList<String> lista = new ArrayList<String>();
-      
-       menu_principal.searchforproducts.removeAllItems(); //Ã‰sta linea es importante ya que cada vez que se llama este metodo se eliminan los item que previamente se cargaron en la llamada anterior, ESTO PARA QUE NO SE VUELVAN AGREGAR LOS MISMOS ITEMS, MÃ�S DE 1 VEZ
-        try{
-            sent  =(Statement)ca.createStatement();
-           rs = sent.executeQuery("select nombre_producto from productos ");
-            while(rs.next()){
-              menu_principal.searchforproducts.addItem(rs.getString("nombre_producto"));
-            }
-            for(int a=0; a<lista.size(); a++){
-          menu_principal.searchforproducts.addItem(lista.get(a)); //Este ciclo lo que hace es ordenarlos de manera de lista descendente
-        }
-        }catch (Exception e){
-            
-        }
-    }
-    */
+
 public void obtener_id_del_proveedor(String name){
     String nombredelaempresa=name;
         try{
@@ -391,13 +325,9 @@ public void obtener_id_del_proveedor(String name){
             while(rs.next()){
                id_proveedor=rs.getInt("id_proveedor");
             }
-
         }catch (Exception e){
-            
         }
 }
-
-
 
     private void btnRegistrarGastoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarGastoActionPerformed
         // ABRE NUEVA VENTANA PARA Registro de Gastos
@@ -407,9 +337,7 @@ public void obtener_id_del_proveedor(String name){
                     boolean pass = validarFormulario(txtmonto.getText());
                     boolean pass2 = validarFormulariotexto(txtdescripcion.getText());
                     boolean pass3 = validarFormulariopiezas(txtpiezas.getText());
-
                     if (pass && pass2 && pass3) {
-                        
     float totalmonto = Float.parseFloat(txtmonto.getText()); //puse otro de tipo float xq total no me reconoce como string a float
                         cantidad = Float.parseFloat(txtpiezas.getText());
                           tipo = txtdescripcion.getText();                                                                                                                                    
@@ -418,25 +346,20 @@ public void obtener_id_del_proveedor(String name){
                         gastos = new Gastos(cantidad, tipo, totalmonto, id_usuario, fecha);
                        if (gastos.Gastosinsert()) { //  aki me insertar en una de las dos tablas mas no en las dos
      limpiar();
-                           // txtpiezas.setText("0");
                             LlenarTabla(jTableGastos); // LLENANDO LA TABLA AL INSERTAR CORRECTAMEBTE
                             tikectGastos = new TikectGasto();
                             tikectGastos.TikectGasto(cantidad ,tipo, String.valueOf(totalmonto));
-
                        }/*0*/ else { /*4*/
                             JOptionPane.showMessageDialog(null, "error", "ERROR", JOptionPane.ERROR_MESSAGE);
                         }/*4*/
-    
                     }//
                 } //
- 
     }//GEN-LAST:event_btnRegistrarGastoActionPerformed
 
     private void txtpiezasFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtpiezasFocusGained
         // *********************   CAJA DE TEXTO DE PAGOO *********
         if(txtpiezas.getText().trim().equals("00.00")){
             txtpiezas.setText("");
-            //user_usuario.setForeground(Color.red);
         }
         txtpiezas.setForeground(Color.blue);
     }//GEN-LAST:event_txtpiezasFocusGained
@@ -501,10 +424,7 @@ public void obtener_id_del_proveedor(String name){
             }
         });
     }
-    
-    
-    
-    
+ 
     SI cc= new SI();
  Connection ca= cc.conexion();
 

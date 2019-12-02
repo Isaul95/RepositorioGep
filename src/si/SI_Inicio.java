@@ -7,11 +7,8 @@ import java.sql.*;
 import java.util.logging.Level;
 import java.sql.Connection;
 import java.util.logging.Logger;
-import javax.imageio.ImageIO;
-import java.io.*;
 import java.awt.Toolkit;
 import java.text.SimpleDateFormat;
-
 public class SI_Inicio extends javax.swing.JFrame {
       int timer; //variable conteo de los intentos de acceso
     /**
@@ -23,7 +20,6 @@ public class SI_Inicio extends javax.swing.JFrame {
         setIconImage(getIconImage());  //La variable que le manda la imagen (DataMax) al proyecto 
         this.setLocationRelativeTo(null);
     }
-    
          //  ICONO AL EJECUTAR EL PROYECTO
                  public Image getIconImage(){
                      Image retValue = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("Reportes/logo5.png"));
@@ -38,11 +34,7 @@ public class SI_Inicio extends javax.swing.JFrame {
                  pass_user.setText("**********");
                  pass_user.setFont(new Font("Tahoma",Font.BOLD, 17));
                  pass_user.setForeground(new Color(236, 240, 241));
-               /*               promater.setText("");
-                              promater.setFont(new Font("Tahoma",Font.BOLD, 17));
-                              promater.setForeground(new Color(236, 240, 241)); */
-         }
-    
+                }
     
       String user,estadoinactivo="Inactivo", pass;
       int resultopen, aperturahecha, resultadoclose, cierrehecho;
@@ -253,7 +245,6 @@ public static String fecha(){ /* SE DECARA LA FECHA DEL SISTEMA */
         return formatoFecha.format(fecha);
     }
     public void yaseabriosistema(){
-             //metodo agregado 11 septiembre 2018
              try {
              Statement sent = ca.createStatement();   
               ResultSet rs = sent.executeQuery("select * from apertura where fecha='"+fechadehoy+"' ");
@@ -269,7 +260,6 @@ public static String fecha(){ /* SE DECARA LA FECHA DEL SISTEMA */
         }
     }
     public void yacerrosistema(){
-             //metodo agregado 11 septiembre 2018
              try {
              Statement sent = ca.createStatement();   
               ResultSet rs = sent.executeQuery("select * from cortes where fecha='"+fechadehoy+"' ");
@@ -285,15 +275,12 @@ public static String fecha(){ /* SE DECARA LA FECHA DEL SISTEMA */
         }
     }
     private void usuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usuarioActionPerformed
-         
         // BOTON DE INGRESO PARA LOS USUARIOS
-     //if (text_user.getText().isEmpty() || pass_user.getText().isEmpty()) { // si los campos estan vacias
      if (text_user.getText().equals("Ingresa Usuario") || pass_user.getText().equals("********")) { // 
           JOptionPane.showMessageDialog(null, "Por favor Inserte su Usuario y Contraseña  \nPara Ingresar", "ALERTA", JOptionPane.WARNING_MESSAGE);
         } else { 
         user=text_user.getText();
       pass=pass_user.getText(); //se guardan los datos del usuario
-        
     try {
             Statement st = ca.createStatement();
             ResultSet rs= st.executeQuery( "SELECT * FROM user WHERE nombre_usuario='"+text_user.getText()+"' or contraseña='"+pass_user.getText()+"'");
@@ -307,29 +294,20 @@ public static String fecha(){ /* SE DECARA LA FECHA DEL SISTEMA */
                 if(datos[2].equals("Inactivo")){
                 JOptionPane.showMessageDialog(null,"Usuario Inactivo, por favor comunicate con tu administrador para recuperar tu usuario","               Lo sentimos",JOptionPane.WARNING_MESSAGE);
             }
-            
             else{
                     yacerrosistema();
                      if(resultadoclose>0){
                   JOptionPane.showMessageDialog(null,"Ya se hizo corte de caja, por lo tanto no se puede abrir hasta el día de mañana"," Espera un momento",JOptionPane.INFORMATION_MESSAGE); //Msg de bienvenida                                                                     
-           
              }
-                     
               else if(user.equals(datos[0])&&pass.equals(datos[1])){ //comparacion entre lo escrito por el usuario y lo almacenado en la base de datos
                yaseabriosistema();
-             
              if(aperturahecha==0){//Si el valor de apertua es mayo a 0, no se abrirá la ventana de apertura
-                 
                  this.setVisible(false);  
-                                     // HERE 
                               new Apertura().setVisible(true);
                                this.setIconImage(null);
              }
-            
              else{
-                  //new menu_principal().setVisible(true);
              this.setVisible(false);  
-                                     // HERE 
                               menu_principal m= new menu_principal();
                                this.setIconImage(null);
              }
@@ -342,15 +320,13 @@ public static String fecha(){ /* SE DECARA LA FECHA DEL SISTEMA */
                 }
                  if(timer == 3){
                        JOptionPane.showMessageDialog(null,"Excedido el número de intentos \n Intentelo mas tarde ","Error de Ingreso",JOptionPane.ERROR_MESSAGE); //Msg de error
-                       //Procediendo a bloquear usuario
                         try{
            PreparedStatement ps = ca.prepareStatement ("UPDATE user SET estado_activo_inactivo='"+estadoinactivo+"'WHERE id_usuario='"+id_usuario+"'");
                 ps.executeUpdate();
  JOptionPane.showMessageDialog(null,"Tu usuario ha sido bloqueado, por favor comunicate con tu administrador para recuperar tu usuario","Lo sentimos",JOptionPane.WARNING_MESSAGE);
         }catch(Exception e){
             JOptionPane.showMessageDialog(null, "ERROR" + e.getMessage());
-        } 
-                       //Procediendo a bloquear usuario
+        }  //Procediendo a bloquear usuario
                        System.exit(0);  //Y ya una vez bloqueado el usuario, el programa se cerrara automaticamente
                      }
             }
@@ -360,7 +336,6 @@ public static String fecha(){ /* SE DECARA LA FECHA DEL SISTEMA */
         }
            catch (NullPointerException  NPE){
                JOptionPane.showMessageDialog(null, "Tranquilo(a), no has escrito correctamente el nombre de usuario ni la contraseña \nINTENTE INICIAR SESION COMO ADMIN O REGISTRARSE","Tomalo con calma",JOptionPane.WARNING_MESSAGE);
-  
                text_user.setText("");
                     pass_user.setText("");
                timer=0;
@@ -376,24 +351,19 @@ public static String fecha(){ /* SE DECARA LA FECHA DEL SISTEMA */
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void usuarioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_usuarioKeyPressed
-     // JOptionPane.showMessageDialog(null,"Hola");    //este evento funciona para cuando tu le das clic al boton "usuario"
     }//GEN-LAST:event_usuarioKeyPressed
 
     private void adminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adminActionPerformed
         // INGRESO DE LOS ADMIN AL SISTEMA
-       // if (text_user.getText().isEmpty() || pass_user.getText().isEmpty()) {
        if (text_user.getText().equals("Ingresa Usuario") || pass_user.getText().equals("********")) { // 
             JOptionPane.showMessageDialog(null, "Por favor Inserte su Usuario y Contraseña de ADMINISTRADOR \nPara Ingresar", "ALERTA", JOptionPane.WARNING_MESSAGE);
         } else {
-
             user=text_user.getText();
             pass=pass_user.getText(); //se guardan los datos del admi
- 
             String []datos = new String[2];
             try {
                 Statement st = ca.createStatement();
                 ResultSet rs= st.executeQuery("select * from admin");
-                //ResultSet rs= st.executeQuery( "SELECT * FROM user WHERE nombre_usuario='"+text_user.getText()+"' and contraseña='"+pass_user.getText()+"'");
                 while(rs.next()){ //ciclo para leer los datos en la variable rs
                     datos[0]=rs.getString("nombre_usuario");
                     datos[1]=rs.getString("contraseña");
@@ -405,7 +375,6 @@ public static String fecha(){ /* SE DECARA LA FECHA DEL SISTEMA */
                 }
                 else if(timer == 3){
                     JOptionPane.showMessageDialog(null,"Excedido el número de intentos \n Intentelo mas tarde ","Error de Ingreso",JOptionPane.ERROR_MESSAGE); //Msg de error
-                    //JOptionPane.showMessageDialog(null, "Excedido el número de intentos \n Intentelo mas tarde" ,JOptionPane.ERROR_MESSAGE);
                     System.exit(0);
                 }
                 else{
