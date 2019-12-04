@@ -29,8 +29,7 @@ import ticket.ticketventacredito;
 public final class menu_principal extends javax.swing.JFrame implements Runnable{
 static SI cc= new SI();
   static boolean noduplicarexistencias=false, noduplicarcorte=false, noduplicargastos=false, noduplicarexternos=false;
-                  private final String logotipo = "/Reportes/logo1.jpeg"; // icono de DATAMAX
-   static ticketventacondescuento mandardatosaticketventacondescuento;  
+  static ticketventacondescuento mandardatosaticketventacondescuento;  
    static ticketventa mandardatosticketventa;
     static ticketventacredito mandardatosticketventacredito;
     String  hora,minutos,segundos, fechadesde="",fechahasta="", fechaparaventasdesde="", fechaparaventashasta="";
@@ -522,7 +521,8 @@ public static void insertandopiezasdepolloporhaberagregadoxcantidaddepollocrudo(
                    piezas[ciclofor].equals("Pierna")||
                    piezas[ciclofor].equals("Ala")||
                    piezas[ciclofor].equals("Patas")){
-               resultadodepiezaspares=cantidaddesdelatablaeditable*piezasdepollopares;
+                    id_producto(piezas[ciclofor]); cantidadpolloenDByname(id_producto);
+               resultadodepiezaspares=(cantidaddesdelatablaeditable*piezasdepollopares)+cantidadpolloenDB;
                PreparedStatement ps = ca.prepareStatement ("UPDATE productos SET cantidad='"+resultadodepiezaspares+"'WHERE nombre_producto='"+piezas[ciclofor]+"'");
                int ty = ps.executeUpdate();      
                  if(ty>0){
@@ -533,7 +533,8 @@ public static void insertandopiezasdepolloporhaberagregadoxcantidaddepollocrudo(
            else if(piezas[ciclofor].equals("Huacal")||piezas[ciclofor].equals("Cadera")||
                    piezas[ciclofor].equals("Cabeza")||
                    piezas[ciclofor].equals("Molleja")||piezas[ciclofor].equals("Pechuga")){
-            resultadodepiezasinpares=cantidaddesdelatablaeditable*piezasdepollosinpares;
+                 id_producto(piezas[ciclofor]); cantidadpolloenDByname(id_producto);
+            resultadodepiezasinpares=(cantidaddesdelatablaeditable*piezasdepollosinpares)+cantidadpolloenDB;
          PreparedStatement ps = ca.prepareStatement ("UPDATE productos SET cantidad='"+resultadodepiezasinpares+"'WHERE nombre_producto='"+piezas[ciclofor]+"'");
                int ty = ps.executeUpdate();
                  if(ty>0){
@@ -1674,7 +1675,7 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         user1.setBackground(new java.awt.Color(0, 160, 204));
         user1.setFont(new java.awt.Font("Trebuchet MS", 1, 36)); // NOI18N
         user1.setForeground(new java.awt.Color(255, 255, 255));
-        user1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/equipo.png"))); // NOI18N
+        user1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/compra.png"))); // NOI18N
         user1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         jButton1.setBackground(new java.awt.Color(255, 255, 255));
