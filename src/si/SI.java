@@ -17,8 +17,7 @@ public class SI {
        if(conectar!=null){
            System.out.println("Se hizo la conexión exitosa");
       }
-        
-      }catch(ClassNotFoundException e){
+       }catch(ClassNotFoundException e){
           JOptionPane.showMessageDialog(null,"C NOT FOUND EXCEPTION"+e);
           System.err.print(e.getMessage());
                         }catch(SQLException SQL){

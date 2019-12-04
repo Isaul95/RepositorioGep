@@ -253,20 +253,10 @@ int  id_usuario=Integer.parseInt(SI_Inicio.iduser.getText());
         combopieza.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         combopieza.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pechuga", "Muslo", "Pierna", "Ala", "Huacal", "Cadera", "Cabeza", "Molleja", "Patas" }));
         jPanel2.add(combopieza);
-        combopieza.setBounds(30, 190, 180, 30);
+        combopieza.setBounds(30, 190, 180, 34);
 
         combosucursal.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         combosucursal.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Blanca", "Zapata", "Mercado" }));
-        combosucursal.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                combosucursalMouseClicked(evt);
-            }
-        });
-        combosucursal.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                combosucursalKeyPressed(evt);
-            }
-        });
         jPanel2.add(combosucursal);
         combosucursal.setBounds(30, 110, 180, 26);
 
@@ -307,7 +297,7 @@ int  id_usuario=Integer.parseInt(SI_Inicio.iduser.getText());
             }
         });
         calculadora.add(nueve);
-        nueve.setBounds(80, 64, 41, 50);
+        nueve.setBounds(80, 64, 38, 50);
 
         ocho.setBackground(new java.awt.Color(0, 51, 102));
         ocho.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
@@ -662,14 +652,6 @@ public void nombresypiezas(){
               this.setVisible(false);
               menu_principal pho = new menu_principal(true);
     }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void combosucursalMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_combosucursalMouseClicked
-                                                                                                                         
-    }//GEN-LAST:event_combosucursalMouseClicked
-
-    private void combosucursalKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_combosucursalKeyPressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_combosucursalKeyPressed
 
     private void ceroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ceroActionPerformed
         String one="0";

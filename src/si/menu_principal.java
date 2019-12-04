@@ -1337,16 +1337,6 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        tabla_articulos = new javax.swing.JPopupMenu();
-        modify = new javax.swing.JMenuItem();
-        eliminar = new javax.swing.JMenuItem();
-        tabla_proveedores = new javax.swing.JPopupMenu();
-        modificar = new javax.swing.JMenuItem();
-        drop = new javax.swing.JMenuItem();
-        tablausuarios = new javax.swing.JPopupMenu();
-        modificarusuarios = new javax.swing.JMenuItem();
-        eliminarusuarios = new javax.swing.JMenuItem();
-        activarusuario = new javax.swing.JMenuItem();
         Proveedores9 = new javax.swing.JTabbedPane();
         venta = new javax.swing.JPanel();
         jPanel10 = new javax.swing.JPanel();
@@ -1503,66 +1493,6 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         totalventacreditoenturno = new javax.swing.JLabel();
         labelcredito = new javax.swing.JLabel();
         labelnombre = new javax.swing.JLabel();
-
-        tabla_articulos.setComponentPopupMenu(tabla_articulos);
-
-        modify.setText("Modificar");
-        modify.setComponentPopupMenu(tabla_articulos);
-        modify.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                modifyActionPerformed(evt);
-            }
-        });
-        tabla_articulos.add(modify);
-
-        eliminar.setText("Eliminar");
-        eliminar.setComponentPopupMenu(tabla_articulos);
-        eliminar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                eliminarActionPerformed(evt);
-            }
-        });
-        tabla_articulos.add(eliminar);
-
-        modificar.setText("Modificar");
-        modificar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                modificarActionPerformed(evt);
-            }
-        });
-        tabla_proveedores.add(modificar);
-
-        drop.setText("Eliminar");
-        drop.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                dropActionPerformed(evt);
-            }
-        });
-        tabla_proveedores.add(drop);
-
-        modificarusuarios.setText("Modificar");
-        modificarusuarios.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                modificarusuariosActionPerformed(evt);
-            }
-        });
-        tablausuarios.add(modificarusuarios);
-
-        eliminarusuarios.setText("Eliminar");
-        eliminarusuarios.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                eliminarusuariosActionPerformed(evt);
-            }
-        });
-        tablausuarios.add(eliminarusuarios);
-
-        activarusuario.setText("Activar Usuario");
-        activarusuario.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                activarusuarioActionPerformed(evt);
-            }
-        });
-        tablausuarios.add(activarusuario);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -3231,22 +3161,6 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void modifyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modifyActionPerformed
-        
-    }//GEN-LAST:event_modifyActionPerformed
-
-    private void eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarActionPerformed
-                
-    }//GEN-LAST:event_eliminarActionPerformed
-
-    private void modificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modificarActionPerformed
-
-    }//GEN-LAST:event_modificarActionPerformed
-
-    private void dropActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dropActionPerformed
-
-    }//GEN-LAST:event_dropActionPerformed
-
     public void cerrandosesion_o_limpiandoventa(){
                 regresarproductos_a_inventariodescontandotodaslaspiezas(); //pone en estatus de cancelada la venta inconclusa
                // descuentodepollo();
@@ -3263,20 +3177,9 @@ JOptionPane.showMessageDialog(null, "Error en venta aqui" + s.getMessage());
             limpiardatosdeventa();  //limpia en su mayoria los campos de texto que pertenezcan al apartado venta
                 tablaventa.setVisible(false); //Desaparece la tabla
                storage.clear();
-    }//BOTON CERRAR SESION, PERO COMPRUEBA SI HAY UNA VENTA PEN PARA CANCELAR EN CASO DE SALIR  
-    private void modificarusuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modificarusuariosActionPerformed
-
-    }//GEN-LAST:event_modificarusuariosActionPerformed
-
-    private void eliminarusuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarusuariosActionPerformed
-
-    }//GEN-LAST:event_eliminarusuariosActionPerformed
-
-    private void activarusuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_activarusuarioActionPerformed
-    
-    }//GEN-LAST:event_activarusuarioActionPerformed
-public void eliminarhuesito(int id){
-    try{Connection ca= cc.conexion();
+    }//BOTON CERRAR SESION, PERO COMPRUEBA SI HAY UNA VENTA PEN PARA CANCELAR EN CASO DE SALIR  public void eliminarhuesito(int id){
+    public void eliminarhuesito(int id){
+        try{Connection ca= cc.conexion();
         String sql = "delete from descripcion_de_venta where id_producto = '"+id+"' ";
         PreparedStatement ps = ca.prepareStatement(sql);
        ps.execute();       
@@ -4653,7 +4556,6 @@ get_id_usuario();// 255 -280
     public static rojerusan.RSTableMetro JtablepaLaVenta;
     public static javax.swing.JTabbedPane Proveedores9;
     private javax.swing.JLabel Reloj;
-    private javax.swing.JMenuItem activarusuario;
     private javax.swing.JButton agregar;
     public static javax.swing.JPanel agregar_articulo;
     private javax.swing.JButton bones;
@@ -4670,9 +4572,6 @@ get_id_usuario();// 255 -280
     private javax.swing.JLabel descuentolabel;
     private javax.swing.JLabel descuentolabel1;
     private javax.swing.JLabel deudor;
-    private javax.swing.JMenuItem drop;
-    private javax.swing.JMenuItem eliminar;
-    private javax.swing.JMenuItem eliminarusuarios;
     private com.toedter.calendar.JDateChooser fechafinal;
     private com.toedter.calendar.JDateChooser fechainicial;
     private javax.swing.JButton imprimirventa;
@@ -4776,9 +4675,6 @@ get_id_usuario();// 255 -280
     private javax.swing.JCheckBox masdeunapieza;
     private javax.swing.JCheckBox masdeunapiezacocido;
     private javax.swing.JCheckBox masdeunapiezacrudo;
-    private javax.swing.JMenuItem modificar;
-    private javax.swing.JMenuItem modificarusuarios;
-    private javax.swing.JMenuItem modify;
     public static javax.swing.JTextField monto;
     private javax.swing.JButton pagarventaacredito;
     public static javax.swing.JCheckBox piezasparaacomplettarpollo;
@@ -4786,10 +4682,7 @@ get_id_usuario();// 255 -280
     public static javax.swing.JPanel producto_sobrante3;
     private javax.swing.JButton salsaguajillo;
     public static javax.swing.JLabel subtotal;
-    private javax.swing.JPopupMenu tabla_articulos;
-    private javax.swing.JPopupMenu tabla_proveedores;
     private rojerusan.RSTableMetro tabladeidventas;
-    private javax.swing.JPopupMenu tablausuarios;
     public static rojerusan.RSTableMetro tablaventa;
     public static javax.swing.JLabel total;
     private javax.swing.JLabel total3;

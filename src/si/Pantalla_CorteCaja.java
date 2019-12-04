@@ -14,33 +14,24 @@ import java.util.GregorianCalendar;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
+import ticket.PolloCrudoxPiezas;
+import ticket.ticketprocesadospiezas;
 import ticket.ListaGastos;
 import ticket.ticketcortedecaja;
-import ticket.ticketpollocrudo;
-import ticket.ticketpollocrudosolopiezas;
-import ticket.ticketprocesadospiezas;
-import ticket.tikectprocesados;
-import ticket.PolloCrudoBienTocketc;
-import ticket.PolloCrudoxPiezas;
-import ticket.TicketVentasAll;
+
+
 
 public class Pantalla_CorteCaja extends javax.swing.JFrame  implements Runnable{
    SI cc= new SI();
-
-    Thread hilo; 
+Thread hilo; 
     float ventasmenosgastos,variablemontoentregado;
     String hora,minutos,segundos;
     Statement sent;  
   ResultSet rs;    
-  TicketVentasAll TicketVenAll;
-  ListaGastos TicketGastosAll ;          
-  PolloCrudoxPiezas PolloCrudoxPiezas;
-  ticketcortedecaja tikectcorte; 
-  ticketpollocrudo tikectpollocrudo;  
-  PolloCrudoBienTocketc  PolloCrudoBienTocketc;  
-  ticketpollocrudosolopiezas  ticketpollocrudosolopiezas;
-  tikectprocesados tikectprocesados;
-  ticketprocesadospiezas ticketprocesadospiezas;
+  PolloCrudoxPiezas PolloCrudoxPiezas;//SI SE IMPRIME
+  ticketprocesadospiezas ticketprocesadospiezas;//SI SE IMPRIME
+  ListaGastos TicketGastosAll ;      //SI SE IMPRIME    
+   ticketcortedecaja tikectcorte; //SI SE IMPRIME
   DecimalFormat solodosdecimales = new DecimalFormat("#.##");
   static String[] productosvendidos = {"Pechuga", "Muslo","Pierna","Ala","Huacal","Cadera","Cabeza","Molleja", "Patas",
   "Longaniza","Mole rojo","Mole verde","Miel","Pollo rostizado","Pollo asado",
@@ -238,11 +229,6 @@ public void metodogastosdeldia(){
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 montoFocusLost(evt);
-            }
-        });
-        monto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                montoActionPerformed(evt);
             }
         });
         jPanel2.add(monto);
@@ -558,15 +544,12 @@ public void metodogastosdeldia(){
                 insertaradevoluciondecrudopiezasycantidades();//SE REGISTRAN LAS PIEZAS, CANTIDADES Y TOTALES DE TODO CRUDO
                 insertaradevoluciondecocidopiezasycantidades();//SE REGISTRAN LAS PIEZAS, CANTIDADES Y TOTALES DE TODO COCIDO                
              //LUEGO AQUI SE PUEDE REALIZAR CADA TICKET CORRESPONDIENTE (ESTOS SON LOS 5 TICKET)
-/*sii*/ sobrantedepollocrudodeldiaparaticketcantidadesypiezas();//SOBRANTE DE PECHUGA, PIERNA ALA, MUSLO, VA PARA TICKET
-   sobrantedepollococidodeldiaparaticketcantidadesypiezas();//SOBRANTE DE COCIDO PARA TICKET MOSTRANDO CANTIDADES Y TOTALES
-   
- // YA NO SE IMPRIME ÉSTE TICKET sobrantedepollococidodeldiaparaticketperosolocantidades();//SOBRANTE DE COCIDO PARA TICKET MOSTRANDO CANTIDADES
-ListadeGastosAlHacerCorteCaja();  // TOCKET DE GASTOS
- // YA NO SE IMPRIME ÉSTE TICKET sobrantedepollocrudodeldiaparaticketperosolocantidades();//SOBRANTE DE TODO MENOS PECHUGA, PIERNA ALA, MUSLO, VA PARA TICKET
+/*sii*/ sobrantedepollocrudodeldiaparaticketcantidadesypiezas();//SOBRANTE Y VENDIDO DE CRDUO
+   sobrantedepollococidodeldiaparaticketcantidadesypiezas();//SOBRANTE Y VENDIDO DE COCIDO
+ListadeGastosAlHacerCorteCaja();  // TOCKET DE LISTA DE GASTOS
  total_numeros_y_descuentos();    
  /*sii*/obteniendolosvaloresdelcortedecajadeldiadehoyparaelticket(numerodescuentos, totaldedescuentos);//LOS DATOS DEL TICKET CORTE DE CAJA                                                      
-           
+  
             llenar_tabla_utilidad(gastosdeldia, ventasdeldia);
       vaciartodoelpollococidoenprocesados();
           vaciartodoelpollocrudoendevolucioncrudo();
@@ -733,10 +716,6 @@ double []totales = {94.0, 94.0, 18.50, 18.50, 18.50, 17.00, 12.00, 25.00, 18.50,
         }
         monto.setForeground(new Color(236, 240, 241));
     }//GEN-LAST:event_montoFocusLost
-
-    private void montoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_montoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_montoActionPerformed
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
          menu_principal.noduplicarcorte=false;
