@@ -553,7 +553,7 @@ ListadeGastosAlHacerCorteCaja();  // TOCKET DE LISTA DE GASTOS
             llenar_tabla_utilidad(gastosdeldia, ventasdeldia);
       vaciartodoelpollococidoenprocesados();
           vaciartodoelpollocrudoendevolucioncrudo();
-         vaciartodoeninventario();//UNA VEZ IMPRESO LOS 5 TICKETS SE VACIA TODO EL INVENTARIO            
+      //   vaciartodoeninventario();//UNA VEZ IMPRESO LOS 5 TICKETS SE VACIA TODO EL INVENTARIO            
                 JOptionPane.showMessageDialog(null,"Nos vemos pronto","Saliendo del sistema...",JOptionPane.INFORMATION_MESSAGE);
             System.exit(0);
                 }

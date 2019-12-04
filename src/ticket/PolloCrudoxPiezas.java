@@ -37,8 +37,13 @@ public class PolloCrudoxPiezas {
         System.out.println("\n==============================\n");  auxs+= "\n==============================\n";                
                        auxs+= "Nombre      Sobro     Vendio     Total\n"; System.out.println("Nombre      Sobro     Vendio     Total\n");        
          auxs+= "\n==============================\n";   System.out.println("\n==============================\n");                 
-        for(int n=0;n<=pollocrudnombre.size()-1;n++){                 
-            auxs+= String.format("%-11s" + "%-10s" + "$%-12s", pollocrudnombre.get(n), sobrante.get(n), pollocrudpieza.get(n), pollocrudtotal.get(n)); System.out.println(String.format("%-11s" + "%-10s" +"%-10s"+ "$%-12s", pollocrudnombre.get(n), sobrante.get(n),pollocrudpieza.get(n), pollocrudtotal.get(n)));
+        for(int n=0;n<=pollocrudnombre.size()-1;n++){     
+String nom = pollocrudnombre.get(n).toString();                  
+             if (nom.length()> 12) { // si la descripcion_producto es mayor a 17 la corta
+                nom = nom.substring(0, 12);
+            //   System.out.println("\nCortandooloo....\n");
+            }            
+            auxs+= String.format("%-11s" + "%-10s"+ "%-10s" + "$%-12s", nom, sobrante.get(n), pollocrudpieza.get(n), pollocrudtotal.get(n)); System.out.println(String.format("%-11s" + "%-10s" +"%-10s"+ "$%-12s",nom, sobrante.get(n),pollocrudpieza.get(n), pollocrudtotal.get(n)));
              auxs+= "\n";   
         }                  
             auxs+= "\n==============================\n";  System.out.println("\n==============================\n");  
