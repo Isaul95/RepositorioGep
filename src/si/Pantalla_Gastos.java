@@ -318,18 +318,6 @@ menu_principal.noduplicargastos=true;
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-public void obtener_id_del_proveedor(String name){
-    String nombredelaempresa=name;
-        try{ Connection ca= cc.conexion(); // CONEXION DB 
-            sent  =(Statement)ca.createStatement();
-           rs = sent.executeQuery("select * from proveedores where nombre_de_la_empresa= '"+nombredelaempresa+"' ");
-            while(rs.next()){
-               id_proveedor=rs.getInt("id_proveedor");
-            }
-        }catch (Exception e){
-        }finally{cc.getClose();}
-}
-
     private void btnRegistrarGastoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarGastoActionPerformed
         // ABRE NUEVA VENTANA PARA Registro de Gastos
           if (txtdescripcion.getText().isEmpty() || txtmonto.getText().isEmpty() /* || txtpiezas.getText().isEmpty()*/) {

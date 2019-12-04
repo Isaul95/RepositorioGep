@@ -10,6 +10,102 @@ package si;
  * @author Alexis
  */
 public class metodoscomentados {
+    /* ESTO VA A IR EN MENU PRINCIPAL
+    METODOS PARA DESCONTAR 1 POLLO  O N POLLOS EN BASE A LAS PIEZAS QUE SE HAN DESCONTADO
+             public static void descuentodepollo(){
+                 minimodelaspiezasdepollocrudoquesoninparesentablaproductos();
+                 minimodelaspiezasdepollocrudoquesonparesentablaproductos();
+                 pollocrudoeninventario();
+                 if(minimodelaspiezasinparesdepollocrudoeninventario==0){
+                     actualizarpollocrudoeninventario(0);
+                 }
+                 else if(minimodelaspiezasparesdepollocrudoeninventario==1){
+                      actualizarpollocrudoeninventario(0);
+                 }
+                 else if(pollo_crudoeninventario!=minimodelaspiezasinparesdepollocrudoeninventario&&
+                         minimodelaspiezasparesdepollocrudoeninventario!=(minimodelaspiezasinparesdepollocrudoeninventario*2)&&
+                         pollo_crudoeninventario>minimodelaspiezasinparesdepollocrudoeninventario){
+                      actualizarpollocrudoeninventario(minimodelaspiezasinparesdepollocrudoeninventario);
+                  
+                 }else if(pollo_crudoeninventario==minimodelaspiezasinparesdepollocrudoeninventario&&
+                         minimodelaspiezasparesdepollocrudoeninventario==(minimodelaspiezasinparesdepollocrudoeninventario*2)||
+                         pollo_crudoeninventario==minimodelaspiezasinparesdepollocrudoeninventario&&
+                         minimodelaspiezasparesdepollocrudoeninventario!=(minimodelaspiezasinparesdepollocrudoeninventario*2)&&
+                         minimodelaspiezasparesdepollocrudoeninventario>(minimodelaspiezasinparesdepollocrudoeninventario*2)){
+                       actualizarpollocrudoeninventario(minimodelaspiezasinparesdepollocrudoeninventario);
+                 }
+                 else{
+                     if(minimodelaspiezasparesdepollocrudoeninventario%2!=0){
+                         actualizarpollocrudoeninventario((minimodelaspiezasparesdepollocrudoeninventario-1)/2);
+                     }else{
+                          actualizarpollocrudoeninventario(minimodelaspiezasparesdepollocrudoeninventario/2); 
+                     }
+                     //ESTO ELIMINA LOS DECIMALES DEL SOBRANTE
+                    //AQUI EL LINK
+                    //https://www.yoelprogramador.com/como-usar-el-formateador-decimal-en-java/
+                     java.text.DecimalFormat formatoSalida = new java.text.DecimalFormat("0");//para ningun decimal
+                     Float.parseFloat(formatoSalida.format(minimodelaspiezasparesdepollocrudoeninventario/2));
+                 }
+             }
+             public static void actualizarpollocrudoeninventario(float actualizaciondepollo){
+                 try{              Connection ca= cc.conexion();     
+           PreparedStatement ps = ca.prepareStatement ("UPDATE productos SET cantidad='"+actualizaciondepollo+"'WHERE nombre_producto='"+pollo_crudo+"'");
+                  int a = ps.executeUpdate();
+                if(a>0){    
+                }
+                           }catch(Exception e){
+    JOptionPane.showMessageDialog(null, "Error, actualizarpollocrudoeninventario","HELPER DEVELOPER",JOptionPane.INFORMATION_MESSAGE); 
+                           }finally{
+                  cc.getClose();
+             }
+             }
+             
+     public static void pollocrudoeninventario(){
+              String consulta="select cantidad from productos WHERE nombre_producto = 'pollo crudo' ";
+              try{    Connection ca= cc.conexion();     
+                     sent  = (Statement)ca.createStatement();
+                                             rs = sent.executeQuery(consulta);
+                                       while(rs.next()){
+                                                      pollo_crudoeninventario =rs.getFloat(1);//Esto muestra la cantidad actual para compararlo
+                                                        }
+                 }catch(Exception e){
+                       JOptionPane.showMessageDialog(null, "Error, pollocrudoeninventario","HELPER DEVELOPER",JOptionPane.INFORMATION_MESSAGE);                  
+                }finally{
+                  cc.getClose();
+             }
+          }
+              public static void minimodelaspiezasdepollocrudoquesoninparesentablaproductos(){
+              String consulta="select MIN(cantidad) from productos WHERE nombre_producto IN('Huacal', 'Cadera', 'Cabeza', 'Molleja', 'Pechuga')";
+              try{ Connection ca= cc.conexion();     
+                     sent  = (Statement)ca.createStatement();
+                                             rs = sent.executeQuery(consulta);
+                                       while(rs.next()){
+                                                      minimodelaspiezasinparesdepollocrudoeninventario =rs.getFloat(1);//Esto muestra la cantidad actual para compararlo
+                                                        }
+                 }catch(Exception e){ 
+                                JOptionPane.showMessageDialog(null, "Error, minimodelaspiezasdepollocrudoquesoninparesentablaproductos","HELPER DEVELOPER",JOptionPane.INFORMATION_MESSAGE);                  
+                }finally{
+                  cc.getClose();
+             }
+          }
+          public static void minimodelaspiezasdepollocrudoquesonparesentablaproductos(){
+              String consulta="select MIN(cantidad) from productos WHERE nombre_producto IN('Muslo', 'Pierna', 'Ala', 'Patas')";
+              try{Connection ca= cc.conexion();    
+                     sent  = (Statement)ca.createStatement();
+                                             rs = sent.executeQuery(consulta);
+                                       while(rs.next()){
+                                                      minimodelaspiezasparesdepollocrudoeninventario =rs.getFloat(1);//Esto muestra la cantidad actual para compararlo
+                                                        }
+                 }catch(Exception e){ 
+              JOptionPane.showMessageDialog(null, "Error, minimodelaspiezasdepollocrudoquesoninparesentablaproductos","HELPER DEVELOPER",JOptionPane.INFORMATION_MESSAGE);                  
+                 }finally{
+                  cc.getClose();
+             }
+          }
+          
+        FIN METODOS PARA DESCONTAR 1 POLLO  O N POLLOS EN BASE A LAS PIEZAS QUE SE HAN DESCONTADO
+    */
+    
       /* ESTO ES PARA ABONOS
                     else if (Float.parseFloat(pagodeventacredito)<totalacredito){
                         try{
