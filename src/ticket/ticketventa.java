@@ -55,16 +55,18 @@ public class ticketventa {
              }
          
        auxs+= "\n==============================\n";  System.out.println("\n==============================\n");  
-       auxs+= String.format("Sub total:  "+"$%-20s", subtotal); System.out.println(String.format("Sub total:   "+"$%-20s", subtotal));
+       auxs+= String.format("Sub total:  "+"$%-20s", subtotal);   System.out.println(String.format("Sub total:   "+"$%-20s", subtotal));
        auxs+= "\n";
-       auxs+= String.format("Total:  "+"$%-20s", total); System.out.println(String.format("Total:   "+"$%-20s", total));
+       auxs+= String.format("Total:      "+"$%-20s", total);      System.out.println(String.format("Total:       "+"$%-20s", total));
        auxs+= "\n";                  
-       auxs+= String.format("Pago:   "+"$%-20s", pago); System.out.println(String.format("Pago:     "+"$%-20s", pago));
+       auxs+= String.format("Pago:       "+"$%-20s", pago);       System.out.println(String.format("Pago:        "+"$%-20s", pago));
        auxs+= "\n";                  
-       auxs+= String.format("Cambio: "+"$%-20s", cambio); System.out.println(String.format("Cambio: "+"$%-20s", cambio));
+       auxs+= String.format("Cambio:     "+"$%-20s", cambio);     System.out.println(String.format("Cambio:      "+"$%-20s", cambio));
        auxs+= "\n\n";   
-   auxs += "     Gracias por su compra\n\n\n\n\n";// Varios saltos para no cortar antes
-  System.out.println("     Gracias por su compra\n\n\n\n\n");
+   auxs += "     Gracias por su compra\n\n";// \n\n\n\n\n Varios saltos para no cortar antes
+  System.out.println("     Gracias por su compra\n\n");
+                     auxs+= String.format("  Hecho por GepSoft: \n Tel: 733-117-0055\n\n\n\n\n");   
+         System.out.println(String.format("  Hecho por GepSoft: \n Tel: 733-117-0055\n\n\n\n\n"));
    try {
             impServicio.printCadena(impra, auxs);
             // Cortar el papel ....

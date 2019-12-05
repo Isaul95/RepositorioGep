@@ -7,8 +7,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.JOptionPane;
 
-public class ticketventacondescuento {
-    
+public class ticketventacondescuento {    
     
        public void tikectdeventacondescuento(ArrayList nombre, 
                ArrayList piezas, 
@@ -63,8 +62,11 @@ public class ticketventacondescuento {
        auxs+= "\n";   
        
        
-       auxs += "     Gracias por su compra\n\n\n\n\n";// Varios saltos para no cortar antes
-      System.out.println("     Gracias por su compra\n\n\n\n\n");
+       auxs+= "\n\n";   
+   auxs += "     Gracias por su compra\n\n";// \n\n\n\n\n Varios saltos para no cortar antes
+  System.out.println("     Gracias por su compra\n\n");
+                     auxs+= String.format("  Hecho por GepSoft: \n Tel: 733-117-0055\n\n\n\n\n");   
+         System.out.println(String.format("  Hecho por GepSoft: \n Tel: 733-117-0055\n\n\n\n\n"));
        
          try {
             impServicio.printCadena(impra, auxs);
