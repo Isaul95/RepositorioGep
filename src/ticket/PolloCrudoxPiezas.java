@@ -35,7 +35,7 @@ public class PolloCrudoxPiezas {
          
        auxs+= "Fecha: " + dateFormat.format(date) + " Hora: " + hourFormat.format(date) + "\n";  System.out.println("Fecha: " + dateFormat.format(date) + " Hora: " + hourFormat.format(date) + "\n");
         System.out.println("\n==============================\n");  auxs+= "\n==============================\n";                
-                       auxs+= "Nombre      Sobro     Vendio     Total\n"; System.out.println("Nombre      Sobro     Vendio     Total\n");        
+                       auxs+= "Nombre    Sobro Vendio Total\n"; System.out.println("Nombre    Sobro Vendio Total\n");        
          auxs+= "\n==============================\n";   System.out.println("\n==============================\n");                 
         for(int n=0;n<=pollocrudnombre.size()-1;n++){     
 String nom = pollocrudnombre.get(n).toString();                  
@@ -43,7 +43,7 @@ String nom = pollocrudnombre.get(n).toString();
                 nom = nom.substring(0, 12);
             //   System.out.println("\nCortandooloo....\n");
             }            
-            auxs+= String.format("%-11s" + "%-10s"+ "%-10s" + "$%-12s", nom, sobrante.get(n), pollocrudpieza.get(n), pollocrudtotal.get(n)); System.out.println(String.format("%-11s" + "%-10s" +"%-10s"+ "$%-12s",nom, sobrante.get(n),pollocrudpieza.get(n), pollocrudtotal.get(n)));
+            auxs+= String.format("%-13s" + "%-5s"+ "%-5s" + "$%-5s", nom, sobrante.get(n), pollocrudpieza.get(n), pollocrudtotal.get(n)); System.out.println(String.format("%-13s" + "%-5s" +"%-5s"+ "$%-5s",nom, sobrante.get(n),pollocrudpieza.get(n), pollocrudtotal.get(n)));
              auxs+= "\n";   
         }                  
             auxs+= "\n==============================\n";  System.out.println("\n==============================\n");  

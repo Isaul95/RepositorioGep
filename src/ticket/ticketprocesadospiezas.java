@@ -34,7 +34,7 @@ public class ticketprocesadospiezas {
          
        auxs+= "Fecha: " + dateFormat.format(date) + " Hora: " + hourFormat.format(date) + "\n";  System.out.println("Fecha: " + dateFormat.format(date) + " Hora: " + hourFormat.format(date) + "\n");
       System.out.println("\n==============================\n");          auxs+= "\n==============================\n";                
-                    auxs+= "Nombre      Sobro     Vendio     Total\n";    System.out.println("Nombre      Sobro    Vendio     Total\n");               
+                    auxs+= "Nombre      Sobro Vendio Total\n";    System.out.println("Nombre      Sobro Vendio Total\n");               
          auxs+= "\n==============================\n";   System.out.println("\n==============================\n");                           
              for(int n=0;n<=procesadosnombre.size()-1;n++){  
                  String nom = procesadosnombre.get(n).toString();                  
@@ -42,7 +42,7 @@ public class ticketprocesadospiezas {
                 nom = nom.substring(0, 12);
             //   System.out.println("\nCortandooloo....\n");
             }     
-                  auxs+= String.format("%-11s" + "%-10s" +"%-10s" + "$%-10s" , nom, sobrante.get(n), procesadospiezas.get(n), procesadostotal.get(n)); System.out.println(String.format("%-11s" + "%-10s" +"%-10s" + "$%-10s" ,nom, sobrante.get(n), procesadospiezas.get(n), procesadostotal.get(n)));
+                  auxs+= String.format("%-15s" + "%-5s" +"%-5s" + "$%-5s" , nom, sobrante.get(n), procesadospiezas.get(n), procesadostotal.get(n)); System.out.println(String.format("%-15s" + "%-5s" +"%-5s" + "$%-5s" ,nom, sobrante.get(n), procesadospiezas.get(n), procesadostotal.get(n)));
                   auxs+= "\n"; // SALTOS PARA K NO LO CORTE LUEGO     "%-11s" + "%-10s" + "$%-12s"  
              }                             
               
