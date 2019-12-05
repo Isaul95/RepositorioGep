@@ -15,7 +15,8 @@ import javax.swing.table.DefaultTableModel;
 import ticket.ticketcortedecaja;
 
 public class Existencias extends javax.swing.JFrame  implements Runnable{
-    Thread hilo;    
+   SI cc= new SI();
+  Thread hilo;    
     String hora,minutos,segundos;
     Statement sent;  
   ResultSet rs;     
@@ -68,7 +69,7 @@ int  id_usuario=Integer.parseInt(SI_Inicio.iduser.getText());
     modelo.addColumn("Piezas");
      existenciadeproductos.setModel(modelo);  // Ya una vez asignado todos los nombres se le envia el objeto a la tabla proveedores
     String []datos = new String[2];     //Un arreglo con la cantidad de nombres en las columnas
-    try {
+    try {Connection ca= cc.conexion();
              sent = ca.createStatement();   
                        rs= sent.executeQuery("select nombre_producto, cantidad  from  productos"); // se ejecuta la sentencia dentro del parentesis
             while(rs.next()){        
@@ -80,7 +81,7 @@ int  id_usuario=Integer.parseInt(SI_Inicio.iduser.getText());
         } catch (SQLException ex) {
             Logger.getLogger(menu_principal.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(null, "No se pudo mostrar ningun dato porque tu consulta está mal");
-        } 
+        } finally{cc.getClose();}
     }
     
     public void mostrartodoslosproductosenexistenciasporbusqueda(String textoabuscar){
@@ -90,7 +91,7 @@ int  id_usuario=Integer.parseInt(SI_Inicio.iduser.getText());
     modelo.addColumn("Piezas");
      existenciadeproductos.setModel(modelo);  // Ya una vez asignado todos los nombres se le envia el objeto a la tabla proveedores
     String []datos = new String[2];     //Un arreglo con la cantidad de nombres en las columnas
-    try {
+    try {Connection ca= cc.conexion();
              sent = ca.createStatement();   
                        if(textoabuscar.equals("")){
                           rs= sent.executeQuery("select nombre_producto, cantidad  from  productos"); // se ejecuta la sentencia dentro del parentesis
@@ -107,7 +108,7 @@ int  id_usuario=Integer.parseInt(SI_Inicio.iduser.getText());
         } catch (SQLException ex) {
             Logger.getLogger(menu_principal.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(null, "No se pudo mostrar ningun dato porque tu consulta está mal");
-        } 
+        } finally{cc.getClose();}
     }
 
     @SuppressWarnings("unchecked")
@@ -273,8 +274,7 @@ int  id_usuario=Integer.parseInt(SI_Inicio.iduser.getText());
             }
         });
     }
-SI cc= new SI();
- Connection ca= cc.conexion();
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Corte_btncancelar;
     private javax.swing.JLabel Fecha;

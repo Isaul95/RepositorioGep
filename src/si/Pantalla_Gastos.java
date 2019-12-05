@@ -16,10 +16,12 @@ import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+
 import ticket.TikectGasto;
 
-public class Pantalla_Gastos extends javax.swing.JFrame {  
-     String[] piezas = {"Pechuga", "Muslo","Pierna","Ala","Huacal","Cadera","Cabeza", "Molleja", "Patas"};
+public class Pantalla_Gastos extends javax.swing.JFrame { 
+        SI cc= new SI();
+  String[] piezas = {"Pechuga", "Muslo","Pierna","Ala","Huacal","Cadera","Cabeza", "Molleja", "Patas"};
        
                 Calendar fecha_actual = new GregorianCalendar();
                 String fechahoy="", buscap = "";
@@ -94,7 +96,7 @@ menu_principal.noduplicargastos=true;
         modelo.addColumn("Total");
      jTableGastos.setModel(modelo);  // Ya una vez asignado todos los nombres se le envia el objeto a la tabla proveedores
     String []datos = new String[4];     //Un arreglo con la cantidad de nombres en las columnas
-    try {
+    try {Connection ca= cc.conexion();
              sent = ca.createStatement();   
                        if(textobusqueda.equals("")){
                           rs= sent.executeQuery("SELECT * FROM `egreso` order by fecha desc"); // se ejecuta la sentencia dentro del parentesis
@@ -113,12 +115,12 @@ menu_principal.noduplicargastos=true;
         } catch (SQLException ex) {
             Logger.getLogger(menu_principal.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(null, "No se pudo mostrar ningun dato porque tu consulta está mal");
-        } 
+        } finally{cc.getClose();}
     }
 
       public void LlenarTabla(JTable tablaD){ // recibe como parametro 
          Object[] columna = new Object[6];  //crear un obj con el nombre de colunna
-            Connection ca= cc.conexion(); // CONEXION DB 
+           
               DefaultTableModel modeloT = new DefaultTableModel(); 
                   tablaD.setModel(modeloT);  // add modelo ala tabla 
         modeloT.addColumn("Idegreso");    // add al modelo las 5 columnas con los nombrs TABLA
@@ -127,7 +129,7 @@ menu_principal.noduplicargastos=true;
         modeloT.addColumn("Fecha");
         modeloT.addColumn("Total");
        modeloT.addColumn("nombre");               
-     try {
+     try { Connection ca= cc.conexion(); // CONEXION DB 
          String sSQL = "SELECT `idegreso`,`cantidad`,`tipo`,`fecha`,`total`,`nombre` FROM `egreso` INNER JOIN user WHERE egreso.`usuario` = user.id_usuario order by fecha desc";
      PreparedStatement ps = ca.prepareStatement(sSQL);       
         try (ResultSet rs = ps.executeQuery(sSQL)) {
@@ -141,10 +143,9 @@ menu_principal.noduplicargastos=true;
                 modeloT.addRow(columna);
             }
         }
-        ps.close();
     } catch (Exception e) {
         JOptionPane.showMessageDialog(null, e, "Advertencia", JOptionPane.PLAIN_MESSAGE);    
-    }
+    }finally{cc.getClose();}
 }
      
      public void limpiar(){     /*====  VACIAR CAMPOS */
@@ -317,18 +318,6 @@ menu_principal.noduplicargastos=true;
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-public void obtener_id_del_proveedor(String name){
-    String nombredelaempresa=name;
-        try{
-            sent  =(Statement)ca.createStatement();
-           rs = sent.executeQuery("select * from proveedores where nombre_de_la_empresa= '"+nombredelaempresa+"' ");
-            while(rs.next()){
-               id_proveedor=rs.getInt("id_proveedor");
-            }
-        }catch (Exception e){
-        }
-}
-
     private void btnRegistrarGastoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarGastoActionPerformed
         // ABRE NUEVA VENTANA PARA Registro de Gastos
           if (txtdescripcion.getText().isEmpty() || txtmonto.getText().isEmpty() /* || txtpiezas.getText().isEmpty()*/) {
@@ -425,8 +414,7 @@ public void obtener_id_del_proveedor(String name){
         });
     }
  
-    SI cc= new SI();
- Connection ca= cc.conexion();
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton btnRegistrarGasto;

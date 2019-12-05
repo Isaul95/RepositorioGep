@@ -13,7 +13,9 @@ import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 
 public class Apertura extends javax.swing.JFrame implements Runnable{
-Thread hilo;
+
+    SI cc= new SI();
+ Thread hilo;
     String hora,minutos,segundos;
    String  usuarioname=SI_Inicio.text_user.getText();
    int  id_usuario=Integer.parseInt(SI_Inicio.iduser.getText());
@@ -66,11 +68,6 @@ public void hora(){
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
-        addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowClosed(java.awt.event.WindowEvent evt) {
-                formWindowClosed(evt);
-            }
-        });
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "APERTURA DE CAJA", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Serif", 1, 36))); // NOI18N
@@ -133,11 +130,6 @@ public void hora(){
                 montoFocusLost(evt);
             }
         });
-        monto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                montoActionPerformed(evt);
-            }
-        });
         jPanel2.add(monto);
         monto.setBounds(290, 170, 200, 60);
 
@@ -196,7 +188,8 @@ public boolean validarFormulario(String cantidaddecorte) { // VALIDACION DE TXT 
     private void Corte_btnImprimirticketActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Corte_btnImprimirticketActionPerformed
   boolean pass2 = validarFormulario(monto.getText());
                  if(pass2){//ESTO VALIDA QUE EL TEXTO ESCRITO NO TENGA INCOHERENCIAS   
-                       try{ //la insersion a la tabla ventas
+                       try{
+ Connection ca= cc.conexion(); //la insersion a la tabla ventas
 
     String sql = "INSERT INTO  apertura(monto,fecha,hora,usuario)  VALUES (?,?,?,?)";
                 PreparedStatement pst = ca.prepareCall(sql); //hasta aqui vamos
@@ -213,7 +206,7 @@ public boolean validarFormulario(String cantidaddecorte) { // VALIDACION DE TXT 
                 }
             }catch(SQLException e)  { //fin de la insersion a la tabla ventas
                 JOptionPane.showMessageDialog(null,"Error de datos por id vacio "+e);
-            }//fin de la insersion a la tabla ventas 
+            }finally{cc.getClose();}//fin de la insersion a la tabla ventas 
                  }
     }//GEN-LAST:event_Corte_btnImprimirticketActionPerformed
 public void insertarpiezaspordefault(){
@@ -258,14 +251,14 @@ public void insertarpiezaspordefault(){
        8,
        30};
    for(int a=0; a<nombres.length; a++){
-       try{              
+       try{              Connection ca= cc.conexion(); 
            PreparedStatement ps = ca.prepareStatement ("UPDATE productos SET cantidad='"+cantidades[a]+"'WHERE nombre_producto='"+nombres[a]+"'");
                   int b = ps.executeUpdate();
                 if(b>0){   
                 }
                   }catch(Exception e){
                                System.err.print(e);
-                     } 
+                     } finally{cc.getClose();}
    }
 }
 
@@ -285,10 +278,6 @@ public void insertarpiezaspordefault(){
         monto.setForeground(new Color(236, 240, 241));
     }//GEN-LAST:event_montoFocusLost
 
-    private void montoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_montoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_montoActionPerformed
-
     private void Corte_btncancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Corte_btncancelarActionPerformed
         // BOTON DE CANCELAR LA INSERCION DE NUEVO USUARIO
         int dialogButton = JOptionPane.YES_NO_OPTION;
@@ -296,10 +285,6 @@ public void insertarpiezaspordefault(){
         if(result == 0){
             dispose();   }
     }//GEN-LAST:event_Corte_btncancelarActionPerformed
-
-    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_formWindowClosed
 
     /**
      * @param args the command line arguments
@@ -336,8 +321,7 @@ public void insertarpiezaspordefault(){
             }
         });
     }
-SI cc= new SI();
- Connection ca= cc.conexion();
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Corte_btnImprimirticket;
     private javax.swing.JButton Corte_btncancelar;

@@ -34,10 +34,15 @@ public class ticketprocesadospiezas {
          
        auxs+= "Fecha: " + dateFormat.format(date) + " Hora: " + hourFormat.format(date) + "\n";  System.out.println("Fecha: " + dateFormat.format(date) + " Hora: " + hourFormat.format(date) + "\n");
       System.out.println("\n==============================\n");          auxs+= "\n==============================\n";                
-                    auxs+= "Nombre      Sobro     Vendio     Total\n";    System.out.println("Nombre      Sobro    Vendio     Total\n");               
+                    auxs+= "Nombre      Sobro Vendio Total\n";    System.out.println("Nombre      Sobro Vendio Total\n");               
          auxs+= "\n==============================\n";   System.out.println("\n==============================\n");                           
-             for(int n=0;n<=procesadosnombre.size()-1;n++){                 
-                  auxs+= String.format("%-20s" + "%-7s" +"%-7s" + "$%-7s" , procesadosnombre.get(n), sobrante.get(n), procesadospiezas.get(n), procesadostotal.get(n)); System.out.println(String.format("%-22s" + "%-8s" +"%-8s" + "$%-8s" , procesadosnombre.get(n), sobrante.get(n), procesadospiezas.get(n), procesadostotal.get(n)));
+             for(int n=0;n<=procesadosnombre.size()-1;n++){  
+                 String nom = procesadosnombre.get(n).toString();                  
+             if (nom.length()> 12) { // si la descripcion_producto es mayor a 17 la corta
+                nom = nom.substring(0, 12);
+            //   System.out.println("\nCortandooloo....\n");
+            }     
+                  auxs+= String.format("%-15s" + "%-5s" +"%-5s" + "$%-5s" , nom, sobrante.get(n), procesadospiezas.get(n), procesadostotal.get(n)); System.out.println(String.format("%-15s" + "%-5s" +"%-5s" + "$%-5s" ,nom, sobrante.get(n), procesadospiezas.get(n), procesadostotal.get(n)));
                   auxs+= "\n"; // SALTOS PARA K NO LO CORTE LUEGO     "%-11s" + "%-10s" + "$%-12s"  
              }                             
               

@@ -18,7 +18,8 @@ import javax.swing.table.DefaultTableModel;
 import ticket.TicketVentaExterna;
 
 public class ProductosExternos extends javax.swing.JFrame  implements Runnable{
-   menu_principal menuprin ;    
+   SI cc= new SI();
+  menu_principal menuprin ;    
     float piezaendb=0;
     float totalapagar=0;
     float cantidadnumerica=0;
@@ -49,14 +50,14 @@ int  id_usuario=Integer.parseInt(SI_Inicio.iduser.getText());
     
       public void LlenarTableDatosblanca(JTable tablaD){ // recibe como parametro 
          Object[] columna = new Object[2];  //crear un obj con el nombre de colunna
-            Connection ca= cc.conexion(); // CONEXION DB 
+           
               DefaultTableModel modeloT = new DefaultTableModel(); 
                   tablaD.setModel(modeloT);  // add modelo ala tabla         
          modeloT.addColumn("Producto");           
         modeloT.addColumn("Pieza");
      EtiquetaSucursal.setText("Productos de Blanca");
-        try {
-         String sSQL = "SELECT nombre, pieza FROM productoexternoblanca";
+        try { Connection ca= cc.conexion();
+   String sSQL = "SELECT nombre, pieza FROM productoexternoblanca";
         PreparedStatement ps = ca.prepareStatement(sSQL);       
         try (ResultSet rs = ps.executeQuery(sSQL)) {
             while (rs.next()) {          
@@ -65,20 +66,19 @@ int  id_usuario=Integer.parseInt(SI_Inicio.iduser.getText());
                 modeloT.addRow(columna);
             }
         }
-        ps.close();
     } catch (Exception e) { JOptionPane.showMessageDialog(null, "ERROR EN METODO: LlenarTableDatosblanca","DEVELOPER HELPER", JOptionPane.ERROR_MESSAGE);      
-      }
+      }finally{cc.getClose();}
 }
             
        public void LlenarTableDatosMercado(JTable tablaD){ // recibe como parametro 
          Object[] columna = new Object[2];  //crear un obj con el nombre de colunna
-            Connection ca= cc.conexion(); // CONEXION DB 
+  
               DefaultTableModel modeloT = new DefaultTableModel(); 
                   tablaD.setModel(modeloT);  // add modelo ala tabla         
          modeloT.addColumn("Producto");           
         modeloT.addColumn("Pieza");
        EtiquetaSucursal.setText("Productos de Mercado");
-        try {
+        try {          Connection ca= cc.conexion(); // CONEXION DB 
          String sSQL = "SELECT nombre, pieza FROM productoexternocentral";
         PreparedStatement ps = ca.prepareStatement(sSQL);       
         try (ResultSet rs = ps.executeQuery(sSQL)) {
@@ -88,20 +88,19 @@ int  id_usuario=Integer.parseInt(SI_Inicio.iduser.getText());
                 modeloT.addRow(columna);
             }
         }
-        ps.close();
     } catch (Exception e) { JOptionPane.showMessageDialog(null, "ERROR EN METODO: LlenarTableDatosMercado","DEVELOPER HELPER", JOptionPane.ERROR_MESSAGE);      
-      }
+      }finally{cc.getClose();}
 }
     
         public void LlenarTableDatoszapata(JTable tablaD){ // recibe como parametro 
          Object[] columna = new Object[2];  //crear un obj con el nombre de colunna
-            Connection ca= cc.conexion(); // CONEXION DB 
+           
               DefaultTableModel modeloT = new DefaultTableModel(); 
                   tablaD.setModel(modeloT);  // add modelo ala tabla         
          modeloT.addColumn("Producto");           
         modeloT.addColumn("Pieza");
          EtiquetaSucursal.setText("Productos de Zapata");
-        try {
+        try { Connection ca= cc.conexion(); // CONEXION DB 
          String sSQL = "SELECT nombre, pieza FROM productoexternozapata";
         PreparedStatement ps = ca.prepareStatement(sSQL);       
         try (ResultSet rs = ps.executeQuery(sSQL)) {
@@ -111,9 +110,8 @@ int  id_usuario=Integer.parseInt(SI_Inicio.iduser.getText());
                 modeloT.addRow(columna);
             }
         }
-        ps.close();
     } catch (Exception e) { JOptionPane.showMessageDialog(null, "ERROR EN METODO: LlenarTableDatoszapata","DEVELOPER HELPER", JOptionPane.ERROR_MESSAGE);      
-      }
+      }finally{cc.getClose();}
 }
                     
     public void hora(){
@@ -255,20 +253,10 @@ int  id_usuario=Integer.parseInt(SI_Inicio.iduser.getText());
         combopieza.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         combopieza.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pechuga", "Muslo", "Pierna", "Ala", "Huacal", "Cadera", "Cabeza", "Molleja", "Patas" }));
         jPanel2.add(combopieza);
-        combopieza.setBounds(30, 190, 180, 30);
+        combopieza.setBounds(30, 190, 180, 34);
 
         combosucursal.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         combosucursal.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Blanca", "Zapata", "Mercado" }));
-        combosucursal.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                combosucursalMouseClicked(evt);
-            }
-        });
-        combosucursal.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                combosucursalKeyPressed(evt);
-            }
-        });
         jPanel2.add(combosucursal);
         combosucursal.setBounds(30, 110, 180, 26);
 
@@ -309,7 +297,7 @@ int  id_usuario=Integer.parseInt(SI_Inicio.iduser.getText());
             }
         });
         calculadora.add(nueve);
-        nueve.setBounds(80, 64, 41, 50);
+        nueve.setBounds(80, 64, 38, 50);
 
         ocho.setBackground(new java.awt.Color(0, 51, 102));
         ocho.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
@@ -514,7 +502,7 @@ int  id_usuario=Integer.parseInt(SI_Inicio.iduser.getText());
             dispose();   
     }//GEN-LAST:event_Corte_btncancelarActionPerformed
 public void piezasenbase(String pieza){    
-      try{//SOLO SE LLAMA A LA CANTIDAD PORQUE EN EL TICKET YA SE DEFINIRÁN LOS NOMBRES DE CADA ARTICULO
+      try{ Connection ca= cc.conexion(); // CONEXION DB //SOLO SE LLAMA A LA CANTIDAD PORQUE EN EL TICKET YA SE DEFINIRÁN LOS NOMBRES DE CADA ARTICULO
                       sent  = (Statement)ca.createStatement();
         combosucursal.getSelectedItem().toString();
          if(combosucursal.getSelectedItem().toString().equals("Blanca")){          
@@ -529,10 +517,10 @@ public void piezasenbase(String pieza){
                          }
       }catch(Exception e){ 
           JOptionPane.showMessageDialog(null, "piezasenbase");
-      }
+      }finally{cc.getClose();}
 }
 public void piezasenproductos(String pieza){
-      try{//SOLO SE LLAMA A LA CANTIDAD PORQUE EN EL TICKET YA SE DEFINIRÁN LOS NOMBRES DE CADA ARTICULO
+      try{ Connection ca= cc.conexion(); // CONEXION DB //SOLO SE LLAMA A LA CANTIDAD PORQUE EN EL TICKET YA SE DEFINIRÁN LOS NOMBRES DE CADA ARTICULO
                       sent  = (Statement)ca.createStatement();
                       rs = sent.executeQuery("select cantidad from productos where nombre_producto = '"+pieza+"' ");
                          while(rs.next()){
@@ -540,10 +528,10 @@ public void piezasenproductos(String pieza){
                          }
       }catch(Exception e){
           JOptionPane.showMessageDialog(null, "piezasenproductos");
-      }
+      }finally{cc.getClose();}
 }
 public void totalapagarmetodo(){
-      try{//SOLO SE LLAMA A LA CANTIDAD PORQUE EN EL TICKET YA SE DEFINIRÁN LOS NOMBRES DE CADA ARTICULO
+      try{ Connection ca= cc.conexion(); // CONEXION DB //SOLO SE LLAMA A LA CANTIDAD PORQUE EN EL TICKET YA SE DEFINIRÁN LOS NOMBRES DE CADA ARTICULO
                       sent  = (Statement)ca.createStatement();
     combosucursal.getSelectedItem().toString();
          if(combosucursal.getSelectedItem().toString().equals("Blanca")){            
@@ -558,10 +546,10 @@ public void totalapagarmetodo(){
                          }
       }catch(Exception e){              
           JOptionPane.showMessageDialog(null, "totalapagarmetodo");
-      }
+      }finally{cc.getClose();}
 }
 public void nombresypiezas(){
-        try{//SOLO SE LLAMA A LA CANTIDAD PORQUE EN EL TICKET YA SE DEFINIRÁN LOS NOMBRES DE CADA ARTICULO
+        try{ Connection ca= cc.conexion(); // CONEXION DB //SOLO SE LLAMA A LA CANTIDAD PORQUE EN EL TICKET YA SE DEFINIRÁN LOS NOMBRES DE CADA ARTICULO
                       sent  = (Statement)ca.createStatement();                      
    if(combosucursal.getSelectedItem().toString().equals("Blanca")){                       
              rs = sent.executeQuery("select nombre, pieza from productoexternoblanca where pieza != 0");
@@ -576,11 +564,11 @@ public void nombresypiezas(){
                          }
       }catch(Exception e){  
             JOptionPane.showMessageDialog(null, "totalapagarmetodo");
-      }
+      }finally{cc.getClose();}
 }    
     
     public void vaciandotablas(){
-        try{// el id del usuario para obtener el id del usuario y comprobar si hay o no algun registro
+        try{ Connection ca= cc.conexion(); // CONEXION DB // el id del usuario para obtener el id del usuario y comprobar si hay o no algun registro
    String sql = "UPDATE `productoexternoblanca` SET `pieza`=0 ,`total`=0";  
             PreparedStatement pst = ca.prepareCall(sql);                          
             int a=pst.executeUpdate();
@@ -589,10 +577,11 @@ public void nombresypiezas(){
       }catch(Exception w){
                      JOptionPane.showMessageDialog(null,"error en id usuario"+w);
       }//fin del id del usuario para comprobar si hay o no elementos ya guardados
+        finally{cc.getClose();}
     }
     
     public void productospaExtras(){ // recibe como parametro                          
-        try {
+        try { Connection ca= cc.conexion(); // CONEXION DB 
             ArrayList columna1 = new ArrayList(); 
             ArrayList columna2 = new ArrayList();                     
                sent  = (Statement)ca.createStatement();          
@@ -612,11 +601,11 @@ public void nombresypiezas(){
        ticketVentasExternas.TicketVentaExterna(nombresuc , Float.parseFloat(pago.getText().toString()), columna1, columna2);              
     } catch (Exception e) {
        JOptionPane.showMessageDialog(null, "ERROR EN METODO: productosvendidoseneldia","DEVELOPER HELPER", JOptionPane.ERROR_MESSAGE);      
-      }
+      }finally{cc.getClose();}
 }               
     
     public void insertarengastos(){
-        try{// el id del usuario para obtener el id del usuario y comprobar si hay o no algun registro
+        try{ Connection ca= cc.conexion(); // CONEXION DB // el id del usuario para obtener el id del usuario y comprobar si hay o no algun registro
    String sql = "INSERT INTO  egreso(cantidad, tipo, fecha, total, usuario)  VALUES (?,?,?,?,?)";
                          PreparedStatement pst = ca.prepareCall(sql); 
                          pst.setInt(1,0);
@@ -631,6 +620,7 @@ public void nombresypiezas(){
       }catch(Exception w){
                      JOptionPane.showMessageDialog(null,"insertarengastos"+w);
       }//fin del id del usuario para comprobar si hay o no elementos ya guardados
+        finally{cc.getClose();}
     }
     
     public void agregaraproductos(){
@@ -638,7 +628,7 @@ public void nombresypiezas(){
         for (int i = 0; i < nombres.size(); i++) {            
             piezasenproductos(nombres.get(i).toString());         
            piezaendb+=Float.parseFloat(piezas.get(i).toString());
-                 try{ //la insersion a la tabla ventas
+                 try{ Connection ca= cc.conexion(); // CONEXION DB  //la insersion a la tabla ventas
                 PreparedStatement ps = ca.prepareStatement ("UPDATE productos SET cantidad='"+piezaendb+"'WHERE nombre_producto= '"+nombres.get(i).toString()+"' ");  
                 int a=ps.executeUpdate();  
                 if(a>0){
@@ -647,6 +637,7 @@ public void nombresypiezas(){
             }catch(SQLException e)  { //fin de la insersion a la tabla ventas
                 JOptionPane.showMessageDialog(null,"Error de datos por id vacio "+e);
             }//fin de la insersion a la tabla ventas
+                 finally{cc.getClose();}
         }
        nombres.clear();
     }
@@ -661,14 +652,6 @@ public void nombresypiezas(){
               this.setVisible(false);
               menu_principal pho = new menu_principal(true);
     }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void combosucursalMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_combosucursalMouseClicked
-                                                                                                                         
-    }//GEN-LAST:event_combosucursalMouseClicked
-
-    private void combosucursalKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_combosucursalKeyPressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_combosucursalKeyPressed
 
     private void ceroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ceroActionPerformed
         String one="0";
@@ -696,7 +679,7 @@ public void nombresypiezas(){
                 piezasenbase(combopieza.getSelectedItem().toString());
                 cantidadnumerica+=piezaendb;
                 total=cantidadnumerica*33;
-                try{ //la insersion a la tabla ventas
+                try{ Connection ca= cc.conexion(); // CONEXION DB  //la insersion a la tabla ventas
                     if(combosucursal.getSelectedItem().toString().equals("Blanca")){
                         PreparedStatement ps = ca.prepareStatement ("UPDATE productoexternoblanca SET pieza='"+cantidadnumerica+"',total = '"+solodosdecimales.format(total)+"',fecha = '"+fecha()+"',tiendaexterna = '"+combosucursal.getSelectedItem().toString()+"'WHERE nombre= 'Pechuga' ");
                         a=ps.executeUpdate();
@@ -719,12 +702,13 @@ public void nombresypiezas(){
                 }catch(SQLException e)  { //fin de la insersion a la tabla ventas
                     JOptionPane.showMessageDialog(null,"Error de datos por id vacio "+e);
                 }//fin de la insersion a la tabla ventas
+                finally{cc.getClose();}
                 break;
                 case "Muslo":
                 piezasenbase(combopieza.getSelectedItem().toString());
                 cantidadnumerica+=piezaendb;
                 total=Float.parseFloat(String.valueOf(cantidadnumerica*7.50));
-                try{ //la insersion a la tabla ventas
+                try{  Connection ca= cc.conexion(); // CONEXION DB//la insersion a la tabla ventas
                     if(combosucursal.getSelectedItem().toString().equals("Blanca")){
                         PreparedStatement ps = ca.prepareStatement ("UPDATE productoexternoblanca SET pieza='"+cantidadnumerica+"',total = '"+solodosdecimales.format(total)+"',fecha = '"+fecha()+"',tiendaexterna = '"+combosucursal.getSelectedItem().toString()+"'WHERE nombre= 'Muslo' ");
                         a=ps.executeUpdate();
@@ -746,12 +730,13 @@ public void nombresypiezas(){
                 }catch(SQLException e)  { //fin de la insersion a la tabla ventas
                     JOptionPane.showMessageDialog(null,"Error de datos por id vacio "+e);
                 }//fin de la insersion a la tabla ventas
+                finally{cc.getClose();}
                 break;
                         case "Pierna":
                         piezasenbase(combopieza.getSelectedItem().toString());
                         cantidadnumerica+=piezaendb;
                         total=Float.parseFloat(String.valueOf(cantidadnumerica*7.50));
-                        try{ //la insersion a la tabla ventas
+                        try{ Connection ca= cc.conexion(); // CONEXION DB //la insersion a la tabla ventas
                             if(combosucursal.getSelectedItem().toString().equals("Blanca")){
                                 PreparedStatement ps = ca.prepareStatement ("UPDATE productoexternoblanca SET pieza='"+cantidadnumerica+"',total = '"+solodosdecimales.format(total)+"',fecha = '"+fecha()+"',tiendaexterna = '"+combosucursal.getSelectedItem().toString()+"'WHERE nombre= 'Pierna' ");
                                 a=ps.executeUpdate();
@@ -774,12 +759,13 @@ public void nombresypiezas(){
                         }catch(SQLException e)  { //fin de la insersion a la tabla ventas
                             JOptionPane.showMessageDialog(null,"Error de datos por id vacio "+e);
                         }//fin de la insersion a la tabla ventas
+                        finally{cc.getClose();}
                         break;
                 case "Ala":
                 piezasenbase(combopieza.getSelectedItem().toString());
                 cantidadnumerica+=piezaendb;
                 total=Float.parseFloat(String.valueOf(cantidadnumerica*5));
-                try{ //la insersion a la tabla ventas
+                try{ Connection ca= cc.conexion(); // CONEXION DB //la insersion a la tabla ventas
          if(combosucursal.getSelectedItem().toString().equals("Blanca")){
 
                         PreparedStatement ps = ca.prepareStatement ("UPDATE productoexternoblanca SET pieza='"+cantidadnumerica+"',total = '"+solodosdecimales.format(total)+"',fecha = '"+fecha()+"',tiendaexterna = '"+combosucursal.getSelectedItem().toString()+"'WHERE nombre= 'Ala' ");
@@ -803,12 +789,13 @@ public void nombresypiezas(){
                 }catch(SQLException e)  { //fin de la insersion a la tabla ventas
                     JOptionPane.showMessageDialog(null,"Error de datos por id vacio "+e);
                 }//fin de la insersion a la tabla ventas
+                finally{cc.getClose();}
                 break;
                    case "Huacal":
                 piezasenbase(combopieza.getSelectedItem().toString());
                 cantidadnumerica+=piezaendb;
                 total=Float.parseFloat(String.valueOf(cantidadnumerica*5));
-                try{ //la insersion a la tabla ventas
+                try{  Connection ca= cc.conexion(); // CONEXION DB//la insersion a la tabla ventas
          if(combosucursal.getSelectedItem().toString().equals("Blanca")){
                         PreparedStatement ps = ca.prepareStatement ("UPDATE productoexternoblanca SET pieza='"+cantidadnumerica+"',total = '"+solodosdecimales.format(total)+"',fecha = '"+fecha()+"',tiendaexterna = '"+combosucursal.getSelectedItem().toString()+"'WHERE nombre= 'Huacal' ");
                         a=ps.executeUpdate();
@@ -831,12 +818,13 @@ public void nombresypiezas(){
                 }catch(SQLException e)  { //fin de la insersion a la tabla ventas
                     JOptionPane.showMessageDialog(null,"Error de datos por id vacio "+e);
                 }//fin de la insersion a la tabla ventas
+                finally{cc.getClose();}
                 break;
                    case "Cadera":
                 piezasenbase(combopieza.getSelectedItem().toString());
                 cantidadnumerica+=piezaendb;
                 total=Float.parseFloat(String.valueOf(cantidadnumerica*2));
-                try{ //la insersion a la tabla ventas
+                try{  Connection ca= cc.conexion(); // CONEXION DB//la insersion a la tabla ventas
          if(combosucursal.getSelectedItem().toString().equals("Blanca")){
                         PreparedStatement ps = ca.prepareStatement ("UPDATE productoexternoblanca SET pieza='"+cantidadnumerica+"',total = '"+solodosdecimales.format(total)+"',fecha = '"+fecha()+"',tiendaexterna = '"+combosucursal.getSelectedItem().toString()+"'WHERE nombre= 'Cadera' ");
                         a=ps.executeUpdate();
@@ -858,11 +846,12 @@ public void nombresypiezas(){
                 }catch(SQLException e)  { //fin de la insersion a la tabla ventas
                     JOptionPane.showMessageDialog(null,"Error de datos por id vacio "+e);
                 }//fin de la insersion a la tabla ventas
+                finally{cc.getClose();}
                 break;
                    default:
                 piezasenbase(combopieza.getSelectedItem().toString());
                 cantidadnumerica+=piezaendb;
-                try{ //la insersion a la tabla ventas
+                try{ Connection ca= cc.conexion(); // CONEXION DB //la insersion a la tabla ventas
 
                     if(combosucursal.getSelectedItem().toString().equals("Blanca")){
 
@@ -888,6 +877,7 @@ public void nombresypiezas(){
                 }catch(SQLException e)  { //fin de la insersion a la tabla ventas
                     JOptionPane.showMessageDialog(null,"Error de datos por id vacio "+e);
                 }//fin de la insersion a la tabla ventas
+                finally{cc.getClose();}
                 break;
             }
         }//ESTO VALIDA QUE EL TEXTO ESCRITO NO TENGA INCOHERENCIAS
@@ -1046,8 +1036,7 @@ public void nombresypiezas(){
             }
         });
     }
-SI cc= new SI();
- Connection ca= cc.conexion();
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Corte_btncancelar;
     private javax.swing.JLabel EtiquetaSucursal;
