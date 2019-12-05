@@ -39,12 +39,25 @@ Thread hilo;
   static String[] productococido = {"Pollo rostizado","Pollo asado",
   "Pech. broaster","Muslo broaster","Pierna broaster","Ala broaster",
   "Alitas bbq",
-  "Barbacoa de pollo","Salsa guajillo (gde","Spagueti blanco","Spagueti rojo","Spagueti rojo","Arroz blanco","Arroz rojo",
+  "Barbacoa de pollo","Salsa guajillo (gde)","Spagueti blanco","Spagueti rojo","Arroz blanco","Arroz rojo",
   "Frijoles puercos","Frijoles peruanos", "Frijoles charros",
   "Cochinita","Pure","Ens. de manzana","Ensalada de col","Ensalada rusa",
   "Pasta de codito","Chiles en vinagre","Ver. encurtidas",
   "Nuggets","Mininuggets","Tacos","Brochetas"};
-
+ ArrayList cantidadescocido = new  ArrayList();
+         ArrayList sobrantecocido = new  ArrayList();
+          double []totalescocido = {
+    94.00, 94.00, 18.50, 18.50, 17.00, 
+    12.00, 25.00, 18.50, 0.00, 15.00, 
+    15.00, 15.00, 15.00, 18.00, 15.00, 
+    15.00, 20.00, 15.00, 19.50, 15.00, 
+    18.00, 15.00, 12.00, 12.00, 8.50, 
+    2.75, 2.50, 9.50};
+    ArrayList cantidadescrudo = new  ArrayList();
+             ArrayList sobrantecrudo= new  ArrayList();
+   double []totalescrudo = {62.00, 11.00, 11.00, 6.50, 7.00, 3.50, 2.50, 2.50, 1.50, 62.50, 62.00, 125.00};
+      
+             
   final float pagopollo=20*90, tacos=60, almuerzo=28;//datos para la tabla utilidad
 float  totaldedescuentos, totaldepagos,diferenciaentablautilidad, utilidades, total_de_crudo, total_de_procesados, ventasdeldia, gastosdeldia, montodeapertura, diferencia, diferenciafinal, precio;
 int apertura, numerodescuentos;
@@ -632,31 +645,27 @@ public void pagoshechoseneldiaactual(){
             }finally{cc.getClose();}//fin de la insersion a la tabla ventas  
  }
     public void insertaradevoluciondecrudopiezasycantidades(){//AQUI SE INSERTAN LAS PIEZAS Y CANTIDADES DE PECHUGA, MUSLO ALA Y PIERNA
-         ArrayList cantidades = new  ArrayList();
-       
-         ArrayList sobrante= new  ArrayList();
-double []totales = {62.00, 11.00, 11.00, 6.50, 7.00, 3.50, 2.50, 2.50, 1.50, 62.50, 62.00, 125.00};
-        for(int aa =0; aa<=productocrudo.length-1; aa++){
+  for(int aa =0; aa<=productocrudo.length-1; aa++){
             double total=0;   
              try{Connection ca= cc.conexion();//SOLO SE LLAMA A LA CANTIDAD PORQUE EN EL TICKET YA SE DEFINIRÁN LOS NOMBRES DE CADA ARTICULO
                       sent  = (Statement)ca.createStatement();
                        rs = sent.executeQuery("select SUM(cantidad) from descripcion_de_venta where nombre_producto= '"+productocrudo[aa]+"'  and estado='Realizada' and fecha= '"+fecha()+"' GROUP BY nombre_producto");
                       while(rs.next()){
-                             cantidades.add(rs.getFloat(1));
+                             cantidadescrudo.add(rs.getFloat(1));
                          }
       }catch(Exception e){                                             
       }finally{cc.getClose();}
-            total= Double.parseDouble(String.valueOf(cantidades.get(aa)))*totales[aa];
+            total= Double.parseDouble(String.valueOf(cantidadescrudo.get(aa)))*totalescrudo[aa];
              try{Connection ca= cc.conexion();//SOLO SE LLAMA A LA CANTIDAD PORQUE EN EL TICKET YA SE DEFINIRÁN LOS NOMBRES DE CADA ARTICULO
                       sent  = (Statement)ca.createStatement();
                       rs = sent.executeQuery("select cantidad from productos WHERE nombre_producto='" +productocrudo[aa]+"' ");
                       while(rs.next()){
-                           sobrante.add(rs.getFloat("cantidad"));
+                           sobrantecocido.add(rs.getFloat("cantidad"));
                         }
       }catch(Exception e){                                             
       }  finally{cc.getClose();}
             try{ Connection ca= cc.conexion();//la insersion a la tabla ventas
-               PreparedStatement ps = ca.prepareStatement ("UPDATE devolucion_crudo SET piezas='"+cantidades.get(aa)+"',total = '"+solodosdecimales.format(total)+"',fecha = '"+fecha()+"',sobrante = '"+sobrante.get(aa)+"'WHERE nombre= '"+productocrudo[aa]+"' ");  
+               PreparedStatement ps = ca.prepareStatement ("UPDATE devolucion_crudo SET piezas='"+cantidadescrudo.get(aa)+"',total = '"+solodosdecimales.format(total)+"',fecha = '"+fecha()+"',sobrante = '"+sobrantecocido.get(aa)+"'WHERE nombre= '"+productocrudo[aa]+"' ");  
                 int a=ps.executeUpdate();
                 if(a>0){
                  }
@@ -666,32 +675,29 @@ double []totales = {62.00, 11.00, 11.00, 6.50, 7.00, 3.50, 2.50, 2.50, 1.50, 62.
     }//AQUI SE INSERTAN LAS PIEZAS Y CANTIDADES DE PECHUGA, MUSLO ALA Y PIERNA
         
    public void insertaradevoluciondecocidopiezasycantidades(){//AQUI SE INSERTAN LAS PIEZAS Y CANTIDADES DE PECHUGA, MUSLO ALA Y PIERNA
-         ArrayList cantidades = new  ArrayList();
-         ArrayList sobrante = new  ArrayList();
-         ArrayList nombres = new  ArrayList();
-double []totales = {94.0, 94.0, 18.50, 18.50, 18.50, 17.00, 12.00, 25.00, 18.50, 0.00, 15.00, 15.00, 15.00, 15.00, 18.00, 15.00, 15.00, 20.00, 15.00, 19.50, 15.00, 15.00, 15.00, 12.00, 12.00, 8.50, 2.75, 2.50, 9.50};
-        try{Connection ca= cc.conexion();//SOLO SE LLAMA A LA CANTIDAD PORQUE EN EL TICKET YA SE DEFINIRÁN LOS NOMBRES DE CADA ARTICULO
+for(int aa =0; aa<=productococido.length-1; aa++){
+            double total=0;   
+            try{Connection ca= cc.conexion();//SOLO SE LLAMA A LA CANTIDAD PORQUE EN EL TICKET YA SE DEFINIRÁN LOS NOMBRES DE CADA ARTICULO
                       sent  = (Statement)ca.createStatement();
-                      rs = sent.executeQuery("select nombre_producto, SUM(cantidad) from descripcion_de_venta where id_producto in (24, 25, 26, 27, 28, 29, 30, 31, 32, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52) and estado='Realizada' and fecha= '"+fecha()+"' GROUP BY nombre_producto");
-                      while(rs.next()){
-                             nombres.add(rs.getString(1));
-                             cantidades.add(rs.getFloat(2));
+                      rs = sent.executeQuery("select SUM(cantidad), nombre_producto from descripcion_de_venta where nombre_producto= '"+productococido[aa]+"'  and estado='Realizada' and fecha= '"+fecha()+"' GROUP BY nombre_producto");
+                     while(rs.next()){
+                         JOptionPane.showMessageDialog(null, "NOMBRE "+productococido[aa]);
+                         JOptionPane.showMessageDialog(null, "CANTIDAD"+rs.getFloat(1));
+                             cantidadescocido.add(rs.getFloat(1));
                         }
       }catch(Exception e){                                             
       }finally{cc.getClose();}
-        for(int aa =0; aa<=nombres.size()-1; aa++){
-            double total=0;   
-             total= Double.parseDouble(String.valueOf(cantidades.get(aa)))*totales[aa];
+             total= Double.parseDouble(String.valueOf(cantidadescocido.get(aa)))*totalescocido[aa];
              try{Connection ca= cc.conexion();//SOLO SE LLAMA A LA CANTIDAD PORQUE EN EL TICKET YA SE DEFINIRÁN LOS NOMBRES DE CADA ARTICULO
                       sent  = (Statement)ca.createStatement();
-                      rs = sent.executeQuery("select cantidad from productos WHERE nombre_producto='" +nombres.get(aa)+"' ");
+                      rs = sent.executeQuery("select cantidad from productos WHERE nombre_producto='" +productococido[aa]+"' ");
                       while(rs.next()){
-                            sobrante.add(rs.getFloat("cantidad"));
+                            sobrantecocido.add(rs.getFloat("cantidad"));
                         }
       }catch(Exception e){                                             
       }finally{cc.getClose();}
             try{ Connection ca= cc.conexion();//la insersion a la tabla ventas
-                PreparedStatement ps = ca.prepareStatement ("UPDATE procesados SET piezas='"+cantidades.get(aa)+"',total = '"+ solodosdecimales.format(total)+"',fecha = '"+fecha()+"',sobrante = '"+sobrante.get(aa)+"'WHERE nombre= '"+nombres.get(aa)+"' ");  
+                PreparedStatement ps = ca.prepareStatement ("UPDATE procesados SET piezas='"+cantidadescocido.get(aa)+"',total = '"+ solodosdecimales.format(total)+"',fecha = '"+fecha()+"',sobrante = '"+sobrantecocido.get(aa)+"'WHERE nombre= '"+productococido[aa]+"' ");  
                 int a=ps.executeUpdate();
                 if(a>0){
                  }
