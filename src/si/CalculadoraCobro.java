@@ -1,5 +1,6 @@
 
 package si;
+import Controladores.Controladorventa;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
@@ -419,7 +420,7 @@ String two="2";
                  if(pass2){//ESTO VALIDA QUE EL TEXTO ESCRITO NO TENGA INCOHERENCIAS   
                      //LA SIGUIENTE LINEA LE ENVIA LA CANTIDAD Y EL NOMBRE DE PIEZA A MENU PRINCIPAL
             //SI LA CALCULADORA SE VA A USAR PARA PAGOS
-                menu_principal enviar =new menu_principal(Float.parseFloat(cantidad.getText()));   
+             Controladorventa enviar = new Controladorventa(Float.parseFloat(cantidad.getText()));
                   this.setVisible(false);      
                  }                    
     }//GEN-LAST:event_listoActionPerformed

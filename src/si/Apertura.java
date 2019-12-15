@@ -1,5 +1,7 @@
 
 package si;
+import Controladores.Controladorapertura;
+import Controladores.Controladorventa;
 import java.awt.Color;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -13,29 +15,17 @@ import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 
 public class Apertura extends javax.swing.JFrame implements Runnable{
-
-    SI cc= new SI();
- Thread hilo;
-    String hora,minutos,segundos;
-   String  usuarioname=SI_Inicio.text_user.getText();
-   int  id_usuario=Integer.parseInt(SI_Inicio.iduser.getText());
-    Calendar fecha_actual = new GregorianCalendar();
+ Thread hilo; 
+ String hora, minutos, segundos;
     public Apertura() {
-        initComponents();
-        user.setText(usuarioname);
-         hilo=new Thread(this);
+         initComponents();
+     hilo=new Thread(this);
      hilo.start();
+        user.setText(SI_Inicio.text_user.getText());
         this.setLocationRelativeTo(null); // CENTRAR FORMULARIO
-   Fecha.setText(fecha());
-   Calendar calendario = Calendar.getInstance();
-    }
-    
-public static String fecha(){ /* SE DECARA LA FECHA DEL SISTEMA */
-        Date fecha=new Date();
-        SimpleDateFormat formatoFecha= new SimpleDateFormat("YYYY/MM/dd");
-        return formatoFecha.format(fecha);
-    }
-public void hora(){
+   Fecha.setText(Controladorventa.fecha());
+   Reloj.setText(hora+":"+minutos+":"+segundos);
+    } public void hora(){
         Calendar calendario=new GregorianCalendar();
         Date horaactual=new Date();
         calendario.setTime(horaactual);
@@ -49,7 +39,7 @@ public void hora(){
           hora();
           Reloj.setText(hora+":"+minutos+":"+segundos+" ");
       }
-    }   // HORA DEL SISTEMA REFLEJADOO EN EL FRAME
+    }
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -173,117 +163,22 @@ public void hora(){
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-public boolean validarFormulario(String cantidaddecorte) { // VALIDACION DE TXT MONTO
-        boolean next = false;
-        Pattern patGastos = Pattern.compile("^[0-9]+([.])?([0-9]+)?$");
-        Matcher matGastos = patGastos.matcher(cantidaddecorte);
-        if (matGastos.matches()&&!cantidaddecorte.equals("")&&!cantidaddecorte.equals("0")) {
-            next = true;
-        } else {
-            JOptionPane.showMessageDialog(null, "Solo escribe numeros, así como no puede quedar vacio", "Advertencia", JOptionPane.INFORMATION_MESSAGE);
-            monto.setText("");
-        }
-        return next;
-    }
-    private void Corte_btnImprimirticketActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Corte_btnImprimirticketActionPerformed
-  boolean pass2 = validarFormulario(monto.getText());
-                 if(pass2){//ESTO VALIDA QUE EL TEXTO ESCRITO NO TENGA INCOHERENCIAS   
-                       try{
- Connection ca= cc.conexion(); //la insersion a la tabla ventas
 
-    String sql = "INSERT INTO  apertura(monto,fecha,hora,usuario)  VALUES (?,?,?,?)";
-                PreparedStatement pst = ca.prepareCall(sql); //hasta aqui vamos
-                pst.setFloat(1,Float.parseFloat(monto.getText()));
-                pst.setString(2,fecha());
-                pst.setString(3,Reloj.getText());
-                pst.setInt(4,id_usuario);
-                int a=pst.executeUpdate();
-                if(a>0){
-                    insertarpiezaspordefault();
-                    this.setVisible(false);  
-                              new menu_principal().setVisible(true);
-                               this.setIconImage(null);
-                }
-            }catch(SQLException e)  { //fin de la insersion a la tabla ventas
-                JOptionPane.showMessageDialog(null,"Error de datos por id vacio "+e);
-            }finally{cc.getClose();}//fin de la insersion a la tabla ventas 
-                 }
+    private void Corte_btnImprimirticketActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Corte_btnImprimirticketActionPerformed
+ Controladorapertura.registrarapertura();this.dispose(); new nucleo().setVisible(true);
     }//GEN-LAST:event_Corte_btnImprimirticketActionPerformed
-public void insertarpiezaspordefault(){
-   String nombres[]= {"Pollo rostizado",
-       "Pollo asado",
-       "Pech. broaster",
-       "Muslo broaster",
-       "Pierna broaster",
-       "Ala broaster",
-       "Alitas bbq",
-       "Barbacoa de pollo",
-       "Spagueti blanco",
-       "Spagueti rojo",
-       "Arroz blanco",
-       "Arroz rojo",
-       "Frijoles puercos",
-       "Frijoles peruanos",
-       "Frijoles charros",
-       "Cochinita",
-       "Pure",
-       "Nuggets",
-       "Mininuggets",
-       "Tacos"};
-   int cantidades[]={2,
-       2,
-       7,
-       7,
-       7,
-       7,
-       2,
-       1,
-       2,
-       1,
-       1,
-       2,
-       1,
-       2,
-       2,
-       1,
-       1,
-       4,
-       8,
-       30};
-   for(int a=0; a<nombres.length; a++){
-       try{              Connection ca= cc.conexion(); 
-           PreparedStatement ps = ca.prepareStatement ("UPDATE productos SET cantidad='"+cantidades[a]+"'WHERE nombre_producto='"+nombres[a]+"'");
-                  int b = ps.executeUpdate();
-                if(b>0){   
-                }
-                  }catch(Exception e){
-                               System.err.print(e);
-                     } finally{cc.getClose();}
-   }
-}
+
 
     private void montoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_montoFocusGained
-        // *********************   CAJA DE TEXTO DE PAGOO *********
-        if(monto.getText().trim().equals("00.00")){
-            monto.setText("");
-        }
-        monto.setForeground(Color.blue);
+    Controladorapertura.montoFocusGained();
     }//GEN-LAST:event_montoFocusGained
 
     private void montoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_montoFocusLost
-        // *********************   CAJA DE TEXTO DE PAGOO *********
-        if(monto.getText().trim().equals("")){
-            monto.setText("00.00");
-        }
-        monto.setForeground(new Color(236, 240, 241));
+      Controladorapertura.montoFocusLost();
     }//GEN-LAST:event_montoFocusLost
 
     private void Corte_btncancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Corte_btncancelarActionPerformed
-        // BOTON DE CANCELAR LA INSERCION DE NUEVO USUARIO
-        int dialogButton = JOptionPane.YES_NO_OPTION;
-        int result = JOptionPane.showConfirmDialog(null, "¿Regresar a pagina anterior?","                    Aviso",dialogButton);
-        if(result == 0){
-            dispose();   }
+      dispose(); 
     }//GEN-LAST:event_Corte_btncancelarActionPerformed
 
     /**
@@ -326,7 +221,7 @@ public void insertarpiezaspordefault(){
     private javax.swing.JButton Corte_btnImprimirticket;
     private javax.swing.JButton Corte_btncancelar;
     private javax.swing.JLabel Fecha;
-    private javax.swing.JLabel Reloj;
+    public static javax.swing.JLabel Reloj;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;

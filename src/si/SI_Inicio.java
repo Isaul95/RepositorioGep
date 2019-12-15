@@ -1,4 +1,5 @@
 package si;
+import Controladores.Controladorventa;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
@@ -8,8 +9,9 @@ import java.util.logging.Level;
 import java.sql.Connection;
 import java.util.logging.Logger;
 import java.awt.Toolkit;
+import java.awt.event.KeyEvent;
 import java.text.SimpleDateFormat;
-import static si.menu_principal.cc;
+import static si.Calculadora.cantidad;
 public class SI_Inicio extends javax.swing.JFrame {
     SI cc= new SI();
       int timer; //variable conteo de los intentos de acceso
@@ -24,7 +26,7 @@ public class SI_Inicio extends javax.swing.JFrame {
     }
          //  ICONO AL EJECUTAR EL PROYECTO
                  public Image getIconImage(){
-                     Image retValue = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("Reportes/logo5.png"));
+                     Image retValue = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("Reportes/logo.jpg"));
                      return retValue;
                  }
              // FIN DEL ICONO
@@ -39,8 +41,8 @@ public class SI_Inicio extends javax.swing.JFrame {
                 }
     
       String user,estadoinactivo="Inactivo", pass;
-      int resultopen, aperturahecha, resultadoclose, cierrehecho;
-      int id_usuario=0;
+      short resultopen, aperturahecha, resultadoclose, cierrehecho;
+      short id_usuario=0;
       String fechadehoy;
     String []datos = new String[4];
 
@@ -68,7 +70,7 @@ public class SI_Inicio extends javax.swing.JFrame {
         usuario.setBackground(new java.awt.Color(0, 111, 153));
         usuario.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         usuario.setForeground(new java.awt.Color(255, 255, 255));
-        usuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/jefe.png"))); // NOI18N
+        usuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/casilla-de-verificacion (1).png"))); // NOI18N
         usuario.setText("ENTRAR");
         usuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -134,11 +136,16 @@ public class SI_Inicio extends javax.swing.JFrame {
                 pass_userFocusLost(evt);
             }
         });
+        pass_user.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                pass_userKeyReleased(evt);
+            }
+        });
         getContentPane().add(pass_user, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 350, 200, -1));
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/User.png"))); // NOI18N
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/LOGOmcs.png"))); // NOI18N
         jLabel5.setText("U");
         getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 20, 260, -1));
 
@@ -176,7 +183,7 @@ public static String fecha(){ /* SE DECARA LA FECHA DEL SISTEMA */
              Statement sent = ca.createStatement();   
               ResultSet rs = sent.executeQuery("select * from apertura where fecha='"+fechadehoy+"' ");
             if(rs.next()){        
-            resultopen=Integer.parseInt(rs.getString(1)); //Obtiene el id de la venta
+            resultopen=Short.parseShort(rs.getString(1)); //Obtiene el id de la venta
             }
            
             if(resultopen!=0){ //si el id resultante de la consulta es diferente de 0 quiere decir que ya hay por lo menos una venta en el sistema
@@ -184,7 +191,7 @@ public static String fecha(){ /* SE DECARA LA FECHA DEL SISTEMA */
             }
         } 
              catch (SQLException ex) {
-            Logger.getLogger(menu_principal.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(nucleo.class.getName()).log(Level.SEVERE, null, ex);
         }finally{
                   cc.getClose();
              }
@@ -194,14 +201,14 @@ public static String fecha(){ /* SE DECARA LA FECHA DEL SISTEMA */
              Statement sent = ca.createStatement();   
               ResultSet rs = sent.executeQuery("select * from cortes where fecha='"+fechadehoy+"' ");
             if(rs.next()){        
-            resultadoclose=Integer.parseInt(rs.getString(1)); //Obtiene el id de la venta
+            resultadoclose=Short.parseShort(rs.getString(1)); //Obtiene el id de la venta
             }
             if(resultadoclose!=0){ //si el id resultante de la consulta es diferente de 0 quiere decir que ya hay por lo menos una venta en el sistema
             cierrehecho=1; //entonces el valor de "primerventa" se convertirá en 1, indicando que ya hay por lo menos una venta
             }
         } 
              catch (SQLException ex) {
-            Logger.getLogger(menu_principal.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(nucleo.class.getName()).log(Level.SEVERE, null, ex);
         }finally{
                   cc.getClose();
              }
@@ -220,7 +227,7 @@ public static String fecha(){ /* SE DECARA LA FECHA DEL SISTEMA */
             datos[0]=rs.getString("nombre_usuario"); 
             datos[1]=rs.getString("contraseña");
             datos[2]=rs.getString("estado_activo_inactivo");
-            id_usuario=rs.getInt("id_usuario");
+            id_usuario=rs.getShort("id_usuario");
             iduser.setText(String.valueOf(id_usuario));
             }
                 if(datos[2].equals("Inactivo")){
@@ -240,7 +247,7 @@ public static String fecha(){ /* SE DECARA LA FECHA DEL SISTEMA */
              }
              else{
              this.setVisible(false);  
-                              menu_principal m= new menu_principal();
+                              nucleo m= new nucleo();
                                this.setIconImage(null);
              }
             
@@ -268,22 +275,14 @@ public static String fecha(){ /* SE DECARA LA FECHA DEL SISTEMA */
         } catch (SQLException ex) {
             Logger.getLogger(SI_Inicio.class.getName()).log(Level.SEVERE, null, ex);
         }
-           catch (NullPointerException  NPE){
-               JOptionPane.showMessageDialog(null, "Tranquilo(a), no has escrito correctamente el nombre de usuario ni la contraseña \nINTENTE INICIAR SESION COMO ADMIN O REGISTRARSE","Tomalo con calma",JOptionPane.WARNING_MESSAGE);
-               text_user.setText("");
-                    pass_user.setText("");
-               timer=0;
-           }finally{
+           finally{
                   cc.getClose();
              }
      }
     }//GEN-LAST:event_usuarioActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-     int dialogButton = JOptionPane.YES_NO_OPTION;
-        int result = JOptionPane.showConfirmDialog(null, "¿Desea salir de Inicio?", "Aviso",dialogButton);
-           if(result == 0){
-               System.exit(0);   }
+       System.exit(0);   
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void text_userFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_text_userFocusGained
@@ -314,6 +313,77 @@ public static String fecha(){ /* SE DECARA LA FECHA DEL SISTEMA */
         }
            pass_user.setForeground(new Color(236, 240, 241));
     }//GEN-LAST:event_pass_userFocusLost
+
+    private void pass_userKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_pass_userKeyReleased
+      char tecla = evt.getKeyChar();
+        if(tecla==KeyEvent.VK_ENTER){
+ // BOTON DE INGRESO PARA LOS USUARIOS
+     if (text_user.getText().equals("Ingresa Usuario") || pass_user.getText().equals("********")) { // 
+          JOptionPane.showMessageDialog(null, "Por favor Inserte su Usuario y Contraseña  \nPara Ingresar", "ALERTA", JOptionPane.WARNING_MESSAGE);
+        } else { 
+        user=text_user.getText();
+      pass=pass_user.getText(); //se guardan los datos del usuario
+    try { Connection ca= cc.conexion(); 
+            Statement st = ca.createStatement();
+            ResultSet rs= st.executeQuery( "SELECT * FROM user WHERE nombre_usuario='"+text_user.getText()+"' or contraseña='"+pass_user.getText()+"'");
+            while(rs.next()){ //ciclo para leer los datos en la variable rs
+            datos[0]=rs.getString("nombre_usuario"); 
+            datos[1]=rs.getString("contraseña");
+            datos[2]=rs.getString("estado_activo_inactivo");
+            id_usuario=rs.getShort("id_usuario");
+            iduser.setText(String.valueOf(id_usuario));
+            }
+                if(datos[2].equals("Inactivo")){
+                JOptionPane.showMessageDialog(null,"Usuario Inactivo, por favor comunicate con tu administrador para recuperar tu usuario","               Lo sentimos",JOptionPane.WARNING_MESSAGE);
+            }
+            else{
+                    yacerrosistema();
+                     if(resultadoclose>0){
+                  JOptionPane.showMessageDialog(null,"Ya se hizo corte de caja, por lo tanto no se puede abrir hasta el día de mañana"," Espera un momento",JOptionPane.INFORMATION_MESSAGE); //Msg de bienvenida                                                                     
+             }
+              else if(user.equals(datos[0])&&pass.equals(datos[1])){ //comparacion entre lo escrito por el usuario y lo almacenado en la base de datos
+               yaseabriosistema();
+             if(aperturahecha==0){//Si el valor de apertua es mayo a 0, no se abrirá la ventana de apertura
+                 this.setVisible(false);  
+                              new Apertura().setVisible(true);
+                               this.setIconImage(null);
+             }
+             else{
+             this.setVisible(false);  
+                              nucleo m= new nucleo();
+                               this.setIconImage(null);
+             }
+            
+                }else{
+                    JOptionPane.showMessageDialog(null,"Usuario o Contraseña incorrecto \n Intentelo Nuevamente \n Resta " + (3 - timer) + " Intentos","Error",JOptionPane.WARNING_MESSAGE); //Msg de error
+                     text_user.setText("");
+                     pass_user.setText("");
+                 timer = timer + 1;
+                }
+                 if(timer == 3){
+                       JOptionPane.showMessageDialog(null,"Excedido el número de intentos \n Intentelo mas tarde ","Error de Ingreso",JOptionPane.ERROR_MESSAGE); //Msg de error
+                        try{
+           PreparedStatement ps = ca.prepareStatement ("UPDATE user SET estado_activo_inactivo='"+estadoinactivo+"'WHERE id_usuario='"+id_usuario+"'");
+                ps.executeUpdate();
+ JOptionPane.showMessageDialog(null,"Tu usuario ha sido bloqueado, por favor comunicate con tu administrador para recuperar tu usuario","Lo sentimos",JOptionPane.WARNING_MESSAGE);
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, "ERROR" + e.getMessage());
+        }finally{
+                  cc.getClose();
+             }  //Procediendo a bloquear usuario
+                       System.exit(0);  //Y ya una vez bloqueado el usuario, el programa se cerrara automaticamente
+                     }
+            }
+                 
+        } catch (SQLException ex) {
+            Logger.getLogger(SI_Inicio.class.getName()).log(Level.SEVERE, null, ex);
+        }
+           finally{
+                  cc.getClose();
+             }
+     }
+        }
+    }//GEN-LAST:event_pass_userKeyReleased
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */

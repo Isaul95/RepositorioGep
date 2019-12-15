@@ -1,4 +1,6 @@
 package si;
+import Controladores.Controladorexistencias;
+import Controladores.Controladorventa;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,103 +16,16 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import ticket.ticketcortedecaja;
 
-public class Existencias extends javax.swing.JFrame  implements Runnable{
-   SI cc= new SI();
-  Thread hilo;    
-    String hora,minutos,segundos;
-    Statement sent;  
-  ResultSet rs;     
-  ticketcortedecaja tikectcorte;
-float ventasdeldia, gastosdeldia, montodeapertura, diferencia, diferenciafinal;
-int apertura;
-String  usuarioname=SI_Inicio.text_user.getText();
-int  id_usuario=Integer.parseInt(SI_Inicio.iduser.getText());
-    Calendar fecha_actual = new GregorianCalendar();
-    ArrayList arreglodelaspiezassobranteseninventario = new ArrayList(); // para guardar los id de cada producto que se ha agregado a la tabla venta
-   ArrayList datosdelcorteparaelticket = new ArrayList(); // para guardar los id de cada producto que se ha agregado a la tabla venta
-  
-    public Existencias() {
-        initComponents();
-         menu_principal.noduplicarexistencias=true;
-         hilo=new Thread(this);
-     hilo.start();
-        this.setLocationRelativeTo(null); // CENTRAR FORMULARIO
-        Fecha.setText(fecha());
-        user.setText(usuarioname);
-        mostrartodoslosproductosenexistencias();
-    }
-    
-    public void hora(){
-        Calendar calendario=new GregorianCalendar();
-        Date horaactual=new Date();
-        calendario.setTime(horaactual);
-    hora=calendario.get(Calendar.HOUR)>9?""+calendario.get(Calendar.HOUR):"0"+calendario.get(Calendar.HOUR);
-    minutos=calendario.get(Calendar.MINUTE)>9?""+calendario.get(Calendar.MINUTE):"0"+calendario.get(Calendar.MINUTE);
-    segundos= calendario.get(Calendar.SECOND)>9?""+calendario.get(Calendar.SECOND):"0"+calendario.get(Calendar.SECOND);        
-     }
-    public void run() {
-      Thread ct = Thread.currentThread();
-      while(ct==hilo){
-          hora();
-          Reloj.setText(hora+":"+minutos+":"+segundos+" ");
-      }
-    }
-    
-    public static String fecha(){ /* SE DECARA LA FECHA DEL SISTEMA */
-        Date fecha=new Date();
-        SimpleDateFormat formatoFecha= new SimpleDateFormat("YYYY/MM/dd");
-        return formatoFecha.format(fecha);
-    }
-    
-    public void mostrartodoslosproductosenexistencias(){
-            existenciadeproductos.setVisible(true);    //hace visible la tabla de proveedores 
-              DefaultTableModel modelo = new DefaultTableModel(); // Se crea un objeto para agregar los nombres de las columnas a la tabla
-    modelo.addColumn("Nombre");
-    modelo.addColumn("Piezas");
-     existenciadeproductos.setModel(modelo);  // Ya una vez asignado todos los nombres se le envia el objeto a la tabla proveedores
-    String []datos = new String[2];     //Un arreglo con la cantidad de nombres en las columnas
-    try {Connection ca= cc.conexion();
-             sent = ca.createStatement();   
-                       rs= sent.executeQuery("select nombre_producto, cantidad  from  productos"); // se ejecuta la sentencia dentro del parentesis
-            while(rs.next()){        
-            datos[0]=rs.getString(1);
-            datos[1]=rs.getString(2);
-            modelo.addRow(datos); //se asigna el arreglo  entero a todo el objeto llamado modelo  
-            }
-           existenciadeproductos.setModel(modelo); // Se vuelve a enviar nuevamente el objeto modelo a la tabla
-        } catch (SQLException ex) {
-            Logger.getLogger(menu_principal.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(null, "No se pudo mostrar ningun dato porque tu consulta está mal");
-        } finally{cc.getClose();}
-    }
-    
-    public void mostrartodoslosproductosenexistenciasporbusqueda(String textoabuscar){
-            existenciadeproductos.setVisible(true);    //hace visible la tabla de proveedores 
-              DefaultTableModel modelo = new DefaultTableModel(); // Se crea un objeto para agregar los nombres de las columnas a la tabla
-    modelo.addColumn("Nombre");
-    modelo.addColumn("Piezas");
-     existenciadeproductos.setModel(modelo);  // Ya una vez asignado todos los nombres se le envia el objeto a la tabla proveedores
-    String []datos = new String[2];     //Un arreglo con la cantidad de nombres en las columnas
-    try {Connection ca= cc.conexion();
-             sent = ca.createStatement();   
-                       if(textoabuscar.equals("")){
-                          rs= sent.executeQuery("select nombre_producto, cantidad  from  productos"); // se ejecuta la sentencia dentro del parentesis
-                       }
-                       else{
-                           rs= sent.executeQuery("select nombre_producto, cantidad  from  productos where nombre_producto LIKE '%" +textoabuscar+"%' "); // se ejecuta la sentencia dentro del parentesis
-                       }
-             while(rs.next()){        
-            datos[0]=rs.getString(1);
-            datos[1]=rs.getString(2);
-            modelo.addRow(datos); //se asigna el arreglo  entero a todo el objeto llamado modelo  
-            }
-           existenciadeproductos.setModel(modelo); // Se vuelve a enviar nuevamente el objeto modelo a la tabla
-        } catch (SQLException ex) {
-            Logger.getLogger(menu_principal.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(null, "No se pudo mostrar ningun dato porque tu consulta está mal");
-        } finally{cc.getClose();}
-    }
+public class Existencias extends javax.swing.JFrame{
 
+  
+
+ public Existencias() {
+        initComponents();
+         Controladorventa.noduplicarexistencias=true;
+        this.setLocationRelativeTo(null); // CENTRAR FORMULARIO
+        Controladorexistencias.metodosalabrirexistencias();
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -119,12 +34,9 @@ int  id_usuario=Integer.parseInt(SI_Inicio.iduser.getText());
         jPanel2 = new javax.swing.JPanel();
         Corte_btncancelar = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
-        Fecha = new javax.swing.JLabel();
-        Reloj = new javax.swing.JLabel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        existenciadeproductos = new rojerusan.RSTableMetro();
         busqueda = new javax.swing.JTextField();
-        user = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        existenciadeproductos = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -160,40 +72,6 @@ int  id_usuario=Integer.parseInt(SI_Inicio.iduser.getText());
         jPanel2.add(jLabel3);
         jLabel3.setBounds(10, 60, 340, 29);
 
-        Fecha.setFont(new java.awt.Font("Times New Roman", 1, 27)); // NOI18N
-        Fecha.setForeground(new java.awt.Color(255, 255, 255));
-        Fecha.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        Fecha.setText("DD/MM/YYYY");
-        jPanel2.add(Fecha);
-        Fecha.setBounds(0, 0, 230, 60);
-
-        Reloj.setFont(new java.awt.Font("Times New Roman", 1, 27)); // NOI18N
-        Reloj.setForeground(new java.awt.Color(255, 255, 255));
-        Reloj.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        Reloj.setText("00:00:00");
-        jPanel2.add(Reloj);
-        Reloj.setBounds(390, 0, 260, 60);
-
-        existenciadeproductos.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-
-            }
-        ));
-        existenciadeproductos.setColorFilasForeground1(new java.awt.Color(0, 0, 0));
-        existenciadeproductos.setColorFilasForeground2(new java.awt.Color(0, 0, 0));
-        existenciadeproductos.setColorSelForeground(new java.awt.Color(0, 0, 0));
-        existenciadeproductos.setGrosorBordeFilas(0);
-        existenciadeproductos.setGrosorBordeHead(0);
-        existenciadeproductos.setMultipleSeleccion(false);
-        existenciadeproductos.setRowHeight(25);
-        jScrollPane2.setViewportView(existenciadeproductos);
-
-        jPanel2.add(jScrollPane2);
-        jScrollPane2.setBounds(360, 70, 270, 400);
-
         busqueda.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 busquedaKeyReleased(evt);
@@ -202,12 +80,25 @@ int  id_usuario=Integer.parseInt(SI_Inicio.iduser.getText());
         jPanel2.add(busqueda);
         busqueda.setBounds(20, 100, 220, 30);
 
+        existenciadeproductos.setFont(new java.awt.Font("Dialog", 1, 22)); // NOI18N
+        existenciadeproductos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane1.setViewportView(existenciadeproductos);
+
+        jPanel2.add(jScrollPane1);
+        jScrollPane1.setBounds(290, 90, 350, 380);
+
         jPanel1.add(jPanel2);
         jPanel2.setBounds(10, 50, 650, 480);
-
-        user.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
-        jPanel1.add(user);
-        user.setBounds(500, 0, 180, 50);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -226,17 +117,15 @@ int  id_usuario=Integer.parseInt(SI_Inicio.iduser.getText());
     }// </editor-fold>//GEN-END:initComponents
 
     private void Corte_btncancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Corte_btncancelarActionPerformed
-        // BOTON DE CANCELAR LA INSERCION DE NUEVO USUARIO
-            dispose();   
+        this.dispose();
     }//GEN-LAST:event_Corte_btncancelarActionPerformed
 
     private void busquedaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_busquedaKeyReleased
-       String textobusqueda = busqueda.getText();
-       mostrartodoslosproductosenexistenciasporbusqueda(textobusqueda);
+       Controladorexistencias.mostrartodoslosproductosenexistencias(busqueda.getText());
     }//GEN-LAST:event_busquedaKeyReleased
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-          menu_principal.noduplicarexistencias=false;
+          Controladorventa.noduplicarexistencias=false;
     }//GEN-LAST:event_formWindowClosed
 
     /**
@@ -277,14 +166,11 @@ int  id_usuario=Integer.parseInt(SI_Inicio.iduser.getText());
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Corte_btncancelar;
-    private javax.swing.JLabel Fecha;
-    private javax.swing.JLabel Reloj;
     private javax.swing.JTextField busqueda;
-    private rojerusan.RSTableMetro existenciadeproductos;
+    public static javax.swing.JTable existenciadeproductos;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JLabel user;
+    private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }

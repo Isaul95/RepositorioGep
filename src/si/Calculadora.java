@@ -1,18 +1,20 @@
 package si;
+import Controladores.Controladorcalculadora;
+import Controladores.Controladorventa;
+import java.awt.event.KeyEvent;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 public class Calculadora extends javax.swing.JFrame {
-static String pieza="", descripcion="", uso="";
-static float cantidadacobrar=0;    
+ 
 public Calculadora(String pieza, String descripcion){
-    this.pieza=pieza;
-    this.descripcion=descripcion;
+    Controladorcalculadora.pieza=pieza;
+    Controladorcalculadora.descripcion=descripcion;
 }
     public Calculadora() {
         initComponents();
-         piezalabel.setText(this.pieza);
-         descripcionlabel.setText(this.descripcion);
+         piezalabel.setText(Controladorcalculadora.pieza);
+         descripcionlabel.setText(Controladorcalculadora.descripcion);
          this.setLocationRelativeTo(null); // CENTRAR FORMULARIO        
     }
     
@@ -31,7 +33,6 @@ public Calculadora(String pieza, String descripcion){
         n2 = new javax.swing.JButton();
         n3 = new javax.swing.JButton();
         borrar = new javax.swing.JButton();
-        listo = new javax.swing.JButton();
         regresa = new javax.swing.JButton();
         n0 = new javax.swing.JButton();
         descripcionlabel = new javax.swing.JLabel();
@@ -144,16 +145,6 @@ public Calculadora(String pieza, String descripcion){
             }
         });
 
-        listo.setBackground(new java.awt.Color(255, 255, 255));
-        listo.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
-        listo.setForeground(new java.awt.Color(255, 0, 0));
-        listo.setText("LISTO");
-        listo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                listoActionPerformed(evt);
-            }
-        });
-
         regresa.setBackground(new java.awt.Color(255, 255, 255));
         regresa.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
         regresa.setForeground(new java.awt.Color(255, 0, 0));
@@ -190,6 +181,11 @@ public Calculadora(String pieza, String descripcion){
         cantidad.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         cantidad.setBorder(null);
         cantidad.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        cantidad.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                cantidadKeyReleased(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -198,6 +194,7 @@ public Calculadora(String pieza, String descripcion){
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(n0, javax.swing.GroupLayout.PREFERRED_SIZE, 349, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addGroup(jPanel1Layout.createSequentialGroup()
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -223,10 +220,6 @@ public Calculadora(String pieza, String descripcion){
                             .addComponent(n2, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(n3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(listo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(n0, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addComponent(piezalabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(borrar, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -261,9 +254,7 @@ public Calculadora(String pieza, String descripcion){
                     .addComponent(n2, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(n3, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(listo, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(n0, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(n0, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(regresa, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -290,146 +281,62 @@ public Calculadora(String pieza, String descripcion){
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-  public boolean validarFormulario(String cantidaddelatabla) { // VALIDACION DE TXT MONTO
-        boolean next = false;
-        Pattern patGastos = Pattern.compile("^[0-9]+([.])?([0-9]+)?$");
-        Matcher matGastos = patGastos.matcher(cantidaddelatabla);
-        if (matGastos.matches()&&!cantidaddelatabla.equals("")&&!cantidaddelatabla.equals("0")) {
-            next = true;               
-        } else {
-            JOptionPane.showMessageDialog(null, "No puedes escribir letras, dejar vacio el campo ni meter un 0", "Advertencia", JOptionPane.INFORMATION_MESSAGE);    
-        cantidad.setText("");
-        }
-        return next;
-    }
+  
     private void borrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_borrarActionPerformed
       cantidad.setText("");     
     }//GEN-LAST:event_borrarActionPerformed
 
     private void n3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_n3ActionPerformed
-   String th="3";
-        if(!cantidad.equals("")){
-            cantidad.setText(cantidad.getText()+th);
-        }
-        else {
-            cantidad.setText(th);
-            cantidad=cantidad;
-        }
+    Controladorcalculadora.boton3();
     }//GEN-LAST:event_n3ActionPerformed
 
     private void n2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_n2ActionPerformed
-String two="2";
-        if(!cantidad.equals("")){
-            cantidad.setText(cantidad.getText()+two);
-        }
-        else {
-            cantidad.setText(two);
-            cantidad=cantidad;
-        }        // TODO add your handling code here:
+  Controladorcalculadora.boton2();
     }//GEN-LAST:event_n2ActionPerformed
 
     private void n1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_n1ActionPerformed
-   String one="1";
-        if(!cantidad.equals("")){
-            cantidad.setText(cantidad.getText()+one);
-        }
-        else {
-            cantidad.setText(one);
-            cantidad=cantidad;
-        }
+   Controladorcalculadora.boton1();
     }//GEN-LAST:event_n1ActionPerformed
 
     private void n4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_n4ActionPerformed
-      String fo="4";
-        if(!cantidad.equals("")){
-            cantidad.setText(cantidad.getText()+fo);
-        }
-        else {
-            cantidad.setText(fo);
-            cantidad=cantidad;
-        }
+   Controladorcalculadora.boton4();
     }//GEN-LAST:event_n4ActionPerformed
 
     private void n5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_n5ActionPerformed
-       String five="5";
-        if(!cantidad.equals("")){
-            cantidad.setText(cantidad.getText()+five);
-        }
-        else {
-            cantidad.setText(five);
-            cantidad=cantidad;
-        }
+     Controladorcalculadora.boton5();
     }//GEN-LAST:event_n5ActionPerformed
 
     private void n6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_n6ActionPerformed
-       String six="6";
-        if(!cantidad.equals("")){
-            cantidad.setText(cantidad.getText()+six);
-        }
-        else {
-            cantidad.setText(six);
-            cantidad=cantidad;
-        }
+      Controladorcalculadora.boton6();
     }//GEN-LAST:event_n6ActionPerformed
 
     private void n7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_n7ActionPerformed
-          String sevem="7";
-        if(!cantidad.equals("")){
-
-            cantidad.setText(cantidad.getText()+sevem);
-        }
-        else {
-            cantidad.setText(sevem);
-            cantidad=cantidad;
-        }
+   Controladorcalculadora.boton7();
     }//GEN-LAST:event_n7ActionPerformed
 
     private void n8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_n8ActionPerformed
-       String eight="8";
-        if(!cantidad.equals("")){
-            cantidad.setText(cantidad.getText()+eight);
-        }
-        else {
-            cantidad.setText(eight);
-            cantidad=cantidad;
-        }
+       Controladorcalculadora.boton8();
     }//GEN-LAST:event_n8ActionPerformed
 
     private void n9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_n9ActionPerformed
-      String nine="9";
-        if(!cantidad.equals("")){
-            cantidad.setText(cantidad.getText()+nine);
-        }
-        else {
-            cantidad.setText(nine);
-            cantidad=cantidad;
-        }
+      Controladorcalculadora.boton9();
     }//GEN-LAST:event_n9ActionPerformed
 
     private void regresaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_regresaActionPerformed
         dispose();   //}
     }//GEN-LAST:event_regresaActionPerformed
 
-    private void listoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listoActionPerformed
-        boolean pass2 = validarFormulario(cantidad.getText());
-                 if(pass2){//ESTO VALIDA QUE EL TEXTO ESCRITO NO TENGA INCOHERENCIAS   
-                  //CUANDO SE USA PARA AGREGAR CANTIDADES O PIEZAS
-            menu_principal enviar = new menu_principal(Float.parseFloat(cantidad.getText()), this.pieza);
-                 this.setVisible(false);
-                 }                     
-    }//GEN-LAST:event_listoActionPerformed
-
     private void n0ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_n0ActionPerformed
-      String one="0";
-        if(!cantidad.equals("")){
-
-            cantidad.setText(cantidad.getText()+one);
-        }
-        else {
-            cantidad.setText(one);
-            cantidad=cantidad;
-        }
+     Controladorcalculadora.boton0();
     }//GEN-LAST:event_n0ActionPerformed
+
+    private void cantidadKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cantidadKeyReleased
+    char tecla = evt.getKeyChar();
+        if(tecla==KeyEvent.VK_ENTER){
+            Controladorcalculadora.enviardecalculadora(Controladorcalculadora.pieza);
+         this.dispose();
+        }
+    }//GEN-LAST:event_cantidadKeyReleased
 
     /**
      * @param args the command line arguments
@@ -471,7 +378,6 @@ String two="2";
     public static javax.swing.JTextField cantidad;
     public javax.swing.JLabel descripcionlabel;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JButton listo;
     private javax.swing.JButton n0;
     private javax.swing.JButton n1;
     private javax.swing.JButton n2;

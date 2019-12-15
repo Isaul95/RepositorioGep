@@ -1,160 +1,198 @@
 package si;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.util.Calendar;
-import java.sql.ResultSet;
-import java.util.GregorianCalendar;
+import Controladores.Controladorgastos;
+import Controladores.Controladorventa;
+import java.awt.Color;
+import java.awt.event.KeyEvent;
 
-public class Gastos {
-    int idegreso;
-     float cantidad;
-     String tipo;
-     float total;
-     String fecha;
-     Calendar fechahoy;
-     int id_usuario;
-     String[] piezas;
-     float precioxpieza;
-     float totalpiezaspollo;
 
-    public int getId_usuario() {
-        return id_usuario;
+public class Gastos extends javax.swing.JFrame { 
+    public Gastos() {
+        initComponents();
+Controladorventa.noduplicargastos=true;
+        this.setLocationRelativeTo(null); // CENTRAR FORMULARIO  
     }
+             
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
 
-    public void setId_usuario(int id_usuario) {
-        this.id_usuario = id_usuario;
-    }
+        jPanel1 = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTableGastos = new javax.swing.JTable();
+        jLabel2 = new javax.swing.JLabel();
+        txtmonto = new javax.swing.JTextField();
+        txtdescripcion = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        busquedagastos = new javax.swing.JTextField();
+        gastos_btn_back = new javax.swing.JButton();
 
-    public String[] getPiezas() {
-        return piezas;
-    }
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setUndecorated(true);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
-    public void setPiezas(String[] piezas) {
-        this.piezas = piezas;
-    }
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "GASTOS", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Serif", 1, 36))); // NOI18N
+        jPanel1.setLayout(null);
 
-    public float getPrecioxpieza() {
-        return precioxpieza;
-    }
+        jPanel2.setBackground(new java.awt.Color(0, 51, 102));
+        jPanel2.setLayout(null);
 
-    public void setPrecioxpieza(float precioxpieza) {
-        this.precioxpieza = precioxpieza;
-    }
+        jTableGastos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
 
-    public float getTotalpiezaspollo() {
-        return totalpiezaspollo;
-    }
+            },
+            new String [] {
 
-    public void setTotalpiezaspollo(float totalpiezaspollo) {
-        this.totalpiezaspollo = totalpiezaspollo;
-    }
+            }
+        ));
+        jTableGastos.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jScrollPane1.setViewportView(jTableGastos);
 
-     java.sql.Statement sent;  
-  ResultSet rs;
-  private Connection con;
-    SI conn = new SI();
-    Calendar fecha_actual = new GregorianCalendar();
-    public Calendar getFechahoy() {
-        return fechahoy;
-    }
+        jPanel2.add(jScrollPane1);
+        jScrollPane1.setBounds(10, 240, 650, 230);
 
-    public void setFechahoy(Calendar fechahoy) {
-        this.fechahoy = fechahoy;
-    }
-    
-     public Gastos(){
-     cantidad =0;
-     tipo = "";
-     total=0;
-     fecha = "";
-    }
-     
-      Gastos(String[] piezaspollo, float precioxpieza, float totalpiezaspollo) {
-         this.piezas[0] = piezaspollo[0];
-         this.piezas[1] = piezaspollo[1];
-         this.piezas[2] = piezaspollo[2];
-          this.precioxpieza = precioxpieza;
-         this.totalpiezaspollo = totalpiezaspollo;
-    }
-     
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 17)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setText("Descripción del Gasto:");
+        jPanel2.add(jLabel2);
+        jLabel2.setBounds(10, 10, 220, 29);
 
-   public Gastos(float cantidad, String descripcion, float total, int nombre, String fecha) {
-       this.cantidad = cantidad; 
-       this.tipo = descripcion; // tipo lo almaceno en descirpcion 
-        this.total = total;      
-         this.id_usuario = nombre;  //empleado_idempleado lo almaceno en turno asi se usa en controlador
-        this.fecha = fecha;
-    }
-   
-   public Calendar Gastos(int cantidad, String descripcion, float total, int nombre, Calendar fechahoy) {
-       this.cantidad = cantidad;  
-       this.tipo = descripcion; // tipo lo almaceno en descirpcion
-        this.total = total;      
-        this.id_usuario = nombre; 
-        this.fecha_actual = fechahoy;
-        return null;
-    }
+        txtmonto.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtmonto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtmontoKeyReleased(evt);
+            }
+        });
+        jPanel2.add(txtmonto);
+        txtmonto.setBounds(10, 110, 210, 40);
+        jPanel2.add(txtdescripcion);
+        txtdescripcion.setBounds(10, 40, 480, 40);
 
-    public float getCantidad() {
-        return cantidad;
-    }
-    public void setCantidad(int cantidad) {
-        this.cantidad = cantidad;
-    }    
-    public int getIdegreso() {
-        return idegreso;
-    }
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 17)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setText("Monto del Gasto:");
+        jPanel2.add(jLabel3);
+        jLabel3.setBounds(10, 80, 160, 29);
 
-    public void setIdegreso(int idegreso) {
-        this.idegreso = idegreso;
-    }
-    public String getTipo() {
-        return tipo;
-    }
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
-    }
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setText("Busqueda de Gastos");
+        jPanel2.add(jLabel4);
+        jLabel4.setBounds(10, 150, 250, 40);
 
-    public float getTotal() {
-        return total;
-    }
+        busquedagastos.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                busquedagastosKeyReleased(evt);
+            }
+        });
+        jPanel2.add(busquedagastos);
+        busquedagastos.setBounds(10, 200, 220, 30);
 
-    public void setTotal(float total) {
-        this.total = total;
-    }
+        jPanel1.add(jPanel2);
+        jPanel2.setBounds(0, 50, 690, 480);
 
-    public String getFecha() {
-        return fecha;
-    }
+        gastos_btn_back.setBackground(new java.awt.Color(255, 255, 255));
+        gastos_btn_back.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        gastos_btn_back.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/salir-flecha-derecha (1).png"))); // NOI18N
+        gastos_btn_back.setText("Regresar");
+        gastos_btn_back.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                gastos_btn_backActionPerformed(evt);
+            }
+        });
+        jPanel1.add(gastos_btn_back);
+        gastos_btn_back.setBounds(530, 0, 150, 40);
 
-    public void setFecha(String fecha) {
-        this.fecha = fecha;
-    }
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 685, Short.MAX_VALUE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 541, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
 
-    SI cc= new SI(); // CONEXION ALA DB
- Connection ca= cc.conexion();
-    
-    public boolean Gastosinsert(){
-        String sql = null;
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        Controladorventa.noduplicargastos=false;
+    }//GEN-LAST:event_formWindowClosed
+
+    private void gastos_btn_backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gastos_btn_backActionPerformed
+        dispose();
+    }//GEN-LAST:event_gastos_btn_backActionPerformed
+
+    private void busquedagastosKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_busquedagastosKeyReleased
+        Controladorgastos.busquedadegastos();
+    }//GEN-LAST:event_busquedagastosKeyReleased
+
+    private void txtmontoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtmontoKeyReleased
+        char tecla = evt.getKeyChar();
+        if(tecla==KeyEvent.VK_ENTER){
+            Controladorgastos.insercionengastos();
+        }
+    }//GEN-LAST:event_txtmontoKeyReleased
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
         try {
-           sent = ca.createStatement(); 
-          sql = "INSERT INTO egreso (cantidad, tipo, fecha, total, usuario)  VALUES (?,?,?,?,?)";
-         PreparedStatement pst = ca.prepareCall(sql);
-           pst.setFloat(1, getCantidad());
-           pst.setString(2, getTipo());
-           pst.setString(3, getFecha());
-           pst.setFloat(4, getTotal());
-           pst.setInt(5, getId_usuario());
-            pst.executeUpdate();
-            pst.close();
-        } catch (SQLException ex) {
-            System.err.print(ex);
-            return false;
-        } 
-       return true;
-    }    
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(Gastos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(Gastos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(Gastos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(Gastos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new Gastos().setVisible(true);
+            }
+        });
     }
+ 
 
 
-
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    public static javax.swing.JTextField busquedagastos;
+    private javax.swing.JButton gastos_btn_back;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
+    public static javax.swing.JTable jTableGastos;
+    public static javax.swing.JTextField txtdescripcion;
+    public static javax.swing.JTextField txtmonto;
+    // End of variables declaration//GEN-END:variables
+}

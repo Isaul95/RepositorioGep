@@ -13,7 +13,6 @@ import java.util.logging.Logger;
 import javax.swing.Timer;
 
 public class Cargainiciodelsistema extends javax.swing.JFrame implements Runnable{
-        SI cc= new SI();
     private Thread tiempo = null;
        private Timer t ;
           private ActionListener time;
@@ -40,12 +39,11 @@ public class Cargainiciodelsistema extends javax.swing.JFrame implements Runnabl
     }
            //  ICONO AL EJECUTAR EL PROYECTO
                  public Image getIconImage(){
-                     Image retValue = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("Reportes/logo5.png"));
+                     Image retValue = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("Reportes/logo.jpg"));
                      return retValue;
                  }
              // FIN DEL ICONO       
-Statement sent;  
-  ResultSet rs;     
+ 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -144,26 +142,11 @@ Statement sent;
             try {
                 Thread.sleep(10000);
                 tiempo = null;
-                 int admin=0;
-                try {
- Connection ca= cc.conexion();
-            Statement st = ca.createStatement();
-            ResultSet rs= st.executeQuery("select * from  admin");
-            while(rs.next()){
-            admin=Integer.parseInt(rs.getString("id_admin"));
-            }
-            if(admin>0){ //Si el nombre del usuario se encontro en la base de datos quiere decir que entro un usuario al sistema
                 this.dispose();
                 new SI_Inicio().setVisible(true);
-            } 
-            else{ //No entro un usuario y entro el administrador
-             }
-        } catch (SQLException ex) {
-            Logger.getLogger(menu_principal.class.getName()).log(Level.SEVERE, null, ex);
-        }            
             } catch (InterruptedException ex) {
                 Logger.getLogger(Cargainiciodelsistema.class.getName()).log(Level.SEVERE, null, ex);
-            }finally{cc.getClose();}
+            }
         }
     }
       /** CONEXION ALA BASE DE DATOS */
