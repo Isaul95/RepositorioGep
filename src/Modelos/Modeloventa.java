@@ -1385,10 +1385,8 @@ public static void insertarventaacredito(){
                             get_id_usuario();// 255 -280
                             block_unlock=false;
                             tablaventaactiva=false;
-                            total_venta_enturno();
-                            float variable0=0;
  id_max_de_venta();
-                            PreparedStatement ps = ca.prepareStatement ("UPDATE venta SET total='"+sumadeimportesenturno+"',descuento='"+ variable0+"',pago='"+variable0+"',cambio='"+variable0+"',fecha_reporte='"+fecha()+"',estado_venta='"+creditopendiente+"'WHERE id_venta='"+id_de_la_venta_incrementable+"'");
+                            PreparedStatement ps = ca.prepareStatement ("UPDATE venta SET total='"+solodosdecimales.format(Float.parseFloat(nucleo.total.getText()))+"',descuento='"+ solodosdecimales.format(Float.parseFloat(nucleo.descuentocombo.getText()))+"',pago='"+0+"',cambio='"+0+"',fecha_reporte='"+fecha()+"',estado_venta='"+creditopendiente+"'WHERE id_venta='"+id_de_la_venta_incrementable+"'");
                             ps.executeUpdate();
  }catch(Exception ex){
                             JOptionPane.showMessageDialog(null, "Error en insertarventaacredito venta" + ex.getMessage());
