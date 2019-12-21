@@ -940,7 +940,7 @@ String sSQL = " select distinct venta.id_venta, venta.total, venta.fecha_reporte
                                     PreparedStatement ps2 = ca.prepareStatement ("UPDATE descripcion_de_venta SET estado= '"+estadorealizado+"' WHERE id_venta='"+id_de_la_venta_incrementable+"'");
                                     int result = ps2.executeUpdate();
                                          if(result>0){
-                                            Modelogastos.insertardescuentosengastos("Descuento",Float.parseFloat(nucleo.descuentocombo.getText()));
+                                            Modelogastos.insertarengastos("Descuento",Float.parseFloat(nucleo.descuentocombo.getText()));
                                               JOptionPane.showMessageDialog(null, "El cambio es de: "+nucleo.cambiocombobox.getText()," Se realizo una venta",JOptionPane.YES_OPTION);
                       if(nucleo.reimprimirventa.isSelected()){        descripciondelosprouductosparaelticketdeventa(id_de_la_venta_incrementable);//DATOS PARA EL TICKET DE VENTA          
                                            descripciondelosprouductosparaelticketdeventa(id_de_la_venta_incrementable);//DATOS PARA EL TICKET DE VENTA          
@@ -1351,7 +1351,7 @@ public static void insertarventaacredito(){
  }catch(Exception ex){
                             JOptionPane.showMessageDialog(null, "Error en insertarventaacredito venta" + ex.getMessage());
                         }
-                        try{        Modelogastos.insertarengastos("Pendiente "+nombre, sumadeimportesenturno);
+                        try{        Modelogastos.insertarengastos("Credito "+nombre, sumadeimportesenturno);
                     
                             id_max_de_venta();
                             PreparedStatement ps2 = ca.prepareStatement ("UPDATE descripcion_de_venta SET estado= '"+creditopendiente+"',nombre_credito='"+nombre+"' WHERE id_venta='"+id_de_la_venta_incrementable+"'");
