@@ -250,7 +250,7 @@ public static void nombresypiezas(){
     }
     public static void updateblanca(float cantidadnumerica){
     try{ Connection ca= cc.conexion(); // CONEXION DB  //la insersion a la tabla ventas
-                  PreparedStatement ps = ca.prepareStatement ("UPDATE productoexternoblanca SET pieza='"+cantidadnumerica+"',total = '"+solodosdecimales.format(total)+"',fecha = '"+Controladorventa.fecha()+"',tiendaexterna = '"+ProductosExternos.combosucursal.getSelectedItem().toString()+"'WHERE nombre= '"+ProductosExternos.combopieza.getSelectedItem().toString()+"' ");
+                  PreparedStatement ps = ca.prepareStatement ("UPDATE productoexternoblanca SET pieza='"+cantidadnumerica+"',total = '"+solodosdecimales.format(total).replace(",", ".")+"',fecha = '"+Controladorventa.fecha()+"',tiendaexterna = '"+ProductosExternos.combosucursal.getSelectedItem().toString()+"'WHERE nombre= '"+ProductosExternos.combopieza.getSelectedItem().toString()+"' ");
                         a=ps.executeUpdate();
                         LlenarTableDatosblanca(ProductosExternos.J_tableLlenados);
                     if(a>0){updateexitoso(); }
@@ -261,7 +261,7 @@ public static void nombresypiezas(){
     }
     public static void updatezapata(float cantidadnumerica){
     try{ Connection ca= cc.conexion(); // CONEXION DB  //la insersion a la tabla ventas
-              PreparedStatement ps = ca.prepareStatement ("UPDATE productoexternozapata SET pieza='"+cantidadnumerica+"',total = '"+solodosdecimales.format(total)+"',fecha = '"+Controladorventa.fecha()+"',tiendaexterna = '"+ProductosExternos.combosucursal.getSelectedItem().toString()+"'WHERE nombre= '"+ProductosExternos.combopieza.getSelectedItem().toString()+"' ");
+              PreparedStatement ps = ca.prepareStatement ("UPDATE productoexternozapata SET pieza='"+cantidadnumerica+"',total = '"+solodosdecimales.format(total).replace(",", ".")+"',fecha = '"+Controladorventa.fecha()+"',tiendaexterna = '"+ProductosExternos.combosucursal.getSelectedItem().toString()+"'WHERE nombre= '"+ProductosExternos.combopieza.getSelectedItem().toString()+"' ");
                         a=ps.executeUpdate();
                         LlenarTableDatoszapata(ProductosExternos.J_tableLlenados);
                     if(a>0){updateexitoso(); }
@@ -272,7 +272,7 @@ public static void nombresypiezas(){
     }
     public static void updatecentral(float cantidadnumerica){
     try{ Connection ca= cc.conexion(); // CONEXION DB  //la insersion a la tabla ventas
-              PreparedStatement ps = ca.prepareStatement ("UPDATE productoexternocentral SET pieza='"+cantidadnumerica+"',total = '"+solodosdecimales.format(total)+"',fecha = '"+Controladorventa.fecha()+"',tiendaexterna = '"+ProductosExternos.combosucursal.getSelectedItem().toString()+"'WHERE nombre= '"+ProductosExternos.combopieza.getSelectedItem().toString()+"' ");
+              PreparedStatement ps = ca.prepareStatement ("UPDATE productoexternocentral SET pieza='"+cantidadnumerica+"',total = '"+solodosdecimales.format(total).replace(",", ".")+"',fecha = '"+Controladorventa.fecha()+"',tiendaexterna = '"+ProductosExternos.combosucursal.getSelectedItem().toString()+"'WHERE nombre= '"+ProductosExternos.combopieza.getSelectedItem().toString()+"' ");
                         a=ps.executeUpdate();
                         LlenarTableDatosMercado(ProductosExternos.J_tableLlenados);
                     if(a>0){updateexitoso(); }
@@ -355,5 +355,5 @@ updatezapata(cantidadnumerica);
             }
         }//ESTO VALIDA QUE EL TEXTO ESCRITO NO TENGA INCOHERENCIAS
     }
-    public static void updateexitoso(){ cantidad.setText("");  totalapagarmetodo();  ProductosExternos.pago.setText(solodosdecimales.format(totalapagar));  }
+    public static void updateexitoso(){ cantidad.setText("");  totalapagarmetodo();  ProductosExternos.pago.setText(solodosdecimales.format(totalapagar).replace(",", "."));  }
 }

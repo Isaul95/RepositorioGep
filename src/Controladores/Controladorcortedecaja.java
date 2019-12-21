@@ -34,18 +34,14 @@ public class Controladorcortedecaja {
    public static   ArrayList nombrescrudovendidos=new ArrayList();
   public static ArrayList cantidadescocido = new  ArrayList();
          public static ArrayList sobrantecocido = new  ArrayList();
-         public static  double []totalescocido = {
-    30.00,30.00,70.00,94.00, 94.00, 18.50, 18.50, 17.00, 
-    12.00, 25.00, 18.50, 0.00, 15.00, 
-    15.00, 15.00, 15.00, 18.00, 15.00, 
-    15.00, 20.00, 15.00, 19.50, 15.00, 
-    18.00, 15.00, 12.00, 12.00, 8.50, 
-    2.75, 2.50, 9.50};
+          public static  ArrayList importescocidosvendidos = new  ArrayList();
+          
    public static   ArrayList nombrescocidovendidos=new ArrayList();
    public static  ArrayList cantidadescrudo = new  ArrayList();
-      public static        ArrayList sobrantecrudo= new  ArrayList();
-  public static  double []totalescrudo = {125.00, 62.50, 62.00, 62.00, 11.00, 11.00, 6.50, 7.00, 3.50, 2.50, 2.50, 1.50};//done
-      //nombre, sobrante piezas y total
+   public static  ArrayList importescrudosvendidos = new  ArrayList();
+   public static        ArrayList sobrantecrudo= new  ArrayList();
+  
+   //nombre, sobrante piezas y total
   public static  ArrayList nombrecocido = new ArrayList();
        public static       ArrayList sobrantedecocido = new ArrayList();    
          public static     ArrayList piezasdecocido = new ArrayList();
@@ -54,6 +50,8 @@ public class Controladorcortedecaja {
        public static      ArrayList sobrantedecrudo = new ArrayList();          
        public static       ArrayList piezasdecrudo = new ArrayList();
      public static         ArrayList totalesdecrudo = new ArrayList();     
+    public static  ArrayList columna1 = new ArrayList(); 
+          public static   ArrayList columna2 = new ArrayList();     
  public static final float pagopollo=20*90, tacos=60, almuerzo=28;//datos para la tabla utilidad
  public static float  totalchorizoyhuesito,totaldedescuentos, totaldepagos,diferenciaentablautilidad, utilidades, total_de_crudo, total_de_procesados, ventasdeldia, gastosdeldia, montodeapertura, diferencia, diferenciafinal, precio;
  public static short apertura, numerodescuentos;
@@ -81,7 +79,10 @@ public class Controladorcortedecaja {
          Modelocortedecaja.hacercorte();
      }
      public static void metodosalabrircortedecaja(){
-         Modelocortedecaja.ventaseneldia();
+         //ventas en el dìa
+        
+            //ventas en el dìa
+            Modelocortedecaja.ventaseneldia();
         Modelocortedecaja.metodogastosdeldia();
         Modelocortedecaja.aperturadeldia();
         Modelocortedecaja.pagoshechoseneldiaactual();

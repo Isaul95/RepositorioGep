@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Modelos;
 
 import Controladores.Controladorcortedecaja;
@@ -12,7 +7,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import si.Cortecaja;
 import si.SI;
@@ -74,16 +68,16 @@ public static void pagoshechoseneldiaactual(){
  try{Connection ca= cc.conexion(); //la insersion a la tabla ventas
                 String sql = "INSERT INTO  utilidad(totaldeventas,pagos,totaldevolucioncrudo,totalprocesados,pagopollo,tacos,utilidad,almuerzo, diferencia, gastos, fecha)  VALUES (?,?,?,?,?,?,?,?,?,?,?)";
                  ps = ca.prepareCall(sql); //hasta aqui vamos
-               ps.setDouble(1, Double.parseDouble(solodosdecimales.format(ventasdeldia)));
-               ps.setDouble(2,Double.parseDouble(solodosdecimales.format(totaldepagos)));
-                ps.setDouble(3, Double.parseDouble(solodosdecimales.format(total_de_crudo)));
-                ps.setDouble(4,Double.parseDouble(solodosdecimales.format(total_de_procesados)));
+               ps.setDouble(1, Double.parseDouble(solodosdecimales.format(ventasdeldia).replace(",", ".")));
+               ps.setDouble(2,Double.parseDouble(solodosdecimales.format(totaldepagos).replace(",", ".")));
+                ps.setDouble(3, Double.parseDouble(solodosdecimales.format(total_de_crudo).replace(",", ".")));
+                ps.setDouble(4,Double.parseDouble(solodosdecimales.format(total_de_procesados).replace(",", ".")));
                 ps.setDouble(5, pagopollo);
                 ps.setDouble(6, tacos);
-                ps.setDouble(7, Double.parseDouble(solodosdecimales.format(utilidades)));
+                ps.setDouble(7, Double.parseDouble(solodosdecimales.format(utilidades).replace(",", ".")));
                 ps.setDouble(8, almuerzo);
-                ps.setDouble(9, Double.parseDouble(solodosdecimales.format(diferenciaentablautilidad)));
-                ps.setDouble(10, Double.parseDouble(solodosdecimales.format(gastosdeldia)));  
+                ps.setDouble(9, Double.parseDouble(solodosdecimales.format(diferenciaentablautilidad).replace(",", ".")));
+                ps.setDouble(10, Double.parseDouble(solodosdecimales.format(gastosdeldia).replace(",", ".")));  
                 ps.setString(11, Controladorventa.fecha());
                 int a=ps.executeUpdate();
                 if(a>0){           
@@ -105,7 +99,7 @@ public static void pagoshechoseneldiaactual(){
  public static void productoscocidosvendidos(){
      try{Connection ca= cc.conexion();//SOLO SE LLAMA A LA CANTIDAD PORQUE EN EL TICKET YA SE DEFINIRÁN LOS NOMBRES DE CADA ARTICULO
                       sent  = (Statement)ca.createStatement();
-                       rs = sent.executeQuery("SELECT DISTINCT nombre_producto FROM descripcion_de_venta where estado in ('Realizada', 'Credito-pendiente', 'Credito-pagado') and fecha=curdate() and id_producto in (24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,54,55) ORDER BY FIELD(nombre_producto,'Mole rojo','Mole verde','Miel','Pollo rostizado','Pollo asado','Pech. broaster','Muslo broaster','Pierna broaster','Ala broaster', 'Alitas bbq','Barbacoa de pollo','Salsa guajillo (gde)','Spagueti blanco','Spagueti rojo','Arroz blanco','Arroz rojo','Frijoles puercos','Frijoles peruanos','Frijoles charros', 'Cochinita','Pure','Ens. de manzana','Ensalada de col','Ensalada rusa','Pasta de codito','Chiles en vinagre','Ver. encurtidas','Nuggets','Mininuggets','Tacos','Brochetas')");
+                       rs = sent.executeQuery("SELECT DISTINCT nombre_producto FROM descripcion_de_venta where estado in ('Realizada', 'Credito-pendiente', 'Credito-pagado') and fecha=curdate() and id_producto in (24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,54,55,56) ORDER BY FIELD(nombre_producto,'Mole rojo','Mole verde','Miel','Pollo rostizado','Pollo asado','Pech. broaster','Muslo broaster','Pierna broaster','Ala broaster', 'Alitas bbq','Barbacoa de pollo','Salsa guajillo (gde)','Spagueti blanco','Spagueti rojo','Arroz blanco','Arroz rojo','Frijoles puercos','Frijoles peruanos','Frijoles charros', 'Cochinita','Pure','Ens. de manzana','Ensalada de col','Ensalada rusa','Pasta de codito','Chiles en vinagre','Ver. encurtidas','Nuggets','Mininuggets','Tacos','Brochetas')");
                       while(rs.next()){
                              nombrescocidovendidos.add(rs.getString(1));
                          }
@@ -115,26 +109,27 @@ public static void pagoshechoseneldiaactual(){
     public static void insertaradevoluciondecrudopiezasycantidades(){//AQUI SE INSERTAN LAS PIEZAS Y CANTIDADES DE PECHUGA, MUSLO ALA Y PIERNA
   productoscrudosvendidos();
         for(int aa =0; aa<=nombrescrudovendidos.size()-1; aa++){
-            double total=0;   
+
              try{Connection ca= cc.conexion();//SOLO SE LLAMA A LA CANTIDAD PORQUE EN EL TICKET YA SE DEFINIRÁN LOS NOMBRES DE CADA ARTICULO
                       sent  = (Statement)ca.createStatement();
-                       rs = sent.executeQuery("select sum(cantidad) from descripcion_de_venta where nombre_producto='"+nombrescrudovendidos.get(aa)+"' and importe!=0 and fecha=curdate() and estado in('Realizada', 'Credito-pendiente','Credito-pagado') " );
+                       rs = sent.executeQuery("select sum(cantidad), sum(importe) from descripcion_de_venta where nombre_producto='"+nombrescrudovendidos.get(aa)+"' and fecha=curdate() and estado in('Realizada', 'Credito-pendiente','Credito-pagado') " );
                        while(rs.next()){
                              cantidadescrudo.add(rs.getFloat(1));
+                             importescrudosvendidos.add(rs.getFloat(2));
                          }
       }catch(Exception e){                                             
       }finally{cc.getClose();}
-            total= Double.parseDouble(String.valueOf(cantidadescrudo.get(aa)))*totalescrudo[aa];
+              Modeloventa.precio_producto(nombrescrudovendidos.get(aa).toString());
              try{Connection ca= cc.conexion();//SOLO SE LLAMA A LA CANTIDAD PORQUE EN EL TICKET YA SE DEFINIRÁN LOS NOMBRES DE CADA ARTICULO
                       sent  = (Statement)ca.createStatement();
                       rs = sent.executeQuery("select cantidad from productos WHERE nombre_producto='" +nombrescrudovendidos.get(aa)+"' ");
                       while(rs.next()){
-                           sobrantecrudo.add(rs.getFloat("cantidad"));
+                         sobrantecrudo.add(rs.getFloat("cantidad"));
                         }
       }catch(Exception e){                                             
       }  finally{cc.getClose();}
             try{ Connection ca= cc.conexion();//la insersion a la tabla ventas
-               PreparedStatement ps = ca.prepareStatement ("UPDATE devolucion_crudo SET piezas='"+cantidadescrudo.get(aa)+"',total = '"+solodosdecimales.format(total)+"',fecha = '"+Controladorventa.fecha()+"',sobrante = '"+sobrantecrudo.get(aa)+"'WHERE nombre= '"+nombrescrudovendidos.get(aa)+"' ");  
+               PreparedStatement ps = ca.prepareStatement ("UPDATE devolucion_crudo SET piezas='"+cantidadescrudo.get(aa)+"',total = '"+solodosdecimales.format(importescrudosvendidos.get(aa)).replace(",", ".")+"',fecha = '"+Controladorventa.fecha()+"',sobrante = '"+sobrantecrudo.get(aa)+"'WHERE nombre= '"+nombrescrudovendidos.get(aa)+"' ");  
                 int a=ps.executeUpdate();
                 if(a>0){
                  }
@@ -146,17 +141,17 @@ public static void pagoshechoseneldiaactual(){
    public static void insertaradevoluciondecocidopiezasycantidades(){//AQUI SE INSERTAN LAS PIEZAS Y CANTIDADES DE PECHUGA, MUSLO ALA Y PIERNA
  productoscocidosvendidos();
        for(int aa =0; aa<=nombrescocidovendidos.size()-1; aa++){
-            double total=0;  
             try{Connection ca= cc.conexion();//SOLO SE LLAMA A LA CANTIDAD PORQUE EN EL TICKET YA SE DEFINIRÁN LOS NOMBRES DE CADA ARTICULO
                       sent  = (Statement)ca.createStatement();
-                      rs = sent.executeQuery("select sum(cantidad) from descripcion_de_venta where nombre_producto='"+nombrescocidovendidos.get(aa)+"' and importe!=0 and fecha=curdate() and estado in('Realizada','Credito-pendiente','Credito-pagado') " );
+                      rs = sent.executeQuery("select sum(cantidad),sum(importe) from descripcion_de_venta where nombre_producto='"+nombrescocidovendidos.get(aa)+"'and fecha=curdate() and estado in('Realizada','Credito-pendiente','Credito-pagado') " );
                       while(rs.next()){
                            cantidadescocido.add(rs.getFloat(1));
+                           importescocidosvendidos.add(rs.getFloat(2));
                         }
       }catch(Exception e){                                             
       }finally{cc.getClose();}
-             total= Double.parseDouble(String.valueOf(cantidadescocido.get(aa)))*totalescocido[aa];
-             try{Connection ca= cc.conexion();//SOLO SE LLAMA A LA CANTIDAD PORQUE EN EL TICKET YA SE DEFINIRÁN LOS NOMBRES DE CADA ARTICULO
+              Modeloventa.precio_producto(nombrescocidovendidos.get(aa).toString());
+              try{Connection ca= cc.conexion();//SOLO SE LLAMA A LA CANTIDAD PORQUE EN EL TICKET YA SE DEFINIRÁN LOS NOMBRES DE CADA ARTICULO
                       sent  = (Statement)ca.createStatement();
                       rs = sent.executeQuery("select cantidad from productos WHERE nombre_producto='" +nombrescocidovendidos.get(aa)+"' ");
                       while(rs.next()){
@@ -165,7 +160,7 @@ public static void pagoshechoseneldiaactual(){
       }catch(Exception e){                                             
       }finally{cc.getClose();}
             try{ Connection ca= cc.conexion();//la insersion a la tabla ventas
-                PreparedStatement ps = ca.prepareStatement ("UPDATE procesados SET piezas='"+cantidadescocido.get(aa)+"',total = '"+ solodosdecimales.format(total)+"',fecha = '"+Controladorventa.fecha()+"',sobrante = '"+sobrantecocido.get(aa)+"'WHERE nombre= '"+nombrescocidovendidos.get(aa)+"' ");  
+                PreparedStatement ps = ca.prepareStatement ("UPDATE procesados SET piezas='"+cantidadescocido.get(aa)+"',total = '"+ solodosdecimales.format(importescocidosvendidos.get(aa)).replace(",", ".")+"',fecha = '"+Controladorventa.fecha()+"',sobrante = '"+sobrantecocido.get(aa)+"'WHERE nombre= '"+nombrescocidovendidos.get(aa)+"' ");  
                 int a=ps.executeUpdate();
                 if(a>0){
                  }
@@ -186,15 +181,15 @@ public static void pagoshechoseneldiaactual(){
                                                       catch (Exception e){
                                                       }finally{cc.getClose();}// fin del precio-catch del producto    
     }//PENDIENTE
-    
+   
 
     
 public static void ventaseneldia(){
         try{  Connection ca= cc.conexion();// La suma de todos los importes
                                          Statement sent  =(Statement)ca.createStatement();
-                                         ResultSet  rs = sent.executeQuery("select SUM(total) from venta where estado_venta = 'Realizada' and fecha_reporte= '"+Controladorventa.fecha()+"'");
+                                         ResultSet  rs = sent.executeQuery("select SUM(importe) from descripcion_de_venta where estado in ('Realizada','Credito-pendiente','Credito-pagado') and fecha= '"+Controladorventa.fecha()+"'");
                                             while(rs.next()){
-                                                      ventasdeldia =Float.parseFloat(rs.getString("SUM(total)"));
+                                                      ventasdeldia =Float.parseFloat(rs.getString("SUM(importe)"));
                                                       }
                                                       }//fin del try-precio del producto
                                                       catch (Exception e){
@@ -271,41 +266,22 @@ public static void metodogastosdeldia(){
                          }
                          total_del_día_devolucion_crudo();
    PolloCrudoxPiezas = new PolloCrudoxPiezas();          
-   PolloCrudoxPiezas.PolloCrudoxPiezas(nombrecrudo, sobrantedecrudo, piezasdecrudo,totalesdecrudo, Float.parseFloat(solodosdecimales.format(total_de_crudo)));                       
+   PolloCrudoxPiezas.PolloCrudoxPiezas(nombrecrudo, sobrantedecrudo, piezasdecrudo,totalesdecrudo, Float.parseFloat(solodosdecimales.format(total_de_crudo).replace(",", ".")));                       
       }catch(Exception e){                                             
           System.out.println("ERROR en sobrantedepollocrudodeldiaparaticketcantidadesypiezas: " + e.getMessage());
       }finally{cc.getClose();}
  }//TICKET DEVOLUCION CRUDO,  LAS CANTIDADES Y PIEZAS
- public static void sobrantedepollocrudodeldiaparaticketperosolocantidades(){ //TICKET DEVOLUCION CRUDO, SOLO LAS CANTIDADES
-      try{ Connection ca= cc.conexion();//SOLO SE LLAMA A LA CANTIDAD PORQUE EN EL TICKET YA SE DEFINIRÁN LOS NOMBRES DE CADA ARTICULO
-          ArrayList columna = new ArrayList(); 
-           ArrayList columna2 = new ArrayList();   
-          sent  = (Statement)ca.createStatement();
-                      rs = sent.executeQuery("select nombre, piezas from devolucion_crudo where nombre in ('Patas', 'Huacal', 'Cadera', 'Cabeza', 'Molleja')");
-                         while(rs.next()){
-                             columna.add(rs.getString(1));
-                             columna2.add(rs.getFloat(2));
-                         }                      
-                        // total_del_día_devolucion_crudo();
-  //PolloCrudoBienTocketc = new PolloCrudoBienTocketc();          
-  // PolloCrudoBienTocketc.PolloCrudoBienTocketc(nombrecocido, piezasdecocido);
-      }catch(Exception e){                                             
-          System.out.println("ERROR" + e.getMessage());
-      }finally{cc.getClose();}
- }//TICKET DEVOLUCION CRUDO, SOLO LAS CANTIDADES
- 
-       public static void ListadeGastosAlHacerCorteCaja(){ // recibe como parametro                          
+   public static void ListadeGastosAlHacerCorteCaja(){ // recibe como parametro                          
         try {Connection ca= cc.conexion();
-            ArrayList columna1 = new ArrayList(); 
-            ArrayList columna2 = new ArrayList();          
+                
             sent  = (Statement)ca.createStatement();
            rs = sent.executeQuery("select tipo, total from egreso where fecha = CURDATE()");
             while (rs.next()) {                
-                             columna1.add(rs.getString(1));
-                             columna2.add(rs.getFloat(2));
+                             Controladorcortedecaja.columna1.add(rs.getString(1));
+                             Controladorcortedecaja.columna2.add(rs.getFloat(2));
             }            ListaGastos TicketGastosAll ; 
         TicketGastosAll = new ListaGastos();          
-  TicketGastosAll.ListaGastos(columna1,columna2); 
+  TicketGastosAll.ListaGastos(Controladorcortedecaja.columna1,Controladorcortedecaja.columna2); 
     } catch (Exception e) {
        JOptionPane.showMessageDialog(null, "ERROR EN METODO: productosvendidoseneldia","DEVELOPER HELPER", JOptionPane.ERROR_MESSAGE);      
       }finally{cc.getClose();}
@@ -374,29 +350,11 @@ public static void metodogastosdeldia(){
                          }                        
     ticketprocesadospiezas = new ticketprocesadospiezas();       
      total_del_día_procesados();    
-     ticketprocesadospiezas.ticketprocesadospiezas(nombrecocido,sobrantedecocido,piezasdecocido, totalesdecocido, Float.parseFloat(solodosdecimales.format(total_de_procesados)));                
+     ticketprocesadospiezas.ticketprocesadospiezas(nombrecocido,sobrantedecocido,piezasdecocido, totalesdecocido, Float.parseFloat(solodosdecimales.format(total_de_procesados).replace(",", ".")));                
       }catch(Exception e){                                                     
           // System.out.println("DESDE PROCESADOS"+ total_de_procesados);
       }finally{cc.getClose();}
  }//TICKET DEVOLUCION COCIDO,  LAS CANTIDADES Y PIEZAS
-  
-  
- public static void sobrantedepollococidodeldiaparaticketperosolocantidades(){ //TICKET DEVOLUCION COCIDO, SOLO LAS CANTIDADES
-      try{Connection ca= cc.conexion();//SOLO SE LLAMA A LA CANTIDAD PORQUE EN EL TICKET YA SE DEFINIRÁN LOS NOMBRES DE CADA ARTICULO
-          ArrayList columna = new ArrayList();
-          ArrayList columna2 = new ArrayList();
-          sent  = (Statement)ca.createStatement();
-                      rs = sent.executeQuery("select nombre, piezas from procesados");
-                         while(rs.next()){ 
-                             columna.add(rs.getString(1));
-                             columna2.add(rs.getFloat(2));
-                         }
- //tikectprocesados = new tikectprocesados();          
- //  tikectprocesados.tikectprocesados(nombrecocido,piezasdecocido); 
-      }catch(Exception e){                                                     
-      }finally{cc.getClose();}
- }//TICKET DEVOLUCION COCIDO, SOLO LAS CANTIDADES
- 
  
   public static void obteniendolosvaloresdelcortedecajadeldiadehoyparaelticket(int numerodedescuentos, float totaldescuentos){
       try{Connection ca= cc.conexion();//SOLO SE LLAMA A LA CANTIDAD PORQUE EN EL TICKET YA SE DEFINIRÁN LOS NOMBRES DE CADA ARTICULO
@@ -410,7 +368,7 @@ public static void metodogastosdeldia(){
                          }                 
                          pagoshechoseneldiaactual();
    tikectcorte = new ticketcortedecaja();     
-   tikectcorte.ticketcortedecaja(ticketmonto, ticketgasto, ticketventa, Float.parseFloat(solodosdecimales.format(ticketdiferencia)), Float.parseFloat(solodosdecimales.format(ventasmenosgastos)), Float.parseFloat(solodosdecimales.format(totaldepagos)), numerodedescuentos, totaldescuentos);  
+   tikectcorte.ticketcortedecaja(ticketmonto, ticketgasto, ticketventa, Float.parseFloat(solodosdecimales.format(ticketdiferencia).replace(",", ".")), Float.parseFloat(solodosdecimales.format(ventasmenosgastos).replace(",", ".")), Float.parseFloat(solodosdecimales.format(totaldepagos)), numerodedescuentos, totaldescuentos);  
       }catch(Exception e){                                             
       }finally{cc.getClose();}
  }
@@ -435,35 +393,32 @@ public static void metodogastosdeldia(){
             if(decision==0){// SI SE ELIGE QUE SI, PROCEDEMOS A REALIZAR EL CORTE E IMPRIMIR LOS 5 TICKET
                 //QUE SON, 1.- CORTE DE CAJA, 2.- CRUDO, PECHUGA PIERNA, ALA Y MUSLO, 3.- CRUDO DEL RESTO PERO EN CANTIDADES
                 //4.-COCIDO, TOTALES Y PIEZAS, 5.- COCIDO PIEZAS            
-                float  menosapertura;
-                variablemontoentregado=Float.parseFloat(Cortecaja.monto.getText());
-        if(variablemontoentregado>0){//COMPROBANDO QUE EL MONTO NO ESTE VACIO               
+        if(Float.parseFloat(Cortecaja.monto.getText())>0){//COMPROBANDO QUE EL MONTO NO ESTE VACIO               
           try{ Connection ca= cc.conexion();//la insersion a la tabla ventas
-              ventaseneldia();
               metodogastosdeldia();
               aperturadeldia();
               pagoshechoseneldiaactual();
-             ventasmenosgastos=ventasdeldia-gastosdeldia+totaldepagos; 
-                 diferencia=variablemontoentregado-ventasmenosgastos;
-                  JOptionPane.showMessageDialog(null,"Se abrio con : "+montodeapertura);
-                   diferenciafinal=montodeapertura-diferencia;
+             ventasmenosgastos=Float.parseFloat(Cortecaja.Ventasfortoday1.getText())-gastosdeldia+totaldepagos; 
+                 diferencia=Float.parseFloat(Cortecaja.monto.getText())-ventasmenosgastos;
+                  diferenciafinal=montodeapertura-diferencia;
                 
     String sql = "INSERT INTO  cortes(id_apertura, monto_entregado, gastos, ventas, diferencia, fecha, hora, usuario)  VALUES (?,?,?,?,?,?,?,?)";
                 PreparedStatement pst = ca.prepareCall(sql); //hasta aqui vamos
                 pst.setInt(1,apertura);
-                 pst.setFloat(2,variablemontoentregado);
+                 pst.setFloat(2,Float.parseFloat(Cortecaja.monto.getText()));
                   pst.setFloat(3,gastosdeldia);
                    pst.setFloat(4,ventasdeldia);
-                    pst.setFloat(5,Float.parseFloat(solodosdecimales.format(diferencia)));
+                    pst.setFloat(5,Float.parseFloat(solodosdecimales.format(diferencia).replace(",", ".")));
                 pst.setString(6,Controladorventa.fecha());
                 pst.setString(7,Cortecaja.Reloj.getText());
                 pst.setInt(8,id_usuario);
                 int a=pst.executeUpdate();
                 if(a>0){insertartotaldechorizo();insertartotaldehuesito();
              //PRIMERO SE REGISTRAN LOS PRODUCTOS SOBRANTES TANTO LOS COCIDOS COMO LOS CRUDOS 
-                insertaradevoluciondecrudopiezasycantidades();//SE REGISTRAN LAS PIEZAS, CANTIDADES Y TOTALES DE TODO CRUDO
-               insertaradevoluciondecocidopiezasycantidades();//SE REGISTRAN LAS PIEZAS, CANTIDADES Y TOTALES DE TODO COCIDO                
              //LUEGO AQUI SE PUEDE REALIZAR CADA TICKET CORRESPONDIENTE (ESTOS SON LOS 5 TICKET)
+                 insertaradevoluciondecrudopiezasycantidades();//SE REGISTRAN LAS PIEZAS, CANTIDADES Y TOTALES DE TODO CRUDO
+            insertaradevoluciondecocidopiezasycantidades();//SE REGISTRAN LAS PIEZAS, CANTIDADES Y TOTALES DE TODO COCIDO                
+            
  sobrantedepollocrudodeldiaparaticketcantidadesypiezas();//SOBRANTE Y VENDIDO DE CRDUO
  sobrantedepollococidodeldiaparaticketcantidadesypiezas();//SOBRANTE Y VENDIDO DE COCIDO
 ListadeGastosAlHacerCorteCaja();  // TOCKET DE LISTA DE GASTOS
@@ -472,8 +427,8 @@ ListadeGastosAlHacerCorteCaja();  // TOCKET DE LISTA DE GASTOS
   ventascondescuento();
             llenar_tabla_utilidad(gastosdeldia, ventasdeldia);
       //vaciartodoelpollococidoenprocesados();
-          vaciartodoelpollocrudoendevolucioncrudo();
-      vaciartodoeninventario();//UNA VEZ IMPRESO LOS 5 TICKETS SE VACIA TODO EL INVENTARIO            
+        //  vaciartodoelpollocrudoendevolucioncrudo();
+     // vaciartodoeninventario();//UNA VEZ IMPRESO LOS 5 TICKETS SE VACIA TODO EL INVENTARIO            
                 JOptionPane.showMessageDialog(null,"Nos vemos pronto","Saliendo del sistema...",JOptionPane.INFORMATION_MESSAGE);
             System.exit(0);
                 }

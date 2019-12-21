@@ -46,13 +46,12 @@ public class TicketVentaExterna {
        //  int cant = Integer.parseInt(String.valueOf(cantidadnumerica));
           for(int n=0;n<=columna1.size()-1;n++){                 
                   auxs+= String.format("%-18s" + "%-8s" , columna1.get(n), columna2.get(n)); System.out.println(String.format("%-18s" + "%-8s" , columna1.get(n), columna2.get(n)));
-             }  
+           auxs+= "\n";   
+          }  
          auxs+= "\n==============================\n";  System.out.println("\n==============================\n");  
        auxs+= String.format("  "+"TOTAL :"+ "$" + pago);    System.out.println(String.format("  "+"TOTAL :"+ "$" + pago));
          auxs+= "\n\n";// Varios saltos para no cortar antes 
-        
-         
-         try {
+        try {
             impServicio.printCadena(impra, auxs);
             // Cortar el papel ....
             byte[] cutP = new byte[]{0x1d, 'V', 1}; // comado para cortar

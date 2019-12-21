@@ -112,7 +112,7 @@ public static String[] piezasdemedio = {"Medio pollo","Pechuga", "Muslo","Pierna
                    Modeloventa.piezassuficientes(piezas[i].toString(), cantidaddeproductos);
             if (suficientespiezas == true) {
                 cantidaddeproductos = 2 * cantidadparapollocrudo;
-                    Modeloventa.acompletarpollo(piezas[i].toString(), cantidaddeproductos);
+                    Modeloventa.comprobar_registro(piezas[i].toString(), cantidaddeproductos);
             }else{  JOptionPane.showMessageDialog(null, "Solo hay " + piezassuficientes + " piezas de "+piezas[i].toString(), "Advertencia", JOptionPane.ERROR_MESSAGE);}
           
                 } else {
@@ -123,7 +123,7 @@ public static String[] piezasdemedio = {"Medio pollo","Pechuga", "Muslo","Pierna
                     else {   Modeloventa.piezassuficientes(piezas[i].toString(), cantidaddeproductos);//verifica primero que haya las suficientes piezas para agregar un producto a la venta    
             if (suficientespiezas == true) {
                 cantidaddeproductos = 1 * cantidadparapollocrudo;
-                        Modeloventa.acompletarpollo(piezas[i].toString(), cantidaddeproductos);
+                        Modeloventa.comprobar_registro(piezas[i].toString(), cantidaddeproductos);
             }else{  JOptionPane.showMessageDialog(null, "Solo hay " + piezassuficientes + " piezas de "+piezas[i].toString(), "Advertencia", JOptionPane.ERROR_MESSAGE);}
              }
                 }
@@ -134,7 +134,7 @@ public static String[] piezasdemedio = {"Medio pollo","Pechuga", "Muslo","Pierna
                  Modeloventa.piezassuficientes(piezas[i].toString(), cantidaddeproductos);
                  if (suficientespiezas == true) {
                 cantidaddeproductos = (float) medio * cantidadparapollocrudo;
-                    Modeloventa.acompletarpollo(piezasdemedio[i].toString(), cantidaddeproductos);
+                    Modeloventa.comprobar_registro(piezasdemedio[i].toString(), cantidaddeproductos);
             }else{  JOptionPane.showMessageDialog(null, "Solo hay " + piezassuficientes + " piezas de "+piezasdemedio[i].toString(), "Advertencia", JOptionPane.ERROR_MESSAGE);}
          
                 } else {
@@ -145,7 +145,7 @@ public static String[] piezasdemedio = {"Medio pollo","Pechuga", "Muslo","Pierna
                        Modeloventa.piezassuficientes(piezas[i].toString(), cantidaddeproductos);
                        if (suficientespiezas == true) {
                    cantidaddeproductos = 1 * cantidadparapollocrudo;
-                        Modeloventa.acompletarpollo(piezasdemedio[i].toString(), cantidaddeproductos);
+                        Modeloventa.comprobar_registro(piezasdemedio[i].toString(), cantidaddeproductos);
             }else{ JOptionPane.showMessageDialog(null, "Solo hay " + piezassuficientes + " piezas de "+piezasdemedio[i].toString(), "Advertencia", JOptionPane.ERROR_MESSAGE);}
           }
                 }
@@ -191,7 +191,7 @@ public static String[] piezasdemedio = {"Medio pollo","Pechuga", "Muslo","Pierna
                 || nucleo.piezasparaacomplettarpollo.isSelected() && nombredepiezaseleccionada.equals("Cabeza")&&soypechugaenbisteck==false
                 || nucleo.piezasparaacomplettarpollo.isSelected() && nombredepiezaseleccionada.equals("Molleja")&&soypechugaenbisteck==false
                 || nucleo.piezasparaacomplettarpollo.isSelected() && nombredepiezaseleccionada.equals("Patas")&&soypechugaenbisteck==false) {
-            Modeloventa.acompletarpollo(nombredepiezaseleccionada, cantidaddeproductos);
+            Modeloventa.comprobar_registro(nombredepiezaseleccionada, cantidaddeproductos);
         } 
            else{
                Modeloventa.comprobar_registro(nombredepieza,cantidaddeproductos); // esto es para agregar los productos a la tabla de descripcion de venta y 
@@ -208,17 +208,7 @@ Modeloventa.get_id_usuario();// 255 -280
        Modeloventa.insertorupdateoverbonnie(nombredepieza, cantidaddeproductos);
           }else if(soypechugaenbisteck==true){
                  Modeloventa.insertorupdatepechugaenbisteck("Pechuga", cantidaddeproductos);
-          }else if (nucleo.piezasparaacomplettarpollo.isSelected() && nombredepiezaseleccionada.equals("Pechuga")
-                || nucleo.piezasparaacomplettarpollo.isSelected() && nombredepiezaseleccionada.equals("Muslo")
-                || nucleo.piezasparaacomplettarpollo.isSelected() && nombredepiezaseleccionada.equals("Pierna")
-                || nucleo.piezasparaacomplettarpollo.isSelected() && nombredepiezaseleccionada.equals("Ala")
-                || nucleo.piezasparaacomplettarpollo.isSelected() && nombredepiezaseleccionada.equals("Huacal")
-                || nucleo.piezasparaacomplettarpollo.isSelected() && nombredepiezaseleccionada.equals("Cadera")
-                || nucleo.piezasparaacomplettarpollo.isSelected() && nombredepiezaseleccionada.equals("Cabeza")
-                || nucleo.piezasparaacomplettarpollo.isSelected() && nombredepiezaseleccionada.equals("Molleja")
-                || nucleo.piezasparaacomplettarpollo.isSelected() && nombredepiezaseleccionada.equals("Patas")) {
-            Modeloventa.acompletarpollo(nombredepiezaseleccionada, cantidaddeproductos);
-        } 
+          }   
              else{
                Modeloventa.comprobar_registro(nombredepieza, cantidaddeproductos); // esto es para agregar los productos a la tabla de descripcion de venta y 
            } 
@@ -232,32 +222,35 @@ Modeloventa.get_id_usuario();// 255 -280
     
     public static void accionesdespuesinsertarendescripciondeventaoactualizarenlamismatabla(String nombredepieza, float cantidaddeproductos){
  if(nombredepieza.equals("Huesito")||nombredepieza.equals("Longaniza")){
-      if(descuentoactivo==true){
-                if(Float.parseFloat(nucleo.subtotal.getText())>0){
-              nucleo.total.setText(String.valueOf(Float.parseFloat(nucleo.subtotal.getText()) - Float.parseFloat(nucleo.descuentocombo.getText())));
-                    }
-                 }
-     Modeloventa.mostrartabladeventas();
-                    tablaventaactiva=true;   
-                   Modeloventa.total_venta_enturno();
-                    nucleo.subtotal.setText(String.valueOf(sumadeimportesenturno));   
-                    nucleo.total.setText(String.valueOf(sumadeimportesenturno));
-                    NoP="";
- } else{
-      if(descuentoactivo==true){
-                if(Float.parseFloat(nucleo.subtotal.getText())>0){
+       if(descuentoactivo==true){
+                if(Float.parseFloat(nucleo.subtotal.getText())>0){Modeloventa.total_venta_enturno();
+                 nucleo.subtotal.setText(String.valueOf(sumadeimportesenturno));   
        nucleo.total.setText(String.valueOf(Float.parseFloat(nucleo.subtotal.getText()) - Float.parseFloat(nucleo.descuentocombo.getText())));
                     }
-                 }
+                 }else{  Modeloventa.total_venta_enturno();
+               nucleo.subtotal.setText(String.valueOf(sumadeimportesenturno));   
+                    nucleo.total.setText(String.valueOf(sumadeimportesenturno));
+             }
+     Modeloventa.mostrartabladeventas();
+                    tablaventaactiva=true;   
+                  NoP="";
+ } else{
+      if(descuentoactivo==true){
+                if(Float.parseFloat(nucleo.subtotal.getText())>0){Modeloventa.total_venta_enturno();
+                 nucleo.subtotal.setText(String.valueOf(sumadeimportesenturno));   
+       nucleo.total.setText(String.valueOf(Float.parseFloat(nucleo.subtotal.getText()) - Float.parseFloat(nucleo.descuentocombo.getText())));
+                    }
+                 }else{ 
+          Modeloventa.total_venta_enturno();
+               nucleo.subtotal.setText(String.valueOf(sumadeimportesenturno));   
+                    nucleo.total.setText(String.valueOf(sumadeimportesenturno));
+             }
        Modeloventa.descontardeinventario(nombredepieza, cantidaddeproductos);
                     //  descuentodepollo();                  
                     Modeloventa.mostrartabladeventas();
                     soypechugaenbisteck=false;
                     tablaventaactiva=true;
-                   Modeloventa.total_venta_enturno();
-            nucleo.subtotal.setText(String.valueOf(sumadeimportesenturno));
-                    nucleo.total.setText(String.valueOf(sumadeimportesenturno));
-                    NoP="";
+               NoP="";
  }
  }
  public static boolean validarFormulario(String cantidaddelatabla) { // VALIDACION DE TXT MONTO
@@ -322,18 +315,19 @@ nucleo.deletedescuento.setVisible(true);
         nucleo.total.setText("00.00");
         nucleo.tablaventa.setVisible(false);
         tablaventaactiva=false;
+        descuentoactivo=false;
     } 
     
  public static void accionesdespuesderegresarproductosainventarios(){
-                    
-                Modeloventa.total_venta_enturno();
-                   nucleo.subtotal.setText(String.valueOf(sumadeimportesenturno));
-                    nucleo.total.setText(String.valueOf(sumadeimportesenturno));
-                    if(descuentoactivo==true){
-               if(Float.parseFloat(nucleo.subtotal.getText())>0){
-               nucleo.total.setText(String.valueOf(Float.parseFloat(nucleo.subtotal.getText()) - Float.parseFloat(nucleo.descuentocombo.getText())));
+  if(descuentoactivo==true){
+                if(Float.parseFloat(nucleo.subtotal.getText())>0){Modeloventa.total_venta_enturno();
+                 nucleo.subtotal.setText(String.valueOf(sumadeimportesenturno));   
+       nucleo.total.setText(String.valueOf(Float.parseFloat(nucleo.subtotal.getText()) - Float.parseFloat(nucleo.descuentocombo.getText())));
                     }
-                 }
+                 }else{  Modeloventa.total_venta_enturno();
+               nucleo.subtotal.setText(String.valueOf(sumadeimportesenturno));   
+                    nucleo.total.setText(String.valueOf(sumadeimportesenturno));
+             }
  }         
 
                 

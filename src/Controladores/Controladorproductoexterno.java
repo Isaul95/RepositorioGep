@@ -25,13 +25,24 @@ public static        String productoexternozapata="productoexternozapata";
 public static       TicketVentaExterna ticketVentasExternas;
 public static int a=0;
     public static void alpagarproductos(String nom, float total){
-        Modeloproductoexterno.insertarengastos(nom, total);
-   Modeloproductoexterno.agregaraproductos();   // UPDATE `productoexternoblanca` SET `pieza`=0;
+           if(total!=0){
+               Modeloproductoexterno.insertarengastos(nom, total);
+               Modeloproductoexterno.agregaraproductos();   // UPDATE `productoexternoblanca` SET `pieza`=0;
     Modeloproductoexterno.vaciandotablas(); 
               Modeloproductoexterno.LlenarTableDatosblanca(J_tableLlenados); 
               Modeloproductoexterno.LlenarTableDatoszapata(J_tableLlenados);
               Modeloproductoexterno.LlenarTableDatosMercado(J_tableLlenados);
                 Controladorventa.noduplicarexternos=false;
+           }
+           else{
+               Modeloproductoexterno.agregaraproductos();   // UPDATE `productoexternoblanca` SET `pieza`=0;
+    Modeloproductoexterno.vaciandotablas(); 
+              Modeloproductoexterno.LlenarTableDatosblanca(J_tableLlenados); 
+              Modeloproductoexterno.LlenarTableDatoszapata(J_tableLlenados);
+              Modeloproductoexterno.LlenarTableDatosMercado(J_tableLlenados);
+                Controladorventa.noduplicarexternos=false;
+           }
+   
     }
     public static void alagregarenexterno(){
         Modeloproductoexterno.agregarexternos();

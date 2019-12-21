@@ -177,60 +177,7 @@ public static void nombredeproductoylacantidaddelmismo_en_descripcion_deventapar
                   cc.getClose();
              }
   }
-   
-   public static void acompletarpollo(String nombredepieza, float cantidaddeproductos){
-  nombredeproductoylacantidaddelmismo_en_descripcion_deventaparamedioocompletospollos(nombredepieza);
-if(NoP.equals(nombredepieza)&&NoPimporte==0){ //Si el nombre del producto es diferente del estado vacio, en palabras más sencillas; si se encuentra el producto que se quiere agregar para que no se asigne nuevamente  
-    try{Connection ca= cc.conexion();// ESTE ES PARA EL UPDATE
-          nombredeproductoylacantidaddelmismo_en_descripcion_deventaparamedioocompletospollos(nombredepieza);
-      NoPcantidad=NoPcantidad+cantidaddeproductos;
-                precio_producto(nombredepieza);
-    id_producto(nombredepieza);
-                    id_max_de_venta();
-                 PreparedStatement ps = ca.prepareStatement ("UPDATE descripcion_de_venta SET cantidad='"+NoPcantidad+"',importe = '"+0+"'WHERE importe =0 and id_producto='"+id_producto+"' and id_venta= '"+id_de_la_venta_incrementable+"' and fecha= '"+fecha()+"' and estado= '"+estadoenturno+"' ");
-               int a=  ps.executeUpdate();
-               if(a>0){
-                      Controladorventa.accionesdespuesinsertarendescripciondeventaoactualizarenlamismatabla(nombredepieza,cantidaddeproductos);
-                    
-               }else{
-                   JOptionPane.showMessageDialog(null, " NO SE PUDO ACTIALIZAR");
-               }
-        }//fin del id del usuario//fin del id del usuario
-                 catch(Exception w){
-                     JOptionPane.showMessageDialog(null, "Error en todo el codigo de update de metodo comprobar_registro" + w.getMessage());
-                 }finally{cc.getClose();}//fin del id del usuario
-     }
-       else{
-            try{Connection ca= cc.conexion(); //la insersion a la tabla ventas
-                String sql = "INSERT INTO descripcion_de_venta (id_producto,nombre_producto,cantidad,precio_unitario,importe,id_venta,estado, fecha)  VALUES (?,?,?,?,?,?,?,?)";
-                PreparedStatement pst = ca.prepareCall(sql); //hasta aqui vamos
-                id_producto(nombredepieza); 
-                pst.setInt(1,id_producto);
-               noguardaridrepetidoenstorage(id_producto);
-                pst.setString(2,nombredepieza);
-                pst.setFloat(3,cantidaddeproductos);            
-                //EL METODO A CONTINUACION VA HACIENDO EL CONTEO DE LAS PIEZAS INDIVIDUALES
-                // PARA UNA VEZ LLEGANDO A UN POLLO ENTERO DESCONTARLO DE LA BASE           
-                precio_producto(nombredepieza);
-                pst.setFloat(4,precio);
-               importe = (float)cantidaddeproductos*precio;        
-                pst.setFloat(5,0);
-                id_max_de_venta();
-                pst.setInt(6,(id_de_la_venta_incrementable));
-                pst.setString(7, estadoenturno);
-                pst.setString(8, fecha());
-                int a=pst.executeUpdate();
-                if(a>0){
-                    Controladorventa.accionesdespuesinsertarendescripciondeventaoactualizarenlamismatabla(nombredepieza, cantidaddeproductos);
-                           
-                }else{//CUANDO NO SE PUDO INSERTAR
-                   }
-            }catch(SQLException e)  { //fin de la insersion a la tabla ventas
-                JOptionPane.showMessageDialog(null,"Error de datos por id vacio "+e);
-            }finally{cc.getClose();}//fin de la insersion a la tabla ventas
-        }
-    }
-   public static void insertorupdatepechugaenbisteck(String nombredepieza, float cantidaddeproductos){
+  public static void insertorupdatepechugaenbisteck(String nombredepieza, float cantidaddeproductos){
   obtenerelnombredeproductoylacantidaddelmismo_en_descripcion_deventa("Pechuga en bisteck");
 if(NoP.equals("Pechuga en bisteck")&&NoPimporte!=0){ //Si el nombre del producto es diferente del estado vacio, en palabras más sencillas; si se encuentra el producto que se quiere agregar para que no se asigne nuevamente  
     try{Connection ca= cc.conexion();// ESTE ES PARA EL UPDATE
@@ -984,16 +931,17 @@ String sSQL = " select distinct venta.id_venta, venta.total, venta.fecha_reporte
                             block_unlock=true;
                             try{Connection ca= cc.conexion();// el id del usuario
                                 id_max_de_venta();
-                                PreparedStatement ps = ca.prepareStatement ("UPDATE venta SET subtotal='"+solodosdecimales.format(Float.parseFloat(nucleo.subtotal.getText()))+"',total='"+solodosdecimales.format(Float.parseFloat(nucleo.total.getText()))+"',descuento='"+ solodosdecimales.format(Float.parseFloat(nucleo.descuentocombo.getText()))+"',pago='"+solodosdecimales.format(variablepago)+"',cambio='"+solodosdecimales.format(Float.parseFloat(nucleo.cambiocombobox.getText()))+"',fecha_reporte='"+fecha()+"',estado_venta='"+estadorealizado+"'WHERE id_venta='"+id_de_la_venta_incrementable+"'");
-                                    ps.executeUpdate();
-                                //ACTUALIZACION EN LA TABLA DESCRIPCION DE VENTA A REALIZADA
+                                 PreparedStatement ps = ca.prepareStatement ("UPDATE venta SET subtotal='"+solodosdecimales.format(Float.parseFloat(nucleo.subtotal.getText())).replace(",", ".")+"',total='"+solodosdecimales.format(Float.parseFloat(nucleo.total.getText())).replace(",", ".")+"',descuento='"+solodosdecimales.format(Float.parseFloat(nucleo.descuentocombo.getText())).replace(",", ".")+"',pago='"+variablepago+"',cambio='"+solodosdecimales.format(Float.parseFloat(nucleo.cambiocombobox.getText())).replace(",", ".")+"',fecha_reporte='"+fecha()+"',estado_venta='"+estadorealizado+"'WHERE id_venta='"+id_de_la_venta_incrementable+"'");
+  ps.executeUpdate();
+                              //ACTUALIZACION EN LA TABLA DESCRIPCION DE VENTA A REALIZADA
                                 id_max_de_venta();
                                 try{
                                     id_max_de_venta();
                                     PreparedStatement ps2 = ca.prepareStatement ("UPDATE descripcion_de_venta SET estado= '"+estadorealizado+"' WHERE id_venta='"+id_de_la_venta_incrementable+"'");
                                     int result = ps2.executeUpdate();
                                          if(result>0){
-                                             JOptionPane.showMessageDialog(null, "El cambio es de: "+nucleo.cambiocombobox.getText()," Se realizo una venta",JOptionPane.YES_OPTION);
+                                            Modelogastos.insertardescuentosengastos("Descuento",Float.parseFloat(nucleo.descuentocombo.getText()));
+                                              JOptionPane.showMessageDialog(null, "El cambio es de: "+nucleo.cambiocombobox.getText()," Se realizo una venta",JOptionPane.YES_OPTION);
                       if(nucleo.reimprimirventa.isSelected()){        descripciondelosprouductosparaelticketdeventa(id_de_la_venta_incrementable);//DATOS PARA EL TICKET DE VENTA          
                                            descripciondelosprouductosparaelticketdeventa(id_de_la_venta_incrementable);//DATOS PARA EL TICKET DE VENTA          
                                   Controladorventa.accionesdespuesderealizarcualquierventa(); }else{descripciondelosprouductosparaelticketdeventa(id_de_la_venta_incrementable);//DATOS PARA EL TICKET DE VENTA          
@@ -1020,8 +968,8 @@ if(variablepago<Float.parseFloat(nucleo.subtotal.getText())){ // comprueba que l
                             block_unlock=true;
                             try{Connection ca= cc.conexion();// el id del usuario
                                 id_max_de_venta();
-                                PreparedStatement ps = ca.prepareStatement ("UPDATE venta SET subtotal='"+solodosdecimales.format(sumadeimportesenturno)+"',total='"+solodosdecimales.format(sumadeimportesenturno)+"',descuento='"+0+"',pago='"+solodosdecimales.format(variablepago)+"',cambio='"+solodosdecimales.format(Float.parseFloat(nucleo.cambiocombobox.getText()))+"',fecha_reporte='"+fecha()+"',estado_venta='"+estadorealizado+"'WHERE id_venta='"+id_de_la_venta_incrementable+"'");
-                                ps.executeUpdate();
+                           PreparedStatement ps = ca.prepareStatement ("UPDATE venta SET subtotal='"+solodosdecimales.format(Float.parseFloat(nucleo.subtotal.getText())).replace(",", ".")+"',total='"+solodosdecimales.format(Float.parseFloat(nucleo.total.getText())).replace(",", ".")+"',descuento='"+0+"',pago='"+variablepago+"',cambio='"+solodosdecimales.format(Float.parseFloat(nucleo.cambiocombobox.getText())).replace(",", ".")+"',fecha_reporte='"+fecha()+"',estado_venta='"+estadorealizado+"'WHERE id_venta='"+id_de_la_venta_incrementable+"'");
+ ps.executeUpdate();
                                 //ACTUALIZACION EN LA TABLA DESCRIPCION DE VENTA A REALIZADA
                                 id_max_de_venta();
                                 try{
@@ -1259,8 +1207,7 @@ public static void cantidadenventa(int pieza){
                 }finally{
                   cc.getClose();
              }
-} 
-public static void regresarproductos_a_inventario(String nombredepieza){ // este metodo devuelve los productos que fueron agregados a la venta y posteriormente fueron cancelados
+} public static void regresarproductos_a_inventario(String nombredepieza){ // este metodo devuelve los productos que fueron agregados a la venta y posteriormente fueron cancelados
               id_max_de_venta();
                     block_unlock=true;   
                     //pendiente la restauracion de venta a inventario
@@ -1276,7 +1223,7 @@ public static void regresarproductos_a_inventario(String nombredepieza){ // este
 JOptionPane.showMessageDialog(null, "Error en regresarproductos_a_inventario" + s.getMessage());
                         }finally{
                     cc.getClose();
-                }// SUMANDO A INVENTARIO EL ULTIMO, 
+                }// SUMANDO A INVENTARIO EL ULTIMO
                         //ELIMINAR DE VENTA EL ARTICULO
                         id_producto(nombredepieza);
                         id_max_de_venta();
@@ -1287,10 +1234,25 @@ JOptionPane.showMessageDialog(null, "Error en regresarproductos_a_inventario" + 
             if(n>0){
                 id_producto(nombredepieza);
          Controladorventa.eliminarpolloenterodestorage(id_producto);
-                 Controladorventa.accionesdespuesderegresarproductosainventarios();
-                 nucleo.descuentocombo.setText("00.00");
-                    nucleo.total.setText(nucleo.subtotal.getText());
-              //  mostrartablaarticulos();   //      autocompletar();
+                 if(descuentoactivo==true){
+                        if(Float.parseFloat(nucleo.subtotal.getText())>=Float.parseFloat(nucleo.descuentocombo.getText())){
+                         if((Float.parseFloat(nucleo.subtotal.getText()) - Float.parseFloat(nucleo.descuentocombo.getText()))>0){
+                            Modeloventa.total_venta_enturno();
+                         nucleo.subtotal.setText(String.valueOf(sumadeimportesenturno));   
+               nucleo.total.setText(String.valueOf(Float.parseFloat(nucleo.subtotal.getText()) - Float.parseFloat(nucleo.descuentocombo.getText())));
+                         }else if((Float.parseFloat(nucleo.subtotal.getText()) - Float.parseFloat(nucleo.descuentocombo.getText()))<0){
+                             nucleo.subtotal.setText("00.00");
+        nucleo.cambiocombobox.setText("00.00");
+        nucleo.descuentocombo.setText("00.00");
+        nucleo.total.setText("00.00");
+                         }
+                            }
+                         }else if(descuentoactivo==false){ 
+                              Modeloventa.total_venta_enturno();
+                       nucleo.subtotal.setText(String.valueOf(sumadeimportesenturno));   
+                            nucleo.total.setText(String.valueOf(sumadeimportesenturno));
+                     }
+         
             }
         }catch(Exception e){
             JOptionPane.showMessageDialog(null, "ERROR en regresarproductos_a_inventario" + e.getMessage());
@@ -1323,10 +1285,25 @@ JOptionPane.showMessageDialog(null, "update error en regresarproductos_pechugaen
             int n = sent.executeUpdate(sql);
             if(n>0){
  Controladorventa.eliminarpolloenterodestorage(57);
-                 Controladorventa.accionesdespuesderegresarproductosainventarios();
-                    nucleo.descuentocombo.setText("00.00");
-                    nucleo.total.setText(nucleo.subtotal.getText());
-              //  mostrartablaarticulos();     //     autocompletar();
+                 if(descuentoactivo==true){
+                        if(Float.parseFloat(nucleo.subtotal.getText())>=Float.parseFloat(nucleo.descuentocombo.getText())){
+                         if((Float.parseFloat(nucleo.subtotal.getText()) - Float.parseFloat(nucleo.descuentocombo.getText()))>0){
+                            Modeloventa.total_venta_enturno();
+                         nucleo.subtotal.setText(String.valueOf(sumadeimportesenturno));   
+               nucleo.total.setText(String.valueOf(Float.parseFloat(nucleo.subtotal.getText()) - Float.parseFloat(nucleo.descuentocombo.getText())));
+                         }else if((Float.parseFloat(nucleo.subtotal.getText()) - Float.parseFloat(nucleo.descuentocombo.getText()))<0){
+                             nucleo.subtotal.setText("00.00");
+        nucleo.cambiocombobox.setText("00.00");
+        nucleo.descuentocombo.setText("00.00");
+        nucleo.total.setText("00.00");
+                         }
+                            }
+                         }else if(descuentoactivo==false){ 
+                              Modeloventa.total_venta_enturno();
+                       nucleo.subtotal.setText(String.valueOf(sumadeimportesenturno));   
+                            nucleo.total.setText(String.valueOf(sumadeimportesenturno));
+                     }
+           
             }
         }catch(Exception e){
             JOptionPane.showMessageDialog(null, "insert error en regresarproductos_pechugaenbisteck" + e.getMessage());
@@ -1386,7 +1363,7 @@ public static void insertarventaacredito(){
                             block_unlock=false;
                             tablaventaactiva=false;
  id_max_de_venta();
-                            PreparedStatement ps = ca.prepareStatement ("UPDATE venta SET total='"+solodosdecimales.format(Float.parseFloat(nucleo.total.getText()))+"',descuento='"+ solodosdecimales.format(Float.parseFloat(nucleo.descuentocombo.getText()))+"',pago='"+0+"',cambio='"+0+"',fecha_reporte='"+fecha()+"',estado_venta='"+creditopendiente+"'WHERE id_venta='"+id_de_la_venta_incrementable+"'");
+                            PreparedStatement ps = ca.prepareStatement ("UPDATE venta SET total='"+solodosdecimales.format(Float.parseFloat(nucleo.total.getText())).replace(",", ".")+"',descuento='"+ solodosdecimales.format(Float.parseFloat(nucleo.descuentocombo.getText())).replace(",", ".")+"',pago='"+0+"',cambio='"+0+"',fecha_reporte='"+fecha()+"',estado_venta='"+creditopendiente+"'WHERE id_venta='"+id_de_la_venta_incrementable+"'");
                             ps.executeUpdate();
  }catch(Exception ex){
                             JOptionPane.showMessageDialog(null, "Error en insertarventaacredito venta" + ex.getMessage());
@@ -1461,7 +1438,7 @@ int decision=JOptionPane.showConfirmDialog(null,"¿Desea continuar?","Estás por
                     if(Float.parseFloat(pagodeventacredito)>=sumadeimportescreditopendiente){
                         try{Connection ca= cc.conexion();
                             cambio = Float.parseFloat(pagodeventacredito)-sumadeimportescreditopendiente;
-                            PreparedStatement ps = ca.prepareStatement ("UPDATE venta SET descuento='"+ variable0+"',pago='"+solodosdecimales.format(Float.parseFloat(pagodeventacredito))+"',cambio='"+solodosdecimales.format(cambio)+"',fecha_reporte='"+fecha()+"',estado_venta='"+creditopagado+"'WHERE id_venta='"+id_ventapencredito+"'");
+                            PreparedStatement ps = ca.prepareStatement ("UPDATE venta SET descuento='"+ variable0+"',pago='"+solodosdecimales.format(Float.parseFloat(pagodeventacredito)).replace(",", ".")+"',cambio='"+solodosdecimales.format(cambio).replace(",", ".")+"',fecha_reporte='"+fecha()+"',estado_venta='"+creditopagado+"'WHERE id_venta='"+id_ventapencredito+"'");
                             ps.executeUpdate();
                         }catch(Exception ex){
                             JOptionPane.showMessageDialog(null, "Error en pagarventacredito" + ex.getMessage());
