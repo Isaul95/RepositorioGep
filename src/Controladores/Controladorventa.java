@@ -222,29 +222,12 @@ Modeloventa.get_id_usuario();// 255 -280
     
     public static void accionesdespuesinsertarendescripciondeventaoactualizarenlamismatabla(String nombredepieza, float cantidaddeproductos){
  if(nombredepieza.equals("Huesito")||nombredepieza.equals("Longaniza")){
-       if(descuentoactivo==true){
-                if(Float.parseFloat(nucleo.subtotal.getText())>0){Modeloventa.total_venta_enturno();
-                 nucleo.subtotal.setText(String.valueOf(sumadeimportesenturno));   
-       nucleo.total.setText(String.valueOf(Float.parseFloat(nucleo.subtotal.getText()) - Float.parseFloat(nucleo.descuentocombo.getText())));
-                    }
-                 }else{  Modeloventa.total_venta_enturno();
-               nucleo.subtotal.setText(String.valueOf(sumadeimportesenturno));   
-                    nucleo.total.setText(String.valueOf(sumadeimportesenturno));
-             }
+       Modeloventa.acciones_despues_de_regresaroagregaraventa();
      Modeloventa.mostrartabladeventas();
                     tablaventaactiva=true;   
                   NoP="";
  } else{
-      if(descuentoactivo==true){
-                if(Float.parseFloat(nucleo.subtotal.getText())>0){Modeloventa.total_venta_enturno();
-                 nucleo.subtotal.setText(String.valueOf(sumadeimportesenturno));   
-       nucleo.total.setText(String.valueOf(Float.parseFloat(nucleo.subtotal.getText()) - Float.parseFloat(nucleo.descuentocombo.getText())));
-                    }
-                 }else{ 
-          Modeloventa.total_venta_enturno();
-               nucleo.subtotal.setText(String.valueOf(sumadeimportesenturno));   
-                    nucleo.total.setText(String.valueOf(sumadeimportesenturno));
-             }
+      Modeloventa.acciones_despues_de_regresaroagregaraventa();
        Modeloventa.descontardeinventario(nombredepieza, cantidaddeproductos);
                     //  descuentodepollo();                  
                     Modeloventa.mostrartabladeventas();
@@ -317,18 +300,7 @@ nucleo.deletedescuento.setVisible(true);
         tablaventaactiva=false;
         descuentoactivo=false;
     } 
-    
- public static void accionesdespuesderegresarproductosainventarios(){
-  if(descuentoactivo==true){
-                if(Float.parseFloat(nucleo.subtotal.getText())>0){Modeloventa.total_venta_enturno();
-                 nucleo.subtotal.setText(String.valueOf(sumadeimportesenturno));   
-       nucleo.total.setText(String.valueOf(Float.parseFloat(nucleo.subtotal.getText()) - Float.parseFloat(nucleo.descuentocombo.getText())));
-                    }
-                 }else{  Modeloventa.total_venta_enturno();
-               nucleo.subtotal.setText(String.valueOf(sumadeimportesenturno));   
-                    nucleo.total.setText(String.valueOf(sumadeimportesenturno));
-             }
- }         
+             
 
                 
  public static void eliminarpolloenterodestorage(int id_producto){
@@ -430,12 +402,12 @@ nucleo.deletedescuento.setVisible(true);
                 if(nombredepiezaseleccionada.equals("Huesito")){
                     Modeloventa.id_producto(nombredepiezaseleccionada);
                     Modeloventa.eliminarhuesito(id_producto);
-                   accionesdespuesderegresarproductosainventarios();
+                   Modeloventa.acciones_despues_de_regresaroagregaraventa();
                     Modeloventa.mostrartabladeventas();
                 }else{
                     Modeloventa.id_producto(nombredepiezaseleccionada);
                     Modeloventa.eliminarhuesito(id_producto);
-                    accionesdespuesderegresarproductosainventarios();
+                    Modeloventa.acciones_despues_de_regresaroagregaraventa();
                     Modeloventa.mostrartabladeventas();
                 }
   } // BOOLEANAS PARA SABER CUALES NO SE VA A REGRESAR

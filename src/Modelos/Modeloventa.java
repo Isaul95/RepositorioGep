@@ -1234,25 +1234,7 @@ JOptionPane.showMessageDialog(null, "Error en regresarproductos_a_inventario" + 
             if(n>0){
                 id_producto(nombredepieza);
          Controladorventa.eliminarpolloenterodestorage(id_producto);
-                 if(descuentoactivo==true){
-                        if(Float.parseFloat(nucleo.subtotal.getText())>=Float.parseFloat(nucleo.descuentocombo.getText())){
-                         if((Float.parseFloat(nucleo.subtotal.getText()) - Float.parseFloat(nucleo.descuentocombo.getText()))>0){
-                            Modeloventa.total_venta_enturno();
-                         nucleo.subtotal.setText(String.valueOf(sumadeimportesenturno));   
-               nucleo.total.setText(String.valueOf(Float.parseFloat(nucleo.subtotal.getText()) - Float.parseFloat(nucleo.descuentocombo.getText())));
-                         }else if((Float.parseFloat(nucleo.subtotal.getText()) - Float.parseFloat(nucleo.descuentocombo.getText()))<0){
-                             nucleo.subtotal.setText("00.00");
-        nucleo.cambiocombobox.setText("00.00");
-        nucleo.descuentocombo.setText("00.00");
-        nucleo.total.setText("00.00");
-                         }
-                            }
-                         }else if(descuentoactivo==false){ 
-                              Modeloventa.total_venta_enturno();
-                       nucleo.subtotal.setText(String.valueOf(sumadeimportesenturno));   
-                            nucleo.total.setText(String.valueOf(sumadeimportesenturno));
-                     }
-         
+                Modeloventa.acciones_despues_de_regresaroagregaraventa();
             }
         }catch(Exception e){
             JOptionPane.showMessageDialog(null, "ERROR en regresarproductos_a_inventario" + e.getMessage());
@@ -1285,31 +1267,32 @@ JOptionPane.showMessageDialog(null, "update error en regresarproductos_pechugaen
             int n = sent.executeUpdate(sql);
             if(n>0){
  Controladorventa.eliminarpolloenterodestorage(57);
-                 if(descuentoactivo==true){
-                        if(Float.parseFloat(nucleo.subtotal.getText())>=Float.parseFloat(nucleo.descuentocombo.getText())){
-                         if((Float.parseFloat(nucleo.subtotal.getText()) - Float.parseFloat(nucleo.descuentocombo.getText()))>0){
-                            Modeloventa.total_venta_enturno();
-                         nucleo.subtotal.setText(String.valueOf(sumadeimportesenturno));   
-               nucleo.total.setText(String.valueOf(Float.parseFloat(nucleo.subtotal.getText()) - Float.parseFloat(nucleo.descuentocombo.getText())));
-                         }else if((Float.parseFloat(nucleo.subtotal.getText()) - Float.parseFloat(nucleo.descuentocombo.getText()))<0){
-                             nucleo.subtotal.setText("00.00");
-        nucleo.cambiocombobox.setText("00.00");
-        nucleo.descuentocombo.setText("00.00");
-        nucleo.total.setText("00.00");
-                         }
-                            }
-                         }else if(descuentoactivo==false){ 
-                              Modeloventa.total_venta_enturno();
-                       nucleo.subtotal.setText(String.valueOf(sumadeimportesenturno));   
-                            nucleo.total.setText(String.valueOf(sumadeimportesenturno));
-                     }
-           
+                 Modeloventa.acciones_despues_de_regresaroagregaraventa();
             }
         }catch(Exception e){
             JOptionPane.showMessageDialog(null, "insert error en regresarproductos_pechugaenbisteck" + e.getMessage());
         }finally{
                     cc.getClose();
                 } //ELIMINAR DE VENTA EL ARTICULO     
+}
+public static void acciones_despues_de_regresaroagregaraventa(){
+    if(descuentoactivo==true){
+                          Modeloventa.total_venta_enturno();
+                         if(sumadeimportesenturno!=0){
+                         nucleo.subtotal.setText(String.valueOf(sumadeimportesenturno));   
+         nucleo.total.setText(String.valueOf(Float.parseFloat(nucleo.subtotal.getText()) - Float.parseFloat(nucleo.descuentocombo.getText())));
+                         }else if(sumadeimportesenturno==0){
+                             nucleo.subtotal.setText("00.00");
+                              nucleo.cambiocombobox.setText("00.00");
+                            nucleo.descuentocombo.setText("00.00");
+                             nucleo.total.setText("00.00");
+                         }
+                            
+                         }else if(descuentoactivo==false){ 
+                              Modeloventa.total_venta_enturno();
+                       nucleo.subtotal.setText(String.valueOf(sumadeimportesenturno));   
+                            nucleo.total.setText(String.valueOf(sumadeimportesenturno));
+                     }
 }
 public static void regresarproductos_a_inventariodescontandotodaslaspiezas(){ // este metodo devuelve los productos que fueron agregados a la venta y posteriormente fueron cancelados
                  int piezasenventa=0;
