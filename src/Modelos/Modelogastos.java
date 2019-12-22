@@ -4,8 +4,6 @@
  * and open the template in the editor.
  */
 package Modelos;
-
-import Controladores.Controladorcortedecaja;
 import Controladores.Controladorgastos;
 import Controladores.Controladorventa;
 import java.sql.Connection;
@@ -67,8 +65,10 @@ public static void mostrartodoslosproductosenexistenciasporbusqueda(String texto
                        if(textobusqueda.equals("")){
                           rs= sent.executeQuery("SELECT * FROM `egreso` order by fecha desc"); // se ejecuta la sentencia dentro del parentesis
                        }
-                       else{
+                       else if(!textobusqueda.equals("")&&!textobusqueda.equalsIgnoreCase("hoy")){
                            rs= sent.executeQuery("SELECT * FROM egreso where tipo LIKE '%" +textobusqueda+"%' or total LIKE '%" +textobusqueda+"%'  or fecha LIKE '%" +textobusqueda+"%'  or cantidad LIKE '%" +textobusqueda+"%' order by fecha desc" ); // se ejecuta la sentencia dentro del parentesis
+                       }else if(textobusqueda.equalsIgnoreCase("hoy")){
+                             rs= sent.executeQuery("SELECT * FROM `egreso` where fecha = '"+Controladorventa.fecha()+"' order by fecha desc"); // se ejecuta la sentencia dentro del parentesis
                        }
              while(rs.next()){        
             datos[0]=rs.getString(3);
