@@ -119,11 +119,11 @@ public static boolean seagregoexterno=false;
                         .addGroup(jPanel31Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jButton10, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
                             .addComponent(gastos_btn_back, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addContainerGap(10, Short.MAX_VALUE))))
+                        .addContainerGap(12, Short.MAX_VALUE))))
         );
 
         producto_sobrante3.add(jPanel31);
-        jPanel31.setBounds(0, 0, 1288, 66);
+        jPanel31.setBounds(0, 0, 1290, 68);
 
         jPanel32.setBackground(new java.awt.Color(0, 51, 102));
         jPanel32.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "   Inventario actualizado", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Arial", 1, 18), new java.awt.Color(255, 255, 255))); // NOI18N
@@ -146,6 +146,11 @@ public static boolean seagregoexterno=false;
         });
         jPanel32.add(agregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 290, 40));
 
+        JtablepaLaVenta = new javax.swing.JTable(){
+            public boolean isCellEditable(int filas, int columnas){
+                return false;
+            }
+        };
         JtablepaLaVenta.setFont(new java.awt.Font("Dialog", 1, 20)); // NOI18N
         JtablepaLaVenta.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -180,6 +185,15 @@ public static boolean seagregoexterno=false;
         ventascanceladaseneldia3.setText("el inventario de hoy");
         jPanel33.add(ventascanceladaseneldia3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 530, 50));
 
+        Jtable_ProductosEntradas = new javax.swing.JTable(){
+            public boolean isCellEditable(int filas, int columnas){
+                if(columnas==1){
+                    return true;
+                }else{
+                    return false;
+                }
+            }
+        };
         Jtable_ProductosEntradas.setFont(new java.awt.Font("Dialog", 1, 20)); // NOI18N
         Jtable_ProductosEntradas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

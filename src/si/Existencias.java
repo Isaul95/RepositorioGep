@@ -80,6 +80,11 @@ public class Existencias extends javax.swing.JFrame{
         jPanel2.add(busqueda);
         busqueda.setBounds(20, 100, 220, 30);
 
+        existenciadeproductos = new javax.swing.JTable(){
+            public boolean isCellEditable(int filas, int columnas){
+                return false;
+            }
+        };
         existenciadeproductos.setFont(new java.awt.Font("Dialog", 1, 22)); // NOI18N
         existenciadeproductos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

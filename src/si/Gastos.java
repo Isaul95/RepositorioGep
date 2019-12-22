@@ -43,6 +43,11 @@ Controladorventa.noduplicargastos=true;
         jPanel2.setBackground(new java.awt.Color(0, 51, 102));
         jPanel2.setLayout(null);
 
+        jTableGastos = new javax.swing.JTable(){
+            public boolean isCellEditable(int filas, int columnas){
+                return false;
+            }
+        };
         jTableGastos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 

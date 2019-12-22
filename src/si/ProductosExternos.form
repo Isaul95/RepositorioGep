@@ -317,6 +317,7 @@
                     </Property>
                   </Properties>
                   <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="J_tableLlenados = new javax.swing.JTable(){&#xa;public boolean isCellEditable(int filas, int columnas){&#xa;    return false;&#xa;}&#xa;};"/>
                     <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
                   </AuxValues>
                 </Component>

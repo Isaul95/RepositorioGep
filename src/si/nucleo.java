@@ -323,6 +323,11 @@ user.setText(usuarioname);
         piezasparaacomplettarpollo.setText("Completar pollo");
         venta.add(piezasparaacomplettarpollo, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 60, 180, -1));
 
+        tablaventa = new javax.swing.JTable(){
+            public boolean isCellEditable(int filas, int columnas){
+                return false;
+            }
+        };
         tablaventa.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         tablaventa.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

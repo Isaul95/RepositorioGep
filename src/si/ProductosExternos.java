@@ -118,7 +118,7 @@ public static int  id_usuario=Integer.parseInt(SI_Inicio.iduser.getText());
         combopieza.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         combopieza.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pechuga", "Muslo", "Pierna", "Ala", "Huacal", "Cadera", "Cabeza", "Molleja", "Patas" }));
         jPanel2.add(combopieza);
-        combopieza.setBounds(30, 190, 180, 34);
+        combopieza.setBounds(30, 190, 180, 30);
 
         combosucursal.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         combosucursal.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Blanca", "Zapata", "Mercado" }));
@@ -165,6 +165,11 @@ public static int  id_usuario=Integer.parseInt(SI_Inicio.iduser.getText());
         jPanel2.add(jLabel9);
         jLabel9.setBounds(250, 370, 190, 29);
 
+        J_tableLlenados = new javax.swing.JTable(){
+            public boolean isCellEditable(int filas, int columnas){
+                return false;
+            }
+        };
         J_tableLlenados.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         J_tableLlenados.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

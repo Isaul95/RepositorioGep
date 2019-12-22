@@ -126,7 +126,7 @@
                                       <Component id="jButton10" pref="50" max="32767" attributes="0"/>
                                       <Component id="gastos_btn_back" max="32767" attributes="0"/>
                                   </Group>
-                                  <EmptySpace pref="10" max="32767" attributes="0"/>
+                                  <EmptySpace pref="12" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -266,6 +266,7 @@
                         </Property>
                       </Properties>
                       <AuxValues>
+                        <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="JtablepaLaVenta = new javax.swing.JTable(){&#xa;public boolean isCellEditable(int filas, int columnas){&#xa;    return false;&#xa;}&#xa;};"/>
                         <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
                       </AuxValues>
                     </Component>
@@ -352,6 +353,7 @@
                         </Property>
                       </Properties>
                       <AuxValues>
+                        <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="Jtable_ProductosEntradas = new javax.swing.JTable(){&#xa;public boolean isCellEditable(int filas, int columnas){&#xa;   if(columnas==1){&#xa;    return true;&#xa;    }else{  &#xa;return false;&#xa;}&#xa;}&#xa;};"/>
                         <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
                       </AuxValues>
                     </Component>
