@@ -8,7 +8,8 @@ import Controladores.Controladorventa;
 import Controladores.Controladorinventarioventas;
 import Modelos.Modeloventa;
 import javax.swing.JOptionPane;
-/**
+
+/** 
  *
  * @author Alexis
  */
@@ -36,8 +37,6 @@ public class Inventarioventas extends javax.swing.JFrame {
         jPanel12 = new javax.swing.JPanel();
         Administrador = new javax.swing.JPanel();
         jPanel23 = new javax.swing.JPanel();
-        jScrollPane6 = new javax.swing.JScrollPane();
-        Jtable_ventasRealizadas = new rojerusan.RSTableMetro();
         veridventas = new javax.swing.JButton();
         jLabel91 = new javax.swing.JLabel();
         jLabel92 = new javax.swing.JLabel();
@@ -58,8 +57,6 @@ public class Inventarioventas extends javax.swing.JFrame {
         jTable3 = new javax.swing.JTable();
         jScrollPane5 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
-        jScrollPane8 = new javax.swing.JScrollPane();
-        tabladeidventas = new rojerusan.RSTableMetro();
         jPanel24 = new javax.swing.JPanel();
         jLabel93 = new javax.swing.JLabel();
         jButton8 = new javax.swing.JButton();
@@ -84,39 +81,6 @@ public class Inventarioventas extends javax.swing.JFrame {
         jPanel23.setBackground(new java.awt.Color(0, 51, 102));
         jPanel23.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Ventas de hoy realizadas", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Arial", 1, 18), new java.awt.Color(255, 255, 255))); // NOI18N
         jPanel23.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        Jtable_ventasRealizadas = new rojerusan.RSTableMetro(){
-            public boolean isCellEditable(int filas, int columnas){
-                return false;
-            }
-        };
-        Jtable_ventasRealizadas.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "nombre_producto", "cantidad", "importe", "total"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        Jtable_ventasRealizadas.setColorFilasForeground1(new java.awt.Color(0, 0, 0));
-        Jtable_ventasRealizadas.setColorFilasForeground2(new java.awt.Color(0, 0, 0));
-        Jtable_ventasRealizadas.setColorSelForeground(new java.awt.Color(0, 0, 0));
-        Jtable_ventasRealizadas.setGrosorBordeFilas(0);
-        Jtable_ventasRealizadas.setGrosorBordeHead(0);
-        Jtable_ventasRealizadas.setMultipleSeleccion(false);
-        Jtable_ventasRealizadas.setRowHeight(25);
-        Jtable_ventasRealizadas.setSelectionBackground(new java.awt.Color(204, 0, 51));
-        jScrollPane6.setViewportView(Jtable_ventasRealizadas);
-
-        jPanel23.add(jScrollPane6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, 10, 0));
 
         veridventas.setBackground(new java.awt.Color(0, 51, 102));
         veridventas.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
@@ -228,6 +192,11 @@ public class Inventarioventas extends javax.swing.JFrame {
         });
         jPanel23.add(cancelarventa, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 70, 60, 90));
 
+        jTable3 = new javax.swing.JTable(){
+            public boolean isCellEditable(int filas, int columnas){
+                return false;
+            }
+        };
         jTable3.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jTable3.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -264,31 +233,6 @@ public class Inventarioventas extends javax.swing.JFrame {
         jScrollPane5.setViewportView(jTable2);
 
         jPanel23.add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 70, 500, 220));
-
-        Jtable_ventasRealizadas = new rojerusan.RSTableMetro(){
-            public boolean isCellEditable(int filas, int columnas){
-                return false;
-            }
-        };
-        tabladeidventas.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {}
-            },
-            new String [] {
-
-            }
-        ));
-        tabladeidventas.setColorFilasForeground1(new java.awt.Color(0, 0, 0));
-        tabladeidventas.setColorFilasForeground2(new java.awt.Color(0, 0, 0));
-        tabladeidventas.setColorSelForeground(new java.awt.Color(0, 0, 0));
-        tabladeidventas.setGrosorBordeFilas(0);
-        tabladeidventas.setGrosorBordeHead(0);
-        tabladeidventas.setMultipleSeleccion(false);
-        tabladeidventas.setRowHeight(25);
-        tabladeidventas.setSelectionBackground(new java.awt.Color(204, 0, 51));
-        jScrollPane8.setViewportView(tabladeidventas);
-
-        jPanel23.add(jScrollPane8, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 70, 10, 10));
 
         Administrador.add(jPanel23);
         jPanel23.setBounds(10, 70, 1260, 300);
@@ -344,7 +288,7 @@ public class Inventarioventas extends javax.swing.JFrame {
         );
 
         Administrador.add(jPanel24);
-        jPanel24.setBounds(0, 0, 1288, 64);
+        jPanel24.setBounds(0, 0, 1290, 64);
 
         jPanel26.setBackground(new java.awt.Color(0, 51, 102));
         jPanel26.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Ventas a credito pendiente por pagar", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Arial", 1, 18), new java.awt.Color(255, 255, 255))); // NOI18N
@@ -390,7 +334,7 @@ public class Inventarioventas extends javax.swing.JFrame {
             }
         });
         Administrador.add(veridventasacreditopendiente);
-        veridventasacreditopendiente.setBounds(620, 610, 189, 46);
+        veridventasacreditopendiente.setBounds(620, 610, 191, 39);
 
         pagarventaacredito.setBackground(new java.awt.Color(0, 51, 102));
         pagarventaacredito.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
@@ -403,7 +347,7 @@ public class Inventarioventas extends javax.swing.JFrame {
             }
         });
         Administrador.add(pagarventaacredito);
-        pagarventaacredito.setBounds(860, 610, 170, 46);
+        pagarventaacredito.setBounds(860, 610, 170, 39);
 
         totalventacreditoenturno.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
         totalventacreditoenturno.setForeground(new java.awt.Color(255, 255, 255));
@@ -538,7 +482,6 @@ Controladorinventarioventas.verdescripcionenbaseaventarealizada();
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JPanel Administrador;
-    private rojerusan.RSTableMetro Jtable_ventasRealizadas;
     public static javax.swing.JButton buscarventasporfecha;
     public static javax.swing.JButton cancelarventa;
     public static javax.swing.JLabel conteodelasventasrealizadas;
@@ -561,16 +504,13 @@ Controladorinventarioventas.verdescripcionenbaseaventarealizada();
     private javax.swing.JPanel jPanel26;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
-    private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
-    private javax.swing.JScrollPane jScrollPane8;
     public static javax.swing.JTable jTable2;
     public static javax.swing.JTable jTable3;
     public static javax.swing.JLabel labelcredito;
     public static javax.swing.JLabel labelnombre;
     public static javax.swing.JLabel labelparaeltotal;
     public static javax.swing.JButton pagarventaacredito;
-    private rojerusan.RSTableMetro tabladeidventas;
     public static javax.swing.JLabel totalventacreditoenturno;
     public static javax.swing.JLabel totalventarealizada;
     public static javax.swing.JTable ventasacreditopendiente;
