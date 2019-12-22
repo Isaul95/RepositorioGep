@@ -68,13 +68,15 @@ public class ticketventa {
                      auxs+= String.format("  Hecho por GepSoft: \n Tel: 733-117-0055\n\n\n\n\n");   
          System.out.println(String.format("  Hecho por GepSoft: \n Tel: 733-117-0055\n\n\n\n\n"));
    try {
-            impServicio.printCadena(impra, auxs);
-            // Cortar el papel ....
+           impServicio.printCadena(impra, auxs);
+            impServicio.cashdrawerOpen(impra);
+// Cortar el papel ....
             byte[] cutP = new byte[]{0x1d, 'V', 1}; // comado para cortar
             impServicio.printBytes(impra, cutP); // se imprime el bruto 
+            
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "El tikect no se pudo imprimir","warning",JOptionPane.WARNING_MESSAGE);
         }
     }  
-    
+ 
 }

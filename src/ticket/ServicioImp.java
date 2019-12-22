@@ -15,11 +15,15 @@ import java.util.List;
 import javax.print.Doc;
 import javax.print.DocFlavor;
 import javax.print.DocPrintJob;
+import javax.print.PrintException;
 import javax.print.PrintService;
 import javax.print.PrintServiceLookup;
 import javax.print.SimpleDoc;
 import javax.print.attribute.HashPrintRequestAttributeSet;
+import javax.print.attribute.HashPrintServiceAttributeSet;
 import javax.print.attribute.PrintRequestAttributeSet;
+import javax.print.attribute.PrintServiceAttributeSet;
+import javax.print.attribute.standard.PrinterName;
 
 public class ServicioImp implements Printable {
 	
@@ -56,8 +60,7 @@ public class ServicioImp implements Printable {
         // Este metodo impime la cadena en la impresoraX
 	public void printCadena(String nom_impresora, String text) 
         {
-		
-		// Encontrar el servico de impresion con el nombre pasado
+	// Encontrar el servico de impresion con el nombre pasado
 		DocFlavor flavor = DocFlavor.BYTE_ARRAY.AUTOSENSE;
 		PrintRequestAttributeSet bras = new HashPrintRequestAttributeSet();
                 // lista de servicios 
@@ -77,6 +80,28 @@ public class ServicioImp implements Printable {
 		}
 
 	}
+        public void cashdrawerOpen(String nombreimpresora) {
+
+byte[] open = {27, 112, 48, 55, 121};
+// byte[] cutter = {29, 86,49};
+String printer = nombreimpresora;
+PrintServiceAttributeSet printserviceattributeset = new HashPrintServiceAttributeSet();
+printserviceattributeset.add(new PrinterName(printer,null));
+PrintService[] printservice = PrintServiceLookup.lookupPrintServices(null, printserviceattributeset);
+if(printservice.length!=1){
+System.out.println("Printer not found");
+}
+PrintService pservice = printservice[0];
+DocPrintJob job = pservice.createPrintJob();
+DocFlavor flavor = DocFlavor.BYTE_ARRAY.AUTOSENSE;
+Doc doc = new SimpleDoc(open,flavor,null);
+PrintRequestAttributeSet aset = new HashPrintRequestAttributeSet();
+try {
+job.print(doc, aset);
+} catch (PrintException ex) {
+System.out.println(ex.getMessage());
+}
+}
 
 	public void printBytes(String nom_impresora, byte[] bytes) 
         {
@@ -105,4 +130,5 @@ public class ServicioImp implements Printable {
 
 		return null;
 	}
+        
 }

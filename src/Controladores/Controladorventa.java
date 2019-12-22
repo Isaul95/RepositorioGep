@@ -182,17 +182,7 @@ public static String[] piezasdemedio = {"Medio pollo","Pechuga", "Muslo","Pierna
         Modeloventa.insertorupdateoverbonnie(nombredepieza, cantidaddeproductos);
           }else if(soypechugaenbisteck==true){
                  Modeloventa.insertorupdatepechugaenbisteck("Pechuga", cantidaddeproductos);
-          }else if (nucleo.piezasparaacomplettarpollo.isSelected() && nombredepiezaseleccionada.equals("Pechuga")&&soypechugaenbisteck==false
-                || nucleo.piezasparaacomplettarpollo.isSelected() && nombredepiezaseleccionada.equals("Muslo")&&soypechugaenbisteck==false
-                || nucleo.piezasparaacomplettarpollo.isSelected() && nombredepiezaseleccionada.equals("Pierna")&&soypechugaenbisteck==false
-                || nucleo.piezasparaacomplettarpollo.isSelected() && nombredepiezaseleccionada.equals("Ala")&&soypechugaenbisteck==false
-                || nucleo.piezasparaacomplettarpollo.isSelected() && nombredepiezaseleccionada.equals("Huacal")&&soypechugaenbisteck==false
-                || nucleo.piezasparaacomplettarpollo.isSelected() && nombredepiezaseleccionada.equals("Cadera")&&soypechugaenbisteck==false
-                || nucleo.piezasparaacomplettarpollo.isSelected() && nombredepiezaseleccionada.equals("Cabeza")&&soypechugaenbisteck==false
-                || nucleo.piezasparaacomplettarpollo.isSelected() && nombredepiezaseleccionada.equals("Molleja")&&soypechugaenbisteck==false
-                || nucleo.piezasparaacomplettarpollo.isSelected() && nombredepiezaseleccionada.equals("Patas")&&soypechugaenbisteck==false) {
-            Modeloventa.comprobar_registro(nombredepiezaseleccionada, cantidaddeproductos);
-        } 
+          } 
            else{
                Modeloventa.comprobar_registro(nombredepieza,cantidaddeproductos); // esto es para agregar los productos a la tabla de descripcion de venta y 
            }   

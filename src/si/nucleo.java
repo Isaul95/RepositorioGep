@@ -76,7 +76,6 @@ user.setText(usuarioname);
         deletedescuento = new javax.swing.JButton();
         cleanall = new javax.swing.JButton();
         jLabel74 = new javax.swing.JLabel();
-        piezasparaacomplettarpollo = new javax.swing.JCheckBox();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaventa = new javax.swing.JTable();
         Botoncrudo = new javax.swing.JButton();
@@ -317,12 +316,6 @@ user.setText(usuarioname);
         jLabel74.setText("En venta :");
         venta.add(jLabel74, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 120, -1));
 
-        piezasparaacomplettarpollo.setBackground(new java.awt.Color(0, 51, 102));
-        piezasparaacomplettarpollo.setFont(new java.awt.Font("Dialog", 1, 20)); // NOI18N
-        piezasparaacomplettarpollo.setForeground(new java.awt.Color(255, 255, 255));
-        piezasparaacomplettarpollo.setText("Completar pollo");
-        venta.add(piezasparaacomplettarpollo, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 60, 180, -1));
-
         tablaventa = new javax.swing.JTable(){
             public boolean isCellEditable(int filas, int columnas){
                 return false;
@@ -562,7 +555,6 @@ new Inventarioventas().setVisible(true);
     private javax.swing.JScrollPane jScrollPane1;
     public static javax.swing.JLabel labeldescuento;
     public static javax.swing.JTextField monto;
-    public static javax.swing.JCheckBox piezasparaacomplettarpollo;
     public static javax.swing.JCheckBox reimprimirventa;
     public static javax.swing.JLabel subtotal;
     public static javax.swing.JTable tablaventa;
