@@ -5,36 +5,51 @@
  */
 package Controladores;
 
-import Controladores.Controladorventa;
-import static Controladores.Controladorventa.conteototaldeventas;
 import static Controladores.Controladorventa.fechaparaventasdesde;
 import static Controladores.Controladorventa.fechaparaventashasta;
-import static Controladores.Controladorventa.id;
-import static Controladores.Controladorventa.sumadeimportescreditopendiente;
-import static Controladores.Controladorventa.sumadeimportesparaeltotal;
-import static Controladores.Controladorventa.sumadetotalesdeventasdehoy;
 import static Controladores.Controladorventa.validarFormularioparamostrardescripciondeproductosporid;
+import Modelos.Modeloinventarioventas;
 import si.Inventarioventas;
-import Modelos.Modeloventa;
+import java.util.ArrayList;
 import java.util.Calendar;
 import javax.swing.JOptionPane;
+import ticket.ticketventacancelada;
+import ticket.ticketventacondescuento;
+import ticket.ticketventacredito;
+
 
 /**
  *
  * @author Alexis
  */
 public class Controladorinventarioventas {
+    public static ticketventacancelada mandardatosticketventacancelada;
+       public static ticketventacondescuento mandardatosaticketventacondescuento;  
+       public static ticketventacredito mandardatosticketventacredito;
+       
+    public static float sumadetotalesdeventasdehoy,
+            sumadeimportescreditopendiente,  sumadeimportesparaeltotal, 
+            descuentoticket, cambioticket, pagoticket, totalticket, subtotalticket;
+    public static short conteototaldeventas, id_ventapencredito, id=0;
+    public static String creditopagado="Credito-pagado", estadocancelado= "Cancelada", creditopendiente="Credito-pendiente";
+    public static ArrayList importesticket = new ArrayList();
+    public static ArrayList preciounitarioticket = new ArrayList();
+    public static ArrayList piezastcket = new ArrayList();
+              public static ArrayList nombreproductoticket = new ArrayList();
+              
+                           
+        
     public static void ventasdehoy(){
-           Modeloventa.totaldelasventasdehoy(); // PARA LA SUMA DE LOS TOTALES DE LA VENTA
-                                Modeloventa.conteodeventasrealizadasdehoy(); // CUANTAS VENTAS SE REALIZARON? 5 O 60 O XX
-                            Inventarioventas.ventaseneldiasumadas.setText(String.valueOf(Controladorventa.sumadetotalesdeventasdehoy));// VIENE DEL METODO ventaseneldiaREALIZADAS()
-                             Inventarioventas.conteodelasventasrealizadas.setText(String.valueOf(Controladorventa.conteototaldeventas)); // VIENE DEL METODO totalventasxdia(); ES UN CONTEO DE VENTAS
+           Modeloinventarioventas.totaldelasventasdehoy(); // PARA LA SUMA DE LOS TOTALES DE LA VENTA
+                                Modeloinventarioventas.conteodeventasrealizadasdehoy(); // CUANTAS VENTAS SE REALIZARON? 5 O 60 O XX
+                            Inventarioventas.ventaseneldiasumadas.setText(String.valueOf(Controladorinventarioventas.sumadetotalesdeventasdehoy));// VIENE DEL METODO ventaseneldiaREALIZADAS()
+                             Inventarioventas.conteodelasventasrealizadas.setText(String.valueOf(Controladorinventarioventas.conteototaldeventas)); // VIENE DEL METODO totalventasxdia(); ES UN CONTEO DE VENTAS
                             
-    Inventarioventas.ventaseneldiasumadas.setText(String.valueOf(Controladorventa.sumadetotalesdeventasdehoy));// VIENE DEL METODO ventaseneldiaREALIZADAS()
-                             Inventarioventas.conteodelasventasrealizadas.setText(String.valueOf(Controladorventa.conteototaldeventas)); // VIENE DEL METODO totalventasxdia(); ES UN CONTEO DE VENTAS
-    Modeloventa.llenartablaidventasconidrealizados();
-                                Modeloventa.productosvendidoseneldia();//MUESTRA LAS VENTAS REA
-                                Modeloventa.llenartablaconventasacreditopendiente();
+    Inventarioventas.ventaseneldiasumadas.setText(String.valueOf(Controladorinventarioventas.sumadetotalesdeventasdehoy));// VIENE DEL METODO ventaseneldiaREALIZADAS()
+                             Inventarioventas.conteodelasventasrealizadas.setText(String.valueOf(Controladorinventarioventas.conteototaldeventas)); // VIENE DEL METODO totalventasxdia(); ES UN CONTEO DE VENTAS
+    Modeloinventarioventas.llenartablaidventasconidrealizados();
+                                Modeloinventarioventas.productosvendidoseneldia();//MUESTRA LAS VENTAS REA
+                                Modeloinventarioventas.llenartablaconventasacreditopendiente();
                               
     }
     public static void botonveridventas(){ //INVENTARIOVENTAS
@@ -42,7 +57,7 @@ public class Controladorinventarioventas {
         Inventarioventas.fechainicial.setDate(null);
         Inventarioventas.fechafinal.cleanup();
         Inventarioventas.fechafinal.setDate(null);
-        Modeloventa.llenartablaidventasconidrealizados(); //CARGA NUEVAMENTE LAS VENTAS POR ID
+        Modeloinventarioventas.llenartablaidventasconidrealizados(); //CARGA NUEVAMENTE LAS VENTAS POR ID
         Inventarioventas.veridventas.setVisible(false);
         Inventarioventas.labelparaeltotal.setText("00.00");
         Inventarioventas.totalventarealizada.setVisible(false);
@@ -55,9 +70,9 @@ public class Controladorinventarioventas {
         if(fila>=0){
             boolean pass =validarFormularioparamostrardescripciondeproductosporid(Inventarioventas.ventasacreditopendiente.getValueAt(fila,0).toString());
             if(pass){
-                Controladorventa.id_ventapencredito=Short.parseShort(Inventarioventas.ventasacreditopendiente.getValueAt(fila,0).toString());
-                Modeloventa.descripciondeproductosenbasealnumerodeventaporcreditopendiente(Integer.parseInt(Inventarioventas.ventasacreditopendiente.getValueAt(fila,0).toString()));
-                Modeloventa.total_venta_creditopendiente(Controladorventa.id_ventapencredito);
+                Controladorinventarioventas.id_ventapencredito=Short.parseShort(Inventarioventas.ventasacreditopendiente.getValueAt(fila,0).toString());
+                Modeloinventarioventas.descripciondeproductosenbasealnumerodeventaporcreditopendiente(Integer.parseInt(Inventarioventas.ventasacreditopendiente.getValueAt(fila,0).toString()));
+                Modeloinventarioventas.total_venta_creditopendiente(Controladorinventarioventas.id_ventapencredito);
                 Inventarioventas.totalventacreditoenturno.setText(String.valueOf(sumadeimportescreditopendiente));
                 Inventarioventas.labelnombre.setVisible(true);
                 Inventarioventas.labelcredito.setVisible(true);
@@ -77,8 +92,8 @@ public class Controladorinventarioventas {
             if(pass){
                Inventarioventas.veridventas.setVisible(true);
                 id=Short.parseShort(Inventarioventas.jTable2.getValueAt(fila,0).toString());
-                Modeloventa.descripciondeproductosenbasealnumerodeventa(id);
-                Modeloventa.total_ventaporid(id);
+                Modeloinventarioventas.descripciondeproductosenbasealnumerodeventa(id);
+                Modeloinventarioventas.total_ventaporid(id);
                 Inventarioventas.labelparaeltotal.setVisible(true);
                 Inventarioventas.labelparaeltotal.setText(String.valueOf(sumadeimportesparaeltotal));
                 Inventarioventas.totalventarealizada.setVisible(true);
@@ -90,24 +105,24 @@ public class Controladorinventarioventas {
         JOptionPane.showMessageDialog(null,"Por favor, seleccione una fila primero","Aviso",JOptionPane.INFORMATION_MESSAGE);
         }
      public static void botoncancelarventa(short id){
-            Modeloventa.status_cancelado(id);
+            Modeloinventarioventas.status_cancelado(id);
         Inventarioventas.fechainicial.cleanup();
         Inventarioventas.fechainicial.setDate(null);
         Inventarioventas.fechafinal.cleanup();
         Inventarioventas.fechafinal.setDate(null);
-        Modeloventa.llenartablaidventasconidrealizados(); //CARGA NUEVAMENTE LAS VENTAS POR ID
+        Modeloinventarioventas.llenartablaidventasconidrealizados(); //CARGA NUEVAMENTE LAS VENTAS POR ID
         Inventarioventas.veridventas.setVisible(false);
         Inventarioventas.labelparaeltotal.setText("00.00");
         Inventarioventas.totalventarealizada.setVisible(false);
         Inventarioventas.labelparaeltotal.setVisible(false);
         Inventarioventas.imprimirventa.setVisible(false);
   Inventarioventas.cancelarventa.setVisible(false);
-  Modeloventa.ids_y_cantidades_porcancelacion(id);
-  Modeloventa.impresiondeventacancelada(id);
+  Modeloinventarioventas.ids_y_cantidades_porcancelacion(id);
+  Modeloinventarioventas.impresiondeventacancelada(id);
   
         }
         public static void botonveridventasacreditopendientes(){
-             Modeloventa.llenartablaconventasacreditopendiente(); //CARGA NUEVAMENTE LAS VENTAS POR ID
+             Modeloinventarioventas.llenartablaconventasacreditopendiente(); //CARGA NUEVAMENTE LAS VENTAS POR ID
  Inventarioventas.labelnombre.setVisible(false);
          Inventarioventas.labelcredito.setVisible(false);
          Inventarioventas.deudor.setVisible(false);
@@ -116,7 +131,7 @@ public class Controladorinventarioventas {
          Inventarioventas.pagarventaacredito.setVisible(false);
         }
         public static void boton_pagar_venta_credito(int id){
-            Modeloventa.pagarventacredito(id);
+            Modeloinventarioventas.pagarventacredito(id);
         }
         public static void botonbuscarventas_porfecha(){
             try{
@@ -125,7 +140,7 @@ public class Controladorinventarioventas {
             if(fechaparaventasdesde.equals("")&&fechaparaventashasta.equals("")){
                 JOptionPane.showMessageDialog(null, "Primero debe elegir un rango de fechas en los calendarios");
             }else{
-     Modeloventa.showidventasporfechas(Inventarioventas.jTable2, llenarfechadesdeparamostrarlosidventas(),llenarfechahastaparamostrarlosidventas());
+     Modeloinventarioventas.showidventasporfechas(Inventarioventas.jTable2, llenarfechadesdeparamostrarlosidventas(),llenarfechahastaparamostrarlosidventas());
             }
         }catch(NullPointerException NP){
             JOptionPane.showMessageDialog(null,"Debes de elegir un rango de fechas en los botones para la fecha", "ERROR", JOptionPane.ERROR_MESSAGE);
@@ -159,11 +174,11 @@ public class Controladorinventarioventas {
         return fechaparaventashasta;
     }
     public static void metodos_al_iniciar_inventarioventas(){
-            Modeloventa.totaldelasventasdehoy(); // PARA LA SUMA DE LOS TOTALES DE LA VENTA
-                     Modeloventa.conteodeventasrealizadasdehoy(); // CUANTAS VENTAS SE REALIZARON? 5 O 60 O XX
-                  Modeloventa.llenartablaidventasconidrealizados();
-                          Modeloventa.productosvendidoseneldia();//MUESTRA LAS VENTAS REA
-                   Modeloventa.llenartablaconventasacreditopendiente();
+            Modeloinventarioventas.totaldelasventasdehoy(); // PARA LA SUMA DE LOS TOTALES DE LA VENTA
+                     Modeloinventarioventas.conteodeventasrealizadasdehoy(); // CUANTAS VENTAS SE REALIZARON? 5 O 60 O XX
+                  Modeloinventarioventas.llenartablaidventasconidrealizados();
+                          Modeloinventarioventas.productosvendidoseneldia();//MUESTRA LAS VENTAS REA
+                   Modeloinventarioventas.llenartablaconventasacreditopendiente();
       Inventarioventas.ventaseneldiasumadas.setText(String.valueOf(sumadetotalesdeventasdehoy));// VIENE DEL METODO ventaseneldiaREALIZADAS()
                         Inventarioventas.conteodelasventasrealizadas.setText(String.valueOf(conteototaldeventas)); // VIENE DEL METODO totalventasxdia(); ES UN CONTEO DE VENTAS
                Inventarioventas.totalventarealizada.setVisible(false);

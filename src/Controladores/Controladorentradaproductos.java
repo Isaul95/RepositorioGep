@@ -5,7 +5,8 @@
  */
 package Controladores;
 
-import Modelos.Modeloventa;
+import Modelos.Modeloentradaproductos;
+
 import si.Entradaproductos;
 
 /**
@@ -13,8 +14,9 @@ import si.Entradaproductos;
  * @author Alexis
  */
 public class Controladorentradaproductos {
+    public static float cantidaddesdelatablaeditable;
      public static void metodos_al_iniciar_entradasproductos(){
-              Modeloventa.TablallenadoparaEntradas(Entradaproductos.Jtable_ProductosEntradas);
-                  Modeloventa.ParaLAVenta(Entradaproductos.JtablepaLaVenta);
+              Modeloentradaproductos.TablallenadoparaEntradas(Entradaproductos.Jtable_ProductosEntradas);
+                  Modeloentradaproductos.ParaLAVenta(Entradaproductos.JtablepaLaVenta);
       }
 }

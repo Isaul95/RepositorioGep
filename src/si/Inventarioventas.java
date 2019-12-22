@@ -6,6 +6,7 @@
 package si;
 import Controladores.Controladorventa;
 import Controladores.Controladorinventarioventas;
+import Modelos.Modeloinventarioventas;
 import Modelos.Modeloventa;
 import javax.swing.JOptionPane;
 
@@ -414,11 +415,11 @@ public class Inventarioventas extends javax.swing.JFrame {
     }//GEN-LAST:event_buscarventasporfechaActionPerformed
 
     private void imprimirventaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_imprimirventaActionPerformed
-        Modeloventa.reimpresiondeventa(Controladorventa.id);
+        Modeloinventarioventas.reimpresiondeventa(Controladorinventarioventas.id);
     }//GEN-LAST:event_imprimirventaActionPerformed
 
     private void cancelarventaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarventaActionPerformed
-        Controladorinventarioventas.botoncancelarventa(Controladorventa.id);
+        Controladorinventarioventas.botoncancelarventa(Controladorinventarioventas.id);
     }//GEN-LAST:event_cancelarventaActionPerformed
 
     private void jTable2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable2MouseClicked
@@ -438,7 +439,7 @@ Controladorinventarioventas.verdescripcionenbaseaventarealizada();
     }//GEN-LAST:event_veridventasacreditopendienteActionPerformed
 
     private void pagarventaacreditoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pagarventaacreditoActionPerformed
-      Modeloventa.pagarventacredito(Controladorventa.id_ventapencredito);
+      Modeloinventarioventas.pagarventacredito(Controladorinventarioventas.id_ventapencredito);
     }//GEN-LAST:event_pagarventaacreditoActionPerformed
 
     private void gastos_btn_backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gastos_btn_backActionPerformed

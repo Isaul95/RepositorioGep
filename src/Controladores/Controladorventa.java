@@ -10,7 +10,7 @@ import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 import si.nucleo;
 import ticket.ticketventa;
-import ticket.ticketventacancelada;
+
 import ticket.ticketventacondescuento;
 import ticket.ticketventacredito;
 
@@ -19,36 +19,34 @@ import ticket.ticketventacredito;
  * @author Alexis
  */
 public class Controladorventa{
-    public static ticketventacancelada mandardatosticketventacancelada;
-   public static ticketventacondescuento mandardatosaticketventacondescuento;  
-   public static ticketventa mandardatosticketventa;
-    public static ticketventacredito mandardatosticketventacredito;
-    
-          public static ArrayList nombreproductoticket = new ArrayList();
-public static ArrayList piezastcket = new ArrayList();
-public static ArrayList preciounitarioticket = new ArrayList();
-public static ArrayList importesticket = new ArrayList();
 
- public static float subtotalticket, totalticket, pagoticket, cambioticket, porcentajedescontadoticket, descuentoticket;
+
+   public static ticketventa mandardatosticketventa;
+    
+    
+
+
+
+
+
+ public static float  porcentajedescontadotipiezastcketcket;
  public static float cantidaddeproductos=0, cantidadparapollocrudo=0;
- public static float  gastos, sumadetotalesdeventasdehoy;
+ public static float  gastos;
    public static float variablepago, piezassuficientes, cantidadporerrordeusuario, 
            NoPcantidad=0, cantidadenventa,  cantidadenventasumada ,
-           cantidaddesdelatablaeditable, cantidadpolloenDB, porcentaje, importe,cambio,precio, 
-           NoPimporte=0,sumadeimportesenturno, sumadeimportesparaeltotal, sumadeimportescreditopendiente;
+           cantidadpolloenDB, porcentaje, importe,cambio,precio, 
+           NoPimporte=0,sumadeimportesenturno;
    
- public static short id_ventapencredito, ciclofor,fila,id_usuario,id_producto,id=0, conteototaldeventas, id_de_la_venta_incrementable,totalcomprobacion, primerventa;//SI SE OCUPAN   
+ public static short  id_producto, ciclofor,fila,id_usuario, id_de_la_venta_incrementable,totalcomprobacion, primerventa;//SI SE OCUPAN   
  
     public static String  fechadesde="",fechahasta="", fechaparaventasdesde="", fechaparaventashasta="";
 public static String nombredepiezaseleccionada="";
-public static String estadoinactivo="Inactivo", estadoactivo="Activo", NoP="",estadocancelado= "Cancelada",
-         estadorealizado="Realizada", estadoenturno="En turno", 
-         creditopendiente="Credito-pendiente", creditopagado="Credito-pagado";
+public static String estadoinactivo="Inactivo", estadoactivo="Activo", NoP="",
+         estadorealizado="Realizada", estadoenturno="En turno";
 
-          public static ArrayList idsenturno = new ArrayList();
-      public static ArrayList cantidaddecadaidenturno = new ArrayList();       
-  public static ArrayList storage = new ArrayList(); // para guardar los id de cada producto que se ha agregado a la tabla venta
-
+ public static ArrayList storage = new ArrayList(); // para guardar los id de cada producto que se ha agregado a la tabla venta
+public static ArrayList idsenturno = new ArrayList();
+        public static ArrayList cantidaddecadaidenturno = new ArrayList();    
   public  static String[] piezas = {"pollo crudo", "Pechuga", "Muslo","Pierna","Ala","Huacal","Cadera","Cabeza", "Molleja", "Patas"};
 public static String[] piezasdemedio = {"Medio pollo","Pechuga", "Muslo","Pierna","Ala","Huacal", "Molleja", "Patas"};
 
@@ -267,10 +265,10 @@ nucleo.deletedescuento.setVisible(true);
                }
             }
     public static void vaciarlistasdeticket(){
-                nombreproductoticket.clear();
-              piezastcket.clear();
-              preciounitarioticket.clear(); 
-              importesticket.clear();
+                Controladorinventarioventas.nombreproductoticket.clear();
+              Controladorinventarioventas.piezastcket.clear();
+              Controladorinventarioventas.preciounitarioticket.clear(); 
+              Controladorinventarioventas.importesticket.clear();
            }
     public static void accionesdespuesderealizarcualquierventa(){
       //  descuentodepollo();  
@@ -333,17 +331,8 @@ nucleo.deletedescuento.setVisible(true);
  public static void cerrandosesion_o_limpiandoventa(){
                 Modeloventa.regresarproductos_a_inventariodescontandotodaslaspiezas(); //pone en estatus de cancelada la venta inconclusa
                // descuentodepollo();
-                //EL SIGUIENTE METODO LIMPIA LA TABLA VENTA YA UNA VEZ QUE SE REGRESARON LAS PIEZAS
             Modeloventa.borrarventasenestadoenturnoporerrordeusuario_limpiarventa_o_cerrarsesion();
-            /* ESTOS 3 METODOS
-            1.- AGREGA EL STATUS CANCELADO A LA TABLA VENTA, OSEA PONE TODOS LOS TOTALES EN 0
-            2.- EN EL PUNTO 1, ACTIVA LA VARIABLE block_unlock=true; PARA QUE EN EL METODO GET ID USUARIO INCREMENTE UN NUEVO ID
-            3.- Y POSTERIOR SE DESACTIVA LA VARIABLE POR QUE YA SE INCREMENTO UN NUEVO ID
-            status_cancelado();  //pone en estatus de cancelada la venta inconclusa y cada producto que lo compone
-            get_id_usuario(); //vuelve a asiganr otro id_venta para que así no se repita con el id anterior que tuvo una venta cancelada
-            block_unlock=false; //se bloquea la opcion de poder agregar otro id_usuario a la tabla de venta y así abrir una nueva venta
-            */
-            limpiardatosdeventa();  //limpia en su mayoria los campos de texto que pertenezcan al apartado venta
+          limpiardatosdeventa();  //limpia en su mayoria los campos de texto que pertenezcan al apartado venta
                 nucleo.tablaventa.setVisible(false); //Desaparece la tabla
                storage.clear();
     }//BOTON CERRAR SESION, PERO COMPRUEBA SI HAY UNA VENTA PEN PARA CANCELAR EN CASO DE SALIR  public void eliminarhuesito(int id){
@@ -435,9 +424,7 @@ nucleo.deletedescuento.setVisible(true);
      
     public static void metodos_al_iniciar_menuprincipal(){
       Modeloventa.ids_y_cantidades_enturno_por_error_de_usuario();
-      
 nucleo.deletedescuento.setVisible(false);
-   //DE LA TABLA CREDITO PENDIENTE
     }
    public static boolean validarFormularioparaentradadeproductos(String cantidaddelatabla) { // VALIDACION DE TXT MONTO
         boolean next = false;

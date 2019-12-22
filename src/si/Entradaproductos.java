@@ -6,7 +6,7 @@
 package si;
 import Controladores.Controladorventa;
 import Controladores.Controladorentradaproductos;
-import Modelos.Modeloventa;
+import Modelos.Modeloentradaproductos;
 import static si.Entradaproductos.JtablepaLaVenta;
 
 /**
@@ -27,7 +27,7 @@ public static boolean seagregoexterno=false;
     public Entradaproductos(boolean seagregoexterno){
     this.seagregoexterno=seagregoexterno;
     if(this.seagregoexterno==true){
-       Modeloventa.ParaLAVenta(JtablepaLaVenta);
+       Modeloentradaproductos.ParaLAVenta(JtablepaLaVenta);
     }
 } 
 
