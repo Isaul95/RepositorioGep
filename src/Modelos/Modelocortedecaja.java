@@ -426,9 +426,9 @@ ListadeGastosAlHacerCorteCaja();  // TOCKET DE LISTA DE GASTOS
  /*sii*/obteniendolosvaloresdelcortedecajadeldiadehoyparaelticket(numerodescuentos, totaldedescuentos);//LOS DATOS DEL TICKET CORTE DE CAJA                                                      
   ventascondescuento();
             llenar_tabla_utilidad(gastosdeldia, ventasdeldia);
-      //vaciartodoelpollococidoenprocesados();
-        //  vaciartodoelpollocrudoendevolucioncrudo();
-     // vaciartodoeninventario();//UNA VEZ IMPRESO LOS 5 TICKETS SE VACIA TODO EL INVENTARIO            
+     vaciartodoelpollococidoenprocesados();
+         vaciartodoelpollocrudoendevolucioncrudo();
+      vaciartodoeninventario();//UNA VEZ IMPRESO LOS 5 TICKETS SE VACIA TODO EL INVENTARIO            
                 JOptionPane.showMessageDialog(null,"Nos vemos pronto","Saliendo del sistema...",JOptionPane.INFORMATION_MESSAGE);
             System.exit(0);
                 }
