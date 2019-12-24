@@ -5,9 +5,11 @@
  */
 package Controladores;
 
+import static Controladores.Controladorcortedecaja.ventasdeldia;
 import static Controladores.Controladorventa.fechaparaventasdesde;
 import static Controladores.Controladorventa.fechaparaventashasta;
 import static Controladores.Controladorventa.validarFormularioparamostrardescripciondeproductosporid;
+import Modelos.Modelocortedecaja;
 import Modelos.Modeloinventarioventas;
 import si.Inventarioventas;
 import java.util.ArrayList;
@@ -174,12 +176,12 @@ public class Controladorinventarioventas {
         return fechaparaventashasta;
     }
     public static void metodos_al_iniciar_inventarioventas(){
-            Modeloinventarioventas.totaldelasventasdehoy(); // PARA LA SUMA DE LOS TOTALES DE LA VENTA
-                     Modeloinventarioventas.conteodeventasrealizadasdehoy(); // CUANTAS VENTAS SE REALIZARON? 5 O 60 O XX
+   Modeloinventarioventas.conteodeventasrealizadasdehoy(); // CUANTAS VENTAS SE REALIZARON? 5 O 60 O XX
                   Modeloinventarioventas.llenartablaidventasconidrealizados();
                           Modeloinventarioventas.productosvendidoseneldia();//MUESTRA LAS VENTAS REA
                    Modeloinventarioventas.llenartablaconventasacreditopendiente();
-      Inventarioventas.ventaseneldiasumadas.setText(String.valueOf(sumadetotalesdeventasdehoy));// VIENE DEL METODO ventaseneldiaREALIZADAS()
+                        Modelocortedecaja.ventaseneldia();// PARA LA SUMA DE LOS TOTALES DE LA VENTA
+      Inventarioventas.ventaseneldiasumadas.setText(String.valueOf(ventasdeldia));// VIENE DEL METODO ventaseneldiaREALIZADAS()
                         Inventarioventas.conteodelasventasrealizadas.setText(String.valueOf(conteototaldeventas)); // VIENE DEL METODO totalventasxdia(); ES UN CONTEO DE VENTAS
                Inventarioventas.totalventarealizada.setVisible(false);
     Inventarioventas.labelparaeltotal.setVisible(false);

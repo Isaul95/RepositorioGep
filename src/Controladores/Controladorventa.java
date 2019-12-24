@@ -19,20 +19,11 @@ import ticket.ticketventacredito;
  * @author Alexis
  */
 public class Controladorventa{
-
-
-   public static ticketventa mandardatosticketventa;
-    
-    
-
-
-
-
-
- public static float  porcentajedescontadotipiezastcketcket;
- public static float cantidaddeproductos=0, cantidadparapollocrudo=0;
- public static float  gastos;
-   public static float variablepago, piezassuficientes, cantidadporerrordeusuario, 
+public static ticketventa mandardatosticketventa;
+public static float  porcentajedescontadotipiezastcketcket;
+public static float cantidaddeproductos=0, cantidadparapollocrudo=0;
+public static float  gastos;
+public static float variablepago, piezassuficientes, cantidadporerrordeusuario, 
            NoPcantidad=0, cantidadenventa,  cantidadenventasumada ,
            cantidadpolloenDB, porcentaje, importe,cambio,precio, 
            NoPimporte=0,sumadeimportesenturno;
