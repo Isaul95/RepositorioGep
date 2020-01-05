@@ -40,7 +40,7 @@ static ResultSet rs;
         try (ResultSet rs = ps.executeQuery(sSQL)) {
             while (rs.next()) {
                 columna[0] = rs.getString(1);
-                 columna[1] = (int) rs.getFloat(2);
+                 columna[1] = rs.getFloat(2);
                 modeloT.addRow(columna);
             }
                         modeloT.addTableModelListener(new TableModelListener(){
@@ -95,7 +95,7 @@ static ResultSet rs;
             while (rs.next()) {
                 columna[0] = rs.getString(1);
                 columna[1] = rs.getFloat(2);
-                 columna[2] = (int) rs.getFloat(3);
+                 columna[2] = rs.getFloat(3);
                 modeloT.addRow(columna);
             }
         }
@@ -113,7 +113,9 @@ static ResultSet rs;
                    Controladorventa.piezas[Controladorventa.ciclofor].equals("Pierna")||
                    Controladorventa.piezas[Controladorventa.ciclofor].equals("Ala")||
                   Controladorventa.piezas[Controladorventa.ciclofor].equals("Patas")){
-               PreparedStatement ps = ca.prepareStatement ("UPDATE productos SET cantidad='"+((cantidaddesdelatablaeditable*2))+"'WHERE nombre_producto='"+Controladorventa.piezas[Controladorventa.ciclofor]+"'");
+                    Modeloventa.id_producto(Controladorventa.piezas[Controladorventa.ciclofor]);
+                    Modeloventa.cantidadpolloenDByname((int)Controladorventa.id_producto);
+               PreparedStatement ps = ca.prepareStatement ("UPDATE productos SET cantidad='"+((cantidaddesdelatablaeditable*2)+Controladorventa.cantidadpolloenDB)+"'WHERE nombre_producto='"+Controladorventa.piezas[Controladorventa.ciclofor]+"'");
                int ty = ps.executeUpdate();      
                  if(ty>0){
                      ParaLAVenta(Entradaproductos.JtablepaLaVenta);  // ***********************                      
@@ -123,7 +125,9 @@ static ResultSet rs;
            else if(Controladorventa.piezas[Controladorventa.ciclofor].equals("Huacal")||Controladorventa.piezas[Controladorventa.ciclofor].equals("Cadera")||
                    Controladorventa.piezas[Controladorventa.ciclofor].equals("Cabeza")||
                    Controladorventa.piezas[Controladorventa.ciclofor].equals("Molleja")||Controladorventa.piezas[Controladorventa.ciclofor].equals("Pechuga")){
-         PreparedStatement ps = ca.prepareStatement ("UPDATE productos SET cantidad='"+((cantidaddesdelatablaeditable*1))+"'WHERE nombre_producto='"+Controladorventa.piezas[Controladorventa.ciclofor]+"'");
+               Modeloventa.id_producto(Controladorventa.piezas[Controladorventa.ciclofor]);
+                    Modeloventa.cantidadpolloenDByname((int)Controladorventa.id_producto);
+        PreparedStatement ps = ca.prepareStatement ("UPDATE productos SET cantidad='"+((cantidaddesdelatablaeditable*1)+Controladorventa.cantidadpolloenDB)+"'WHERE nombre_producto='"+Controladorventa.piezas[Controladorventa.ciclofor]+"'");
                int ty = ps.executeUpdate();
                  if(ty>0){
                      ParaLAVenta(Entradaproductos.JtablepaLaVenta);  // ***********************        
