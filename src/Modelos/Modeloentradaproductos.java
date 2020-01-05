@@ -40,7 +40,7 @@ static ResultSet rs;
         try (ResultSet rs = ps.executeQuery(sSQL)) {
             while (rs.next()) {
                 columna[0] = rs.getString(1);
-                 columna[1] = rs.getFloat(2);
+                 columna[1] = (int) rs.getFloat(2);
                 modeloT.addRow(columna);
             }
                         modeloT.addTableModelListener(new TableModelListener(){
