@@ -11,6 +11,7 @@ import static Controladores.Controladorventa.fechaparaventashasta;
 import static Controladores.Controladorventa.validarFormularioparamostrardescripciondeproductosporid;
 import Modelos.Modelocortedecaja;
 import Modelos.Modeloinventarioventas;
+import Modelos.Modeloventa;
 import si.Inventarioventas;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -107,21 +108,21 @@ public class Controladorinventarioventas {
         JOptionPane.showMessageDialog(null,"Por favor, seleccione una fila primero","Aviso",JOptionPane.INFORMATION_MESSAGE);
         }
      public static void botoncancelarventa(short id){
-            Modeloinventarioventas.status_cancelado(id);
-        Inventarioventas.fechainicial.cleanup();
-        Inventarioventas.fechainicial.setDate(null);
-        Inventarioventas.fechafinal.cleanup();
-        Inventarioventas.fechafinal.setDate(null);
-        Modeloinventarioventas.llenartablaidventasconidrealizados(); //CARGA NUEVAMENTE LAS VENTAS POR ID
-        Inventarioventas.veridventas.setVisible(false);
-        Inventarioventas.labelparaeltotal.setText("00.00");
-        Inventarioventas.totalventarealizada.setVisible(false);
+            Modeloinventarioventas.status_cancelado(id); //Cancela venta: se refiera a poner el estado "Cancelada" tando a la tabla venta y descripcion_de_venta que correspondan a èste ID
+        Inventarioventas.fechainicial.cleanup();// Limpia el calendario final 
+        Inventarioventas.fechainicial.setDate(null); // igual que el de arriba 
+        Inventarioventas.fechafinal.cleanup(); // igual que el de abajo
+        Inventarioventas.fechafinal.setDate(null);// Limpia el calendario inicial  
+        Modeloinventarioventas.llenartablaidventasconidrealizados(); //Carga nuevamente las ventas por ID
+        Inventarioventas.veridventas.setVisible(false); // Oculta el botòn de ver las ventas
+        Inventarioventas.labelparaeltotal.setText("00.00"); //manda un total de 0.00
+        Inventarioventas.totalventarealizada.setVisible(false);//oculta el label de la venta realizada
         Inventarioventas.labelparaeltotal.setVisible(false);
-        Inventarioventas.imprimirventa.setVisible(false);
-  Inventarioventas.cancelarventa.setVisible(false);
-  Modeloinventarioventas.ids_y_cantidades_porcancelacion(id);
+        Inventarioventas.imprimirventa.setVisible(false); //Cculta el boton de imprimir la venta
+  Inventarioventas.cancelarventa.setVisible(false);//Oculta el botòn de cancelar la venta
+  Modeloventa.regresarproductos_a_inventariodescontandotodaslaspiezas("Cancelada",(int)id);
+  Controladorventa.storage.clear();;
   Modeloinventarioventas.impresiondeventacancelada(id);
-  
         }
         public static void botonveridventasacreditopendientes(){
              Modeloinventarioventas.llenartablaconventasacreditopendiente(); //CARGA NUEVAMENTE LAS VENTAS POR ID

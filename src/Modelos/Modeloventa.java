@@ -199,7 +199,6 @@ if(NoP.equals("Pechuga en bisteck")&&NoPimporte!=0){ //Si el nombre del producto
                 PreparedStatement pst = ca.prepareCall(sql); //hasta aqui vamos
                 id_producto(nombredepieza); 
                 pst.setInt(1,57);
-               noguardaridrepetidoenstorage(57);
                pst.setString(2,"Pechuga en bisteck");
                 pst.setFloat(3,cantidaddeproductos);            
                 //EL METODO A CONTINUACION VA HACIENDO EL CONTEO DE LAS PIEZAS INDIVIDUALES
@@ -223,21 +222,7 @@ if(NoP.equals("Pechuga en bisteck")&&NoPimporte!=0){ //Si el nombre del producto
             }finally{cc.getClose();}//fin de la insersion a la tabla ventas
         }
     }
-   
-    public static void noguardaridrepetidoenstorage(int id){//NO PERMITE AGREGAR IDS REPETIDOS A STORAGE
-     boolean loencontre=false;
-     if(storage.size()>0){
-         for(ciclofor=0; ciclofor<=storage.size()-1;ciclofor++){  
-         if(Integer.parseInt(storage.get(ciclofor).toString())==id){
-          loencontre=true;  
-         }
-         }if(loencontre==false){
-             storage.add(id);
-         }
-     }else{
-          storage.add(id);
-     }
- }
+
     public static void precio_producto(String nombredepieza){
         try{ Connection ca= cc.conexion();// el precio del producto
                                 sent  =(Statement)ca.createStatement();
@@ -294,7 +279,6 @@ try{Connection ca= cc.conexion();   // ESTE ES PARA EL UPDATE
                 PreparedStatement pst = ca.prepareCall(sql); //hasta aqui vamos
                 id_producto(nombredepieza); 
                 pst.setInt(1,id_producto);
-                noguardaridrepetidoenstorage(id_producto);
                pst.setString(2,nombredepieza);
                                  pst.setFloat(3,cantidaddeproductos);    
                 //EL METODO A CONTINUACION VA HACIENDO EL CONTEO DE LAS PIEZAS INDIVIDUALES
@@ -413,7 +397,6 @@ if(NoP.equals(nombredepieza)){ //Si el nombre del producto es diferente del esta
                 PreparedStatement pst = ca.prepareCall(sql); //hasta aqui vamos
                 id_producto(nombredepieza); 
                 pst.setInt(1,id_producto);
-                noguardaridrepetidoenstorage(id_producto);
                  pst.setString(2,nombredepieza);
                 pst.setFloat(3,1);
                 pst.setFloat(4,0);
@@ -614,20 +597,7 @@ borrarventasenestadoenturnoporerrordeusuario_que_no_coincidenconlafechadehoy();/
                   cc.getClose();
              }
 }
-        public static void cantidadenventasumadecantidadesfinales(int pieza){
-    id_max_de_venta();  //Cantidad en venta
-                try{Connection ca= cc.conexion();
-                sent  =(Statement)ca.createStatement(); 
-                     rs = sent.executeQuery("select SUM(cantidad) from descripcion_de_venta where id_producto= '"+pieza+"'AND estado='"+estadoenturno+"'and id_venta='"+id_de_la_venta_incrementable+"'and fecha='"+fecha()+"'  ");       
-                if(rs.next()){    
-                    cantidadenventasumada =rs.getFloat("SUM(cantidad)");      
-            
-                }
-                }catch(Exception e){
-                }finally{
-                    cc.getClose();
-                }
-}  
+        
     public static void metodo_de_cobro(float variablepago){
         DecimalFormat solodosdecimales = new DecimalFormat("#.##");
     /*   ********************  BOTON DE COBRAR LA VENTA ****************  */
@@ -830,8 +800,6 @@ JOptionPane.showMessageDialog(null, "Error en regresarproductos_a_inventario" + 
             sent = ca.createStatement();
             int n = sent.executeUpdate(sql);
             if(n>0){
-                id_producto(nombredepieza);
-         Controladorventa.eliminarpolloenterodestorage(id_producto);
                 Modeloventa.acciones_despues_de_regresaroagregaraventa();
             }
         }catch(Exception e){
@@ -864,7 +832,6 @@ JOptionPane.showMessageDialog(null, "update error en regresarproductos_pechugaen
             sent = ca.createStatement();
             int n = sent.executeUpdate(sql);
             if(n>0){
- Controladorventa.eliminarpolloenterodestorage(57);
                  Modeloventa.acciones_despues_de_regresaroagregaraventa();
             }
         }catch(Exception e){
@@ -885,29 +852,37 @@ public static void acciones_despues_de_regresaroagregaraventa(){
                             nucleo.descuentocombo.setText("00.00");
                              nucleo.total.setText("00.00");
                          }
-                            
-                         }else if(descuentoactivo==false){ 
+                     }else if(descuentoactivo==false){ 
                               Modeloventa.total_venta_enturno();
                        nucleo.subtotal.setText(String.valueOf(sumadeimportesenturno));   
                             nucleo.total.setText(String.valueOf(sumadeimportesenturno));
                      }
 }
-public static void regresarproductos_a_inventariodescontandotodaslaspiezas(){ // este metodo devuelve los productos que fueron agregados a la venta y posteriormente fueron cancelados
-                 int piezasenventa=0;
-                                  float piezasenlatablapiezas=0;
-                    id_max_de_venta();
-                    block_unlock=true;
+public static void obtenerlosiddelavebta_enturno_o_venta_cancelada(String estadodelaventa, int id_enturno_o_cancelado){
+                try{Connection ca= cc.conexion();
+                sent  =(Statement)ca.createStatement(); 
+                     rs = sent.executeQuery("select id_producto from descripcion_de_venta where estado='"+estadodelaventa+"'and id_venta='"+id_enturno_o_cancelado+"'and fecha='"+fecha()+"'  ");       
+                while(rs.next()){    
+                    storage.add(rs.getInt("id_producto"));     
+                            }
+                }catch(Exception e){
+                }finally{
+                    cc.getClose();
+                }
+}
+public static void regresarproductos_a_inventariodescontandotodaslaspiezas(String estadodelaventa, int id_enturno_o_cancelado){ // este metodo devuelve los productos que fueron agregados a la venta y posteriormente fueron cancelados
+   obtenerlosiddelavebta_enturno_o_venta_cancelada(estadodelaventa, id_enturno_o_cancelado);
                 for(ciclofor=0;ciclofor<=storage.size()-1;ciclofor++){
                     if(storage.get(ciclofor).toString().equals("57")){
                          cantidadpolloenDByname(15);
-                        cantidadenventasumadecantidadesfinales(57);
+                        cantidadenventasumadecantidadesfinales(estadodelaventa,57,id_enturno_o_cancelado);
                        cantidadpolloenDB+=cantidadenventasumada;
                        descontartodaslaspechugasenbisteck(cantidadpolloenDB);
-                    }
-                 cantidadpolloenDByname(Integer.parseInt(storage.get(ciclofor).toString()));
-                        cantidadenventasumadecantidadesfinales(Integer.parseInt(storage.get(ciclofor).toString()));
-                       cantidadpolloenDB+=cantidadenventasumada;
-                        try{Connection ca= cc.conexion();
+                    }else{
+                        cantidadpolloenDByname(Integer.parseInt(String.valueOf(storage.get(ciclofor))));
+      cantidadenventasumadecantidadesfinales(estadodelaventa,Integer.parseInt(storage.get(ciclofor).toString()),id_enturno_o_cancelado);
+                  cantidadpolloenDB+=cantidadenventasumada;
+                    }  try{Connection ca= cc.conexion();
                             PreparedStatement ps = ca.prepareStatement ("UPDATE productos SET cantidad='"+cantidadpolloenDB+"'WHERE id_producto='"+storage.get(ciclofor)+"'");
                             ps.executeUpdate();
                         }catch(Exception s){
@@ -918,6 +893,19 @@ JOptionPane.showMessageDialog(null, "Error en regresarproductos_a_inventariodesc
                  //PENDIENTE EL REGRESO DE POLLO A INVENTARIO 
                 }//fin del ciclo for              
 }
+public static void cantidadenventasumadecantidadesfinales(String estadoventa, int pieza, int id_enturno_o_cancelado){
+    id_max_de_venta();  //Cantidad en venta
+                try{Connection ca= cc.conexion();
+                sent  =(Statement)ca.createStatement(); 
+                     rs = sent.executeQuery("select SUM(cantidad) from descripcion_de_venta where id_producto= '"+pieza+"'AND estado='"+estadoventa+"'and id_venta='"+id_enturno_o_cancelado+"'and fecha='"+fecha()+"'  ");       
+                if(rs.next()){    
+                    cantidadenventasumada =rs.getFloat("SUM(cantidad)");      
+              }
+                }catch(Exception e){
+                }finally{
+                    cc.getClose();
+                }
+}  
 public  static void eliminarhuesito(int id){
         try{Connection ca= cc.conexion();
         String sql = "delete from descripcion_de_venta where id_producto = '"+id+"' ";

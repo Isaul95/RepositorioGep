@@ -265,6 +265,7 @@ public static void total_pagoycambiopararelticketdeventacancelada(int id){ // re
                   cc.getClose();
              }
 }
+
    public static void ids_y_cantidades_porcancelacion(short id){
 try {Connection ca= cc.conexion();
         Modeloventa.id_max_de_venta();
@@ -274,8 +275,7 @@ try {Connection ca= cc.conexion();
             Controladorventa.idsenturno.add(0, rs.getInt(1));
             Controladorventa.cantidaddecadaidenturno.add(0, rs.getFloat(2));
             }
-  regresar_cantidades_porcancelacion();//SE REGRESAN LAS CANTIDADES
-  Controladorventa.idsenturno.clear();
+ Controladorventa.idsenturno.clear();
             Controladorventa.cantidaddecadaidenturno.clear();
  //SE ALMACENÓ LA VENTA COMO EN TURNO Y EL METODO ANTERIOR A ESTE NO LA PUEDE DETECTAR PORQUE SOLO ELIMINA LAS VENTA EN TURNO DEL DÍA, NO DEL DÍA DE AYER NI DEL PASADO
 } catch (SQLException ex) {
@@ -285,32 +285,7 @@ try {Connection ca= cc.conexion();
                   cc.getClose();
              } 
     }
-   public static void regresar_cantidades_porcancelacion(){
-      for (Controladorventa.ciclofor=0; Controladorventa.ciclofor < Controladorventa.idsenturno.size(); Controladorventa.ciclofor++) {    
-             try { Connection ca= cc.conexion(); 
-             sent = ca.createStatement();   
-                       rs= sent.executeQuery("select cantidad from productos where id_producto= '"+Controladorventa.idsenturno.get(Controladorventa.ciclofor)+"'"); // se ejecuta la sentencia dentro del parentesis
-            while(rs.next()){        
-            Controladorventa.cantidadporerrordeusuario = rs.getFloat(1);
-             }
-             } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "ERROR EN METODO: regresar_cantidades_enturno_por_error_de_usuario"+", PRIMER CATCH","DEVELOPER HELPER", JOptionPane.ERROR_MESSAGE);      
-       }finally{
-                  cc.getClose();
-             } 
-             //DEVOLVIENDO LA CANTIDAD DE PRODUCTOS EN TURNO A LA TABLA PRODUCTOS
-           try{Connection cu= cc.conexion(); 
-                 PreparedStatement ps = cu.prepareStatement ("UPDATE productos SET cantidad= ? WHERE id_producto= ? ");
-                 ps.setFloat(1, Controladorventa.cantidadporerrordeusuario+=Float.parseFloat(Controladorventa.cantidaddecadaidenturno.get(Controladorventa.ciclofor).toString()));
-                 ps.setInt(2, Integer.parseInt(Controladorventa.idsenturno.get(Controladorventa.ciclofor).toString()));
-                 ps.executeUpdate();
-             }catch(Exception e){
-                  JOptionPane.showMessageDialog(null, "ERROR EN METODO: regresar_cantidades_enturno_por_error_de_usuario"+", SEGUNDO CATCH","DEVELOPER HELPER", JOptionPane.ERROR_MESSAGE);      
-       }finally{
-                  cc.getClose();
-             } 
-       }//FIN DEL  FOR
-  }
+  
    public static void status_cancelado(int id){
         try{Connection ca= cc.conexion();
                     PreparedStatement ps = ca.prepareStatement ("UPDATE venta SET estado_venta='"+estadocancelado+"'WHERE id_venta='"+id+"'");

@@ -103,8 +103,7 @@ public static String[] piezasdemedio = {"Medio pollo","Pechuga", "Muslo","Pierna
                 cantidaddeproductos = 2 * cantidadparapollocrudo;
                     Modeloventa.comprobar_registro(piezas[i].toString(), cantidaddeproductos);
             }else{  JOptionPane.showMessageDialog(null, "Solo hay " + piezassuficientes + " piezas de "+piezas[i].toString(), "Advertencia", JOptionPane.ERROR_MESSAGE);}
-          
-                } else {
+             } else {
                     if (piezas[i].toString().equals("pollo crudo")) {
                         cantidaddeproductos = 1 * cantidadparapollocrudo;
                         agregarpiezasaventa(piezas[i].toString());
@@ -263,8 +262,7 @@ nucleo.deletedescuento.setVisible(true);
            }
     public static void accionesdespuesderealizarcualquierventa(){
       //  descuentodepollo();  
-
-                                Modeloventa.get_id_usuario();
+     Modeloventa.get_id_usuario();
                               Modeloventa.mostrartabladeventas();
                                     limpiardatosdeventa(); //Los datos que aparecen en la venta se mostraran
                                 descuentoactivo=false;
@@ -279,16 +277,7 @@ nucleo.deletedescuento.setVisible(true);
         tablaventaactiva=false;
         descuentoactivo=false;
     } 
-             
-
-                
- public static void eliminarpolloenterodestorage(int id_producto){
-    for(ciclofor=0;ciclofor<=storage.size()-1;ciclofor++){
-                 if(Integer.parseInt(storage.get(ciclofor).toString())==id_producto){
-                     storage.remove(ciclofor);
-                 }
-             }
-} 
+              
  public static void agregarventaacredito(){
      Modeloventa.insertarventaacredito();
  }
@@ -305,7 +294,7 @@ nucleo.deletedescuento.setVisible(true);
     }   
  
  public static void botones_salir(){
-        if(tablaventaactiva==true&&(storage.size())>0){
+        if(tablaventaactiva==true){
             int decision=JOptionPane.showConfirmDialog(null,"¿Desea continuar?","Advertencia: Tiene una venta inconclusa",JOptionPane.CANCEL_OPTION);
             if(decision==0){ //opción si
                 cerrandosesion_o_limpiandoventa();
@@ -320,7 +309,8 @@ nucleo.deletedescuento.setVisible(true);
         }
 }
  public static void cerrandosesion_o_limpiandoventa(){
-                Modeloventa.regresarproductos_a_inventariodescontandotodaslaspiezas(); //pone en estatus de cancelada la venta inconclusa
+     Modeloventa.id_max_de_venta();
+                Modeloventa.regresarproductos_a_inventariodescontandotodaslaspiezas("En turno", id_de_la_venta_incrementable); //pone en estatus de cancelada la venta inconclusa
                // descuentodepollo();
             Modeloventa.borrarventasenestadoenturnoporerrordeusuario_limpiarventa_o_cerrarsesion();
           limpiardatosdeventa();  //limpia en su mayoria los campos de texto que pertenezcan al apartado venta
