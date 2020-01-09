@@ -174,7 +174,7 @@ public static void nombredeproductoylacantidaddelmismo_en_descripcion_deventapar
   obtenerelnombredeproductoylacantidaddelmismo_en_descripcion_deventa("Pechuga en bisteck");
 if(NoP.equals("Pechuga en bisteck")&&NoPimporte!=0){ //Si el nombre del producto es diferente del estado vacio, en palabras más sencillas; si se encuentra el producto que se quiere agregar para que no se asigne nuevamente  
     try{Connection ca= cc.conexion();// ESTE ES PARA EL UPDATE
-          obtenerelnombredeproductoylacantidaddelmismo_en_descripcion_deventa(nombredepieza);
+          obtenerelnombredeproductoylacantidaddelmismo_en_descripcion_deventa("Pechuga en bisteck");
           NoPcantidad=NoPcantidad+cantidaddeproductos;
                 precio_producto(nombredepieza);
                 NoPimporte = NoPcantidad*precio;
@@ -870,21 +870,25 @@ public static void obtenerlosiddelavebta_enturno_o_venta_cancelada(String estado
                     cc.getClose();
                 }
 }
+
 public static void regresarproductos_a_inventariodescontandotodaslaspiezas(String estadodelaventa, int id_enturno_o_cancelado){ // este metodo devuelve los productos que fueron agregados a la venta y posteriormente fueron cancelados
    obtenerlosiddelavebta_enturno_o_venta_cancelada(estadodelaventa, id_enturno_o_cancelado);
                 for(ciclofor=0;ciclofor<=storage.size()-1;ciclofor++){
-                    if(storage.get(ciclofor).toString().equals("57")){
+                    if(storage.get(ciclofor).toString().equals("57")){ 
                          cantidadpolloenDByname(15);
                         cantidadenventasumadecantidadesfinales(estadodelaventa,57,id_enturno_o_cancelado);
                        cantidadpolloenDB+=cantidadenventasumada;
                        descontartodaslaspechugasenbisteck(cantidadpolloenDB);
-                    }else{
+                    }else{ 
                         cantidadpolloenDByname(Integer.parseInt(String.valueOf(storage.get(ciclofor))));
       cantidadenventasumadecantidadesfinales(estadodelaventa,Integer.parseInt(storage.get(ciclofor).toString()),id_enturno_o_cancelado);
                   cantidadpolloenDB+=cantidadenventasumada;
                     }  try{Connection ca= cc.conexion();
                             PreparedStatement ps = ca.prepareStatement ("UPDATE productos SET cantidad='"+cantidadpolloenDB+"'WHERE id_producto='"+storage.get(ciclofor)+"'");
-                            ps.executeUpdate();
+                           int a= ps.executeUpdate();
+                            if(a>0){
+                            }else{
+                            }
                         }catch(Exception s){
 JOptionPane.showMessageDialog(null, "Error en regresarproductos_a_inventariodescontandotodaslaspiezas" + s.getMessage());
                         }  finally{
