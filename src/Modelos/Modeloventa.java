@@ -623,7 +623,7 @@ borrarventasenestadoenturnoporerrordeusuario_que_no_coincidenconlafechadehoy();/
                                     PreparedStatement ps2 = ca.prepareStatement ("UPDATE descripcion_de_venta SET estado= '"+estadorealizado+"' WHERE id_venta='"+id_de_la_venta_incrementable+"'");
                                     int result = ps2.executeUpdate();
                                          if(result>0){
-                                            Modelogastos.insertarengastos("Descuento",Float.parseFloat(nucleo.descuentocombo.getText()));
+                                            Modelogastos.insertarventacondescuentoengastos("V. "+id_de_la_venta_incrementable+"/Descuento: ",Float.parseFloat(nucleo.descuentocombo.getText()),id_de_la_venta_incrementable);
                                               JOptionPane.showMessageDialog(null, "El cambio es de: "+nucleo.cambiocombobox.getText()," Se realizo una venta",JOptionPane.YES_OPTION);
                       if(nucleo.reimprimirventa.isSelected()){        descripciondelosprouductosparaelticketdeventa(id_de_la_venta_incrementable);//DATOS PARA EL TICKET DE VENTA          
                                            descripciondelosprouductosparaelticketdeventa(id_de_la_venta_incrementable);//DATOS PARA EL TICKET DE VENTA          

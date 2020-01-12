@@ -35,7 +35,7 @@ public class PolloCrudoxPiezas {
          
        auxs+= "Fecha: " + dateFormat.format(date) + " Hora: " + hourFormat.format(date) + "\n";  System.out.println("Fecha: " + dateFormat.format(date) + " Hora: " + hourFormat.format(date) + "\n");
         System.out.println("\n==============================\n");  auxs+= "\n==============================\n";                
-                       auxs+= "Nombre    Sobro Vendio Total\n"; System.out.println("Nombre    Sobro Vendio Total\n");        
+                       auxs+= "Nombre    Sobro Vendio Total\n"; System.out.println("Nombre       Sobro Vendio Total\n");      
          auxs+= "\n==============================\n";   System.out.println("\n==============================\n");                 
         for(int n=0;n<=pollocrudnombre.size()-1;n++){     
 String nom = pollocrudnombre.get(n).toString();                  

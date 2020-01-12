@@ -30,6 +30,36 @@ public class Modeloinventarioventas extends Controladorinventarioventas{
     static SI cc= new SI();
    static Statement sent;  
 static ResultSet rs;  
+public static void la_venta_tiene_descuento_si_o_no(int id_venta){
+        try{ Connection ca= cc.conexion();// La suma de todos los importes
+                                         Statement sent  =(Statement)ca.createStatement();
+                                         ResultSet  rs = sent.executeQuery("select descuento from venta where fecha_reporte= '"+Controladorventa.fecha()+"' AND id_venta='"+id_venta+"'");
+                                            if(rs.next()){
+                                                      descuentoenventa =rs.getFloat(1);
+                                                      }
+                                                      }//fin del try-precio del producto
+                                                      catch (Exception e){
+                                                           JOptionPane.showMessageDialog(null, "ERROR EN METODO: la_venta_tiene_descuento_si_o_no","DEVELOPER HELPER", JOptionPane.ERROR_MESSAGE);       
+                                                      }// fin del precio-catch del producto
+        finally{
+                  cc.getClose();
+             }
+    }
+public static void eliminar_idventa_sitienedescuento(float descuento, int id_venta){
+    if(descuento!=0){
+        try{ Connection ca= cc.conexion();// La suma de todos los importes
+                                        String sql = "delete from egreso where id_venta= '"+id_venta+"'";
+                                           PreparedStatement ps = ca.prepareStatement(sql);
+                                           ps.execute();     
+                                                      }//fin del try-precio del producto
+                                                      catch (Exception e){
+                                                           JOptionPane.showMessageDialog(null, "ERROR EN METODO: eliminar_idventa_sitienedescuento","DEVELOPER HELPER", JOptionPane.ERROR_MESSAGE);       
+                                                      }// fin del precio-catch del producto
+        finally{
+                  cc.getClose();
+             }
+    }
+    }
     public static void totaldelasventasdehoy(){
         try{ Connection ca= cc.conexion();// La suma de todos los importes
                                          Statement sent  =(Statement)ca.createStatement();

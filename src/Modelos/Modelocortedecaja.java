@@ -89,7 +89,7 @@ public static void pagoshechoseneldiaactual(){
  public static void productoscrudosvendidos(){
      try{Connection ca= cc.conexion();//SOLO SE LLAMA A LA CANTIDAD PORQUE EN EL TICKET YA SE DEFINIRÁN LOS NOMBRES DE CADA ARTICULO
                       sent  = (Statement)ca.createStatement();
-                       rs = sent.executeQuery("SELECT DISTINCT nombre_producto FROM descripcion_de_venta where estado in('Realizada','Credito-pendiente','Credito-pagado') and fecha=curdate() and id_producto in (14,15,16,17,18,19,20,21,22,23,57,59) ORDER BY FIELD(nombre_producto, 'pollo crudo', 'Medio pollo', 'Pechuga', 'Pechuga en bisteck', 'Muslo', 'Pierna', 'Ala', 'Huacal', 'Cadera', 'Cabeza', 'Molleja', 'Patas')");
+                       rs = sent.executeQuery("SELECT DISTINCT nombre_producto FROM productos where id_producto in (14,15,16,17,18,19,20,21,22,23,57,59) ORDER BY FIELD(nombre_producto, 'pollo crudo', 'Medio pollo', 'Pechuga', 'Pechuga en bisteck', 'Muslo', 'Pierna', 'Ala', 'Huacal', 'Cadera', 'Cabeza', 'Molleja', 'Patas')");
                       while(rs.next()){
                              nombrescrudovendidos.add(rs.getString(1));
                          }
@@ -99,7 +99,7 @@ public static void pagoshechoseneldiaactual(){
  public static void productoscocidosvendidos(){
      try{Connection ca= cc.conexion();//SOLO SE LLAMA A LA CANTIDAD PORQUE EN EL TICKET YA SE DEFINIRÁN LOS NOMBRES DE CADA ARTICULO
                       sent  = (Statement)ca.createStatement();
-                       rs = sent.executeQuery("SELECT DISTINCT nombre_producto FROM descripcion_de_venta where estado in ('Realizada', 'Credito-pendiente', 'Credito-pagado') and fecha=curdate() and id_producto in (24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,54,55,56) ORDER BY FIELD(nombre_producto,'Mole rojo','Mole verde','Miel','Pollo rostizado','Pollo asado','Pech. broaster','Muslo broaster','Pierna broaster','Ala broaster', 'Alitas bbq','Barbacoa de pollo','Salsa guajillo (gde)','Spagueti blanco','Spagueti rojo','Arroz blanco','Arroz rojo','Frijoles puercos','Frijoles peruanos','Frijoles charros', 'Cochinita','Pure','Ens. de manzana','Ensalada de col','Ensalada rusa','Pasta de codito','Chiles en vinagre','Ver. encurtidas','Nuggets','Mininuggets','Tacos','Brochetas')");
+                       rs = sent.executeQuery("SELECT DISTINCT nombre_producto FROM productos where id_producto in (24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,54,55,56) ORDER BY FIELD(nombre_producto,'Mole rojo','Mole verde','Miel','Pollo rostizado','Pollo asado','Pech. broaster','Muslo broaster','Pierna broaster','Ala broaster', 'Alitas bbq','Barbacoa de pollo','Salsa guajillo (gde)','Spagueti blanco','Spagueti rojo','Arroz blanco','Arroz rojo','Frijoles puercos','Frijoles peruanos','Frijoles charros', 'Cochinita','Pure','Ens. de manzana','Ensalada de col','Ensalada rusa','Pasta de codito','Chiles en vinagre','Ver. encurtidas','Nuggets','Mininuggets','Tacos','Brochetas')");
                       while(rs.next()){
                              nombrescocidovendidos.add(rs.getString(1));
                          }
@@ -283,7 +283,7 @@ public static void metodogastosdeldia(){
         TicketGastosAll = new ListaGastos();          
   TicketGastosAll.ListaGastos(Controladorcortedecaja.columna1,Controladorcortedecaja.columna2); 
     } catch (Exception e) {
-       JOptionPane.showMessageDialog(null, "ERROR EN METODO: productosvendidoseneldia","DEVELOPER HELPER", JOptionPane.ERROR_MESSAGE);      
+       JOptionPane.showMessageDialog(null, "ERROR EN METODO: ListadeGastosAlHacerCorteCaja","DEVELOPER HELPER", JOptionPane.ERROR_MESSAGE);      
       }finally{cc.getClose();}
 }
        
@@ -308,7 +308,7 @@ public static void metodogastosdeldia(){
                 if(a>0){
                  }
             }catch(SQLException e)  { //fin de la insersion a la tabla ventas
-                JOptionPane.showMessageDialog(null,"Error de datos por id vacio "+e);
+                JOptionPane.showMessageDialog(null,"insertartotaldechorizo "+e);
             }finally{
                  cc.getClose();}//fin de la insersion a la tabla ventas
   }
@@ -331,7 +331,7 @@ public static void metodogastosdeldia(){
                 if(a>0){
                  }
             }catch(SQLException e)  { //fin de la insersion a la tabla ventas
-                JOptionPane.showMessageDialog(null,"Error de datos por id vacio "+e);
+                JOptionPane.showMessageDialog(null,"insertartotaldehuesito "+e);
             }finally{
                  cc.getClose();}//fin de la insersion a la tabla ventas
   }
@@ -352,7 +352,8 @@ public static void metodogastosdeldia(){
      total_del_día_procesados();    
      ticketprocesadospiezas.ticketprocesadospiezas(nombrecocido,sobrantedecocido,piezasdecocido, totalesdecocido, Float.parseFloat(solodosdecimales.format(total_de_procesados).replace(",", ".")));                
       }catch(Exception e){                                                     
-          // System.out.println("DESDE PROCESADOS"+ total_de_procesados);
+                 JOptionPane.showMessageDialog(null, "ERROR EN METODO: sobrantedepollococidodeldiaparaticketcantidadesypiezas","DEVELOPER HELPER", JOptionPane.ERROR_MESSAGE);      
+
       }finally{cc.getClose();}
  }//TICKET DEVOLUCION COCIDO,  LAS CANTIDADES Y PIEZAS
  
@@ -369,7 +370,7 @@ public static void metodogastosdeldia(){
                          pagoshechoseneldiaactual();
    tikectcorte = new ticketcortedecaja();     
    tikectcorte.ticketcortedecaja(ticketmonto, ticketgasto, ticketventa, Float.parseFloat(solodosdecimales.format(ticketdiferencia).replace(",", ".")), Float.parseFloat(solodosdecimales.format(ventasmenosgastos).replace(",", ".")), Float.parseFloat(solodosdecimales.format(totaldepagos)), numerodedescuentos, totaldescuentos);  
-      }catch(Exception e){                                             
+      }catch(Exception e){                   JOptionPane.showMessageDialog(null, "ERROR EN METODO: obteniendolosvaloresdelcortedecajadeldiadehoyparaelticket","DEVELOPER HELPER", JOptionPane.ERROR_MESSAGE);                                                 
       }finally{cc.getClose();}
  }
    public static void ventascondescuento(){
@@ -383,7 +384,8 @@ public static void metodogastosdeldia(){
                      
    ventascdesc = new Listaventascondescuento();     
    ventascdesc.ventascondescuento(venta, totalcdesc);  
-      }catch(Exception e){                                             
+      }catch(Exception e){
+           JOptionPane.showMessageDialog(null, "ERROR EN METODO: ventascondescuento","DEVELOPER HELPER", JOptionPane.ERROR_MESSAGE);                                  
       }finally{cc.getClose();}
  }
   public static void hacercorte(){

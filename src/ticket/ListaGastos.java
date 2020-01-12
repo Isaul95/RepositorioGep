@@ -11,7 +11,7 @@ import javax.swing.JOptionPane;
 public class ListaGastos {
     
       public void ListaGastos(ArrayList columna1, ArrayList columna2){
-       
+        float gastossumatoria=0;
         Date date = new Date();
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         DateFormat hourFormat = new SimpleDateFormat("HH:mm:ss");
@@ -51,6 +51,7 @@ public class ListaGastos {
           
              auxs+= String.format("%-20s" + "%-17s", columna1.get(n), columna2.get(n));
  System.out.println(String.format("%-20s" + "%-17s",columna1.get(n), columna2.get(n)));
+  gastossumatoria+= Float.parseFloat(columna2.get(n).toString());
              auxs+= "\n";            
           
 //            auxs+= String.format("%-14s" + "%-10s" + "$%-11s" , columna1.get(n), columna2.get(n), columna3.get(n)); System.out.println(String.format("%-14s" + "%-10s" + "$%-11s" , columna1.get(n), columna2.get(n), columna3.get(n)));                 
@@ -61,7 +62,8 @@ public class ListaGastos {
  System.out.println(String.format("%-6s" + "%-14s" + "%-17s", cantidad, descripcion, totalmonto));
              auxs+= "\n";            */
          auxs+= "\n==============================\n";  System.out.println("\n==============================\n");  
-       auxs+= "\n\n";// Varios saltos para no cortar antes 
+    auxs+= String.format("  "+"TOTAL :"+ "$" + gastossumatoria);    System.out.println(String.format("  "+"TOTAL :"+ "$" + gastossumatoria));
+         auxs+= "\n\n";// Varios saltos para no cortar antes 
         
          
          try {

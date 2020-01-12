@@ -150,7 +150,7 @@ public static void nombresypiezas(){
                              piezas.add(rs.getFloat(2));
                          }
       }catch(Exception e){  
-            JOptionPane.showMessageDialog(null, "totalapagarmetodo");
+            JOptionPane.showMessageDialog(null, "nombresypiezas");
       }finally{cc.getClose();}
 }    
     
@@ -190,52 +190,37 @@ public static void nombresypiezas(){
     public static void productospaExtras(){ // recibe como parametro                          
         try { Connection ca= cc.conexion(); // CONEXION DB 
             ArrayList columna1 = new ArrayList(); 
-            ArrayList columna2 = new ArrayList();                     
+            ArrayList columna2 = new ArrayList();    
+            ArrayList columna3 = new ArrayList();    
                sent  = (Statement)ca.createStatement();          
          if(ProductosExternos.combosucursal.getSelectedItem().toString().equals("Blanca")){          
-             rs = sent.executeQuery("SELECT nombre, pieza FROM productoexternoblanca where pieza != 0");
+             rs = sent.executeQuery("SELECT nombre, pieza, total FROM productoexternoblanca where pieza != 0");
         }else if(ProductosExternos.combosucursal.getSelectedItem().toString().equals("Zapata")){                       
-            rs = sent.executeQuery("SELECT nombre, pieza FROM productoexternozapata where pieza != 0");
+            rs = sent.executeQuery("SELECT nombre, pieza, total FROM productoexternozapata where pieza != 0");
         }else{                 
-           rs = sent.executeQuery("SELECT nombre, pieza FROM productoexternocentral where pieza != 0");
+           rs = sent.executeQuery("SELECT nombre, pieza, total FROM productoexternocentral where pieza != 0");
     }                                       
             while (rs.next()) {                
                              columna1.add(rs.getString(1));
-                             columna2.add(rs.getFloat(2));                             
+                             columna2.add(rs.getFloat(2));  
+                             columna3.add(rs.getFloat(3)); 
             }                           
             String nombresuc = ProductosExternos.combosucursal.getSelectedItem().toString();            
        ticketVentasExternas = new TicketVentaExterna();
-       ticketVentasExternas.TicketVentaExterna(nombresuc , Float.parseFloat(ProductosExternos.pago.getText().toString()), columna1, columna2);              
+       ticketVentasExternas.TicketVentaExterna(nombresuc , Float.parseFloat(ProductosExternos.pago.getText().toString()), columna1, columna2, columna3);              
     } catch (Exception e) {
        JOptionPane.showMessageDialog(null, "ERROR EN METODO: productosvendidoseneldia","DEVELOPER HELPER", JOptionPane.ERROR_MESSAGE);      
       }finally{cc.getClose();}
 }               
     
-    public static void insertarengastos(String nombre, float monto){
-        try{ Connection ca= cc.conexion(); // CONEXION DB // el id del usuario para obtener el id del usuario y comprobar si hay o no algun registro
-   String sql = "INSERT INTO  egreso(cantidad, tipo, fecha, total, usuario)  VALUES (?,?,?,?,?)";
-                         PreparedStatement pst = ca.prepareCall(sql); 
-                         pst.setInt(1,0);
-                         pst.setString(2,nombre);
-                         pst.setString(3,Controladorventa.fecha());
-                         pst.setFloat(4,monto);
-                         pst.setInt(5,ProductosExternos.id_usuario);
-                         int a=pst.executeUpdate();
-                         if(a>0){   // UPDATE `productoexternoblanca` SET `pieza`=0;
-                  productospaExtras();     
-                         }                                                 
-      }catch(Exception w){
-                     JOptionPane.showMessageDialog(null,"insertarengastos"+w);
-      }//fin del id del usuario para comprobar si hay o no elementos ya guardados
-        finally{cc.getClose();}
-    }
+   
     
     public static void agregaraproductos(){
         nombresypiezas();
         for (int i = 0; i < nombres.size(); i++) {            
-            piezasenproductos(nombres.get(i).toString());         
-           piezaendb+=Float.parseFloat(piezas.get(i).toString());
-                 try{ Connection ca= cc.conexion(); // CONEXION DB  //la insersion a la tabla ventas
+            piezasenproductos(nombres.get(i).toString());   
+        piezaendb+=Float.parseFloat(piezas.get(i).toString());
+                try{ Connection ca= cc.conexion(); // CONEXION DB  //la insersion a la tabla ventas
                 PreparedStatement ps = ca.prepareStatement ("UPDATE productos SET cantidad='"+piezaendb+"'WHERE nombre_producto= '"+nombres.get(i).toString()+"' ");  
                 int a=ps.executeUpdate();  
                 if(a>0){
@@ -247,6 +232,7 @@ public static void nombresypiezas(){
                  finally{cc.getClose();}
         }
        nombres.clear();
+         piezas.clear();
     }
     public static void updateblanca(float cantidadnumerica){
     try{ Connection ca= cc.conexion(); // CONEXION DB  //la insersion a la tabla ventas
@@ -255,7 +241,7 @@ public static void nombresypiezas(){
                         LlenarTableDatosblanca(ProductosExternos.J_tableLlenados);
                     if(a>0){updateexitoso(); }
                 }catch(SQLException e)  { //fin de la insersion a la tabla ventas
-                    JOptionPane.showMessageDialog(null,"Error de datos por id vacio "+e);
+                    JOptionPane.showMessageDialog(null,"updateblanca "+e);
                 }//fin de la insersion a la tabla ventas
                 finally{cc.getClose();}
     }
@@ -343,6 +329,7 @@ updatezapata(cantidadnumerica);
                      updatecentral(cantidadnumerica);  }
                 break;
                    default:
+                       total=0;
                 piezasenbase(ProductosExternos.combopieza.getSelectedItem().toString());
                 cantidadnumerica+=piezaendb;
                 if(ProductosExternos.combosucursal.getSelectedItem().toString().equals("Blanca")){

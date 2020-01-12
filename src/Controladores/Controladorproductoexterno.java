@@ -1,5 +1,6 @@
 package Controladores;
 
+import Modelos.Modelogastos;
 import Modelos.Modeloproductoexterno;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -26,9 +27,10 @@ public static       TicketVentaExterna ticketVentasExternas;
 public static int a=0;
     public static void alpagarproductos(String nom, float total){
            if(total!=0){
-               Modeloproductoexterno.insertarengastos(nom, total);
+               Modelogastos.insertarengastos(nom, total);
+               Modeloproductoexterno.productospaExtras();
                Modeloproductoexterno.agregaraproductos();   // UPDATE `productoexternoblanca` SET `pieza`=0;
-    Modeloproductoexterno.vaciandotablas(); 
+               Modeloproductoexterno.vaciandotablas(); 
               Modeloproductoexterno.LlenarTableDatosblanca(J_tableLlenados); 
               Modeloproductoexterno.LlenarTableDatoszapata(J_tableLlenados);
               Modeloproductoexterno.LlenarTableDatosMercado(J_tableLlenados);

@@ -11,7 +11,7 @@ import javax.swing.JOptionPane;
 public class Listaventascondescuento {
     
       public void ventascondescuento(ArrayList columna1, ArrayList columna2){
-       
+       float sumatoriadedescuentos=0;
         Date date = new Date();
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         DateFormat hourFormat = new SimpleDateFormat("HH:mm:ss");
@@ -40,15 +40,16 @@ public class Listaventascondescuento {
         System.out.println("Fecha: " + dateFormat.format(date) + " Hora: " + hourFormat.format(date) + "\n");
          auxs+= "Fecha: " + dateFormat.format(date) + " Hora: " + hourFormat.format(date) + "\n";        
          auxs+= "\n==============================\n";        System.out.println("\n==============================\n");
-           auxs+= "Venta        Total\n"; System.out.println("Venta        Total\n");
+           auxs+= "Venta    Total\n"; System.out.println("Venta    Total\n");
       System.out.println("\n==============================\n");
          auxs+= "\n==============================\n";                   
 /*   if (descripcion.length() > 20) { // si la descripcion_producto es mayor a 17 la corta
    descripcion = descripcion.substring(0, 17);
   }*/  
    for(int n=0;n<=columna1.size()-1;n++){  
-    auxs+= String.format("%-20s" + "%-17s", columna1.get(n), columna2.get(n));
- System.out.println(String.format("%-20s" + "%-17s",columna1.get(n), columna2.get(n)));
+    auxs+= String.format("%-10s" + "%-10s", columna1.get(n), columna2.get(n));
+ System.out.println(String.format("%-10s" + "%-10s",columna1.get(n), columna2.get(n)));
+ sumatoriadedescuentos+= Float.parseFloat(columna2.get(n).toString());
              auxs+= "\n";                      
 //            auxs+= String.format("%-14s" + "%-10s" + "$%-11s" , columna1.get(n), columna2.get(n), columna3.get(n)); System.out.println(String.format("%-14s" + "%-10s" + "$%-11s" , columna1.get(n), columna2.get(n), columna3.get(n)));                 
              }         
@@ -61,7 +62,8 @@ public class Listaventascondescuento {
  System.out.println(String.format("%-6s" + "%-14s" + "%-17s", cantidad, descripcion, totalmonto));
              auxs+= "\n";            */
          auxs+= "\n==============================\n";  System.out.println("\n==============================\n");  
-       auxs+= "\n\n";// Varios saltos para no cortar antes 
+         auxs+= String.format("  "+"TOTAL :"+ "$" + sumatoriadedescuentos);    System.out.println(String.format("  "+"TOTAL :"+ "$" + sumatoriadedescuentos));
+auxs+= "\n\n";// Varios saltos para no cortar antes 
         
          
          try {

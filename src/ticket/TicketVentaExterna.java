@@ -11,7 +11,7 @@ import javax.swing.JOptionPane;
 
 public class TicketVentaExterna {
 
-    public void TicketVentaExterna(String nombresuc, float pago, ArrayList columna1, ArrayList columna2) {
+    public void TicketVentaExterna(String nombresuc, float pago, ArrayList columna1, ArrayList columna2, ArrayList columna3) {
         
           Date date = new Date();
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -40,17 +40,17 @@ public class TicketVentaExterna {
          auxs+= "Fecha: " + dateFormat.format(date) + " Hora: " + hourFormat.format(date) + "\n"; 
          auxs += "Sucursal    " + nombresuc ;             System.out.println("Sucursal    " + nombresuc);         
          auxs+= "\n==============================\n";        System.out.println("\n==============================\n");
-           auxs+= "Descripcion       Piezas\n"; System.out.println("Descripcion       Piezas\n");
+           auxs+= "Nombre      Piezas   Sub\n"; System.out.println("Nombre      Piezas   Sub\n");
            auxs+= "\n==============================\n";         System.out.println("\n==============================\n");                  
            
        //  int cant = Integer.parseInt(String.valueOf(cantidadnumerica));
-          for(int n=0;n<=columna1.size()-1;n++){                 
-                  auxs+= String.format("%-18s" + "%-8s" , columna1.get(n), columna2.get(n)); System.out.println(String.format("%-18s" + "%-8s" , columna1.get(n), columna2.get(n)));
+          for(int n=0;n<=columna1.size()-1;n++){            
+                  auxs+= String.format("%-13s" + "%-8s"+ "%-8s", columna1.get(n), columna2.get(n), columna3.get(n)); System.out.println(String.format("%-13s" + "%-8s"+ "%-8s" , columna1.get(n), columna2.get(n), columna3.get(n)));
            auxs+= "\n";   
           }  
          auxs+= "\n==============================\n";  System.out.println("\n==============================\n");  
        auxs+= String.format("  "+"TOTAL :"+ "$" + pago);    System.out.println(String.format("  "+"TOTAL :"+ "$" + pago));
-         auxs+= "\n\n";// Varios saltos para no cortar antes 
+         auxs+= "\n\n\n\n\n";// Varios saltos para no cortar antes 
         try {
             impServicio.printCadena(impra, auxs);
             impServicio.cashdrawerOpen(impra);

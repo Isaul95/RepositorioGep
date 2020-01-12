@@ -32,7 +32,7 @@ public class Controladorinventarioventas {
        
     public static float sumadetotalesdeventasdehoy,
             sumadeimportescreditopendiente,  sumadeimportesparaeltotal, 
-            descuentoticket, cambioticket, pagoticket, totalticket, subtotalticket;
+            descuentoticket, cambioticket, pagoticket, totalticket, subtotalticket, descuentoenventa;
     public static short conteototaldeventas, id_ventapencredito, id=0;
     public static String creditopagado="Credito-pagado", estadocancelado= "Cancelada", creditopendiente="Credito-pendiente";
     public static ArrayList importesticket = new ArrayList();
@@ -121,7 +121,9 @@ public class Controladorinventarioventas {
         Inventarioventas.imprimirventa.setVisible(false); //Cculta el boton de imprimir la venta
   Inventarioventas.cancelarventa.setVisible(false);//Oculta el botòn de cancelar la venta
   Modeloventa.regresarproductos_a_inventariodescontandotodaslaspiezas("Cancelada",(int)id);
-  Controladorventa.storage.clear();;
+  Modeloinventarioventas.la_venta_tiene_descuento_si_o_no((int)id);
+         Modeloinventarioventas.eliminar_idventa_sitienedescuento(descuentoenventa,(int)id);
+  Controladorventa.storage.clear();
   Modeloinventarioventas.impresiondeventacancelada(id);
         }
         public static void botonveridventasacreditopendientes(){
