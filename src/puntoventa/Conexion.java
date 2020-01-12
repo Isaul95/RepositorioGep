@@ -1,10 +1,4 @@
-
 package puntoventa;
-
-/**
- *
- * @author Isaul
- */
 public class Conexion {
 
     /**
@@ -12,6 +6,6 @@ public class Conexion {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-    }
+    }//
     
 }
