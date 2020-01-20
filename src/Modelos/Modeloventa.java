@@ -15,6 +15,7 @@ import java.text.DecimalFormat;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
 import si.SI;
 import si.nucleo;
 import ticket.ticketventacondescuento;
@@ -471,7 +472,12 @@ if(NoP.equals(nombredepieza)){ //Si el nombre del producto es diferente del esta
     modelo.addColumn("Precio");
      modelo.addColumn("Importe");
      nucleo.tablaventa.setModel(modelo);  // Ya una vez asignado todos los nombres se le envia el objeto a la tabla proveedores
-    String []datos = new String[4];     //Un arreglo con la cantidad de nombres en las columnas
+            TableColumnModel columnModel =  nucleo.tablaventa.getColumnModel();
+    columnModel.getColumn(0).setPreferredWidth(200);
+    columnModel.getColumn(1).setPreferredWidth(50);
+    columnModel.getColumn(2).setPreferredWidth(50);
+    columnModel.getColumn(3).setPreferredWidth(50);
+     String []datos = new String[4];     //Un arreglo con la cantidad de nombres en las columnas
     try {Connection ca= cc.conexion();
         id_max_de_venta();
              sent = ca.createStatement();   
@@ -484,6 +490,7 @@ if(NoP.equals(nombredepieza)){ //Si el nombre del producto es diferente del esta
             modelo.addRow(datos); //se asigna el arreglo  entero a todo el objeto llamado modelo  
             }
           nucleo.tablaventa.setModel(modelo); // Se vuelve a enviar nuevamente el objeto modelo a la tabla
+
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error, mostrartabladeventas","HELPER DEVELOPER",JOptionPane.INFORMATION_MESSAGE); 
                                          } finally{

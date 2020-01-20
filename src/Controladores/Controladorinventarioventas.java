@@ -158,6 +158,11 @@ public class Controladorinventarioventas {
        if(dia<10){
            String nuevodia= "0"+dia;
              fechaparaventasdesde= año+"/"+mes+"/"+nuevodia;
+             if(mes<10){String nuevomes= "0"+mes;   fechaparaventasdesde= año+"/"+nuevomes+"/"+nuevodia;}
+       }
+       else if(mes<10){
+           String nuevomes= "0"+mes;
+             fechaparaventasdesde= año+"/"+nuevomes+"/"+dia;
        }
        else{
            fechaparaventasdesde= año+"/"+mes+"/"+dia;
@@ -169,11 +174,16 @@ public class Controladorinventarioventas {
        int año= Inventarioventas.fechafinal.getCalendar().get(Calendar.YEAR);
        int mes= Inventarioventas.fechafinal.getCalendar().get(Calendar.MONTH)+1;
        int dia= Inventarioventas.fechafinal.getCalendar().get(Calendar.DAY_OF_MONTH);
-      if(dia<10){
+       if(dia<10){
            String newday= "0"+dia;
              fechaparaventashasta= año+"/"+mes+"/"+newday;
+             if(mes<10){String newmonth= "0"+mes;   fechaparaventashasta= año+"/"+newmonth+"/"+newday;}
        }
-       else{
+       else if(mes<10){
+           String newmonth= "0"+mes;
+             fechaparaventashasta= año+"/"+newmonth+"/"+dia;
+       }
+     else{
            fechaparaventashasta= año+"/"+mes+"/"+dia;
        }
         return fechaparaventashasta;

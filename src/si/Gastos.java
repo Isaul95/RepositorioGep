@@ -48,6 +48,7 @@ Controladorventa.noduplicargastos=true;
                 return false;
             }
         };
+        jTableGastos.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jTableGastos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 

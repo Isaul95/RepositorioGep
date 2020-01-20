@@ -13,6 +13,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
 import static si.Existencias.existenciadeproductos;
 import si.SI;
 import si.nucleo;
@@ -31,7 +32,7 @@ public class Modeloexistencias {
     modelo.addColumn("Nombre");
     modelo.addColumn("Piezas");
      existenciadeproductos.setModel(modelo);  // Ya una vez asignado todos los nombres se le envia el objeto a la tabla proveedores
-    String []datos = new String[2];     //Un arreglo con la cantidad de nombres en las columnas
+     String []datos = new String[2];     //Un arreglo con la cantidad de nombres en las columnas
     try {Connection ca= cc.conexion();
              sent = ca.createStatement();   
                        rs= sent.executeQuery("select nombre_producto, cantidad  from  productos where not nombre_producto in ('Huesito','Medio pollo','Pechuga en bisteck')"); // se ejecuta la sentencia dentro del parentesis
@@ -40,7 +41,11 @@ public class Modeloexistencias {
             datos[1]=rs.getString(2);
             modelo.addRow(datos); //se asigna el arreglo  entero a todo el objeto llamado modelo  
             }
-           existenciadeproductos.setModel(modelo); // Se vuelve a enviar nuevamente el objeto modelo a la tabla
+           existenciadeproductos.setModel(modelo); // Se vuelve a enviar nuevamente el objeto modelo a la tabla  
+           //PARA AJUSTAR EL ANCHO DE LAS TABLAS
+              TableColumnModel columnModel =  existenciadeproductos.getColumnModel();
+    columnModel.getColumn(0).setPreferredWidth(250);
+    columnModel.getColumn(1).setPreferredWidth(50);
         } catch (SQLException ex) {
             Logger.getLogger(nucleo.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(null, "No se pudo mostrar ningun dato porque tu consulta está mal");
@@ -56,10 +61,10 @@ public class Modeloexistencias {
     try {Connection ca= cc.conexion();
              sent = ca.createStatement();   
                        if(textoabuscar.equals("")){
-                          rs= sent.executeQuery("select nombre_producto, cantidad  from  productos where not nombre_producto in ('Huesito','Medio pollo','Pechuga en bisteck')"); // se ejecuta la sentencia dentro del parentesis
+                          rs= sent.executeQuery("select nombre_producto, cantidad  from  productos where nombre_producto not in ('Huesito','Medio pollo','Pechuga en bisteck')"); // se ejecuta la sentencia dentro del parentesis
                        }
                        else{
-                           rs= sent.executeQuery("select nombre_producto, cantidad  from  productos where nombre_producto LIKE '%" +textoabuscar+"%' where not nombre_producto in ('Huesito','Medio pollo','Pechuga en bisteck')"); // se ejecuta la sentencia dentro del parentesis
+                          rs= sent.executeQuery("select nombre_producto, cantidad  from  productos where nombre_producto LIKE '%" +textoabuscar+"%' and nombre_producto not in ('Huesito','Medio pollo','Pechuga en bisteck')"); // se ejecuta la sentencia dentro del parentesis
                        }
              while(rs.next()){        
             datos[0]=rs.getString(1);
@@ -67,9 +72,12 @@ public class Modeloexistencias {
             modelo.addRow(datos); //se asigna el arreglo  entero a todo el objeto llamado modelo  
             }
            existenciadeproductos.setModel(modelo); // Se vuelve a enviar nuevamente el objeto modelo a la tabla
+                         TableColumnModel columnModel =  existenciadeproductos.getColumnModel();
+    columnModel.getColumn(0).setPreferredWidth(250);
+    columnModel.getColumn(1).setPreferredWidth(50);
         } catch (SQLException ex) {
             Logger.getLogger(nucleo.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(null, "No se pudo mostrar ningun dato porque tu consulta está mal");
+            JOptionPane.showMessageDialog(null, "No se pudo mostrar  porque tu consulta está mal");
         } finally{cc.getClose();}
     }
 

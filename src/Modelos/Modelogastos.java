@@ -16,6 +16,7 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
 import si.Gastos;
 import si.SI;
 import si.nucleo;
@@ -42,11 +43,11 @@ public class Modelogastos {
         try (ResultSet rs = ps.executeQuery(sSQL)) {
             while (rs.next()) {
                 columna[0] = rs.getString("tipo");
-                columna[1] = rs.getString("total");
+                columna[1] = "$"+rs.getString("total");
                 columna[2] = rs.getString("fecha");
                 modeloT.addRow(columna);
             }
-        }
+        }                             TableColumnModel columnModel =   tablaD.getColumnModel();columnModel.getColumn(0).setPreferredWidth(300);columnModel.getColumn(1).setPreferredWidth(10);    columnModel.getColumn(2).setPreferredWidth(30);
     } catch (Exception e) {
         JOptionPane.showMessageDialog(null, e, "Advertencia", JOptionPane.PLAIN_MESSAGE);    
     }finally{cc.getClose();}
@@ -72,12 +73,14 @@ public static void mostrartodoslosproductosenexistenciasporbusqueda(String texto
                        }
              while(rs.next()){        
             datos[0]=rs.getString(3);
-            datos[1]=rs.getString(5);
+            datos[1]="$"+rs.getString(5);
             datos[2]=rs.getString(4);
             modelo.addRow(datos); //se asigna el arreglo  entero a todo el objeto llamado modelo  
             }
            Gastos.jTableGastos.setModel(modelo); // Se vuelve a enviar nuevamente el objeto modelo a la tabla
-        } catch (SQLException ex) {
+           TableColumnModel columnModel =   Gastos.jTableGastos.getColumnModel();columnModel.getColumn(0).setPreferredWidth(300);columnModel.getColumn(1).setPreferredWidth(10);    columnModel.getColumn(2).setPreferredWidth(30);
+        } 
+    catch (SQLException ex) {
             Logger.getLogger(nucleo.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(null, "No se pudo mostrar ningun dato porque tu consulta está mal");
         } finally{cc.getClose();}

@@ -16,7 +16,9 @@ import java.text.DecimalFormat;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
 import si.Inventarioventas;
+import static si.Inventarioventas.jTable3;
 import si.SI;
 import ticket.ticketventacancelada;
 import ticket.ticketventacondescuento;
@@ -104,11 +106,12 @@ public static void eliminar_idventa_sitienedescuento(float descuento, int id_ven
         ResultSet rs = ps.executeQuery(sSQL);
             while (rs.next()) {
                 columna[0] = rs.getInt(1);
-                columna[1] = rs.getFloat(2);
+                columna[1] = "$"+String.valueOf(rs.getFloat(2));
                  columna[2] = rs.getString(3);
                 modeloTE.addRow(columna);
             }
           Inventarioventas.jTable2.setModel(modeloTE);  // add modelo ala tabla 
+                             TableColumnModel columnModel =   Inventarioventas.jTable2.getColumnModel();columnModel.getColumn(0).setPreferredWidth(30);columnModel.getColumn(1).setPreferredWidth(30);    columnModel.getColumn(2).setPreferredWidth(150);
     } catch (Exception e) {
       JOptionPane.showMessageDialog(null, "ERROR EN METODO: llenartablaidventasconidrealizados","DEVELOPER HELPER", JOptionPane.ERROR_MESSAGE);      
        }finally{
@@ -123,16 +126,18 @@ public static void eliminar_idventa_sitienedescuento(float descuento, int id_ven
         modeloT.addColumn("Cantidad");        
         modeloT.addColumn("importe");
           Inventarioventas.jTable3.setModel(modeloT);  // add modelo ala tabla 
+       TableColumnModel columnModel =  jTable3.getColumnModel();columnModel.getColumn(0).setPreferredWidth(200);columnModel.getColumn(1).setPreferredWidth(50);    columnModel.getColumn(1).setPreferredWidth(70);
          try {   Connection ca= cc.conexion(); // CONEXION DB 
-         String sSQL = "SELECT nombre_producto, SUM(cantidad), SUM(importe) FROM  descripcion_de_venta WHERE estado in('Realizada') AND fecha = CURDATE() GROUP BY nombre_producto";
+         String sSQL = "SELECT nombre_producto, SUM(cantidad), SUM(importe) FROM  descripcion_de_venta WHERE estado in('Realizada', 'Credito-pendiente') AND fecha = CURDATE() GROUP BY nombre_producto";
         PreparedStatement ps = ca.prepareStatement(sSQL);       
         ResultSet rs = ps.executeQuery(sSQL);
             while (rs.next()) {
                 columna[0] = rs.getString(1);
                 columna[1] = rs.getString(2);
-                columna[2] = rs.getString(3);                
+                columna[2] = "$"+rs.getString(3);                
                 modeloT.addRow(columna);
             } Inventarioventas.jTable3.setModel(modeloT);  // add modelo ala tabla 
+
     } catch (Exception e) { JOptionPane.showMessageDialog(null, "ERROR EN METODO: productosvendidoseneldia","DEVELOPER HELPER", JOptionPane.ERROR_MESSAGE);      
       }finally{
                   cc.getClose();
@@ -152,12 +157,12 @@ String sSQL = " select distinct venta.id_venta, venta.total, venta.fecha_reporte
         try (ResultSet rs = ps.executeQuery(sSQL)) {
             while (rs.next()) {
                 columna[0] = rs.getString("venta.id_venta");
-                columna[1] = rs.getString("venta.total");
+                columna[1] = "$"+rs.getString("venta.total");
                 columna[2] = rs.getString("venta.fecha_reporte");    
                 columna[3] = rs.getString("descripcion_de_venta.nombre_credito");
                 modeloT.addRow(columna);
             }
-        }
+        }       TableColumnModel columnModel =   Inventarioventas.ventasacreditopendiente.getColumnModel();columnModel.getColumn(0).setPreferredWidth(15);columnModel.getColumn(1).setPreferredWidth(15);    columnModel.getColumn(2).setPreferredWidth(50);columnModel.getColumn(3).setPreferredWidth(200);
     } catch (Exception e) {
          JOptionPane.showMessageDialog(null, "ERROR EN METODO: llenartablaconventasacreditopendiente"+e.getStackTrace(),"DEVELOPER HELPER", JOptionPane.ERROR_MESSAGE);      
       }finally{
@@ -172,17 +177,17 @@ String sSQL = " select distinct venta.id_venta, venta.total, venta.fecha_reporte
            modeloT.addColumn("Venta");
         modeloT.addColumn("Total");        
         modeloT.addColumn("Fecha");
-    try {
+    try {        
            String sSQL = "SELECT id_venta, total, fecha_reporte FROM venta WHERE estado_venta='Realizada' AND fecha_reporte BETWEEN '"+fechadesde+"' AND '"+fechahasta+ "' ";
         PreparedStatement ps = ca.prepareStatement(sSQL);       
         try (ResultSet rs = ps.executeQuery(sSQL)) {
             while (rs.next()) {
                 columna[0] = rs.getString(1);
-                columna[1] = rs.getInt(2);
+                columna[1] = "$"+String.valueOf(rs.getInt(2) );
                    columna[2] = rs.getString(3);
                 modeloT.addRow(columna);
             }
-        }
+        }                             TableColumnModel columnModel =   Inventarioventas.jTable2.getColumnModel();columnModel.getColumn(0).setPreferredWidth(30);columnModel.getColumn(1).setPreferredWidth(30);    columnModel.getColumn(2).setPreferredWidth(150);
     } catch (Exception e) {
         JOptionPane.showMessageDialog(null, e, "Advertencia", JOptionPane.PLAIN_MESSAGE);    
     }finally{cc.getClose();}
@@ -368,14 +373,14 @@ try {Connection ca= cc.conexion();
             while (rs.next()) {
                 columna[0] = rs.getString(1);
                 columna[1] = rs.getString(2);
-                columna[2] = rs.getString(3);      
-                columna[3] = rs.getString(4); 
+                columna[2] = "$"+rs.getString(3);      
+                columna[3] = "$"+rs.getString(4); 
                 Inventarioventas.deudor.setText(rs.getString(5));
                 modeloT.addRow(columna);
             }
         }
-       
-    } catch (Exception e) {
+       TableColumnModel columnModel =   Inventarioventas.ventasacreditopendiente.getColumnModel();columnModel.getColumn(0).setPreferredWidth(200);columnModel.getColumn(1).setPreferredWidth(50);    columnModel.getColumn(2).setPreferredWidth(50);columnModel.getColumn(3).setPreferredWidth(50);
+   } catch (Exception e) {
         JOptionPane.showMessageDialog(null, e, "Advertencia", JOptionPane.PLAIN_MESSAGE);    
     }finally{cc.getClose();}
     }
@@ -396,10 +401,11 @@ try {Connection ca= cc.conexion();
                // columna[0] = rs.getString("id_venta");  /* === LA DB == */
                 columna[0] = rs.getString(1);
                 columna[1] = rs.getString(2);
-                columna[2] = rs.getString(3);      
-                columna[3] = rs.getString(4); 
+                columna[2] = "$"+rs.getString(3);      
+                columna[3] = "$"+rs.getString(4); 
                 modeloT.addRow(columna);
             }    Inventarioventas.jTable2.setModel(modeloT);  // add modelo ala tabla 
+                   TableColumnModel columnModel =   Inventarioventas.jTable2.getColumnModel();columnModel.getColumn(0).setPreferredWidth(200);columnModel.getColumn(1).setPreferredWidth(50);    columnModel.getColumn(2).setPreferredWidth(50);columnModel.getColumn(3).setPreferredWidth(50);
     } catch (Exception e) {
         JOptionPane.showMessageDialog(null, e, "Advertencia", JOptionPane.PLAIN_MESSAGE);    
     }

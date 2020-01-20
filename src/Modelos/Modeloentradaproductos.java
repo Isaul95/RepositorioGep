@@ -17,6 +17,7 @@ import javax.swing.JTable;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
 import si.Entradaproductos;
 import si.SI;
 
@@ -42,7 +43,8 @@ static ResultSet rs;
                 columna[0] = rs.getString(1);
                  columna[1] = (int) rs.getFloat(2);
                 modeloT.addRow(columna);
-            }
+            }        TableColumnModel columnModel =  tablaD.getColumnModel();
+    columnModel.getColumn(0).setPreferredWidth(250); columnModel.getColumn(1).setPreferredWidth(50);    
                         modeloT.addTableModelListener(new TableModelListener(){
                 @Override
                 public void tableChanged(TableModelEvent e) {
@@ -94,11 +96,13 @@ static ResultSet rs;
         try (ResultSet rs = ps.executeQuery(sSQL)) {
             while (rs.next()) {
                 columna[0] = rs.getString(1);
-                columna[1] = rs.getFloat(2);
+                columna[1] = "$"+String.valueOf(rs.getFloat(2));
                  columna[2] = rs.getFloat(3);
                 modeloT.addRow(columna);
             }
         }
+                      TableColumnModel columnModel =  tablaD.getColumnModel();
+    columnModel.getColumn(0).setPreferredWidth(250); columnModel.getColumn(1).setPreferredWidth(50);    columnModel.getColumn(1).setPreferredWidth(50);
     } catch (Exception e) { JOptionPane.showMessageDialog(null, "ERROR EN METODO: ParaLAVenta","DEVELOPER HELPER", JOptionPane.ERROR_MESSAGE);      
       }finally{
                   cc.getClose();
