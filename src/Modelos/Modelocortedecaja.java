@@ -187,7 +187,7 @@ public static void pagoshechoseneldiaactual(){
 public static void ventaseneldia(){
         try{  Connection ca= cc.conexion();// La suma de todos los importes
                                          Statement sent  =(Statement)ca.createStatement();
-                                         ResultSet  rs = sent.executeQuery("select SUM(importe) from descripcion_de_venta where estado in ('Realizada','Credito-pendiente','Credito-pagado') and fecha= '"+Controladorventa.fecha()+"'");
+                                         ResultSet  rs = sent.executeQuery("select SUM(importe) from descripcion_de_venta where estado in ('Realizada','Credito-pendiente','Credito-pagado') and fecha= '"+Controladorventa.fecha()+"'and id_producto != 60");
                                             while(rs.next()){
                                                       ventasdeldia =Float.parseFloat(rs.getString("SUM(importe)"));
                                                       }
@@ -335,8 +335,6 @@ public static void metodogastosdeldia(){
             }finally{
                  cc.getClose();}//fin de la insersion a la tabla ventas
   }
- 
-       
   public static void sobrantedepollococidodeldiaparaticketcantidadesypiezas(){//TICKET DEVOLUCION COCIDO,  LAS CANTIDADES Y PIEZAS
       try{Connection ca= cc.conexion();//SOLO SE LLAMA A LA CANTIDAD PORQUE EN EL TICKET YA SE DEFINIRÁN LOS NOMBRES DE CADA ARTICULO
              //  sent  = (Statement)ca.createStatement();

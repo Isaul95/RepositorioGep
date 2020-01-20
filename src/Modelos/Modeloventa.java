@@ -29,7 +29,7 @@ public class Modeloventa extends Controladorventa{
    static Statement sent;  
 static ResultSet rs;  
  public static void piezassuficientes(String pieza, float cantidaddeproductos){ //INICIO DE PIEZAS SUFICIENTES
-     if(pieza.equals("Huesito")||pieza.equals("Longaniza")||pieza.equals("pollo crudo")||pieza.equals("Medio pollo")){
+     if(pieza.equals("Huesito")||pieza.equals("Longaniza")||pieza.equals("pollo crudo")||pieza.equals("Medio pollo")||pieza.equals("Taxi")){
  suficientespiezas=true;
 }
           else{
@@ -481,7 +481,7 @@ if(NoP.equals(nombredepieza)){ //Si el nombre del producto es diferente del esta
     try {Connection ca= cc.conexion();
         id_max_de_venta();
              sent = ca.createStatement();   
-                       rs= sent.executeQuery("select * from  descripcion_de_venta where id_venta= '"+id_de_la_venta_incrementable+"' and fecha= '"+fecha()+"' and  estado = '"+estadoenturno+"'"); // se ejecuta la sentencia dentro del parentesis
+                       rs= sent.executeQuery("select * from  descripcion_de_venta where id_venta= '"+id_de_la_venta_incrementable+"' and fecha= '"+fecha()+"' and  estado in ('En turno')"); // se ejecuta la sentencia dentro del parentesis
             while(rs.next()){        
             datos[0]=rs.getString(3);
             datos[1]=rs.getString(4);

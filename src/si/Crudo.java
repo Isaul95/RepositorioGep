@@ -51,6 +51,7 @@ this.setLocation(600, 60);
         jButton54 = new javax.swing.JButton();
         jButton55 = new javax.swing.JButton();
         bones = new javax.swing.JButton();
+        Taxi = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -263,7 +264,19 @@ this.setLocation(600, 60);
             }
         });
         CRUDO.add(bones);
-        bones.setBounds(10, 500, 160, 40);
+        bones.setBounds(10, 510, 160, 40);
+
+        Taxi.setBackground(new java.awt.Color(255, 255, 255));
+        Taxi.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        Taxi.setForeground(new java.awt.Color(255, 0, 0));
+        Taxi.setText("Taxi");
+        Taxi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TaxiActionPerformed(evt);
+            }
+        });
+        CRUDO.add(Taxi);
+        Taxi.setBounds(230, 510, 170, 70);
 
         jTabbedPane1.addTab("CRUDO", CRUDO);
 
@@ -359,6 +372,10 @@ this.setLocation(600, 60);
        Controladorventa.noduplicarcrudo=false;
     }//GEN-LAST:event_formWindowClosed
 
+    private void TaxiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TaxiActionPerformed
+        if(masdeunapiezacrudo.isSelected()){  Calculadora enviar = new Calculadora("Taxi","Escribe la cantidad en pesos");  new Calculadora().setVisible(true); }else{   Calculadora enviar = new Calculadora("Taxi","Escribe la cantidad en pesos"); new Calculadora().setVisible(true);   }
+    }//GEN-LAST:event_TaxiActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -396,6 +413,7 @@ this.setLocation(600, 60);
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel CRUDO;
+    private javax.swing.JButton Taxi;
     private javax.swing.JButton bones;
     private javax.swing.JButton crudo;
     private javax.swing.JButton jButton42;

@@ -36,7 +36,7 @@ static ResultSet rs;
         modeloT.addColumn("nombre_producto");
         modeloT.addColumn("cantidad");
         try { Connection ca= cc.conexion(); // CONEXION DB 
-         String sSQL = "SELECT  nombre_producto, cantidad FROM productos WHERE nombre_producto NOT IN('Huesito', 'Medio pollo','Pechuga en bisteck')";
+         String sSQL = "SELECT  nombre_producto, cantidad FROM productos WHERE nombre_producto NOT IN('Huesito', 'Medio pollo','Pechuga en bisteck','Taxi')";
         PreparedStatement ps = ca.prepareStatement(sSQL);       
         try (ResultSet rs = ps.executeQuery(sSQL)) {
             while (rs.next()) {
@@ -91,7 +91,7 @@ static ResultSet rs;
         modeloT.addColumn("precio");
         modeloT.addColumn("cantidad");
         try { Connection ca= cc.conexion(); // CONEXION DB 
-         String sSQL = "SELECT nombre_producto, precio, cantidad FROM productos WHERE nombre_producto NOT IN ('Huesito', 'Medio pollo','Pechuga en bisteck')";
+         String sSQL = "SELECT nombre_producto, precio, cantidad FROM productos WHERE nombre_producto NOT IN ('Huesito', 'Medio pollo','Pechuga en bisteck','Taxi')";
          PreparedStatement ps = ca.prepareStatement(sSQL);       
         try (ResultSet rs = ps.executeQuery(sSQL)) {
             while (rs.next()) {

@@ -141,7 +141,9 @@ public static String[] piezasdemedio = {"Medio pollo","Pechuga", "Muslo","Pierna
         } else if (nombredepiezaseleccionada.equals("Huesito") || nombredepiezaseleccionada.equals("Longaniza")) {
             if (nombredepiezaseleccionada.equals("Huesito")) {
                 agregarpiezasaventa("Huesito");
-            } else {
+            } else if (nombredepiezaseleccionada.equals("Taxi")) {
+                agregarpiezasaventa("Taxi");
+            }else {
                 agregarpiezasaventa("Longaniza");
 }
         } else if (nombredepiezaseleccionada.equals("Pechuga en bisteck")) {
@@ -165,8 +167,8 @@ public static String[] piezasdemedio = {"Medio pollo","Pechuga", "Muslo","Pierna
       if(suficientespiezas==true){ // si hay piezas suficientes para agregar el articulo a la venta       
           if(primerventa==0){ //indicando que aún no se crea la primer venta del sistema
               Modeloventa.get_id_usuario();        //entonces lo que haría despues será entrar al metodo get_id_usuario, para asignar una venta al usuario que haya iniciado sesión en la maquina
-              block_unlock=false;   //se desactiva la condicion que indica que ya no se agregue otro id venta ya que aún no se ha concluido la primer venta
-           if(nombredepieza.equals("Huesito")||nombredepieza.equals("Longaniza")){
+             block_unlock=false;   //se desactiva la condicion que indica que ya no se agregue otro id venta ya que aún no se ha concluido la primer venta
+           if(nombredepieza.equals("Huesito")||nombredepieza.equals("Longaniza")||nombredepieza.equals("Taxi")){
         Modeloventa.insertorupdateoverbonnie(nombredepieza, cantidaddeproductos);
           }else if(soypechugaenbisteck==true){
                  Modeloventa.insertorupdatepechugaenbisteck("Pechuga", cantidaddeproductos);
@@ -182,7 +184,7 @@ public static String[] piezasdemedio = {"Medio pollo","Pechuga", "Muslo","Pierna
         Modeloventa.comprobar_venta_resagada();//579 - 605 verifica que no haya una venta cancelada
 Modeloventa.get_id_usuario();// 255 -280
               block_unlock=false;   
-             if(nombredepieza.equals("Huesito")||nombredepieza.equals("Longaniza")){
+             if(nombredepieza.equals("Huesito")||nombredepieza.equals("Longaniza")||nombredepieza.equals("Taxi")){
        Modeloventa.insertorupdateoverbonnie(nombredepieza, cantidaddeproductos);
           }else if(soypechugaenbisteck==true){
                  Modeloventa.insertorupdatepechugaenbisteck("Pechuga", cantidaddeproductos);

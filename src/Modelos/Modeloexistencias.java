@@ -35,7 +35,7 @@ public class Modeloexistencias {
      String []datos = new String[2];     //Un arreglo con la cantidad de nombres en las columnas
     try {Connection ca= cc.conexion();
              sent = ca.createStatement();   
-                       rs= sent.executeQuery("select nombre_producto, cantidad  from  productos where not nombre_producto in ('Huesito','Medio pollo','Pechuga en bisteck')"); // se ejecuta la sentencia dentro del parentesis
+                       rs= sent.executeQuery("select nombre_producto, cantidad  from  productos where not nombre_producto in ('Huesito','Medio pollo','Pechuga en bisteck','Taxi')"); // se ejecuta la sentencia dentro del parentesis
             while(rs.next()){        
             datos[0]=rs.getString(1);
             datos[1]=rs.getString(2);
@@ -61,10 +61,10 @@ public class Modeloexistencias {
     try {Connection ca= cc.conexion();
              sent = ca.createStatement();   
                        if(textoabuscar.equals("")){
-                          rs= sent.executeQuery("select nombre_producto, cantidad  from  productos where nombre_producto not in ('Huesito','Medio pollo','Pechuga en bisteck')"); // se ejecuta la sentencia dentro del parentesis
+                          rs= sent.executeQuery("select nombre_producto, cantidad  from  productos where nombre_producto not in ('Huesito','Medio pollo','Pechuga en bisteck','Taxi')"); // se ejecuta la sentencia dentro del parentesis
                        }
                        else{
-                          rs= sent.executeQuery("select nombre_producto, cantidad  from  productos where nombre_producto LIKE '%" +textoabuscar+"%' and nombre_producto not in ('Huesito','Medio pollo','Pechuga en bisteck')"); // se ejecuta la sentencia dentro del parentesis
+                          rs= sent.executeQuery("select nombre_producto, cantidad  from  productos where nombre_producto LIKE '%" +textoabuscar+"%' and nombre_producto not in ('Huesito','Medio pollo','Pechuga en bisteck','Taxi')"); // se ejecuta la sentencia dentro del parentesis
                        }
              while(rs.next()){        
             datos[0]=rs.getString(1);
