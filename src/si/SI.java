@@ -12,7 +12,6 @@ public class SI {
        public Connection conexion(){
                   try{
           Class.forName("com.mysql.jdbc.Driver");
-    //  conectar= (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3308/inventariostore?autoReconnect=true&useSSL=false","root",MySQLpassword);  
      conectar= (Connection) DriverManager.getConnection("jdbc:mysql://localhost/inventariostore?autoReconnect=true&useSSL=false","root",MySQLpassword);  
        if(conectar!=null){
            System.out.println("Se hizo la conexión exitosa");

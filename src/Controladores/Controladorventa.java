@@ -268,7 +268,7 @@ nucleo.deletedescuento.setVisible(true);
                               Modeloventa.mostrartabladeventas();
                                     limpiardatosdeventa(); //Los datos que aparecen en la venta se mostraran
                                 descuentoactivo=false;
-                                storage.clear();    
+                            //    storage.clear();    
     }
     public static void  limpiardatosdeventa(){
         nucleo.subtotal.setText("00.00");
@@ -360,8 +360,13 @@ nucleo.deletedescuento.setVisible(true);
         fila =Short.parseShort(String.valueOf(nucleo.tablaventa.getSelectedRow()));
  if(fila>=0){// CUANDO UNA CELDA SE SELECCIONO
             nombredepiezaseleccionada=nucleo.tablaventa.getValueAt(fila,0).toString();
-            if(nombredepiezaseleccionada.equals("Huesito")||nombredepiezaseleccionada.equals("Longaniza")){
+            if(nombredepiezaseleccionada.equals("Huesito")||nombredepiezaseleccionada.equals("Longaniza")||nombredepiezaseleccionada.equals("Taxi")){
                 if(nombredepiezaseleccionada.equals("Huesito")){
+                    Modeloventa.id_producto(nombredepiezaseleccionada);
+                    Modeloventa.eliminarhuesito(id_producto);
+                   Modeloventa.acciones_despues_de_regresaroagregaraventa();
+                    Modeloventa.mostrartabladeventas();
+                }else if(nombredepiezaseleccionada.equals("Longaniza")){
                     Modeloventa.id_producto(nombredepiezaseleccionada);
                     Modeloventa.eliminarhuesito(id_producto);
                    Modeloventa.acciones_despues_de_regresaroagregaraventa();

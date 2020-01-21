@@ -820,7 +820,7 @@ public static void regresarproductos_pechugaenbisteck(String nombredepieza){ // 
                     block_unlock=true;   
                     //pendiente la restauracion de venta a inventario
                     id_producto(nombredepieza);
-                  cantidadenventa(57);
+                  cantidadenventa(57);//El id de la pechuga en bisteck
                        cantidadpolloenDByname(id_producto);
    cantidadpolloenDB+=cantidadenventa;
  id_producto(nombredepieza);
