@@ -12,15 +12,17 @@ public class SI {
        public Connection conexion(){
                   try{
           Class.forName("com.mysql.jdbc.Driver");
-     conectar= (Connection) DriverManager.getConnection("jdbc:mysql://localhost/inventariostore?autoReconnect=true&useSSL=false","root",MySQLpassword);  
-       if(conectar!=null){
-           System.out.println("Se hizo la conexión exitosa");
+          //TEST 
+          conectar= (Connection) DriverManager.getConnection("jdbc:mysql://localhost/inventariostore?autoReconnect=true&useSSL=false","root",MySQLpassword);  
+     //PRODUCCIONconectar= (Connection) DriverManager.getConnection("jdbc:mysql://localhost/inventariostore_prod?autoReconnect=true&useSSL=false","root",MySQLpassword);  
+     if(conectar!=null){
+           System.out.println("Conexión abierta");
       }
-       }catch(ClassNotFoundException e){
-          JOptionPane.showMessageDialog(null,"C NOT FOUND EXCEPTION"+e);
-          System.err.print(e.getMessage());
+       }catch(ClassNotFoundException CNE){
+          JOptionPane.showMessageDialog(null,"CLASS NOT FOUND EXCEPTION"+CNE);
+          System.err.print(CNE.getMessage());
                         }catch(SQLException SQL){
-                             JOptionPane.showMessageDialog(null,"Error la conexion"+SQL);
+                             JOptionPane.showMessageDialog(null,"SQL EXCEPTION"+SQL);
                         }
                   finally{
             return conectar;
@@ -30,8 +32,8 @@ public class SI {
         try {
             conectar.close();
            System.out.println("Conexión cerrada");
-        } catch (SQLException ex) {
-            Logger.getLogger(SI.class.getName()).log(Level.SEVERE, "Error al cerrar la conexion "+ex);
+        } catch (SQLException SQL) {
+            Logger.getLogger(SI.class.getName()).log(Level.SEVERE, "SQL EXCEPTION"+SQL);
         }
     }
   }
