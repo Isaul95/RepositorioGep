@@ -918,8 +918,9 @@ public static void cantidadenventasumadecantidadesfinales(String estadoventa, in
                 }
 }  
 public  static void eliminarhuesito(int id){
+    id_max_de_venta();
         try{Connection ca= cc.conexion();
-        String sql = "delete from descripcion_de_venta where id_producto = '"+id+"' ";
+        String sql = "DELETE from descripcion_de_venta where id_producto= '"+id+"' and id_venta= '"+id_de_la_venta_incrementable+"' and fecha= '"+fecha()+"' and estado= '"+estadoenturno+"' ";
         PreparedStatement ps = ca.prepareStatement(sql);
        ps.execute();       
     }catch(Exception e){

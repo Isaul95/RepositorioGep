@@ -371,7 +371,7 @@ nucleo.deletedescuento.setVisible(true);
                     Modeloventa.eliminarhuesito(id_producto);
                    Modeloventa.acciones_despues_de_regresaroagregaraventa();
                     Modeloventa.mostrartabladeventas();
-                }else{
+                }else{  //TAXI
                     Modeloventa.id_producto(nombredepiezaseleccionada);
                     Modeloventa.eliminarhuesito(id_producto);
                     Modeloventa.acciones_despues_de_regresaroagregaraventa();
