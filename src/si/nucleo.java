@@ -76,7 +76,6 @@ user.setText(usuarioname);
         jLabel74 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaventa = new javax.swing.JTable();
-        Botonacompañantes = new javax.swing.JButton();
         jPanel28 = new javax.swing.JPanel();
         Existencias = new javax.swing.JButton();
         inventarioventas = new javax.swing.JButton();
@@ -323,17 +322,6 @@ user.setText(usuarioname);
 
         venta.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, -1, 280));
 
-        Botonacompañantes.setBackground(new java.awt.Color(255, 255, 255));
-        Botonacompañantes.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
-        Botonacompañantes.setForeground(new java.awt.Color(255, 0, 0));
-        Botonacompañantes.setText("ACOMPAÑANTES");
-        Botonacompañantes.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BotonacompañantesActionPerformed(evt);
-            }
-        });
-        venta.add(Botonacompañantes, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 100, 350, 81));
-
         jPanel28.setBackground(new java.awt.Color(0, 51, 102));
         jPanel28.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Ventanas", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Arial", 1, 18), new java.awt.Color(255, 255, 255))); // NOI18N
         jPanel28.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -366,10 +354,6 @@ user.setText(usuarioname);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void BotonacompañantesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonacompañantesActionPerformed
-         if(Controladorventa.noduplicaracompañantes==false){new Acompañantes().setVisible(true);}
-    }//GEN-LAST:event_BotonacompañantesActionPerformed
 
     private void cleanallActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cleanallActionPerformed
         Controladorventa.limpiarventa();
@@ -463,7 +447,6 @@ new Inventarioventas().setVisible(true);
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JButton AgregarGastos;
-    private javax.swing.JButton Botonacompañantes;
     public static javax.swing.JButton Cortedecaja;
     private javax.swing.JButton Existencias;
     private javax.swing.JLabel Fecha;
