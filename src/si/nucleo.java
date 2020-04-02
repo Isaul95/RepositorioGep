@@ -1,16 +1,30 @@
 package si;
 import Controladores.Controladorventa;
 import Modelos.Modeloventa;
+import static com.lowagie.text.pdf.PdfName.ca;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
+import java.sql.Connection;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.view.JasperViewer;
 import static si.nucleo.Cortedecaja;
 public final class nucleo extends javax.swing.JFrame implements Runnable{
-        Thread hilo;
+   
+    Thread hilo;
 public static String hora,minutos,segundos,usuarioname=SI_Inicio.text_user.getText();
 //ESO ES DESPUES DE AGREGAR PRODUCTO EXTERNO
       
@@ -79,6 +93,7 @@ user.setText(usuarioname);
         jPanel28 = new javax.swing.JPanel();
         Existencias = new javax.swing.JButton();
         inventarioventas = new javax.swing.JButton();
+        ReportePDF = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -348,6 +363,20 @@ user.setText(usuarioname);
         });
         jPanel28.add(inventarioventas, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 30, 80, 90));
 
+        ReportePDF.setBackground(new java.awt.Color(255, 255, 255));
+        ReportePDF.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        ReportePDF.setForeground(new java.awt.Color(204, 0, 0));
+        ReportePDF.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/pdf.png"))); // NOI18N
+        ReportePDF.setText("Report");
+        ReportePDF.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        ReportePDF.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        ReportePDF.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ReportePDFActionPerformed(evt);
+            }
+        });
+        jPanel28.add(ReportePDF, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, 80, 90));
+
         venta.add(jPanel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 380, 200, 290));
 
         getContentPane().add(venta, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -3, 898, 750));
@@ -408,6 +437,42 @@ new Inventarioventas().setVisible(true);
     private void ExistenciasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExistenciasActionPerformed
         if(Controladorventa.noduplicarexistencias==false){new Existencias().setVisible(true);}
     }//GEN-LAST:event_ExistenciasActionPerformed
+
+    private void ReportePDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReportePDFActionPerformed
+             // ***********************    REPORTE DE USUARIOS    **************************
+ SI cc= new SI();
+ Connection ca= cc.conexion();
+             int dialogButton = JOptionPane.YES_NO_OPTION;
+        int result = JOptionPane.showConfirmDialog(null, "¿Desea Generar Reporte para el usuario?", "REPORTE GENERAL ESTUDIOS",dialogButton);
+        if(result == 0){
+            
+            try {
+               // Map parametro4 = new HashMap(); /* parameter1 <<-- ESTE PARAMETRO VIENE DESDE EL REPORTE SOLO SE ESTA LLAMANDO */
+                //parametro4.put("logo4", this.getClass().getResourceAsStream(logotipo));
+
+                JasperReport reporte = null;
+                String path = "src\\Reportes\\ReporteCliente.jasper";
+
+                //  reporte = (JasperReport) JRLoader.loadObjectFromFile(path);
+                reporte = (JasperReport) JRLoader.loadObject(getClass().getResource("/Reportes/ReporteCliente.jasper")); /*ASI MANDO A LLAMAR LOS REPORTES CON .jasper */
+                /* ========================= LLENADO DEL REPORTE  ======================  */
+                //  path --> LA RUTA DEL REPORTE
+                //     --> LOS PARAMETROS K SE LE PUEDE ENVIAR ALA REPORTE IN THIS CASE ES NULL y la concion-->(ca) B.D
+                JasperPrint jprint = JasperFillManager.fillReport(reporte, null, ca);
+
+                /* ========================= CREAR LA VISTA DEL REPORTE  ======================  */
+                JasperViewer vista = new JasperViewer(jprint, false);
+
+                /* ============= UN CIERRE LA VISTA DEL REPORTE CUANDO SE PRESIONE LA X de cerrar ============  */
+                vista.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+                /* ==================== MOSTRAR CMO VISIBLE ESTE REPORTE  ======================  */
+                vista.setVisible(true);
+                vista.setTitle("REPORTE GENERAL DE USUARIOS");
+            } catch (JRException ex) {
+                Logger.getLogger(nucleo.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_ReportePDFActionPerformed
  private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {                                         
 // MODIFICAR   new ProductosExternos().setVisible(true);        
     }                                           /**
@@ -451,6 +516,7 @@ new Inventarioventas().setVisible(true);
     private javax.swing.JButton Existencias;
     private javax.swing.JLabel Fecha;
     private javax.swing.JLabel Reloj;
+    private javax.swing.JButton ReportePDF;
     public static javax.swing.JLabel cambiocombobox;
     public static javax.swing.JButton cleanall;
     public static javax.swing.JButton deletedescuento;
