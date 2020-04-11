@@ -33,14 +33,16 @@ public class Modeloexistencias extends Controladorexistencias {
         existenciadeproductos.setVisible(true);    //hace visible la tabla de proveedores 
         DefaultTableModel modelo = new DefaultTableModel(); // Se crea un objeto para agregar los nombres de las columnas a la tabla
         modelo.addColumn("Nombre");
+        modelo.addColumn("Precio");
         existenciadeproductos.setModel(modelo);  // Ya una vez asignado todos los nombres se le envia el objeto a la tabla proveedores
         String[] datos = new String[2];     //Un arreglo con la cantidad de nombres en las columnas
         try {
             Connection ca = cc.conexion();
             sent = ca.createStatement();
-            rs = sent.executeQuery("select nombre_producto from  productos"); // se ejecuta la sentencia dentro del parentesis
+            rs = sent.executeQuery("select nombre_producto, precio from  productos"); // se ejecuta la sentencia dentro del parentesis
             while (rs.next()) {
                 datos[0] = rs.getString(1);
+                datos[1] = "$"+rs.getString(2);
                 modelo.addRow(datos); //se asigna el arreglo  entero a todo el objeto llamado modelo  
             }
             existenciadeproductos.setModel(modelo); // Se vuelve a enviar nuevamente el objeto modelo a la tabla  
@@ -59,18 +61,20 @@ public class Modeloexistencias extends Controladorexistencias {
         existenciadeproductos.setVisible(true);    //hace visible la tabla de proveedores 
         DefaultTableModel modelo = new DefaultTableModel(); // Se crea un objeto para agregar los nombres de las columnas a la tabla
         modelo.addColumn("Nombre");
+         modelo.addColumn("Precio");
         existenciadeproductos.setModel(modelo);  // Ya una vez asignado todos los nombres se le envia el objeto a la tabla proveedores
         String[] datos = new String[2];     //Un arreglo con la cantidad de nombres en las columnas
         try {
             Connection ca = cc.conexion();
             sent = ca.createStatement();
             if (textoabuscar.equals("")) {
-                rs = sent.executeQuery("select nombre_producto from  productos"); // se ejecuta la sentencia dentro del parentesis
+                rs = sent.executeQuery("select nombre_producto, precio from  productos"); // se ejecuta la sentencia dentro del parentesis
             } else {
-                rs = sent.executeQuery("select nombre_producto  from  productos where nombre_producto LIKE '%" + textoabuscar + "%' "); // se ejecuta la sentencia dentro del parentesis
+                rs = sent.executeQuery("select nombre_producto, precio  from  productos where nombre_producto LIKE '%" + textoabuscar + "%' "); // se ejecuta la sentencia dentro del parentesis
             }
             while (rs.next()) {
-                datos[0] = rs.getString(1);
+                 datos[0] = rs.getString(1);
+                datos[1] = "$"+rs.getString(2);
                 modelo.addRow(datos); //se asigna el arreglo  entero a todo el objeto llamado modelo  
             }
             existenciadeproductos.setModel(modelo); // Se vuelve a enviar nuevamente el objeto modelo a la tabla

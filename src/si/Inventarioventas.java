@@ -382,7 +382,8 @@ Controladorinventarioventas.verdescripcionenbaseaventarealizada();
     }//GEN-LAST:event_gastos_btn_backActionPerformed
 
     private void resultadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resultadoActionPerformed
-        // TODO add your handling code here:
+       Capturar_resultados  mandar_id_venta= new Capturar_resultados(Controladorinventarioventas.id);//Mandamos el id de la venta del cual se le van a completar los resultados de los estudios ya capturados
+        new Capturar_resultados().setVisible(true);
     }//GEN-LAST:event_resultadoActionPerformed
 
     private void editar_pacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editar_pacienteActionPerformed

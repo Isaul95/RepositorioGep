@@ -413,7 +413,7 @@ user.setText(usuarioname);
         jLabel78.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         jLabel78.setForeground(new java.awt.Color(255, 255, 255));
         jLabel78.setText("Sexo:");
-        venta.add(jLabel78, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 200, 290, -1));
+        venta.add(jLabel78, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 200, 90, -1));
 
         user_edad.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -428,7 +428,7 @@ user.setText(usuarioname);
         venta.add(jLabel79, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 200, 290, -1));
 
         user_sexo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Masculino", "Femenino" }));
-        venta.add(user_sexo, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 240, 110, 40));
+        venta.add(user_sexo, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 240, 110, 40));
 
         calendar_fecha_nacimiento.setBackground(new java.awt.Color(0, 51, 102));
         calendar_fecha_nacimiento.setForeground(new java.awt.Color(0, 96, 255));

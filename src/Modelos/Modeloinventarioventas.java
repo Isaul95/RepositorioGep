@@ -102,7 +102,7 @@ public static void eliminar_idventa_sitienedescuento(float descuento, int id_ven
         modeloTE.addColumn("Fecha");
     Inventarioventas.jTable2.setModel(modeloTE);  // add modelo ala tabla         
         try {  Connection ca= cc.conexion(); // CONEXION DB 
-             String sSQL = "SELECT venta.id_venta, pacientes.nombre,total, venta.fecha_reporte FROM venta inner join descripcion_de_venta on venta.id_venta = descripcion_de_venta.id_venta inner join pacientes on descripcion_de_venta.id_paciente = pacientes.id_paciente WHERE estado_venta in('Realizada') AND fecha_reporte = '"+Controladorventa.fecha()+"' ";
+             String sSQL = "SELECT distinct venta.id_venta, pacientes.nombre,total, venta.fecha_reporte FROM venta inner join descripcion_de_venta on venta.id_venta = descripcion_de_venta.id_venta inner join pacientes on descripcion_de_venta.id_paciente = pacientes.id_paciente WHERE venta.estado_venta in('Realizada') AND venta.fecha_reporte = '"+Controladorventa.fecha()+"' ";
         PreparedStatement ps = ca.prepareStatement(sSQL);       
         ResultSet rs = ps.executeQuery(sSQL);
             while (rs.next()) {
@@ -147,11 +147,12 @@ public static void eliminar_idventa_sitienedescuento(float descuento, int id_ven
 }
    
      public static void showidventasporfechas(JTable tablaventas, String fechadesde, String fechahasta){
-        Object[] columna = new Object[3];  //crear un obj con el nombre de colunna
+        Object[] columna = new Object[4];  //crear un obj con el nombre de colunna
             Connection ca= cc.conexion(); // CONEXION DB 
               DefaultTableModel modeloT = new DefaultTableModel(); 
                   tablaventas.setModel(modeloT);  // add modelo ala tabla 
            modeloT.addColumn("Venta");
+            modeloT.addColumn("Paciente");
         modeloT.addColumn("Total");        
         modeloT.addColumn("Fecha");
     try {        
@@ -160,8 +161,9 @@ public static void eliminar_idventa_sitienedescuento(float descuento, int id_ven
         try (ResultSet rs = ps.executeQuery(sSQL)) {
             while (rs.next()) {
                 columna[0] = rs.getString(1);
-                columna[1] = "$"+String.valueOf(rs.getInt(2) );
-                   columna[2] = rs.getString(3);
+                  columna[1] = rs.getString(2);
+                columna[2] = "$"+String.valueOf(rs.getInt(3) );
+                   columna[3] = rs.getString(4);
                 modeloT.addRow(columna);
             }
         }                             TableColumnModel columnModel =   Inventarioventas.jTable2.getColumnModel();columnModel.getColumn(0).setPreferredWidth(30);columnModel.getColumn(1).setPreferredWidth(30);    columnModel.getColumn(2).setPreferredWidth(150);
