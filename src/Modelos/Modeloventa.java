@@ -89,7 +89,7 @@ public static void asignar_id_paciente(){
                 Connection cu= cc.conexion();
              String sql = "INSERT INTO  pacientes(dato_auxiliar)  VALUES (?)";
                          PreparedStatement pst = cu.prepareCall(sql); 
-                         pst.setString(1,"Paciente insertado para permitir el flujo del sistema por foreingkey");
+                         pst.setString(1,"En espera de venta");
                          int a=pst.executeUpdate();
                          if(a>0){
                          }

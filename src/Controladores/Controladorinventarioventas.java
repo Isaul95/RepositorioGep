@@ -16,6 +16,7 @@ import si.Inventarioventas;
 import java.util.ArrayList;
 import java.util.Calendar;
 import javax.swing.JOptionPane;
+import si.Edicion_pacientes;
 import ticket.ticketventacancelada;
 import ticket.ticketventacondescuento;
 import ticket.ticketventacredito;
@@ -177,10 +178,12 @@ public class Controladorinventarioventas {
                Inventarioventas.imprimirventa.setVisible(false);
                Inventarioventas.cancelarventa.setVisible(false);
   Inventarioventas.editar_paciente.setVisible(false);
-        Inventarioventas.resultado.setVisible(false);               
+        Inventarioventas.resultado.setVisible(false);      
+       
      }
     public static void editar_paciente(short id){
         //PRIMERO SE EDITA EL CAMPO AUXILIAR PARA HACERLE SABER QUE ESE DATO SE VA A MODIFICAR EN LA PROXIMA VENTANA
         Modeloinventarioventas.indicar_el_paciente_a_actualizar(Short.parseShort(String.valueOf(id)));
+     new Edicion_pacientes().setVisible(true);
     }
 }

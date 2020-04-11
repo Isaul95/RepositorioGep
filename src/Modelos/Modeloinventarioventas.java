@@ -405,7 +405,7 @@ try {Connection ca= cc.conexion();
                     PreparedStatement ps = ca.prepareStatement ("UPDATE pacientes SET dato_auxiliar='"+Paciente_a_editar+"'WHERE id_paciente='"+id_paciente_para_modificar+"'");
                 int resultado = ps.executeUpdate();
                 if(resultado>0){
-                    
+                     
                 }
         }
             catch (Exception e){ 
