@@ -528,7 +528,7 @@ borrarventasenestadoenturnoporerrordeusuario_que_no_coincidenconlafechadehoy();/
                                 try{
                                   obtener_id_paciente();
                              
-                                  nombre_paciente=nucleo.user_nombre.getText(); edad_paciente=nucleo.user_edad.getText();   sexo_paciente=nucleo.user_sexo.getSelectedItem().toString();
+                                  nombre_paciente=nucleo.user_nombre.getText(); edad_paciente=nucleo.user_edad.getText()+" años";   sexo_paciente=nucleo.user_sexo.getSelectedItem().toString();
                                   PreparedStatement ps3 = ca.prepareStatement ("UPDATE pacientes SET nombre='"+nombre_paciente+"',fecha_nacimiento='"+Controladorventa.fecha_de_nacimiento_del_paciente()+"',edad='"+edad_paciente+"',sexo='"+sexo_paciente+"'WHERE id_paciente='"+id_paciente+"'");
  int resultado = ps3.executeUpdate();
                                      if(resultado>0){
@@ -596,7 +596,7 @@ if(variablepago<Float.parseFloat(nucleo.subtotal.getText())){ // comprueba que l
                                 try{
                                   obtener_id_paciente();
                              
-                                  nombre_paciente=nucleo.user_nombre.getText(); edad_paciente=nucleo.user_edad.getText();   sexo_paciente=nucleo.user_sexo.getSelectedItem().toString();
+                                  nombre_paciente=nucleo.user_nombre.getText(); edad_paciente=nucleo.user_edad.getText()+" años";   sexo_paciente=nucleo.user_sexo.getSelectedItem().toString();
                                   PreparedStatement ps3 = ca.prepareStatement ("UPDATE pacientes SET nombre='"+nombre_paciente+"',fecha_nacimiento='"+Controladorventa.fecha_de_nacimiento_del_paciente()+"',edad='"+edad_paciente+"',sexo='"+sexo_paciente+"'WHERE id_paciente='"+id_paciente+"'");
  int resultado = ps3.executeUpdate();
                                      if(resultado>0){

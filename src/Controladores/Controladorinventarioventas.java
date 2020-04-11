@@ -33,8 +33,8 @@ public class Controladorinventarioventas {
     public static float sumadetotalesdeventasdehoy,
             sumadeimportescreditopendiente,  sumadeimportesparaeltotal, 
             descuentoticket, cambioticket, pagoticket, totalticket, subtotalticket, descuentoenventa;
-    public static short conteototaldeventas, id_ventapencredito, id=0;
-    public static String creditopagado="Credito-pagado", estadocancelado= "Cancelada", creditopendiente="Credito-pendiente";
+    public static short conteototaldeventas, id_ventapencredito, id=0,id_paciente_para_modificar;
+    public static String Paciente_a_editar="Editar",creditopagado="Credito-pagado", estadocancelado= "Cancelada", creditopendiente="Credito-pendiente";
     public static ArrayList importesticket = new ArrayList();
     public static ArrayList preciounitarioticket = new ArrayList();
     public static ArrayList piezastcket = new ArrayList();
@@ -52,7 +52,7 @@ public class Controladorinventarioventas {
                              Inventarioventas.conteodelasventasrealizadas.setText(String.valueOf(Controladorinventarioventas.conteototaldeventas)); // VIENE DEL METODO totalventasxdia(); ES UN CONTEO DE VENTAS
     Modeloinventarioventas.llenartablaidventasconidrealizados();
                                 Modeloinventarioventas.productosvendidoseneldia();//MUESTRA LAS VENTAS REA
-                                Modeloinventarioventas.llenartablaconventasacreditopendiente();
+                             
                               
     }
     public static void botonveridventas(){ //INVENTARIOVENTAS
@@ -66,28 +66,11 @@ public class Controladorinventarioventas {
         Inventarioventas.totalventarealizada.setVisible(false);
         Inventarioventas.labelparaeltotal.setVisible(false);
         Inventarioventas.imprimirventa.setVisible(false);
- Inventarioventas.cancelarventa.setVisible(false);
+        Inventarioventas.cancelarventa.setVisible(false);
+        Inventarioventas.editar_paciente.setVisible(false);
+        Inventarioventas.resultado.setVisible(false);
  }
-                                public static void verdescripciondeventaacredito(){
-                int fila =Inventarioventas.ventasacreditopendiente.getSelectedRow();
-        if(fila>=0){
-            boolean pass =validarFormularioparamostrardescripciondeproductosporid(Inventarioventas.ventasacreditopendiente.getValueAt(fila,0).toString());
-            if(pass){
-                Controladorinventarioventas.id_ventapencredito=Short.parseShort(Inventarioventas.ventasacreditopendiente.getValueAt(fila,0).toString());
-                Modeloinventarioventas.descripciondeproductosenbasealnumerodeventaporcreditopendiente(Integer.parseInt(Inventarioventas.ventasacreditopendiente.getValueAt(fila,0).toString()));
-                Modeloinventarioventas.total_venta_creditopendiente(Controladorinventarioventas.id_ventapencredito);
-                Inventarioventas.totalventacreditoenturno.setText(String.valueOf(sumadeimportescreditopendiente));
-                Inventarioventas.labelnombre.setVisible(true);
-                Inventarioventas.labelcredito.setVisible(true);
-                Inventarioventas.deudor.setVisible(true);
-                Inventarioventas.totalventacreditoenturno.setVisible(true);
-                Inventarioventas.veridventasacreditopendiente.setVisible(true);
-                Inventarioventas.pagarventaacredito.setVisible(true);
-            }
-        }
-        else
-        JOptionPane.showMessageDialog(null,"Por favor, seleccione una fila primero","Aviso",JOptionPane.INFORMATION_MESSAGE);
-    }
+   
                                 public static void verdescripcionenbaseaventarealizada(){
             int fila =Inventarioventas.jTable2.getSelectedRow();
  if(fila>=0){
@@ -102,6 +85,8 @@ public class Controladorinventarioventas {
                 Inventarioventas.totalventarealizada.setVisible(true);
                 Inventarioventas.imprimirventa.setVisible(true);
                 Inventarioventas.cancelarventa.setVisible(true);
+                 Inventarioventas.editar_paciente.setVisible(true);
+        Inventarioventas.resultado.setVisible(true);
             }
         }
         else
@@ -126,18 +111,8 @@ public class Controladorinventarioventas {
   Controladorventa.storage.clear();
   Modeloinventarioventas.impresiondeventacancelada(id);
         }
-        public static void botonveridventasacreditopendientes(){
-             Modeloinventarioventas.llenartablaconventasacreditopendiente(); //CARGA NUEVAMENTE LAS VENTAS POR ID
- Inventarioventas.labelnombre.setVisible(false);
-         Inventarioventas.labelcredito.setVisible(false);
-         Inventarioventas.deudor.setVisible(false);
-         Inventarioventas.totalventacreditoenturno.setVisible(false);
-         Inventarioventas.veridventasacreditopendiente.setVisible(false);
-         Inventarioventas.pagarventaacredito.setVisible(false);
-        }
-        public static void boton_pagar_venta_credito(int id){
-            Modeloinventarioventas.pagarventacredito(id);
-        }
+     
+ 
         public static void botonbuscarventas_porfecha(){
             try{
            String fechaparaventasdesde= llenarfechadesdeparamostrarlosidventas();
@@ -192,7 +167,7 @@ public class Controladorinventarioventas {
    Modeloinventarioventas.conteodeventasrealizadasdehoy(); // CUANTAS VENTAS SE REALIZARON? 5 O 60 O XX
                   Modeloinventarioventas.llenartablaidventasconidrealizados();
                           Modeloinventarioventas.productosvendidoseneldia();//MUESTRA LAS VENTAS REA
-                   Modeloinventarioventas.llenartablaconventasacreditopendiente();
+                
                         Modelocortedecaja.ventaseneldia();// PARA LA SUMA DE LOS TOTALES DE LA VENTA
       Inventarioventas.ventaseneldiasumadas.setText(String.valueOf(ventasdeldia));// VIENE DEL METODO ventaseneldiaREALIZADAS()
                         Inventarioventas.conteodelasventasrealizadas.setText(String.valueOf(conteototaldeventas)); // VIENE DEL METODO totalventasxdia(); ES UN CONTEO DE VENTAS
@@ -201,11 +176,11 @@ public class Controladorinventarioventas {
        Inventarioventas.veridventas.setVisible(false);
                Inventarioventas.imprimirventa.setVisible(false);
                Inventarioventas.cancelarventa.setVisible(false);
-                Inventarioventas.labelnombre.setVisible(false);
-        Inventarioventas.labelcredito.setVisible(false);
-        Inventarioventas.deudor.setVisible(false);
-        Inventarioventas.totalventacreditoenturno.setVisible(false);
-        Inventarioventas.veridventasacreditopendiente.setVisible(false);
-         Inventarioventas.pagarventaacredito.setVisible(false);
+  Inventarioventas.editar_paciente.setVisible(false);
+        Inventarioventas.resultado.setVisible(false);               
      }
+    public static void editar_paciente(short id){
+        //PRIMERO SE EDITA EL CAMPO AUXILIAR PARA HACERLE SABER QUE ESE DATO SE VA A MODIFICAR EN LA PROXIMA VENTANA
+        Modeloinventarioventas.indicar_el_paciente_a_actualizar(Short.parseShort(String.valueOf(id)));
+    }
 }

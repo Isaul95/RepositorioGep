@@ -93,25 +93,27 @@ public static void eliminar_idventa_sitienedescuento(float descuento, int id_ven
              }
     }
      public static void llenartablaidventasconidrealizados(){ // recibe como parametro 
-         Object[] columna = new Object[3];  //crear un obj con el nombre de colunna
+         Object[] columna = new Object[4];  //crear un obj con el nombre de colunna
              DefaultTableModel modeloTE = new DefaultTableModel(); 
                   Inventarioventas.jTable2.setModel(modeloTE);  // add modelo ala tabla 
         modeloTE.addColumn("Venta");
+        modeloTE.addColumn("Paciente");
         modeloTE.addColumn("Total");        
         modeloTE.addColumn("Fecha");
     Inventarioventas.jTable2.setModel(modeloTE);  // add modelo ala tabla         
         try {  Connection ca= cc.conexion(); // CONEXION DB 
-             String sSQL = "SELECT id_venta, total, fecha_reporte FROM venta WHERE estado_venta in('Realizada') AND fecha_reporte = '"+Controladorventa.fecha()+"' ";
+             String sSQL = "SELECT venta.id_venta, pacientes.nombre,total, venta.fecha_reporte FROM venta inner join descripcion_de_venta on venta.id_venta = descripcion_de_venta.id_venta inner join pacientes on descripcion_de_venta.id_paciente = pacientes.id_paciente WHERE estado_venta in('Realizada') AND fecha_reporte = '"+Controladorventa.fecha()+"' ";
         PreparedStatement ps = ca.prepareStatement(sSQL);       
         ResultSet rs = ps.executeQuery(sSQL);
             while (rs.next()) {
                 columna[0] = rs.getInt(1);
-                columna[1] = "$"+String.valueOf(rs.getFloat(2));
-                 columna[2] = rs.getString(3);
+                columna[1] = rs.getString(2);
+                columna[2] = "$"+String.valueOf(rs.getFloat(3));
+                 columna[3] = rs.getString(4);
                 modeloTE.addRow(columna);
             }
           Inventarioventas.jTable2.setModel(modeloTE);  // add modelo ala tabla 
-                             TableColumnModel columnModel =   Inventarioventas.jTable2.getColumnModel();columnModel.getColumn(0).setPreferredWidth(30);columnModel.getColumn(1).setPreferredWidth(30);    columnModel.getColumn(2).setPreferredWidth(150);
+                             TableColumnModel columnModel =   Inventarioventas.jTable2.getColumnModel();columnModel.getColumn(0).setPreferredWidth(10);columnModel.getColumn(1).setPreferredWidth(180); columnModel.getColumn(2).setPreferredWidth(10);   columnModel.getColumn(3).setPreferredWidth(10);
     } catch (Exception e) {
       JOptionPane.showMessageDialog(null, "ERROR EN METODO: llenartablaidventasconidrealizados","DEVELOPER HELPER", JOptionPane.ERROR_MESSAGE);      
        }finally{
@@ -143,32 +145,7 @@ public static void eliminar_idventa_sitienedescuento(float descuento, int id_ven
                   cc.getClose();
              }
 }
-     public static void llenartablaconventasacreditopendiente(){
-        Object[] columna = new Object[4];  //crear un obj con el nombre de colunna
-              DefaultTableModel modeloT = new DefaultTableModel(); 
-                  Inventarioventas.ventasacreditopendiente.setModel(modeloT);  // add modelo ala tabla 
-       modeloT.addColumn("Venta");
-        modeloT.addColumn("Total");        
-        modeloT.addColumn("Fecha");
-        modeloT.addColumn("Nombre"); 
-       try {   Connection ca= cc.conexion(); // CONEXION DB 
-String sSQL = " select distinct venta.id_venta, venta.total, venta.fecha_reporte, descripcion_de_venta.nombre_credito from venta INNER JOIN descripcion_de_venta ON venta.id_venta = descripcion_de_venta.id_venta where venta.estado_venta = 'Credito-pendiente' ";
-        PreparedStatement ps = ca.prepareStatement(sSQL);       
-        try (ResultSet rs = ps.executeQuery(sSQL)) {
-            while (rs.next()) {
-                columna[0] = rs.getString("venta.id_venta");
-                columna[1] = "$"+rs.getString("venta.total");
-                columna[2] = rs.getString("venta.fecha_reporte");    
-                columna[3] = rs.getString("descripcion_de_venta.nombre_credito");
-                modeloT.addRow(columna);
-            }
-        }       TableColumnModel columnModel =   Inventarioventas.ventasacreditopendiente.getColumnModel();columnModel.getColumn(0).setPreferredWidth(15);columnModel.getColumn(1).setPreferredWidth(15);    columnModel.getColumn(2).setPreferredWidth(50);columnModel.getColumn(3).setPreferredWidth(200);
-    } catch (Exception e) {
-         JOptionPane.showMessageDialog(null, "ERROR EN METODO: llenartablaconventasacreditopendiente"+e.getStackTrace(),"DEVELOPER HELPER", JOptionPane.ERROR_MESSAGE);      
-      }finally{
-                  cc.getClose();
-             }
-    } 
+   
      public static void showidventasporfechas(JTable tablaventas, String fechadesde, String fechahasta){
         Object[] columna = new Object[3];  //crear un obj con el nombre de colunna
             Connection ca= cc.conexion(); // CONEXION DB 
@@ -178,7 +155,7 @@ String sSQL = " select distinct venta.id_venta, venta.total, venta.fecha_reporte
         modeloT.addColumn("Total");        
         modeloT.addColumn("Fecha");
     try {        
-           String sSQL = "SELECT id_venta, total, fecha_reporte FROM venta WHERE estado_venta='Realizada' AND fecha_reporte BETWEEN '"+fechadesde+"' AND '"+fechahasta+ "' ";
+           String sSQL = "SELECT venta.id_venta, pacientes.nombre,total, venta.fecha_reporte FROM venta inner join descripcion_de_venta on venta.id_venta = descripcion_de_venta.id_venta inner join pacientes on descripcion_de_venta.id_paciente = pacientes.id_paciente WHERE venta.estado_venta='Realizada' AND venta.fecha_reporte BETWEEN '"+fechadesde+"' AND '"+fechahasta+ "' ";
         PreparedStatement ps = ca.prepareStatement(sSQL);       
         try (ResultSet rs = ps.executeQuery(sSQL)) {
             while (rs.next()) {
@@ -192,54 +169,7 @@ String sSQL = " select distinct venta.id_venta, venta.total, venta.fecha_reporte
         JOptionPane.showMessageDialog(null, e, "Advertencia", JOptionPane.PLAIN_MESSAGE);    
     }finally{cc.getClose();}
     }
-     public static void pagarventacredito(int id_ventapencredito){
-    DecimalFormat solodosdecimales = new DecimalFormat("#.##");
-    try{
-            String pagodeventacredito="";
-            float variable0=0, totalacredito=0, cambio=0;
-            boolean pass2 = Controladorventa.validarFormulario(pagodeventacredito= JOptionPane.showInputDialog(null,"Escriba el monto de pago","Pagando venta a credito", JOptionPane.INFORMATION_MESSAGE));
-            if(pass2){//ESTO VALIDA QUE EL TEXTO ESCRITO NO TENGA INCOHERENCIAS
-int decision=JOptionPane.showConfirmDialog(null,"¿Desea continuar?","Estás por pagar una venta a credito",JOptionPane.CANCEL_OPTION);
-                if(decision==0){ //opción si
-                    total_venta_creditopendiente(id_ventapencredito);
-                    if(Float.parseFloat(pagodeventacredito)>=sumadeimportescreditopendiente){
-                        try{Connection ca= cc.conexion();
-                            cambio = Float.parseFloat(pagodeventacredito)-sumadeimportescreditopendiente;
-                            PreparedStatement ps = ca.prepareStatement ("UPDATE venta SET descuento='"+ variable0+"',pago='"+solodosdecimales.format(Float.parseFloat(pagodeventacredito)).replace(",", ".")+"',cambio='"+solodosdecimales.format(cambio).replace(",", ".")+"',fecha_reporte='"+Controladorventa.fecha()+"',estado_venta='"+creditopagado+"'WHERE id_venta='"+id_ventapencredito+"'");
-                            ps.executeUpdate();
-                        }catch(Exception ex){
-                            JOptionPane.showMessageDialog(null, "Error en pagarventacredito" + ex.getMessage());
-                        }finally{
-                            cc.getClose();
-                        }
-                        try{Connection ca= cc.conexion();
-                            Modeloventa.id_max_de_venta();
-                            PreparedStatement ps2 = ca.prepareStatement ("UPDATE descripcion_de_venta SET estado= '"+creditopagado+"' WHERE id_venta='"+id_ventapencredito+"'");
-                            int a = ps2.executeUpdate();
-                            if(a>0){
-                                Controladorventa.accionesdespuesderealizarcualquierventa();
-                                Inventarioventas.pagarventaacredito.setVisible(false);
-                                Inventarioventas.labelnombre.setVisible(false);
-                                Inventarioventas.labelcredito.setVisible(false);
-                                Inventarioventas.totalventacreditoenturno.setVisible(false);
-                                Inventarioventas.deudor.setVisible(false);
-                                Inventarioventas.veridventasacreditopendiente.setVisible(false);
-                                Modeloinventarioventas.llenartablaconventasacreditopendiente(); //CARGA NUEVAMENTE LAS VENTAS POR ID
-  }
-                        }
-                        catch(Exception ex){
-                            JOptionPane.showMessageDialog(null, "Error en pagarventacredito" + ex.getMessage());
-                        }finally{
-                            cc.getClose();
-                        }
-                    }else{
-                        JOptionPane.showMessageDialog(null, "El pago es menor al total", "Verifique por favor", JOptionPane.INFORMATION_MESSAGE);
-                    }
-    }
-  }
-        }catch(NullPointerException NP){//ESTO EVITA QUE EL USUARIO META UN VALOR VACIO
- }
-}
+
      public static void total_venta_creditopendiente(int id){
         try{ Connection ca= cc.conexion();// La suma de todos los importes
                                           sent  =(Statement)ca.createStatement();
@@ -356,34 +286,6 @@ try {Connection ca= cc.conexion();
                     cc.getClose();
                 }// fin del precio-catch del producto
     }
-   public static void descripciondeproductosenbasealnumerodeventaporcreditopendiente(int numerodeventa){
-        Object[] columna = new Object[4];  //crear un obj con el nombre de colunna
-            Connection ca= cc.conexion(); // CONEXION DB 
-              DefaultTableModel modeloT = new DefaultTableModel(); 
-                  Inventarioventas.ventasacreditopendiente.setModel(modeloT);  // add modelo ala tabla 
-       // modeloT.addColumn("id_venta");    // add al modelo las 5 columnas con los nombrs TABLA
-        modeloT.addColumn("Nombre");
-        modeloT.addColumn("Piezas");        
-        modeloT.addColumn("Precio");
-        modeloT.addColumn("Importe");
-       try {
-               String sSQL = "SELECT nombre_producto, cantidad, precio_unitario, importe, nombre_credito FROM descripcion_de_venta WHERE estado='Credito-pendiente' AND id_venta = '"+numerodeventa+"' ";
-        PreparedStatement ps = ca.prepareStatement(sSQL);       
-        try (ResultSet rs = ps.executeQuery(sSQL)) {
-            while (rs.next()) {
-                columna[0] = rs.getString(1);
-                columna[1] = rs.getString(2);
-                columna[2] = "$"+rs.getString(3);      
-                columna[3] = "$"+rs.getString(4); 
-                Inventarioventas.deudor.setText(rs.getString(5));
-                modeloT.addRow(columna);
-            }
-        }
-       TableColumnModel columnModel =   Inventarioventas.ventasacreditopendiente.getColumnModel();columnModel.getColumn(0).setPreferredWidth(200);columnModel.getColumn(1).setPreferredWidth(50);    columnModel.getColumn(2).setPreferredWidth(50);columnModel.getColumn(3).setPreferredWidth(50);
-   } catch (Exception e) {
-        JOptionPane.showMessageDialog(null, e, "Advertencia", JOptionPane.PLAIN_MESSAGE);    
-    }finally{cc.getClose();}
-    }
    public static void descripciondeproductosenbasealnumerodeventa(int numerodeventa){
         Object[] columna = new Object[4];  //crear un obj con el nombre de colunna
             Connection ca= cc.conexion(); // CONEXION DB 
@@ -484,4 +386,32 @@ try {Connection ca= cc.conexion();
                   cc.getClose();
              }
     }
+   public static void indicar_el_paciente_a_actualizar(int id){
+      try{ Connection ca= cc.conexion();// CUENTA EL TODAL DE CUANTAS VENTAS SE REALIZARON
+                                         Statement sent  =(Statement)ca.createStatement();
+                                         ResultSet  rs = sent.executeQuery("select pacientes.id_paciente from venta INNER join descripcion_de_venta on venta.id_venta = descripcion_de_venta.id_venta inner join pacientes on descripcion_de_venta.id_paciente = pacientes.id_paciente WHERE venta.id_venta = '"+id+"' ");
+                                            if(rs.next()){
+                                                      id_paciente_para_modificar =Short.parseShort(String.valueOf(rs.getInt("pacientes.id_paciente")));
+                                                      }
+                                                      }//fin del try-precio del producto
+                                                      catch (Exception e){
+                                                           JOptionPane.showMessageDialog(null, "ERROR EN METODO: conteodeventasrealizadasdehoy: "+e.getMessage(),"DEVELOPER HELPER", JOptionPane.ERROR_MESSAGE);      
+                                                      }// fin del precio-catch del producto
+        finally{
+                  cc.getClose();
+             }
+       
+        try{Connection ca= cc.conexion();
+                    PreparedStatement ps = ca.prepareStatement ("UPDATE pacientes SET dato_auxiliar='"+Paciente_a_editar+"'WHERE id_paciente='"+id_paciente_para_modificar+"'");
+                int resultado = ps.executeUpdate();
+                if(resultado>0){
+                    
+                }
+        }
+            catch (Exception e){ 
+               JOptionPane.showMessageDialog(null, "Error en status_cancelado update venta" + e.getMessage());
+            }   finally{
+                    cc.getClose();
+                }        
+   }
 }
