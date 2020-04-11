@@ -23,57 +23,65 @@ import si.nucleo;
  *
  * @author Alexis
  */
-public class Modeloexistencias extends Controladorexistencias{
-       public static SI cc= new SI();
- public static Statement sent;  
- public static  ResultSet rs;     
-     public static void mostrartodoslosproductosenexistencias(){
-            existenciadeproductos.setVisible(true);    //hace visible la tabla de proveedores 
-              DefaultTableModel modelo = new DefaultTableModel(); // Se crea un objeto para agregar los nombres de las columnas a la tabla
-    modelo.addColumn("Nombre");
-     existenciadeproductos.setModel(modelo);  // Ya una vez asignado todos los nombres se le envia el objeto a la tabla proveedores
-     String []datos = new String[2];     //Un arreglo con la cantidad de nombres en las columnas
-    try {Connection ca= cc.conexion();
-             sent = ca.createStatement();   
-                       rs= sent.executeQuery("select nombre_producto from  productos"); // se ejecuta la sentencia dentro del parentesis
-            while(rs.next()){        
-            datos[0]=rs.getString(1);
-            modelo.addRow(datos); //se asigna el arreglo  entero a todo el objeto llamado modelo  
+public class Modeloexistencias extends Controladorexistencias {
+
+    public static SI cc = new SI();
+    public static Statement sent;
+    public static ResultSet rs;
+
+    public static void mostrartodoslosproductosenexistencias() {
+        existenciadeproductos.setVisible(true);    //hace visible la tabla de proveedores 
+        DefaultTableModel modelo = new DefaultTableModel(); // Se crea un objeto para agregar los nombres de las columnas a la tabla
+        modelo.addColumn("Nombre");
+        existenciadeproductos.setModel(modelo);  // Ya una vez asignado todos los nombres se le envia el objeto a la tabla proveedores
+        String[] datos = new String[2];     //Un arreglo con la cantidad de nombres en las columnas
+        try {
+            Connection ca = cc.conexion();
+            sent = ca.createStatement();
+            rs = sent.executeQuery("select nombre_producto from  productos"); // se ejecuta la sentencia dentro del parentesis
+            while (rs.next()) {
+                datos[0] = rs.getString(1);
+                modelo.addRow(datos); //se asigna el arreglo  entero a todo el objeto llamado modelo  
             }
-           existenciadeproductos.setModel(modelo); // Se vuelve a enviar nuevamente el objeto modelo a la tabla  
-           //PARA AJUSTAR EL ANCHO DE LAS TABLAS
-              TableColumnModel columnModel =  existenciadeproductos.getColumnModel();
-    columnModel.getColumn(0).setPreferredWidth(250);
+            existenciadeproductos.setModel(modelo); // Se vuelve a enviar nuevamente el objeto modelo a la tabla  
+            //PARA AJUSTAR EL ANCHO DE LAS TABLAS
+            TableColumnModel columnModel = existenciadeproductos.getColumnModel();
+            columnModel.getColumn(0).setPreferredWidth(250);
         } catch (SQLException ex) {
             Logger.getLogger(nucleo.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(null, "No se pudo mostrar ningun dato porque tu consulta está mal");
-        } finally{cc.getClose();}
+        } finally {
+            cc.getClose();
+        }
     }
-     public static void mostrartodoslosproductosenexistenciasporbusqueda(String textoabuscar){
-            existenciadeproductos.setVisible(true);    //hace visible la tabla de proveedores 
-              DefaultTableModel modelo = new DefaultTableModel(); // Se crea un objeto para agregar los nombres de las columnas a la tabla
-    modelo.addColumn("Nombre");
-     existenciadeproductos.setModel(modelo);  // Ya una vez asignado todos los nombres se le envia el objeto a la tabla proveedores
-    String []datos = new String[2];     //Un arreglo con la cantidad de nombres en las columnas
-    try {Connection ca= cc.conexion();
-             sent = ca.createStatement();   
-                       if(textoabuscar.equals("")){
-                          rs= sent.executeQuery("select nombre_producto from  productos"); // se ejecuta la sentencia dentro del parentesis
-                       }
-                       else{
-                          rs= sent.executeQuery("select nombre_producto  from  productos where nombre_producto LIKE '%" +textoabuscar+"%' "); // se ejecuta la sentencia dentro del parentesis
-                       }
-             while(rs.next()){        
-            datos[0]=rs.getString(1);
-            modelo.addRow(datos); //se asigna el arreglo  entero a todo el objeto llamado modelo  
+
+    public static void mostrartodoslosproductosenexistenciasporbusqueda(String textoabuscar) {
+        existenciadeproductos.setVisible(true);    //hace visible la tabla de proveedores 
+        DefaultTableModel modelo = new DefaultTableModel(); // Se crea un objeto para agregar los nombres de las columnas a la tabla
+        modelo.addColumn("Nombre");
+        existenciadeproductos.setModel(modelo);  // Ya una vez asignado todos los nombres se le envia el objeto a la tabla proveedores
+        String[] datos = new String[2];     //Un arreglo con la cantidad de nombres en las columnas
+        try {
+            Connection ca = cc.conexion();
+            sent = ca.createStatement();
+            if (textoabuscar.equals("")) {
+                rs = sent.executeQuery("select nombre_producto from  productos"); // se ejecuta la sentencia dentro del parentesis
+            } else {
+                rs = sent.executeQuery("select nombre_producto  from  productos where nombre_producto LIKE '%" + textoabuscar + "%' "); // se ejecuta la sentencia dentro del parentesis
             }
-           existenciadeproductos.setModel(modelo); // Se vuelve a enviar nuevamente el objeto modelo a la tabla
-                         TableColumnModel columnModel =  existenciadeproductos.getColumnModel();
-    columnModel.getColumn(0).setPreferredWidth(250);
+            while (rs.next()) {
+                datos[0] = rs.getString(1);
+                modelo.addRow(datos); //se asigna el arreglo  entero a todo el objeto llamado modelo  
+            }
+            existenciadeproductos.setModel(modelo); // Se vuelve a enviar nuevamente el objeto modelo a la tabla
+            TableColumnModel columnModel = existenciadeproductos.getColumnModel();
+            columnModel.getColumn(0).setPreferredWidth(250);
         } catch (SQLException ex) {
             Logger.getLogger(nucleo.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(null, "No se pudo mostrar  porque tu consulta está mal");
-        } finally{cc.getClose();}
+        } finally {
+            cc.getClose();
+        }
     }
 
 }

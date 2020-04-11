@@ -4,6 +4,9 @@
  * and open the template in the editor.
  */
 package Modelos;
+import static Controladores.Controladorgastos.pass;
+import static Controladores.Controladorgastos.pass2;
+import static Controladores.Controladorgastos.validarFormulariotexto;
 import Controladores.Controladorinventarioventas;
 import Controladores.Controladorventa;
 import java.sql.Connection;
@@ -16,6 +19,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
+import si.Gastos;
 import si.SI;
 import si.nucleo;
 import ticket.ticketventacondescuento;
@@ -79,6 +83,39 @@ public static void get_id_usuario(){
              }//fin del id del usuario para comprobar si hay o no elementos ya guardados
   }//FIN DE GET ID USUARIO 
 
+public static void asignar_id_paciente(){
+   try{
+        if(block_unlock==true){
+                Connection cu= cc.conexion();
+             String sql = "INSERT INTO  pacientes(dato_auxiliar)  VALUES (?)";
+                         PreparedStatement pst = cu.prepareCall(sql); 
+                         pst.setString(1,"Paciente insertado para permitir el flujo del sistema por foreingkey");
+                         int a=pst.executeUpdate();
+                         if(a>0){
+                         }
+                         }
+     
+   }catch(Exception w){
+       JOptionPane.showMessageDialog(null, "Error, asignar_id_paciente; INSERT INTO  pacientes "+w.getMessage(),"HELPER DEVELOPER",JOptionPane.INFORMATION_MESSAGE); 
+   }finally{
+                  cc.getClose();
+             }//fin del id del usuario para comprobar si hay o no elementos ya guardados
+                         
+                         
+}
+public static void obtener_id_paciente(){
+       try{ Connection ca= cc.conexion();
+                          sent = ca.createStatement();
+                          ResultSet rs= sent.executeQuery("SELECT  max(id_paciente) FROM  pacientes");
+                          if(rs.next()){
+                                   id_paciente=rs.getShort(1);
+                         }
+                         }catch(Exception a){
+                                JOptionPane.showMessageDialog(null, "Error, obtener_id_paciente","HELPER DEVELOPER",JOptionPane.INFORMATION_MESSAGE); 
+                                                     }finally{
+                  cc.getClose();
+             }
+}
 //OBTENER
 
 public static void obtenerelnombredeproductoylacantidaddelmismo_en_descripcion_deventa(String nombredepieza){
@@ -87,23 +124,6 @@ public static void obtenerelnombredeproductoylacantidaddelmismo_en_descripcion_d
     id_max_de_venta();
    sent  = (Statement)ca.createStatement();
                                            rs = sent.executeQuery("select * from descripcion_de_venta  where id_producto='"+id_producto+"' and id_venta= '"+id_de_la_venta_incrementable+"' and fecha= '"+fecha()+"' and estado= '"+estadoenturno+"' and importe!=0");
-                                            if(rs.next()){
-                                               NoP =rs.getString("nombre_producto");//NOMBRE DEL PRODUCTO
-                                                      NoPcantidad =Float.parseFloat(rs.getString("cantidad")); //CANTIDAD DEL MISMO
-                                            NoPimporte = Float.parseFloat(rs.getString("importe"));         
-                                            }
- }catch (Exception f){
-     JOptionPane.showMessageDialog(null, "Error, obtenerelnombredeproductoylacantidaddelmismo_en_descripcion_deventa","HELPER DEVELOPER",JOptionPane.INFORMATION_MESSAGE);                  
-                    }finally{
-                  cc.getClose();
-             }
- }
-public static void nombredeproductoylacantidaddelmismo_en_descripcion_deventaparamedioocompletospollos(String nombredepieza){
- try{Connection ca= cc.conexion();   
-          id_producto(nombredepieza);
-    id_max_de_venta();
-   sent  = (Statement)ca.createStatement();
-                                           rs = sent.executeQuery("select * from descripcion_de_venta  where id_producto='"+id_producto+"' and id_venta= '"+id_de_la_venta_incrementable+"' and fecha= '"+fecha()+"' and estado= '"+estadoenturno+"' and importe=0");
                                             if(rs.next()){
                                                NoP =rs.getString("nombre_producto");//NOMBRE DEL PRODUCTO
                                                       NoPcantidad =Float.parseFloat(rs.getString("cantidad")); //CANTIDAD DEL MISMO
@@ -185,7 +205,7 @@ try{Connection ca= cc.conexion();   // ESTE ES PARA EL UPDATE
                }
    else{
   try{Connection ca= cc.conexion(); //la insersion a la tabla ventas
-                String sql = "INSERT INTO descripcion_de_venta (id_producto,nombre_producto,cantidad,precio_unitario,importe,id_venta,estado, fecha)  VALUES (?,?,?,?,?,?,?,?)";
+                String sql = "INSERT INTO descripcion_de_venta (id_producto,nombre_producto,cantidad,precio_unitario,importe,id_paciente,id_venta,estado, fecha)  VALUES (?,?,?,?,?,?,?,?,?)";
                 PreparedStatement pst = ca.prepareCall(sql); //hasta aqui vamos
                 id_producto(nombredepieza); 
                 pst.setInt(1,id_producto);
@@ -197,10 +217,12 @@ try{Connection ca= cc.conexion();   // ESTE ES PARA EL UPDATE
                pst.setFloat(4,precio);
                 importe = (float)cantidaddeproductos*precio;
                 pst.setFloat(5,importe);
+                obtener_id_paciente();
+                pst.setInt(6,(id_paciente));
                id_max_de_venta();
-                pst.setInt(6,(id_de_la_venta_incrementable));
-                pst.setString(7, estadoenturno);
-                pst.setString(8, fecha());
+                pst.setInt(7,(id_de_la_venta_incrementable));
+                pst.setString(8, estadoenturno);
+                pst.setString(9, fecha());
                 int a=pst.executeUpdate();
                 if(a>0){
                    Controladorventa.accionesdespuesinsertarendescripciondeventaoactualizarenlamismatabla(nombredepieza, cantidaddeproductos);
@@ -208,7 +230,8 @@ try{Connection ca= cc.conexion();   // ESTE ES PARA EL UPDATE
                 }else{//CUANDO NO SE PUDO INSERTAR
                    }
             }catch(SQLException e)  { //fin de la insersion a la tabla ventas
-                JOptionPane.showMessageDialog(null,"Error de datos por id vacio "+e);
+                    JOptionPane.showMessageDialog(null, "Error, comprobar_registro INSERT INTO"+e.getMessage(),"HELPER DEVELOPER",JOptionPane.INFORMATION_MESSAGE);                  
+              
             }finally{
                   cc.getClose();
              }//fin de la insersion a la tabla ventas
@@ -468,12 +491,18 @@ borrarventasenestadoenturnoporerrordeusuario_que_no_coincidenconlafechadehoy();/
                             JOptionPane.showMessageDialog(null,"El pago es menor a la cantidad a pagar, por favor, verifique","Advertencia",JOptionPane.INFORMATION_MESSAGE);
                         }
                         else {
-                            tablaventaactiva=false;
+                                         pass = Controladorventa.validarFormulario_paciente(nucleo.user_edad.getText());
+                   pass2 = validarFormulariotexto_paciente(nucleo.user_nombre.getText());
+                try{
+                     String fecha_paciente= Controladorventa.fecha_de_nacimiento_del_paciente();
+          if (pass && pass2 &&!fecha_paciente.equalsIgnoreCase("")) {//ESTO ES PARA VALIDAR QUE SE TENGAN TODOS LOS DATOS DEL CLIENTE
+                 tablaventaactiva=false;
                             nucleo.cambiocombobox.setText(String.valueOf(cambio=variablepago-Float.parseFloat(nucleo.total.getText())));
                             block_unlock=true;
                             try{Connection ca= cc.conexion();// el id del usuario
                                 id_max_de_venta();
-                                 PreparedStatement ps = ca.prepareStatement ("UPDATE venta SET subtotal='"+solodosdecimales.format(Float.parseFloat(nucleo.subtotal.getText())).replace(",", ".")+"',total='"+solodosdecimales.format(Float.parseFloat(nucleo.total.getText())).replace(",", ".")+"',descuento='"+solodosdecimales.format(Float.parseFloat(nucleo.descuentocombo.getText())).replace(",", ".")+"',pago='"+variablepago+"',cambio='"+solodosdecimales.format(Float.parseFloat(nucleo.cambiocombobox.getText())).replace(",", ".")+"',fecha_reporte='"+fecha()+"',estado_venta='"+estadorealizado+"'WHERE id_venta='"+id_de_la_venta_incrementable+"'");
+                               
+                                 PreparedStatement ps = ca.prepareStatement ("UPDATE venta SET subtotal='"+solodosdecimales.format(Float.parseFloat(nucleo.subtotal.getText())).replace(",", ".")+"',total='"+solodosdecimales.format(Float.parseFloat(nucleo.total.getText())).replace(",", ".")+"',descuento='"+solodosdecimales.format(Float.parseFloat(nucleo.descuentocombo.getText())).replace(",", ".")+"',pago='"+variablepago+"',cambio='"+solodosdecimales.format(Float.parseFloat(nucleo.cambiocombobox.getText())).replace(",", ".")+"',fecha_reporte='"+fecha()+"',estado_venta='"+estadorealizado+"',hora='"+nucleo.Reloj.getText()+"'WHERE id_venta='"+id_de_la_venta_incrementable+"'");
   ps.executeUpdate();
                               //ACTUALIZACION EN LA TABLA DESCRIPCION DE VENTA A REALIZADA
                                 id_max_de_venta();
@@ -486,18 +515,44 @@ borrarventasenestadoenturnoporerrordeusuario_que_no_coincidenconlafechadehoy();/
                                               JOptionPane.showMessageDialog(null, "El cambio es de: "+nucleo.cambiocombobox.getText()," Se realizo una venta",JOptionPane.YES_OPTION);
                       if(nucleo.reimprimirventa.isSelected()){        descripciondelosprouductosparaelticketdeventa(id_de_la_venta_incrementable);//DATOS PARA EL TICKET DE VENTA          
                                            descripciondelosprouductosparaelticketdeventa(id_de_la_venta_incrementable);//DATOS PARA EL TICKET DE VENTA          
-                                  Controladorventa.accionesdespuesderealizarcualquierventa(); }else{descripciondelosprouductosparaelticketdeventa(id_de_la_venta_incrementable);//DATOS PARA EL TICKET DE VENTA          
+                                  Controladorventa.accionesdespuesderealizarcualquierventa(); 
+                      }else{descripciondelosprouductosparaelticketdeventa(id_de_la_venta_incrementable);//DATOS PARA EL TICKET DE VENTA          
                                       Controladorventa.accionesdespuesderealizarcualquierventa();}
                                          }
                                 }
                                 catch(Exception ex){
                                     JOptionPane.showMessageDialog(null, "Error en metodo_de_cobro update desc" + ex.getMessage());
                                 }
+                                //PARA GUARDAR LOS DATOS DEL PACIENTE
+                                
+                                try{
+                                  obtener_id_paciente();
+                             
+                                  nombre_paciente=nucleo.user_nombre.getText(); edad_paciente=nucleo.user_edad.getText();   sexo_paciente=nucleo.user_sexo.getSelectedItem().toString();
+                                  PreparedStatement ps3 = ca.prepareStatement ("UPDATE pacientes SET nombre='"+nombre_paciente+"',fecha_nacimiento='"+Controladorventa.fecha_de_nacimiento_del_paciente()+"',edad='"+edad_paciente+"',sexo='"+sexo_paciente+"'WHERE id_paciente='"+id_paciente+"'");
+ int resultado = ps3.executeUpdate();
+                                     if(resultado>0){
+                                              Modeloventa.asignar_id_paciente(); //Inserta el id_del paciente para no tener error con la llave foranea
+                                             limpiardatospaciente(); //Limpia los datos que tengan que ver con el id paciente
+                                     }
+                                }
+                                catch(Exception ex){
+                                    JOptionPane.showMessageDialog(null, "Error en metodo_de_cobro con desc update pacientes" + ex.getMessage());
+                                
+                                }
+                                
+                                //PARA GUARDAR LOS DATOS DEL PACIENTE
                                 //autocompletar();
                             }//fin del id del usuario//fin del id del usuario//fin del id del usuario//fin del id del usuario
                             catch(Exception w){
                                 JOptionPane.showMessageDialog(null,"error en metodo_de_cobro update venta"+w);
                             }finally{cc.getClose();}
+          } else{
+                    JOptionPane.showMessageDialog(null,"Complete todos los datos del paciente", "ERROR", JOptionPane.ERROR_MESSAGE);
+          }
+                  }catch(NullPointerException NP){
+            JOptionPane.showMessageDialog(null,"Debes de elegir la fecha de nacimiento del paciente", "ERROR", JOptionPane.ERROR_MESSAGE);
+        }                   
                         }
                     } //FIN DE CUANDO EL DESCUENTO ESTÁ ACTIVO
 else{ //CUANDO EL DESCUENTO NO ESTÁ ACTIVO
@@ -505,12 +560,16 @@ if(variablepago<Float.parseFloat(nucleo.subtotal.getText())){ // comprueba que l
                             JOptionPane.showMessageDialog(null,"El pago es menor a la cantidad a pagar, por favor, verifique","Advertencia",JOptionPane.INFORMATION_MESSAGE);
                         }
                         else {
-                            tablaventaactiva=false;
+                  pass = Controladorventa.validarFormulario_paciente(nucleo.user_edad.getText());
+                   pass2 = validarFormulariotexto_paciente(nucleo.user_nombre.getText());
+                          try{      String fecha_paciente= Controladorventa.fecha_de_nacimiento_del_paciente();
+          if (pass && pass2 &&!fecha_paciente.equalsIgnoreCase("")) {//ESTO ES PARA VALIDAR QUE SE TENGAN TODOS LOS DATOS DEL CLIENTE
+                        tablaventaactiva=false;
                             nucleo.cambiocombobox.setText(String.valueOf(cambio=variablepago-sumadeimportesenturno));
                             block_unlock=true;
                             try{Connection ca= cc.conexion();// el id del usuario
                                 id_max_de_venta();
-                           PreparedStatement ps = ca.prepareStatement ("UPDATE venta SET subtotal='"+solodosdecimales.format(Float.parseFloat(nucleo.subtotal.getText())).replace(",", ".")+"',total='"+solodosdecimales.format(Float.parseFloat(nucleo.total.getText())).replace(",", ".")+"',descuento='"+0+"',pago='"+variablepago+"',cambio='"+solodosdecimales.format(Float.parseFloat(nucleo.cambiocombobox.getText())).replace(",", ".")+"',fecha_reporte='"+fecha()+"',estado_venta='"+estadorealizado+"'WHERE id_venta='"+id_de_la_venta_incrementable+"'");
+                           PreparedStatement ps = ca.prepareStatement ("UPDATE venta SET subtotal='"+solodosdecimales.format(Float.parseFloat(nucleo.subtotal.getText())).replace(",", ".")+"',total='"+solodosdecimales.format(Float.parseFloat(nucleo.total.getText())).replace(",", ".")+"',descuento='"+0+"',pago='"+variablepago+"',cambio='"+solodosdecimales.format(Float.parseFloat(nucleo.cambiocombobox.getText())).replace(",", ".")+"',fecha_reporte='"+fecha()+"',estado_venta='"+estadorealizado+"',hora='"+nucleo.Reloj.getText()+"'WHERE id_venta='"+id_de_la_venta_incrementable+"'");
  ps.executeUpdate();
                                 //ACTUALIZACION EN LA TABLA DESCRIPCION DE VENTA A REALIZADA
                                 id_max_de_venta();
@@ -522,7 +581,8 @@ if(variablepago<Float.parseFloat(nucleo.subtotal.getText())){ // comprueba que l
                                              JOptionPane.showMessageDialog(null, "El cambio es de: "+nucleo.cambiocombobox.getText()," Se realizo una venta",JOptionPane.YES_OPTION);
                                if(nucleo.reimprimirventa.isSelected()){        descripciondelosprouductosparaelticketdeventa(id_de_la_venta_incrementable);//DATOS PARA EL TICKET DE VENTA          
                                            descripciondelosprouductosparaelticketdeventa(id_de_la_venta_incrementable);//DATOS PARA EL TICKET DE VENTA          
-                                  Controladorventa.accionesdespuesderealizarcualquierventa(); }else{descripciondelosprouductosparaelticketdeventa(id_de_la_venta_incrementable);//DATOS PARA EL TICKET DE VENTA          
+                                  Controladorventa.accionesdespuesderealizarcualquierventa(); 
+                               }else{descripciondelosprouductosparaelticketdeventa(id_de_la_venta_incrementable);//DATOS PARA EL TICKET DE VENTA          
                                       Controladorventa.accionesdespuesderealizarcualquierventa();}
                                              
                                      }
@@ -531,6 +591,25 @@ if(variablepago<Float.parseFloat(nucleo.subtotal.getText())){ // comprueba que l
                                     JOptionPane.showMessageDialog(null, "Error en metodo_de_cobro sin desc update desc" + ex.getMessage());
                                 
                                 }
+                                //PARA GUARDAR LOS DATOS DEL PACIENTE
+                                
+                                try{
+                                  obtener_id_paciente();
+                             
+                                  nombre_paciente=nucleo.user_nombre.getText(); edad_paciente=nucleo.user_edad.getText();   sexo_paciente=nucleo.user_sexo.getSelectedItem().toString();
+                                  PreparedStatement ps3 = ca.prepareStatement ("UPDATE pacientes SET nombre='"+nombre_paciente+"',fecha_nacimiento='"+Controladorventa.fecha_de_nacimiento_del_paciente()+"',edad='"+edad_paciente+"',sexo='"+sexo_paciente+"'WHERE id_paciente='"+id_paciente+"'");
+ int resultado = ps3.executeUpdate();
+                                     if(resultado>0){
+                                               Modeloventa.asignar_id_paciente(); //Inserta el id_del paciente para no tener error con la llave foranea
+                                             limpiardatospaciente(); //Limpia los datos que tengan que ver con el id paciente
+                                     }
+                                }
+                                catch(Exception ex){
+                                    JOptionPane.showMessageDialog(null, "Error en metodo_de_cobro sin desc update pacientes" + ex.getMessage());
+                                
+                                }
+                                
+                                //PARA GUARDAR LOS DATOS DEL PACIENTE
                                 //autocompletar();
                             }//fin del id del usuario//fin del id del usuario//fin del id del usuario//fin del id del usuario
                             catch(Exception w){
@@ -538,14 +617,21 @@ if(variablepago<Float.parseFloat(nucleo.subtotal.getText())){ // comprueba que l
                             }finally{
                                 cc.getClose();
                             }
-                        }
+                     }//ESTO ES PARA VALIDAR QUE SE TENGAN TODOS LOS DATOS DEL CLIENTE
+          else{
+                    JOptionPane.showMessageDialog(null,"Complete todos los datos del paciente", "ERROR", JOptionPane.ERROR_MESSAGE);
+          }
+        }catch(NullPointerException NP){
+            JOptionPane.showMessageDialog(null,"Debes de elegir la fecha de nacimiento del paciente", "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+                          }
                     } //FIN CUANDO EL DESCUENTO NO ESTÁ ACTIVO
                 }
                 else if(nucleo.subtotal.getText().isEmpty()){
                     JOptionPane.showMessageDialog(null,"Aún no hay nada por pagar","!Espera!",JOptionPane.INFORMATION_MESSAGE);
                 }
             }catch(Exception NFE){//Number format exception para cuando el usuario no ingrese ningun dato en la caja
-                JOptionPane.showMessageDialog(null,"No tiene valor la cantidad recibida","!Espera!",JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null,"No tiene valor la cantidad recibida"+NFE.getMessage(),"!Espera!",JOptionPane.INFORMATION_MESSAGE);
 }
     }
 public static void descripciondelosprouductosparaelticketdeventa(int numerodeventa){

@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -28,10 +29,10 @@ public static float variablepago, piezassuficientes, cantidadporerrordeusuario,
            cantidadpolloenDB, porcentaje, importe,cambio,precio, 
            NoPimporte=0,sumadeimportesenturno;
    
- public static short  id_producto, ciclofor,fila,id_usuario, id_de_la_venta_incrementable,totalcomprobacion, primerventa;//SI SE OCUPAN   
+ public static short  id_paciente,id_producto, ciclofor,fila,id_usuario, id_de_la_venta_incrementable,totalcomprobacion, primerventa;//SI SE OCUPAN   
  
-    public static String  fechadesde="",fechahasta="", fechaparaventasdesde="", fechaparaventashasta="";
-public static String nombredepiezaseleccionada="";
+    public static String  fechadesde="",fechahasta="", fechaparaventasdesde="", fechaparaventashasta="", fecha_nacimiento="";
+public static String nombredepiezaseleccionada="",nombre_paciente="", edad_paciente="",sexo_paciente;
 public static String estadoinactivo="Inactivo", estadoactivo="Activo", NoP="",
          estadorealizado="Realizada", estadoenturno="En turno";
 
@@ -93,7 +94,8 @@ public static String[] piezasdemedio = {"Medio pollo","Pechuga", "Muslo","Pierna
        // si hay piezas suficientes para agregar el articulo a la venta       
           if(primerventa==0){ //indicando que aún no se crea la primer venta del sistema
               Modeloventa.get_id_usuario();        //entonces lo que haría despues será entrar al metodo get_id_usuario, para asignar una venta al usuario que haya iniciado sesión en la maquina
-             block_unlock=false;   //se desactiva la condicion que indica que ya no se agregue otro id venta ya que aún no se ha concluido la primer venta
+             Modeloventa.asignar_id_paciente(); //Inserta el id_del paciente para no tener error con la llave foranea
+              block_unlock=false;   //se desactiva la condicion que indica que ya no se agregue otro id venta ya que aún no se ha concluido la primer venta
            
               Modeloventa.comprobar_registro(nombredepieza,cantidaddeproductos); // esto es para agregar los productos a la tabla de descripcion de venta y 
            
@@ -104,6 +106,7 @@ public static String[] piezasdemedio = {"Medio pollo","Pechuga", "Muslo","Pierna
                Modeloventa.verificar_id_ingresadoalsistema(); //Comprueba que el usuario que acab de iniciar sesion coincida con el usuario anteriormente registrado
         Modeloventa.comprobar_venta_resagada();//579 - 605 verifica que no haya una venta cancelada
 Modeloventa.get_id_usuario();// 255 -280
+ Modeloventa.asignar_id_paciente(); //Inserta el id_del paciente para no tener error con la llave foranea
               block_unlock=false;   
                Modeloventa.comprobar_registro(nombredepieza, cantidaddeproductos); // esto es para agregar los productos a la tabla de descripcion de venta y 
            
@@ -135,6 +138,18 @@ Modeloventa.get_id_usuario();// 255 -280
   if (matGastos.matches()&&!cantidaddelatabla.equals("")&&!cantidaddelatabla.equals("0")) {
             next = true;
         } else {
+            JOptionPane.showMessageDialog(null, "No puedes escribir letras, dejar vacio el campo ni meter un 0", "Advertencia", JOptionPane.INFORMATION_MESSAGE);    
+        }
+        return next;
+    }
+  public static boolean validarFormulario_paciente(String cantidaddelatabla) { // VALIDACION DE TXT MONTO
+        boolean next = false;
+        Pattern patGastos = Pattern.compile("^[0-9]+([.])?([0-9]+)?$");
+        Matcher matGastos = patGastos.matcher(cantidaddelatabla);
+  if (matGastos.matches()&&!cantidaddelatabla.equals("")&&!cantidaddelatabla.equals("0")) {
+            next = true;
+        } else {
+             nucleo.user_edad.setBackground(Color.red);
             JOptionPane.showMessageDialog(null, "No puedes escribir letras, dejar vacio el campo ni meter un 0", "Advertencia", JOptionPane.INFORMATION_MESSAGE);    
         }
         return next;
@@ -177,7 +192,7 @@ nucleo.deletedescuento.setVisible(true);
     public static void accionesdespuesderealizarcualquierventa(){
       //  descuentodepollo();  
      Modeloventa.get_id_usuario();
-                              Modeloventa.mostrartabladeventas();
+                            Modeloventa.mostrartabladeventas();
                                     limpiardatosdeventa(); //Los datos que aparecen en la venta se mostraran
                                 descuentoactivo=false;
                             //    storage.clear();    
@@ -191,7 +206,14 @@ nucleo.deletedescuento.setVisible(true);
         tablaventaactiva=false;
         descuentoactivo=false;
     } 
-             
+             public static void limpiardatospaciente(){
+                     nucleo.calendar_fecha_nacimiento.cleanup();//limpia el calendario de la fecha del paciente
+        nucleo.calendar_fecha_nacimiento.setDate(null);
+        nucleo.user_edad.setBackground(Color.white);
+        nucleo.user_edad.setText("");
+                nucleo.user_nombre.setBackground(Color.white);
+                nucleo.user_nombre.setText("");
+             }
  public static boolean validarFormulariotexto(String nombre) { // VALIDACION DE TXTDESCRIPCION
         boolean next = false;      //"^([a-zA-ZÁÉÍÓÚ]{1}[a-zñáéíóú]{1,24}[\\s]*)+$"
         Pattern patGastos = Pattern.compile("^[A-Za-z\\s]+$");// ^([a-zA-ZÁÉÍÓÚ]{1}[a-zñáéíóú]{1,24}[\\s]*)+$
@@ -203,7 +225,18 @@ nucleo.deletedescuento.setVisible(true);
         }
         return next;
     }   
- 
+ public static boolean validarFormulariotexto_paciente(String nombre) { // VALIDACION DE TXTDESCRIPCION
+        boolean next = false;      //"^([a-zA-ZÁÉÍÓÚ]{1}[a-zñáéíóú]{1,24}[\\s]*)+$"
+        Pattern patGastos = Pattern.compile("^[A-Za-z\\s]+$");// ^([a-zA-ZÁÉÍÓÚ]{1}[a-zñáéíóú]{1,24}[\\s]*)+$
+        Matcher matGastos = patGastos.matcher(nombre);
+        if (matGastos.matches()&&!nombre.equals("")) {
+            next = true;
+        } else {
+            nucleo.user_nombre.setBackground(Color.red);
+            JOptionPane.showMessageDialog(null, "Solo escribe letras y no puedes dejar vacio el campo");
+        }
+        return next;
+    }   
  public static void botones_salir(){
         if(tablaventaactiva==true){
             int decision=JOptionPane.showConfirmDialog(null,"¿Desea continuar?","Advertencia: Tiene una venta inconclusa",JOptionPane.CANCEL_OPTION);
@@ -314,5 +347,23 @@ nucleo.deletedescuento.setVisible(false);
         }
         return next;
     }
+   public static String fecha_de_nacimiento_del_paciente(){
+       int año= nucleo.calendar_fecha_nacimiento.getCalendar().get(Calendar.YEAR);
+       int mes= nucleo.calendar_fecha_nacimiento.getCalendar().get(Calendar.MONTH)+1;
+       int dia= nucleo.calendar_fecha_nacimiento.getCalendar().get(Calendar.DAY_OF_MONTH);
+       if(dia<10){
+           String nuevodia= "0"+dia;
+             fecha_nacimiento= año+"/"+mes+"/"+nuevodia;
+             if(mes<10){String nuevomes= "0"+mes;   fecha_nacimiento= año+"/"+nuevomes+"/"+nuevodia;}
+       }
+       else if(mes<10){
+           String nuevomes= "0"+mes;
+             fecha_nacimiento= año+"/"+nuevomes+"/"+dia;
+       }
+       else{
+           fecha_nacimiento= año+"/"+mes+"/"+dia;
+       }
+       return fecha_nacimiento;  
+   }
   
 }
