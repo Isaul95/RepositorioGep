@@ -21,7 +21,8 @@ import si.nucleo;
  */
 public class Controlador_edicion_paciente extends Modelo_edicion_paciente{
     public static short fila;
-    public static String nombredepiezaseleccionada,editar="Editar", fecha_nacimiento_edicion,exito="Editado";
+    public static String nombredepiezaseleccionada,editar="Editar", fecha_nacimiento_edicion,exito="Editado", edad_paraedicion="";
+    public static String[] palabra;
     public static void mostrartodoslosproductosenexistencias(String nombre){
   
     }
