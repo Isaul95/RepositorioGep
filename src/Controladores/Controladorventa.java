@@ -49,7 +49,7 @@ public static String[] piezasdemedio = {"Medio pollo","Pechuga", "Muslo","Pierna
   public static boolean soypechugaenbisteck=false, 
           descuentoactivo=false, suficientespiezas=true, block_unlock=true,tablaventaactiva=false;
    public static boolean noduplicarcrudo=false, noduplicarcocido=false, noduplicaracompañantes=false, 
-            noduplicarexistencias=false, noduplicarcorte=false, noduplicargastos=false, noduplicarexternos=false;
+            noduplicarexistencias=false, noduplicarcorte=false, noduplicarinventarioventas=false,noduplicargastos=false, noduplicarexternos=false, noduplicar_edicionpaciente=false, noduplicar_capturaresultados=false;
 
          
    public static DecimalFormat solodosdecimales = new DecimalFormat("#.##");

@@ -183,7 +183,10 @@ public class Controladorinventarioventas {
      }
     public static void editar_paciente(short id){
         //PRIMERO SE EDITA EL CAMPO AUXILIAR PARA HACERLE SABER QUE ESE DATO SE VA A MODIFICAR EN LA PROXIMA VENTANA
-        Modeloinventarioventas.indicar_el_paciente_a_actualizar(Short.parseShort(String.valueOf(id)));
+          if(Controladorventa.noduplicar_edicionpaciente==false){ 
+          Modeloinventarioventas.indicar_el_paciente_a_actualizar(Short.parseShort(String.valueOf(id)));
      new Edicion_pacientes().setVisible(true);
+          }
+        
     }
 }

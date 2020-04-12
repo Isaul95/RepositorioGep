@@ -21,9 +21,9 @@ public class Inventarioventas extends javax.swing.JFrame {
      */
     public Inventarioventas() {
         initComponents();
+        Controladorventa.noduplicarinventarioventas=true;
         Controladorinventarioventas.metodos_al_iniciar_inventarioventas();
              this.setLocationRelativeTo(null); // CENTRAR FORMULARIO
- 
     }
 
     /**
@@ -67,6 +67,11 @@ public class Inventarioventas extends javax.swing.JFrame {
         jTable3 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
         Administrador.setBackground(new java.awt.Color(0, 51, 102));
         Administrador.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -382,13 +387,20 @@ Controladorinventarioventas.verdescripcionenbaseaventarealizada();
     }//GEN-LAST:event_gastos_btn_backActionPerformed
 
     private void resultadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resultadoActionPerformed
-       Capturar_resultados  mandar_id_venta= new Capturar_resultados(Controladorinventarioventas.id);//Mandamos el id de la venta del cual se le van a completar los resultados de los estudios ya capturados
+        if(Controladorventa.noduplicar_capturaresultados==false){ 
+            Capturar_resultados  mandar_id_venta= new Capturar_resultados(Controladorinventarioventas.id);//Mandamos el id de la venta del cual se le van a completar los resultados de los estudios ya capturados
         new Capturar_resultados().setVisible(true);
+        }
+       
     }//GEN-LAST:event_resultadoActionPerformed
 
     private void editar_pacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editar_pacienteActionPerformed
         Controladorinventarioventas.editar_paciente(Controladorinventarioventas.id);
     }//GEN-LAST:event_editar_pacienteActionPerformed
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        Controladorventa.noduplicarinventarioventas=false;
+    }//GEN-LAST:event_formWindowClosed
 
     /**
      * @param args the command line arguments

@@ -483,7 +483,7 @@ user.setText(usuarioname);
     }//GEN-LAST:event_montoFocusGained
 
     private void inventarioventasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inventarioventasActionPerformed
-new Inventarioventas().setVisible(true);   
+      if(Controladorventa.noduplicarinventarioventas==false){  new Inventarioventas().setVisible(true); }  
     }//GEN-LAST:event_inventarioventasActionPerformed
 
     private void tablaventaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaventaMouseClicked

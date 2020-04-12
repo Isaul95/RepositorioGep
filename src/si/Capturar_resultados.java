@@ -23,9 +23,10 @@ public Capturar_resultados(int id_venta_a_capturar_resultados){
 } 
     public Capturar_resultados() {
         initComponents();
+        Controladorventa.noduplicar_capturaresultados=true;
         Controlador_capturar_resultados.metodos_al_iniciar_entradasproductos0(Controlador_capturar_resultados.id_a_actualizar_resultados);//Aqui se envia al controlador el id para traer todos los datos para capturar los resultados
         id_venta.setText(String.valueOf(Controlador_capturar_resultados.id_a_actualizar_resultados));
-        this.setLocationRelativeTo(null); // CENTRAR FORMULARIO
+         this.setLocation(30, 0); // CENTRAR FORMULARIO
     }
     
 
@@ -58,9 +59,15 @@ public Capturar_resultados(int id_venta_a_capturar_resultados){
         jLabel84 = new javax.swing.JLabel();
         jLabel85 = new javax.swing.JLabel();
         jLabel75 = new javax.swing.JLabel();
+        gastos_btn_back1 = new javax.swing.JButton();
         gastos_btn_back = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
         agregar_articulo.setBackground(new java.awt.Color(0, 51, 102));
         agregar_articulo.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -201,6 +208,16 @@ public Capturar_resultados(int id_venta_a_capturar_resultados){
         jLabel75.setText("Fecha_ingreso:");
         jPanel33.add(jLabel75, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 250, 230, -1));
 
+        gastos_btn_back1.setBackground(new java.awt.Color(255, 255, 255));
+        gastos_btn_back1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        gastos_btn_back1.setText("Generar PDF");
+        gastos_btn_back1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                gastos_btn_back1ActionPerformed(evt);
+            }
+        });
+        jPanel33.add(gastos_btn_back1, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 530, 150, 50));
+
         gastos_btn_back.setBackground(new java.awt.Color(255, 255, 255));
         gastos_btn_back.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         gastos_btn_back.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/salir-flecha-derecha (1).png"))); // NOI18N
@@ -210,7 +227,7 @@ public Capturar_resultados(int id_venta_a_capturar_resultados){
                 gastos_btn_backActionPerformed(evt);
             }
         });
-        jPanel33.add(gastos_btn_back, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 540, 150, -1));
+        jPanel33.add(gastos_btn_back, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 530, 150, -1));
 
         producto_sobrante3.add(jPanel33);
         jPanel33.setBounds(10, 80, 600, 620);
@@ -248,6 +265,14 @@ public Capturar_resultados(int id_venta_a_capturar_resultados){
     private void gastos_btn_backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gastos_btn_backActionPerformed
        dispose();
     }//GEN-LAST:event_gastos_btn_backActionPerformed
+
+    private void gastos_btn_back1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gastos_btn_back1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_gastos_btn_back1ActionPerformed
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        Controladorventa.noduplicar_capturaresultados=false;
+    }//GEN-LAST:event_formWindowClosed
 
     /**
      * @param args the command line arguments
@@ -292,6 +317,7 @@ public Capturar_resultados(int id_venta_a_capturar_resultados){
     public static javax.swing.JLabel fecha_hora_ingreso;
     public static javax.swing.JLabel fecha_nacimiento;
     private javax.swing.JButton gastos_btn_back;
+    private javax.swing.JButton gastos_btn_back1;
     private javax.swing.JLabel id_venta;
     private javax.swing.JButton jButton10;
     private javax.swing.JLabel jLabel75;

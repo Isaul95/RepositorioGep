@@ -23,7 +23,7 @@ public class Edicion_pacientes extends javax.swing.JFrame{
 
  public Edicion_pacientes() {
         initComponents();
-         Controladorventa.noduplicarexistencias=true;
+         Controladorventa.noduplicar_edicionpaciente=true;
         this.setLocationRelativeTo(null); // CENTRAR FORMULARIO
         Controlador_edicion_paciente.metodosalabriredicion_paciente();
     }
@@ -169,7 +169,7 @@ public class Edicion_pacientes extends javax.swing.JFrame{
     }//GEN-LAST:event_Corte_btncancelarActionPerformed
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-          Controladorventa.noduplicarexistencias=false;
+          Controladorventa.noduplicar_edicionpaciente=false;
     }//GEN-LAST:event_formWindowClosed
 
     private void user_nombre_edicionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_user_nombre_edicionActionPerformed
