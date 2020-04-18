@@ -34,10 +34,10 @@ public class SI_Inicio extends javax.swing.JFrame {
     public void RetornaValor(){ /* UN AVEZ K SE INGRESAN LOS DATOS RETORNA LOS VALORES DE LOS PLACEHOLD */
    text_user.setText("Ingresa Usuario");
    text_user.setFont(new Font("Tahoma",Font.BOLD, 17));
-   text_user.setForeground(new Color(236, 240, 241));
+   text_user.setForeground(new Color(135,193,193));
                  pass_user.setText("**********");
                  pass_user.setFont(new Font("Tahoma",Font.BOLD, 17));
-                 pass_user.setForeground(new Color(236, 240, 241));
+                 pass_user.setForeground(new Color(135, 193, 193));
                 }
     
       String user,estadoinactivo="Inactivo", pass;
@@ -50,46 +50,30 @@ public class SI_Inicio extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        usuario = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
-        jSeparator1 = new javax.swing.JSeparator();
-        jSeparator3 = new javax.swing.JSeparator();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
         text_user = new javax.swing.JTextField();
         pass_user = new javax.swing.JPasswordField();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        pass_user1 = new javax.swing.JPasswordField();
+        jLabel2 = new javax.swing.JLabel();
         iduser = new javax.swing.JTextField();
+        usuario = new javax.swing.JButton();
+        pass_user1 = new javax.swing.JPasswordField();
+        jSeparator3 = new javax.swing.JSeparator();
+        jSeparator4 = new javax.swing.JSeparator();
+        jLabel3 = new javax.swing.JLabel();
+        jSeparator5 = new javax.swing.JSeparator();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        usuario.setBackground(new java.awt.Color(0, 111, 153));
-        usuario.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
-        usuario.setForeground(new java.awt.Color(255, 255, 255));
-        usuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/casilla-de-verificacion (1).png"))); // NOI18N
-        usuario.setText("ENTRAR");
-        usuario.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                usuarioActionPerformed(evt);
-            }
-        });
-        getContentPane().add(usuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 410, 410, 50));
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setForeground(new java.awt.Color(255, 255, 255));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Usuario:");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 310, -1, -1));
-
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("Contraseña:");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 350, -1, -1));
-
-        jButton1.setBackground(new java.awt.Color(0, 51, 102));
+        jButton1.setBackground(new java.awt.Color(255, 255, 255));
         jButton1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jButton1.setForeground(new java.awt.Color(255, 0, 0));
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/salir-flecha-derecha (1).png"))); // NOI18N
@@ -99,15 +83,22 @@ public class SI_Inicio extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 10, -1, 50));
-        getContentPane().add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 370, 200, 10));
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 0, -1, 50));
 
-        jSeparator3.setCursor(new java.awt.Cursor(java.awt.Cursor.CROSSHAIR_CURSOR));
-        getContentPane().add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 330, 200, 10));
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/logoalkimia (1).png"))); // NOI18N
+        jLabel5.setText("U");
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, 390, -1));
 
-        text_user.setBackground(new java.awt.Color(0, 0, 51));
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(135, 193, 193));
+        jLabel1.setText("¡Bienvenido al sistema!");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 110, 280, -1));
+
+        text_user.setBackground(new java.awt.Color(255, 255, 255));
         text_user.setFont(new java.awt.Font("Tahoma", 3, 18)); // NOI18N
-        text_user.setForeground(new java.awt.Color(255, 255, 255));
+        text_user.setForeground(new java.awt.Color(135, 193, 193));
         text_user.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         text_user.setText("Ingresa Usuario");
         text_user.setBorder(null);
@@ -120,11 +111,11 @@ public class SI_Inicio extends javax.swing.JFrame {
                 text_userFocusLost(evt);
             }
         });
-        getContentPane().add(text_user, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 310, 200, -1));
+        jPanel1.add(text_user, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 280, 200, -1));
 
-        pass_user.setBackground(new java.awt.Color(0, 0, 51));
+        pass_user.setBackground(new java.awt.Color(255, 255, 255));
         pass_user.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        pass_user.setForeground(new java.awt.Color(255, 255, 255));
+        pass_user.setForeground(new java.awt.Color(133, 193, 193));
         pass_user.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         pass_user.setText("**********");
         pass_user.setBorder(null);
@@ -141,25 +132,12 @@ public class SI_Inicio extends javax.swing.JFrame {
                 pass_userKeyReleased(evt);
             }
         });
-        getContentPane().add(pass_user, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 350, 200, -1));
+        jPanel1.add(pass_user, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 320, 200, -1));
 
-        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/LOGOmcs.png"))); // NOI18N
-        jLabel5.setText("U");
-        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 20, 260, -1));
-
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/imagenes/F22.jpg"))); // NOI18N
-        jLabel4.setText("jLabel3");
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 480, 490));
-
-        pass_user1.setBackground(new java.awt.Color(0, 0, 51));
-        pass_user1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        pass_user1.setForeground(new java.awt.Color(255, 255, 255));
-        pass_user1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        pass_user1.setText("**********");
-        pass_user1.setBorder(null);
-        getContentPane().add(pass_user1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 350, 200, -1));
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(135, 193, 193));
+        jLabel2.setText("Contraseña:");
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 320, -1, -1));
 
         iduser.setBackground(new java.awt.Color(0, 0, 51));
         iduser.setFont(new java.awt.Font("Tahoma", 3, 18)); // NOI18N
@@ -168,7 +146,43 @@ public class SI_Inicio extends javax.swing.JFrame {
         iduser.setText("Ingresa Usuario");
         iduser.setBorder(null);
         iduser.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        getContentPane().add(iduser, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 380, 200, -1));
+        jPanel1.add(iduser, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 280, 200, -1));
+
+        usuario.setBackground(new java.awt.Color(255, 255, 255));
+        usuario.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        usuario.setForeground(new java.awt.Color(255, 0, 51));
+        usuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/casilla-de-verificacion (1).png"))); // NOI18N
+        usuario.setText("ENTRAR");
+        usuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                usuarioActionPerformed(evt);
+            }
+        });
+        jPanel1.add(usuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 370, 410, 50));
+
+        pass_user1.setBackground(new java.awt.Color(0, 0, 51));
+        pass_user1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        pass_user1.setForeground(new java.awt.Color(255, 255, 255));
+        pass_user1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        pass_user1.setText("**********");
+        pass_user1.setBorder(null);
+        jPanel1.add(pass_user1, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 320, 200, -1));
+
+        jSeparator3.setCursor(new java.awt.Cursor(java.awt.Cursor.CROSSHAIR_CURSOR));
+        jPanel1.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 350, 200, 10));
+
+        jSeparator4.setCursor(new java.awt.Cursor(java.awt.Cursor.CROSSHAIR_CURSOR));
+        jPanel1.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 310, 200, 10));
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(135, 193, 193));
+        jLabel3.setText("Usuario:");
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 280, -1, -1));
+
+        jSeparator5.setCursor(new java.awt.Cursor(java.awt.Cursor.CROSSHAIR_CURSOR));
+        jPanel1.add(jSeparator5, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 310, 200, 10));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 900, 430));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -290,28 +304,28 @@ public static String fecha(){ /* SE DECARA LA FECHA DEL SISTEMA */
             text_user.setText("");
             
         }
-           text_user.setForeground(Color.blue);
+           text_user.setForeground(new Color(135,193,193));
     }//GEN-LAST:event_text_userFocusGained
 
     private void text_userFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_text_userFocusLost
         if(text_user.getText().trim().equals("")){
             text_user.setText("Ingresa Usuario");
         }
-           text_user.setForeground(new Color(236, 240, 241));
+           text_user.setForeground(new Color(135,193,193));
     }//GEN-LAST:event_text_userFocusLost
 
     private void pass_userFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_pass_userFocusGained
         if(pass_user.getText().trim().equals("**********")){
             pass_user.setText("");
         }
-           pass_user.setForeground(Color.blue);
+           pass_user.setForeground(new Color(135,193,193));
     }//GEN-LAST:event_pass_userFocusGained
 
     private void pass_userFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_pass_userFocusLost
         if(pass_user.getText().trim().equals("")){
             pass_user.setText("********** ");
         }
-           pass_user.setForeground(new Color(236, 240, 241));
+           pass_user.setForeground(new Color(135,193,193));
     }//GEN-LAST:event_pass_userFocusLost
 
     private void pass_userKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_pass_userKeyReleased
@@ -422,10 +436,12 @@ public static String fecha(){ /* SE DECARA LA FECHA DEL SISTEMA */
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    public static javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JSeparator jSeparator3;
+    private javax.swing.JSeparator jSeparator4;
+    private javax.swing.JSeparator jSeparator5;
     private javax.swing.JPasswordField pass_user;
     private javax.swing.JPasswordField pass_user1;
     public static javax.swing.JTextField text_user;
