@@ -43,7 +43,7 @@ public class Controlador_edicion_paciente extends Modelo_edicion_paciente{
         if (matGastos.matches()&&!nombre.equals("")) {
             next = true;
         } else {
-            Edicion_pacientes.user_nombre_edicion.setBackground(Color.red);
+            Edicion_pacientes.user_nombre_edicion1.setBackground(Color.red);
             JOptionPane.showMessageDialog(null, "Solo escribe letras y no puedes dejar vacio el campo");
         }
         return next;

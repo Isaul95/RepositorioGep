@@ -33,7 +33,7 @@ public class Modelo_edicion_paciente  {
 
     public static void actualizar_paciente() {
           boolean pass = Controlador_edicion_paciente.validarFormulario_paciente( Edicion_pacientes.user_edad_edicion.getText());
-               boolean    pass2 = Controlador_edicion_paciente.validarFormulariotexto_edicion_paciente( Edicion_pacientes.user_nombre_edicion.getText());
+               boolean    pass2 = Controlador_edicion_paciente.validarFormulariotexto_edicion_paciente( Edicion_pacientes.user_nombre_edicion1.getText());
                           try{      String fecha_paciente= Controlador_edicion_paciente.fecha_de_nacimiento_del_paciente();
           if (pass && pass2 &&!fecha_paciente.equalsIgnoreCase("")) {//ESTO ES PARA VALIDAR QUE SE TENGAN TODOS LOS DATOS DEL CLIENTE
                          try{Connection ca= cc.conexion();
@@ -41,7 +41,7 @@ public class Modelo_edicion_paciente  {
                           if(Integer.parseInt(Controlador_edicion_paciente.edad_paraedicion)==1)
                                       Controlador_edicion_paciente.edad_paraedicion=Controlador_edicion_paciente.edad_paraedicion+" año.";
                                   else Controlador_edicion_paciente.edad_paraedicion=Controlador_edicion_paciente.edad_paraedicion+" años.";
-                    PreparedStatement ps3 = ca.prepareStatement ("UPDATE pacientes SET nombre='"+ Edicion_pacientes.user_nombre_edicion.getText()+"',fecha_nacimiento='"+Controlador_edicion_paciente.fecha_de_nacimiento_del_paciente()+"',edad='"+Controlador_edicion_paciente.edad_paraedicion+"',sexo='"+Edicion_pacientes.user_sexo_edicion.getSelectedItem().toString()+"',dato_auxiliar='"+Controlador_edicion_paciente.exito+"'WHERE dato_auxiliar='"+Controlador_edicion_paciente.editar+"'");
+                    PreparedStatement ps3 = ca.prepareStatement ("UPDATE pacientes SET nombre='"+ Edicion_pacientes.user_nombre_edicion1.getText()+"',fecha_nacimiento='"+Controlador_edicion_paciente.fecha_de_nacimiento_del_paciente()+"',edad='"+Controlador_edicion_paciente.edad_paraedicion+"',sexo='"+Edicion_pacientes.user_sexo_edicion.getSelectedItem().toString()+"',dato_auxiliar='"+Controlador_edicion_paciente.exito+"'WHERE dato_auxiliar='"+Controlador_edicion_paciente.editar+"'");
  int resultado = ps3.executeUpdate();
                 if(resultado>0){
                      JOptionPane.showMessageDialog(null, "Paciente editado con exito","Paciente editado",JOptionPane.OK_OPTION);
@@ -66,7 +66,7 @@ public class Modelo_edicion_paciente  {
                                          Statement sent  =(Statement)ca.createStatement();
                                          ResultSet  rs = sent.executeQuery("select * from pacientes where dato_auxiliar = 'Editar'");
                                             if(rs.next()){
-                                                      Edicion_pacientes.user_nombre_edicion.setText(rs.getString("nombre"));
+                                                      Edicion_pacientes.user_nombre_edicion1.setText(rs.getString("nombre"));
                                                       Controlador_edicion_paciente.palabra = rs.getString("edad").split(" ");
                                                       
                                                       Edicion_pacientes.user_edad_edicion.setText(Controlador_edicion_paciente.palabra[0]);
