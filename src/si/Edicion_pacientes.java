@@ -92,6 +92,10 @@ public class Edicion_pacientes extends javax.swing.JFrame{
         jPanel2.add(jLabel79);
         jLabel79.setBounds(10, 170, 66, 32);
 
+        user_edad_edicion.setBackground(new java.awt.Color(206, 231, 235));
+        user_edad_edicion.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        user_edad_edicion.setForeground(new java.awt.Color(255, 0, 0));
+        user_edad_edicion.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
         user_edad_edicion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 user_edad_edicionActionPerformed(evt);
@@ -100,7 +104,10 @@ public class Edicion_pacientes extends javax.swing.JFrame{
         jPanel2.add(user_edad_edicion);
         user_edad_edicion.setBounds(110, 170, 140, 40);
 
+        user_sexo_edicion.setBackground(new java.awt.Color(135, 193, 193));
+        user_sexo_edicion.setForeground(new java.awt.Color(255, 255, 255));
         user_sexo_edicion.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Masculino", "Femenino" }));
+        user_sexo_edicion.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
         jPanel2.add(user_sexo_edicion);
         user_sexo_edicion.setBounds(460, 160, 100, 50);
 
@@ -117,7 +124,7 @@ public class Edicion_pacientes extends javax.swing.JFrame{
         jLabel77.setBounds(10, 260, 189, 24);
 
         calendar_fecha_nacimiento_edicion.setBackground(new java.awt.Color(206, 231, 235));
-        calendar_fecha_nacimiento_edicion.setForeground(new java.awt.Color(0, 96, 255));
+        calendar_fecha_nacimiento_edicion.setForeground(new java.awt.Color(255, 0, 0));
         calendar_fecha_nacimiento_edicion.setFont(new java.awt.Font("Tahoma", 1, 17)); // NOI18N
         jPanel2.add(calendar_fecha_nacimiento_edicion);
         calendar_fecha_nacimiento_edicion.setBounds(230, 260, 270, 29);
@@ -135,6 +142,11 @@ public class Edicion_pacientes extends javax.swing.JFrame{
         jPanel2.add(guardarcambios_paciente);
         guardarcambios_paciente.setBounds(180, 410, 270, 46);
 
+        user_nombre_edicion1.setBackground(new java.awt.Color(206, 231, 235));
+        user_nombre_edicion1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        user_nombre_edicion1.setForeground(new java.awt.Color(255, 0, 0));
+        user_nombre_edicion1.setToolTipText("");
+        user_nombre_edicion1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 1, true));
         user_nombre_edicion1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 user_nombre_edicion1ActionPerformed(evt);
