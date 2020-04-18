@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
-	<parameter name="Categoria_Est" class="java.lang.String"/>
 	<queryString>
-		<![CDATA[select a.nombre_producto,a.categoria_estudios, b.id_descripcion, b.unidades, b.valordereferencia from productos a inner join descripcion_estudios b on a.descripcion_estudio = b.id_descripcion;]]>
+		<![CDATA[select dv.nombre_producto, p.categoria_estudios, pac.nombre, pac.fecha_nacimiento, pac.edad, pac.sexo, dv.resultado,dp.unidades, dp.valordereferencia, v.fecha_reporte from venta v inner join descripcion_de_venta dv on v.id_venta = dv.id_venta inner join pacientes pac on dv.id_paciente = pac.id_paciente inner join productos p on dv.id_producto = p.id_producto inner join descripcion_estudios dp on p.id_producto = dp.id_descripcion where v.id_venta = 17 and v.estado_venta='Realizada' and v.fecha_reporte = curdate()]]>
 	</queryString>
 	<field name="nombre_producto" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
@@ -10,13 +9,28 @@
 	<field name="categoria_estudios" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="id_descripcion" class="java.lang.Integer">
+	<field name="nombre" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="fecha_nacimiento" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="edad" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="sexo" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="resultado" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="unidades" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="valordereferencia" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="fecha_reporte" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<background>
@@ -114,13 +128,6 @@
 				</textElement>
 				<text><![CDATA[ESTUDIO]]></text>
 			</staticText>
-			<textField>
-				<reportElement x="200" y="185" width="152" height="20"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="12" isBold="true"/>
-				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$P{Categoria_Est}]]></textFieldExpression>
-			</textField>
 			<textField pattern="" isBlankWhenNull="false">
 				<reportElement key="textField" x="454" y="135" width="100" height="19" forecolor="#000000" backcolor="#FFFFFF"/>
 				<box>
@@ -181,11 +188,6 @@
 				</textElement>
 				<text><![CDATA[PERFIL CHECKUP GENERAL]]></text>
 			</staticText>
-			<textField>
-				<reportElement x="369" y="186" width="100" height="20"/>
-				<textElement/>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{categoria_estudios}]]></textFieldExpression>
-			</textField>
 		</band>
 	</title>
 	<pageHeader>
@@ -216,13 +218,6 @@
 					<font size="10"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{valordereferencia}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="166" y="2" width="111" height="20"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="10"/>
-				</textElement>
-				<textFieldExpression class="java.lang.Integer"><![CDATA[$F{id_descripcion}]]></textFieldExpression>
 			</textField>
 			<line>
 				<reportElement x="2" y="22" width="550" height="1" forecolor="#6699FF"/>
@@ -276,10 +271,6 @@
 				</textElement>
 				<text><![CDATA[ES RESPONSABILIDAD DEL CLIENTE.]]></text>
 			</staticText>
-			<image>
-				<reportElement x="0" y="66" width="553" height="36"/>
-				<imageExpression class="java.lang.String"><![CDATA["C:\\Users\\cachorra\\Documents\\NetBeansProjects\\Proyecto ALKIMIA\\RepositorioGep\\src\\Reportes\\FindoKimia.jpg"]]></imageExpression>
-			</image>
 		</band>
 	</pageFooter>
 	<summary>
