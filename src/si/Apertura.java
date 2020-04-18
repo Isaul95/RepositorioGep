@@ -59,23 +59,24 @@ public class Apertura extends javax.swing.JFrame implements Runnable{
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setBackground(new java.awt.Color(206, 231, 235));
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "APERTURA DE CAJA", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Serif", 1, 36))); // NOI18N
         jPanel1.setToolTipText("APERTURA DE CAJA");
         jPanel1.setLayout(null);
 
-        jPanel2.setBackground(new java.awt.Color(0, 51, 102));
+        jPanel2.setBackground(new java.awt.Color(206, 231, 235));
+        jPanel2.setForeground(new java.awt.Color(206, 231, 235));
         jPanel2.setLayout(null);
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(135, 193, 193));
         jLabel1.setText("Monto para apertura");
         jPanel2.add(jLabel1);
         jLabel1.setBounds(10, 170, 270, 60);
 
-        Corte_btnImprimirticket.setBackground(new java.awt.Color(0, 51, 102));
-        Corte_btnImprimirticket.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        Corte_btnImprimirticket.setForeground(new java.awt.Color(255, 255, 255));
+        Corte_btnImprimirticket.setBackground(new java.awt.Color(206, 231, 235));
+        Corte_btnImprimirticket.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        Corte_btnImprimirticket.setForeground(new java.awt.Color(255, 0, 0));
         Corte_btnImprimirticket.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/casilla-de-verificacion (1).png"))); // NOI18N
         Corte_btnImprimirticket.setText("Abrir caja");
         Corte_btnImprimirticket.addActionListener(new java.awt.event.ActionListener() {
@@ -86,32 +87,33 @@ public class Apertura extends javax.swing.JFrame implements Runnable{
         jPanel2.add(Corte_btnImprimirticket);
         Corte_btnImprimirticket.setBounds(10, 270, 250, 70);
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(135, 193, 193));
         jLabel3.setText("Usuario");
         jPanel2.add(jLabel3);
         jLabel3.setBounds(10, 80, 220, 60);
 
-        Fecha.setFont(new java.awt.Font("Arial Black", 1, 27)); // NOI18N
-        Fecha.setForeground(new java.awt.Color(255, 255, 255));
+        Fecha.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        Fecha.setForeground(new java.awt.Color(135, 193, 193));
         Fecha.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         Fecha.setText("DD/MM/YYYY");
         jPanel2.add(Fecha);
         Fecha.setBounds(10, 10, 240, 60);
 
-        Reloj.setFont(new java.awt.Font("Arial Black", 1, 27)); // NOI18N
-        Reloj.setForeground(new java.awt.Color(255, 255, 255));
+        Reloj.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        Reloj.setForeground(new java.awt.Color(135, 193, 193));
         Reloj.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         Reloj.setText("00:00:00");
         jPanel2.add(Reloj);
         Reloj.setBounds(340, 10, 240, 60);
 
-        monto.setBackground(new java.awt.Color(0, 148, 204));
-        monto.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
-        monto.setForeground(new java.awt.Color(255, 255, 255));
+        monto.setBackground(new java.awt.Color(206, 231, 235));
+        monto.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        monto.setForeground(new java.awt.Color(255, 0, 0));
         monto.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         monto.setText("00.00");
-        monto.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        monto.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        monto.setSelectionColor(new java.awt.Color(187, 187, 187));
         monto.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 montoFocusGained(evt);
@@ -123,9 +125,9 @@ public class Apertura extends javax.swing.JFrame implements Runnable{
         jPanel2.add(monto);
         monto.setBounds(290, 170, 200, 60);
 
-        Corte_btncancelar.setBackground(new java.awt.Color(0, 51, 102));
-        Corte_btncancelar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        Corte_btncancelar.setForeground(new java.awt.Color(255, 255, 255));
+        Corte_btncancelar.setBackground(new java.awt.Color(206, 231, 235));
+        Corte_btncancelar.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        Corte_btncancelar.setForeground(new java.awt.Color(255, 0, 0));
         Corte_btncancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/salir-flecha-derecha (1).png"))); // NOI18N
         Corte_btncancelar.setText("Cancelar");
         Corte_btncancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -136,8 +138,9 @@ public class Apertura extends javax.swing.JFrame implements Runnable{
         jPanel2.add(Corte_btncancelar);
         Corte_btncancelar.setBounds(310, 270, 250, 70);
 
-        user.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
-        user.setForeground(new java.awt.Color(255, 255, 255));
+        user.setBackground(new java.awt.Color(206, 231, 235));
+        user.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        user.setForeground(new java.awt.Color(135, 193, 193));
         jPanel2.add(user);
         user.setBounds(290, 80, 190, 60);
 
