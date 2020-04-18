@@ -9,10 +9,7 @@ import Modelos.Modelo_capturar_resultados;
 
 import si.Capturar_resultados;
 
-/**
- *
- * @author Alexis
- */
+
 public class Controlador_capturar_resultados {
     public static float cantidaddesdelatablaeditable;
     public static int id_a_actualizar_resultados;

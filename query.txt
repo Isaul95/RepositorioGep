@@ -1,0 +1,60 @@
+
+SELECT DV.nombre_producto,DV.id_venta,DV.estado, a.nombre_producto,a.categoria_estudios, b.id_descripcion, b.unidades, b.valordereferencia
+FROM descripcion_de_venta DV, productos a 
+inner join 
+descripcion_estudios b on a.descripcion_estudio = b.id_descripcion
+WHERE DV.id_venta = 17 and a.nombre_producto = 'glucosa en suero';
+
+
+
+SELECT dv.nombre_producto,a.categoria_estudios, b.id_descripcion, b.unidades, b.valordereferencia FROM descripcion_de_venta dv inner join venta v on dv.id_venta = v.id_venta, productos a inner join descripcion_estudios b on a.descripcion_estudio = b.id_descripcion WHERE v.id_venta = 20 and v.estado_venta = 'Realizada'
+
+
+
+
+select a.nombre_producto,a.categoria_estudios, b.id_descripcion, b.unidades, b.valordereferencia from 
+productos a inner join descripcion_estudios b on a.descripcion_estudio = b.id_descripcion;
+
+
+
+
+
+
+
+
+
+
+select dv.nombre_producto, dv.resultado,dp.unidades, dp.valordereferencia, dv.importe, v.fecha_reporte 
+from venta v 
+inner join descripcion_de_venta dv on v.id_venta = dv.id_venta 
+inner join productos p on dv.id_producto = p.id_producto 
+inner join descripcion_estudios dp on p.id_producto = dp.id_descripcion 
+where v.id_venta = 2 and v.estado_venta='Realizada'
+
+
+
+select dv.nombre_producto, dv.resultado,dp.unidades, dp.valordereferencia, dv.importe, v.fecha_reporte 
+from venta v 
+inner join descripcion_de_venta dv on v.id_venta = dv.id_venta 
+inner join productos p on dv.id_producto = p.id_producto 
+inner join descripcion_estudios dp on p.id_producto = dp.id_descripcion 
+where v.id_venta = 2 and v.estado_venta='Realizada' and v.fecha_reporte = curdate();
+
+
+
+LA K SE USARA EN EL PDF
+select dv.nombre_producto, p.categoria_estudios, pac.nombre, pac.fecha_nacimiento, pac.edad, pac.sexo, dv.resultado,dp.unidades, dp.valordereferencia, v.fecha_reporte 
+from venta v 
+inner join descripcion_de_venta dv on v.id_venta = dv.id_venta 
+inner join pacientes pac on dv.id_paciente = pac.id_paciente 
+inner join productos p on dv.id_producto = p.id_producto 
+inner join descripcion_estudios dp on p.id_producto = dp.id_descripcion 
+where v.id_venta = 17 and v.estado_venta='Realizada' and v.fecha_reporte = curdate()
+
+
+
+
+
+
+
+
