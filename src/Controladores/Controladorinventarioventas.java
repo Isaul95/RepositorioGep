@@ -42,7 +42,9 @@ public class Controladorinventarioventas {
               public static ArrayList nombreproductoticket = new ArrayList();
               
                            
-        
+    public static void mostrarresultadosenlabusquedadenombres(String datoabuscar){
+        Modeloinventarioventas.consultarlosresultadosenlabusquedadenombres(datoabuscar);
+    }
     public static void ventasdehoy(){
            Modeloinventarioventas.totaldelasventasdehoy(); // PARA LA SUMA DE LOS TOTALES DE LA VENTA
                                 Modeloinventarioventas.conteodeventasrealizadasdehoy(); // CUANTAS VENTAS SE REALIZARON? 5 O 60 O XX

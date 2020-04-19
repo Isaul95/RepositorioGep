@@ -15,7 +15,6 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
-import static si.Existencias.existenciadeproductos;
 import si.SI;
 import si.nucleo;
 
@@ -30,11 +29,11 @@ public class Modeloexistencias extends Controladorexistencias {
     public static ResultSet rs;
 
     public static void mostrartodoslosproductosenexistencias() {
-        existenciadeproductos.setVisible(true);    //hace visible la tabla de proveedores 
+        nucleo.existenciadeproductos.setVisible(true);    //hace visible la tabla de proveedores 
         DefaultTableModel modelo = new DefaultTableModel(); // Se crea un objeto para agregar los nombres de las columnas a la tabla
         modelo.addColumn("Nombre");
         modelo.addColumn("Precio");
-        existenciadeproductos.setModel(modelo);  // Ya una vez asignado todos los nombres se le envia el objeto a la tabla proveedores
+        nucleo.existenciadeproductos.setModel(modelo);  // Ya una vez asignado todos los nombres se le envia el objeto a la tabla proveedores
         String[] datos = new String[2];     //Un arreglo con la cantidad de nombres en las columnas
         try {
             Connection ca = cc.conexion();
@@ -45,9 +44,9 @@ public class Modeloexistencias extends Controladorexistencias {
                 datos[1] = "$"+rs.getString(2);
                 modelo.addRow(datos); //se asigna el arreglo  entero a todo el objeto llamado modelo  
             }
-            existenciadeproductos.setModel(modelo); // Se vuelve a enviar nuevamente el objeto modelo a la tabla  
+            nucleo.existenciadeproductos.setModel(modelo); // Se vuelve a enviar nuevamente el objeto modelo a la tabla  
             //PARA AJUSTAR EL ANCHO DE LAS TABLAS
-            TableColumnModel columnModel = existenciadeproductos.getColumnModel();
+            TableColumnModel columnModel = nucleo.existenciadeproductos.getColumnModel();
             columnModel.getColumn(0).setPreferredWidth(250);
         } catch (SQLException ex) {
             Logger.getLogger(nucleo.class.getName()).log(Level.SEVERE, null, ex);
@@ -58,11 +57,11 @@ public class Modeloexistencias extends Controladorexistencias {
     }
 
     public static void mostrartodoslosproductosenexistenciasporbusqueda(String textoabuscar) {
-        existenciadeproductos.setVisible(true);    //hace visible la tabla de proveedores 
+        nucleo.existenciadeproductos.setVisible(true);    //hace visible la tabla de proveedores 
         DefaultTableModel modelo = new DefaultTableModel(); // Se crea un objeto para agregar los nombres de las columnas a la tabla
         modelo.addColumn("Nombre");
          modelo.addColumn("Precio");
-        existenciadeproductos.setModel(modelo);  // Ya una vez asignado todos los nombres se le envia el objeto a la tabla proveedores
+        nucleo.existenciadeproductos.setModel(modelo);  // Ya una vez asignado todos los nombres se le envia el objeto a la tabla proveedores
         String[] datos = new String[2];     //Un arreglo con la cantidad de nombres en las columnas
         try {
             Connection ca = cc.conexion();
@@ -77,8 +76,8 @@ public class Modeloexistencias extends Controladorexistencias {
                 datos[1] = "$"+rs.getString(2);
                 modelo.addRow(datos); //se asigna el arreglo  entero a todo el objeto llamado modelo  
             }
-            existenciadeproductos.setModel(modelo); // Se vuelve a enviar nuevamente el objeto modelo a la tabla
-            TableColumnModel columnModel = existenciadeproductos.getColumnModel();
+            nucleo.existenciadeproductos.setModel(modelo); // Se vuelve a enviar nuevamente el objeto modelo a la tabla
+            TableColumnModel columnModel = nucleo.existenciadeproductos.getColumnModel();
             columnModel.getColumn(0).setPreferredWidth(250);
         } catch (SQLException ex) {
             Logger.getLogger(nucleo.class.getName()).log(Level.SEVERE, null, ex);

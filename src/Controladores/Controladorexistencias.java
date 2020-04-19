@@ -8,6 +8,7 @@ package Controladores;
 import Modelos.Modeloexistencias;
 import javax.swing.JOptionPane;
 import si.Existencias;
+import si.nucleo;
 
 /**
  *
@@ -23,9 +24,9 @@ public class Controladorexistencias {
         Modeloexistencias.mostrartodoslosproductosenexistencias();
     }
     public static void mandaraventa(){
-          fila =Short.parseShort(String.valueOf(Existencias.existenciadeproductos.getSelectedRow()));
+          fila =Short.parseShort(String.valueOf(nucleo.existenciadeproductos.getSelectedRow()));
  if(fila>=0){// CUANDO UNA CELDA SE SELECCIONO
-            nombredepiezaseleccionada=Existencias.existenciadeproductos.getValueAt(fila,0).toString();
+            nombredepiezaseleccionada=nucleo.existenciadeproductos.getValueAt(fila,0).toString();
     // BOOLEANAS PARA SABER CUALES NO SE VA A REGRESAR
             Controladorventa manda = new Controladorventa(nombredepiezaseleccionada,1);   
         }else{

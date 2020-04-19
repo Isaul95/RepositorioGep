@@ -100,14 +100,14 @@ Thread hilo;
         jPanel3.setLayout(null);
 
         Fecha.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        Fecha.setForeground(new java.awt.Color(135, 193, 193));
+        Fecha.setForeground(new java.awt.Color(255, 255, 255));
         Fecha.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         Fecha.setText("DD/MM/YYYY");
         jPanel3.add(Fecha);
         Fecha.setBounds(10, 10, 240, 60);
 
         Reloj.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        Reloj.setForeground(new java.awt.Color(135, 193, 193));
+        Reloj.setForeground(new java.awt.Color(255, 255, 255));
         Reloj.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         Reloj.setText("00:00:00");
         jPanel3.add(Reloj);
@@ -120,40 +120,40 @@ Thread hilo;
         user1.setBounds(240, 0, 190, 60);
 
         pagosmadetoday.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
-        pagosmadetoday.setForeground(new java.awt.Color(135, 193, 193));
+        pagosmadetoday.setForeground(new java.awt.Color(255, 255, 255));
         pagosmadetoday.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         pagosmadetoday.setText("00.00");
         jPanel3.add(pagosmadetoday);
         pagosmadetoday.setBounds(10, 300, 180, 29);
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 17)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(135, 193, 193));
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Pagos");
         jPanel3.add(jLabel4);
         jLabel4.setBounds(10, 260, 170, 29);
 
         Gastosfromtoday.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
-        Gastosfromtoday.setForeground(new java.awt.Color(135, 193, 193));
+        Gastosfromtoday.setForeground(new java.awt.Color(255, 255, 255));
         Gastosfromtoday.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         Gastosfromtoday.setText("00.00");
         jPanel3.add(Gastosfromtoday);
         Gastosfromtoday.setBounds(10, 210, 180, 29);
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 17)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(135, 193, 193));
+        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("Gastos");
         jPanel3.add(jLabel7);
         jLabel7.setBounds(10, 170, 170, 29);
 
         Ventasfortoday1.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
-        Ventasfortoday1.setForeground(new java.awt.Color(135, 193, 193));
+        Ventasfortoday1.setForeground(new java.awt.Color(255, 255, 255));
         Ventasfortoday1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         Ventasfortoday1.setText("00.00");
         jPanel3.add(Ventasfortoday1);
         Ventasfortoday1.setBounds(10, 120, 180, 29);
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 17)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(135, 193, 193));
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("Ventas");
         jPanel3.add(jLabel6);
         jLabel6.setBounds(10, 80, 180, 29);
@@ -173,7 +173,7 @@ Thread hilo;
 
         monto.setBackground(new java.awt.Color(206, 231, 235));
         monto.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
-        monto.setForeground(new java.awt.Color(135, 193, 193));
+        monto.setForeground(new java.awt.Color(255, 255, 255));
         monto.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         monto.setText("00.00");
         monto.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -194,25 +194,25 @@ Thread hilo;
         monto.setBounds(340, 370, 230, 60);
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 17)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(135, 193, 193));
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("   Monto entregado:");
         jPanel3.add(jLabel5);
         jLabel5.setBounds(330, 340, 240, 29);
 
         totaldescuentos.setFont(new java.awt.Font("Tahoma", 1, 17)); // NOI18N
-        totaldescuentos.setForeground(new java.awt.Color(135, 193, 193));
+        totaldescuentos.setForeground(new java.awt.Color(255, 255, 255));
         totaldescuentos.setText("Total de descuentos");
         jPanel3.add(totaldescuentos);
         totaldescuentos.setBounds(440, 210, 200, 29);
 
         numerosdescuentos.setFont(new java.awt.Font("Tahoma", 1, 17)); // NOI18N
-        numerosdescuentos.setForeground(new java.awt.Color(135, 193, 193));
+        numerosdescuentos.setForeground(new java.awt.Color(255, 255, 255));
         numerosdescuentos.setText("Numero");
         jPanel3.add(numerosdescuentos);
         numerosdescuentos.setBounds(340, 210, 100, 29);
 
         aperturacantidad.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
-        aperturacantidad.setForeground(new java.awt.Color(135, 193, 193));
+        aperturacantidad.setForeground(new java.awt.Color(255, 255, 255));
         aperturacantidad.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         aperturacantidad.setText("00.00");
         jPanel3.add(aperturacantidad);
@@ -220,13 +220,13 @@ Thread hilo;
 
         jLabel8.setBackground(new java.awt.Color(135, 193, 193));
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 17)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(135, 193, 193));
+        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setText("La apertura de caja fue:");
         jPanel3.add(jLabel8);
         jLabel8.setBounds(340, 80, 240, 29);
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 1, 17)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(135, 193, 193));
+        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setText("Descuentos:");
         jPanel3.add(jLabel9);
         jLabel9.setBounds(340, 170, 180, 29);

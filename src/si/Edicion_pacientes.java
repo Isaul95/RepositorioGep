@@ -63,7 +63,7 @@ public class Edicion_pacientes extends javax.swing.JFrame{
         jPanel2.setBackground(new java.awt.Color(206, 231, 235));
         jPanel2.setLayout(null);
 
-        Corte_btncancelar.setBackground(new java.awt.Color(255, 255, 255));
+        Corte_btncancelar.setBackground(new java.awt.Color(206, 231, 235));
         Corte_btncancelar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         Corte_btncancelar.setForeground(new java.awt.Color(255, 255, 255));
         Corte_btncancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/salir-flecha-derecha (1).png"))); // NOI18N
@@ -76,19 +76,19 @@ public class Edicion_pacientes extends javax.swing.JFrame{
         Corte_btncancelar.setBounds(580, 10, 60, 60);
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(135, 193, 193));
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Ediciòn de datos del cliente");
         jPanel2.add(jLabel3);
         jLabel3.setBounds(10, 0, 340, 70);
 
         jLabel74.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jLabel74.setForeground(new java.awt.Color(135, 193, 193));
+        jLabel74.setForeground(new java.awt.Color(255, 255, 255));
         jLabel74.setText("Nombre:");
         jPanel2.add(jLabel74);
         jLabel74.setBounds(10, 90, 77, 24);
 
         jLabel79.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jLabel79.setForeground(new java.awt.Color(135, 193, 193));
+        jLabel79.setForeground(new java.awt.Color(255, 255, 255));
         jLabel79.setText("Edad:");
         jPanel2.add(jLabel79);
         jLabel79.setBounds(10, 170, 66, 32);
@@ -113,13 +113,13 @@ public class Edicion_pacientes extends javax.swing.JFrame{
         user_sexo_edicion.setBounds(460, 160, 100, 50);
 
         jLabel78.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jLabel78.setForeground(new java.awt.Color(135, 193, 193));
+        jLabel78.setForeground(new java.awt.Color(255, 255, 255));
         jLabel78.setText("Sexo:");
         jPanel2.add(jLabel78);
         jLabel78.setBounds(350, 170, 52, 24);
 
         jLabel77.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jLabel77.setForeground(new java.awt.Color(113, 193, 193));
+        jLabel77.setForeground(new java.awt.Color(255, 255, 255));
         jLabel77.setText("Fecha de nacimiento:");
         jPanel2.add(jLabel77);
         jLabel77.setBounds(10, 260, 189, 24);

@@ -13,12 +13,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.DecimalFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 import si.Inventarioventas;
 import si.SI;
+import si.nucleo;
 import ticket.ticketventacancelada;
 import ticket.ticketventacondescuento;
 import ticket.ticketventacredito;
@@ -31,6 +34,47 @@ public class Modeloinventarioventas extends Controladorinventarioventas{
     static SI cc= new SI();
    static Statement sent;  
 static ResultSet rs;  
+public static void consultarlosresultadosenlabusquedadenombres(String contexto){
+    DefaultTableModel modelo = new DefaultTableModel(); // Se crea un objeto para agregar los nombres de las columnas a la tabla
+       modelo.addColumn("Venta");
+        modelo.addColumn("Paciente");
+        modelo.addColumn("Total");        
+        modelo.addColumn("Fecha");
+        Inventarioventas.jTable2.setModel(modelo);  // Ya una vez asignado todos los nombres se le envia el objeto a la tabla proveedores
+        Object[] datos = new Object[4];     //Un arreglo con la cantidad de nombres en las columnas
+        try {
+            Connection ca = cc.conexion();
+            sent = ca.createStatement();
+           /* if(){ //Busqueda por el rango de fechas
+                
+            }else{ //Busqueda del dia actual
+                
+            }*/
+            if (contexto.equals("")) {
+                             String sSQL = "SELECT distinct venta.id_venta, pacientes.nombre,total, venta.fecha_reporte FROM venta inner join descripcion_de_venta on venta.id_venta = descripcion_de_venta.id_venta inner join pacientes on descripcion_de_venta.id_paciente = pacientes.id_paciente WHERE venta.estado_venta in('Realizada') AND venta.fecha_reporte = '"+Controladorventa.fecha()+"' ";
+                rs = sent.executeQuery(sSQL); // se ejecuta la sentencia dentro del parentesis
+            } else {
+                              String sSQLcontesto = "SELECT distinct venta.id_venta, pacientes.nombre,total, venta.fecha_reporte FROM venta inner join descripcion_de_venta on venta.id_venta = descripcion_de_venta.id_venta inner join pacientes on descripcion_de_venta.id_paciente = pacientes.id_paciente WHERE venta.estado_venta in('Realizada') AND venta.fecha_reporte = '"+Controladorventa.fecha()+"' and pacientes.nombre LIKE '%" + contexto + "%'";
+               
+                rs = sent.executeQuery(sSQLcontesto); // se ejecuta la sentencia dentro del parentesis
+            }
+            while (rs.next()) {
+                 datos[0] = rs.getInt(1);
+                datos[1] = rs.getString(2);
+                datos[2] = "$"+String.valueOf(rs.getFloat(3));
+                 datos[3] = rs.getString(4);
+                modelo.addRow(datos); //se asigna el arreglo  entero a todo el objeto llamado modelo  
+            }
+            Inventarioventas.jTable2.setModel(modelo); // Se vuelve a enviar nuevamente el objeto modelo a la tabla
+            TableColumnModel columnModel = Inventarioventas.jTable2.getColumnModel();
+            columnModel.getColumn(0).setPreferredWidth(250);
+        } catch (SQLException ex) {
+            Logger.getLogger(nucleo.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "No se pudo mostrar  porque tu consulta está mal");
+        } finally {
+            cc.getClose();
+        }
+}
 public static void la_venta_tiene_descuento_si_o_no(int id_venta){
         try{ Connection ca= cc.conexion();// La suma de todos los importes
                                          Statement sent  =(Statement)ca.createStatement();

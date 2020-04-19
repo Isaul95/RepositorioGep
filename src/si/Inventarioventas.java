@@ -249,6 +249,11 @@ public class Inventarioventas extends javax.swing.JFrame {
         busqueda.setForeground(new java.awt.Color(255, 0, 0));
         busqueda.setToolTipText("");
         busqueda.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 1, true));
+        busqueda.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                busquedaKeyReleased(evt);
+            }
+        });
         jPanel23.add(busqueda, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 400, 40));
 
         Administrador.add(jPanel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 1280, 570));
@@ -379,6 +384,10 @@ Controladorinventarioventas.verdescripcionenbaseaventarealizada();
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
         Controladorventa.noduplicarinventarioventas=false;
     }//GEN-LAST:event_formWindowClosed
+
+    private void busquedaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_busquedaKeyReleased
+         Controladorinventarioventas.mostrarresultadosenlabusquedadenombres(busqueda.getText());
+    }//GEN-LAST:event_busquedaKeyReleased
 
     /**
      * @param args the command line arguments

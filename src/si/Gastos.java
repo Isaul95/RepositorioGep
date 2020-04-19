@@ -65,20 +65,20 @@ Controladorventa.noduplicargastos=true;
 
         jLabel2.setBackground(new java.awt.Color(135, 193, 193));
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 17)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(135, 193, 193));
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Descripción del Gasto:");
         jPanel2.add(jLabel2);
         jLabel2.setBounds(10, 10, 220, 29);
 
         jLabel3.setBackground(new java.awt.Color(135, 193, 193));
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 17)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(135, 193, 193));
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Monto del Gasto:");
         jPanel2.add(jLabel3);
         jLabel3.setBounds(10, 80, 160, 29);
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(135, 193, 193));
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Busqueda de Gastos");
         jPanel2.add(jLabel4);
         jLabel4.setBounds(10, 150, 250, 40);

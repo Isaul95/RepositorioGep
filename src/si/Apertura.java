@@ -69,7 +69,7 @@ public class Apertura extends javax.swing.JFrame implements Runnable{
         jPanel2.setLayout(null);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(135, 193, 193));
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Monto para apertura");
         jPanel2.add(jLabel1);
         jLabel1.setBounds(10, 170, 270, 60);
@@ -88,20 +88,20 @@ public class Apertura extends javax.swing.JFrame implements Runnable{
         Corte_btnImprimirticket.setBounds(10, 270, 250, 70);
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(135, 193, 193));
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Usuario");
         jPanel2.add(jLabel3);
         jLabel3.setBounds(10, 80, 220, 60);
 
         Fecha.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        Fecha.setForeground(new java.awt.Color(135, 193, 193));
+        Fecha.setForeground(new java.awt.Color(255, 255, 255));
         Fecha.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         Fecha.setText("DD/MM/YYYY");
         jPanel2.add(Fecha);
         Fecha.setBounds(10, 10, 240, 60);
 
         Reloj.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        Reloj.setForeground(new java.awt.Color(135, 193, 193));
+        Reloj.setForeground(new java.awt.Color(255, 255, 255));
         Reloj.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         Reloj.setText("00:00:00");
         jPanel2.add(Reloj);
@@ -140,7 +140,7 @@ public class Apertura extends javax.swing.JFrame implements Runnable{
 
         user.setBackground(new java.awt.Color(206, 231, 235));
         user.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        user.setForeground(new java.awt.Color(135, 193, 193));
+        user.setForeground(new java.awt.Color(255, 255, 255));
         jPanel2.add(user);
         user.setBounds(290, 80, 190, 60);
 

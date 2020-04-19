@@ -19,6 +19,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
+import si.Existencias;
 import si.Gastos;
 import si.SI;
 import si.nucleo;
@@ -485,9 +486,9 @@ borrarventasenestadoenturnoporerrordeusuario_que_no_coincidenconlafechadehoy();/
     /*   ********************  BOTON DE COBRAR LA VENTA ****************  */
             /*   ******************  BOTON DE COBRAR LA VENTA **************  */
             try{
-              if(!nucleo.subtotal.getText().isEmpty()&&variablepago>0&&Float.parseFloat(nucleo.subtotal.getText())>0){
+              if(!Existencias.subtotal.getText().isEmpty()&&variablepago>0&&Float.parseFloat(Existencias.subtotal.getText())>0){
                     if(descuentoactivo==true){ //CUANDO EL DESCUENTO ESTÁ ACTIVO
-                        if(variablepago<Float.parseFloat(nucleo.total.getText())){ // comprueba que la cantidad recibida sea mayor al total
+                        if(variablepago<Float.parseFloat(Existencias.total.getText())){ // comprueba que la cantidad recibida sea mayor al total
                             JOptionPane.showMessageDialog(null,"El pago es menor a la cantidad a pagar, por favor, verifique","Advertencia",JOptionPane.INFORMATION_MESSAGE);
                         }
                         else {
@@ -497,12 +498,12 @@ borrarventasenestadoenturnoporerrordeusuario_que_no_coincidenconlafechadehoy();/
                      String fecha_paciente= Controladorventa.fecha_de_nacimiento_del_paciente();
           if (pass && pass2 &&!fecha_paciente.equalsIgnoreCase("")) {//ESTO ES PARA VALIDAR QUE SE TENGAN TODOS LOS DATOS DEL CLIENTE
                  tablaventaactiva=false;
-                            nucleo.cambiocombobox.setText(String.valueOf(cambio=variablepago-Float.parseFloat(nucleo.total.getText())));
+                            Existencias.cambiocombobox.setText(String.valueOf(cambio=variablepago-Float.parseFloat(Existencias.total.getText())));
                             block_unlock=true;
                             try{Connection ca= cc.conexion();// el id del usuario
                                 id_max_de_venta();
                                
-                                 PreparedStatement ps = ca.prepareStatement ("UPDATE venta SET subtotal='"+solodosdecimales.format(Float.parseFloat(nucleo.subtotal.getText())).replace(",", ".")+"',total='"+solodosdecimales.format(Float.parseFloat(nucleo.total.getText())).replace(",", ".")+"',descuento='"+solodosdecimales.format(Float.parseFloat(nucleo.descuentocombo.getText())).replace(",", ".")+"',pago='"+variablepago+"',cambio='"+solodosdecimales.format(Float.parseFloat(nucleo.cambiocombobox.getText())).replace(",", ".")+"',fecha_reporte='"+fecha()+"',estado_venta='"+estadorealizado+"',hora='"+nucleo.Reloj.getText()+"'WHERE id_venta='"+id_de_la_venta_incrementable+"'");
+                                 PreparedStatement ps = ca.prepareStatement ("UPDATE venta SET subtotal='"+solodosdecimales.format(Float.parseFloat(Existencias.subtotal.getText())).replace(",", ".")+"',total='"+solodosdecimales.format(Float.parseFloat(Existencias.total.getText())).replace(",", ".")+"',descuento='"+solodosdecimales.format(Float.parseFloat(Existencias.descuentocombo.getText())).replace(",", ".")+"',pago='"+variablepago+"',cambio='"+solodosdecimales.format(Float.parseFloat(Existencias.cambiocombobox.getText())).replace(",", ".")+"',fecha_reporte='"+fecha()+"',estado_venta='"+estadorealizado+"',hora='"+nucleo.Reloj.getText()+"'WHERE id_venta='"+id_de_la_venta_incrementable+"'");
   ps.executeUpdate();
                               //ACTUALIZACION EN LA TABLA DESCRIPCION DE VENTA A REALIZADA
                                 id_max_de_venta();
@@ -511,9 +512,9 @@ borrarventasenestadoenturnoporerrordeusuario_que_no_coincidenconlafechadehoy();/
                                     PreparedStatement ps2 = ca.prepareStatement ("UPDATE descripcion_de_venta SET estado= '"+estadorealizado+"' WHERE id_venta='"+id_de_la_venta_incrementable+"'");
                                     int result = ps2.executeUpdate();
                                          if(result>0){
-                                            Modelogastos.insertarventacondescuentoengastos("V. "+id_de_la_venta_incrementable+"/Descuento: ",Float.parseFloat(nucleo.descuentocombo.getText()),id_de_la_venta_incrementable);
-                                              JOptionPane.showMessageDialog(null, "El cambio es de: "+nucleo.cambiocombobox.getText()," Se realizo una venta",JOptionPane.YES_OPTION);
-                      if(nucleo.reimprimirventa.isSelected()){        descripciondelosprouductosparaelticketdeventa(id_de_la_venta_incrementable);//DATOS PARA EL TICKET DE VENTA          
+                                            Modelogastos.insertarventacondescuentoengastos("V. "+id_de_la_venta_incrementable+"/Descuento: ",Float.parseFloat(Existencias.descuentocombo.getText()),id_de_la_venta_incrementable);
+                                              JOptionPane.showMessageDialog(null, "El cambio es de: "+Existencias.cambiocombobox.getText()," Se realizo una venta",JOptionPane.YES_OPTION);
+                      if(Existencias.reimprimirventa.isSelected()){        descripciondelosprouductosparaelticketdeventa(id_de_la_venta_incrementable);//DATOS PARA EL TICKET DE VENTA          
                                            descripciondelosprouductosparaelticketdeventa(id_de_la_venta_incrementable);//DATOS PARA EL TICKET DE VENTA          
                                   Controladorventa.accionesdespuesderealizarcualquierventa(); 
                       }else{descripciondelosprouductosparaelticketdeventa(id_de_la_venta_incrementable);//DATOS PARA EL TICKET DE VENTA          
@@ -559,7 +560,7 @@ borrarventasenestadoenturnoporerrordeusuario_que_no_coincidenconlafechadehoy();/
                         }
                     } //FIN DE CUANDO EL DESCUENTO ESTÁ ACTIVO
 else{ //CUANDO EL DESCUENTO NO ESTÁ ACTIVO
-if(variablepago<Float.parseFloat(nucleo.subtotal.getText())){ // comprueba que la cantidad recibida sea mayor al total
+if(variablepago<Float.parseFloat(Existencias.subtotal.getText())){ // comprueba que la cantidad recibida sea mayor al total
                             JOptionPane.showMessageDialog(null,"El pago es menor a la cantidad a pagar, por favor, verifique","Advertencia",JOptionPane.INFORMATION_MESSAGE);
                         }
                         else {
@@ -568,11 +569,11 @@ if(variablepago<Float.parseFloat(nucleo.subtotal.getText())){ // comprueba que l
                           try{      String fecha_paciente= Controladorventa.fecha_de_nacimiento_del_paciente();
           if (pass && pass2 &&!fecha_paciente.equalsIgnoreCase("")) {//ESTO ES PARA VALIDAR QUE SE TENGAN TODOS LOS DATOS DEL CLIENTE
                         tablaventaactiva=false;
-                            nucleo.cambiocombobox.setText(String.valueOf(cambio=variablepago-sumadeimportesenturno));
+                            Existencias.cambiocombobox.setText(String.valueOf(cambio=variablepago-sumadeimportesenturno));
                             block_unlock=true;
                             try{Connection ca= cc.conexion();// el id del usuario
                                 id_max_de_venta();
-                           PreparedStatement ps = ca.prepareStatement ("UPDATE venta SET subtotal='"+solodosdecimales.format(Float.parseFloat(nucleo.subtotal.getText())).replace(",", ".")+"',total='"+solodosdecimales.format(Float.parseFloat(nucleo.total.getText())).replace(",", ".")+"',descuento='"+0+"',pago='"+variablepago+"',cambio='"+solodosdecimales.format(Float.parseFloat(nucleo.cambiocombobox.getText())).replace(",", ".")+"',fecha_reporte='"+fecha()+"',estado_venta='"+estadorealizado+"',hora='"+nucleo.Reloj.getText()+"'WHERE id_venta='"+id_de_la_venta_incrementable+"'");
+                           PreparedStatement ps = ca.prepareStatement ("UPDATE venta SET subtotal='"+solodosdecimales.format(Float.parseFloat(Existencias.subtotal.getText())).replace(",", ".")+"',total='"+solodosdecimales.format(Float.parseFloat(Existencias.total.getText())).replace(",", ".")+"',descuento='"+0+"',pago='"+variablepago+"',cambio='"+solodosdecimales.format(Float.parseFloat(Existencias.cambiocombobox.getText())).replace(",", ".")+"',fecha_reporte='"+fecha()+"',estado_venta='"+estadorealizado+"',hora='"+nucleo.Reloj.getText()+"'WHERE id_venta='"+id_de_la_venta_incrementable+"'");
  ps.executeUpdate();
                                 //ACTUALIZACION EN LA TABLA DESCRIPCION DE VENTA A REALIZADA
                                 id_max_de_venta();
@@ -581,8 +582,8 @@ if(variablepago<Float.parseFloat(nucleo.subtotal.getText())){ // comprueba que l
                                     PreparedStatement ps2 = ca.prepareStatement ("UPDATE descripcion_de_venta SET estado= '"+estadorealizado+"' WHERE id_venta='"+id_de_la_venta_incrementable+"'");
                                    int resultado=  ps2.executeUpdate();
                                      if(resultado>0){
-                                             JOptionPane.showMessageDialog(null, "El cambio es de: "+nucleo.cambiocombobox.getText()," Se realizo una venta",JOptionPane.YES_OPTION);
-                               if(nucleo.reimprimirventa.isSelected()){        descripciondelosprouductosparaelticketdeventa(id_de_la_venta_incrementable);//DATOS PARA EL TICKET DE VENTA          
+                                             JOptionPane.showMessageDialog(null, "El cambio es de: "+Existencias.cambiocombobox.getText()," Se realizo una venta",JOptionPane.YES_OPTION);
+                               if(Existencias.reimprimirventa.isSelected()){        descripciondelosprouductosparaelticketdeventa(id_de_la_venta_incrementable);//DATOS PARA EL TICKET DE VENTA          
                                            descripciondelosprouductosparaelticketdeventa(id_de_la_venta_incrementable);//DATOS PARA EL TICKET DE VENTA          
                                   Controladorventa.accionesdespuesderealizarcualquierventa(); 
                                }else{descripciondelosprouductosparaelticketdeventa(id_de_la_venta_incrementable);//DATOS PARA EL TICKET DE VENTA          
@@ -633,7 +634,7 @@ if(variablepago<Float.parseFloat(nucleo.subtotal.getText())){ // comprueba que l
                           }
                     } //FIN CUANDO EL DESCUENTO NO ESTÁ ACTIVO
                 }
-                else if(nucleo.subtotal.getText().isEmpty()){
+                else if(Existencias.subtotal.getText().isEmpty()){
                     JOptionPane.showMessageDialog(null,"Aún no hay nada por pagar","!Espera!",JOptionPane.INFORMATION_MESSAGE);
                 }
             }catch(Exception NFE){//Number format exception para cuando el usuario no ingrese ningun dato en la caja
@@ -754,18 +755,18 @@ public static void acciones_despues_de_regresaroagregaraventa(){
     if(descuentoactivo==true){
                           Modeloventa.total_venta_enturno();
                          if(sumadeimportesenturno!=0){
-                         nucleo.subtotal.setText(String.valueOf(sumadeimportesenturno));   
-         nucleo.total.setText(String.valueOf(Float.parseFloat(nucleo.subtotal.getText()) - Float.parseFloat(nucleo.descuentocombo.getText())));
+                         Existencias.subtotal.setText(String.valueOf(sumadeimportesenturno));   
+         Existencias.total.setText(String.valueOf(Float.parseFloat(Existencias.subtotal.getText()) - Float.parseFloat(Existencias.descuentocombo.getText())));
                          }else if(sumadeimportesenturno==0){
-                             nucleo.subtotal.setText("00.00");
-                              nucleo.cambiocombobox.setText("00.00");
-                            nucleo.descuentocombo.setText("00.00");
-                             nucleo.total.setText("00.00");
+                             Existencias.subtotal.setText("00.00");
+                              Existencias.cambiocombobox.setText("00.00");
+                            Existencias.descuentocombo.setText("00.00");
+                             Existencias.total.setText("00.00");
                          }
                      }else if(descuentoactivo==false){ 
                               Modeloventa.total_venta_enturno();
-                       nucleo.subtotal.setText(String.valueOf(sumadeimportesenturno));   
-                            nucleo.total.setText(String.valueOf(sumadeimportesenturno));
+                       Existencias.subtotal.setText(String.valueOf(sumadeimportesenturno));   
+                            Existencias.total.setText(String.valueOf(sumadeimportesenturno));
                      }
 }
 public static void obtenerlosiddelavebta_enturno_o_venta_cancelada(String estadodelaventa, int id_enturno_o_cancelado){
