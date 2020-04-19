@@ -5,8 +5,22 @@
  */
 package si;
 import Controladores.Controladorventa;
+import Controladores.Controlador_Report_pdf;
 import Controladores.Controlador_capturar_resultados;
 import Modelos.Modelo_capturar_resultados;
+import java.sql.Connection;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -267,7 +281,50 @@ public Capturar_resultados(int id_venta_a_capturar_resultados){
     }//GEN-LAST:event_gastos_btn_backActionPerformed
 
     private void gastos_btn_back1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gastos_btn_back1ActionPerformed
-        // TODO add your handling code here:
+        // GENERANDO PDF DE LCIENTES
+JOptionPane.showMessageDialog(null, "El l comtiende el id_venta " + Controlador_capturar_resultados.id_a_actualizar_resultados);
+//Controlador_Report_pdf n = new Controlador_Report_pdf();
+//n.Generacion_PDF_client(); // llamando el metodo con el obj
+
+// ***********************    REPORTE DE USUARIOS    **************************
+ SI cc= new SI();
+ Connection ca= cc.conexion();
+ 
+           
+        int dialogButton = JOptionPane.YES_NO_OPTION;
+        int result = JOptionPane.showConfirmDialog(null, "¿Desea Generar Reporte para el usuario?", "REPORTE GENERAL ESTUDIOS",dialogButton);
+        if(result == 0){
+            
+            try {
+ JOptionPane.showMessageDialog(null, "El k contiene here el id_venta " + Controlador_capturar_resultados.id_a_actualizar_resultados);
+                Map parametro = new HashMap(); /* parameter1 <<-- ESTE PARAMETRO VIENE DESDE EL REPORTE SOLO SE ESTA LLAMANDO */
+                parametro.put("parameter1",Controlador_capturar_resultados.id_a_actualizar_resultados); 
+               // parametro1.put("logo", this.getClass().getResourceAsStream(logotipo));
+
+                JasperReport reporte = null;
+                String path = "src/Reportes/ReporteCliente.jasper";
+
+                //  reporte = (JasperReport) JRLoader.loadObjectFromFile(path);
+                reporte = (JasperReport) JRLoader.loadObject(getClass().getResource("/Reportes/ReporteCliente.jasper")); /*ASI MANDO A LLAMAR LOS REPORTES CON .jasper */
+                /* ========================= LLENADO DEL REPORTE  ======================  */
+                //  path --> LA RUTA DEL REPORTE
+                //     --> LOS PARAMETROS K SE LE PUEDE ENVIAR ALA REPORTE IN THIS CASE ES NULL y la concion-->(ca) B.D
+                JasperPrint jprint = JasperFillManager.fillReport(reporte, parametro, ca);
+
+                /* ========================= CREAR LA VISTA DEL REPORTE  ======================  */
+                JasperViewer vista = new JasperViewer(jprint, false);
+
+                /* ============= UN CIERRE LA VISTA DEL REPORTE CUANDO SE PRESIONE LA X de cerrar ============  */
+                vista.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+                /* ==================== MOSTRAR CMO VISIBLE ESTE REPORTE  ======================  */
+                vista.setVisible(true);
+                vista.setTitle("REPORTE DE ESTUDIOS");
+            } catch (JRException ex) {
+                Logger.getLogger(nucleo.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+
     }//GEN-LAST:event_gastos_btn_back1ActionPerformed
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed

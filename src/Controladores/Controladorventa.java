@@ -15,14 +15,14 @@ import ticket.ticketventa;
 
 import ticket.ticketventacondescuento;
 import ticket.ticketventacredito;
-import AppPackage.AnimationClass;
-
+//import AppPackage.AnimationClass;
+ 
 /**
  *
  * @author Alexis
  */
 public class Controladorventa{
-    public static AnimationClass animacion= new AnimationClass();
+    //public static AnimationClass animacion= new AnimationClass();
 public static ticketventa mandardatosticketventa;
 public static float  porcentajedescontadotipiezastcketcket;
 public static float cantidaddeproductos=0, cantidadparapollocrudo=0;
