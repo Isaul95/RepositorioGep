@@ -331,7 +331,7 @@ user.setText(usuarioname);
                 AgregarGastosActionPerformed(evt);
             }
         });
-        jPanel1.add(AgregarGastos, new org.netbeans.lib.awtextra.AbsoluteConstraints(-40, 110, 40, 50));
+        jPanel1.add(AgregarGastos, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, 40, 50));
 
         inventarioventas.setBackground(new java.awt.Color(135, 193, 193));
         inventarioventas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/simbolodolar.png"))); // NOI18N
