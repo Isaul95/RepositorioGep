@@ -28,7 +28,7 @@ import net.sf.jasperreports.view.JasperViewer;
  */
 public class Capturar_resultados extends javax.swing.JFrame {
 public static boolean seagregoexterno=false;
- 
+ static SI cc= new SI();
     /**
      * Creates new form Entradaproductos
      */
@@ -73,7 +73,7 @@ public Capturar_resultados(int id_venta_a_capturar_resultados){
         jLabel84 = new javax.swing.JLabel();
         jLabel85 = new javax.swing.JLabel();
         jLabel75 = new javax.swing.JLabel();
-        gastos_btn_back1 = new javax.swing.JButton();
+        genetrar_Pdf = new javax.swing.JButton();
         gastos_btn_back = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -131,7 +131,7 @@ public Capturar_resultados(int id_venta_a_capturar_resultados){
         );
 
         producto_sobrante3.add(jPanel31);
-        jPanel31.setBounds(0, 0, 1288, 74);
+        jPanel31.setBounds(0, 0, 1294, 84);
 
         jPanel33.setBackground(new java.awt.Color(0, 51, 102));
         jPanel33.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "   Entrada piezas de productos a inventario   ", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Arial", 1, 18), new java.awt.Color(255, 255, 255))); // NOI18N
@@ -222,15 +222,15 @@ public Capturar_resultados(int id_venta_a_capturar_resultados){
         jLabel75.setText("Fecha_ingreso:");
         jPanel33.add(jLabel75, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 250, 230, -1));
 
-        gastos_btn_back1.setBackground(new java.awt.Color(255, 255, 255));
-        gastos_btn_back1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        gastos_btn_back1.setText("Generar PDF");
-        gastos_btn_back1.addActionListener(new java.awt.event.ActionListener() {
+        genetrar_Pdf.setBackground(new java.awt.Color(255, 255, 255));
+        genetrar_Pdf.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        genetrar_Pdf.setText("Generar PDF");
+        genetrar_Pdf.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                gastos_btn_back1ActionPerformed(evt);
+                genetrar_PdfActionPerformed(evt);
             }
         });
-        jPanel33.add(gastos_btn_back1, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 530, 150, 50));
+        jPanel33.add(genetrar_Pdf, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 530, 150, 50));
 
         gastos_btn_back.setBackground(new java.awt.Color(255, 255, 255));
         gastos_btn_back.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -280,52 +280,12 @@ public Capturar_resultados(int id_venta_a_capturar_resultados){
        dispose();
     }//GEN-LAST:event_gastos_btn_backActionPerformed
 
-    private void gastos_btn_back1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gastos_btn_back1ActionPerformed
+    private void genetrar_PdfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_genetrar_PdfActionPerformed
         // GENERANDO PDF DE LCIENTES
-JOptionPane.showMessageDialog(null, "El l comtiende el id_venta " + Controlador_capturar_resultados.id_a_actualizar_resultados);
-//Controlador_Report_pdf n = new Controlador_Report_pdf();
-//n.Generacion_PDF_client(); // llamando el metodo con el obj
+      Controlador_Report_pdf n = new Controlador_Report_pdf();
+      n.Generacion_PDF_client(); // llamando el metodo con el obj
 
-// ***********************    REPORTE DE USUARIOS    **************************
- SI cc= new SI();
- Connection ca= cc.conexion();
- 
-           
-        int dialogButton = JOptionPane.YES_NO_OPTION;
-        int result = JOptionPane.showConfirmDialog(null, "¿Desea Generar Reporte para el usuario?", "REPORTE GENERAL ESTUDIOS",dialogButton);
-        if(result == 0){
-            
-            try {
- JOptionPane.showMessageDialog(null, "El k contiene here el id_venta " + Controlador_capturar_resultados.id_a_actualizar_resultados);
-                Map parametro = new HashMap(); /* parameter1 <<-- ESTE PARAMETRO VIENE DESDE EL REPORTE SOLO SE ESTA LLAMANDO */
-                parametro.put("parameter1",Controlador_capturar_resultados.id_a_actualizar_resultados); 
-               // parametro1.put("logo", this.getClass().getResourceAsStream(logotipo));
-
-                JasperReport reporte = null;
-                String path = "src/Reportes/ReporteCliente.jasper";
-
-                //  reporte = (JasperReport) JRLoader.loadObjectFromFile(path);
-                reporte = (JasperReport) JRLoader.loadObject(getClass().getResource("/Reportes/ReporteCliente.jasper")); /*ASI MANDO A LLAMAR LOS REPORTES CON .jasper */
-                /* ========================= LLENADO DEL REPORTE  ======================  */
-                //  path --> LA RUTA DEL REPORTE
-                //     --> LOS PARAMETROS K SE LE PUEDE ENVIAR ALA REPORTE IN THIS CASE ES NULL y la concion-->(ca) B.D
-                JasperPrint jprint = JasperFillManager.fillReport(reporte, parametro, ca);
-
-                /* ========================= CREAR LA VISTA DEL REPORTE  ======================  */
-                JasperViewer vista = new JasperViewer(jprint, false);
-
-                /* ============= UN CIERRE LA VISTA DEL REPORTE CUANDO SE PRESIONE LA X de cerrar ============  */
-                vista.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-                /* ==================== MOSTRAR CMO VISIBLE ESTE REPORTE  ======================  */
-                vista.setVisible(true);
-                vista.setTitle("REPORTE DE ESTUDIOS");
-            } catch (JRException ex) {
-                Logger.getLogger(nucleo.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-
-
-    }//GEN-LAST:event_gastos_btn_back1ActionPerformed
+    }//GEN-LAST:event_genetrar_PdfActionPerformed
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
         Controladorventa.noduplicar_capturaresultados=false;
@@ -374,8 +334,8 @@ JOptionPane.showMessageDialog(null, "El l comtiende el id_venta " + Controlador_
     public static javax.swing.JLabel fecha_hora_ingreso;
     public static javax.swing.JLabel fecha_nacimiento;
     private javax.swing.JButton gastos_btn_back;
-    private javax.swing.JButton gastos_btn_back1;
-    private javax.swing.JLabel id_venta;
+    private javax.swing.JButton genetrar_Pdf;
+    public static javax.swing.JLabel id_venta;
     private javax.swing.JButton jButton10;
     private javax.swing.JLabel jLabel75;
     private javax.swing.JLabel jLabel80;
