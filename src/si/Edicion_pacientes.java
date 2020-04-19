@@ -54,16 +54,16 @@ public class Edicion_pacientes extends javax.swing.JFrame{
             }
         });
 
-        jPanel1.setBackground(new java.awt.Color(206, 231, 235));
+        jPanel1.setBackground(new java.awt.Color(135, 193, 193));
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "EXISTENCIAS", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Serif", 1, 36))); // NOI18N
         jPanel1.setForeground(new java.awt.Color(255, 0, 0));
         jPanel1.setToolTipText("Editar paciente");
         jPanel1.setLayout(null);
 
-        jPanel2.setBackground(new java.awt.Color(206, 231, 235));
+        jPanel2.setBackground(new java.awt.Color(135, 193, 193));
         jPanel2.setLayout(null);
 
-        Corte_btncancelar.setBackground(new java.awt.Color(206, 231, 235));
+        Corte_btncancelar.setBackground(new java.awt.Color(255, 255, 255));
         Corte_btncancelar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         Corte_btncancelar.setForeground(new java.awt.Color(255, 255, 255));
         Corte_btncancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/salir-flecha-derecha (1).png"))); // NOI18N
@@ -93,10 +93,10 @@ public class Edicion_pacientes extends javax.swing.JFrame{
         jPanel2.add(jLabel79);
         jLabel79.setBounds(10, 170, 66, 32);
 
-        user_edad_edicion.setBackground(new java.awt.Color(206, 231, 235));
+        user_edad_edicion.setBackground(new java.awt.Color(135, 193, 193));
         user_edad_edicion.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        user_edad_edicion.setForeground(new java.awt.Color(255, 0, 0));
-        user_edad_edicion.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        user_edad_edicion.setForeground(new java.awt.Color(255, 255, 255));
+        user_edad_edicion.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 1, true));
         user_edad_edicion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 user_edad_edicionActionPerformed(evt);
@@ -130,7 +130,7 @@ public class Edicion_pacientes extends javax.swing.JFrame{
         jPanel2.add(calendar_fecha_nacimiento_edicion);
         calendar_fecha_nacimiento_edicion.setBounds(230, 260, 270, 29);
 
-        guardarcambios_paciente.setBackground(new java.awt.Color(206, 231, 235));
+        guardarcambios_paciente.setBackground(new java.awt.Color(255, 255, 255));
         guardarcambios_paciente.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         guardarcambios_paciente.setForeground(new java.awt.Color(255, 0, 0));
         guardarcambios_paciente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/casilla-de-verificacion (1).png"))); // NOI18N
@@ -143,9 +143,9 @@ public class Edicion_pacientes extends javax.swing.JFrame{
         jPanel2.add(guardarcambios_paciente);
         guardarcambios_paciente.setBounds(180, 410, 270, 46);
 
-        user_nombre_edicion1.setBackground(new java.awt.Color(206, 231, 235));
+        user_nombre_edicion1.setBackground(new java.awt.Color(135, 193, 193));
         user_nombre_edicion1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        user_nombre_edicion1.setForeground(new java.awt.Color(255, 0, 0));
+        user_nombre_edicion1.setForeground(new java.awt.Color(255, 255, 255));
         user_nombre_edicion1.setToolTipText("");
         user_nombre_edicion1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 1, true));
         user_nombre_edicion1.addActionListener(new java.awt.event.ActionListener() {

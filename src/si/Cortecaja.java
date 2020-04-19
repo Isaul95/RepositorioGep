@@ -87,7 +87,7 @@ Thread hilo;
             }
         });
 
-        jPanel1.setBackground(new java.awt.Color(206, 231, 235));
+        jPanel1.setBackground(new java.awt.Color(135, 193, 193));
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "CORTE DE CAJA", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Serif", 1, 36))); // NOI18N
         jPanel1.setForeground(new java.awt.Color(206, 231, 235));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -95,7 +95,7 @@ Thread hilo;
         user.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
         jPanel1.add(user, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 0, 180, 50));
 
-        jPanel3.setBackground(new java.awt.Color(206, 231, 235));
+        jPanel3.setBackground(new java.awt.Color(135, 193, 193));
         jPanel3.setForeground(new java.awt.Color(206, 231, 235));
         jPanel3.setLayout(null);
 
@@ -158,11 +158,12 @@ Thread hilo;
         jPanel3.add(jLabel6);
         jLabel6.setBounds(10, 80, 180, 29);
 
-        Corte_btncancelar.setBackground(new java.awt.Color(206, 231, 235));
+        Corte_btncancelar.setBackground(new java.awt.Color(255, 255, 255));
         Corte_btncancelar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         Corte_btncancelar.setForeground(new java.awt.Color(255, 0, 0));
         Corte_btncancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/salir-flecha-derecha (1).png"))); // NOI18N
         Corte_btncancelar.setText("Cancelar");
+        Corte_btncancelar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(135, 193, 193)));
         Corte_btncancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Corte_btncancelarActionPerformed(evt);
@@ -171,12 +172,12 @@ Thread hilo;
         jPanel3.add(Corte_btncancelar);
         Corte_btncancelar.setBounds(10, 370, 250, 60);
 
-        monto.setBackground(new java.awt.Color(206, 231, 235));
+        monto.setBackground(new java.awt.Color(135, 193, 193));
         monto.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
         monto.setForeground(new java.awt.Color(255, 255, 255));
         monto.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         monto.setText("00.00");
-        monto.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        monto.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(135, 193, 193)));
         monto.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 montoFocusGained(evt);

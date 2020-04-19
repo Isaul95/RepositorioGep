@@ -36,11 +36,11 @@ Controladorventa.noduplicargastos=true;
             }
         });
 
-        jPanel1.setBackground(new java.awt.Color(206, 231, 235));
+        jPanel1.setBackground(new java.awt.Color(135, 193, 193));
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "GASTOS", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Serif", 1, 36))); // NOI18N
         jPanel1.setLayout(null);
 
-        jPanel2.setBackground(new java.awt.Color(206, 231, 235));
+        jPanel2.setBackground(new java.awt.Color(135, 193, 193));
         jPanel2.setLayout(null);
 
         jTableGastos = new javax.swing.JTable(){
@@ -83,17 +83,17 @@ Controladorventa.noduplicargastos=true;
         jPanel2.add(jLabel4);
         jLabel4.setBounds(10, 150, 250, 40);
 
-        txtdescripcionq.setBackground(new java.awt.Color(206, 231, 235));
+        txtdescripcionq.setBackground(new java.awt.Color(135, 193, 193));
         txtdescripcionq.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        txtdescripcionq.setForeground(new java.awt.Color(255, 0, 0));
+        txtdescripcionq.setForeground(new java.awt.Color(255, 255, 255));
         txtdescripcionq.setToolTipText("");
         txtdescripcionq.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 1, true));
         jPanel2.add(txtdescripcionq);
         txtdescripcionq.setBounds(10, 40, 460, 40);
 
-        txtmonto1.setBackground(new java.awt.Color(206, 231, 235));
+        txtmonto1.setBackground(new java.awt.Color(135, 193, 193));
         txtmonto1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        txtmonto1.setForeground(new java.awt.Color(255, 0, 0));
+        txtmonto1.setForeground(new java.awt.Color(255, 255, 255));
         txtmonto1.setToolTipText("");
         txtmonto1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 1, true));
         txtmonto1.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -104,9 +104,9 @@ Controladorventa.noduplicargastos=true;
         jPanel2.add(txtmonto1);
         txtmonto1.setBounds(10, 110, 150, 40);
 
-        busquedagastos1.setBackground(new java.awt.Color(206, 231, 235));
+        busquedagastos1.setBackground(new java.awt.Color(135, 193, 193));
         busquedagastos1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        busquedagastos1.setForeground(new java.awt.Color(255, 0, 0));
+        busquedagastos1.setForeground(new java.awt.Color(255, 255, 255));
         busquedagastos1.setToolTipText("");
         busquedagastos1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 1, true));
         busquedagastos1.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -120,7 +120,7 @@ Controladorventa.noduplicargastos=true;
         jPanel1.add(jPanel2);
         jPanel2.setBounds(0, 50, 690, 480);
 
-        gastos_btn_back.setBackground(new java.awt.Color(206, 201, 235));
+        gastos_btn_back.setBackground(new java.awt.Color(255, 255, 255));
         gastos_btn_back.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         gastos_btn_back.setForeground(new java.awt.Color(255, 0, 0));
         gastos_btn_back.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/salir-flecha-derecha (1).png"))); // NOI18N

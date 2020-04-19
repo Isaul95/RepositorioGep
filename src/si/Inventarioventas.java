@@ -246,7 +246,7 @@ public class Inventarioventas extends javax.swing.JFrame {
 
         busqueda.setBackground(new java.awt.Color(135, 193, 193));
         busqueda.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        busqueda.setForeground(new java.awt.Color(255, 0, 0));
+        busqueda.setForeground(new java.awt.Color(255, 255, 255));
         busqueda.setToolTipText("");
         busqueda.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 1, true));
         busqueda.addKeyListener(new java.awt.event.KeyAdapter() {
