@@ -158,7 +158,7 @@ Modeloventa.get_id_usuario();// 255 -280
         return next;
     }
     public static void descuentos(){
-                   float totalparadescuentos = Float.parseFloat(Existencias.subtotal.getText());
+                   float totalparadescuentos = Float.parseFloat(nucleo.subtotal.getText());
                if(totalparadescuentos>0){
                    try{
                        String nombre="";
@@ -174,9 +174,9 @@ Modeloventa.get_id_usuario();// 255 -280
                    }catch(NullPointerException NP){}
                    if(porcentaje>0){
                        descuentoactivo=true;
-               Existencias.descuentocombo.setText(String.valueOf(porcentaje));
-               Existencias.total.setText(String.valueOf(totalparadescuentos - porcentaje));
-                 Existencias.total.setVisible(true);
+               nucleo.descuentocombo.setText(String.valueOf(porcentaje));
+               nucleo.total.setText(String.valueOf(totalparadescuentos - porcentaje));
+                 nucleo.total.setVisible(true);
 nucleo.deletedescuento.setVisible(true);
                    }else{
                    JOptionPane.showMessageDialog(null,"El descuento no puede ser 0", "Error", JOptionPane.ERROR_MESSAGE);
@@ -201,10 +201,10 @@ nucleo.deletedescuento.setVisible(true);
                             //    storage.clear();    
     }
     public static void  limpiardatosdeventa(){
-        Existencias.subtotal.setText("00.00");
-        Existencias.cambiocombobox.setText("00.00");
-        Existencias.descuentocombo.setText("00.00");
-        Existencias.total.setText("00.00");
+        nucleo.subtotal.setText("00.00");
+        nucleo.cambiocombobox.setText("00.00");
+        nucleo.descuentocombo.setText("00.00");
+        nucleo.total.setText("00.00");
         nucleo.tablaventa.setVisible(false);
         tablaventaactiva=false;
         descuentoactivo=false;
@@ -279,23 +279,23 @@ nucleo.deletedescuento.setVisible(true);
          // CONSULTA DE VENTAS  REALIZADAS
     public static void montoFocusGained(){
          // *********************   CAJA DE TEXTO DE PAGOO *********
-        if(Existencias.monto.getText().trim().equals("00.00")){
-            Existencias.monto.setText("");
+        if(nucleo.monto.getText().trim().equals("00.00")){
+            nucleo.monto.setText("");
             //user_usuario.setForeground(Color.red);
         }
-        Existencias.monto.setForeground(Color.blue);
+        nucleo.monto.setForeground(Color.blue);
     }
     public static void montoFocusLost(){
            // *********************   CAJA DE TEXTO DE PAGOO *********
-        if(Existencias.monto.getText().trim().equals("")){
-            Existencias.monto.setText("00.00");
+        if(nucleo.monto.getText().trim().equals("")){
+            nucleo.monto.setText("00.00");
         }
-        Existencias.monto.setForeground(new Color(236, 240, 241));
+        nucleo.monto.setForeground(new Color(236, 240, 241));
     }public static void montoKeyRealeased(){
-        boolean pass2 = validarFormulario(Existencias.monto.getText());
+        boolean pass2 = validarFormulario(nucleo.monto.getText());
             if(pass2){//ESTO VALIDA QUE EL TEXTO ESCRITO NO TENGA INCOHERENCIAS
-                Modeloventa.metodo_de_cobro(Float.parseFloat(Existencias.monto.getText()));
-                Existencias.monto.setText("00.00");
+                Modeloventa.metodo_de_cobro(Float.parseFloat(nucleo.monto.getText()));
+                nucleo.monto.setText("00.00");
           
             }
     }
@@ -316,8 +316,8 @@ nucleo.deletedescuento.setVisible(true);
     }
     public static void deletedescuento(){
         descuentoactivo=false;
-        Existencias.descuentocombo.setText("00.00");
-        Existencias.total.setText(Existencias.subtotal.getText());
+        nucleo.descuentocombo.setText("00.00");
+        nucleo.total.setText(nucleo.subtotal.getText());
         nucleo.deletedescuento.setVisible(false);
     }
     public static void limpiarventa(){

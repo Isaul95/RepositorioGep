@@ -22,18 +22,6 @@ public class Existencias extends javax.swing.JFrame{
         jPanel2 = new javax.swing.JPanel();
         Corte_btncancelar = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
-        jPanel10 = new javax.swing.JPanel();
-        cambiocombobox = new javax.swing.JLabel();
-        jLabel31 = new javax.swing.JLabel();
-        jLabel30 = new javax.swing.JLabel();
-        subtotal = new javax.swing.JLabel();
-        descuentolabel = new javax.swing.JLabel();
-        total = new javax.swing.JLabel();
-        labeldescuento = new javax.swing.JLabel();
-        descuentocombo = new javax.swing.JLabel();
-        monto = new javax.swing.JTextField();
-        descuentolabel1 = new javax.swing.JLabel();
-        reimprimirventa = new javax.swing.JCheckBox();
         jPanel28 = new javax.swing.JPanel();
         Existencias = new javax.swing.JButton();
 
@@ -69,92 +57,6 @@ public class Existencias extends javax.swing.JFrame{
         jLabel3.setText("Puedes buscar desde aquí tu producto");
         jPanel2.add(jLabel3);
         jLabel3.setBounds(0, 0, 340, 29);
-
-        jPanel10.setBackground(new java.awt.Color(0, 51, 102));
-        jPanel10.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "   Venta   ", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Arial", 1, 18), new java.awt.Color(255, 255, 255))); // NOI18N
-        jPanel10.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        cambiocombobox.setFont(new java.awt.Font("Trebuchet MS", 1, 36)); // NOI18N
-        cambiocombobox.setForeground(new java.awt.Color(255, 0, 0));
-        cambiocombobox.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        cambiocombobox.setText("00.00");
-        jPanel10.add(cambiocombobox, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 240, 140, 28));
-
-        jLabel31.setFont(new java.awt.Font("Trebuchet MS", 1, 22)); // NOI18N
-        jLabel31.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel31.setText("Cambio:");
-        jPanel10.add(jLabel31, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 230, 140, -1));
-
-        jLabel30.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
-        jLabel30.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel30.setText("Subtotal");
-        jLabel30.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-        jPanel10.add(jLabel30, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 150, -1));
-
-        subtotal.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
-        subtotal.setForeground(new java.awt.Color(255, 255, 255));
-        subtotal.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        subtotal.setText("00.00");
-        jPanel10.add(subtotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 50, 140, 28));
-
-        descuentolabel.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
-        descuentolabel.setForeground(new java.awt.Color(255, 255, 255));
-        descuentolabel.setText("Pago");
-        descuentolabel.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-        jPanel10.add(descuentolabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 190, 190, -1));
-
-        total.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
-        total.setForeground(new java.awt.Color(255, 255, 255));
-        total.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        total.setText("00.00");
-        jPanel10.add(total, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 130, 150, 50));
-
-        labeldescuento.setFont(new java.awt.Font("Trebuchet MS", 1, 22)); // NOI18N
-        labeldescuento.setForeground(new java.awt.Color(255, 255, 255));
-        labeldescuento.setText("Descuento:");
-        jPanel10.add(labeldescuento, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 170, -1));
-
-        descuentocombo.setFont(new java.awt.Font("Arial Black", 1, 28)); // NOI18N
-        descuentocombo.setForeground(new java.awt.Color(255, 0, 51));
-        descuentocombo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        descuentocombo.setText("00.00");
-        jPanel10.add(descuentocombo, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 90, 140, -1));
-
-        monto.setBackground(new java.awt.Color(0, 148, 204));
-        monto.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        monto.setForeground(new java.awt.Color(255, 255, 255));
-        monto.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        monto.setText("00.00");
-        monto.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        monto.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                montoFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                montoFocusLost(evt);
-            }
-        });
-        monto.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                montoKeyReleased(evt);
-            }
-        });
-        jPanel10.add(monto, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 190, 150, -1));
-
-        descuentolabel1.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
-        descuentolabel1.setForeground(new java.awt.Color(255, 255, 255));
-        descuentolabel1.setText("Total");
-        descuentolabel1.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-        jPanel10.add(descuentolabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, 190, -1));
-
-        reimprimirventa.setBackground(new java.awt.Color(0, 51, 102));
-        reimprimirventa.setFont(new java.awt.Font("Dialog", 1, 20)); // NOI18N
-        reimprimirventa.setForeground(new java.awt.Color(255, 255, 255));
-        reimprimirventa.setText("Reimprimirventa");
-        jPanel10.add(reimprimirventa, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 240, -1));
-
-        jPanel2.add(jPanel10);
-        jPanel10.setBounds(400, 150, 430, 268);
 
         jPanel28.setBackground(new java.awt.Color(0, 51, 102));
         jPanel28.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Ventanas", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Arial", 1, 18), new java.awt.Color(255, 255, 255))); // NOI18N
@@ -205,22 +107,6 @@ public class Existencias extends javax.swing.JFrame{
           Controladorventa.noduplicarexistencias=false;
     }//GEN-LAST:event_formWindowClosed
 
-    private void montoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_montoFocusGained
-        Controladorventa.montoFocusGained();
-    }//GEN-LAST:event_montoFocusGained
-
-    private void montoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_montoFocusLost
-        Controladorventa.montoFocusLost();
-    }//GEN-LAST:event_montoFocusLost
-
-    private void montoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_montoKeyReleased
-        char tecla = evt.getKeyChar();
-        if(tecla==KeyEvent.VK_ENTER){
-            Controladorventa.montoKeyRealeased();
-
-        }
-    }//GEN-LAST:event_montoKeyReleased
-
     private void ExistenciasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExistenciasActionPerformed
         if(Controladorventa.noduplicarexistencias==false){new Existencias().setVisible(true);}
     }//GEN-LAST:event_ExistenciasActionPerformed
@@ -264,21 +150,9 @@ public class Existencias extends javax.swing.JFrame{
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Corte_btncancelar;
     private javax.swing.JButton Existencias;
-    public static javax.swing.JLabel cambiocombobox;
-    public static javax.swing.JLabel descuentocombo;
-    public static javax.swing.JLabel descuentolabel;
-    private javax.swing.JLabel descuentolabel1;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel30;
-    private javax.swing.JLabel jLabel31;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel28;
-    public static javax.swing.JLabel labeldescuento;
-    public static javax.swing.JTextField monto;
-    public static javax.swing.JCheckBox reimprimirventa;
-    public static javax.swing.JLabel subtotal;
-    public static javax.swing.JLabel total;
     // End of variables declaration//GEN-END:variables
 }
