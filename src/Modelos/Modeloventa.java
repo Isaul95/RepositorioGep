@@ -781,26 +781,7 @@ public static void obtenerlosiddelavebta_enturno_o_venta_cancelada(String estado
                 }
 }
 
-public static void regresarproductos_a_inventariodescontandotodaslaspiezas(String estadodelaventa, int id_enturno_o_cancelado){ // este metodo devuelve los productos que fueron agregados a la venta y posteriormente fueron cancelados
-   obtenerlosiddelavebta_enturno_o_venta_cancelada(estadodelaventa, id_enturno_o_cancelado);
-                for(ciclofor=0;ciclofor<=storage.size()-1;ciclofor++){
-                        cantidadpolloenDByname(Integer.parseInt(String.valueOf(storage.get(ciclofor))));
-      cantidadenventasumadecantidadesfinales(estadodelaventa,Integer.parseInt(storage.get(ciclofor).toString()),id_enturno_o_cancelado);
-                  cantidadpolloenDB+=cantidadenventasumada;
-                     try{Connection ca= cc.conexion();
-                            PreparedStatement ps = ca.prepareStatement ("UPDATE productos SET cantidad='"+cantidadpolloenDB+"'WHERE id_producto='"+storage.get(ciclofor)+"'");
-                           int a= ps.executeUpdate();
-                            if(a>0){
-                            }else{
-                            }
-                        }catch(Exception s){
-JOptionPane.showMessageDialog(null, "Error en regresarproductos_a_inventariodescontandotodaslaspiezas" + s.getMessage());
-                        }  finally{
-                    cc.getClose();
-                }
-                 //PENDIENTE EL REGRESO DE POLLO A INVENTARIO 
-                }//fin del ciclo for              
-}
+
 public static void cantidadenventasumadecantidadesfinales(String estadoventa, int pieza, int id_enturno_o_cancelado){
     id_max_de_venta();  //Cantidad en venta
                 try{Connection ca= cc.conexion();

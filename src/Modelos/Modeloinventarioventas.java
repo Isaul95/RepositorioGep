@@ -18,7 +18,6 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 import si.Inventarioventas;
-import static si.Inventarioventas.jTable3;
 import si.SI;
 import ticket.ticketventacancelada;
 import ticket.ticketventacondescuento;
@@ -120,31 +119,7 @@ public static void eliminar_idventa_sitienedescuento(float descuento, int id_ven
                   cc.getClose();
              }
 }
-     public static void productosvendidoseneldia(){ // recibe como parametro 
-         Object[] columna = new Object[3];  //crear un obj con el nombre de colunna
-          DefaultTableModel modeloT = new DefaultTableModel(); 
-                  Inventarioventas.jTable3.setModel(modeloT);  // add modelo ala tabla 
-        modeloT.addColumn("Producto");
-        modeloT.addColumn("Cantidad");        
-        modeloT.addColumn("importe");
-          Inventarioventas.jTable3.setModel(modeloT);  // add modelo ala tabla 
-       TableColumnModel columnModel =  jTable3.getColumnModel();columnModel.getColumn(0).setPreferredWidth(200);columnModel.getColumn(1).setPreferredWidth(50);    columnModel.getColumn(1).setPreferredWidth(70);
-         try {   Connection ca= cc.conexion(); // CONEXION DB 
-         String sSQL = "SELECT nombre_producto, SUM(cantidad), SUM(importe) FROM  descripcion_de_venta WHERE estado in('Realizada', 'Credito-pendiente') AND fecha = CURDATE() GROUP BY nombre_producto";
-        PreparedStatement ps = ca.prepareStatement(sSQL);       
-        ResultSet rs = ps.executeQuery(sSQL);
-            while (rs.next()) {
-                columna[0] = rs.getString(1);
-                columna[1] = rs.getString(2);
-                columna[2] = "$"+rs.getString(3);                
-                modeloT.addRow(columna);
-            } Inventarioventas.jTable3.setModel(modeloT);  // add modelo ala tabla 
 
-    } catch (Exception e) { JOptionPane.showMessageDialog(null, "ERROR EN METODO: productosvendidoseneldia","DEVELOPER HELPER", JOptionPane.ERROR_MESSAGE);      
-      }finally{
-                  cc.getClose();
-             }
-}
    
      public static void showidventasporfechas(JTable tablaventas, String fechadesde, String fechahasta){
         Object[] columna = new Object[4];  //crear un obj con el nombre de colunna
@@ -172,20 +147,6 @@ public static void eliminar_idventa_sitienedescuento(float descuento, int id_ven
     }finally{cc.getClose();}
     }
 
-     public static void total_venta_creditopendiente(int id){
-        try{ Connection ca= cc.conexion();// La suma de todos los importes
-                                          sent  =(Statement)ca.createStatement();
-                                           rs = sent.executeQuery("select total from venta where id_venta= '"+id+"'");
-                                            if(rs.next()){
-                                                      sumadeimportescreditopendiente =Float.parseFloat(rs.getString("total"));
-                                                      }
-                                                      }//fin del try-precio del producto
-                                                      catch (Exception e){ JOptionPane.showMessageDialog(null, "Error, total_venta_creditopendiente","HELPER DEVELOPER",JOptionPane.INFORMATION_MESSAGE); 
-                sumadeimportescreditopendiente=0;
-                                                      }finally{
-                    cc.getClose();
-                }// fin del precio-catch del producto
-    }
      public static void impresiondeventacancelada(int numerodeventa){
     try {Connection ca= cc.conexion();
                  String sSQL = "SELECT nombre_producto, cantidad, precio_unitario, importe FROM descripcion_de_venta WHERE estado='Cancelada' AND id_venta = '"+numerodeventa+"' ";  

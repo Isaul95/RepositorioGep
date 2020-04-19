@@ -5,7 +5,6 @@
  */
 package si;
 
-import Controladores.Controladorcalculadora;
 import Controladores.Controladorcortedecaja;
 import Controladores.Controladorventa;
 import java.awt.event.KeyEvent;

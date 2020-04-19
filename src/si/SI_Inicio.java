@@ -11,7 +11,6 @@ import java.util.logging.Logger;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.text.SimpleDateFormat;
-import static si.Calculadora.cantidad;
 public class SI_Inicio extends javax.swing.JFrame {
     SI cc= new SI();
       int timer; //variable conteo de los intentos de acceso

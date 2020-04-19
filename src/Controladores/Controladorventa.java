@@ -254,8 +254,7 @@ nucleo.deletedescuento.setVisible(true);
 }
  public static void cerrandosesion_o_limpiandoventa(){
      Modeloventa.id_max_de_venta();
-                Modeloventa.regresarproductos_a_inventariodescontandotodaslaspiezas("En turno", id_de_la_venta_incrementable); //pone en estatus de cancelada la venta inconclusa
-               // descuentodepollo();
+                // descuentodepollo();
             Modeloventa.borrarventasenestadoenturnoporerrordeusuario_limpiarventa_o_cerrarsesion();
           limpiardatosdeventa();  //limpia en su mayoria los campos de texto que pertenezcan al apartado venta
                 nucleo.tablaventa.setVisible(false); //Desaparece la tabla

@@ -51,17 +51,13 @@ public class Controladorinventarioventas {
                             
     Inventarioventas.ventaseneldiasumadas.setText(String.valueOf(Controladorinventarioventas.sumadetotalesdeventasdehoy));// VIENE DEL METODO ventaseneldiaREALIZADAS()
                              Inventarioventas.conteodelasventasrealizadas.setText(String.valueOf(Controladorinventarioventas.conteototaldeventas)); // VIENE DEL METODO totalventasxdia(); ES UN CONTEO DE VENTAS
-    Modeloinventarioventas.llenartablaidventasconidrealizados();
-                                Modeloinventarioventas.productosvendidoseneldia();//MUESTRA LAS VENTAS REA
-                             
-                              
+    Modeloinventarioventas.llenartablaidventasconidrealizados();                     
     }
-    public static void botonveridventas(){ //INVENTARIOVENTAS
-     Inventarioventas.fechainicial.cleanup();
+    public static void ocultarloscomponentes(){
+               Inventarioventas.fechainicial.cleanup();
         Inventarioventas.fechainicial.setDate(null);
         Inventarioventas.fechafinal.cleanup();
         Inventarioventas.fechafinal.setDate(null);
-        Modeloinventarioventas.llenartablaidventasconidrealizados(); //CARGA NUEVAMENTE LAS VENTAS POR ID
         Inventarioventas.veridventas.setVisible(false);
         Inventarioventas.labelparaeltotal.setText("00.00");
         Inventarioventas.totalventarealizada.setVisible(false);
@@ -70,24 +66,38 @@ public class Controladorinventarioventas {
         Inventarioventas.cancelarventa.setVisible(false);
         Inventarioventas.editar_paciente.setVisible(false);
         Inventarioventas.resultado.setVisible(false);
+          Inventarioventas.opciones.setVisible(false);
+         
+    }
+    public static void botonveridventas(){ //INVENTARIOVENTAS
+            Modeloinventarioventas.llenartablaidventasconidrealizados(); //CARGA NUEVAMENTE LAS VENTAS POR ID
+            ocultarloscomponentes();
  }
-   
-                                public static void verdescripcionenbaseaventarealizada(){
-            int fila =Inventarioventas.jTable2.getSelectedRow();
- if(fila>=0){
-            boolean pass= validarFormularioparamostrardescripciondeproductosporid(Inventarioventas.jTable2.getValueAt(fila,0).toString());
-            if(pass){
-               Inventarioventas.veridventas.setVisible(true);
-                id=Short.parseShort(Inventarioventas.jTable2.getValueAt(fila,0).toString());
-                Modeloinventarioventas.descripciondeproductosenbasealnumerodeventa(id);
-                Modeloinventarioventas.total_ventaporid(id);
-                Inventarioventas.labelparaeltotal.setVisible(true);
-                Inventarioventas.labelparaeltotal.setText(String.valueOf(sumadeimportesparaeltotal));
+  public static void mostrarloscomponentes(){
+      Inventarioventas.opciones.setVisible(true);
+      Inventarioventas.veridventas.setVisible(true);
+           Inventarioventas.labelparaeltotal.setVisible(true);
+            Inventarioventas.labelparaeltotal.setText(String.valueOf(sumadeimportesparaeltotal));
                 Inventarioventas.totalventarealizada.setVisible(true);
                 Inventarioventas.imprimirventa.setVisible(true);
                 Inventarioventas.cancelarventa.setVisible(true);
                  Inventarioventas.editar_paciente.setVisible(true);
         Inventarioventas.resultado.setVisible(true);
+              
+  } 
+  
+                                public static void verdescripcionenbaseaventarealizada(){
+            int fila =Inventarioventas.jTable2.getSelectedRow();
+ if(fila>=0){
+            boolean pass= validarFormularioparamostrardescripciondeproductosporid(Inventarioventas.jTable2.getValueAt(fila,0).toString());
+            if(pass){
+               
+                id=Short.parseShort(Inventarioventas.jTable2.getValueAt(fila,0).toString());
+                Modeloinventarioventas.descripciondeproductosenbasealnumerodeventa(id);
+                Modeloinventarioventas.total_ventaporid(id);
+                       mostrarloscomponentes();    
+                         Inventarioventas.labelbusqueda.setVisible(false);
+                    Inventarioventas.busqueda.setVisible(false);
             }
         }
         else
@@ -95,19 +105,9 @@ public class Controladorinventarioventas {
         }
      public static void botoncancelarventa(short id){
             Modeloinventarioventas.status_cancelado(id); //Cancela venta: se refiera a poner el estado "Cancelada" tando a la tabla venta y descripcion_de_venta que correspondan a èste ID
-        Inventarioventas.fechainicial.cleanup();// Limpia el calendario final 
-        Inventarioventas.fechainicial.setDate(null); // igual que el de arriba 
-        Inventarioventas.fechafinal.cleanup(); // igual que el de abajo
-        Inventarioventas.fechafinal.setDate(null);// Limpia el calendario inicial  
         Modeloinventarioventas.llenartablaidventasconidrealizados(); //Carga nuevamente las ventas por ID
-        Inventarioventas.veridventas.setVisible(false); // Oculta el botòn de ver las ventas
-        Inventarioventas.labelparaeltotal.setText("00.00"); //manda un total de 0.00
-        Inventarioventas.totalventarealizada.setVisible(false);//oculta el label de la venta realizada
-        Inventarioventas.labelparaeltotal.setVisible(false);
-        Inventarioventas.imprimirventa.setVisible(false); //Cculta el boton de imprimir la venta
-  Inventarioventas.cancelarventa.setVisible(false);//Oculta el botòn de cancelar la venta
-  Modeloventa.regresarproductos_a_inventariodescontandotodaslaspiezas("Cancelada",(int)id);
-  Modeloinventarioventas.la_venta_tiene_descuento_si_o_no((int)id);
+       ocultarloscomponentes();
+ Modeloinventarioventas.la_venta_tiene_descuento_si_o_no((int)id);
          Modeloinventarioventas.eliminar_idventa_sitienedescuento(descuentoenventa,(int)id);
   Controladorventa.storage.clear();
   Modeloinventarioventas.impresiondeventacancelada(id);
@@ -167,8 +167,6 @@ public class Controladorinventarioventas {
     public static void metodos_al_iniciar_inventarioventas(){
    Modeloinventarioventas.conteodeventasrealizadasdehoy(); // CUANTAS VENTAS SE REALIZARON? 5 O 60 O XX
                   Modeloinventarioventas.llenartablaidventasconidrealizados();
-                          Modeloinventarioventas.productosvendidoseneldia();//MUESTRA LAS VENTAS REA
-                
                         Modelocortedecaja.ventaseneldia();// PARA LA SUMA DE LOS TOTALES DE LA VENTA
       Inventarioventas.ventaseneldiasumadas.setText(String.valueOf(ventasdeldia));// VIENE DEL METODO ventaseneldiaREALIZADAS()
                         Inventarioventas.conteodelasventasrealizadas.setText(String.valueOf(conteototaldeventas)); // VIENE DEL METODO totalventasxdia(); ES UN CONTEO DE VENTAS

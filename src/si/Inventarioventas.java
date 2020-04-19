@@ -53,36 +53,39 @@ public class Inventarioventas extends javax.swing.JFrame {
         jScrollPane5 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
         jLabel103 = new javax.swing.JLabel();
+        labelbusqueda = new javax.swing.JLabel();
+        jLabel63 = new javax.swing.JLabel();
+        jLabel96 = new javax.swing.JLabel();
+        ventaseneldiasumadas = new javax.swing.JLabel();
+        conteodelasventasrealizadas = new javax.swing.JLabel();
+        opciones = new javax.swing.JLabel();
+        busqueda = new javax.swing.JTextField();
         jPanel24 = new javax.swing.JPanel();
         jLabel93 = new javax.swing.JLabel();
         jButton8 = new javax.swing.JButton();
         gastos_btn_back = new javax.swing.JButton();
-        jPanel26 = new javax.swing.JPanel();
-        jLabel96 = new javax.swing.JLabel();
-        jLabel63 = new javax.swing.JLabel();
-        conteodelasventasrealizadas = new javax.swing.JLabel();
-        ventaseneldiasumadas = new javax.swing.JLabel();
-        jLabel92 = new javax.swing.JLabel();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        jTable3 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setUndecorated(true);
+        setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 formWindowClosed(evt);
             }
         });
 
-        Administrador.setBackground(new java.awt.Color(0, 51, 102));
+        jPanel12.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        Administrador.setBackground(new java.awt.Color(135, 193, 193));
         Administrador.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         Administrador.setDoubleBuffered(false);
-        Administrador.setLayout(null);
+        Administrador.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel23.setBackground(new java.awt.Color(0, 51, 102));
+        jPanel23.setBackground(new java.awt.Color(135, 193, 193));
         jPanel23.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Ventas de hoy realizadas", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Arial", 1, 18), new java.awt.Color(255, 255, 255))); // NOI18N
         jPanel23.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        fechainicial.setBackground(new java.awt.Color(0, 51, 102));
+        fechainicial.setBackground(new java.awt.Color(135, 193, 193));
         fechainicial.setForeground(new java.awt.Color(0, 96, 255));
         fechainicial.setFont(new java.awt.Font("Tahoma", 1, 17)); // NOI18N
         jPanel23.add(fechainicial, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 20, 160, 40));
@@ -97,16 +100,15 @@ public class Inventarioventas extends javax.swing.JFrame {
         jLabel91.setText("Hasta");
         jPanel23.add(jLabel91, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 20, 60, 50));
 
-        fechafinal.setBackground(new java.awt.Color(0, 51, 102));
+        fechafinal.setBackground(new java.awt.Color(135, 193, 193));
         fechafinal.setForeground(new java.awt.Color(0, 96, 255));
         fechafinal.setFont(new java.awt.Font("Tahoma", 1, 17)); // NOI18N
         jPanel23.add(fechafinal, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 20, 160, 40));
 
-        buscarventasporfecha.setBackground(new java.awt.Color(0, 51, 102));
+        buscarventasporfecha.setBackground(new java.awt.Color(255, 255, 255));
         buscarventasporfecha.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        buscarventasporfecha.setForeground(new java.awt.Color(255, 255, 255));
+        buscarventasporfecha.setForeground(new java.awt.Color(255, 0, 0));
         buscarventasporfecha.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/image/magnifier.png"))); // NOI18N
-        buscarventasporfecha.setText("Buscar");
         buscarventasporfecha.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         buscarventasporfecha.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -115,20 +117,20 @@ public class Inventarioventas extends javax.swing.JFrame {
         });
         jPanel23.add(buscarventasporfecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(1100, 20, 130, 40));
 
-        cancelarventa.setBackground(new java.awt.Color(0, 51, 102));
+        cancelarventa.setBackground(new java.awt.Color(255, 255, 255));
         cancelarventa.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        cancelarventa.setForeground(new java.awt.Color(255, 255, 255));
+        cancelarventa.setForeground(new java.awt.Color(255, 0, 0));
         cancelarventa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/cancelar2.png"))); // NOI18N
         cancelarventa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cancelarventaActionPerformed(evt);
             }
         });
-        jPanel23.add(cancelarventa, new org.netbeans.lib.awtextra.AbsoluteConstraints(950, 70, 60, 90));
+        jPanel23.add(cancelarventa, new org.netbeans.lib.awtextra.AbsoluteConstraints(1200, 170, 60, 90));
 
-        veridventas.setBackground(new java.awt.Color(0, 51, 102));
+        veridventas.setBackground(new java.awt.Color(255, 255, 255));
         veridventas.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        veridventas.setForeground(new java.awt.Color(255, 255, 255));
+        veridventas.setForeground(new java.awt.Color(0, 153, 153));
         veridventas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/flecha-hacia-la-izquierda (1).png"))); // NOI18N
         veridventas.setText("Ver las ventas");
         veridventas.addActionListener(new java.awt.event.ActionListener() {
@@ -136,11 +138,11 @@ public class Inventarioventas extends javax.swing.JFrame {
                 veridventasActionPerformed(evt);
             }
         });
-        jPanel23.add(veridventas, new org.netbeans.lib.awtextra.AbsoluteConstraints(1050, 70, -1, -1));
+        jPanel23.add(veridventas, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 170, 240, -1));
 
-        imprimirventa.setBackground(new java.awt.Color(0, 51, 102));
+        imprimirventa.setBackground(new java.awt.Color(255, 255, 255));
         imprimirventa.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        imprimirventa.setForeground(new java.awt.Color(255, 255, 255));
+        imprimirventa.setForeground(new java.awt.Color(0, 153, 153));
         imprimirventa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/flecha-hacia-la-izquierda (1).png"))); // NOI18N
         imprimirventa.setText("Imprimir venta");
         imprimirventa.addActionListener(new java.awt.event.ActionListener() {
@@ -148,11 +150,11 @@ public class Inventarioventas extends javax.swing.JFrame {
                 imprimirventaActionPerformed(evt);
             }
         });
-        jPanel23.add(imprimirventa, new org.netbeans.lib.awtextra.AbsoluteConstraints(1030, 120, 210, -1));
+        jPanel23.add(imprimirventa, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 220, 240, -1));
 
-        resultado.setBackground(new java.awt.Color(0, 51, 102));
+        resultado.setBackground(new java.awt.Color(255, 255, 255));
         resultado.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        resultado.setForeground(new java.awt.Color(255, 255, 255));
+        resultado.setForeground(new java.awt.Color(0, 153, 153));
         resultado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/flecha-hacia-la-izquierda (1).png"))); // NOI18N
         resultado.setText("Capturar resultado");
         resultado.addActionListener(new java.awt.event.ActionListener() {
@@ -160,11 +162,11 @@ public class Inventarioventas extends javax.swing.JFrame {
                 resultadoActionPerformed(evt);
             }
         });
-        jPanel23.add(resultado, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 170, 230, -1));
+        jPanel23.add(resultado, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 270, 240, -1));
 
-        editar_paciente.setBackground(new java.awt.Color(0, 51, 102));
+        editar_paciente.setBackground(new java.awt.Color(255, 255, 255));
         editar_paciente.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        editar_paciente.setForeground(new java.awt.Color(255, 255, 255));
+        editar_paciente.setForeground(new java.awt.Color(0, 153, 153));
         editar_paciente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/flecha-hacia-la-izquierda (1).png"))); // NOI18N
         editar_paciente.setText("Editar paciente");
         editar_paciente.addActionListener(new java.awt.event.ActionListener() {
@@ -172,17 +174,17 @@ public class Inventarioventas extends javax.swing.JFrame {
                 editar_pacienteActionPerformed(evt);
             }
         });
-        jPanel23.add(editar_paciente, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 220, 230, -1));
+        jPanel23.add(editar_paciente, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 320, 240, -1));
 
         totalventarealizada.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         totalventarealizada.setForeground(new java.awt.Color(255, 255, 255));
         totalventarealizada.setText("Total de ésta venta:");
-        jPanel23.add(totalventarealizada, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 270, 190, 30));
+        jPanel23.add(totalventarealizada, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 420, 190, 30));
 
         labelparaeltotal.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         labelparaeltotal.setForeground(new java.awt.Color(255, 255, 255));
         labelparaeltotal.setText("00.00");
-        jPanel23.add(labelparaeltotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(1150, 270, 90, 30));
+        jPanel23.add(labelparaeltotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(1130, 420, 90, 30));
 
         jTable2.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
@@ -203,15 +205,53 @@ public class Inventarioventas extends javax.swing.JFrame {
         });
         jScrollPane5.setViewportView(jTable2);
 
-        jPanel23.add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 900, 220));
+        jPanel23.add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 900, 410));
 
         jLabel103.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel103.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel103.setText("Buscar por nombre");
-        jPanel23.add(jLabel103, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 180, 50));
+        jLabel103.setText("Buscar por fecha");
+        jPanel23.add(jLabel103, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 20, 180, 50));
 
-        Administrador.add(jPanel23);
-        jPanel23.setBounds(10, 70, 1260, 300);
+        labelbusqueda.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        labelbusqueda.setForeground(new java.awt.Color(255, 255, 255));
+        labelbusqueda.setText("Buscar por nombre");
+        jPanel23.add(labelbusqueda, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 180, 50));
+
+        jLabel63.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel63.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel63.setText("Ventas realizadas:");
+        jPanel23.add(jLabel63, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 450, 180, 50));
+
+        jLabel96.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel96.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel96.setText("Ventas de hoy : $ ");
+        jPanel23.add(jLabel96, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 490, 170, 50));
+
+        ventaseneldiasumadas.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
+        ventaseneldiasumadas.setForeground(new java.awt.Color(255, 255, 255));
+        ventaseneldiasumadas.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        ventaseneldiasumadas.setText("00.00");
+        jPanel23.add(ventaseneldiasumadas, new org.netbeans.lib.awtextra.AbsoluteConstraints(1080, 490, 120, 50));
+
+        conteodelasventasrealizadas.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
+        conteodelasventasrealizadas.setForeground(new java.awt.Color(255, 255, 255));
+        conteodelasventasrealizadas.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        conteodelasventasrealizadas.setText("00");
+        jPanel23.add(conteodelasventasrealizadas, new org.netbeans.lib.awtextra.AbsoluteConstraints(1100, 450, 120, 50));
+
+        opciones.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        opciones.setForeground(new java.awt.Color(255, 255, 255));
+        opciones.setText("Opciones disponibles:");
+        jPanel23.add(opciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 110, 220, 50));
+
+        busqueda.setBackground(new java.awt.Color(135, 193, 193));
+        busqueda.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        busqueda.setForeground(new java.awt.Color(255, 0, 0));
+        busqueda.setToolTipText("");
+        busqueda.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 1, true));
+        jPanel23.add(busqueda, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 400, 40));
+
+        Administrador.add(jPanel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 1280, 570));
 
         jPanel24.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -263,76 +303,9 @@ public class Inventarioventas extends javax.swing.JFrame {
                 .addGap(4, 4, 4))
         );
 
-        Administrador.add(jPanel24);
-        jPanel24.setBounds(0, 0, 1288, 64);
+        Administrador.add(jPanel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
-        jPanel26.setBackground(new java.awt.Color(0, 51, 102));
-        jPanel26.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Ventas a credito pendiente por pagar", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Arial", 1, 18), new java.awt.Color(255, 255, 255))); // NOI18N
-        jPanel26.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel96.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel96.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel96.setText("Ventas de hoy : $ ");
-        jPanel26.add(jLabel96, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 240, 170, 50));
-
-        jLabel63.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel63.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel63.setText("Ventas realizadas:");
-        jPanel26.add(jLabel63, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 200, 180, 50));
-
-        conteodelasventasrealizadas.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
-        conteodelasventasrealizadas.setForeground(new java.awt.Color(255, 255, 255));
-        conteodelasventasrealizadas.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        conteodelasventasrealizadas.setText("00");
-        jPanel26.add(conteodelasventasrealizadas, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 200, 120, 50));
-
-        ventaseneldiasumadas.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
-        ventaseneldiasumadas.setForeground(new java.awt.Color(255, 255, 255));
-        ventaseneldiasumadas.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        ventaseneldiasumadas.setText("00.00");
-        jPanel26.add(ventaseneldiasumadas, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 240, 120, 50));
-
-        jLabel92.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel92.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel92.setText("Productos vendidos hoy:");
-        jPanel26.add(jLabel92, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 30, 280, 50));
-
-        jTable3 = new javax.swing.JTable(){
-            public boolean isCellEditable(int filas, int columnas){
-                return false;
-            }
-        };
-        jTable3.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jTable3.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {},
-                {},
-                {},
-                {}
-            },
-            new String [] {
-
-            }
-        ));
-        jScrollPane4.setViewportView(jTable3);
-
-        jPanel26.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 570, 220));
-
-        Administrador.add(jPanel26);
-        jPanel26.setBounds(20, 390, 1260, 310);
-
-        javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
-        jPanel12.setLayout(jPanel12Layout);
-        jPanel12Layout.setHorizontalGroup(
-            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel12Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(Administrador, javax.swing.GroupLayout.PREFERRED_SIZE, 1298, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-        jPanel12Layout.setVerticalGroup(
-            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Administrador, javax.swing.GroupLayout.DEFAULT_SIZE, 707, Short.MAX_VALUE)
-        );
+        jPanel12.add(Administrador, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 641));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -347,7 +320,7 @@ public class Inventarioventas extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 707, Short.MAX_VALUE)
+            .addGap(0, 641, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -360,10 +333,15 @@ public class Inventarioventas extends javax.swing.JFrame {
 
     private void veridventasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_veridventasActionPerformed
        Controladorinventarioventas.botonveridventas();
+  Inventarioventas.labelbusqueda.setVisible(true);
+                    Inventarioventas.busqueda.setVisible(true);
     }//GEN-LAST:event_veridventasActionPerformed
 
     private void buscarventasporfechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarventasporfechaActionPerformed
     Controladorinventarioventas.botonbuscarventas_porfecha();
+         Controladorinventarioventas.ocultarloscomponentes();
+          Inventarioventas.labelbusqueda.setVisible(true);
+                    Inventarioventas.busqueda.setVisible(true);
     }//GEN-LAST:event_buscarventasporfechaActionPerformed
 
     private void imprimirventaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_imprimirventaActionPerformed
@@ -440,6 +418,7 @@ Controladorinventarioventas.verdescripcionenbaseaventarealizada();
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JPanel Administrador;
     public static javax.swing.JButton buscarventasporfecha;
+    public static javax.swing.JTextField busqueda;
     public static javax.swing.JButton cancelarventa;
     public static javax.swing.JLabel conteodelasventasrealizadas;
     public static javax.swing.JButton editar_paciente;
@@ -451,19 +430,17 @@ Controladorinventarioventas.verdescripcionenbaseaventarealizada();
     private javax.swing.JLabel jLabel103;
     public static javax.swing.JLabel jLabel63;
     private javax.swing.JLabel jLabel91;
-    private javax.swing.JLabel jLabel92;
     private javax.swing.JLabel jLabel93;
     public static javax.swing.JLabel jLabel96;
     private javax.swing.JLabel jLabel99;
     private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel23;
     private javax.swing.JPanel jPanel24;
-    private javax.swing.JPanel jPanel26;
-    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     public static javax.swing.JTable jTable2;
-    public static javax.swing.JTable jTable3;
+    public static javax.swing.JLabel labelbusqueda;
     public static javax.swing.JLabel labelparaeltotal;
+    public static javax.swing.JLabel opciones;
     public static javax.swing.JButton resultado;
     public static javax.swing.JLabel totalventarealizada;
     public static javax.swing.JLabel ventaseneldiasumadas;
