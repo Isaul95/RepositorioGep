@@ -19,7 +19,7 @@ import si.nucleo;
  *
  * @author Alexis
  */
-public class Modeloapertura {
+public class Modeloapertura {//CAMBIOS
     public static PreparedStatement pst;
     public static void Guardarapertura(){
         boolean pass2 = Controladorventa.validarFormulario(Apertura.monto.getText());
