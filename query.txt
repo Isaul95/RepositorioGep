@@ -46,7 +46,13 @@ LA K SE USARA EN EL PDF
 
 
 
-
+select dv.nombre_producto, p.categoria_estudios, pac.nombre, pac.fecha_nacimiento, pac.edad, pac.sexo, pac.fecha_ingreso, dv.resultado,dp.unidades, dp.valordereferencia, v.fecha_reporte 
+from venta v 
+inner join descripcion_de_venta dv on v.id_venta = dv.id_venta 
+inner join pacientes pac on dv.id_paciente = pac.id_paciente 
+inner join productos p on dv.id_producto = p.id_producto 
+inner join descripcion_estudios dp on p.id_producto = dp.id_descripcion 
+where v.id_venta = $P{parameter1} and v.estado_venta='Realizada' and v.fecha_reporte = curdate()
 
 
 

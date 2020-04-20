@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
 	<parameter name="parameter1" class="java.lang.String"/>
+	<parameter name="Logo" class="java.io.InputStream"/>
 	<queryString>
 		<![CDATA[select dv.nombre_producto, p.categoria_estudios, pac.nombre, pac.fecha_nacimiento, pac.edad, pac.sexo, pac.fecha_ingreso, dv.resultado,dp.unidades, dp.valordereferencia, v.fecha_reporte 
 from venta v 
@@ -220,10 +221,14 @@ where v.id_venta = $P{parameter1} and v.estado_venta='Realizada' and v.fecha_rep
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{sexo}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="228" y="119" width="100" height="20"/>
+				<reportElement x="248" y="134" width="100" height="20"/>
 				<textElement/>
 				<textFieldExpression class="java.lang.String"><![CDATA[$P{parameter1}]]></textFieldExpression>
 			</textField>
+			<image>
+				<reportElement x="1" y="-1" width="143" height="88"/>
+				<imageExpression class="java.io.InputStream"><![CDATA[$P{Logo}]]></imageExpression>
+			</image>
 		</band>
 	</title>
 	<pageHeader>
