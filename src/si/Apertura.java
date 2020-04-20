@@ -109,7 +109,7 @@ public class Apertura extends javax.swing.JFrame implements Runnable{
 
         monto.setBackground(new java.awt.Color(135, 193, 193));
         monto.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        monto.setForeground(new java.awt.Color(255, 0, 0));
+        monto.setForeground(new java.awt.Color(255, 255, 255));
         monto.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         monto.setText("00.00");
         monto.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));

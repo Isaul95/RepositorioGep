@@ -35,63 +35,11 @@ public class Modeloapertura {
                 pst.setInt(4,Controladorapertura.id_usuario);
                 int a=pst.executeUpdate();
                 if(a>0){
-                    insertarpiezaspordefault();
+                   
                  }
             }catch(SQLException e)  { //fin de la insersion a la tabla ventas
                 JOptionPane.showMessageDialog(null,"Error de datos por id vacio "+e);
             }finally{cc.getClose();}//fin de la insersion a la tabla ventas 
                  }
     }
-    public static void insertarpiezaspordefault(){
-   String nombres[]= {"Pollo rostizado",
-       "Pollo asado",
-       "Pech. broaster",
-       "Muslo broaster",
-       "Pierna broaster",
-       "Ala broaster",
-       "Alitas bbq",
-       "Barbacoa de pollo",
-       "Spagueti blanco",
-       "Spagueti rojo",
-       "Arroz blanco",
-       "Arroz rojo",
-       "Frijoles puercos",
-       "Frijoles peruanos",
-       "Frijoles charros",
-       "Cochinita",
-       "Pure",
-       "Nuggets",
-       "Mininuggets",
-       "Tacos"};
-   int cantidades[]={2,
-       2,
-       7,
-       7,
-       7,
-       7,
-       2,
-       1,
-       2,
-       1,
-       1,
-       2,
-       1,
-       2,
-       2,
-       1,
-       1,
-       4,
-       8,
-       30};
-   for(int a=0; a<nombres.length; a++){
-       try{              Connection ca= cc.conexion(); 
-            pst = ca.prepareStatement ("UPDATE productos SET cantidad='"+cantidades[a]+"'WHERE nombre_producto='"+nombres[a]+"'");
-                  int b = pst.executeUpdate();
-                if(b>0){   
-                }
-                  }catch(Exception e){
-                               System.err.print(e);
-                     } finally{cc.getClose();}
-   }
-}
 }
