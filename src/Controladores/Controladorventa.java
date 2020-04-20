@@ -14,7 +14,6 @@ import si.nucleo;
 import ticket.ticketventa;
 
 import ticket.ticketventacondescuento;
-import ticket.ticketventacredito;
 //import AppPackage.AnimationClass;
  
 /**

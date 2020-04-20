@@ -24,7 +24,7 @@ import si.SI;
 import si.nucleo;
 import ticket.ticketventacancelada;
 import ticket.ticketventacondescuento;
-import ticket.ticketventacredito;
+
 
 /**
  *
@@ -365,34 +365,6 @@ try {Connection ca= cc.conexion();
                   cc.getClose();
              }
 }
-   public static void descripciondelosprouductosparaelticketdeventacredito(int numerodeventa){
-         String nombre="";
-                try {Connection ca= cc.conexion();
-                 String sSQL = "SELECT nombre_producto, cantidad, precio_unitario, importe, nombre_credito FROM descripcion_de_venta WHERE estado='Credito-pendiente' AND id_venta = '"+numerodeventa+"' ";  
-        PreparedStatement ps = ca.prepareStatement(sSQL);       
-        ResultSet rs = ps.executeQuery(sSQL);
-            while (rs.next()) {
-              nombreproductoticket.add(rs.getString(1));
-              piezastcket.add(rs.getString(2));
-              preciounitarioticket.add(rs.getString(3)); 
-              importesticket.add(rs.getString(4));
-              nombre=rs.getString(5);
-            }
-            total_pagoycambiopararelticketdeventacredito(numerodeventa);
-                 //estas dos lineas mandan los datos para el ticket
-                 mandardatosticketventacredito = new ticketventacredito();    
-                 mandardatosticketventacredito.tikectdeventaacredito(nombre, nombreproductoticket, 
-                   piezastcket, 
-                         preciounitarioticket, 
-                         importesticket,
-                         subtotalticket, totalticket, pagoticket, cambioticket, numerodeventa);
- Controladorventa.vaciarlistasdeticket();
-    } catch (Exception e) {
-          JOptionPane.showMessageDialog(null, "ERROR EN METODO: descripciondelosprouductosparaelticketdeventacredito","DEVELOPER HELPER", JOptionPane.ERROR_MESSAGE);      
-      }finally{
-                  cc.getClose();
-             }
-    }
    public static void indicar_el_paciente_a_actualizar(int id){
       try{ Connection ca= cc.conexion();// CUENTA EL TODAL DE CUANTAS VENTAS SE REALIZARON
                                          Statement sent  =(Statement)ca.createStatement();

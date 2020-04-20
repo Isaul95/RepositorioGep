@@ -19,7 +19,6 @@ import javax.swing.JOptionPane;
 import si.Edicion_pacientes;
 import ticket.ticketventacancelada;
 import ticket.ticketventacondescuento;
-import ticket.ticketventacredito;
 
 
 /**
@@ -29,8 +28,7 @@ import ticket.ticketventacredito;
 public class Controladorinventarioventas {
     public static ticketventacancelada mandardatosticketventacancelada;
        public static ticketventacondescuento mandardatosaticketventacondescuento;  
-       public static ticketventacredito mandardatosticketventacredito;
-       
+
     public static float sumadetotalesdeventasdehoy,
             sumadeimportescreditopendiente,  sumadeimportesparaeltotal, 
             descuentoticket, cambioticket, pagoticket, totalticket, subtotalticket, descuentoenventa;

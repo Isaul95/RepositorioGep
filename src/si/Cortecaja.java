@@ -63,8 +63,6 @@ Thread hilo;
         Fecha = new javax.swing.JLabel();
         Reloj = new javax.swing.JLabel();
         user1 = new javax.swing.JLabel();
-        pagosmadetoday = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
         Gastosfromtoday = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         Ventasfortoday1 = new javax.swing.JLabel();
@@ -118,19 +116,6 @@ Thread hilo;
         user1.setForeground(new java.awt.Color(135, 193, 193));
         jPanel3.add(user1);
         user1.setBounds(240, 0, 190, 60);
-
-        pagosmadetoday.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
-        pagosmadetoday.setForeground(new java.awt.Color(255, 255, 255));
-        pagosmadetoday.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        pagosmadetoday.setText("00.00");
-        jPanel3.add(pagosmadetoday);
-        pagosmadetoday.setBounds(10, 300, 180, 29);
-
-        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 17)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("Pagos");
-        jPanel3.add(jLabel4);
-        jLabel4.setBounds(10, 260, 170, 29);
 
         Gastosfromtoday.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
         Gastosfromtoday.setForeground(new java.awt.Color(255, 255, 255));
@@ -313,7 +298,6 @@ Thread hilo;
     public static javax.swing.JLabel Reloj;
     public static javax.swing.JLabel Ventasfortoday1;
     public static javax.swing.JLabel aperturacantidad;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
@@ -323,7 +307,6 @@ Thread hilo;
     private javax.swing.JPanel jPanel3;
     public static javax.swing.JTextField monto;
     public static javax.swing.JLabel numerosdescuentos;
-    public static javax.swing.JLabel pagosmadetoday;
     public static javax.swing.JLabel totaldescuentos;
     private javax.swing.JLabel user;
     private javax.swing.JLabel user1;
