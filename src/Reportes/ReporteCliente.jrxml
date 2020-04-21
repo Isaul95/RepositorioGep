@@ -48,7 +48,7 @@ where v.id_venta = $P{parameter1} and v.estado_venta='Realizada' and v.fecha_rep
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="187" splitType="Stretch">
+		<band height="186" splitType="Stretch">
 			<staticText>
 				<reportElement x="10" y="88" width="67" height="19"/>
 				<textElement verticalAlignment="Middle">
