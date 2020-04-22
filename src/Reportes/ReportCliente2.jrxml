@@ -10,7 +10,7 @@ inner join descripcion_de_venta dv on v.id_venta = dv.id_venta
 inner join pacientes pac on dv.id_paciente = pac.id_paciente 
 inner join productos p on dv.id_producto = p.id_producto 
 inner join descripcion_estudios dp on p.id_producto = dp.id_descripcion 
-where v.id_venta = 22 ]]>
+where v.id_venta = $P{parameter2} and v.estado_venta='Realizada' and v.fecha_reporte = curdate()]]>
 	</queryString>
 	<field name="nombre_producto" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
@@ -59,7 +59,7 @@ where v.id_venta = 22 ]]>
 			</band>
 		</groupHeader>
 		<groupFooter>
-			<band height="6" splitType="Stretch">
+			<band height="13" splitType="Stretch">
 				<staticText>
 					<reportElement x="0" y="7" width="557" height="20"/>
 					<textElement verticalAlignment="Middle">
@@ -265,7 +265,7 @@ where v.id_venta = 22 ]]>
 		<band splitType="Stretch"/>
 	</columnHeader>
 	<detail>
-		<band height="23" splitType="Stretch">
+		<band height="26" splitType="Stretch">
 			<textField>
 				<reportElement x="1" y="3" width="170" height="20"/>
 				<textElement>

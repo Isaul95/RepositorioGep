@@ -1,7 +1,13 @@
 
 package Controladores;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
@@ -20,10 +26,11 @@ import si.nucleo;
 
 
 public class Controlador_Report_pdf {   
-    private final String logotipo = "/Reportes/logoAlk.jpg";
+    private final String logotipo = "/Reportes/logoAlk.jpg"; // Logotipo
+    private final String firma = "/Reportes/firma.png";  //  firmafirma.png
     
      public void Generacion_PDF_client(){                                           
-  // ***********************    REPORTE DE USUARIOS    **************************
+   // ***********************    REPORTE DE USUARIOS    **************************
  
         SI cc= new SI();
         Connection ca= cc.conexion();
@@ -33,16 +40,16 @@ public class Controlador_Report_pdf {
         if(result == 0){
             
             try {
- JOptionPane.showMessageDialog(null, " id_venta del paciente" + Capturar_resultados.id_venta.getText());
                 Map parametro = new HashMap(); // parameter1 <<-- ESTE PARAMETRO VIENE DESDE EL REPORTE SOLO SE ESTA LLAMANDO 
-                parametro.put("parameter2",Capturar_resultados.id_venta.getText()); 
-                parametro.put("Logo2", this.getClass().getResourceAsStream(logotipo));
+                parametro.put("parameter1",Capturar_resultados.id_venta.getText()); 
+                parametro.put("Logo", this.getClass().getResourceAsStream(logotipo));
+                parametro.put("firma", this.getClass().getResourceAsStream(firma));
 
                 JasperReport reporte = null;
-                String path = "src/Reportes/ReportCliente2.jasper";
+                String path = "src/Reportes/report2.jasper";
 
                 //  reporte = (JasperReport) JRLoader.loadObjectFromFile(path);
-                reporte = (JasperReport) JRLoader.loadObject(getClass().getResource("/Reportes/ReportCliente2.jasper")); // ASI MANDO A LLAMAR LOS REPORTES CON .jasper 
+                reporte = (JasperReport) JRLoader.loadObject(getClass().getResource("/Reportes/report2.jasper")); // ASI MANDO A LLAMAR LOS REPORTES CON .jasper 
                 // ========================= LLENADO DEL REPORTE  ======================  /
                 //  path --> LA RUTA DEL REPORTE
                 //     --> LOS PARAMETROS K SE LE PUEDE ENVIAR ALA REPORTE IN THIS CASE ES NULL y la concion-->(ca) B.D
@@ -62,6 +69,8 @@ public class Controlador_Report_pdf {
         } 
   
      } // fin del metodo
+     
+   
       
      
      
