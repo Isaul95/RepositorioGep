@@ -23,7 +23,6 @@ import ticket.ticketventacondescuento;
 public class Controladorventa{
     //public static AnimationClass animacion= new AnimationClass();
 public static ticketventa mandardatosticketventa;
-public static float  porcentajedescontadotipiezastcketcket;
 public static float cantidaddeproductos=0, cantidadparapollocrudo=0;
 public static float  gastos;
 public static float variablepago, piezassuficientes, cantidadporerrordeusuario, 
@@ -41,15 +40,11 @@ public static String estadoinactivo="Inactivo", estadoactivo="Activo", NoP="",
  public static ArrayList storage = new ArrayList(); // para guardar los id de cada producto que se ha agregado a la tabla venta
 public static ArrayList idsenturno = new ArrayList();
         public static ArrayList cantidaddecadaidenturno = new ArrayList();    
-  public  static String[] piezas = {"pollo crudo", "Pechuga", "Muslo","Pierna","Ala","Huacal","Cadera","Cabeza", "Molleja", "Patas"};
-public static String[] piezasdemedio = {"Medio pollo","Pechuga", "Muslo","Pierna","Ala","Huacal", "Molleja", "Patas"};
-
- public static double medio=0.50, cuarto=0.25;
 
 
 //DATA MAX FULL VERSION
-  public static boolean soypechugaenbisteck=false, 
-          descuentoactivo=false, suficientespiezas=true, block_unlock=true,tablaventaactiva=false;
+  public static boolean 
+          descuentoactivo=false, block_unlock=true,tablaventaactiva=false;
    public static boolean noduplicarcrudo=false, noduplicarcocido=false, noduplicaracompañantes=false, 
             noduplicarexistencias=false, noduplicarcorte=false, noduplicarinventarioventas=false,noduplicargastos=false, noduplicarexternos=false, noduplicar_edicionpaciente=false, noduplicar_capturaresultados=false;
 
@@ -118,20 +113,11 @@ Modeloventa.get_id_usuario();// 255 -280
     
     
     public static void accionesdespuesinsertarendescripciondeventaoactualizarenlamismatabla(String nombredepieza, float cantidaddeproductos){
- if(nombredepieza.equals("Huesito")||nombredepieza.equals("Longaniza")){
-       Modeloventa.acciones_despues_de_regresaroagregaraventa();
-     Modeloventa.mostrartabladeventas();
-                    tablaventaactiva=true;   
-                  NoP="";
- } else{
       Modeloventa.acciones_despues_de_regresaroagregaraventa();
-       Modeloventa.descontardeinventario(nombredepieza, cantidaddeproductos);
                     //  descuentodepollo();                  
                     Modeloventa.mostrartabladeventas();
-                    soypechugaenbisteck=false;
                     tablaventaactiva=true;
                NoP="";
- }
  }
  public static boolean validarFormulario(String cantidaddelatabla) { // VALIDACION DE TXT MONTO
         boolean next = false;
@@ -304,10 +290,8 @@ nucleo.deletedescuento.setVisible(true);
  if(fila>=0){// CUANDO UNA CELDA SE SELECCIONO
             nombredepiezaseleccionada=nucleo.tablaventa.getValueAt(fila,0).toString();
     // BOOLEANAS PARA SABER CUALES NO SE VA A REGRESAR
-            
                 Modeloventa.regresarproductos_a_inventario(nombredepiezaseleccionada); //pone en estatus de cancelada la venta inconclusa
                Modeloventa.mostrartabladeventas();
-            
         }else{
             JOptionPane.showMessageDialog(null,"Por favor, seleccione una fila primero","Aviso",JOptionPane.INFORMATION_MESSAGE);
         }
@@ -335,19 +319,6 @@ nucleo.deletedescuento.setVisible(true);
       Modeloventa.ids_y_cantidades_enturno_por_error_de_usuario();
 nucleo.deletedescuento.setVisible(false);
     }
-   public static boolean validarFormularioparaentradadeproductos(String cantidaddelatabla) { // VALIDACION DE TXT MONTO
-        boolean next = false;
-        Pattern patGastos = Pattern.compile("^-[0-9]+([.])?([0-9]+)?$");//con simbolomenos
-        Pattern patGastos1 = Pattern.compile("^[0-9]+([.])?([0-9]+)?$");
-        Matcher matGastos = patGastos.matcher(cantidaddelatabla);
-        Matcher matGastos1 = patGastos1.matcher(cantidaddelatabla);
-        if (matGastos.matches()&&!cantidaddelatabla.equals("")||matGastos1.matches()) {
-            next = true;
-        } else {
-            JOptionPane.showMessageDialog(null, "No puedes escribir letras o dejar vacio el campo", "Advertencia", JOptionPane.INFORMATION_MESSAGE);    
-        }
-        return next;
-    }
    public static String fecha_de_nacimiento_del_paciente(){
        int año= nucleo.calendar_fecha_nacimiento.getCalendar().get(Calendar.YEAR);
        int mes= nucleo.calendar_fecha_nacimiento.getCalendar().get(Calendar.MONTH)+1;
@@ -366,5 +337,4 @@ nucleo.deletedescuento.setVisible(false);
        }
        return fecha_nacimiento;  
    }
-  
 }

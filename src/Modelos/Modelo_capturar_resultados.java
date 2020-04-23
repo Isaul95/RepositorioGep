@@ -63,7 +63,7 @@ static ResultSet rs;
                        //      if(pass){ COMENTADA LA VALIDACION
                                    String valor = Capturar_resultados.Jtable_ProductosEntradas.getValueAt(fila, 0).toString();
                             resultado_del_estudio = modeloT.getValueAt(e.getFirstRow(), e.getColumn()).toString();
-                              Modeloventa.id_producto(valor); 
+                              Modeloventa.id_y_precio_producto(valor); 
                               String sql = "UPDATE descripcion_de_venta SET resultado='"+resultado_del_estudio+"' WHERE id_producto="+Controladorventa.id_producto+" AND id_venta="+id_venta;            
                              PreparedStatement pst;
                           try{Connection ca= cc.conexion();

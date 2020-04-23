@@ -44,8 +44,7 @@ public class Controladorinventarioventas {
         Modeloinventarioventas.consultarlosresultadosenlabusquedadenombres(datoabuscar);
     }
     public static void ventasdehoy(){
-           Modeloinventarioventas.totaldelasventasdehoy(); // PARA LA SUMA DE LOS TOTALES DE LA VENTA
-                                Modeloinventarioventas.conteodeventasrealizadasdehoy(); // CUANTAS VENTAS SE REALIZARON? 5 O 60 O XX
+      Modeloinventarioventas.totalyconteodeventasrealizadasdehoy(); // CUANTAS VENTAS SE REALIZARON? 5 O 60 O XX
                             Inventarioventas.ventaseneldiasumadas.setText(String.valueOf(Controladorinventarioventas.sumadetotalesdeventasdehoy));// VIENE DEL METODO ventaseneldiaREALIZADAS()
                              Inventarioventas.conteodelasventasrealizadas.setText(String.valueOf(Controladorinventarioventas.conteototaldeventas)); // VIENE DEL METODO totalventasxdia(); ES UN CONTEO DE VENTAS
                             
@@ -165,7 +164,7 @@ public class Controladorinventarioventas {
         return fechaparaventashasta;
     }
     public static void metodos_al_iniciar_inventarioventas(){
-   Modeloinventarioventas.conteodeventasrealizadasdehoy(); // CUANTAS VENTAS SE REALIZARON? 5 O 60 O XX
+   Modeloinventarioventas.totalyconteodeventasrealizadasdehoy(); // CUANTAS VENTAS SE REALIZARON? 5 O 60 O XX
                   Modeloinventarioventas.llenartablaidventasconidrealizados();
                         Modelocortedecaja.ventaseneldia();// PARA LA SUMA DE LOS TOTALES DE LA VENTA
       Inventarioventas.ventaseneldiasumadas.setText(String.valueOf(ventasdeldia));// VIENE DEL METODO ventaseneldiaREALIZADAS()
