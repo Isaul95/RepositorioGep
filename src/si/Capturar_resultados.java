@@ -282,8 +282,11 @@ public Capturar_resultados(int id_venta_a_capturar_resultados){
 
     private void genetrar_PdfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_genetrar_PdfActionPerformed
         // GENERANDO PDF DE LCIENTES
+       // JOptionPane.showMessageDialog(null, " id_venta del paciente" + Controlador_capturar_resultados.id_a_actualizar_resultados);
       Controlador_Report_pdf n = new Controlador_Report_pdf();
       n.Generacion_PDF_client(); // llamando el metodo con el obj
+      
+    
 
     }//GEN-LAST:event_genetrar_PdfActionPerformed
 
