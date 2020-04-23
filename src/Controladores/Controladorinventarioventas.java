@@ -46,10 +46,7 @@ public class Controladorinventarioventas {
     public static void ventasdehoy(){
       Modeloinventarioventas.totalyconteodeventasrealizadasdehoy(); // CUANTAS VENTAS SE REALIZARON? 5 O 60 O XX
                             Inventarioventas.ventaseneldiasumadas.setText(String.valueOf(Controladorinventarioventas.sumadetotalesdeventasdehoy));// VIENE DEL METODO ventaseneldiaREALIZADAS()
-                             Inventarioventas.conteodelasventasrealizadas.setText(String.valueOf(Controladorinventarioventas.conteototaldeventas)); // VIENE DEL METODO totalventasxdia(); ES UN CONTEO DE VENTAS
-                            
-    Inventarioventas.ventaseneldiasumadas.setText(String.valueOf(Controladorinventarioventas.sumadetotalesdeventasdehoy));// VIENE DEL METODO ventaseneldiaREALIZADAS()
-                             Inventarioventas.conteodelasventasrealizadas.setText(String.valueOf(Controladorinventarioventas.conteototaldeventas)); // VIENE DEL METODO totalventasxdia(); ES UN CONTEO DE VENTAS
+                            Inventarioventas.conteodelasventasrealizadas.setText(String.valueOf(Controladorinventarioventas.conteototaldeventas)); // VIENE DEL METODO totalventasxdia(); ES UN CONTEO DE VENTAS
     Modeloinventarioventas.llenartablaidventasconidrealizados();                     
     }
     public static void ocultarloscomponentes(){
@@ -85,7 +82,7 @@ public class Controladorinventarioventas {
               
   } 
   
-                                public static void verdescripcionenbaseaventarealizada(){
+         public static void verdescripcionenbaseaventarealizada(){
             int fila =Inventarioventas.jTable2.getSelectedRow();
  if(fila>=0){
             boolean pass= validarFormularioparamostrardescripciondeproductosporid(Inventarioventas.jTable2.getValueAt(fila,0).toString());
@@ -93,8 +90,7 @@ public class Controladorinventarioventas {
                
                 id=Short.parseShort(Inventarioventas.jTable2.getValueAt(fila,0).toString());
                 Modeloinventarioventas.descripciondeproductosenbasealnumerodeventa(id);
-                Modeloinventarioventas.total_ventaporid(id);
-                       mostrarloscomponentes();    
+                  mostrarloscomponentes();    
                          Inventarioventas.labelbusqueda.setVisible(false);
                     Inventarioventas.busqueda.setVisible(false);
             }

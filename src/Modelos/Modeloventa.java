@@ -8,6 +8,16 @@ import static Controladores.Controladorgastos.pass;
 import static Controladores.Controladorgastos.pass2;
 import static Controladores.Controladorgastos.validarFormulariotexto;
 import Controladores.Controladorinventarioventas;
+import static Controladores.Controladorinventarioventas.cambioticket;
+import static Controladores.Controladorinventarioventas.descuentoticket;
+import static Controladores.Controladorinventarioventas.importesticket;
+import static Controladores.Controladorinventarioventas.mandardatosticketventacancelada;
+import static Controladores.Controladorinventarioventas.nombreproductoticket;
+import static Controladores.Controladorinventarioventas.pagoticket;
+import static Controladores.Controladorinventarioventas.piezastcket;
+import static Controladores.Controladorinventarioventas.preciounitarioticket;
+import static Controladores.Controladorinventarioventas.subtotalticket;
+import static Controladores.Controladorinventarioventas.totalticket;
 import Controladores.Controladorventa;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -25,6 +35,7 @@ import si.SI;
 import si.nucleo;
 import ticket.ticketventacondescuento;
 import ticket.ticketventa;
+import ticket.ticketventacancelada;
 /**
  *
  * @author Alexis
@@ -445,10 +456,10 @@ borrarventasenestadoenturnoporerrordeusuario_que_no_coincidenconlafechadehoy();/
                                          if(result>0){
                                             Modelogastos.insertarventacondescuentoengastos("V. "+id_de_la_venta_incrementable+"/Descuento: ",Float.parseFloat(nucleo.descuentocombo.getText()),id_de_la_venta_incrementable);
                                               JOptionPane.showMessageDialog(null, "El cambio es de: "+nucleo.cambiocombobox.getText()," Se realizo una venta",JOptionPane.YES_OPTION);
-                      if(nucleo.reimprimirventa.isSelected()){        descripciondelosprouductosparaelticketdeventa(id_de_la_venta_incrementable);//DATOS PARA EL TICKET DE VENTA          
-                                           descripciondelosprouductosparaelticketdeventa(id_de_la_venta_incrementable);//DATOS PARA EL TICKET DE VENTA          
+                      if(nucleo.reimprimirventa.isSelected()){        descripciondelosprouductosparaelticketdeventa(id_de_la_venta_incrementable,estadorealizado);//DATOS PARA EL TICKET DE VENTA          
+                                           descripciondelosprouductosparaelticketdeventa(id_de_la_venta_incrementable,estadorealizado);//DATOS PARA EL TICKET DE VENTA          
                                   Controladorventa.accionesdespuesderealizarcualquierventa(); 
-                      }else{descripciondelosprouductosparaelticketdeventa(id_de_la_venta_incrementable);//DATOS PARA EL TICKET DE VENTA          
+                      }else{descripciondelosprouductosparaelticketdeventa(id_de_la_venta_incrementable,estadorealizado);//DATOS PARA EL TICKET DE VENTA          
                                       Controladorventa.accionesdespuesderealizarcualquierventa();}
                                          }
                                 }
@@ -514,10 +525,10 @@ if(variablepago<Float.parseFloat(nucleo.subtotal.getText())){ // comprueba que l
                                    int resultado=  ps2.executeUpdate();
                                      if(resultado>0){
                                              JOptionPane.showMessageDialog(null, "El cambio es de: "+nucleo.cambiocombobox.getText()," Se realizo una venta",JOptionPane.YES_OPTION);
-                               if(nucleo.reimprimirventa.isSelected()){        descripciondelosprouductosparaelticketdeventa(id_de_la_venta_incrementable);//DATOS PARA EL TICKET DE VENTA          
-                                           descripciondelosprouductosparaelticketdeventa(id_de_la_venta_incrementable);//DATOS PARA EL TICKET DE VENTA          
+                               if(nucleo.reimprimirventa.isSelected()){        descripciondelosprouductosparaelticketdeventa(id_de_la_venta_incrementable,estadorealizado);//DATOS PARA EL TICKET DE VENTA          
+                                           descripciondelosprouductosparaelticketdeventa(id_de_la_venta_incrementable,estadorealizado);//DATOS PARA EL TICKET DE VENTA          
                                   Controladorventa.accionesdespuesderealizarcualquierventa(); 
-                               }else{descripciondelosprouductosparaelticketdeventa(id_de_la_venta_incrementable);//DATOS PARA EL TICKET DE VENTA          
+                               }else{descripciondelosprouductosparaelticketdeventa(id_de_la_venta_incrementable,estadorealizado);//DATOS PARA EL TICKET DE VENTA          
                                       Controladorventa.accionesdespuesderealizarcualquierventa();}
                                              
                                      }
@@ -572,9 +583,9 @@ if(variablepago<Float.parseFloat(nucleo.subtotal.getText())){ // comprueba que l
                 JOptionPane.showMessageDialog(null,"No tiene valor la cantidad recibida"+NFE.getMessage(),"!Espera!",JOptionPane.INFORMATION_MESSAGE);
 }
     }
-public static void descripciondelosprouductosparaelticketdeventa(int numerodeventa){
+public static void descripciondelosprouductosparaelticketdeventa(int numerodeventa,String tipo_de_venta){
          try {Connection ca= cc.conexion();
-                 String sSQL = "SELECT dv.nombre_producto, dv.cantidad, dv.precio_unitario, dv.importe, v.subtotal, v.total, v.pago, v.cambio, v.descuento FROM descripcion_de_venta dv inner join venta v on dv.id_venta = v.id_venta WHERE dv.estado='Realizada' AND v.id_venta = '"+numerodeventa+"' and v.fecha_reporte = '"+fecha()+"' ";  
+                 String sSQL = "SELECT dv.nombre_producto, dv.cantidad, dv.precio_unitario, dv.importe, v.subtotal, v.total, v.pago, v.cambio, v.descuento FROM descripcion_de_venta dv inner join venta v on dv.id_venta = v.id_venta WHERE dv.estado='"+tipo_de_venta+"' AND v.id_venta = '"+numerodeventa+"' and v.fecha_reporte = '"+fecha()+"' ";  
         PreparedStatement ps = ca.prepareStatement(sSQL);       
         ResultSet rs = ps.executeQuery(sSQL);
             while (rs.next()) {
@@ -591,7 +602,8 @@ public static void descripciondelosprouductosparaelticketdeventa(int numerodeven
             }
         //    total_pagoycambiopararelticketdeventa(numerodeventa);
             if(descuentoactivo==true || Controladorinventarioventas.descuentoticket !=0){
-                            //estas dos lineas mandan los datos para el ticket
+                            if(tipo_de_venta.equalsIgnoreCase("Realizada")){
+                                //estas dos lineas mandan los datos para el ticket
                  Controladorinventarioventas.mandardatosaticketventacondescuento = new ticketventacondescuento();
                  Controladorinventarioventas.mandardatosaticketventacondescuento.tikectdeventacondescuento(Controladorinventarioventas.nombreproductoticket, 
                          Controladorinventarioventas.piezastcket, 
@@ -602,8 +614,19 @@ public static void descripciondelosprouductosparaelticketdeventa(int numerodeven
                          Controladorinventarioventas.descuentoticket, numerodeventa);
             //totalcdescticket agregar al metodo de arriba
                  Controladorventa.vaciarlistasdeticket();
+                            }else if(tipo_de_venta.equalsIgnoreCase("Cancelada")){
+                                 mandardatosticketventacancelada = new ticketventacancelada();
+                 mandardatosticketventacancelada.tikectventacancelada(nombreproductoticket, 
+                         piezastcket, 
+                         preciounitarioticket, 
+                         importesticket,
+                         subtotalticket, totalticket, pagoticket, cambioticket, descuentoticket, numerodeventa);
+            //totalcdescticket agregar al metodo de arriba
+                 Controladorventa.vaciarlistasdeticket();
+                            }
             }else if((descuentoactivo==false || Controladorinventarioventas.descuentoticket ==0)){//venta simple
-                 //estas dos lineas mandan los datos para el ticket
+                 if(tipo_de_venta.equalsIgnoreCase("Realizada")){
+                     //estas dos lineas mandan los datos para el ticket
                  mandardatosticketventa = new ticketventa();
                  mandardatosticketventa.tikectdeventa(Controladorinventarioventas.nombreproductoticket, 
                   Controladorinventarioventas.piezastcket, 
@@ -612,6 +635,17 @@ public static void descripciondelosprouductosparaelticketdeventa(int numerodeven
                          Controladorinventarioventas.subtotalticket, Controladorinventarioventas.totalticket, 
                          Controladorinventarioventas.pagoticket, Controladorinventarioventas.cambioticket, numerodeventa);
  Controladorventa.vaciarlistasdeticket();
+                 } else if(tipo_de_venta.equalsIgnoreCase("Cancelada")){
+                                 mandardatosticketventacancelada = new ticketventacancelada();
+                 mandardatosticketventacancelada.tikectventacancelada(nombreproductoticket, 
+                         piezastcket, 
+                         preciounitarioticket, 
+                         importesticket,
+                         subtotalticket, totalticket, pagoticket, cambioticket, descuentoticket, numerodeventa);
+            //totalcdescticket agregar al metodo de arriba
+                 Controladorventa.vaciarlistasdeticket();
+                            }
+                 
             }
          } catch (Exception e) {
           JOptionPane.showMessageDialog(null, "ERROR EN METODO: descripciondelosprouductosparaelticketdeventa"+e.getMessage(),"DEVELOPER HELPER", JOptionPane.ERROR_MESSAGE);      

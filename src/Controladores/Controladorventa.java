@@ -137,7 +137,7 @@ Modeloventa.get_id_usuario();// 255 -280
   if (matGastos.matches()&&!cantidaddelatabla.equals("")&&!cantidaddelatabla.equals("0")) {
             next = true;
         } else {
-             nucleo.user_edad.setBackground(Color.red);
+             nucleo.user_edad.setBackground(new Color(135,193,193));
             JOptionPane.showMessageDialog(null, "No puedes escribir letras, dejar vacio el campo ni meter un 0", "Advertencia", JOptionPane.INFORMATION_MESSAGE);    
         }
         return next;
@@ -197,9 +197,9 @@ nucleo.deletedescuento.setVisible(true);
              public static void limpiardatospaciente(){
                      nucleo.calendar_fecha_nacimiento.cleanup();//limpia el calendario de la fecha del paciente
         nucleo.calendar_fecha_nacimiento.setDate(null);
-        nucleo.user_edad.setBackground(Color.white);
+        nucleo.user_edad.setBackground(new Color(135,193,193));
         nucleo.user_edad.setText("");
-                nucleo.user_nombre.setBackground(Color.white);
+                nucleo.user_nombre.setBackground(new Color(135,193,193));
                 nucleo.user_nombre.setText("");
              }
  public static boolean validarFormulariotexto(String nombre) { // VALIDACION DE TXTDESCRIPCION
@@ -220,7 +220,7 @@ nucleo.deletedescuento.setVisible(true);
         if (matGastos.matches()&&!nombre.equals("")) {
             next = true;
         } else {
-            nucleo.user_nombre.setBackground(Color.red);
+            nucleo.user_nombre.setBackground(new Color(135,193,193));
             JOptionPane.showMessageDialog(null, "Solo escribe letras y no puedes dejar vacio el campo");
         }
         return next;

@@ -38,11 +38,12 @@ public static void consultarlosresultadosenlabusquedadenombres(String contexto){
     DefaultTableModel modelo = new DefaultTableModel(); // Se crea un objeto para agregar los nombres de las columnas a la tabla
        modelo.addColumn("Venta");
         modelo.addColumn("Paciente");
-        modelo.addColumn("Total");  
-         modelo.addColumn("Descuento");     
+         modelo.addColumn("Subtotal");  
+         modelo.addColumn("Descuento");    
+         modelo.addColumn("Total");
         modelo.addColumn("Fecha");
         Inventarioventas.jTable2.setModel(modelo);  // Ya una vez asignado todos los nombres se le envia el objeto a la tabla proveedores
-        Object[] datos = new Object[5];     //Un arreglo con la cantidad de nombres en las columnas
+        Object[] datos = new Object[6];     //Un arreglo con la cantidad de nombres en las columnas
         try {
             Connection ca = cc.conexion();
             sent = ca.createStatement();
@@ -52,10 +53,10 @@ public static void consultarlosresultadosenlabusquedadenombres(String contexto){
                 
             }*/
             if (contexto.equals("")) {
-                             String sSQL = "SELECT distinct venta.id_venta, pacientes.nombre,venta.total, venta.descuento , venta.fecha_reporte FROM venta inner join descripcion_de_venta on venta.id_venta = descripcion_de_venta.id_venta inner join pacientes on descripcion_de_venta.id_paciente = pacientes.id_paciente WHERE venta.estado_venta in('Realizada') AND venta.fecha_reporte = '"+Controladorventa.fecha()+"' ";
+                             String sSQL = "SELECT distinct venta.id_venta, pacientes.nombre,venta.subtotal, venta.descuento , venta.total,venta.fecha_reporte FROM venta inner join descripcion_de_venta on venta.id_venta = descripcion_de_venta.id_venta inner join pacientes on descripcion_de_venta.id_paciente = pacientes.id_paciente WHERE venta.estado_venta in('Realizada') AND venta.fecha_reporte = '"+Controladorventa.fecha()+"' ";
                 rs = sent.executeQuery(sSQL); // se ejecuta la sentencia dentro del parentesis
             } else {
-                              String sSQLcontesto = "SELECT distinct venta.id_venta, pacientes.nombre,venta.total, venta.descuento ,venta.fecha_reporte FROM venta inner join descripcion_de_venta on venta.id_venta = descripcion_de_venta.id_venta inner join pacientes on descripcion_de_venta.id_paciente = pacientes.id_paciente WHERE venta.estado_venta in('Realizada') AND venta.fecha_reporte = '"+Controladorventa.fecha()+"' and pacientes.nombre LIKE '%" + contexto + "%'";
+                              String sSQLcontesto = "SELECT distinct venta.id_venta, pacientes.nombre,venta.subtotal, venta.descuento,venta.total ,venta.fecha_reporte FROM venta inner join descripcion_de_venta on venta.id_venta = descripcion_de_venta.id_venta inner join pacientes on descripcion_de_venta.id_paciente = pacientes.id_paciente WHERE venta.estado_venta in('Realizada') AND venta.fecha_reporte = '"+Controladorventa.fecha()+"' and pacientes.nombre LIKE '%" + contexto + "%'";
                
                 rs = sent.executeQuery(sSQLcontesto); // se ejecuta la sentencia dentro del parentesis
             }
@@ -63,8 +64,9 @@ public static void consultarlosresultadosenlabusquedadenombres(String contexto){
                  datos[0] = rs.getInt(1);
                 datos[1] = rs.getString(2);
                 datos[2] = "$"+String.valueOf(rs.getFloat(3));
-                 datos[3]  = "$"+String.valueOf(rs.getFloat(4));
-                 datos[4] = rs.getString(5);
+                datos[3]  = "$"+String.valueOf(rs.getFloat(4));
+                 datos[4]  = "$"+String.valueOf(rs.getFloat(5));
+                 datos[5] = rs.getString(6);
                 modelo.addRow(datos); //se asigna el arreglo  entero a todo el objeto llamado modelo  
             }
             Inventarioventas.jTable2.setModel(modelo); // Se vuelve a enviar nuevamente el objeto modelo a la tabla
@@ -125,25 +127,27 @@ public static void eliminar_idventa_sitienedescuento(float descuento, int id_ven
              }
     }
      public static void llenartablaidventasconidrealizados(){ // recibe como parametro 
-         Object[] columna = new Object[5];  //crear un obj con el nombre de colunna
+         Object[] columna = new Object[6];  //crear un obj con el nombre de colunna
              DefaultTableModel modeloTE = new DefaultTableModel(); 
                   Inventarioventas.jTable2.setModel(modeloTE);  // add modelo ala tabla 
         modeloTE.addColumn("Venta");
         modeloTE.addColumn("Paciente");
-        modeloTE.addColumn("Total"); 
+        modeloTE.addColumn("Subtotal"); 
         modeloTE.addColumn("Descuento");
+        modeloTE.addColumn("Total");
         modeloTE.addColumn("Fecha");
     Inventarioventas.jTable2.setModel(modeloTE);  // add modelo ala tabla         
         try {  Connection ca= cc.conexion(); // CONEXION DB 
-             String sSQL = "SELECT distinct venta.id_venta, pacientes.nombre,venta.total, venta.descuento,venta.fecha_reporte FROM venta inner join descripcion_de_venta on venta.id_venta = descripcion_de_venta.id_venta inner join pacientes on descripcion_de_venta.id_paciente = pacientes.id_paciente WHERE venta.estado_venta in('Realizada') AND venta.fecha_reporte = '"+Controladorventa.fecha()+"' ";
+             String sSQL = "SELECT distinct venta.id_venta, pacientes.nombre,venta.subtotal, venta.descuento,venta.total,venta.fecha_reporte FROM venta inner join descripcion_de_venta on venta.id_venta = descripcion_de_venta.id_venta inner join pacientes on descripcion_de_venta.id_paciente = pacientes.id_paciente WHERE venta.estado_venta in('Realizada') AND venta.fecha_reporte = '"+Controladorventa.fecha()+"' ";
         PreparedStatement ps = ca.prepareStatement(sSQL);       
         ResultSet rs = ps.executeQuery(sSQL);
             while (rs.next()) {
                 columna[0] = rs.getInt(1);
                 columna[1] = rs.getString(2);
                 columna[2] = "$"+String.valueOf(rs.getFloat(3));
-                columna[3] = "$"+String.valueOf(rs.getFloat(4));
-                 columna[4] = rs.getString(5);
+                 columna[3] = "$"+String.valueOf(rs.getFloat(4));
+                columna[4] = "$"+String.valueOf(rs.getFloat(5));
+                 columna[5] = rs.getString(6);
                 modeloTE.addRow(columna);
             }
           Inventarioventas.jTable2.setModel(modeloTE);  // add modelo ala tabla 
@@ -157,25 +161,27 @@ public static void eliminar_idventa_sitienedescuento(float descuento, int id_ven
 
    
      public static void showidventasporfechas(JTable tablaventas, String fechadesde, String fechahasta){
-        Object[] columna = new Object[5];  //crear un obj con el nombre de colunna
+        Object[] columna = new Object[6];  //crear un obj con el nombre de colunna
             Connection ca= cc.conexion(); // CONEXION DB 
               DefaultTableModel modeloT = new DefaultTableModel(); 
                   tablaventas.setModel(modeloT);  // add modelo ala tabla 
            modeloT.addColumn("Venta");
             modeloT.addColumn("Paciente");
+            modeloT.addColumn("Subtotal");
+            modeloT.addColumn("Descuento");
         modeloT.addColumn("Total");     
-         modeloT.addColumn("Descuento");    
         modeloT.addColumn("Fecha");
     try {        
-           String sSQL = "SELECT venta.id_venta, pacientes.nombre,venta.total, venta.descuento,venta.fecha_reporte FROM venta inner join descripcion_de_venta on venta.id_venta = descripcion_de_venta.id_venta inner join pacientes on descripcion_de_venta.id_paciente = pacientes.id_paciente WHERE venta.estado_venta='Realizada' AND venta.fecha_reporte BETWEEN '"+fechadesde+"' AND '"+fechahasta+ "' ";
+           String sSQL = "SELECT venta.id_venta, pacientes.nombre,venta.subtotal, venta.descuento,venta.total,venta.fecha_reporte FROM venta inner join descripcion_de_venta on venta.id_venta = descripcion_de_venta.id_venta inner join pacientes on descripcion_de_venta.id_paciente = pacientes.id_paciente WHERE venta.estado_venta='Realizada' AND venta.fecha_reporte BETWEEN '"+fechadesde+"' AND '"+fechahasta+ "' ";
         PreparedStatement ps = ca.prepareStatement(sSQL);       
         try (ResultSet rs = ps.executeQuery(sSQL)) {
             while (rs.next()) {
                 columna[0] = rs.getString(1);
                   columna[1] = rs.getString(2);
                 columna[2] = "$"+String.valueOf(rs.getInt(3) );
-                columna[3] = "$"+String.valueOf(rs.getInt(4) );
-                   columna[4] = rs.getString(5);
+                 columna[3] = "$"+String.valueOf(rs.getInt(4) );
+                columna[4] = "$"+String.valueOf(rs.getInt(5) );
+                   columna[5] = rs.getString(6);
                 modeloT.addRow(columna);
             }
         }                             TableColumnModel columnModel =   Inventarioventas.jTable2.getColumnModel();columnModel.getColumn(0).setPreferredWidth(30);columnModel.getColumn(1).setPreferredWidth(30);    columnModel.getColumn(2).setPreferredWidth(150);
@@ -185,73 +191,9 @@ public static void eliminar_idventa_sitienedescuento(float descuento, int id_ven
     }
 
      public static void impresiondeventacancelada(int numerodeventa){
-    try {Connection ca= cc.conexion();
-                 String sSQL = "SELECT nombre_producto, cantidad, precio_unitario, importe FROM descripcion_de_venta WHERE estado='Cancelada' AND id_venta = '"+numerodeventa+"' ";  
-        PreparedStatement ps = ca.prepareStatement(sSQL);       
-        ResultSet rs = ps.executeQuery(sSQL);
-            while (rs.next()) {
-              nombreproductoticket.add(rs.getString(1));
-              piezastcket.add(rs.getString(2));
-              preciounitarioticket.add(rs.getString(3)); 
-              importesticket.add(rs.getString(4));
-            }total_pagoycambiopararelticketdeventacancelada(numerodeventa);
-                            //estas dos lineas mandan los datos para el ticket
-                 mandardatosticketventacancelada = new ticketventacancelada();
-                 mandardatosticketventacancelada.tikectventacancelada(nombreproductoticket, 
-                         piezastcket, 
-                         preciounitarioticket, 
-                         importesticket,
-                         subtotalticket, totalticket, pagoticket, cambioticket, descuentoticket, numerodeventa);
-            //totalcdescticket agregar al metodo de arriba
-                 Controladorventa.vaciarlistasdeticket();
-    } catch (Exception e) {
-          JOptionPane.showMessageDialog(null, "ERROR EN METODO: reimpresiondeventa","DEVELOPER HELPER", JOptionPane.ERROR_MESSAGE);      
-      }finally{
-                  cc.getClose();
-             }
+        Modeloventa.descripciondelosprouductosparaelticketdeventa(numerodeventa,estadocancelado);
     }
-     
-public static void total_pagoycambiopararelticketdeventacancelada(int id){ // recibe como parametro 
-         Object[] columna = new Object[5];  //crear un obj con el nombre de colunna
-        try {Connection ca= cc.conexion();
-         String sSQL = "SELECT subtotal, total, pago, cambio, descuento FROM venta WHERE estado_venta='"+estadocancelado+"' AND fecha_reporte = '"+Controladorventa.fecha()+"' and id_venta='"+id+"' ";
-        PreparedStatement ps = ca.prepareStatement(sSQL);       
-        ResultSet rs = ps.executeQuery(sSQL);
-            while (rs.next()) {
-               subtotalticket = rs.getFloat(1);
-              totalticket = rs.getFloat(2);
-                pagoticket = rs.getFloat(3);
-                 cambioticket = rs.getFloat(4);
-                 descuentoticket = rs.getFloat(5);           
-          }  
-    } catch (Exception e) {
-         JOptionPane.showMessageDialog(null, "ERROR EN METODO: total_pagoycambiopararelticketdeventa","DEVELOPER HELPER", JOptionPane.ERROR_MESSAGE);      
-       }finally{
-                  cc.getClose();
-             }
-}
-
-   public static void ids_y_cantidades_porcancelacion(short id){
-try {Connection ca= cc.conexion();
-        Modeloventa.id_max_de_venta();
-             sent = ca.createStatement();   
-                 rs= sent.executeQuery("select id_producto, cantidad from  descripcion_de_venta where id_venta= '"+id+"' and fecha= '"+Controladorventa.fecha()+"' and  estado = '"+estadocancelado+"'"); // se ejecuta la sentencia dentro del parentesis
-            while(rs.next()){        
-            Controladorventa.idsenturno.add(0, rs.getInt(1));
-            Controladorventa.cantidaddecadaidenturno.add(0, rs.getFloat(2));
-            }
- Controladorventa.idsenturno.clear();
-            Controladorventa.cantidaddecadaidenturno.clear();
- //SE ALMACENÓ LA VENTA COMO EN TURNO Y EL METODO ANTERIOR A ESTE NO LA PUEDE DETECTAR PORQUE SOLO ELIMINA LAS VENTA EN TURNO DEL DÍA, NO DEL DÍA DE AYER NI DEL PASADO
-} catch (SQLException ex) {
-            System.out.println();
-      JOptionPane.showMessageDialog(null, "ERROR EN METODO: ids_y_cantidades_enturno_por_error_de_usuario","DEVELOPER HELPER", JOptionPane.ERROR_MESSAGE);      
-     } finally{
-                  cc.getClose();
-             } 
-    }
-  
-   public static void status_cancelado(int id){
+  public static void status_cancelado(int id){
         try{Connection ca= cc.conexion();
                     PreparedStatement ps = ca.prepareStatement ("UPDATE venta SET estado_venta='"+estadocancelado+"'WHERE id_venta='"+id+"'");
                 ps.executeUpdate();
@@ -272,20 +214,7 @@ try {Connection ca= cc.conexion();
                     cc.getClose();
                 }    
    }
-   public static void total_ventaporid(int id){
-        try{ Connection ca= cc.conexion();// La suma de todos los importes
-                                          sent  =(Statement)ca.createStatement();
-                                           rs = sent.executeQuery("select total from venta where id_venta= '"+id+"'");
-                                            if(rs.next()){
-                                                      sumadeimportesparaeltotal =Float.parseFloat(rs.getString("total"));
-                                                      }
-                                                      }//fin del try-precio del producto
-                                                      catch (Exception e){                    JOptionPane.showMessageDialog(null, "Error en total_ventaporid" + e.getMessage());
-                                                          sumadeimportesparaeltotal=0;
-                                                      }finally{
-                    cc.getClose();
-                }// fin del precio-catch del producto
-    }
+  
    public static void descripciondeproductosenbasealnumerodeventa(int numerodeventa){
         Object[] columna = new Object[4];  //crear un obj con el nombre de colunna
             Connection ca= cc.conexion(); // CONEXION DB 
@@ -296,7 +225,7 @@ try {Connection ca= cc.conexion();
         modeloT.addColumn("Precio");
         modeloT.addColumn("Importe");
             Inventarioventas.jTable2.setModel(modeloT);  // add modelo ala tabla 
-      try { String sSQL = "SELECT nombre_producto, cantidad, precio_unitario, importe FROM descripcion_de_venta WHERE estado='Realizada' AND id_venta = '"+numerodeventa+"' ";
+      try { String sSQL = "SELECT dv.nombre_producto, dv.cantidad, dv.precio_unitario, dv.importe, v.total FROM descripcion_de_venta dv inner join venta v on dv.id_venta = v.id_venta WHERE dv.estado='Realizada' AND dv.id_venta = '"+numerodeventa+"' ";
         PreparedStatement ps = ca.prepareStatement(sSQL);       
         ResultSet rs = ps.executeQuery(sSQL);
             while (rs.next()) {
@@ -305,6 +234,7 @@ try {Connection ca= cc.conexion();
                 columna[1] = rs.getString(2);
                 columna[2] = "$"+rs.getString(3);      
                 columna[3] = "$"+rs.getString(4); 
+                sumadeimportesparaeltotal =Float.parseFloat(rs.getString(5));
                 modeloT.addRow(columna);
             }    Inventarioventas.jTable2.setModel(modeloT);  // add modelo ala tabla 
                    TableColumnModel columnModel =   Inventarioventas.jTable2.getColumnModel();columnModel.getColumn(0).setPreferredWidth(200);columnModel.getColumn(1).setPreferredWidth(50);    columnModel.getColumn(2).setPreferredWidth(50);columnModel.getColumn(3).setPreferredWidth(50);
@@ -313,7 +243,7 @@ try {Connection ca= cc.conexion();
     }
     }
    public static void reimpresiondeventa(int numerodeventa){
-       Modeloventa.descripciondelosprouductosparaelticketdeventa(numerodeventa);
+       Modeloventa.descripciondelosprouductosparaelticketdeventa(numerodeventa,Controladorventa.estadorealizado);
     }
    public static void indicar_el_paciente_a_actualizar(int id){
       try{ Connection ca= cc.conexion();// CUENTA EL TODAL DE CUANTAS VENTAS SE REALIZARON
