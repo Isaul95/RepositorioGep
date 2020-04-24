@@ -75,6 +75,7 @@ public Capturar_resultados(int id_venta_a_capturar_resultados){
         jLabel75 = new javax.swing.JLabel();
         genetrar_Pdf = new javax.swing.JButton();
         gastos_btn_back = new javax.swing.JButton();
+        envio_email = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -230,7 +231,7 @@ public Capturar_resultados(int id_venta_a_capturar_resultados){
                 genetrar_PdfActionPerformed(evt);
             }
         });
-        jPanel33.add(genetrar_Pdf, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 530, 150, 50));
+        jPanel33.add(genetrar_Pdf, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 530, 160, 50));
 
         gastos_btn_back.setBackground(new java.awt.Color(255, 255, 255));
         gastos_btn_back.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -242,6 +243,17 @@ public Capturar_resultados(int id_venta_a_capturar_resultados){
             }
         });
         jPanel33.add(gastos_btn_back, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 530, 150, -1));
+
+        envio_email.setBackground(new java.awt.Color(255, 255, 255));
+        envio_email.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        envio_email.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/salir-flecha-derecha (1).png"))); // NOI18N
+        envio_email.setText("Enviar Email");
+        envio_email.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                envio_emailActionPerformed(evt);
+            }
+        });
+        jPanel33.add(envio_email, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 530, 170, 50));
 
         producto_sobrante3.add(jPanel33);
         jPanel33.setBounds(10, 80, 600, 620);
@@ -294,6 +306,12 @@ public Capturar_resultados(int id_venta_a_capturar_resultados){
         Controladorventa.noduplicar_capturaresultados=false;
     }//GEN-LAST:event_formWindowClosed
 
+    private void envio_emailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_envio_emailActionPerformed
+        
+        
+        
+    }//GEN-LAST:event_envio_emailActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -334,6 +352,7 @@ public Capturar_resultados(int id_venta_a_capturar_resultados){
     public static javax.swing.JTable Jtable_ProductosEntradas;
     public static javax.swing.JPanel agregar_articulo;
     public static javax.swing.JLabel edad;
+    private javax.swing.JButton envio_email;
     public static javax.swing.JLabel fecha_hora_ingreso;
     public static javax.swing.JLabel fecha_nacimiento;
     private javax.swing.JButton gastos_btn_back;
