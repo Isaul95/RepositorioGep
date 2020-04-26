@@ -1,6 +1,7 @@
 
 package Controladores;
 
+import Modelos.Modelo_proceso_email;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -15,23 +16,23 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.util.JRLoader;
 import net.sf.jasperreports.view.JasperViewer;
 import si.Capturar_resultados;
+import si.Envio_email;
 import si.SI;
 import si.nucleo;
-
 
 public class Controlador_Report_pdf {   
     private final String logotipo = "/Reportes/logoAlk.jpg"; // Logotipo
     private final String firma = "/Reportes/firma.png";  //  firma   firma.png
     
      public void Generacion_PDF_client(){                                           
-   // ***********************    REPORTE DE USUARIOS    **************************
- 
+   // ***********************    REPORTE DE USUARIOS    ************************** 
         SI cc= new SI();
         Connection ca= cc.conexion();
  
@@ -47,17 +48,20 @@ public class Controlador_Report_pdf {
 
                 JasperReport reporte = null;
                 String path = "src/Reportes/report3.jasper";
-
-                //  reporte = (JasperReport) JRLoader.loadObjectFromFile(path);
+                
                 reporte = (JasperReport) JRLoader.loadObject(getClass().getResource("/Reportes/report3.jasper")); // ASI MANDO A LLAMAR LOS REPORTES CON .jasper 
                 // ========================= LLENADO DEL REPORTE  ======================  /
                 //  path --> LA RUTA DEL REPORTE
-                //     --> LOS PARAMETROS K SE LE PUEDE ENVIAR ALA REPORTE IN THIS CASE ES NULL y la concion-->(ca) B.D
+//   --> LOS PARAMETROS K SE ENVIAN ALA REPORTE AKI SE RECIBEN IGUAL K CONEXION DB-->(ca) B.D
                 JasperPrint jprint = JasperFillManager.fillReport(reporte, parametro, ca);
+                JOptionPane.showMessageDialog(null, "reporte nose k imprime" + reporte);
+// JasperExportManager es propiedad de jasper el jprint es la k contirnr el docuemto 
+//ya caragdo entonces solo especificas la ruta de donde guardarlo     
+  //JasperExportManager.exportReportToPdfFile( jprint, "C:/Users/COMIMSA/Documents/Zoom/report3.pdf");
+  JasperExportManager.exportReportToPdfFile( jprint, "C:/Users/COMIMSA/Documents/Zoom/report3.pdf");
 
                 // ========================= CREAR LA VISTA DEL REPORTE  ======================  
                 JasperViewer vista = new JasperViewer(jprint, false);
-
                 // ============= UN CIERRE LA VISTA DEL REPORTE CUANDO SE PRESIONE LA X de cerrar ============  
                 vista.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
                 // ==================== MOSTRAR CMO VISIBLE ESTE REPORTE  ======================  
@@ -68,55 +72,31 @@ public class Controlador_Report_pdf {
             }
         } 
   
-     } // fin del metodo
+     } // fin del metodo      
      
      
-     
-/*                   REGISTRO DE DOCUMENTOS DB                               
-      public static boolean registrarArchivoPDF(Connection conn, String file) {
-        FileInputStream input = null;
-        PreparedStatement stmt = null;
-        try {
-            //String sql = "INSERT INTO reportes(archivo) VALUES(?);";
+         public void btn_Envio_email() {
+        JOptionPane.showMessageDialog(null, "Estas oprimiendo el boton de enviar email \n desde la clase controlador reporte pdf");
 
-            String sql = "INSERT INTO DOCUMENTO_RESPUESTA_TEMPORAL "
-  + "(ID_RESPUESTA, ID_PREGUNTA, ID_CUESTIONARIO, CVE_FASE, ID_PROYECTO, ANIO, NUMERO_CONVOCATORIA, CVE_TIPO_DOCUMENTO, DOCUMENTO, NOMBRE_DOCUMENTO, USUARIO)"
-  + "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-            
-//String sql = "INSERT INTO DOCUMENTO_RESPUESTA_CUEST_SEG";
-            stmt = conn.prepareStatement(sql);
-            input = new FileInputStream(new File(file));
-            
-            
-            
-            stmt.setString(8, CVE_TIPO_DOCUMENTO);  
-            stmt.setBinaryStream(9, input);
-            stmt.setString(10, file);
-            stmt.setString(11, USUARIO);
-           // stmt.setString(13,FECHA_REGISTRO);
-            
-            stmt.executeUpdate();
-            System.out.println("> Archivo '" + file + "' registrado en la base de datos");
-            return true;
-        } catch (FileNotFoundException | SQLException ex) {
-            System.err.println(ex.getMessage());
-        } finally {
-            try {
-                if (input != null) {
-                    input.close();
-                }
-                if (stmt != null) {
-                    stmt.close();
-                }
-            } catch (IOException | SQLException ex) {
-                System.err.println(ex.getMessage());
+        if (Envio_email.para.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "No ha digitado el destinatario");
+        } else {
+            int valor = 5;
+            if (Envio_email.asunto.getText().equals("")) {
+                JOptionPane.showConfirmDialog(null, "Esta seguro que desea enviar el correo sin asunto?");
+            }
+            if (valor == 5 || valor == 0) {
+                Modelo_proceso_email objeto = new Modelo_proceso_email(Envio_email.para, Envio_email.asunto,/*pantalla_Principal.texto,pantalla_Principal.ruta, nom, */ Envio_email.label);
+                //System.out.println("Esta es tu ruta desde el controller" + pantalla_Principal.ruta.getText());                      
+                //JOptionPane.showConfirmDialog(null, "Esta es el nom desde el controller = " + nom);
+// esta cosa nom es el nombre del file k se carga pero como le doy un nombre statico pues no es necesario
+                objeto.start();
+                objeto = null;
             }
         }
-        return false;
     }
-       */
-     
+
      
 }
-        
+
 
