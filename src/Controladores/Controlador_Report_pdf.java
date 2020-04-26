@@ -21,15 +21,16 @@ import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.util.JRLoader;
 import net.sf.jasperreports.view.JasperViewer;
 import si.Capturar_resultados;
+import static si.Capturar_resultados.envio_email;
 import si.Envio_email;
 import si.SI;
 import si.nucleo;
 
-public class Controlador_Report_pdf {   
+public class Controlador_Report_pdf {       
     private final String logotipo = "/Reportes/logoAlk.jpg"; //  imagen del Logotipo
     private final String firma = "/Reportes/firma.png";      //  imahgen de firma.png
     // con el nom se obtiene la nomenclatura para el guaraddo del archivo pdf
-    public String nom = Capturar_resultados.id_venta.getText()+"_"+Capturar_resultados.paciente.getText()+".pdf";
+    public static String nom = Capturar_resultados.id_venta.getText()+"_"+Capturar_resultados.paciente.getText()+".pdf";
      public void Generacion_PDF_client(){                                           
    // ***********************    REPORTE DE USUARIOS    ************************** 
         SI cc= new SI();
@@ -53,10 +54,9 @@ public class Controlador_Report_pdf {
                 JasperPrint jprint = JasperFillManager.fillReport(reporte, parametro, ca);    
 //JOptionPane.showMessageDialog(null, "juntando nomenclatuta -->>"+Capturar_resultados.id_venta.getText()+"_"+Capturar_resultados.paciente.getText());                
 // JasperExportManager es propiedad de jasper el jprint es la k contirnr el docuemto 
-//ya caragdo entonces solo especificas la ruta de donde guardarlo       
-   
-//  JasperExportManager.exportReportToPdfFile( jprint, "C:/Users/COMIMSA/Documents/reportes/"+nom);
-  JasperExportManager.exportReportToPdfFile( jprint, "C:/Users/COMIMSA/Documents/reportes/"+nom);
+//ya caragdo entonces solo especificas la ruta de donde guardarlo          
+  JasperExportManager.exportReportToPdfFile( jprint, "C:/reportes/"+nom);
+  envio_email.setEnabled(true); // se activa el envio email cuando se haya generado el pdf del paciente
   Modelo_capturar_resultados.subir_archivo(nom, Integer.parseInt(Capturar_resultados.id_venta.getText()));
                 // ========================= CREAR LA VISTA DEL REPORTE  ======================  
                 JasperViewer vista = new JasperViewer(jprint, false);
@@ -80,9 +80,9 @@ public class Controlador_Report_pdf {
                 JOptionPane.showConfirmDialog(null, "Esta seguro que desea enviar el correo sin asunto?");
             }
             if (valor == 5 || valor == 0) {
-                Modelo_proceso_email objeto = new Modelo_proceso_email(Envio_email.para, Envio_email.asunto,/*pantalla_Principal.texto,pantalla_Principal.ruta,*/ nom);    
+                Modelo_proceso_email objeto = new Modelo_proceso_email(Envio_email.para, Envio_email.asunto,/*pantalla_Principal.texto,pantalla_Principal.ruta,*/ nom, Envio_email.send_message);    
                 objeto.start();
-                objeto = null;
+                objeto = null;               
             }
         }
     }    

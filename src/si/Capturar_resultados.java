@@ -7,21 +7,6 @@ package si;
 import Controladores.Controladorventa;
 import Controladores.Controlador_Report_pdf;
 import Controladores.Controlador_capturar_resultados;
-import Modelos.Modelo_capturar_resultados;
-import java.sql.Connection;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JOptionPane;
-import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
-import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.util.JRLoader;
-import net.sf.jasperreports.view.JasperViewer;
-
 /**
  *
  * @author Alexis
@@ -41,6 +26,7 @@ public Capturar_resultados(int id_venta_a_capturar_resultados){
         Controlador_capturar_resultados.metodos_al_iniciar_entradasproductos0(Controlador_capturar_resultados.id_a_actualizar_resultados);//Aqui se envia al controlador el id para traer todos los datos para capturar los resultados
         id_venta.setText(String.valueOf(Controlador_capturar_resultados.id_a_actualizar_resultados));
          this.setLocation(30, 0); // CENTRAR FORMULARIO
+         envio_email.setEnabled(false);
     }
     
 
@@ -134,7 +120,7 @@ public Capturar_resultados(int id_venta_a_capturar_resultados){
         );
 
         producto_sobrante3.add(jPanel31);
-        jPanel31.setBounds(0, 0, 1288, 74);
+        jPanel31.setBounds(0, 0, 1294, 84);
 
         jPanel33.setBackground(new java.awt.Color(135, 193, 193));
         jPanel33.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Arial", 1, 18), new java.awt.Color(255, 255, 255))); // NOI18N
@@ -227,6 +213,7 @@ public Capturar_resultados(int id_venta_a_capturar_resultados){
 
         genetrar_Pdf.setBackground(new java.awt.Color(255, 255, 255));
         genetrar_Pdf.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        genetrar_Pdf.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/pdf.png"))); // NOI18N
         genetrar_Pdf.setText("Generar PDF");
         genetrar_Pdf.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -248,7 +235,7 @@ public Capturar_resultados(int id_venta_a_capturar_resultados){
 
         envio_email.setBackground(new java.awt.Color(255, 255, 255));
         envio_email.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        envio_email.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/salir-flecha-derecha (1).png"))); // NOI18N
+        envio_email.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/email.png"))); // NOI18N
         envio_email.setText("Enviar Email");
         envio_email.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -305,11 +292,9 @@ public Capturar_resultados(int id_venta_a_capturar_resultados){
     }//GEN-LAST:event_formWindowClosed
 
     private void envio_emailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_envio_emailActionPerformed
-        
-        JOptionPane.showMessageDialog(null,"NAME DEL PACIENT"  + paciente.getText());
         Envio_email mail = new Envio_email();
         mail.setVisible(true);
-        
+        Envio_email.File.setText(Controlador_Report_pdf.nom);
     }//GEN-LAST:event_envio_emailActionPerformed
 
     /**
@@ -352,7 +337,7 @@ public Capturar_resultados(int id_venta_a_capturar_resultados){
     public static javax.swing.JTable Jtable_ProductosEntradas;
     public static javax.swing.JPanel agregar_articulo;
     public static javax.swing.JLabel edad;
-    private javax.swing.JButton envio_email;
+    public static javax.swing.JButton envio_email;
     public static javax.swing.JLabel fecha_hora_ingreso;
     public static javax.swing.JLabel fecha_nacimiento;
     private javax.swing.JButton gastos_btn_back;
