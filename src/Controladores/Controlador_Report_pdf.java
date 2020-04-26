@@ -1,6 +1,7 @@
 
 package Controladores;
 
+import Modelos.Modelo_capturar_resultados;
 import Modelos.Modelo_proceso_email;
 import java.io.File;
 import java.sql.Connection;
@@ -55,8 +56,9 @@ JOptionPane.showMessageDialog(null, "juntando nomenclatuta -->>"+Capturar_result
 // JasperExportManager es propiedad de jasper el jprint es la k contirnr el docuemto 
 //ya caragdo entonces solo especificas la ruta de donde guardarlo       
    
-  JasperExportManager.exportReportToPdfFile( jprint, "C:/Users/COMIMSA/Documents/reportes/"+nom);
-
+//  JasperExportManager.exportReportToPdfFile( jprint, "C:/Users/COMIMSA/Documents/reportes/"+nom);
+  JasperExportManager.exportReportToPdfFile( jprint, "C:/Users/aleks/Documents/reportes/"+nom);
+  Modelo_capturar_resultados.subir_archivo(nom, Integer.parseInt(Capturar_resultados.id_venta.getText()));
                 // ========================= CREAR LA VISTA DEL REPORTE  ======================  
                 JasperViewer vista = new JasperViewer(jprint, false);
                 // ============= UN CIERRE LA VISTA DEL REPORTE CUANDO SE PRESIONE LA X de cerrar ============  

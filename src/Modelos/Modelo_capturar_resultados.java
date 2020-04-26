@@ -7,11 +7,17 @@ package Modelos;
 
 import Controladores.Controlador_capturar_resultados;
 import Controladores.Controladorventa;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.event.TableModelEvent;
@@ -86,4 +92,52 @@ static ResultSet rs;
                   cc.getClose();
              }
 }
+    public static void subir_archivo(String nombre_archivo, int id_venta){
+             String file = "C:\\Users\\aleks\\Documents\\reportes\\"+nombre_archivo;
+     id_paciente(id_venta);
+             ///////////////////////////////////////////////////////////////////////////////////////////////////
+         try{
+              FileInputStream input = null;
+            input = new FileInputStream(new File(file));
+            
+             Connection ca= cc.conexion(); //la insersion a la tabla ventas
+                String sql = "INSERT INTO ARCHIVOS (nombre_archivo,archivo,id_paciente)  VALUES (?,?,?)";
+                PreparedStatement pst = ca.prepareCall(sql); //hasta aqui vamos
+               pst.setString(1,nombre_archivo);
+                pst.setBinaryStream(2, input);
+                pst.setInt(3, Controlador_capturar_resultados.id_paciente);
+                int a=pst.executeUpdate();
+                if(a>0){
+                System.out.println("Archivo insertado");
+                 input.close();
+                }else{//CUANDO NO SE PUDO INSERTAR
+                System.out.println("Archivo no insertado");  
+                }
+            }catch(SQLException e)  { //fin de la insersion a la tabla ventas
+                    JOptionPane.showMessageDialog(null, "Error, comprobar_registro INSERT INTO"+e.getMessage(),"HELPER DEVELOPER",JOptionPane.INFORMATION_MESSAGE);                  
+              
+            } catch (FileNotFoundException ex) {
+            Logger.getLogger(Modelo_capturar_resultados.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(Modelo_capturar_resultados.class.getName()).log(Level.SEVERE, null, ex);
+        }
+            finally{
+             cc.getClose();
+             }
+    }
+    public static void id_paciente(int id_venta){
+            try{ Connection ca= cc.conexion();// CUENTA EL TODAL DE CUANTAS VENTAS SE REALIZARON
+                                         Statement sent  =(Statement)ca.createStatement();
+                                         ResultSet  rs = sent.executeQuery("select pacientes.id_paciente from venta INNER join descripcion_de_venta on venta.id_venta = descripcion_de_venta.id_venta inner join pacientes on descripcion_de_venta.id_paciente = pacientes.id_paciente WHERE venta.id_venta = '"+id_venta+"' ");
+                                            if(rs.next()){
+                                                      Controlador_capturar_resultados.id_paciente =Integer.parseInt(String.valueOf(rs.getInt("pacientes.id_paciente")));
+                                                      }
+                                                      }//fin del try-precio del producto
+                                                      catch (Exception e){
+                                                           JOptionPane.showMessageDialog(null, "ERROR EN METODO: conteodeventasrealizadasdehoy: "+e.getMessage(),"DEVELOPER HELPER", JOptionPane.ERROR_MESSAGE);      
+                                                      }// fin del precio-catch del producto
+        finally{
+                  cc.getClose();
+             }
+    }
 }

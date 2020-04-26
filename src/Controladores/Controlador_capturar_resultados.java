@@ -12,7 +12,7 @@ import si.Capturar_resultados;
 
 public class Controlador_capturar_resultados {
     public static float cantidaddesdelatablaeditable;
-    public static int id_a_actualizar_resultados;
+    public static int id_a_actualizar_resultados, id_paciente;
     public static String resultado_del_estudio="";
             
      public static void metodos_al_iniciar_entradasproductos0(int id_venta){
