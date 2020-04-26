@@ -106,6 +106,7 @@ user.setText(usuarioname);
         AgregarGastos = new javax.swing.JButton();
         inventarioventas = new javax.swing.JButton();
         Cortedecaja = new javax.swing.JButton();
+        cobrar_venta = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -406,7 +407,7 @@ user.setText(usuarioname);
         reimprimirventa.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
         jPanel10.add(reimprimirventa, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 240, -1));
 
-        venta.add(jPanel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 200, 420, 280));
+        venta.add(jPanel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 200, 360, 280));
 
         AgregarGastos.setBackground(new java.awt.Color(135, 193, 193));
         AgregarGastos.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -439,7 +440,20 @@ user.setText(usuarioname);
         });
         venta.add(Cortedecaja, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 230, 40, 50));
 
-        getContentPane().add(venta, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1320, 660));
+        cobrar_venta.setBackground(new java.awt.Color(255, 255, 255));
+        cobrar_venta.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        cobrar_venta.setForeground(new java.awt.Color(255, 0, 0));
+        cobrar_venta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/dinero (1).png"))); // NOI18N
+        cobrar_venta.setText("Cobrar venta");
+        cobrar_venta.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        cobrar_venta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cobrar_ventaActionPerformed(evt);
+            }
+        });
+        venta.add(cobrar_venta, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 410, 240, 50));
+
+        getContentPane().add(venta, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1300, 670));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -509,6 +523,10 @@ user.setText(usuarioname);
 
         }
     }//GEN-LAST:event_montoKeyReleased
+
+    private void cobrar_ventaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cobrar_ventaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cobrar_ventaActionPerformed
  private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {                                         
 // MODIFICAR   new ProductosExternos().setVisible(true);        
     }                                           /**
@@ -555,6 +573,7 @@ user.setText(usuarioname);
     public static com.toedter.calendar.JDateChooser calendar_fecha_nacimiento;
     public static javax.swing.JLabel cambiocombobox;
     public static javax.swing.JButton cleanall;
+    private javax.swing.JButton cobrar_venta;
     public static javax.swing.JButton deletedescuento;
     public static javax.swing.JButton descuento;
     public static javax.swing.JLabel descuentocombo;

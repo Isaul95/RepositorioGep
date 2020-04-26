@@ -55,7 +55,7 @@ public class Edicion_pacientes extends javax.swing.JFrame{
         });
 
         jPanel1.setBackground(new java.awt.Color(135, 193, 193));
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "EXISTENCIAS", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Serif", 1, 36))); // NOI18N
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Editar paciente", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Serif", 1, 36))); // NOI18N
         jPanel1.setForeground(new java.awt.Color(255, 0, 0));
         jPanel1.setToolTipText("Editar paciente");
         jPanel1.setLayout(null);

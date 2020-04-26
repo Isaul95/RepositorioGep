@@ -172,7 +172,7 @@ public static void eliminar_idventa_sitienedescuento(float descuento, int id_ven
         modeloT.addColumn("Total");     
         modeloT.addColumn("Fecha");
     try {        
-           String sSQL = "SELECT venta.id_venta, pacientes.nombre,venta.subtotal, venta.descuento,venta.total,venta.fecha_reporte FROM venta inner join descripcion_de_venta on venta.id_venta = descripcion_de_venta.id_venta inner join pacientes on descripcion_de_venta.id_paciente = pacientes.id_paciente WHERE venta.estado_venta='Realizada' AND venta.fecha_reporte BETWEEN '"+fechadesde+"' AND '"+fechahasta+ "' ";
+           String sSQL = "SELECT distinct venta.id_venta, pacientes.nombre,venta.subtotal, venta.descuento,venta.total,venta.fecha_reporte FROM venta inner join descripcion_de_venta on venta.id_venta = descripcion_de_venta.id_venta inner join pacientes on descripcion_de_venta.id_paciente = pacientes.id_paciente WHERE venta.estado_venta='Realizada' AND venta.fecha_reporte BETWEEN '"+fechadesde+"' AND '"+fechahasta+ "' ";
         PreparedStatement ps = ca.prepareStatement(sSQL);       
         try (ResultSet rs = ps.executeQuery(sSQL)) {
             while (rs.next()) {
@@ -225,7 +225,7 @@ public static void eliminar_idventa_sitienedescuento(float descuento, int id_ven
         modeloT.addColumn("Precio");
         modeloT.addColumn("Importe");
             Inventarioventas.jTable2.setModel(modeloT);  // add modelo ala tabla 
-      try { String sSQL = "SELECT dv.nombre_producto, dv.cantidad, dv.precio_unitario, dv.importe, v.total FROM descripcion_de_venta dv inner join venta v on dv.id_venta = v.id_venta WHERE dv.estado='Realizada' AND dv.id_venta = '"+numerodeventa+"' ";
+      try { String sSQL = "SELECT distinct dv.nombre_producto, dv.cantidad, dv.precio_unitario, dv.importe, v.total FROM descripcion_de_venta dv inner join venta v on dv.id_venta = v.id_venta WHERE dv.estado='Realizada' AND dv.id_venta = '"+numerodeventa+"' ";
         PreparedStatement ps = ca.prepareStatement(sSQL);       
         ResultSet rs = ps.executeQuery(sSQL);
             while (rs.next()) {
