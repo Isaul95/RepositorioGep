@@ -37,7 +37,7 @@ public class Modelo_proceso_email implements Runnable{
                
     @Override
     public void run() {             
-        rout = "C:\\Users\\COMIMSA\\Documents\\reportes\\"+nom;
+        rout = "C:\\reportes\\"+nom;
 // esta es la ruta donde la tengo la de prueb pero solo se cambia la ruta y ya         
         if (rout.equals("")) {
         final String usuario = "isaulhernandez@gepsof.com"; // rihr_952@hotmail.com

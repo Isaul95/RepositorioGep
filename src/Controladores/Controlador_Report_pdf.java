@@ -56,7 +56,7 @@ public class Controlador_Report_pdf {
 //ya caragdo entonces solo especificas la ruta de donde guardarlo       
    
 //  JasperExportManager.exportReportToPdfFile( jprint, "C:/Users/COMIMSA/Documents/reportes/"+nom);
-  JasperExportManager.exportReportToPdfFile( jprint, "C:/Users/COMIMSA/Documents/reportes/"+nom);
+  JasperExportManager.exportReportToPdfFile( jprint, "C:/reportes/"+nom);
   Modelo_capturar_resultados.subir_archivo(nom, Integer.parseInt(Capturar_resultados.id_venta.getText()));
                 // ========================= CREAR LA VISTA DEL REPORTE  ======================  
                 JasperViewer vista = new JasperViewer(jprint, false);
