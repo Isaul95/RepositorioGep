@@ -25,8 +25,8 @@ import si.SI;
 import si.nucleo;
 
 public class Controlador_Report_pdf {   
-    private final String logotipo = "/Reportes/logoAlk.jpg"; // Logotipo
-    private final String firma = "/Reportes/firma.png";  //  firma   firma.png
+    private final String logotipo = "/Reportes/logoAlk.jpg"; //  imagen del Logotipo
+    private final String firma = "/Reportes/firma.png";      //  imahgen de firma.png
     // con el nom se obtiene la nomenclatura para el guaraddo del archivo pdf
     public String nom = Capturar_resultados.id_venta.getText()+"_"+Capturar_resultados.paciente.getText()+".pdf";
      public void Generacion_PDF_client(){                                           
@@ -50,11 +50,9 @@ public class Controlador_Report_pdf {
                 //  path --> LA RUTA DEL REPORTE
 //   --> LOS PARAMETROS K SE ENVIAN ALA REPORTE AKI SE RECIBEN IGUAL K CONEXION DB-->(ca) B.D
                 JasperPrint jprint = JasperFillManager.fillReport(reporte, parametro, ca);    
-JOptionPane.showMessageDialog(null, "juntando nomenclatuta -->>"+Capturar_resultados.id_venta.getText()+"_"+Capturar_resultados.paciente.getText());
-                
+//JOptionPane.showMessageDialog(null, "juntando nomenclatuta -->>"+Capturar_resultados.id_venta.getText()+"_"+Capturar_resultados.paciente.getText());                
 // JasperExportManager es propiedad de jasper el jprint es la k contirnr el docuemto 
-//ya caragdo entonces solo especificas la ruta de donde guardarlo       
-   
+//ya caragdo entonces solo especificas la ruta de donde guardarlo          
   JasperExportManager.exportReportToPdfFile( jprint, "C:/Users/COMIMSA/Documents/reportes/"+nom);
 
                 // ========================= CREAR LA VISTA DEL REPORTE  ======================  
@@ -67,14 +65,10 @@ JOptionPane.showMessageDialog(null, "juntando nomenclatuta -->>"+Capturar_result
             } catch (JRException ex) {
                 Logger.getLogger(nucleo.class.getName()).log(Level.SEVERE, null, ex);
             }
-        } 
-  
+        }   
      } // fin del metodo      
-     
-     
+          
          public void btn_Envio_email() {
-        JOptionPane.showMessageDialog(null, "Estas oprimiendo el boton de enviar email \n desde la clase controlador reporte pdf");
-
         if (Envio_email.para.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "No ha digitado el destinatario");
         } else {
@@ -83,16 +77,7 @@ JOptionPane.showMessageDialog(null, "juntando nomenclatuta -->>"+Capturar_result
                 JOptionPane.showConfirmDialog(null, "Esta seguro que desea enviar el correo sin asunto?");
             }
             if (valor == 5 || valor == 0) {
-                Modelo_proceso_email objeto = new Modelo_proceso_email(Envio_email.para, Envio_email.asunto,/*pantalla_Principal.texto,pantalla_Principal.ruta,*/ nom,  Envio_email.label);
- JOptionPane.showConfirmDialog(null,"Esta es el nom CONTROLADOR REPORYE PDF USAUL =" + nom);
- 
- 
- 
- 
- 
- 
- 
-// esta cosa nom es el nombre del file k se carga pero como le doy un nombre statico pues no es necesario
+                Modelo_proceso_email objeto = new Modelo_proceso_email(Envio_email.para, Envio_email.asunto,/*pantalla_Principal.texto,pantalla_Principal.ruta,*/ nom);    
                 objeto.start();
                 objeto = null;
             }
