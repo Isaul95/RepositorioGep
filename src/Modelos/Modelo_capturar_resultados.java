@@ -93,7 +93,7 @@ static ResultSet rs;
              }
 }
     public static void subir_archivo(String nombre_archivo, int id_venta){
-             String file = "C:\\Users\\aleks\\Documents\\reportes\\"+nombre_archivo;
+             String file = "C:\\Users\\COMIMSA\\Documents\\reportes\\"+nombre_archivo;
      id_paciente(id_venta);
              ///////////////////////////////////////////////////////////////////////////////////////////////////
          try{
