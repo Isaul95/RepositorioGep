@@ -46,7 +46,7 @@ try {
                 PreparedStatement pst = ca.prepareStatement(sql4); 
                 pst.setString(1, dateFormat.format(date));
                 pst.setString(2, hourFormat.format(date));
-                pst.setString(3, "ANALISIS");
+                pst.setString(3, Modelo_proceso_email.nom);
                 pst.setString(4, destinatario);
                 pst.setString(5, asunto);
                 int n = pst.executeUpdate(); 

@@ -22,16 +22,16 @@ import javax.swing.JTextField;
 SELECT CURDATE();   ==>   2020-03-01  SELECT CURTIME();   ==>   14:16:34    */
 
 public class Modelo_proceso_email implements Runnable{
-    String correo= "isaulhernandez@gepsof.com", contrasena= "Isaul.hernandez952", nom, dest, subject, msn, rout;
+   static String correo= "isaulhernandez@gepsof.com", contrasena= "Isaul.hernandez952", nom, dest, subject, msn, rout;
     JTextField destinatario, asunto, ruta;
     JTextArea mensaje;
     JLabel estado;
     String[] vect;
     
-        public Modelo_proceso_email(JTextField valor3, JTextField valor4, /*JTextArea valor5,JTextField valor6, String valor7, */ JLabel valor8) {       
+        public Modelo_proceso_email(JTextField valor3, JTextField valor4, /*JTextArea valor5,JTextField valor6, */String valor7,  JLabel valor8) {       
                    this.destinatario = valor3;  // db save
                    this.asunto = valor4;         // db save      
-      // this.nom = valor7; // NOMBRE DEL FILE K SE LE DA DE FORMA STATICA
+       this.nom = valor7; // NOMBRE DEL FILE K SE LE DA DE FORMA STATICA
                          this.estado = valor8;
                       dest = destinatario.getText();    // db save
                       subject = asunto.getText();        // db save       
@@ -41,7 +41,7 @@ public class Modelo_proceso_email implements Runnable{
     @Override
     public void run() {
             //rout = "C:\\Users\\cachorra\\Desktop\\contrato.docx";  
-        rout = "C:/Users/COMIMSA/Documents/Zoom/report3.pdf";
+        rout = "C:\\Users\\COMIMSA\\Documents\\reportes\\32_Rafael isaul hernandez ramirez.pdf";
 // esta es la ruta donde la tengo la de prueb pero solo se cambia la ruta y ya         
         if (rout.equals("")) {
 
@@ -105,9 +105,9 @@ System.out.println("Esta es tu ruta desde el proceso" + ruta.getText());
                     adjunto.setDataHandler(new DataHandler(new FileDataSource(rout)));
 JOptionPane.showConfirmDialog(null, "Esta es el rout desde el proceso =" + rout);      
 System.out.println("Esta es el rout desde el proceso =" + rout);                    
-                   // adjunto.setFileName(nom);
-//JOptionPane.showConfirmDialog(null, "Esta es el nom desde el proceso =" + nom);      
-//System.out.println("Esta es el nom desde el proceso =" + nom);
+                    adjunto.setFileName(nom);
+JOptionPane.showConfirmDialog(null, "Esta es el nom desde el proceso =" + nom);      
+System.out.println("Esta es el nom desde el proceso =" + nom);
                     MimeMultipart multiParte = new MimeMultipart();
                   //  multiParte.addBodyPart(texto);
                     multiParte.addBodyPart(adjunto);

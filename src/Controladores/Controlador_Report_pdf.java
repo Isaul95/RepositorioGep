@@ -3,9 +3,6 @@ package Controladores;
 
 import Modelos.Modelo_proceso_email;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -30,7 +27,8 @@ import si.nucleo;
 public class Controlador_Report_pdf {   
     private final String logotipo = "/Reportes/logoAlk.jpg"; // Logotipo
     private final String firma = "/Reportes/firma.png";  //  firma   firma.png
-    
+    // con el nom se obtiene la nomenclatura para el guaraddo del archivo pdf
+    public String nom = Capturar_resultados.id_venta.getText()+"_"+Capturar_resultados.paciente.getText()+".pdf";
      public void Generacion_PDF_client(){                                           
    // ***********************    REPORTE DE USUARIOS    ************************** 
         SI cc= new SI();
@@ -38,8 +36,7 @@ public class Controlador_Report_pdf {
  
         int dialogButton = JOptionPane.YES_NO_OPTION;
         int result = JOptionPane.showConfirmDialog(null, "¿Desea Generar Reporte para el usuario?", "REPORTE GENERAL ESTUDIOS",dialogButton);
-        if(result == 0){
-            
+        if(result == 0){            
             try {
                 Map parametro = new HashMap(); // parameter1 <<-- ESTE PARAMETRO VIENE DESDE EL REPORTE SOLO SE ESTA LLAMANDO 
                 parametro.put("parameter1",Capturar_resultados.id_venta.getText()); 
@@ -47,8 +44,7 @@ public class Controlador_Report_pdf {
                 parametro.put("firma5", this.getClass().getResourceAsStream(firma));
 
                 JasperReport reporte = null;
-                String path = "src/Reportes/report3.jasper";
-                
+                String path = "src/Reportes/report3.jasper";                
                 reporte = (JasperReport) JRLoader.loadObject(getClass().getResource("/Reportes/report3.jasper")); // ASI MANDO A LLAMAR LOS REPORTES CON .jasper 
                 // ========================= LLENADO DEL REPORTE  ======================  /
                 //  path --> LA RUTA DEL REPORTE
@@ -57,10 +53,9 @@ public class Controlador_Report_pdf {
 JOptionPane.showMessageDialog(null, "juntando nomenclatuta -->>"+Capturar_resultados.id_venta.getText()+"_"+Capturar_resultados.paciente.getText());
                 
 // JasperExportManager es propiedad de jasper el jprint es la k contirnr el docuemto 
-//ya caragdo entonces solo especificas la ruta de donde guardarlo     
-  //JasperExportManager.exportReportToPdfFile( jprint, "C:/Users/COMIMSA/Documents/Zoom/report3.pdf");
-  String namePDF = Capturar_resultados.id_venta.getText()+"_"+Capturar_resultados.paciente.getText();
-  JasperExportManager.exportReportToPdfFile( jprint, "C:/Users/COMIMSA/Documents/reportes/"+namePDF+".pdf");
+//ya caragdo entonces solo especificas la ruta de donde guardarlo       
+   
+  JasperExportManager.exportReportToPdfFile( jprint, "C:/Users/COMIMSA/Documents/reportes/"+nom);
 
                 // ========================= CREAR LA VISTA DEL REPORTE  ======================  
                 JasperViewer vista = new JasperViewer(jprint, false);
@@ -88,17 +83,21 @@ JOptionPane.showMessageDialog(null, "juntando nomenclatuta -->>"+Capturar_result
                 JOptionPane.showConfirmDialog(null, "Esta seguro que desea enviar el correo sin asunto?");
             }
             if (valor == 5 || valor == 0) {
-                Modelo_proceso_email objeto = new Modelo_proceso_email(Envio_email.para, Envio_email.asunto,/*pantalla_Principal.texto,pantalla_Principal.ruta, nom, */ Envio_email.label);
-                //System.out.println("Esta es tu ruta desde el controller" + pantalla_Principal.ruta.getText());                      
-                //JOptionPane.showConfirmDialog(null, "Esta es el nom desde el controller = " + nom);
+                Modelo_proceso_email objeto = new Modelo_proceso_email(Envio_email.para, Envio_email.asunto,/*pantalla_Principal.texto,pantalla_Principal.ruta,*/ nom,  Envio_email.label);
+ JOptionPane.showConfirmDialog(null,"Esta es el nom CONTROLADOR REPORYE PDF USAUL =" + nom);
+ 
+ 
+ 
+ 
+ 
+ 
+ 
 // esta cosa nom es el nombre del file k se carga pero como le doy un nombre statico pues no es necesario
                 objeto.start();
                 objeto = null;
             }
         }
-    }
-
-     
+    }    
 }
 
 
