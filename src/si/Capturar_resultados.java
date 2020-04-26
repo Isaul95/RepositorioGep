@@ -78,6 +78,8 @@ public Capturar_resultados(int id_venta_a_capturar_resultados){
         envio_email = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setUndecorated(true);
+        setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 formWindowClosed(evt);
@@ -89,12 +91,12 @@ public Capturar_resultados(int id_venta_a_capturar_resultados){
         agregar_articulo.setDoubleBuffered(false);
         agregar_articulo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        producto_sobrante3.setBackground(new java.awt.Color(0, 51, 102));
+        producto_sobrante3.setBackground(new java.awt.Color(135, 193, 193));
         producto_sobrante3.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         producto_sobrante3.setDoubleBuffered(false);
         producto_sobrante3.setLayout(null);
 
-        jPanel31.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel31.setBackground(new java.awt.Color(135, 193, 193));
 
         jLabel83.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel83.setText("Captura de resultados");
@@ -132,10 +134,10 @@ public Capturar_resultados(int id_venta_a_capturar_resultados){
         );
 
         producto_sobrante3.add(jPanel31);
-        jPanel31.setBounds(0, 0, 1294, 84);
+        jPanel31.setBounds(0, 0, 1288, 74);
 
-        jPanel33.setBackground(new java.awt.Color(0, 51, 102));
-        jPanel33.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "   Entrada piezas de productos a inventario   ", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Arial", 1, 18), new java.awt.Color(255, 255, 255))); // NOI18N
+        jPanel33.setBackground(new java.awt.Color(135, 193, 193));
+        jPanel33.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Arial", 1, 18), new java.awt.Color(255, 255, 255))); // NOI18N
         jPanel33.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         Jtable_ProductosEntradas = new javax.swing.JTable(){
@@ -242,7 +244,7 @@ public Capturar_resultados(int id_venta_a_capturar_resultados){
                 gastos_btn_backActionPerformed(evt);
             }
         });
-        jPanel33.add(gastos_btn_back, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 530, 150, -1));
+        jPanel33.add(gastos_btn_back, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 530, 150, 50));
 
         envio_email.setBackground(new java.awt.Color(255, 255, 255));
         envio_email.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -258,7 +260,7 @@ public Capturar_resultados(int id_venta_a_capturar_resultados){
         producto_sobrante3.add(jPanel33);
         jPanel33.setBounds(10, 80, 600, 620);
 
-        agregar_articulo.add(producto_sobrante3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 630, 670));
+        agregar_articulo.add(producto_sobrante3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 630, 710));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

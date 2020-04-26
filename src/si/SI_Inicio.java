@@ -68,7 +68,6 @@ public class SI_Inicio extends javax.swing.JFrame {
         jSeparator4 = new javax.swing.JSeparator();
         jLabel3 = new javax.swing.JLabel();
         jSeparator5 = new javax.swing.JSeparator();
-        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -186,14 +185,6 @@ public class SI_Inicio extends javax.swing.JFrame {
 
         jSeparator5.setCursor(new java.awt.Cursor(java.awt.Cursor.CROSSHAIR_CURSOR));
         jPanel1.add(jSeparator5, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 310, 200, 10));
-
-        jButton2.setText("CARGAR PDF");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 200, -1, -1));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 900, 430));
 
@@ -412,40 +403,6 @@ public static String fecha(){ /* SE DECARA LA FECHA DEL SISTEMA */
         }
     }//GEN-LAST:event_pass_userKeyReleased
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-     String file = "C:\\Users\\aleks\\OneDrive\\Documentos\\CARPETA_PRIUEBA\\1234Alexis.pdf";
-       
-      ///////////////////////////////////////////////////////////////////////////////////////////////////
-         try{
-              FileInputStream input = null;
-            input = new FileInputStream(new File(file));
-            
-             Connection ca= cc.conexion(); //la insersion a la tabla ventas
-                String sql = "INSERT INTO ARCHIVOS (nombre_archivo,archivo,id_paciente)  VALUES (?,?,?)";
-                PreparedStatement pst = ca.prepareCall(sql); //hasta aqui vamos
-               pst.setString(1,"A");
-                pst.setBinaryStream(2, input);
-                pst.setInt(3, 1);
-                int a=pst.executeUpdate();
-                if(a>0){
-                System.out.println("Archivo insertado");
-                 input.close();
-                }else{//CUANDO NO SE PUDO INSERTAR
-                System.out.println("Archivo no insertado");  
-                }
-            }catch(SQLException e)  { //fin de la insersion a la tabla ventas
-                    JOptionPane.showMessageDialog(null, "Error, comprobar_registro INSERT INTO"+e.getMessage(),"HELPER DEVELOPER",JOptionPane.INFORMATION_MESSAGE);                  
-              
-            } catch (FileNotFoundException ex) {
-            Logger.getLogger(SI_Inicio.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(SI_Inicio.class.getName()).log(Level.SEVERE, null, ex);
-        }
-            finally{
-             cc.getClose();
-             }
-    }//GEN-LAST:event_jButton2ActionPerformed
-
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -481,7 +438,6 @@ public static String fecha(){ /* SE DECARA LA FECHA DEL SISTEMA */
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JTextField iduser;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

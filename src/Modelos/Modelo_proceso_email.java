@@ -1,6 +1,5 @@
 
 package Modelos;
-
 import java.util.Properties;
 import javax.activation.DataHandler;
 import javax.activation.FileDataSource;
@@ -14,7 +13,6 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -24,27 +22,24 @@ SELECT CURDATE();   ==>   2020-03-01  SELECT CURTIME();   ==>   14:16:34    */
 public class Modelo_proceso_email implements Runnable{
    static String correo= "isaulhernandez@gepsof.com", contrasena= "Isaul.hernandez952", nom, dest, subject, msn, rout;
     JTextField destinatario, asunto, ruta;
-    JTextArea mensaje;
-    JLabel estado;
+    JTextArea mensaje; //JLabel estado;
     String[] vect;
     
-        public Modelo_proceso_email(JTextField valor3, JTextField valor4, /*JTextArea valor5,JTextField valor6, */String valor7,  JLabel valor8) {       
+        public Modelo_proceso_email(JTextField valor3, JTextField valor4, /*JTextArea valor5,JTextField valor6, JLabel valor8*/String valor7) {       
                    this.destinatario = valor3;  // db save
                    this.asunto = valor4;         // db save      
        this.nom = valor7; // NOMBRE DEL FILE K SE LE DA DE FORMA STATICA
-                         this.estado = valor8;
+                       //  this.estado = valor8; es el mensaje con el label k era
                       dest = destinatario.getText();    // db save
                       subject = asunto.getText();        // db save       
                           vect = dest.split(";"); // separacion concatencion multiusuariio
     }
                
     @Override
-    public void run() {
-            //rout = "C:\\Users\\cachorra\\Desktop\\contrato.docx";  
-        rout = "C:\\Users\\COMIMSA\\Documents\\reportes\\32_Rafael isaul hernandez ramirez.pdf";
+    public void run() {             
+        rout = "C:\\Users\\COMIMSA\\Documents\\reportes\\"+nom;
 // esta es la ruta donde la tengo la de prueb pero solo se cambia la ruta y ya         
         if (rout.equals("")) {
-
         final String usuario = "isaulhernandez@gepsof.com"; // rihr_952@hotmail.com
         final String pass = "Isaul.hernandez952";       //  corazonhtrm5609
            
@@ -65,25 +60,20 @@ public class Modelo_proceso_email implements Runnable{
                     });
             session.setDebug(false);
 
-            try {
-                estado.setText("Enviando Mensaje desde gepsof");
-JOptionPane.showConfirmDialog(null, "Esta es tu ruta desde el proceso" + ruta);      
-System.out.println("Esta es tu ruta desde el proceso" + ruta.getText());      
+            try { //estado.setText("Enviando Mensaje desde gepsof");
+//JOptionPane.showConfirmDialog(null, "Enviando Mensaje");      
                 for (int i = 0; i < vect.length; i++) {
                     Message message = new MimeMessage(session);
                     message.setFrom(new InternetAddress(usuario));
                     message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(vect[i]));
-                    message.setSubject(subject);
-                   // message.setText(msn);
-                    Transport.send(message);
-                   // guardadoDB objeto = new guardadoDB(correo,vect[i],subject);
+                    message.setSubject(subject);                   
+                    Transport.send(message);                   
                 }
-                estado.setText("Mensaje enviado desde gepsof");
-               // mensaje.setText("");
+                JOptionPane.showMessageDialog(null, "Mensaje enviado");                                
                 asunto.setText("");
                 destinatario.setText("");
             } catch (MessagingException e) {
-                estado.setText("Error al enviar mensaje desde gepsof");
+                JOptionPane.showConfirmDialog(null,"Error al Enviar Mensaje");
                 JOptionPane.showMessageDialog(null, "Algo salio mal compruebe la conexion a internet");
             }
         } else {
@@ -98,16 +88,12 @@ System.out.println("Esta es tu ruta desde el proceso" + ruta.getText());
             BodyPart texto = new MimeBodyPart();
 
             try {
-                estado.setText("Enviando Mensaje desde gepsof C/adjunto");
+               // JOptionPane.showConfirmDialog(null,"Enviando Mensaje");
                 for (int i = 0; i < vect.length; i++) {
                     //texto.setText(msn);
                     BodyPart adjunto = new MimeBodyPart();
                     adjunto.setDataHandler(new DataHandler(new FileDataSource(rout)));
-JOptionPane.showConfirmDialog(null, "Esta es el rout desde el proceso =" + rout);      
-System.out.println("Esta es el rout desde el proceso =" + rout);                    
                     adjunto.setFileName(nom);
-JOptionPane.showConfirmDialog(null, "Esta es el nom desde el proceso =" + nom);      
-System.out.println("Esta es el nom desde el proceso =" + nom);
                     MimeMultipart multiParte = new MimeMultipart();
                   //  multiParte.addBodyPart(texto);
                     multiParte.addBodyPart(adjunto);
@@ -123,13 +109,13 @@ System.out.println("Esta es el nom desde el proceso =" + nom);
                     t.sendMessage(message, message.getAllRecipients());
                     t.close();
                 }
-                estado.setText("Mensaje enviado desde gepsof C/adjunto");
+                JOptionPane.showMessageDialog(null,"Mensaje Enviado");
                // mensaje.setText("");
                 asunto.setText("");
                 destinatario.setText("");              
                 
             } catch (MessagingException ex) {
-                estado.setText("Error al enviar mensaje desde gepsof");
+                JOptionPane.showMessageDialog(null,"Error al Enviar Mensaje");
                 JOptionPane.showMessageDialog(null, "Algo salio mal compruebe la conexion a internet desde gepsof" + ex.getMessage());
             }
         }                        

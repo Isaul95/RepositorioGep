@@ -13,26 +13,30 @@ public class Envio_email extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        emailsend = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
         para = new javax.swing.JTextField();
         asunto = new javax.swing.JTextField();
         ruta = new javax.swing.JTextField();
-        label = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        emailsend = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        emailsend.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
-        emailsend.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/enviar.png"))); // NOI18N
-        emailsend.setText("Enviar");
-        emailsend.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        emailsend.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-        emailsend.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                emailsendActionPerformed(evt);
-            }
-        });
+        jPanel1.setBackground(new java.awt.Color(135, 193, 193));
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "APERTURA DE CAJA", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Serif", 1, 36))); // NOI18N
+        jPanel1.setToolTipText("APERTURA DE CAJA");
+        jPanel1.setLayout(null);
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 17)); // NOI18N
+        jLabel1.setText("Para:");
+        jPanel1.add(jLabel1);
+        jLabel1.setBounds(20, 60, 44, 21);
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 17)); // NOI18N
+        jLabel2.setText("Asunto:");
+        jPanel1.add(jLabel2);
+        jLabel2.setBounds(20, 100, 67, 21);
 
         para.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         para.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -40,6 +44,8 @@ public class Envio_email extends javax.swing.JFrame {
                 paraKeyPressed(evt);
             }
         });
+        jPanel1.add(para);
+        para.setBounds(110, 60, 460, 30);
 
         asunto.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         asunto.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -53,81 +59,62 @@ public class Envio_email extends javax.swing.JFrame {
                 asuntoKeyPressed(evt);
             }
         });
+        jPanel1.add(asunto);
+        asunto.setBounds(110, 100, 460, 30);
 
         ruta.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jPanel1.add(ruta);
+        ruta.setBounds(170, 140, 350, 31);
 
-        label.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        label.setForeground(new java.awt.Color(204, 0, 51));
-
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 17)); // NOI18N
-        jLabel1.setText("Para:");
-
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 17)); // NOI18N
-        jLabel2.setText("Asunto:");
+        emailsend.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        emailsend.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/enviar.png"))); // NOI18N
+        emailsend.setText("Enviar");
+        emailsend.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        emailsend.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        emailsend.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                emailsendActionPerformed(evt);
+            }
+        });
+        jPanel1.add(emailsend);
+        emailsend.setBounds(210, 190, 171, 63);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(label, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(para, javax.swing.GroupLayout.DEFAULT_SIZE, 418, Short.MAX_VALUE)
-                    .addComponent(asunto))
-                .addContainerGap(39, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(27, 27, 27)
-                        .addComponent(ruta, javax.swing.GroupLayout.PREFERRED_SIZE, 470, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(180, 180, 180)
-                        .addComponent(emailsend, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(42, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 611, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(label, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(para, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(asunto, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(ruta, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(emailsend, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void emailsendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emailsendActionPerformed
-        Controlador_Report_pdf enviar = new Controlador_Report_pdf();
-        enviar.btn_Envio_email();
-    }//GEN-LAST:event_emailsendActionPerformed
-
-    private void paraKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_paraKeyPressed
-        label.setText("");
-    }//GEN-LAST:event_paraKeyPressed
+    private void asuntoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_asuntoKeyPressed
+        
+    }//GEN-LAST:event_asuntoKeyPressed
 
     private void asuntoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_asuntoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_asuntoActionPerformed
 
-    private void asuntoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_asuntoKeyPressed
-        label.setText("");
-    }//GEN-LAST:event_asuntoKeyPressed
+    private void paraKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_paraKeyPressed
+        
+    }//GEN-LAST:event_paraKeyPressed
+
+    private void emailsendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emailsendActionPerformed
+        Controlador_Report_pdf enviar = new Controlador_Report_pdf();
+        enviar.btn_Envio_email();
+    }//GEN-LAST:event_emailsendActionPerformed
 
     /**
      * @param args the command line arguments
@@ -166,10 +153,10 @@ public class Envio_email extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JTextField asunto;
-    public static javax.swing.JButton emailsend;
+    private javax.swing.JButton emailsend;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    public static javax.swing.JLabel label;
+    public static javax.swing.JPanel jPanel1;
     public static javax.swing.JTextField para;
     public static javax.swing.JTextField ruta;
     // End of variables declaration//GEN-END:variables
