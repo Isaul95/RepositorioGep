@@ -53,12 +53,14 @@ public class Controlador_Report_pdf {
                 // ========================= LLENADO DEL REPORTE  ======================  /
                 //  path --> LA RUTA DEL REPORTE
 //   --> LOS PARAMETROS K SE ENVIAN ALA REPORTE AKI SE RECIBEN IGUAL K CONEXION DB-->(ca) B.D
-                JasperPrint jprint = JasperFillManager.fillReport(reporte, parametro, ca);
-                JOptionPane.showMessageDialog(null, "reporte nose k imprime" + reporte);
+                JasperPrint jprint = JasperFillManager.fillReport(reporte, parametro, ca);    
+JOptionPane.showMessageDialog(null, "juntando nomenclatuta -->>"+Capturar_resultados.id_venta.getText()+"_"+Capturar_resultados.paciente.getText());
+                
 // JasperExportManager es propiedad de jasper el jprint es la k contirnr el docuemto 
 //ya caragdo entonces solo especificas la ruta de donde guardarlo     
   //JasperExportManager.exportReportToPdfFile( jprint, "C:/Users/COMIMSA/Documents/Zoom/report3.pdf");
-  JasperExportManager.exportReportToPdfFile( jprint, "C:/Users/COMIMSA/Documents/Zoom/report3.pdf");
+  String namePDF = Capturar_resultados.id_venta.getText()+"_"+Capturar_resultados.paciente.getText();
+  JasperExportManager.exportReportToPdfFile( jprint, "C:/Users/COMIMSA/Documents/reportes/"+namePDF+".pdf");
 
                 // ========================= CREAR LA VISTA DEL REPORTE  ======================  
                 JasperViewer vista = new JasperViewer(jprint, false);
