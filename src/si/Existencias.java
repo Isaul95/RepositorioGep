@@ -24,7 +24,6 @@ public class Existencias extends javax.swing.JFrame{
         jLabel80 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         existenciadeproductos = new javax.swing.JTable();
-        jLabel81 = new javax.swing.JLabel();
         Corte_btncancelar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -52,13 +51,13 @@ public class Existencias extends javax.swing.JFrame{
             }
         });
         jPanel2.add(busqueda);
-        busqueda.setBounds(20, 110, 430, 26);
+        busqueda.setBounds(20, 90, 430, 26);
 
         jLabel80.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         jLabel80.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel80.setText("Ruta de descarga: C:/reportes_descargados");
+        jLabel80.setText("Busqueda de estudios.");
         jPanel2.add(jLabel80);
-        jLabel80.setBounds(20, 10, 530, 32);
+        jLabel80.setBounds(20, 10, 300, 32);
 
         existenciadeproductos = new javax.swing.JTable(){
             public boolean isCellEditable(int filas, int columnas){
@@ -91,14 +90,8 @@ public class Existencias extends javax.swing.JFrame{
         jPanel2.add(jScrollPane2);
         jScrollPane2.setBounds(20, 170, 780, 230);
 
-        jLabel81.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
-        jLabel81.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel81.setText("Busqueda de estudios.");
-        jPanel2.add(jLabel81);
-        jLabel81.setBounds(20, 60, 300, 32);
-
         jPanel1.add(jPanel2);
-        jPanel2.setBounds(10, 50, 800, 480);
+        jPanel2.setBounds(10, 50, 1000, 480);
 
         Corte_btncancelar.setBackground(new java.awt.Color(255, 255, 255));
         Corte_btncancelar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -110,13 +103,15 @@ public class Existencias extends javax.swing.JFrame{
             }
         });
         jPanel1.add(Corte_btncancelar);
-        Corte_btncancelar.setBounds(750, 0, 60, 50);
+        Corte_btncancelar.setBounds(930, 0, 60, 50);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 812, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 1030, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 17, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -185,7 +180,6 @@ public class Existencias extends javax.swing.JFrame{
     private javax.swing.JTextField busqueda;
     public static javax.swing.JTable existenciadeproductos;
     private javax.swing.JLabel jLabel80;
-    private javax.swing.JLabel jLabel81;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane2;

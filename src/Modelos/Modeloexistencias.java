@@ -7,12 +7,7 @@ package Modelos;
 
 import Controladores.Controladorexistencias;
 import static Modelos.Modeloventa.cc;
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Blob;
 import java.sql.Connection;
@@ -177,30 +172,12 @@ public class Modeloexistencias extends Controladorexistencias {
                          }catch(Exception a){
                                        JOptionPane.showMessageDialog(null, "Error, get_id_usuario; SELECT *  FROM  user where nombre_usuario = ","HELPER DEVELOPER",JOptionPane.INFORMATION_MESSAGE); 
                             }finally{
-                            cc.getClose(); 
+                            cc.getClose();
                            }
                          }
  
  public static void guardar_el_archivo_descargado(InputStream archivo, String nombre){
-        try {File fichaero_a_la_rutr = new File("C:/reportes_descargados/"+nombre);
-  BufferedInputStream in = new BufferedInputStream(archivo);
-            BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(fichaero_a_la_rutr));
-            byte[] bytes = new byte[8096];
-            int len = 0;
-             while ((len = in.read(bytes))>0){
-                 out.write(bytes,0,len);
-             }
-             out.flush();
-             out.close();
-             in.close();
-        }  
-        catch (FileNotFoundException ex) {
-            JOptionPane.showMessageDialog(null,"Su archivo se encuentra descargado y abierto, cierre primero el archivo antes de descargarlo","Advertencia",JOptionPane.ERROR_MESSAGE);
-            Logger.getLogger(Modeloexistencias.class.getName()).log(Level.SEVERE, null, ex);
-        }catch (IOException ex) {
-             Logger.getLogger(Modeloexistencias.class.getName()).log(Level.SEVERE, null, ex);
-         }
-         
+     File fichaero_a_la_rutr = new File("C:/Users/COMIMSA/Documents/reportes/"+nombre);
   
  }
 }
