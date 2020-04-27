@@ -1,6 +1,5 @@
 
 package Modelos;
-
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -10,7 +9,6 @@ import javax.mail.Transport;
 import javax.swing.JLabel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
-
 
 public class Modelo_validacion_email implements Runnable{
     JTextField correo;

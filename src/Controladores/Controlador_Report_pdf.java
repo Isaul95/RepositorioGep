@@ -1,12 +1,8 @@
 
 package Controladores;
-
 import Modelos.Modelo_capturar_resultados;
 import Modelos.Modelo_proceso_email;
-import java.io.File;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
@@ -30,7 +26,7 @@ public class Controlador_Report_pdf {
     private final String logotipo = "/Reportes/logoAlk.jpg"; //  imagen del Logotipo
     private final String firma = "/Reportes/firma.png";      //  imahgen de firma.png
     // con el nom se obtiene la nomenclatura para el guaraddo del archivo pdf
-    public static String nom = Capturar_resultados.id_venta.getText()+"_"+Capturar_resultados.paciente.getText()+".pdf";
+    public static String nom = Capturar_resultados.id_paciente.getText()+"_"+Capturar_resultados.paciente.getText()+".pdf";
      public void Generacion_PDF_client(){                                           
    // ***********************    REPORTE DE USUARIOS    ************************** 
         SI cc= new SI();
@@ -82,7 +78,7 @@ public class Controlador_Report_pdf {
             if (valor == 5 || valor == 0) {
                 Modelo_proceso_email objeto = new Modelo_proceso_email(Envio_email.para, Envio_email.asunto,/*pantalla_Principal.texto,pantalla_Principal.ruta,*/ nom, Envio_email.send_message);    
                 objeto.start();
-                objeto = null;               
+                objeto = null;
             }
         }
     }    

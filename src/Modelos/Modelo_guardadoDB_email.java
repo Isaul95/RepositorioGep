@@ -8,6 +8,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.JOptionPane;
+import si.Capturar_resultados;
 /* NOTAS DE FECHAS;
 SELECT CURDATE();   ==>   2020-03-01     SELECT CURTIME();   ==>   14:16:34     */
 
@@ -25,18 +26,14 @@ public class Modelo_guardadoDB_email {
         this.destinatario = valor2;
         this.asunto = valor3;
         guardar();
-    }    
-    
+    }        
 //   isaherna244@gmail.com;rihr.9523@gmail.com;isaulhernandez@gepsof.com;
 //   alexluna@gepsof.com;jesusvazquez@gepsof.com    sh-pro10.hostgator.mx:2096
 
     public void guardar() {
-//System.out.println("entro al guardar desde el Modelo_guardadoDB_email");       
             String sql4 = "";
-            sql4 = "insert into reportes_email(fecha,hora,nombre_archivo,destinatario,asunto) values(?,?,?,?,?)";
-//System.out.println("ESTOS SON LOS DATOS SAVE INTO DB ===>> DESTINATIRARIO "+destinatario+" asunto "+asunto);
-//  System.out.println("Fecha: " + dateFormat.format(date));
-//  System.out.println(" Hora: " + hourFormat.format(date));        
+            sql4 = "insert into reportes_email(fecha,hora,nombre_archivo,destinatario,asunto,id_paciente) values(?,?,?,?,?,?)";
+// sql4 = "insert into reportes_email(fecha,hora,nombre_archivo,destinatario,asunto) values(?,?,?,?,?)";            
 try {
                 PreparedStatement pst = ca.prepareStatement(sql4); 
                 pst.setString(1, dateFormat.format(date));
@@ -44,6 +41,7 @@ try {
                 pst.setString(3, Modelo_proceso_email.nom);
                 pst.setString(4, destinatario);
                 pst.setString(5, asunto);
+                pst.setString(6, Capturar_resultados.id_paciente.getText());
                 int n = pst.executeUpdate(); 
             } catch (SQLException e) {
                 JOptionPane.showMessageDialog(null, "error4" + e);
