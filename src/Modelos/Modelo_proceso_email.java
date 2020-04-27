@@ -1,8 +1,5 @@
 
 package Modelos;
-import groovy.ui.text.FindReplaceUtility;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.util.Properties;
 import javax.activation.DataHandler;
 import javax.activation.FileDataSource;
@@ -21,7 +18,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import static si.Capturar_resultados.envio_email;
-import si.Envio_email;
 /* NOTAS DE FECHAS;
 SELECT CURDATE();   ==>   2020-03-01  SELECT CURTIME();   ==>   14:16:34    */
 

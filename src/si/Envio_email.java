@@ -33,14 +33,14 @@ public class Envio_email extends javax.swing.JFrame {
         jPanel1.setLayout(null);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 17)); // NOI18N
-        jLabel1.setText("Para:");
+        jLabel1.setText("Para :");
         jPanel1.add(jLabel1);
-        jLabel1.setBounds(20, 60, 50, 30);
+        jLabel1.setBounds(20, 60, 60, 30);
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 17)); // NOI18N
-        jLabel2.setText("Asunto:");
+        jLabel2.setText("Asunto :");
         jPanel1.add(jLabel2);
-        jLabel2.setBounds(20, 100, 67, 30);
+        jLabel2.setBounds(20, 100, 80, 30);
 
         para.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         para.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -81,7 +81,7 @@ public class Envio_email extends javax.swing.JFrame {
 
         File.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         jPanel1.add(File);
-        File.setBounds(250, 140, 320, 30);
+        File.setBounds(110, 140, 460, 30);
 
         send_message.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         send_message.setForeground(new java.awt.Color(204, 0, 0));
@@ -91,9 +91,9 @@ public class Envio_email extends javax.swing.JFrame {
         send_message.setBounds(150, 250, 330, 30);
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 17)); // NOI18N
-        jLabel4.setText("Archivo Cargado:");
+        jLabel4.setText("Archivo :");
         jPanel1.add(jLabel4);
-        jLabel4.setBounds(80, 140, 160, 30);
+        jLabel4.setBounds(20, 140, 110, 30);
 
         regresar.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         regresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/salir-flecha-derecha (1).png"))); // NOI18N
