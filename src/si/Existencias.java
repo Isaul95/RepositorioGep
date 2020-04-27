@@ -44,7 +44,6 @@ public class Existencias extends javax.swing.JFrame{
 
         busqueda.setBackground(new java.awt.Color(135, 193, 193));
         busqueda.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        busqueda.setForeground(new java.awt.Color(255, 255, 255));
         busqueda.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
         busqueda.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -52,13 +51,12 @@ public class Existencias extends javax.swing.JFrame{
             }
         });
         jPanel2.add(busqueda);
-        busqueda.setBounds(20, 110, 430, 26);
+        busqueda.setBounds(290, 60, 440, 30);
 
-        jLabel80.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
-        jLabel80.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel80.setFont(new java.awt.Font("Dialog", 1, 21)); // NOI18N
         jLabel80.setText("Ruta de descarga: C:/reportes_descargados");
         jPanel2.add(jLabel80);
-        jLabel80.setBounds(20, 10, 530, 32);
+        jLabel80.setBounds(20, 10, 590, 28);
 
         existenciadeproductos = new javax.swing.JTable(){
             public boolean isCellEditable(int filas, int columnas){
@@ -67,8 +65,7 @@ public class Existencias extends javax.swing.JFrame{
         };
         existenciadeproductos.setBackground(new java.awt.Color(135, 193, 193));
         existenciadeproductos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
-        existenciadeproductos.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        existenciadeproductos.setForeground(new java.awt.Color(255, 255, 255));
+        existenciadeproductos.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
         existenciadeproductos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
@@ -89,40 +86,44 @@ public class Existencias extends javax.swing.JFrame{
         jScrollPane2.setViewportView(existenciadeproductos);
 
         jPanel2.add(jScrollPane2);
-        jScrollPane2.setBounds(20, 170, 780, 230);
+        jScrollPane2.setBounds(0, 100, 790, 290);
 
-        jLabel81.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
-        jLabel81.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel81.setFont(new java.awt.Font("Dialog", 1, 22)); // NOI18N
         jLabel81.setText("Busqueda de estudios.");
         jPanel2.add(jLabel81);
-        jLabel81.setBounds(20, 60, 300, 32);
-
-        jPanel1.add(jPanel2);
-        jPanel2.setBounds(10, 50, 800, 480);
+        jLabel81.setBounds(20, 60, 300, 29);
 
         Corte_btncancelar.setBackground(new java.awt.Color(255, 255, 255));
         Corte_btncancelar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        Corte_btncancelar.setForeground(new java.awt.Color(255, 255, 255));
+        Corte_btncancelar.setForeground(new java.awt.Color(255, 0, 0));
         Corte_btncancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/salir-flecha-derecha (1).png"))); // NOI18N
+        Corte_btncancelar.setText("Regresar");
         Corte_btncancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Corte_btncancelarActionPerformed(evt);
             }
         });
-        jPanel1.add(Corte_btncancelar);
-        Corte_btncancelar.setBounds(750, 0, 60, 50);
+        jPanel2.add(Corte_btncancelar);
+        Corte_btncancelar.setBounds(620, 0, 160, 50);
+
+        jPanel1.add(jPanel2);
+        jPanel2.setBounds(10, 50, 800, 390);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 812, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 818, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 541, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 454, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();

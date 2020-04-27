@@ -225,7 +225,7 @@ nucleo.deletedescuento.setVisible(true);
         }
         return next;
     }   
- public static void botones_salir(){
+ public static void botones_salir(){ 
         if(tablaventaactiva==true){
             int decision=JOptionPane.showConfirmDialog(null,"¿Desea continuar?","Advertencia: Tiene una venta inconclusa",JOptionPane.CANCEL_OPTION);
             if(decision==0){ //opción si

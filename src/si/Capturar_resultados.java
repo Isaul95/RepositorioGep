@@ -29,7 +29,7 @@ public Capturar_resultados(int id_venta_a_capturar_resultados){
         id_venta.setText(String.valueOf(Controlador_capturar_resultados.id_a_actualizar_resultados));
         id_paciente.setText(String.valueOf(Controlador_capturar_resultados.id_paciente));
         
-         this.setLocation(30, 0); // CENTRAR FORMULARIO
+         this.setLocationRelativeTo(null); // CENTRAR FORMULARIO  
          envio_email.setEnabled(false);
     }
     
@@ -45,9 +45,6 @@ public Capturar_resultados(int id_venta_a_capturar_resultados){
 
         agregar_articulo = new javax.swing.JPanel();
         producto_sobrante3 = new javax.swing.JPanel();
-        jPanel31 = new javax.swing.JPanel();
-        jLabel83 = new javax.swing.JLabel();
-        jButton10 = new javax.swing.JButton();
         jPanel33 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         Jtable_ProductosEntradas = new javax.swing.JTable();
@@ -88,48 +85,8 @@ public Capturar_resultados(int id_venta_a_capturar_resultados){
         producto_sobrante3.setDoubleBuffered(false);
         producto_sobrante3.setLayout(null);
 
-        jPanel31.setBackground(new java.awt.Color(135, 193, 193));
-
-        jLabel83.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel83.setText("Captura de resultados");
-
-        jButton10.setBackground(new java.awt.Color(255, 255, 255));
-        jButton10.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jButton10.setForeground(new java.awt.Color(255, 0, 0));
-        jButton10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/salir-flecha-derecha (1).png"))); // NOI18N
-        jButton10.setText("Salir");
-        jButton10.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton10ActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel31Layout = new javax.swing.GroupLayout(jPanel31);
-        jPanel31.setLayout(jPanel31Layout);
-        jPanel31Layout.setHorizontalGroup(
-            jPanel31Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel31Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel83, javax.swing.GroupLayout.PREFERRED_SIZE, 324, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(168, 168, 168)
-                .addComponent(jButton10)
-                .addContainerGap(673, Short.MAX_VALUE))
-        );
-        jPanel31Layout.setVerticalGroup(
-            jPanel31Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel31Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel31Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel83, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        producto_sobrante3.add(jPanel31);
-        jPanel31.setBounds(0, 0, 1288, 74);
-
         jPanel33.setBackground(new java.awt.Color(135, 193, 193));
-        jPanel33.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Arial", 1, 18), new java.awt.Color(255, 255, 255))); // NOI18N
+        jPanel33.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Captura de resultados", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Serif", 1, 36))); // NOI18N
         jPanel33.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         Jtable_ProductosEntradas = new javax.swing.JTable(){
@@ -141,7 +98,7 @@ public Capturar_resultados(int id_venta_a_capturar_resultados){
                 }
             }
         };
-        Jtable_ProductosEntradas.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        Jtable_ProductosEntradas.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
         Jtable_ProductosEntradas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
@@ -155,65 +112,71 @@ public Capturar_resultados(int id_venta_a_capturar_resultados){
         ));
         jScrollPane2.setViewportView(Jtable_ProductosEntradas);
 
-        jPanel33.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 290, 530, 200));
+        jPanel33.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 290, 580, 200));
 
+        fecha_hora_ingreso.setBackground(new java.awt.Color(0, 0, 0));
         fecha_hora_ingreso.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        fecha_hora_ingreso.setForeground(new java.awt.Color(255, 255, 255));
+        fecha_hora_ingreso.setForeground(new java.awt.Color(102, 102, 102));
         fecha_hora_ingreso.setText("dbFecha_ingreso:");
         jPanel33.add(fecha_hora_ingreso, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 250, 230, -1));
 
+        id_venta.setBackground(new java.awt.Color(0, 0, 0));
         id_venta.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        id_venta.setForeground(new java.awt.Color(255, 255, 255));
+        id_venta.setForeground(new java.awt.Color(102, 102, 102));
         id_venta.setText("idVenta:");
         jPanel33.add(id_venta, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 50, 120, -1));
 
+        paciente.setBackground(new java.awt.Color(0, 0, 0));
         paciente.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        paciente.setForeground(new java.awt.Color(255, 255, 255));
+        paciente.setForeground(new java.awt.Color(102, 102, 102));
         paciente.setText("dbPaciente:");
         jPanel33.add(paciente, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 90, 430, -1));
 
+        edad.setBackground(new java.awt.Color(0, 0, 0));
         edad.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        edad.setForeground(new java.awt.Color(255, 255, 255));
+        edad.setForeground(new java.awt.Color(102, 102, 102));
         edad.setText("dbEdad:");
         jPanel33.add(edad, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 130, 110, -1));
 
+        sexo.setBackground(new java.awt.Color(0, 0, 0));
         sexo.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        sexo.setForeground(new java.awt.Color(255, 255, 255));
+        sexo.setForeground(new java.awt.Color(102, 102, 102));
         sexo.setText("dbSexo:");
         jPanel33.add(sexo, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 170, 190, -1));
 
+        fecha_nacimiento.setBackground(new java.awt.Color(0, 0, 0));
         fecha_nacimiento.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        fecha_nacimiento.setForeground(new java.awt.Color(255, 255, 255));
+        fecha_nacimiento.setForeground(new java.awt.Color(102, 102, 102));
         fecha_nacimiento.setText("dbFecha_nacimiento:");
         jPanel33.add(fecha_nacimiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 210, 260, -1));
 
+        jLabel80.setBackground(new java.awt.Color(0, 0, 0));
         jLabel80.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jLabel80.setForeground(new java.awt.Color(255, 255, 255));
         jLabel80.setText("Venta:");
         jPanel33.add(jLabel80, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 50, 80, -1));
 
+        jLabel81.setBackground(new java.awt.Color(0, 0, 0));
         jLabel81.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jLabel81.setForeground(new java.awt.Color(255, 255, 255));
         jLabel81.setText("Paciente:");
         jPanel33.add(jLabel81, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 90, 120, -1));
 
+        jLabel82.setBackground(new java.awt.Color(0, 0, 0));
         jLabel82.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jLabel82.setForeground(new java.awt.Color(255, 255, 255));
         jLabel82.setText("Edad:");
         jPanel33.add(jLabel82, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 130, 80, -1));
 
+        jLabel84.setBackground(new java.awt.Color(0, 0, 0));
         jLabel84.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jLabel84.setForeground(new java.awt.Color(255, 255, 255));
         jLabel84.setText("Sexo:");
         jPanel33.add(jLabel84, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 170, 80, -1));
 
+        jLabel85.setBackground(new java.awt.Color(0, 0, 0));
         jLabel85.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jLabel85.setForeground(new java.awt.Color(255, 255, 255));
         jLabel85.setText("Fecha_nacimiento:");
         jPanel33.add(jLabel85, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 210, 230, -1));
 
+        jLabel75.setBackground(new java.awt.Color(0, 0, 0));
         jLabel75.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jLabel75.setForeground(new java.awt.Color(255, 255, 255));
         jLabel75.setText("Fecha_ingreso:");
         jPanel33.add(jLabel75, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 250, 230, -1));
 
@@ -226,10 +189,11 @@ public Capturar_resultados(int id_venta_a_capturar_resultados){
                 genetrar_PdfActionPerformed(evt);
             }
         });
-        jPanel33.add(genetrar_Pdf, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 530, 160, 50));
+        jPanel33.add(genetrar_Pdf, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 500, 170, 60));
 
         gastos_btn_back.setBackground(new java.awt.Color(255, 255, 255));
         gastos_btn_back.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        gastos_btn_back.setForeground(new java.awt.Color(255, 0, 0));
         gastos_btn_back.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/salir-flecha-derecha (1).png"))); // NOI18N
         gastos_btn_back.setText("Regresar");
         gastos_btn_back.addActionListener(new java.awt.event.ActionListener() {
@@ -237,7 +201,7 @@ public Capturar_resultados(int id_venta_a_capturar_resultados){
                 gastos_btn_backActionPerformed(evt);
             }
         });
-        jPanel33.add(gastos_btn_back, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 530, 150, 50));
+        jPanel33.add(gastos_btn_back, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 500, 170, 60));
 
         envio_email.setBackground(new java.awt.Color(255, 255, 255));
         envio_email.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -248,28 +212,29 @@ public Capturar_resultados(int id_venta_a_capturar_resultados){
                 envio_emailActionPerformed(evt);
             }
         });
-        jPanel33.add(envio_email, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 530, 170, 50));
+        jPanel33.add(envio_email, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 500, 170, 60));
 
+        jLabel86.setBackground(new java.awt.Color(0, 0, 0));
         jLabel86.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jLabel86.setForeground(new java.awt.Color(255, 255, 255));
         jLabel86.setText("No. paciente");
         jPanel33.add(jLabel86, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 50, 120, -1));
 
+        id_paciente.setBackground(new java.awt.Color(0, 0, 0));
         id_paciente.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        id_paciente.setForeground(new java.awt.Color(255, 255, 255));
+        id_paciente.setForeground(new java.awt.Color(102, 102, 102));
         id_paciente.setText("idVenta:");
         jPanel33.add(id_paciente, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 50, 120, -1));
 
         producto_sobrante3.add(jPanel33);
-        jPanel33.setBounds(10, 80, 600, 620);
+        jPanel33.setBounds(10, 10, 600, 580);
 
-        agregar_articulo.add(producto_sobrante3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 630, 710));
+        agregar_articulo.add(producto_sobrante3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 620, 600));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 642, Short.MAX_VALUE)
+            .addGap(0, 640, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                     .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -278,20 +243,16 @@ public Capturar_resultados(int id_venta_a_capturar_resultados){
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 719, Short.MAX_VALUE)
+            .addGap(0, 622, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                     .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(agregar_articulo, javax.swing.GroupLayout.PREFERRED_SIZE, 707, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(agregar_articulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
-        Controladorventa.botones_salir();
-    }//GEN-LAST:event_jButton10ActionPerformed
 
     private void gastos_btn_backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gastos_btn_backActionPerformed
        dispose();
@@ -360,16 +321,13 @@ public Capturar_resultados(int id_venta_a_capturar_resultados){
     private javax.swing.JButton genetrar_Pdf;
     public static javax.swing.JLabel id_paciente;
     public static javax.swing.JLabel id_venta;
-    private javax.swing.JButton jButton10;
     private javax.swing.JLabel jLabel75;
     private javax.swing.JLabel jLabel80;
     private javax.swing.JLabel jLabel81;
     private javax.swing.JLabel jLabel82;
-    private javax.swing.JLabel jLabel83;
     private javax.swing.JLabel jLabel84;
     private javax.swing.JLabel jLabel85;
     private javax.swing.JLabel jLabel86;
-    private javax.swing.JPanel jPanel31;
     private javax.swing.JPanel jPanel33;
     private javax.swing.JScrollPane jScrollPane2;
     public static javax.swing.JLabel paciente;

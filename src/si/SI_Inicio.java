@@ -96,13 +96,10 @@ public class SI_Inicio extends javax.swing.JFrame {
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, 390, -1));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(135, 193, 193));
         jLabel1.setText("¡Bienvenido al sistema!");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 110, 280, -1));
 
-        text_user.setBackground(new java.awt.Color(255, 255, 255));
         text_user.setFont(new java.awt.Font("Tahoma", 3, 18)); // NOI18N
-        text_user.setForeground(new java.awt.Color(135, 193, 193));
         text_user.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         text_user.setText("Ingresa Usuario");
         text_user.setBorder(null);
@@ -117,9 +114,7 @@ public class SI_Inicio extends javax.swing.JFrame {
         });
         jPanel1.add(text_user, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 280, 200, -1));
 
-        pass_user.setBackground(new java.awt.Color(255, 255, 255));
         pass_user.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        pass_user.setForeground(new java.awt.Color(133, 193, 193));
         pass_user.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         pass_user.setText("**********");
         pass_user.setBorder(null);
@@ -139,7 +134,6 @@ public class SI_Inicio extends javax.swing.JFrame {
         jPanel1.add(pass_user, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 320, 200, -1));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(135, 193, 193));
         jLabel2.setText("Contraseña:");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 320, -1, -1));
 
@@ -172,14 +166,15 @@ public class SI_Inicio extends javax.swing.JFrame {
         pass_user1.setBorder(null);
         jPanel1.add(pass_user1, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 320, 200, -1));
 
+        jSeparator3.setForeground(new java.awt.Color(0, 0, 0));
         jSeparator3.setCursor(new java.awt.Cursor(java.awt.Cursor.CROSSHAIR_CURSOR));
         jPanel1.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 350, 200, 10));
 
+        jSeparator4.setForeground(new java.awt.Color(0, 0, 0));
         jSeparator4.setCursor(new java.awt.Cursor(java.awt.Cursor.CROSSHAIR_CURSOR));
         jPanel1.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 310, 200, 10));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(135, 193, 193));
         jLabel3.setText("Usuario:");
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 280, -1, -1));
 
@@ -233,7 +228,7 @@ public static String fecha(){ /* SE DECARA LA FECHA DEL SISTEMA */
     }
     private void usuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usuarioActionPerformed
         // BOTON DE INGRESO PARA LOS USUARIOS
-     if (text_user.getText().equals("Ingresa Usuario") || pass_user.getText().equals("********")) { // 
+     if (text_user.getText().equalsIgnoreCase("Ingresa Usuario") || pass_user.getText().equalsIgnoreCase("********")) { // 
           JOptionPane.showMessageDialog(null, "Por favor Inserte su Usuario y Contraseña  \nPara Ingresar", "ALERTA", JOptionPane.WARNING_MESSAGE);
         } else { 
         user=text_user.getText();
@@ -248,7 +243,7 @@ public static String fecha(){ /* SE DECARA LA FECHA DEL SISTEMA */
             id_usuario=rs.getShort("id_usuario");
             iduser.setText(String.valueOf(id_usuario));
             }
-                if(datos[2].equals("Inactivo")){
+                if(datos[2].equalsIgnoreCase("Inactivo")){
                 JOptionPane.showMessageDialog(null,"Usuario Inactivo, por favor comunicate con tu administrador para recuperar tu usuario","               Lo sentimos",JOptionPane.WARNING_MESSAGE);
             }
             else{
@@ -256,7 +251,7 @@ public static String fecha(){ /* SE DECARA LA FECHA DEL SISTEMA */
                      if(resultadoclose>0){
                   JOptionPane.showMessageDialog(null,"Ya se hizo corte de caja, por lo tanto no se puede abrir hasta el día de mañana"," Espera un momento",JOptionPane.INFORMATION_MESSAGE); //Msg de bienvenida                                                                     
              }
-              else if(user.equals(datos[0])&&pass.equals(datos[1])){ //comparacion entre lo escrito por el usuario y lo almacenado en la base de datos
+              else if(user.equalsIgnoreCase(datos[0])&&pass.equalsIgnoreCase(datos[1])){ //comparacion entre lo escrito por el usuario y lo almacenado en la base de datos
                yaseabriosistema();
              if(aperturahecha==0){//Si el valor de apertua es mayo a 0, no se abrirá la ventana de apertura
                  this.setVisible(false);  

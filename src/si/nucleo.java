@@ -159,7 +159,7 @@ user.setText(usuarioname);
                 return false;
             }
         };
-        tablaventa.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        tablaventa.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
         tablaventa.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
@@ -178,16 +178,15 @@ user.setText(usuarioname);
         });
         jScrollPane1.setViewportView(tablaventa);
 
-        venta.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 110, 480, 280));
+        venta.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 100, 480, 290));
 
         jLabel75.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
-        jLabel75.setForeground(new java.awt.Color(255, 255, 255));
         jLabel75.setText("En venta :");
         venta.add(jLabel75, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 60, 120, -1));
 
         user_nombre.setBackground(new java.awt.Color(135, 193, 193));
         user_nombre.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        user_nombre.setForeground(new java.awt.Color(255, 255, 255));
+        user_nombre.setForeground(new java.awt.Color(0, 0, 153));
         user_nombre.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
         user_nombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -197,18 +196,16 @@ user.setText(usuarioname);
         venta.add(user_nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 150, 380, 30));
 
         jLabel76.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
-        jLabel76.setForeground(new java.awt.Color(255, 255, 255));
         jLabel76.setText("Datos del paciente:");
         venta.add(jLabel76, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 60, 290, -1));
 
         jLabel78.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
-        jLabel78.setForeground(new java.awt.Color(255, 255, 255));
         jLabel78.setText("Sexo:");
         venta.add(jLabel78, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 200, 90, -1));
 
         user_edad.setBackground(new java.awt.Color(135, 193, 193));
         user_edad.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        user_edad.setForeground(new java.awt.Color(255, 255, 255));
+        user_edad.setForeground(new java.awt.Color(0, 0, 153));
         user_edad.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
         user_edad.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -218,10 +215,10 @@ user.setText(usuarioname);
         venta.add(user_edad, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 240, 90, 40));
 
         jLabel79.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
-        jLabel79.setForeground(new java.awt.Color(255, 255, 255));
         jLabel79.setText("Fecha de nacimiento");
         venta.add(jLabel79, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 300, 240, -1));
 
+        user_sexo.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         user_sexo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Masculino", "Femenino" }));
         user_sexo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(135, 193, 193)));
         venta.add(user_sexo, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 240, 110, 40));
@@ -275,8 +272,7 @@ user.setText(usuarioname);
         };
         existenciadeproductos.setBackground(new java.awt.Color(135, 193, 193));
         existenciadeproductos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
-        existenciadeproductos.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        existenciadeproductos.setForeground(new java.awt.Color(255, 255, 255));
+        existenciadeproductos.setFont(new java.awt.Font("Dialog", 1, 17)); // NOI18N
         existenciadeproductos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
@@ -300,7 +296,6 @@ user.setText(usuarioname);
 
         busqueda.setBackground(new java.awt.Color(135, 193, 193));
         busqueda.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        busqueda.setForeground(new java.awt.Color(255, 255, 255));
         busqueda.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
         busqueda.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -310,22 +305,19 @@ user.setText(usuarioname);
         venta.add(busqueda, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 450, 250, 30));
 
         jLabel80.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
-        jLabel80.setForeground(new java.awt.Color(255, 255, 255));
         jLabel80.setText("Busqueda de estudios.");
         venta.add(jLabel80, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 410, 290, -1));
 
         jLabel81.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
-        jLabel81.setForeground(new java.awt.Color(255, 255, 255));
         jLabel81.setText("Edad:");
         venta.add(jLabel81, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 200, 290, -1));
 
         jLabel82.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
-        jLabel82.setForeground(new java.awt.Color(255, 255, 255));
         jLabel82.setText("Nombre:");
         venta.add(jLabel82, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 110, 290, -1));
 
         jPanel10.setBackground(new java.awt.Color(135, 193, 193));
-        jPanel10.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "   Venta   ", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Arial", 1, 18), new java.awt.Color(255, 255, 255))); // NOI18N
+        jPanel10.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "   Venta   ", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Arial", 1, 20))); // NOI18N
         jPanel10.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         cambiocombobox.setFont(new java.awt.Font("Trebuchet MS", 1, 36)); // NOI18N
@@ -335,36 +327,32 @@ user.setText(usuarioname);
         jPanel10.add(cambiocombobox, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 240, 140, 28));
 
         jLabel31.setFont(new java.awt.Font("Trebuchet MS", 1, 22)); // NOI18N
-        jLabel31.setForeground(new java.awt.Color(255, 255, 255));
         jLabel31.setText("Cambio:");
         jPanel10.add(jLabel31, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 230, 140, -1));
 
         jLabel30.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
-        jLabel30.setForeground(new java.awt.Color(255, 255, 255));
         jLabel30.setText("Subtotal");
         jLabel30.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         jPanel10.add(jLabel30, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 150, -1));
 
+        subtotal.setBackground(new java.awt.Color(0, 0, 0));
         subtotal.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
-        subtotal.setForeground(new java.awt.Color(255, 255, 255));
         subtotal.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         subtotal.setText("00.00");
         jPanel10.add(subtotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 50, 140, 28));
 
         descuentolabel.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
-        descuentolabel.setForeground(new java.awt.Color(255, 255, 255));
         descuentolabel.setText("Pago");
         descuentolabel.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         jPanel10.add(descuentolabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 190, 190, -1));
 
+        total.setBackground(new java.awt.Color(0, 0, 0));
         total.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
-        total.setForeground(new java.awt.Color(255, 255, 255));
         total.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         total.setText("00.00");
         jPanel10.add(total, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 130, 150, 50));
 
         labeldescuento.setFont(new java.awt.Font("Trebuchet MS", 1, 22)); // NOI18N
-        labeldescuento.setForeground(new java.awt.Color(255, 255, 255));
         labeldescuento.setText("Descuento:");
         jPanel10.add(labeldescuento, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 170, -1));
 
@@ -396,19 +384,17 @@ user.setText(usuarioname);
         jPanel10.add(monto, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 190, 150, -1));
 
         descuentolabel1.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
-        descuentolabel1.setForeground(new java.awt.Color(255, 255, 255));
         descuentolabel1.setText("Total");
         descuentolabel1.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         jPanel10.add(descuentolabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, 190, -1));
 
         reimprimirventa.setBackground(new java.awt.Color(135, 193, 193));
         reimprimirventa.setFont(new java.awt.Font("Dialog", 1, 20)); // NOI18N
-        reimprimirventa.setForeground(new java.awt.Color(255, 255, 255));
         reimprimirventa.setText("Reimprimirventa");
         reimprimirventa.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
         jPanel10.add(reimprimirventa, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 240, -1));
 
-        venta.add(jPanel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 200, 360, 280));
+        venta.add(jPanel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 200, 380, 280));
 
         AgregarGastos.setBackground(new java.awt.Color(135, 193, 193));
         AgregarGastos.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N

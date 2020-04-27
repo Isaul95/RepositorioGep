@@ -62,7 +62,6 @@ public class Inventarioventas extends javax.swing.JFrame {
         busqueda = new javax.swing.JTextField();
         jPanel24 = new javax.swing.JPanel();
         jLabel93 = new javax.swing.JLabel();
-        jButton8 = new javax.swing.JButton();
         gastos_btn_back = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -82,28 +81,26 @@ public class Inventarioventas extends javax.swing.JFrame {
         Administrador.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel23.setBackground(new java.awt.Color(135, 193, 193));
-        jPanel23.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Ventas de hoy realizadas", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Arial", 1, 18), new java.awt.Color(255, 255, 255))); // NOI18N
+        jPanel23.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Ventas de hoy realizadas", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Serif", 1, 24))); // NOI18N
         jPanel23.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         fechainicial.setBackground(new java.awt.Color(135, 193, 193));
         fechainicial.setForeground(new java.awt.Color(0, 96, 255));
         fechainicial.setFont(new java.awt.Font("Tahoma", 1, 17)); // NOI18N
-        jPanel23.add(fechainicial, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 20, 160, 40));
+        jPanel23.add(fechainicial, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 40, 190, 40));
 
         jLabel99.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel99.setForeground(new java.awt.Color(255, 255, 255));
         jLabel99.setText("Desde");
-        jPanel23.add(jLabel99, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 20, 60, 50));
+        jPanel23.add(jLabel99, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 40, 60, 50));
 
         jLabel91.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel91.setForeground(new java.awt.Color(255, 255, 255));
         jLabel91.setText("Hasta");
-        jPanel23.add(jLabel91, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 20, 60, 50));
+        jPanel23.add(jLabel91, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 40, 60, 50));
 
         fechafinal.setBackground(new java.awt.Color(135, 193, 193));
         fechafinal.setForeground(new java.awt.Color(0, 96, 255));
         fechafinal.setFont(new java.awt.Font("Tahoma", 1, 17)); // NOI18N
-        jPanel23.add(fechafinal, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 20, 160, 40));
+        jPanel23.add(fechafinal, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 40, 190, 40));
 
         buscarventasporfecha.setBackground(new java.awt.Color(255, 255, 255));
         buscarventasporfecha.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -115,7 +112,7 @@ public class Inventarioventas extends javax.swing.JFrame {
                 buscarventasporfechaActionPerformed(evt);
             }
         });
-        jPanel23.add(buscarventasporfecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(1100, 20, 130, 40));
+        jPanel23.add(buscarventasporfecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(1140, 40, 130, 40));
 
         cancelarventa.setBackground(new java.awt.Color(255, 255, 255));
         cancelarventa.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
@@ -177,12 +174,10 @@ public class Inventarioventas extends javax.swing.JFrame {
         jPanel23.add(editar_paciente, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 320, 240, -1));
 
         totalventarealizada.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        totalventarealizada.setForeground(new java.awt.Color(255, 255, 255));
         totalventarealizada.setText("Total de ésta venta:");
         jPanel23.add(totalventarealizada, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 420, 190, 30));
 
         labelparaeltotal.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        labelparaeltotal.setForeground(new java.awt.Color(255, 255, 255));
         labelparaeltotal.setText("00.00");
         jPanel23.add(labelparaeltotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(1130, 420, 90, 30));
 
@@ -208,45 +203,37 @@ public class Inventarioventas extends javax.swing.JFrame {
         jPanel23.add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 900, 410));
 
         jLabel103.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel103.setForeground(new java.awt.Color(255, 255, 255));
         jLabel103.setText("Buscar por fecha");
-        jPanel23.add(jLabel103, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 20, 180, 50));
+        jPanel23.add(jLabel103, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 40, 180, 50));
 
         labelbusqueda.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        labelbusqueda.setForeground(new java.awt.Color(255, 255, 255));
         labelbusqueda.setText("Buscar por nombre");
         jPanel23.add(labelbusqueda, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 180, 50));
 
         jLabel63.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel63.setForeground(new java.awt.Color(255, 255, 255));
         jLabel63.setText("Ventas realizadas:");
         jPanel23.add(jLabel63, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 450, 180, 50));
 
         jLabel96.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel96.setForeground(new java.awt.Color(255, 255, 255));
         jLabel96.setText("Ventas de hoy : $ ");
         jPanel23.add(jLabel96, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 490, 170, 50));
 
         ventaseneldiasumadas.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
-        ventaseneldiasumadas.setForeground(new java.awt.Color(255, 255, 255));
         ventaseneldiasumadas.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         ventaseneldiasumadas.setText("00.00");
         jPanel23.add(ventaseneldiasumadas, new org.netbeans.lib.awtextra.AbsoluteConstraints(1080, 490, 120, 50));
 
         conteodelasventasrealizadas.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
-        conteodelasventasrealizadas.setForeground(new java.awt.Color(255, 255, 255));
         conteodelasventasrealizadas.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         conteodelasventasrealizadas.setText("00");
         jPanel23.add(conteodelasventasrealizadas, new org.netbeans.lib.awtextra.AbsoluteConstraints(1100, 450, 120, 50));
 
         opciones.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        opciones.setForeground(new java.awt.Color(255, 255, 255));
         opciones.setText("Opciones disponibles:");
         jPanel23.add(opciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 110, 220, 50));
 
         busqueda.setBackground(new java.awt.Color(135, 193, 193));
         busqueda.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        busqueda.setForeground(new java.awt.Color(255, 255, 255));
         busqueda.setToolTipText("");
         busqueda.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 1, true));
         busqueda.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -254,28 +241,18 @@ public class Inventarioventas extends javax.swing.JFrame {
                 busquedaKeyReleased(evt);
             }
         });
-        jPanel23.add(busqueda, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 400, 40));
+        jPanel23.add(busqueda, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 360, 40));
 
-        Administrador.add(jPanel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 1280, 570));
+        Administrador.add(jPanel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 1280, 560));
 
         jPanel24.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel93.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel93.setText("                Ventas");
 
-        jButton8.setBackground(new java.awt.Color(255, 255, 255));
-        jButton8.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jButton8.setForeground(new java.awt.Color(255, 0, 0));
-        jButton8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/salir-flecha-derecha (1).png"))); // NOI18N
-        jButton8.setText("Salir");
-        jButton8.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton8ActionPerformed(evt);
-            }
-        });
-
         gastos_btn_back.setBackground(new java.awt.Color(255, 255, 255));
         gastos_btn_back.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        gastos_btn_back.setForeground(new java.awt.Color(255, 0, 0));
         gastos_btn_back.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/salir-flecha-derecha (1).png"))); // NOI18N
         gastos_btn_back.setText("Regresar");
         gastos_btn_back.addActionListener(new java.awt.event.ActionListener() {
@@ -291,46 +268,40 @@ public class Inventarioventas extends javax.swing.JFrame {
             .addGroup(jPanel24Layout.createSequentialGroup()
                 .addGap(322, 322, 322)
                 .addComponent(jLabel93, javax.swing.GroupLayout.PREFERRED_SIZE, 324, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 301, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 473, Short.MAX_VALUE)
                 .addComponent(gastos_btn_back, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(33, 33, 33)
-                .addComponent(jButton8)
-                .addGap(41, 41, 41))
+                .addGap(21, 21, 21))
         );
         jPanel24Layout.setVerticalGroup(
             jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel24Layout.createSequentialGroup()
-                .addGroup(jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel93, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(gastos_btn_back, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel93, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(4, 4, 4))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel24Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(gastos_btn_back, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         Administrador.add(jPanel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
-        jPanel12.add(Administrador, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 641));
+        jPanel12.add(Administrador, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 1280, 630));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1288, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, 1288, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, 1288, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 9, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 641, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -360,10 +331,6 @@ public class Inventarioventas extends javax.swing.JFrame {
     private void jTable2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable2MouseClicked
 Controladorinventarioventas.verdescripcionenbaseaventarealizada();
     }//GEN-LAST:event_jTable2MouseClicked
-
-    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        Controladorventa.botones_salir();
-    }//GEN-LAST:event_jButton8ActionPerformed
 
     private void gastos_btn_backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gastos_btn_backActionPerformed
           dispose();
@@ -435,7 +402,6 @@ Controladorinventarioventas.verdescripcionenbaseaventarealizada();
     public static com.toedter.calendar.JDateChooser fechainicial;
     private javax.swing.JButton gastos_btn_back;
     public static javax.swing.JButton imprimirventa;
-    private javax.swing.JButton jButton8;
     private javax.swing.JLabel jLabel103;
     public static javax.swing.JLabel jLabel63;
     private javax.swing.JLabel jLabel91;

@@ -61,39 +61,34 @@ Controladorventa.noduplicargastos=true;
         jScrollPane1.setViewportView(jTableGastos);
 
         jPanel2.add(jScrollPane1);
-        jScrollPane1.setBounds(10, 240, 650, 230);
+        jScrollPane1.setBounds(0, 230, 660, 210);
 
         jLabel2.setBackground(new java.awt.Color(135, 193, 193));
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 17)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Descripción del Gasto:");
         jPanel2.add(jLabel2);
-        jLabel2.setBounds(10, 10, 220, 29);
+        jLabel2.setBounds(20, 0, 220, 29);
 
         jLabel3.setBackground(new java.awt.Color(135, 193, 193));
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 17)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Monto del Gasto:");
         jPanel2.add(jLabel3);
-        jLabel3.setBounds(10, 80, 160, 29);
+        jLabel3.setBounds(20, 70, 160, 29);
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Busqueda de Gastos");
         jPanel2.add(jLabel4);
-        jLabel4.setBounds(10, 150, 250, 40);
+        jLabel4.setBounds(20, 140, 250, 40);
 
         txtdescripcionq.setBackground(new java.awt.Color(135, 193, 193));
         txtdescripcionq.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        txtdescripcionq.setForeground(new java.awt.Color(255, 255, 255));
         txtdescripcionq.setToolTipText("");
         txtdescripcionq.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 1, true));
         jPanel2.add(txtdescripcionq);
-        txtdescripcionq.setBounds(10, 40, 460, 40);
+        txtdescripcionq.setBounds(20, 30, 460, 40);
 
         txtmonto1.setBackground(new java.awt.Color(135, 193, 193));
         txtmonto1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        txtmonto1.setForeground(new java.awt.Color(255, 255, 255));
         txtmonto1.setToolTipText("");
         txtmonto1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 1, true));
         txtmonto1.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -102,11 +97,10 @@ Controladorventa.noduplicargastos=true;
             }
         });
         jPanel2.add(txtmonto1);
-        txtmonto1.setBounds(10, 110, 150, 40);
+        txtmonto1.setBounds(20, 100, 150, 40);
 
         busquedagastos1.setBackground(new java.awt.Color(135, 193, 193));
         busquedagastos1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        busquedagastos1.setForeground(new java.awt.Color(255, 255, 255));
         busquedagastos1.setToolTipText("");
         busquedagastos1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 1, true));
         busquedagastos1.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -115,10 +109,7 @@ Controladorventa.noduplicargastos=true;
             }
         });
         jPanel2.add(busquedagastos1);
-        busquedagastos1.setBounds(10, 190, 280, 40);
-
-        jPanel1.add(jPanel2);
-        jPanel2.setBounds(0, 50, 690, 480);
+        busquedagastos1.setBounds(20, 180, 280, 40);
 
         gastos_btn_back.setBackground(new java.awt.Color(255, 255, 255));
         gastos_btn_back.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -130,20 +121,27 @@ Controladorventa.noduplicargastos=true;
                 gastos_btn_backActionPerformed(evt);
             }
         });
-        jPanel1.add(gastos_btn_back);
-        gastos_btn_back.setBounds(530, 0, 150, 50);
+        jPanel2.add(gastos_btn_back);
+        gastos_btn_back.setBounds(510, 10, 150, 50);
+
+        jPanel1.add(jPanel2);
+        jPanel2.setBounds(10, 50, 660, 450);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 685, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 685, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 541, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 511, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
