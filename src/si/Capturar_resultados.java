@@ -7,6 +7,7 @@ package si;
 import Controladores.Controladorventa;
 import Controladores.Controlador_Report_pdf;
 import Controladores.Controlador_capturar_resultados;
+import Modelos.Modelo_capturar_resultados;
 /**
  *
  * @author Alexis
@@ -19,12 +20,15 @@ public static boolean seagregoexterno=false;
      */
 public Capturar_resultados(int id_venta_a_capturar_resultados){
     Controlador_capturar_resultados.id_a_actualizar_resultados=id_venta_a_capturar_resultados; //Aqui se guarda el id de la venta de a cual se van a actualizar los datos
+    Modelo_capturar_resultados.id_paciente(Controlador_capturar_resultados.id_a_actualizar_resultados);
 } 
     public Capturar_resultados() {
         initComponents();
         Controladorventa.noduplicar_capturaresultados=true;
         Controlador_capturar_resultados.metodos_al_iniciar_entradasproductos0(Controlador_capturar_resultados.id_a_actualizar_resultados);//Aqui se envia al controlador el id para traer todos los datos para capturar los resultados
         id_venta.setText(String.valueOf(Controlador_capturar_resultados.id_a_actualizar_resultados));
+        id_paciente.setText(String.valueOf(Controlador_capturar_resultados.id_paciente));
+        
          this.setLocation(30, 0); // CENTRAR FORMULARIO
          envio_email.setEnabled(false);
     }
@@ -62,6 +66,8 @@ public Capturar_resultados(int id_venta_a_capturar_resultados){
         genetrar_Pdf = new javax.swing.JButton();
         gastos_btn_back = new javax.swing.JButton();
         envio_email = new javax.swing.JButton();
+        jLabel86 = new javax.swing.JLabel();
+        id_paciente = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -120,7 +126,7 @@ public Capturar_resultados(int id_venta_a_capturar_resultados){
         );
 
         producto_sobrante3.add(jPanel31);
-        jPanel31.setBounds(0, 0, 1294, 84);
+        jPanel31.setBounds(0, 0, 1288, 74);
 
         jPanel33.setBackground(new java.awt.Color(135, 193, 193));
         jPanel33.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Arial", 1, 18), new java.awt.Color(255, 255, 255))); // NOI18N
@@ -244,6 +250,16 @@ public Capturar_resultados(int id_venta_a_capturar_resultados){
         });
         jPanel33.add(envio_email, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 530, 170, 50));
 
+        jLabel86.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jLabel86.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel86.setText("No. paciente");
+        jPanel33.add(jLabel86, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 50, 120, -1));
+
+        id_paciente.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        id_paciente.setForeground(new java.awt.Color(255, 255, 255));
+        id_paciente.setText("idVenta:");
+        jPanel33.add(id_paciente, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 50, 120, -1));
+
         producto_sobrante3.add(jPanel33);
         jPanel33.setBounds(10, 80, 600, 620);
 
@@ -342,6 +358,7 @@ public Capturar_resultados(int id_venta_a_capturar_resultados){
     public static javax.swing.JLabel fecha_nacimiento;
     private javax.swing.JButton gastos_btn_back;
     private javax.swing.JButton genetrar_Pdf;
+    public static javax.swing.JLabel id_paciente;
     public static javax.swing.JLabel id_venta;
     private javax.swing.JButton jButton10;
     private javax.swing.JLabel jLabel75;
@@ -351,6 +368,7 @@ public Capturar_resultados(int id_venta_a_capturar_resultados){
     private javax.swing.JLabel jLabel83;
     private javax.swing.JLabel jLabel84;
     private javax.swing.JLabel jLabel85;
+    private javax.swing.JLabel jLabel86;
     private javax.swing.JPanel jPanel31;
     private javax.swing.JPanel jPanel33;
     private javax.swing.JScrollPane jScrollPane2;
