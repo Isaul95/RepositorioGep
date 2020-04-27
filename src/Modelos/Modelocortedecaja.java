@@ -62,7 +62,7 @@ public class Modelocortedecaja extends Controladorcortedecaja{
 public static void ventaseneldia(){
         try{  Connection ca= cc.conexion();// La suma de todos los importes
                                          Statement sent  =(Statement)ca.createStatement();
-                                         ResultSet  rs = sent.executeQuery("select SUM(importe) from descripcion_de_venta where estado in ('Realizada','Credito-pendiente','Credito-pagado') and fecha= '"+Controladorventa.fecha()+"'and id_producto != 60");
+                                         ResultSet  rs = sent.executeQuery("select SUM(importe) from descripcion_de_venta where estado in ('Realizada') and fecha= '"+Controladorventa.fecha()+"' ");
                                             while(rs.next()){
                                                       ventasdeldia =Float.parseFloat(rs.getString("SUM(importe)"));
                                                       }
@@ -133,8 +133,13 @@ public static void metodogastosdeldia(){
                              venta.add(rs.getShort(1));
                              totalcdesc.add(rs.getFloat(2));
                          }                 
-   ventascdesc = new Listaventascondescuento();     
+                         if(!venta.isEmpty()){ //Si las listas no estan vacias imprime las ventas con desccuento
+           ventascdesc = new Listaventascondescuento();     
    ventascdesc.ventascondescuento(venta, totalcdesc);  
+      }else{
+                             System.out.println("No hay ventas con descuento");
+                         }
+  
       }catch(Exception e){
            JOptionPane.showMessageDialog(null, "ERROR EN METODO: ventascondescuento","DEVELOPER HELPER", JOptionPane.ERROR_MESSAGE);                                  
       }finally{cc.getClose();}
@@ -171,7 +176,7 @@ ListadeGastosAlHacerCorteCaja();  // TOCKET DE LISTA DE GASTOS
  total_numeros_y_descuentos();    
  /*sii*/obteniendolosvaloresdelcortedecajadeldiadehoyparaelticket(numerodescuentos, totaldedescuentos);//LOS DATOS DEL TICKET CORTE DE CAJA                                                      
   ventascondescuento();
-            llenar_tabla_utilidad(gastosdeldia, ventasdeldia);
+        //  llenar_tabla_utilidad(gastosdeldia, ventasdeldia); //  omitido
    JOptionPane.showMessageDialog(null,"Nos vemos pronto","Saliendo del sistema...",JOptionPane.INFORMATION_MESSAGE);
             System.exit(0);
                 }
