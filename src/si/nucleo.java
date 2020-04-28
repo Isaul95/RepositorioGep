@@ -37,7 +37,7 @@ public static String hora,minutos,segundos,usuarioname=SI_Inicio.text_user.getTe
         setVisible(true);  // SE OBTIENE LA HORA DEL SISTEMA PARA MOSTAR EN PANTALLA
 user.setText(usuarioname);
  setIconImage(getIconImage());  //La variable que le manda la imagen (DataMax) al proyecto 
-        Controladorventa.metodos_al_iniciar_menuprincipal();
+        Controladorventa.metodos_al_iniciar_menuprincipal(usuarioname);
          Controladorexistencias.metodosalabrirexistencias();
             Fecha.setText(Controladorventa.fecha().toString()); // SE OBTIENE LA FECHA DEL SISTEMA PARA MOSTAR EN PANTALLA
   
@@ -592,7 +592,7 @@ user.setText(usuarioname);
     public static javax.swing.JButton Cortedecaja;
     private javax.swing.JButton Existencias;
     private javax.swing.JLabel Fecha;
-    private javax.swing.JButton Registro_user;
+    public static javax.swing.JButton Registro_user;
     public static javax.swing.JLabel Reloj;
     private javax.swing.JTextField busqueda;
     public static com.toedter.calendar.JDateChooser calendar_fecha_nacimiento;

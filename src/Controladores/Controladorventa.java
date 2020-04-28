@@ -315,9 +315,14 @@ nucleo.deletedescuento.setVisible(true);
     }
      
      
-    public static void metodos_al_iniciar_menuprincipal(){
+    public static void metodos_al_iniciar_menuprincipal(String usuario){
       Modeloventa.ids_y_cantidades_enturno_por_error_de_usuario();
 nucleo.deletedescuento.setVisible(false);
+if(usuario.equals("a")){
+    nucleo.Registro_user.setVisible(true);
+}else{
+    nucleo.Registro_user.setVisible(false);
+}
     }
    public static String fecha_de_nacimiento_del_paciente(){
        int año= nucleo.calendar_fecha_nacimiento.getCalendar().get(Calendar.YEAR);
