@@ -108,6 +108,7 @@ user.setText(usuarioname);
         Cortedecaja = new javax.swing.JButton();
         cobrar_venta = new javax.swing.JButton();
         Existencias = new javax.swing.JButton();
+        Registro_user = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -440,10 +441,10 @@ user.setText(usuarioname);
         });
         venta.add(cobrar_venta, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 410, 240, 50));
 
-        Existencias.setBackground(new java.awt.Color(255, 255, 255));
+        Existencias.setBackground(new java.awt.Color(135, 193, 193));
         Existencias.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         Existencias.setForeground(new java.awt.Color(204, 0, 0));
-        Existencias.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/actualizar.png"))); // NOI18N
+        Existencias.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/pdf.png"))); // NOI18N
         Existencias.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         Existencias.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         Existencias.addActionListener(new java.awt.event.ActionListener() {
@@ -452,6 +453,19 @@ user.setText(usuarioname);
             }
         });
         venta.add(Existencias, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 290, 40, 50));
+
+        Registro_user.setBackground(new java.awt.Color(135, 193, 193));
+        Registro_user.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        Registro_user.setForeground(new java.awt.Color(204, 0, 0));
+        Registro_user.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/user022.png"))); // NOI18N
+        Registro_user.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        Registro_user.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        Registro_user.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Registro_userActionPerformed(evt);
+            }
+        });
+        venta.add(Registro_user, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 350, 40, 50));
 
         getContentPane().add(venta, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1300, 670));
 
@@ -531,6 +545,11 @@ user.setText(usuarioname);
     private void ExistenciasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExistenciasActionPerformed
         if(Controladorventa.noduplicarexistencias==false){new Existencias().setVisible(true);}
     }//GEN-LAST:event_ExistenciasActionPerformed
+
+    private void Registro_userActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Registro_userActionPerformed
+        //if(Controladorventa.noduplicarexistencias==false){new Existencias().setVisible(true);} 
+        new Registro_usuario().setVisible(true);
+    }//GEN-LAST:event_Registro_userActionPerformed
  private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {                                         
 // MODIFICAR   new ProductosExternos().setVisible(true);        
     }                                           /**
@@ -573,6 +592,7 @@ user.setText(usuarioname);
     public static javax.swing.JButton Cortedecaja;
     private javax.swing.JButton Existencias;
     private javax.swing.JLabel Fecha;
+    private javax.swing.JButton Registro_user;
     public static javax.swing.JLabel Reloj;
     private javax.swing.JTextField busqueda;
     public static com.toedter.calendar.JDateChooser calendar_fecha_nacimiento;
