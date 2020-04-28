@@ -38,10 +38,10 @@ public class SI_Inicio extends javax.swing.JFrame {
     public void RetornaValor(){ /* UN AVEZ K SE INGRESAN LOS DATOS RETORNA LOS VALORES DE LOS PLACEHOLD */
    text_user.setText("Ingresa Usuario");
    text_user.setFont(new Font("Tahoma",Font.BOLD, 17));
-   text_user.setForeground(new Color(135,193,193));
+   text_user.setForeground(new Color(0,0,0));
                  pass_user.setText("**********");
                  pass_user.setFont(new Font("Tahoma",Font.BOLD, 17));
-                 pass_user.setForeground(new Color(135, 193, 193));
+                 pass_user.setForeground(new Color(0, 0, 0));
                 }
     
       String user,estadoinactivo="Inactivo", pass;
@@ -100,6 +100,7 @@ public class SI_Inicio extends javax.swing.JFrame {
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 110, 280, -1));
 
         text_user.setFont(new java.awt.Font("Tahoma", 3, 18)); // NOI18N
+        text_user.setForeground(new java.awt.Color(0, 0, 0));
         text_user.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         text_user.setText("Ingresa Usuario");
         text_user.setBorder(null);
@@ -115,6 +116,7 @@ public class SI_Inicio extends javax.swing.JFrame {
         jPanel1.add(text_user, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 280, 200, -1));
 
         pass_user.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        pass_user.setForeground(new java.awt.Color(0, 0, 0));
         pass_user.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         pass_user.setText("**********");
         pass_user.setBorder(null);
@@ -303,28 +305,28 @@ public static String fecha(){ /* SE DECARA LA FECHA DEL SISTEMA */
             text_user.setText("");
             
         }
-           text_user.setForeground(new Color(135,193,193));
+           text_user.setForeground(new Color(0,0,0));
     }//GEN-LAST:event_text_userFocusGained
 
     private void text_userFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_text_userFocusLost
         if(text_user.getText().trim().equals("")){
             text_user.setText("Ingresa Usuario");
         }
-           text_user.setForeground(new Color(135,193,193));
+           text_user.setForeground(new Color(0,0,0));
     }//GEN-LAST:event_text_userFocusLost
 
     private void pass_userFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_pass_userFocusGained
         if(pass_user.getText().trim().equals("**********")){
             pass_user.setText("");
         }
-           pass_user.setForeground(new Color(135,193,193));
+           pass_user.setForeground(new Color(0,0,0));
     }//GEN-LAST:event_pass_userFocusGained
 
     private void pass_userFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_pass_userFocusLost
         if(pass_user.getText().trim().equals("")){
             pass_user.setText("********** ");
         }
-           pass_user.setForeground(new Color(135,193,193));
+           pass_user.setForeground(new Color(0,0,0));
     }//GEN-LAST:event_pass_userFocusLost
 
     private void pass_userKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_pass_userKeyReleased

@@ -187,7 +187,7 @@ user.setText(usuarioname);
 
         user_nombre.setBackground(new java.awt.Color(135, 193, 193));
         user_nombre.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        user_nombre.setForeground(new java.awt.Color(0, 0, 153));
+        user_nombre.setForeground(new java.awt.Color(0, 0, 0));
         user_nombre.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
         user_nombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -206,7 +206,7 @@ user.setText(usuarioname);
 
         user_edad.setBackground(new java.awt.Color(135, 193, 193));
         user_edad.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        user_edad.setForeground(new java.awt.Color(0, 0, 153));
+        user_edad.setForeground(new java.awt.Color(0, 0, 0));
         user_edad.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
         user_edad.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
