@@ -21,14 +21,14 @@ import javax.swing.JOptionPane;
 
         // Se llama al metodo para imprimir una cadena
        auxs+= "CORTE DE CAJA\n\n";  System.out.println("CORTE DE CAJA\n\n");      
-       auxs+= "POLLERIA LA GRANJA\n"; System.out.println("POLLERIA LA GRANJA\n");
-      //  auxs+= "PROP.JOSE MIGUEL CASTREZANA B.\n";  System.out.println("PROP.JOSE MIGUEL CASTREZANA B.\n");
-        auxs+= "R.F.C. CABM850201PR1\n"; System.out.println("R.F.C. CABM850201PR1\n");         
-         auxs+= "CARR. IGUALA-TAXCO KM.1.5\n"; System.out.println("CARR. IGUALA-TAXCO KM.1.5\n");
-        auxs += "LOCAL 10 Y 11\n";             System.out.println("LOCAL 10 Y 11\n");
-        auxs += "CENTRAL DE ABASTOS\n";        System.out.println("CENTRAL DE ABASTOS\n");
-        auxs += "COL.INSURGENTES  C.P.4003\n";  System.out.println("COL.INSURGENTES  C.P.40033");
-        auxs+= "IGUALA DE LA INDEPENDENCIA\n"; System.out.println("IGUALA DE LA INDEPENDENCIA\n"); 
+     auxs+= "LAB. AL-KHEMY\n"; System.out.println("LAB. AL-KHEMY\n");
+       //  auxs+= "PROP.JOSE MIGUEL CASTREZANA B.\n";  System.out.println("PROP.JOSE MIGUEL CASTREZANA B.\n");
+        auxs+= "Q.F.B. JULIO ENRIQUE OCEGUERA PEÑA\n"; System.out.println("Q.F.B. JULIO ENRIQUE OCEGUERA PEÑA\n");         
+         auxs+= "IGNACIO ZARAGOZA NO. 20\n"; System.out.println("IGNACIO ZARAGOZA NO. 20\n");
+        auxs += "C.P.4446802\n";             System.out.println("C.P.4446802\n");
+        auxs += "SEGUNDA DE SAN MIGUEL\n";        System.out.println("SEGUNDA DE SAN MIGUEL\n");
+        auxs += "COATEPEC HARINAS, MEX.\n";  System.out.println("COATEPEC HARINAS, MEX.");
+       auxs+= "TEL:(723) 14-502-62\n"; System.out.println("TEL:(723) 14-502-62\n"); 
         
         auxs+= "Fecha: " + dateFormat.format(date) + " Hora: " + hourFormat.format(date) + "\n";  System.out.println("Fecha: " + dateFormat.format(date) + " Hora: " + hourFormat.format(date) + "\n");
         auxs+= "\n==============================\n";  System.out.println("\n==============================\n");            

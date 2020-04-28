@@ -280,5 +280,4 @@ public class Registro_usuario extends javax.swing.JFrame {
     private javax.swing.JTextField user_usuario;
     // End of variables declaration//GEN-END:variables
 
-    
 }
