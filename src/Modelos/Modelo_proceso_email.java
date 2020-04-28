@@ -20,9 +20,9 @@ import javax.swing.JTextField;
 import static si.Capturar_resultados.envio_email;
 /* NOTAS DE FECHAS;
 SELECT CURDATE();   ==>   2020-03-01  SELECT CURTIME();   ==>   14:16:34    */
-
+// isaulhernandez@gepsof.com       Isaul.hernandez952
 public class Modelo_proceso_email implements Runnable{
-   static String correo= "isaulhernandez@gepsof.com", contrasena= "Isaul.hernandez952", nom, dest, subject, msn, rout;
+   static String correo= "julio.oceguera@alkhemy.com", contrasena= "Julio.oceguera2", nom, dest, subject, msn, rout;
     JTextField destinatario, asunto, ruta;
     JTextArea mensaje;
     JLabel estado;
@@ -44,8 +44,8 @@ public class Modelo_proceso_email implements Runnable{
         rout = "C:\\reportes\\"+nom;
 // esta es la ruta donde la tengo la de prueb pero solo se cambia la ruta y ya         
         if (rout.equals("")) {
-        final String usuario = "isaulhernandez@gepsof.com"; // rihr_952@hotmail.com
-        final String pass = "Isaul.hernandez952";       //  corazonhtrm5609
+        final String usuario = "julio.oceguera@alkhemy.com"; // isaulhernandez@gepsof.com
+        final String pass = "Julio.oceguera2";       //  Isaul.hernandez952
            
             Properties props = new Properties();
             props.put("mail.transport.protocol", "smtp");
@@ -119,7 +119,7 @@ public class Modelo_proceso_email implements Runnable{
                 asunto.setText("");
                 destinatario.setText("");                              
             } catch (MessagingException ex) {                
-                JOptionPane.showMessageDialog(null, "Algo salio mal compruebe la conexion a internet desde gepsof" + ex.getMessage());
+                JOptionPane.showMessageDialog(null, "Algo salio mal compruebe la conexion a internet Dirección de correo INVALIDA");
             }
         }                        
     }            

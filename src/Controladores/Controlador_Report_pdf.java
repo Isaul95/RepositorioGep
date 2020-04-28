@@ -73,7 +73,7 @@ public class Controlador_Report_pdf {
         } else {
             int valor = 5;
             if (Envio_email.asunto.getText().equals("")) {
-                JOptionPane.showConfirmDialog(null, "Esta seguro que desea enviar el correo sin asunto?");
+                JOptionPane.showMessageDialog(null, "No ha digitado el asunto");
             }
             if (valor == 5 || valor == 0) {
                 Modelo_proceso_email objeto = new Modelo_proceso_email(Envio_email.para, Envio_email.asunto,/*pantalla_Principal.texto,pantalla_Principal.ruta,*/ nom, Envio_email.send_message);    
