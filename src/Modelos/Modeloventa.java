@@ -489,7 +489,7 @@ borrarventasenestadoenturnoporerrordeusuario_que_no_coincidenconlafechadehoy();/
                                 
                                 //PARA GUARDAR LOS DATOS DEL PACIENTE
                                 //autocompletar();
-                            }//fin del id del usuario//fin del id del usuario//fin del id del usuario//fin del id del usuario
+                            }//fin del id del usuario//fin del id del usuario//fin del id del usuario//fin del id del usuario//fin del id del usuario//fin del id del usuario//fin del id del usuario//fin del id del usuario
                             catch(Exception w){
                                 JOptionPane.showMessageDialog(null,"error en metodo_de_cobro update venta"+w);
                             }finally{cc.getClose();}
@@ -560,7 +560,7 @@ if(variablepago<Float.parseFloat(nucleo.subtotal.getText())){ // comprueba que l
                                 
                                 //PARA GUARDAR LOS DATOS DEL PACIENTE
                                 //autocompletar();
-                            }//fin del id del usuario//fin del id del usuario//fin del id del usuario//fin del id del usuario
+                            }//fin del id del usuario//fin del id del usuario//fin del id del usuario//fin del id del usuario//fin del id del usuario//fin del id del usuario//fin del id del usuario//fin del id del usuario
                             catch(Exception w){
                                 JOptionPane.showMessageDialog(null,"error en id usuario"+w);
                             }finally{

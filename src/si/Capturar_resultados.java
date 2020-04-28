@@ -269,9 +269,10 @@ public Capturar_resultados(int id_venta_a_capturar_resultados){
     }//GEN-LAST:event_formWindowClosed
 
     private void envio_emailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_envio_emailActionPerformed
-        Envio_email mail = new Envio_email();
-        mail.setVisible(true);
+        if(Controladorventa.noduplicar_envio_email==false){
+        new Envio_email().setVisible(true);
         Envio_email.File.setText(Controlador_Report_pdf.nom);
+        }
     }//GEN-LAST:event_envio_emailActionPerformed
 
     /**

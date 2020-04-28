@@ -14,6 +14,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JDesktopPane;
+import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 import net.sf.jasperreports.engine.JRException;
@@ -395,7 +397,7 @@ user.setText(usuarioname);
         reimprimirventa.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
         jPanel10.add(reimprimirventa, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 240, -1));
 
-        venta.add(jPanel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 200, 380, 280));
+        venta.add(jPanel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 180, 380, 280));
 
         AgregarGastos.setBackground(new java.awt.Color(135, 193, 193));
         AgregarGastos.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -472,18 +474,6 @@ user.setText(usuarioname);
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void cleanallActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cleanallActionPerformed
-        Controladorventa.limpiarventa();
-    }//GEN-LAST:event_cleanallActionPerformed
-
-    private void deletedescuentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deletedescuentoActionPerformed
-        Controladorventa.deletedescuento();
-    }//GEN-LAST:event_deletedescuentoActionPerformed
-
-    private void descuentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_descuentoActionPerformed
-        Controladorventa.descuentos();
-    }//GEN-LAST:event_descuentoActionPerformed
-
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         Controladorventa.botones_salir();
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -522,13 +512,29 @@ user.setText(usuarioname);
         if(Controladorventa.noduplicarinventarioventas==false){  new Inventarioventas().setVisible(true); }
     }//GEN-LAST:event_inventarioventasActionPerformed
 
-    private void montoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_montoFocusGained
-        Controladorventa.montoFocusGained();
-    }//GEN-LAST:event_montoFocusGained
+    private void cobrar_ventaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cobrar_ventaActionPerformed
+      //if(Controladorventa.noduplicar_cobro==false){new Cobro().setVisible(true);} 
+    }//GEN-LAST:event_cobrar_ventaActionPerformed
 
-    private void montoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_montoFocusLost
-        Controladorventa.montoFocusLost();
-    }//GEN-LAST:event_montoFocusLost
+    private void ExistenciasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExistenciasActionPerformed
+        if(Controladorventa.noduplicarexistencias==false){new Existencias().setVisible(true);}
+    }//GEN-LAST:event_ExistenciasActionPerformed
+
+    private void Registro_userActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Registro_userActionPerformed
+        if(Controladorventa.noduplicar_registro_usuario==false){new Registro_usuario().setVisible(true);} 
+    }//GEN-LAST:event_Registro_userActionPerformed
+
+    private void cleanallActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cleanallActionPerformed
+        Controladorventa.limpiarventa();
+    }//GEN-LAST:event_cleanallActionPerformed
+
+    private void deletedescuentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deletedescuentoActionPerformed
+        Controladorventa.deletedescuento();
+    }//GEN-LAST:event_deletedescuentoActionPerformed
+
+    private void descuentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_descuentoActionPerformed
+        Controladorventa.descuentos();
+    }//GEN-LAST:event_descuentoActionPerformed
 
     private void montoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_montoKeyReleased
         char tecla = evt.getKeyChar();
@@ -538,18 +544,13 @@ user.setText(usuarioname);
         }
     }//GEN-LAST:event_montoKeyReleased
 
-    private void cobrar_ventaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cobrar_ventaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cobrar_ventaActionPerformed
+    private void montoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_montoFocusLost
+        Controladorventa.montoFocusLost();
+    }//GEN-LAST:event_montoFocusLost
 
-    private void ExistenciasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExistenciasActionPerformed
-        if(Controladorventa.noduplicarexistencias==false){new Existencias().setVisible(true);}
-    }//GEN-LAST:event_ExistenciasActionPerformed
-
-    private void Registro_userActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Registro_userActionPerformed
-        //if(Controladorventa.noduplicarexistencias==false){new Existencias().setVisible(true);} 
-        new Registro_usuario().setVisible(true);
-    }//GEN-LAST:event_Registro_userActionPerformed
+    private void montoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_montoFocusGained
+        Controladorventa.montoFocusGained();
+    }//GEN-LAST:event_montoFocusGained
  private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {                                         
 // MODIFICAR   new ProductosExternos().setVisible(true);        
     }                                           /**
@@ -602,7 +603,7 @@ user.setText(usuarioname);
     public static javax.swing.JButton deletedescuento;
     public static javax.swing.JButton descuento;
     public static javax.swing.JLabel descuentocombo;
-    public static javax.swing.JLabel descuentolabel;
+    private javax.swing.JLabel descuentolabel;
     private javax.swing.JLabel descuentolabel1;
     public static javax.swing.JTable existenciadeproductos;
     private javax.swing.JButton inventarioventas;
@@ -620,7 +621,7 @@ user.setText(usuarioname);
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    public static javax.swing.JLabel labeldescuento;
+    private javax.swing.JLabel labeldescuento;
     public static javax.swing.JTextField monto;
     private javax.swing.JLabel prueba;
     public static javax.swing.JCheckBox reimprimirventa;

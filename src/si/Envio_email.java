@@ -2,10 +2,12 @@
 package si;
 
 import Controladores.Controlador_Report_pdf;
+import Controladores.Controladorventa;
 public class Envio_email extends javax.swing.JFrame { 
  
     public Envio_email() {
         initComponents();
+        Controladorventa.noduplicar_envio_email=true;
         this.setLocationRelativeTo(null); // CENTRAR FORMULARIO  
     }
        
@@ -26,6 +28,11 @@ public class Envio_email extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(135, 193, 193));
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Envio email", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Serif", 1, 36))); // NOI18N
@@ -148,6 +155,10 @@ public class Envio_email extends javax.swing.JFrame {
     private void regresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_regresarActionPerformed
         dispose();
     }//GEN-LAST:event_regresarActionPerformed
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+Controladorventa.noduplicar_envio_email=false;        // TODO add your handling code here:
+    }//GEN-LAST:event_formWindowClosed
 
     /**
      * @param args the command line arguments

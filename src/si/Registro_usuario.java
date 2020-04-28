@@ -1,6 +1,7 @@
 
 package si;
 
+import Controladores.Controladorventa;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
@@ -36,6 +37,7 @@ public class Registro_usuario extends javax.swing.JFrame {
       
     public Registro_usuario() {
         initComponents(); 
+        Controladorventa.noduplicar_registro_usuario=true;
       setIconImage(getIconImage());  //La variable que le manda la imagen (DataMax) al proyecto 
         this.setLocationRelativeTo(null); // CENTRAR FORMULARIO
     }
@@ -77,6 +79,11 @@ public class Registro_usuario extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
         setUndecorated(true);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(135, 193, 193));
@@ -224,6 +231,10 @@ public class Registro_usuario extends javax.swing.JFrame {
     private void B_cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_B_cancelarActionPerformed
                this.dispose();   
     }//GEN-LAST:event_B_cancelarActionPerformed
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+         Controladorventa.noduplicar_registro_usuario=false;
+    }//GEN-LAST:event_formWindowClosed
 
     /**
      * @param args the command line arguments
