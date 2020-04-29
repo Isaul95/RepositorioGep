@@ -39,13 +39,12 @@ public class Modelo_proceso_email implements Runnable{
     }
                
     @Override
-    public void run() {
-            //rout = "C:\\Users\\cachorra\\Desktop\\contrato.docx";  
+    public void run() {      //rout = "C:\\Users\\cachorra\\Desktop\\contrato.docx";  
         rout = "C:\\reportes\\"+nom;
-// esta es la ruta donde la tengo la de prueb pero solo se cambia la ruta y ya         
+        
         if (rout.equals("")) {
         final String usuario = "julio.oceguera@alkhemy.com"; // isaulhernandez@gepsof.com
-        final String pass = "Julio.oceguera2";       //  Isaul.hernandez952
+        final String pass = "Julio.oceguera2";       //  Isaul
            
             Properties props = new Properties();
             props.put("mail.transport.protocol", "smtp");
@@ -113,7 +112,13 @@ public class Modelo_proceso_email implements Runnable{
                     t.sendMessage(message, message.getAllRecipients());
                     t.close();
                 } // estado.setText("Mensaje enviado desde gepsof C/adjunto");
-                JOptionPane.showMessageDialog(null,"Mensaje enviado");    
+                JOptionPane.showMessageDialog(null,"Mensaje enviado"); 
+                for (int t = 0; t < vect.length; t++){
+                Modelo_guardadoDB_email nb = new Modelo_guardadoDB_email(correo,vect[t],subject);
+                   nb.guardar();
+                JOptionPane.showMessageDialog(null,"guardando el meNSAJE despiues del optiinpage encuadi"); 
+                }
+                
  envio_email.setEnabled(false); // blokear el boton despues de enviar el email de la venta Envio_Email
                 estado.setText(""); // cuando se se aceptar de Mensaje Enviado se borra el label
                 asunto.setText("");

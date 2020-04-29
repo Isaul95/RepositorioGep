@@ -25,7 +25,7 @@ public class Modelo_guardadoDB_email {
         this.correo = valor1;
         this.destinatario = valor2;
         this.asunto = valor3;
-        guardar();
+        //guardar();
     }        
 //   isaherna244@gmail.com;rihr.9523@gmail.com;isaulhernandez@gepsof.com;
 //   alexluna@gepsof.com;jesusvazquez@gepsof.com    sh-pro10.hostgator.mx:2096
