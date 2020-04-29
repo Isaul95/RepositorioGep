@@ -46,7 +46,12 @@ public static ArrayList idsenturno = new ArrayList();
   public static boolean 
           descuentoactivo=false, block_unlock=true,tablaventaactiva=false;
    public static boolean noduplicarcrudo=false, noduplicarcocido=false, noduplicaracompañantes=false, 
-            noduplicarexistencias=false, noduplicarcorte=false, noduplicarinventarioventas=false,noduplicargastos=false, noduplicarexternos=false, noduplicar_edicionpaciente=false, noduplicar_capturaresultados=false;
+            noduplicarexistencias=false, noduplicarcorte=false, noduplicarinventarioventas=false,
+           noduplicargastos=false, noduplicarexternos=false, noduplicar_edicionpaciente=false, 
+           noduplicar_capturaresultados=false,
+           noduplicar_registro_usuario=false,
+           noduplicar_nucleo=false,
+           noduplicar_envio_email=false;
 
          
    public static DecimalFormat solodosdecimales = new DecimalFormat("#.##");
@@ -317,8 +322,8 @@ nucleo.deletedescuento.setVisible(true);
      
     public static void metodos_al_iniciar_menuprincipal(String usuario){
       Modeloventa.ids_y_cantidades_enturno_por_error_de_usuario();
-nucleo.deletedescuento.setVisible(false);
-if(usuario.equals("a")){
+
+if(usuario.equals("Administrador")){
     nucleo.Registro_user.setVisible(true);
 }else{
     nucleo.Registro_user.setVisible(false);

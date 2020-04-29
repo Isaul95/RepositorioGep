@@ -19,6 +19,7 @@ import net.sf.jasperreports.view.JasperViewer;
 import si.Capturar_resultados;
 import static si.Capturar_resultados.envio_email;
 import si.Envio_email;
+import static si.Envio_email.emailsend;
 import si.SI;
 import si.nucleo;
 
@@ -68,18 +69,13 @@ public class Controlador_Report_pdf {
      } // fin del metodo      
           
          public void btn_Envio_email() {
-        if (Envio_email.para.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "No ha digitado el destinatario");
-        } else {
-            int valor = 5;
-            if (Envio_email.asunto.getText().equals("")) {
-                JOptionPane.showMessageDialog(null, "No ha digitado el asunto");
-            }
-            if (valor == 5 || valor == 0) {
+        if (Envio_email.para.getText().equals("") || Envio_email.asunto.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "No ha digitado el destinatario y/o el asunto");
+        } else {                        
                 Modelo_proceso_email objeto = new Modelo_proceso_email(Envio_email.para, Envio_email.asunto,/*pantalla_Principal.texto,pantalla_Principal.ruta,*/ nom, Envio_email.send_message);    
                 objeto.start();
                 objeto = null;
-            }
+            
         }
     }    
 }

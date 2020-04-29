@@ -54,7 +54,7 @@ public class Controladorcortedecaja {
         if(Cortecaja.monto.getText().trim().equals("")){
            Cortecaja.monto.setText("00.00");
         }
-        Cortecaja.monto.setForeground(new Color(135, 193, 193));
+        Cortecaja.monto.setForeground(new Color(0, 0, 0));
     } 
      public static void montoFocusGained(){                                  
         // *********************   CAJA DE TEXTO DE PAGOO *********
@@ -62,7 +62,7 @@ public class Controladorcortedecaja {
             Cortecaja.monto.setText("");
             //user_usuario.setForeground(Color.red);
         }
-        Cortecaja.monto.setForeground(new Color(135, 193, 193));
+        Cortecaja.monto.setForeground(new Color(0, 0, 0));
     }  
      public static void botoncorte(){
          Modelocortedecaja.hacercorte();

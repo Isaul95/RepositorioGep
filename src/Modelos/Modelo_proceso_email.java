@@ -114,6 +114,7 @@ public class Modelo_proceso_email implements Runnable{
                     t.close();
                 } // estado.setText("Mensaje enviado desde gepsof C/adjunto");
                 JOptionPane.showMessageDialog(null,"Mensaje enviado");    
+                
  envio_email.setEnabled(false); // blokear el boton despues de enviar el email de la venta Envio_Email
                 estado.setText(""); // cuando se se aceptar de Mensaje Enviado se borra el label
                 asunto.setText("");

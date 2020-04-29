@@ -29,7 +29,7 @@ public Capturar_resultados(int id_venta_a_capturar_resultados){
         Controlador_capturar_resultados.metodos_al_iniciar_entradasproductos0(Controlador_capturar_resultados.id_a_actualizar_resultados);//Aqui se envia al controlador el id para traer todos los datos para capturar los resultados
         id_venta.setText(String.valueOf(Controlador_capturar_resultados.id_a_actualizar_resultados));
         id_paciente.setText(String.valueOf(Controlador_capturar_resultados.id_paciente));
-        
+        Controlador_capturar_resultados.se_puede_habilitar_el_boton(Controlador_capturar_resultados.id_a_actualizar_resultados);
          this.setLocationRelativeTo(null); // CENTRAR FORMULARIO  
          envio_email.setEnabled(false);
     }
@@ -270,13 +270,10 @@ public Capturar_resultados(int id_venta_a_capturar_resultados){
     }//GEN-LAST:event_formWindowClosed
 
     private void envio_emailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_envio_emailActionPerformed
-        Envio_email mail = new Envio_email();
-        mail.setVisible(true);
+        if(Controladorventa.noduplicar_envio_email==false){
+        new Envio_email().setVisible(true);
         Envio_email.File.setText(Controlador_Report_pdf.nom);
-        JOptionPane.showMessageDialog(null, "NOTA IMPORTANTE:\n "
-                + "Para mandar el archivo a varios correos de clientes (MULTIUSUARIO),\n "
-                + "los correos tienen que separarse con un punto y coma (;)\n "
-                + "Como en el ejempplo ==>>\n(xx@hotmail.com;xx@gmail.com;xx@gepsof.com)");
+        }
     }//GEN-LAST:event_envio_emailActionPerformed
 
     /**
@@ -323,7 +320,7 @@ public Capturar_resultados(int id_venta_a_capturar_resultados){
     public static javax.swing.JLabel fecha_hora_ingreso;
     public static javax.swing.JLabel fecha_nacimiento;
     private javax.swing.JButton gastos_btn_back;
-    private javax.swing.JButton genetrar_Pdf;
+    public static javax.swing.JButton genetrar_Pdf;
     public static javax.swing.JLabel id_paciente;
     public static javax.swing.JLabel id_venta;
     private javax.swing.JLabel jLabel75;

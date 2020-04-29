@@ -24,14 +24,14 @@ public class Controladorapertura {
         if(monto.getText().trim().equals("00.00")){
             monto.setText("");
         }
-        monto.setForeground(Color.white);
+        monto.setForeground(Color.black);
   }
   public static void montoFocusLost(){
         // *********************   CAJA DE TEXTO DE PAGOO *********
         if(monto.getText().trim().equals("")){
             monto.setText("00.00");
         }
-        monto.setForeground(Color.white);
+        monto.setForeground(Color.black);
   }
   
 }

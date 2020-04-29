@@ -75,8 +75,12 @@ static ResultSet rs;
                           try{Connection ca= cc.conexion();
                                pst = ca.prepareStatement(sql);
                                int rows = pst.executeUpdate();
-                   
-                          } catch (SQLException ex) {
+                               if(rows>0){
+                                  activar_boton_pdf(id_venta);
+                                   if(Controlador_capturar_resultados.respuesta_para_activar_el_pdf==0){Capturar_resultados.genetrar_Pdf.setEnabled(true);}
+                                   else{  Capturar_resultados.genetrar_Pdf.setEnabled(false);}
+                               }else{  }
+                         } catch (SQLException ex) {
                                JOptionPane.showMessageDialog(null, "ERROR EN METODO: tableChanged","DEVELOPER HELPER", JOptionPane.ERROR_MESSAGE);      
                            }finally{cc.getClose();}
   //    }COMENTADA LA VALIDACION
@@ -140,4 +144,20 @@ static ResultSet rs;
                   cc.getClose();
              }
     }
+  public static int activar_boton_pdf(int id_venta){
+try{ Connection ca= cc.conexion();// CUENTA EL TODAL DE CUANTAS VENTAS SE REALIZARON
+                                         Statement sent  =(Statement)ca.createStatement();
+                                         ResultSet  rs = sent.executeQuery("select count(*) from venta v INNER join descripcion_de_venta dv on v.id_venta = dv.id_venta inner join pacientes p on dv.id_paciente = p.id_paciente WHERE  v.id_venta = '"+id_venta+"' and dv.resultado is null or dv.resultado in ('') ");
+                                            if(rs.next()){
+                                                      Controlador_capturar_resultados.respuesta_para_activar_el_pdf =Integer.parseInt(String.valueOf(rs.getInt("count(*)")));
+                                                      }
+                                                      }//fin del try-precio del producto
+                                                      catch (Exception e){
+                                                           JOptionPane.showMessageDialog(null, "ERROR EN METODO: activar_boton_pdf: "+e.getMessage(),"DEVELOPER HELPER", JOptionPane.ERROR_MESSAGE);      
+                                                      }// fin del precio-catch del producto
+        finally{
+                  cc.getClose();
+             }
+      return Controlador_capturar_resultados.respuesta_para_activar_el_pdf;
+  }
 }

@@ -28,7 +28,7 @@ public class Controladorgastos {
                             tikectGastos = new TikectGasto();
                             tikectGastos.TikectGasto(0 ,Gastos.txtdescripcionq.getText(), String.valueOf(Gastos.txtmonto1.getText()));
                               limpiar();
-                              Gastos.txtdescripcionq.setBackground(new Color(206,231,235));Gastos.txtmonto1.setBackground(new Color(206,231,235));
+                              Gastos.txtdescripcionq.setBackground(new Color(135,193,193));Gastos.txtmonto1.setBackground(new Color(135,193,193));
                     }
                 } 
     }
