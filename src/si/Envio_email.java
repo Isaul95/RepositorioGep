@@ -6,7 +6,7 @@ public class Envio_email extends javax.swing.JFrame {
  
     public Envio_email() {
         initComponents();
-        this.setLocationRelativeTo(null); // CENTRAR FORMULARIO  
+        this.setLocationRelativeTo(null); // CENTRAR FORMULARIO 
     }
        
     @SuppressWarnings("unchecked")
@@ -81,7 +81,7 @@ public class Envio_email extends javax.swing.JFrame {
 
         File.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         jPanel1.add(File);
-        File.setBounds(110, 140, 460, 30);
+        File.setBounds(160, 140, 410, 30);
 
         send_message.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         send_message.setForeground(new java.awt.Color(204, 0, 0));
