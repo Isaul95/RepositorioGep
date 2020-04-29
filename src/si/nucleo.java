@@ -396,7 +396,7 @@ user.setText(usuarioname);
         reimprimirventa.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
         jPanel10.add(reimprimirventa, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 240, -1));
 
-        venta.add(jPanel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 100, 240, 280));
+        venta.add(jPanel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 90, 240, 280));
 
         AgregarGastos.setBackground(new java.awt.Color(135, 193, 193));
         AgregarGastos.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -584,7 +584,7 @@ user.setText(usuarioname);
     public static javax.swing.JButton deletedescuento;
     public static javax.swing.JButton descuento;
     public static javax.swing.JLabel descuentocombo;
-    private javax.swing.JLabel descuentolabel;
+    public static javax.swing.JLabel descuentolabel;
     private javax.swing.JLabel descuentolabel1;
     public static javax.swing.JTable existenciadeproductos;
     private javax.swing.JButton inventarioventas;
@@ -602,7 +602,7 @@ user.setText(usuarioname);
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JLabel labeldescuento;
+    public static javax.swing.JLabel labeldescuento;
     public static javax.swing.JTextField monto;
     private javax.swing.JLabel prueba;
     public static javax.swing.JCheckBox reimprimirventa;

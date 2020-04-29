@@ -28,7 +28,7 @@ public Capturar_resultados(int id_venta_a_capturar_resultados){
         Controlador_capturar_resultados.metodos_al_iniciar_entradasproductos0(Controlador_capturar_resultados.id_a_actualizar_resultados);//Aqui se envia al controlador el id para traer todos los datos para capturar los resultados
         id_venta.setText(String.valueOf(Controlador_capturar_resultados.id_a_actualizar_resultados));
         id_paciente.setText(String.valueOf(Controlador_capturar_resultados.id_paciente));
-        
+        Controlador_capturar_resultados.se_puede_habilitar_el_boton(Controlador_capturar_resultados.id_a_actualizar_resultados);
          this.setLocationRelativeTo(null); // CENTRAR FORMULARIO  
          envio_email.setEnabled(false);
     }
@@ -319,7 +319,7 @@ public Capturar_resultados(int id_venta_a_capturar_resultados){
     public static javax.swing.JLabel fecha_hora_ingreso;
     public static javax.swing.JLabel fecha_nacimiento;
     private javax.swing.JButton gastos_btn_back;
-    private javax.swing.JButton genetrar_Pdf;
+    public static javax.swing.JButton genetrar_Pdf;
     public static javax.swing.JLabel id_paciente;
     public static javax.swing.JLabel id_venta;
     private javax.swing.JLabel jLabel75;

@@ -56,7 +56,7 @@ public static void consultarlosresultadosenlabusquedadenombres(String contexto){
                              String sSQL = "SELECT distinct venta.id_venta, pacientes.nombre,venta.subtotal, venta.descuento , venta.total,venta.fecha_reporte FROM venta inner join descripcion_de_venta on venta.id_venta = descripcion_de_venta.id_venta inner join pacientes on descripcion_de_venta.id_paciente = pacientes.id_paciente WHERE venta.estado_venta in('Realizada') AND venta.fecha_reporte = '"+Controladorventa.fecha()+"' ";
                 rs = sent.executeQuery(sSQL); // se ejecuta la sentencia dentro del parentesis
             } else {
-                              String sSQLcontesto = "SELECT distinct venta.id_venta, pacientes.nombre,venta.subtotal, venta.descuento,venta.total ,venta.fecha_reporte FROM venta inner join descripcion_de_venta on venta.id_venta = descripcion_de_venta.id_venta inner join pacientes on descripcion_de_venta.id_paciente = pacientes.id_paciente WHERE venta.estado_venta in('Realizada') AND venta.fecha_reporte = '"+Controladorventa.fecha()+"' and pacientes.nombre LIKE '%" + contexto + "%'";
+                              String sSQLcontesto = "SELECT distinct venta.id_venta, pacientes.nombre,venta.subtotal, venta.descuento,venta.total ,venta.fecha_reporte FROM venta inner join descripcion_de_venta on venta.id_venta = descripcion_de_venta.id_venta inner join pacientes on descripcion_de_venta.id_paciente = pacientes.id_paciente WHERE venta.estado_venta in('Realizada') AND  pacientes.nombre LIKE '%" + contexto + "%'";
                
                 rs = sent.executeQuery(sSQLcontesto); // se ejecuta la sentencia dentro del parentesis
             }

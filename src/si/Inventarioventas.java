@@ -329,7 +329,8 @@ public class Inventarioventas extends javax.swing.JFrame {
     }//GEN-LAST:event_cancelarventaActionPerformed
 
     private void jTable2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable2MouseClicked
-Controladorinventarioventas.verdescripcionenbaseaventarealizada();
+Controladorinventarioventas.verdescripcionenbaseaventarealizada(); 
+busqueda.setText("");
     }//GEN-LAST:event_jTable2MouseClicked
 
     private void gastos_btn_backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gastos_btn_backActionPerformed

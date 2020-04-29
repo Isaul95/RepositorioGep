@@ -323,7 +323,7 @@ nucleo.deletedescuento.setVisible(true);
     public static void metodos_al_iniciar_menuprincipal(String usuario){
       Modeloventa.ids_y_cantidades_enturno_por_error_de_usuario();
 
-if(usuario.equals("a")){
+if(usuario.equals("Administrador")){
     nucleo.Registro_user.setVisible(true);
 }else{
     nucleo.Registro_user.setVisible(false);
