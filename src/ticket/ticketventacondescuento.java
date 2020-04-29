@@ -23,7 +23,7 @@ public class ticketventacondescuento {
         System.out.println(impServicio.getImpresoras()); // imprime todas las impresoras instaladas
         //int clientesNum = clientes.size();
         String auxs="";       
-        String impra = "Juarez"; // Nombre de la impresora
+        String impra = "alkhemy"; // Nombre de la impresora
 
         // Se llama al metodo para imprimir una cadena
          auxs+= "TICKET CON DESCUENTO\n\n";          System.out.println("TICKET CON DESCUENTO\n\n");

@@ -24,7 +24,7 @@ public class ListaGastos {
        
         //  String impra = "MP-4200 TH";  Nombre de la impresora   
         // ---->> Star SP500 Tear Bar (SP512)
-          String impra = "Juarez";
+          String impra = "alkhemy"; // Nombre de la impresora
 
         // Se llama al metodo para imprimir una cadena
         auxs+= "LISTA DE GASTOS\n\n";  System.out.println("LISTA DE GASTOS\n\n");

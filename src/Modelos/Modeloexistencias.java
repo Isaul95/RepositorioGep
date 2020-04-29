@@ -221,7 +221,5 @@ public class Modeloexistencias extends Controladorexistencias {
         }catch (IOException ex) {
              Logger.getLogger(Modeloexistencias.class.getName()).log(Level.SEVERE, null, ex);
          }
-         
-  
  }
 }

@@ -22,7 +22,7 @@ public class TikectGasto{
        
         //  String impra = "MP-4200 TH";  Nombre de la impresora   
         // ---->> Star SP500 Tear Bar (SP512)
-          String impra = "Juarez";
+          String impra = "alkhemy"; // Nombre de la impresora
 
         // Se llama al metodo para imprimir una cadena
         auxs+= "COMPROBANTE DE GASTOS\n\n";  System.out.println("COMPROBANTE DE GASTOS\n\n");

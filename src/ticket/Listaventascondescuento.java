@@ -24,7 +24,7 @@ public class Listaventascondescuento {
        
         //  String impra = "MP-4200 TH";  Nombre de la impresora   
         // ---->> Star SP500 Tear Bar (SP512)
-          String impra = "Juarez";
+         String impra = "alkhemy"; // Nombre de la impresora
 
         // Se llama al metodo para imprimir una cadena
         auxs+= "VENTAS C/DESC\n\n";  System.out.println("VENTAS C/DESC\n\n");
