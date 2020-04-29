@@ -56,7 +56,11 @@ static ResultSet rs;
                 
                 modeloT.addRow(columna);
             }        TableColumnModel columnModel =  tablaD.getColumnModel();
-    columnModel.getColumn(0).setPreferredWidth(250); columnModel.getColumn(1).setPreferredWidth(50);    
+   // columnModel.getColumn(0).setPreferredWidth(250); columnModel.getColumn(1).setPreferredWidth(50); 
+    columnModel.getColumn(0).setMaxWidth(520);
+    columnModel.getColumn(0).setMinWidth(520);
+    columnModel.getColumn(1).setMaxWidth(120);
+    columnModel.getColumn(1).setMinWidth(120);
                         modeloT.addTableModelListener(new TableModelListener(){
                 @Override
                 public void tableChanged(TableModelEvent e) {
@@ -77,8 +81,13 @@ static ResultSet rs;
                                int rows = pst.executeUpdate();
                                if(rows>0){
                                   activar_boton_pdf(id_venta);
-                                   if(Controlador_capturar_resultados.respuesta_para_activar_el_pdf==0){Capturar_resultados.genetrar_Pdf.setEnabled(true);}
-                                   else{  Capturar_resultados.genetrar_Pdf.setEnabled(false);}
+                                   if(Controlador_capturar_resultados.respuesta_para_activar_el_pdf==0){
+                                       System.out.println("Modelo if: "+Controlador_capturar_resultados.respuesta_para_activar_el_pdf);
+                                       Capturar_resultados.genetrar_Pdf.setEnabled(true);
+                                   }
+                                   else{   
+                                       System.out.println("Modelo else: "+Controlador_capturar_resultados.respuesta_para_activar_el_pdf);
+Capturar_resultados.genetrar_Pdf.setEnabled(false);}
                                }else{  }
                          } catch (SQLException ex) {
                                JOptionPane.showMessageDialog(null, "ERROR EN METODO: tableChanged","DEVELOPER HELPER", JOptionPane.ERROR_MESSAGE);      
@@ -147,7 +156,7 @@ static ResultSet rs;
   public static int activar_boton_pdf(int id_venta){
 try{ Connection ca= cc.conexion();// CUENTA EL TODAL DE CUANTAS VENTAS SE REALIZARON
                                          Statement sent  =(Statement)ca.createStatement();
-                                         ResultSet  rs = sent.executeQuery("select count(*) from venta v INNER join descripcion_de_venta dv on v.id_venta = dv.id_venta inner join pacientes p on dv.id_paciente = p.id_paciente WHERE  v.id_venta = '"+id_venta+"' and dv.resultado is null or dv.resultado in ('') ");
+                                         ResultSet  rs = sent.executeQuery("select count(*) from descripcion_de_venta dv WHERE  dv.id_venta = '"+id_venta+"' and dv.resultado in ('',null) ");
                                             if(rs.next()){
                                                       Controlador_capturar_resultados.respuesta_para_activar_el_pdf =Integer.parseInt(String.valueOf(rs.getInt("count(*)")));
                                                       }
