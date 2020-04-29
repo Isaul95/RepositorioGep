@@ -1,5 +1,6 @@
 
 package Modelos;
+import java.awt.Color;
 import java.util.Properties;
 import javax.activation.DataHandler;
 import javax.activation.FileDataSource;
@@ -18,6 +19,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import static si.Capturar_resultados.envio_email;
+import si.Envio_email;
 /* NOTAS DE FECHAS;
 SELECT CURDATE();   ==>   2020-03-01  SELECT CURTIME();   ==>   14:16:34    */
 // isaulhernandez@gepsof.com       Isaul.hernandez952
@@ -112,19 +114,20 @@ public class Modelo_proceso_email implements Runnable{
                     t.sendMessage(message, message.getAllRecipients());
                     t.close();
                 } // estado.setText("Mensaje enviado desde gepsof C/adjunto");
-                JOptionPane.showMessageDialog(null,"Mensaje enviado"); 
-                for (int t = 0; t < vect.length; t++){
-                Modelo_guardadoDB_email nb = new Modelo_guardadoDB_email(correo,vect[t],subject);
-                   nb.guardar();
-                JOptionPane.showMessageDialog(null,"guardando el meNSAJE despiues del optiinpage encuadi"); 
-                }
-                
- envio_email.setEnabled(false); // blokear el boton despues de enviar el email de la venta Envio_Email
+                JOptionPane.showMessageDialog(null,"Mensaje enviado");
+                Envio_email.para.setBackground(Color.white);
+  for (int t = 0; t < vect.length; t++){
+        Modelo_guardadoDB_email nb = new Modelo_guardadoDB_email(correo,vect[t],subject);
+        nb.guardar();   //aki es donde una vez k pase el mensaje de enviado correctamente se captura enn la base de datos de lo contrario no se captura
+   }                
+   envio_email.setEnabled(false); // blokear el boton despues de enviar el email de la venta Envio_Email
                 estado.setText(""); // cuando se se aceptar de Mensaje Enviado se borra el label
                 asunto.setText("");
                 destinatario.setText("");                              
-            } catch (MessagingException ex) {                
-                JOptionPane.showMessageDialog(null, "Algo salio mal compruebe la conexion a internet Dirección de correo INVALIDA");
+            } catch (MessagingException ex) {                   
+           JOptionPane.showMessageDialog(null, "Algo salio mal compruebe la conexion a internet \n y/o el Dirección de correo es INVALIDA");
+            Envio_email.para.setBackground(Color.red);
+           estado.setText("Favor de ingresar una dirección de correo VALIDA...!!!");
             }
         }                        
     }            

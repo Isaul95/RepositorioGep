@@ -94,7 +94,7 @@ public class Envio_email extends javax.swing.JFrame {
         send_message.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         send_message.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jPanel1.add(send_message);
-        send_message.setBounds(150, 250, 330, 30);
+        send_message.setBounds(50, 250, 510, 30);
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 17)); // NOI18N
         jLabel4.setText("Archivo :");
