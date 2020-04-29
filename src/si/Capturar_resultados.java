@@ -8,6 +8,7 @@ import Controladores.Controladorventa;
 import Controladores.Controlador_Report_pdf;
 import Controladores.Controlador_capturar_resultados;
 import Modelos.Modelo_capturar_resultados;
+import javax.swing.JOptionPane;
 /**
  *
  * @author Alexis
@@ -272,6 +273,10 @@ public Capturar_resultados(int id_venta_a_capturar_resultados){
         Envio_email mail = new Envio_email();
         mail.setVisible(true);
         Envio_email.File.setText(Controlador_Report_pdf.nom);
+        JOptionPane.showMessageDialog(null, "NOTA IMPORTANTE:\n "
+                + "Para mandar el archivo a varios correos de clientes (MULTIUSUARIO),\n "
+                + "los correos tienen que separarse con un punto y coma (;)\n "
+                + "Como en el ejempplo ==>>\n(xx@hotmail.com;xx@gmail.com;xx@gepsof.com)");
     }//GEN-LAST:event_envio_emailActionPerformed
 
     /**
