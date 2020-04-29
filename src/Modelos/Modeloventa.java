@@ -318,11 +318,7 @@ try{Connection ca= cc.conexion();   // ESTE ES PARA EL UPDATE
     modelo.addColumn("Precio");
      modelo.addColumn("Importe");
      nucleo.tablaventa.setModel(modelo);  // Ya una vez asignado todos los nombres se le envia el objeto a la tabla proveedores
-            TableColumnModel columnModel =  nucleo.tablaventa.getColumnModel();
-    columnModel.getColumn(0).setPreferredWidth(200);
-    columnModel.getColumn(1).setPreferredWidth(50);
-    columnModel.getColumn(2).setPreferredWidth(50);
-    columnModel.getColumn(3).setPreferredWidth(50);
+     
      String []datos = new String[4];     //Un arreglo con la cantidad de nombres en las columnas
     try {Connection ca= cc.conexion();
         id_max_de_venta();
@@ -336,6 +332,20 @@ try{Connection ca= cc.conexion();   // ESTE ES PARA EL UPDATE
             modelo.addRow(datos); //se asigna el arreglo  entero a todo el objeto llamado modelo  
             }
           nucleo.tablaventa.setModel(modelo); // Se vuelve a enviar nuevamente el objeto modelo a la tabla
+       TableColumnModel columnModel =  nucleo.tablaventa.getColumnModel();
+    //columnModel.getColumn(0).setPreferredWidth(450);
+    //columnModel.getColumn(1).setPreferredWidth(5);
+   //columnModel.getColumn(2).setPreferredWidth(10);
+    //columnModel.getColumn(3).setPreferredWidth(10);
+    columnModel.getColumn(0).setMaxWidth(520);
+    columnModel.getColumn(0).setMinWidth(520);
+         columnModel.getColumn(1).setMaxWidth(70);
+    columnModel.getColumn(1).setMinWidth(70);
+     columnModel.getColumn(2).setMaxWidth(80);
+    columnModel.getColumn(2).setMinWidth(80);
+     columnModel.getColumn(3).setMaxWidth(80);
+    columnModel.getColumn(3).setMinWidth(80 );
+
 
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error, mostrartabladeventas","HELPER DEVELOPER",JOptionPane.INFORMATION_MESSAGE); 

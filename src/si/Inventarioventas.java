@@ -135,7 +135,7 @@ public class Inventarioventas extends javax.swing.JFrame {
                 veridventasActionPerformed(evt);
             }
         });
-        jPanel23.add(veridventas, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 170, 240, -1));
+        jPanel23.add(veridventas, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 170, 240, -1));
 
         imprimirventa.setBackground(new java.awt.Color(255, 255, 255));
         imprimirventa.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
@@ -147,7 +147,7 @@ public class Inventarioventas extends javax.swing.JFrame {
                 imprimirventaActionPerformed(evt);
             }
         });
-        jPanel23.add(imprimirventa, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 220, 240, -1));
+        jPanel23.add(imprimirventa, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 220, 240, -1));
 
         resultado.setBackground(new java.awt.Color(255, 255, 255));
         resultado.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
@@ -159,7 +159,7 @@ public class Inventarioventas extends javax.swing.JFrame {
                 resultadoActionPerformed(evt);
             }
         });
-        jPanel23.add(resultado, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 270, 240, -1));
+        jPanel23.add(resultado, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 270, 240, -1));
 
         editar_paciente.setBackground(new java.awt.Color(255, 255, 255));
         editar_paciente.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
@@ -171,15 +171,15 @@ public class Inventarioventas extends javax.swing.JFrame {
                 editar_pacienteActionPerformed(evt);
             }
         });
-        jPanel23.add(editar_paciente, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 320, 240, -1));
+        jPanel23.add(editar_paciente, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 320, 240, -1));
 
         totalventarealizada.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         totalventarealizada.setText("Total de ésta venta:");
-        jPanel23.add(totalventarealizada, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 420, 190, 30));
+        jPanel23.add(totalventarealizada, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 420, 190, 30));
 
         labelparaeltotal.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         labelparaeltotal.setText("00.00");
-        jPanel23.add(labelparaeltotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(1130, 420, 90, 30));
+        jPanel23.add(labelparaeltotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(1150, 420, 90, 30));
 
         jTable2.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
@@ -200,7 +200,7 @@ public class Inventarioventas extends javax.swing.JFrame {
         });
         jScrollPane5.setViewportView(jTable2);
 
-        jPanel23.add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 900, 410));
+        jPanel23.add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 910, 410));
 
         jLabel103.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel103.setText("Buscar por fecha");
@@ -212,25 +212,25 @@ public class Inventarioventas extends javax.swing.JFrame {
 
         jLabel63.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel63.setText("Ventas realizadas:");
-        jPanel23.add(jLabel63, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 450, 180, 50));
+        jPanel23.add(jLabel63, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 450, 180, 50));
 
         jLabel96.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel96.setText("Ventas de hoy : $ ");
-        jPanel23.add(jLabel96, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 490, 170, 50));
+        jPanel23.add(jLabel96, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 490, 170, 50));
 
         ventaseneldiasumadas.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
         ventaseneldiasumadas.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         ventaseneldiasumadas.setText("00.00");
-        jPanel23.add(ventaseneldiasumadas, new org.netbeans.lib.awtextra.AbsoluteConstraints(1080, 490, 120, 50));
+        jPanel23.add(ventaseneldiasumadas, new org.netbeans.lib.awtextra.AbsoluteConstraints(1100, 490, 120, 50));
 
         conteodelasventasrealizadas.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
         conteodelasventasrealizadas.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         conteodelasventasrealizadas.setText("00");
-        jPanel23.add(conteodelasventasrealizadas, new org.netbeans.lib.awtextra.AbsoluteConstraints(1100, 450, 120, 50));
+        jPanel23.add(conteodelasventasrealizadas, new org.netbeans.lib.awtextra.AbsoluteConstraints(1120, 450, 120, 50));
 
         opciones.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         opciones.setText("Opciones disponibles:");
-        jPanel23.add(opciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 110, 220, 50));
+        jPanel23.add(opciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 110, 220, 50));
 
         busqueda.setBackground(new java.awt.Color(135, 193, 193));
         busqueda.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N

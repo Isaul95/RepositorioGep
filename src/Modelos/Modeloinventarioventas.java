@@ -34,6 +34,56 @@ public class Modeloinventarioventas extends Controladorinventarioventas{
     static SI cc= new SI();
    static Statement sent;  
 static ResultSet rs;  
+public static void llenartablaidventasconidrealizados(){ // recibe como parametro 
+         Object[] columna = new Object[6];  //crear un obj con el nombre de colunna
+             DefaultTableModel modeloTE = new DefaultTableModel(); 
+                  Inventarioventas.jTable2.setModel(modeloTE);  // add modelo ala tabla 
+        modeloTE.addColumn("Venta");
+        modeloTE.addColumn("Paciente");
+        modeloTE.addColumn("Subtotal"); 
+        modeloTE.addColumn("Descuento");
+        modeloTE.addColumn("Total");
+        modeloTE.addColumn("Fecha");
+    Inventarioventas.jTable2.setModel(modeloTE);  // add modelo ala tabla         
+        try {  Connection ca= cc.conexion(); // CONEXION DB 
+             String sSQL = "SELECT distinct venta.id_venta, pacientes.nombre,venta.subtotal, venta.descuento,venta.total,venta.fecha_reporte FROM venta inner join descripcion_de_venta on venta.id_venta = descripcion_de_venta.id_venta inner join pacientes on descripcion_de_venta.id_paciente = pacientes.id_paciente WHERE venta.estado_venta in('Realizada') AND venta.fecha_reporte = '"+Controladorventa.fecha()+"' ";
+        PreparedStatement ps = ca.prepareStatement(sSQL);       
+        ResultSet rs = ps.executeQuery(sSQL);
+            while (rs.next()) {
+                columna[0] = rs.getInt(1);
+                columna[1] = rs.getString(2);
+                columna[2] = "$"+String.valueOf(rs.getFloat(3));
+                 columna[3] = "$"+String.valueOf(rs.getFloat(4));
+                columna[4] = "$"+String.valueOf(rs.getFloat(5));
+                 columna[5] = rs.getString(6);
+                modeloTE.addRow(columna);
+            }
+          Inventarioventas.jTable2.setModel(modeloTE);  // add modelo ala tabla 
+                             TableColumnModel columnModel =   Inventarioventas.jTable2.getColumnModel();
+                               // columnModel.getColumn(0).setPreferredWidth(10);
+                              columnModel.getColumn(0).setMaxWidth(100);
+                               columnModel.getColumn(0).setMinWidth(100);
+                             //columnModel.getColumn(1).setPreferredWidth(250);
+                               columnModel.getColumn(1).setMaxWidth(390);
+                               columnModel.getColumn(1).setMinWidth(390);
+                           //  columnModel.getColumn(2).setPreferredWidth(20); 
+                               columnModel.getColumn(2).setMaxWidth(100);
+                               columnModel.getColumn(2).setMinWidth(100);
+                           //  columnModel.getColumn(3).setPreferredWidth(10);
+                              columnModel.getColumn(3).setMaxWidth(100);
+                               columnModel.getColumn(3).setMinWidth(100);
+                           //  columnModel.getColumn(4).setPreferredWidth(10);
+                             columnModel.getColumn(4).setMaxWidth(100);
+                               columnModel.getColumn(4).setMinWidth(100);
+                             //columnModel.getColumn(5).setPreferredWidth(10);
+                              columnModel.getColumn(5).setMaxWidth(100);
+                               columnModel.getColumn(5).setMinWidth(100);
+    } catch (Exception e) {
+      JOptionPane.showMessageDialog(null, "ERROR EN METODO: llenartablaidventasconidrealizados","DEVELOPER HELPER", JOptionPane.ERROR_MESSAGE);      
+       }finally{
+                  cc.getClose();
+             }
+}
 public static void consultarlosresultadosenlabusquedadenombres(String contexto){
     DefaultTableModel modelo = new DefaultTableModel(); // Se crea un objeto para agregar los nombres de las columnas a la tabla
        modelo.addColumn("Venta");
@@ -69,16 +119,119 @@ public static void consultarlosresultadosenlabusquedadenombres(String contexto){
                  datos[5] = rs.getString(6);
                 modelo.addRow(datos); //se asigna el arreglo  entero a todo el objeto llamado modelo  
             }
-            Inventarioventas.jTable2.setModel(modelo); // Se vuelve a enviar nuevamente el objeto modelo a la tabla
-            TableColumnModel columnModel = Inventarioventas.jTable2.getColumnModel();
-            columnModel.getColumn(0).setPreferredWidth(250);
-        } catch (SQLException ex) {
+             Inventarioventas.jTable2.setModel(modelo);  // add modelo ala tabla 
+                             TableColumnModel columnModel =   Inventarioventas.jTable2.getColumnModel();
+                             // columnModel.getColumn(0).setPreferredWidth(10);
+                              columnModel.getColumn(0).setMaxWidth(100);
+                               columnModel.getColumn(0).setMinWidth(100);
+                             //columnModel.getColumn(1).setPreferredWidth(250);
+                               columnModel.getColumn(1).setMaxWidth(390);
+                               columnModel.getColumn(1).setMinWidth(390);
+                           //  columnModel.getColumn(2).setPreferredWidth(20); 
+                               columnModel.getColumn(2).setMaxWidth(100);
+                               columnModel.getColumn(2).setMinWidth(100);
+                           //  columnModel.getColumn(3).setPreferredWidth(10);
+                              columnModel.getColumn(3).setMaxWidth(100);
+                               columnModel.getColumn(3).setMinWidth(100);
+                           //  columnModel.getColumn(4).setPreferredWidth(10);
+                             columnModel.getColumn(4).setMaxWidth(100);
+                               columnModel.getColumn(4).setMinWidth(100);
+                             //columnModel.getColumn(5).setPreferredWidth(10);
+                              columnModel.getColumn(5).setMaxWidth(100);
+                               columnModel.getColumn(5).setMinWidth(100);
+       } catch (SQLException ex) {
             Logger.getLogger(nucleo.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(null, "No se pudo mostrar  porque tu consulta está mal");
         } finally {
             cc.getClose();
         }
 }
+public static void showidventasporfechas(JTable tablaventas, String fechadesde, String fechahasta){
+        Object[] columna = new Object[6];  //crear un obj con el nombre de colunna
+            Connection ca= cc.conexion(); // CONEXION DB 
+              DefaultTableModel modeloT = new DefaultTableModel(); 
+                  tablaventas.setModel(modeloT);  // add modelo ala tabla 
+           modeloT.addColumn("Venta");
+            modeloT.addColumn("Paciente");
+            modeloT.addColumn("Subtotal");
+            modeloT.addColumn("Descuento");
+        modeloT.addColumn("Total");     
+        modeloT.addColumn("Fecha");
+    try {        
+           String sSQL = "SELECT distinct venta.id_venta, pacientes.nombre,venta.subtotal, venta.descuento,venta.total,venta.fecha_reporte FROM venta inner join descripcion_de_venta on venta.id_venta = descripcion_de_venta.id_venta inner join pacientes on descripcion_de_venta.id_paciente = pacientes.id_paciente WHERE venta.estado_venta='Realizada' AND venta.fecha_reporte BETWEEN '"+fechadesde+"' AND '"+fechahasta+ "' ";
+        PreparedStatement ps = ca.prepareStatement(sSQL);       
+        try (ResultSet rs = ps.executeQuery(sSQL)) {
+            while (rs.next()) {
+                columna[0] = rs.getString(1);
+                  columna[1] = rs.getString(2);
+                columna[2] = "$"+String.valueOf(rs.getInt(3));
+                 columna[3] = "$"+String.valueOf(rs.getInt(4));
+                columna[4] = "$"+String.valueOf(rs.getInt(5));
+                   columna[5] = rs.getString(6);
+                modeloT.addRow(columna);
+            }
+        }                 Inventarioventas.jTable2.setModel(modeloT);  // add modelo ala tabla 
+                             TableColumnModel columnModel =   Inventarioventas.jTable2.getColumnModel();
+                           // columnModel.getColumn(0).setPreferredWidth(10);
+                              columnModel.getColumn(0).setMaxWidth(100);
+                               columnModel.getColumn(0).setMinWidth(100);
+                             //columnModel.getColumn(1).setPreferredWidth(250);
+                               columnModel.getColumn(1).setMaxWidth(390);
+                               columnModel.getColumn(1).setMinWidth(390);
+                           //  columnModel.getColumn(2).setPreferredWidth(20); 
+                               columnModel.getColumn(2).setMaxWidth(100);
+                               columnModel.getColumn(2).setMinWidth(100);
+                           //  columnModel.getColumn(3).setPreferredWidth(10);
+                              columnModel.getColumn(3).setMaxWidth(100);
+                               columnModel.getColumn(3).setMinWidth(100);
+                           //  columnModel.getColumn(4).setPreferredWidth(10);
+                             columnModel.getColumn(4).setMaxWidth(100);
+                               columnModel.getColumn(4).setMinWidth(100);
+                             //columnModel.getColumn(5).setPreferredWidth(10);
+                              columnModel.getColumn(5).setMaxWidth(100);
+                               columnModel.getColumn(5).setMinWidth(100);
+     } catch (Exception e) {
+        JOptionPane.showMessageDialog(null, e, "Advertencia", JOptionPane.PLAIN_MESSAGE);    
+    }finally{cc.getClose();}
+    }
+  public static void descripciondeproductosenbasealnumerodeventa(int numerodeventa){
+        Object[] columna = new Object[4];  //crear un obj con el nombre de colunna
+            Connection ca= cc.conexion(); // CONEXION DB 
+              DefaultTableModel modeloT = new DefaultTableModel(); 
+                  Inventarioventas.jTable2.setModel(modeloT);  // add modelo ala tabla 
+        modeloT.addColumn("Nombre");
+        modeloT.addColumn("Piezas");        
+        modeloT.addColumn("Precio");
+        modeloT.addColumn("Importe");
+            Inventarioventas.jTable2.setModel(modeloT);  // add modelo ala tabla 
+      try { String sSQL = "SELECT distinct dv.nombre_producto, dv.cantidad, dv.precio_unitario, dv.importe, v.total FROM descripcion_de_venta dv inner join venta v on dv.id_venta = v.id_venta WHERE dv.estado='Realizada' AND dv.id_venta = '"+numerodeventa+"' ";
+        PreparedStatement ps = ca.prepareStatement(sSQL);       
+        ResultSet rs = ps.executeQuery(sSQL);
+            while (rs.next()) {
+               // columna[0] = rs.getString("id_venta");  /* === LA DB == */
+                columna[0] = rs.getString(1);
+                columna[1] = rs.getString(2);
+                columna[2] = "$"+rs.getString(3);      
+                columna[3] = "$"+rs.getString(4); 
+                sumadeimportesparaeltotal =Float.parseFloat(rs.getString(5));
+                modeloT.addRow(columna);
+            }    Inventarioventas.jTable2.setModel(modeloT);  // add modelo ala tabla 
+                   TableColumnModel columnModel =   Inventarioventas.jTable2.getColumnModel();
+           //        columnModel.getColumn(1).setPreferredWidth(5);
+   //columnModel.getColumn(2).setPreferredWidth(10);
+   // columnModel.getColumn(3).setPreferredWidth(10);
+    columnModel.getColumn(0).setMaxWidth(570);
+    columnModel.getColumn(0).setMinWidth(570);
+     columnModel.getColumn(1).setMaxWidth(120);
+    columnModel.getColumn(1).setMinWidth(120);
+     columnModel.getColumn(2).setMaxWidth(120);
+    columnModel.getColumn(2).setMinWidth(120);
+     columnModel.getColumn(3).setMaxWidth(120);
+    columnModel.getColumn(3).setMinWidth(120);
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(null, e, "Advertencia", JOptionPane.PLAIN_MESSAGE);    
+    }
+    }
 public static void la_venta_tiene_descuento_si_o_no(int id_venta){
         try{ Connection ca= cc.conexion();// La suma de todos los importes
                                          Statement sent  =(Statement)ca.createStatement();
@@ -126,70 +279,6 @@ public static void eliminar_idventa_sitienedescuento(float descuento, int id_ven
                   cc.getClose();
              }
     }
-     public static void llenartablaidventasconidrealizados(){ // recibe como parametro 
-         Object[] columna = new Object[6];  //crear un obj con el nombre de colunna
-             DefaultTableModel modeloTE = new DefaultTableModel(); 
-                  Inventarioventas.jTable2.setModel(modeloTE);  // add modelo ala tabla 
-        modeloTE.addColumn("Venta");
-        modeloTE.addColumn("Paciente");
-        modeloTE.addColumn("Subtotal"); 
-        modeloTE.addColumn("Descuento");
-        modeloTE.addColumn("Total");
-        modeloTE.addColumn("Fecha");
-    Inventarioventas.jTable2.setModel(modeloTE);  // add modelo ala tabla         
-        try {  Connection ca= cc.conexion(); // CONEXION DB 
-             String sSQL = "SELECT distinct venta.id_venta, pacientes.nombre,venta.subtotal, venta.descuento,venta.total,venta.fecha_reporte FROM venta inner join descripcion_de_venta on venta.id_venta = descripcion_de_venta.id_venta inner join pacientes on descripcion_de_venta.id_paciente = pacientes.id_paciente WHERE venta.estado_venta in('Realizada') AND venta.fecha_reporte = '"+Controladorventa.fecha()+"' ";
-        PreparedStatement ps = ca.prepareStatement(sSQL);       
-        ResultSet rs = ps.executeQuery(sSQL);
-            while (rs.next()) {
-                columna[0] = rs.getInt(1);
-                columna[1] = rs.getString(2);
-                columna[2] = "$"+String.valueOf(rs.getFloat(3));
-                 columna[3] = "$"+String.valueOf(rs.getFloat(4));
-                columna[4] = "$"+String.valueOf(rs.getFloat(5));
-                 columna[5] = rs.getString(6);
-                modeloTE.addRow(columna);
-            }
-          Inventarioventas.jTable2.setModel(modeloTE);  // add modelo ala tabla 
-                             TableColumnModel columnModel =   Inventarioventas.jTable2.getColumnModel();columnModel.getColumn(0).setPreferredWidth(10);columnModel.getColumn(1).setPreferredWidth(180); columnModel.getColumn(2).setPreferredWidth(10);   columnModel.getColumn(3).setPreferredWidth(10);
-    } catch (Exception e) {
-      JOptionPane.showMessageDialog(null, "ERROR EN METODO: llenartablaidventasconidrealizados","DEVELOPER HELPER", JOptionPane.ERROR_MESSAGE);      
-       }finally{
-                  cc.getClose();
-             }
-}
-
-   
-     public static void showidventasporfechas(JTable tablaventas, String fechadesde, String fechahasta){
-        Object[] columna = new Object[6];  //crear un obj con el nombre de colunna
-            Connection ca= cc.conexion(); // CONEXION DB 
-              DefaultTableModel modeloT = new DefaultTableModel(); 
-                  tablaventas.setModel(modeloT);  // add modelo ala tabla 
-           modeloT.addColumn("Venta");
-            modeloT.addColumn("Paciente");
-            modeloT.addColumn("Subtotal");
-            modeloT.addColumn("Descuento");
-        modeloT.addColumn("Total");     
-        modeloT.addColumn("Fecha");
-    try {        
-           String sSQL = "SELECT distinct venta.id_venta, pacientes.nombre,venta.subtotal, venta.descuento,venta.total,venta.fecha_reporte FROM venta inner join descripcion_de_venta on venta.id_venta = descripcion_de_venta.id_venta inner join pacientes on descripcion_de_venta.id_paciente = pacientes.id_paciente WHERE venta.estado_venta='Realizada' AND venta.fecha_reporte BETWEEN '"+fechadesde+"' AND '"+fechahasta+ "' ";
-        PreparedStatement ps = ca.prepareStatement(sSQL);       
-        try (ResultSet rs = ps.executeQuery(sSQL)) {
-            while (rs.next()) {
-                columna[0] = rs.getString(1);
-                  columna[1] = rs.getString(2);
-                columna[2] = "$"+String.valueOf(rs.getInt(3) );
-                 columna[3] = "$"+String.valueOf(rs.getInt(4) );
-                columna[4] = "$"+String.valueOf(rs.getInt(5) );
-                   columna[5] = rs.getString(6);
-                modeloT.addRow(columna);
-            }
-        }                             TableColumnModel columnModel =   Inventarioventas.jTable2.getColumnModel();columnModel.getColumn(0).setPreferredWidth(30);columnModel.getColumn(1).setPreferredWidth(30);    columnModel.getColumn(2).setPreferredWidth(150);
-    } catch (Exception e) {
-        JOptionPane.showMessageDialog(null, e, "Advertencia", JOptionPane.PLAIN_MESSAGE);    
-    }finally{cc.getClose();}
-    }
-
      public static void impresiondeventacancelada(int numerodeventa){
         Modeloventa.descripciondelosprouductosparaelticketdeventa(numerodeventa,estadocancelado);
     }
@@ -213,35 +302,7 @@ public static void eliminar_idventa_sitienedescuento(float descuento, int id_ven
         } finally{
                     cc.getClose();
                 }    
-   }
-  
-   public static void descripciondeproductosenbasealnumerodeventa(int numerodeventa){
-        Object[] columna = new Object[4];  //crear un obj con el nombre de colunna
-            Connection ca= cc.conexion(); // CONEXION DB 
-              DefaultTableModel modeloT = new DefaultTableModel(); 
-                  Inventarioventas.jTable2.setModel(modeloT);  // add modelo ala tabla 
-        modeloT.addColumn("Nombre");
-        modeloT.addColumn("Piezas");        
-        modeloT.addColumn("Precio");
-        modeloT.addColumn("Importe");
-            Inventarioventas.jTable2.setModel(modeloT);  // add modelo ala tabla 
-      try { String sSQL = "SELECT distinct dv.nombre_producto, dv.cantidad, dv.precio_unitario, dv.importe, v.total FROM descripcion_de_venta dv inner join venta v on dv.id_venta = v.id_venta WHERE dv.estado='Realizada' AND dv.id_venta = '"+numerodeventa+"' ";
-        PreparedStatement ps = ca.prepareStatement(sSQL);       
-        ResultSet rs = ps.executeQuery(sSQL);
-            while (rs.next()) {
-               // columna[0] = rs.getString("id_venta");  /* === LA DB == */
-                columna[0] = rs.getString(1);
-                columna[1] = rs.getString(2);
-                columna[2] = "$"+rs.getString(3);      
-                columna[3] = "$"+rs.getString(4); 
-                sumadeimportesparaeltotal =Float.parseFloat(rs.getString(5));
-                modeloT.addRow(columna);
-            }    Inventarioventas.jTable2.setModel(modeloT);  // add modelo ala tabla 
-                   TableColumnModel columnModel =   Inventarioventas.jTable2.getColumnModel();columnModel.getColumn(0).setPreferredWidth(200);columnModel.getColumn(1).setPreferredWidth(50);    columnModel.getColumn(2).setPreferredWidth(50);columnModel.getColumn(3).setPreferredWidth(50);
-    } catch (Exception e) {
-        JOptionPane.showMessageDialog(null, e, "Advertencia", JOptionPane.PLAIN_MESSAGE);    
-    }
-    }
+  }
    public static void reimpresiondeventa(int numerodeventa){
        Modeloventa.descripciondelosprouductosparaelticketdeventa(numerodeventa,Controladorventa.estadorealizado);
     }

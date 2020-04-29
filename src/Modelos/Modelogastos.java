@@ -47,7 +47,18 @@ public class Modelogastos {
                 columna[2] = rs.getString("fecha");
                 modeloT.addRow(columna);
             }
-        }                             TableColumnModel columnModel =   tablaD.getColumnModel();columnModel.getColumn(0).setPreferredWidth(300);columnModel.getColumn(1).setPreferredWidth(10);    columnModel.getColumn(2).setPreferredWidth(30);
+        }  
+        TableColumnModel columnModel =   tablaD.getColumnModel();
+       
+      //  columnModel.getColumn(1).setPreferredWidth(10);   
+       // columnModel.getColumn(2).setPreferredWidth(30);
+           columnModel.getColumn(0).setMinWidth(340);
+    columnModel.getColumn(0).setMaxWidth(340);
+    columnModel.getColumn(1).setMinWidth(200);
+    columnModel.getColumn(1).setMaxWidth(200);
+     columnModel.getColumn(2).setMinWidth(200);
+    columnModel.getColumn(2).setMaxWidth(200);
+
     } catch (Exception e) {
         JOptionPane.showMessageDialog(null, e, "Advertencia", JOptionPane.PLAIN_MESSAGE);    
     }finally{cc.getClose();}
@@ -78,7 +89,15 @@ public static void mostrartodoslosproductosenexistenciasporbusqueda(String texto
             modelo.addRow(datos); //se asigna el arreglo  entero a todo el objeto llamado modelo  
             }
            Gastos.jTableGastos.setModel(modelo); // Se vuelve a enviar nuevamente el objeto modelo a la tabla
-           TableColumnModel columnModel =   Gastos.jTableGastos.getColumnModel();columnModel.getColumn(0).setPreferredWidth(300);columnModel.getColumn(1).setPreferredWidth(10);    columnModel.getColumn(2).setPreferredWidth(30);
+           TableColumnModel columnModel =   Gastos.jTableGastos.getColumnModel();
+        //    columnModel.getColumn(1).setPreferredWidth(10);   
+       // columnModel.getColumn(2).setPreferredWidth(30);
+           columnModel.getColumn(0).setMinWidth(340);
+    columnModel.getColumn(0).setMaxWidth(340);
+     columnModel.getColumn(1).setMinWidth(200);
+    columnModel.getColumn(1).setMaxWidth(200);
+     columnModel.getColumn(2).setMinWidth(200);
+    columnModel.getColumn(2).setMaxWidth(200);
         } 
     catch (SQLException ex) {
             Logger.getLogger(nucleo.class.getName()).log(Level.SEVERE, null, ex);

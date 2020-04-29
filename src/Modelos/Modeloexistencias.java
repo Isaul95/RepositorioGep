@@ -59,7 +59,13 @@ public class Modeloexistencias extends Controladorexistencias {
             nucleo.existenciadeproductos.setModel(modelo); // Se vuelve a enviar nuevamente el objeto modelo a la tabla  
             //PARA AJUSTAR EL ANCHO DE LAS TABLAS
             TableColumnModel columnModel = nucleo.existenciadeproductos.getColumnModel();
-            columnModel.getColumn(0).setPreferredWidth(250);
+            //columnModel.getColumn(0).setPreferredWidth(250);
+             //   columnModel.getColumn(1).setPreferredWidth(5);
+  
+    columnModel.getColumn(0).setMaxWidth(520);
+    columnModel.getColumn(0).setMinWidth(520);
+    columnModel.getColumn(1).setMaxWidth(100);
+    columnModel.getColumn(1).setMinWidth(100);
         } catch (SQLException ex) {
             Logger.getLogger(nucleo.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(null, "No se pudo mostrar ningun dato porque tu consulta está mal");
@@ -90,7 +96,11 @@ public class Modeloexistencias extends Controladorexistencias {
             }
             nucleo.existenciadeproductos.setModel(modelo); // Se vuelve a enviar nuevamente el objeto modelo a la tabla
             TableColumnModel columnModel = nucleo.existenciadeproductos.getColumnModel();
-            columnModel.getColumn(0).setPreferredWidth(250);
+           
+    columnModel.getColumn(0).setMaxWidth(520);
+    columnModel.getColumn(0).setMinWidth(520);
+        columnModel.getColumn(1).setMaxWidth(100);
+    columnModel.getColumn(1).setMinWidth(100);
         } catch (SQLException ex) {
             Logger.getLogger(nucleo.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(null, "No se pudo mostrar  porque tu consulta está mal");
@@ -122,7 +132,16 @@ public class Modeloexistencias extends Controladorexistencias {
             Existencias.existenciadeproductos.setModel(modelo); // Se vuelve a enviar nuevamente el objeto modelo a la tabla  
             //PARA AJUSTAR EL ANCHO DE LAS TABLAS
             TableColumnModel columnModel = Existencias.existenciadeproductos.getColumnModel();
-            columnModel.getColumn(0).setPreferredWidth(250);
+            //columnModel.getColumn(0).setPreferredWidth(250);
+            
+    columnModel.getColumn(0).setMinWidth(300);
+    columnModel.getColumn(0).setMaxWidth(300);
+    columnModel.getColumn(1).setMinWidth(300);
+    columnModel.getColumn(1).setMaxWidth(300);
+    columnModel.getColumn(2).setMinWidth(200);
+    columnModel.getColumn(2).setMaxWidth(200);
+  
+    
         } catch (SQLException ex) {
             Logger.getLogger(nucleo.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(null, "No se pudo mostrar ningun dato porque tu consulta está mal");
@@ -154,7 +173,9 @@ public class Modeloexistencias extends Controladorexistencias {
             }
             Existencias.existenciadeproductos.setModel(modelo); // Se vuelve a enviar nuevamente el objeto modelo a la tabla
             TableColumnModel columnModel = Existencias.existenciadeproductos.getColumnModel();
-            columnModel.getColumn(0).setPreferredWidth(250);
+            //columnModel.getColumn(0).setPreferredWidth(250);
+            columnModel.getColumn(0).setMaxWidth(400);
+    columnModel.getColumn(0).setMinWidth(400);
         } catch (SQLException ex) {
             Logger.getLogger(nucleo.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(null, "No se pudo mostrar  porque tu consulta está mal");
