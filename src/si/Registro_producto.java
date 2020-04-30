@@ -19,6 +19,7 @@ import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.imageio.ImageIO;
+import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
@@ -27,14 +28,6 @@ import javax.swing.table.DefaultTableModel;
 // import static si.SI_Inicio.text_user;
 
 public class Registro_producto extends javax.swing.JFrame {
-  
- //Nombre de algunas variables  //TCC = CAMPO DE TEXTO PARA CONFIRMAR CONTRASEÑA   //CC  = LABEL DE CONFIRMAR CONTRASEÑA
-    int resultadoprimerusuario;
-    String estadoactivo="Activo";
-     // boolean primerusuario; //Obtiene el id del proveedor
-           // String datos_proveedores_o_usuarios[]= new String[3];
-   Statement sent;  
-  ResultSet rs;
     private Object Controladro_registro_producto;
       
     public Registro_producto() {
@@ -68,7 +61,7 @@ public class Registro_producto extends javax.swing.JFrame {
         valor_referencia = new javax.swing.JTextField();
         unidades = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        reimprimirventa = new javax.swing.JCheckBox();
+        nuevacategoria = new javax.swing.JCheckBox();
         nueva_categoria = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
@@ -169,11 +162,16 @@ public class Registro_producto extends javax.swing.JFrame {
         jLabel5.setText("Valor de");
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 210, 100, 23));
 
-        reimprimirventa.setBackground(new java.awt.Color(135, 193, 193));
-        reimprimirventa.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        reimprimirventa.setText("Nueva categoria");
-        reimprimirventa.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
-        jPanel1.add(reimprimirventa, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, 170, -1));
+        nuevacategoria.setBackground(new java.awt.Color(135, 193, 193));
+        nuevacategoria.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        nuevacategoria.setText("Nueva categoria");
+        nuevacategoria.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        nuevacategoria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nuevacategoriaActionPerformed(evt);
+            }
+        });
+        jPanel1.add(nuevacategoria, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, 170, -1));
 
         nueva_categoria.setBackground(new java.awt.Color(135, 193, 193));
         nueva_categoria.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
@@ -204,9 +202,9 @@ public class Registro_producto extends javax.swing.JFrame {
             }
         });
         jPanel2.add(B_cancelar);
-        B_cancelar.setBounds(600, 0, 60, 40);
+        B_cancelar.setBounds(600, 10, 60, 40);
 
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 670, 50));
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 670, 60));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -222,6 +220,19 @@ public class Registro_producto extends javax.swing.JFrame {
         Controladorventa.noduplicar_nuevo_producto=false;
     }//GEN-LAST:event_formWindowClosed
 
+    private void nuevacategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nuevacategoriaActionPerformed
+        JCheckBox cbLog = (JCheckBox) evt.getSource();
+        if (cbLog.isSelected()) {
+                     tipodecategoria.setEnabled(false);
+            jLabel8.setEnabled(false);
+            System.out.println("Logging is enabled");
+        } else {
+            tipodecategoria.setEnabled(true);
+            jLabel8.setEnabled(true);
+            System.out.println("Logging is disabled");
+        }
+    }//GEN-LAST:event_nuevacategoriaActionPerformed
+   
     /**
      * @param args the command line arguments
      */
@@ -277,8 +288,8 @@ public class Registro_producto extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     public static javax.swing.JTextField nueva_categoria;
+    public static javax.swing.JCheckBox nuevacategoria;
     public static javax.swing.JTextField precio;
-    public static javax.swing.JCheckBox reimprimirventa;
     public static javax.swing.JComboBox<String> tipodecategoria;
     public static javax.swing.JTextField unidades;
     public static javax.swing.JTextField valor_referencia;

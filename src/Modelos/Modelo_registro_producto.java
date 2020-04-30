@@ -29,6 +29,7 @@ public class Modelo_registro_producto extends Controlador_registro_producto{
   
     public static ArrayList<String> llenarcombotipoproducto(){// este metodo obtiene los tipo_producto disponibles en la base de datos actualmente
         Registro_producto.tipodecategoria.removeAllItems();//Ésta linea es importante ya que cada vez que se llama este metodo se eliminan los item que previamente se cargaron en la llamada anterior, ESTO PARA QUE NO SE VUELVAN AGREGAR LOS MISMOS ITEMS, MÁS DE 1 VEZ
+         lista_llenado_categoria_estudios.clear();
         try{Connection ca= cc.conexion();
             sent = (Statement)ca.createStatement();
             rs= sent.executeQuery("select DISTINCT categoria_estudios from productos where categoria_estudios not in ('Sin categoria')");
@@ -51,7 +52,7 @@ public class Modelo_registro_producto extends Controlador_registro_producto{
                 pst.setString(2,Registro_producto.valor_referencia.getText());
                 int a=pst.executeUpdate();
                 if(a>0){
-                    JOptionPane.showMessageDialog(null,"DESCRIPCION ESTUDIO GUARDADO CORRECTAMENTE");
+                   // JOptionPane.showMessageDialog(null,"DESCRIPCION ESTUDIO GUARDADO CORRECTAMENTE");
                 }
             } catch(SQLException e)  {
                 //JOptionPane.showMessageDialog(null,"ERROR DE DATOS");
@@ -73,7 +74,7 @@ public class Modelo_registro_producto extends Controlador_registro_producto{
     }
     public static void registrar_producto(int id_descripcion,String categoria){
         try{Connection ca= cc.conexion();
-                String sql1 = "INSERT INTO productos (nombre_producto,categoria_estudios,descripcion_estudio,precio,cantidad,fecha_de_caducidad,fecha)  VALUES (?,?,?,?,?;?,?)";
+                String sql1 = "INSERT INTO productos (nombre_producto,categoria_estudios,descripcion_estudio,precio,cantidad,fecha_de_caducidad,fecha)  VALUES (?,?,?,?,?,?,?)";
                 PreparedStatement pst1 = ca.prepareCall(sql1);
                 pst1.setString(1,Registro_producto.estudio.getText());
                 pst1.setString(2,categoria);
@@ -85,7 +86,7 @@ public class Modelo_registro_producto extends Controlador_registro_producto{
 
                 int a=pst1.executeUpdate();
                 if(a>0){
-                    JOptionPane.showMessageDialog(null,"PRODUCTO GUARDADO CORRECTAMENTE");
+                    JOptionPane.showMessageDialog(null,"PRODUCTO GUARDADO CORRECTAMENTE","EXITO",JOptionPane.INFORMATION_MESSAGE);
                     
                 }
             } catch(SQLException e)  {
