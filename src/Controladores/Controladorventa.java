@@ -51,7 +51,8 @@ public static ArrayList idsenturno = new ArrayList();
            noduplicar_capturaresultados=false,
            noduplicar_registro_usuario=false,
            noduplicar_nucleo=false,
-           noduplicar_envio_email=false;
+           noduplicar_envio_email=false,
+           noduplicar_nuevo_producto=false;
 
          
    public static DecimalFormat solodosdecimales = new DecimalFormat("#.##");

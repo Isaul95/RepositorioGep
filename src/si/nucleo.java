@@ -549,7 +549,7 @@ user.setText(usuarioname);
     }//GEN-LAST:event_montoFocusGained
 
     private void Registro_productosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Registro_productosActionPerformed
-        // TODO add your handling code here:
+            if(Controladorventa.noduplicar_nuevo_producto==false){new Registro_producto().setVisible(true);} 
     }//GEN-LAST:event_Registro_productosActionPerformed
  private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {                                         
 // MODIFICAR   new ProductosExternos().setVisible(true);        
