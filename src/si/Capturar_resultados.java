@@ -272,11 +272,7 @@ public Capturar_resultados(int id_venta_a_capturar_resultados){
     private void envio_emailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_envio_emailActionPerformed
         if(Controladorventa.noduplicar_envio_email==false){
         new Envio_email().setVisible(true);
-        Envio_email.File.setText(Controlador_Report_pdf.nom);
-        JOptionPane.showMessageDialog(null, "NOTA IMPORTANTE:\n "
-                + "Para mandar el archivo a varios correos de clientes (MULTIUSUARIO),\n "
-                + "los correos tienen que separarse con un punto y coma (;)\n "
-                + "Como en el ejempplo ==>>\n(xx@hotmail.com;xx@gmail.com;xx@gepsof.com)");
+        Envio_email.File.setText(Controlador_Report_pdf.nom);        
         }
     }//GEN-LAST:event_envio_emailActionPerformed
 

@@ -22,9 +22,9 @@ import static si.Capturar_resultados.envio_email;
 import si.Envio_email;
 /* NOTAS DE FECHAS;
 SELECT CURDATE();   ==>   2020-03-01  SELECT CURTIME();   ==>   14:16:34    */
-// isaulhernandez@gepsof.com       Isaul.hernandez952
+// isaulhernandez@gepsof.com       Isaul.
 public class Modelo_proceso_email implements Runnable{
-   static String correo= "julio.oceguera@alkhemy.com", contrasena= "Julio.oceguera2", nom, dest, subject, msn, rout;
+   static String correo= "atencionacliente@alkhemy.com", contrasena= "Julio.oceguera2", nom, dest, subject, msn, rout;
     JTextField destinatario, asunto, ruta;
     JTextArea mensaje;
     JLabel estado;
@@ -41,11 +41,11 @@ public class Modelo_proceso_email implements Runnable{
     }
                
     @Override
-    public void run() {      //rout = "C:\\Users\\cachorra\\Desktop\\contrato.docx";  
+    public void run() {      
         rout = "C:\\reportes\\"+nom;
         
         if (rout.equals("")) {
-        final String usuario = "julio.oceguera@alkhemy.com"; // isaulhernandez@gepsof.com
+        final String usuario = "atencionacliente@alkhemy.com"; // @gepsof.com
         final String pass = "Julio.oceguera2";       //  Isaul
            
             Properties props = new Properties();
