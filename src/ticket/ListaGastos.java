@@ -28,9 +28,9 @@ public class ListaGastos {
 
         // Se llama al metodo para imprimir una cadena
         auxs+= "LISTA DE GASTOS\n\n";  System.out.println("LISTA DE GASTOS\n\n");
-            auxs+= "LAB. AL-KHEMY\n"; System.out.println("LAB. AL-KHEMY\n");
+              auxs+= "LABORATORIO \n"; System.out.println("LABORATORIO\n");
        //  auxs+= "PROP.JOSE MIGUEL CASTREZANA B.\n";  System.out.println("PROP.JOSE MIGUEL CASTREZANA B.\n");
-        auxs+= "Q.F.B. JULIO ENRIQUE OCEGUERA PEÑA\n"; System.out.println("Q.F.B. JULIO ENRIQUE OCEGUERA PEÑA\n");         
+        auxs+= "AL-KHEMY\n"; System.out.println("AL-KHEMY\n");         
          auxs+= "IGNACIO ZARAGOZA NO. 20\n"; System.out.println("IGNACIO ZARAGOZA NO. 20\n");
         auxs += "C.P.4446802\n";             System.out.println("C.P.4446802\n");
         auxs += "SEGUNDA DE SAN MIGUEL\n";        System.out.println("SEGUNDA DE SAN MIGUEL\n");

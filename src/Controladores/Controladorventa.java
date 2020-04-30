@@ -325,8 +325,12 @@ nucleo.deletedescuento.setVisible(true);
 
 if(usuario.equals("Administrador")){
     nucleo.Registro_user.setVisible(true);
+    nucleo.Cortedecaja.setVisible(true);
+    nucleo.Registro_productos.setVisible(true);
 }else{
     nucleo.Registro_user.setVisible(false);
+     nucleo.Cortedecaja.setVisible(false);
+      nucleo.Registro_productos.setVisible(false);
 }
     }
    public static String fecha_de_nacimiento_del_paciente(){

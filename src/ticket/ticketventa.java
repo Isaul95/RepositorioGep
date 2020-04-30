@@ -28,14 +28,14 @@ public class ticketventa {
 
        // Se llama al metodo para imprimir una cadena
         auxs += "COMPROBANTE DE VENTA\n\n";   System.out.println("COMPROBANTE DE VENTA\n\n");
-     auxs+= "LAB. AL-KHEMY\n"; System.out.println("LAB. AL-KHEMY\n");
+          auxs+= "LABORATORIO \n"; System.out.println("LABORATORIO\n");
        //  auxs+= "PROP.JOSE MIGUEL CASTREZANA B.\n";  System.out.println("PROP.JOSE MIGUEL CASTREZANA B.\n");
-        auxs+= "Q.F.B. JULIO ENRIQUE OCEGUERA PEÑA\n"; System.out.println("Q.F.B. JULIO ENRIQUE OCEGUERA PEÑA\n");         
+        auxs+= "AL-KHEMY\n"; System.out.println("AL-KHEMY\n");         
          auxs+= "IGNACIO ZARAGOZA NO. 20\n"; System.out.println("IGNACIO ZARAGOZA NO. 20\n");
         auxs += "C.P.4446802\n";             System.out.println("C.P.4446802\n");
         auxs += "SEGUNDA DE SAN MIGUEL\n";        System.out.println("SEGUNDA DE SAN MIGUEL\n");
         auxs += "COATEPEC HARINAS, MEX.\n";  System.out.println("COATEPEC HARINAS, MEX.");
-        auxs+= "TEL:(723) 14-502-62\n"; System.out.println("TEL:(723) 14-502-62\n");      
+        auxs+= "TEL:(723) 14-502-62\n"; System.out.println("TEL:(723) 14-502-62\n");  
         
        auxs+= "Fecha: " + dateFormat.format(date) + " Hora: " + hourFormat.format(date) + "\n";  System.out.println("Fecha: " + dateFormat.format(date) + " Hora: " + hourFormat.format(date) + "\n");
        auxs+= String.format("Venta: "+"%-20s", numerodeventa); System.out.println(String.format("Venta: "+"%-20s", numerodeventa)); 

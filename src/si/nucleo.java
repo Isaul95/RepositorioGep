@@ -110,6 +110,7 @@ user.setText(usuarioname);
         Existencias = new javax.swing.JButton();
         Registro_user = new javax.swing.JButton();
         reimprimirventa = new javax.swing.JCheckBox();
+        Registro_productos = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -240,7 +241,7 @@ user.setText(usuarioname);
                 descuentoActionPerformed(evt);
             }
         });
-        venta.add(descuento, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 420, 40, 50));
+        venta.add(descuento, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 100, 40, 50));
 
         deletedescuento.setBackground(new java.awt.Color(135, 193, 193));
         deletedescuento.setFont(new java.awt.Font("Arial Black", 1, 23)); // NOI18N
@@ -251,7 +252,7 @@ user.setText(usuarioname);
                 deletedescuentoActionPerformed(evt);
             }
         });
-        venta.add(deletedescuento, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 500, 40, 50));
+        venta.add(deletedescuento, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 180, 40, 50));
 
         cleanall.setBackground(new java.awt.Color(135, 193, 193));
         cleanall.setFont(new java.awt.Font("Tahoma", 1, 22)); // NOI18N
@@ -265,7 +266,7 @@ user.setText(usuarioname);
                 cleanallActionPerformed(evt);
             }
         });
-        venta.add(cleanall, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 580, 40, 50));
+        venta.add(cleanall, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 260, 40, 50));
 
         existenciadeproductos = new javax.swing.JTable(){
             public boolean isCellEditable(int filas, int columnas){
@@ -455,6 +456,19 @@ user.setText(usuarioname);
         reimprimirventa.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
         venta.add(reimprimirventa, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 70, -1, -1));
 
+        Registro_productos.setBackground(new java.awt.Color(135, 193, 193));
+        Registro_productos.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        Registro_productos.setForeground(new java.awt.Color(204, 0, 0));
+        Registro_productos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/user022.png"))); // NOI18N
+        Registro_productos.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        Registro_productos.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        Registro_productos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Registro_productosActionPerformed(evt);
+            }
+        });
+        venta.add(Registro_productos, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 420, 40, 50));
+
         getContentPane().add(venta, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1220, 670));
 
         pack();
@@ -533,6 +547,10 @@ user.setText(usuarioname);
     private void montoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_montoFocusGained
         Controladorventa.montoFocusGained();
     }//GEN-LAST:event_montoFocusGained
+
+    private void Registro_productosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Registro_productosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Registro_productosActionPerformed
  private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {                                         
 // MODIFICAR   new ProductosExternos().setVisible(true);        
     }                                           /**
@@ -575,6 +593,7 @@ user.setText(usuarioname);
     public static javax.swing.JButton Cortedecaja;
     private javax.swing.JButton Existencias;
     private javax.swing.JLabel Fecha;
+    public static javax.swing.JButton Registro_productos;
     public static javax.swing.JButton Registro_user;
     public static javax.swing.JLabel Reloj;
     private javax.swing.JTextField busqueda;

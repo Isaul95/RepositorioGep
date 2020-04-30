@@ -5,14 +5,14 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.JOptionPane;
-
-public class TikectGasto{
    
     public void TikectGasto(float cantidad, String descripcion, String totalmonto){
        
         Date date = new Date();
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         DateFormat hourFormat = new SimpleDateFormat("HH:mm:ss");
+
+public class TikectGasto{
         
         
         
@@ -26,9 +26,9 @@ public class TikectGasto{
 
         // Se llama al metodo para imprimir una cadena
         auxs+= "COMPROBANTE DE GASTOS\n\n";  System.out.println("COMPROBANTE DE GASTOS\n\n");
-        auxs+= "LAB. AL-KHEMY\n"; System.out.println("LAB. AL-KHEMY\n");
+      auxs+= "LABORATORIO \n"; System.out.println("LABORATORIO\n");
        //  auxs+= "PROP.JOSE MIGUEL CASTREZANA B.\n";  System.out.println("PROP.JOSE MIGUEL CASTREZANA B.\n");
-        auxs+= "Q.F.B. JULIO ENRIQUE OCEGUERA PEÑA\n"; System.out.println("Q.F.B. JULIO ENRIQUE OCEGUERA PEÑA\n");         
+        auxs+= "AL-KHEMY\n"; System.out.println("AL-KHEMY\n");         
          auxs+= "IGNACIO ZARAGOZA NO. 20\n"; System.out.println("IGNACIO ZARAGOZA NO. 20\n");
         auxs += "C.P.4446802\n";             System.out.println("C.P.4446802\n");
         auxs += "SEGUNDA DE SAN MIGUEL\n";        System.out.println("SEGUNDA DE SAN MIGUEL\n");
