@@ -5,14 +5,14 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.JOptionPane;
-   
+   public class TikectGasto{
     public void TikectGasto(float cantidad, String descripcion, String totalmonto){
        
         Date date = new Date();
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         DateFormat hourFormat = new SimpleDateFormat("HH:mm:ss");
 
-public class TikectGasto{
+
         
         
         

@@ -59,8 +59,6 @@ Thread hilo;
 
         jPanel1 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
-        Fecha = new javax.swing.JLabel();
-        Reloj = new javax.swing.JLabel();
         Gastosfromtoday = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         Ventasfortoday1 = new javax.swing.JLabel();
@@ -74,6 +72,8 @@ Thread hilo;
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         user = new javax.swing.JLabel();
+        Fecha = new javax.swing.JLabel();
+        Reloj = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -92,20 +92,6 @@ Thread hilo;
         jPanel3.setBackground(new java.awt.Color(135, 193, 193));
         jPanel3.setForeground(new java.awt.Color(206, 231, 235));
         jPanel3.setLayout(null);
-
-        Fecha.setBackground(new java.awt.Color(0, 0, 0));
-        Fecha.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        Fecha.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        Fecha.setText("DD/MM/YYYY");
-        jPanel3.add(Fecha);
-        Fecha.setBounds(0, 0, 190, 60);
-
-        Reloj.setBackground(new java.awt.Color(0, 0, 0));
-        Reloj.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        Reloj.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        Reloj.setText("00:00:00");
-        jPanel3.add(Reloj);
-        Reloj.setBounds(450, 0, 160, 60);
 
         Gastosfromtoday.setBackground(new java.awt.Color(0, 0, 0));
         Gastosfromtoday.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
@@ -195,13 +181,13 @@ Thread hilo;
         aperturacantidad.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         aperturacantidad.setText("00.00");
         jPanel3.add(aperturacantidad);
-        aperturacantidad.setBounds(280, 110, 180, 40);
+        aperturacantidad.setBounds(390, 110, 180, 40);
 
         jLabel8.setBackground(new java.awt.Color(0, 0, 0));
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 17)); // NOI18N
         jLabel8.setText("La apertura de caja fue:");
         jPanel3.add(jLabel8);
-        jLabel8.setBounds(270, 80, 240, 29);
+        jLabel8.setBounds(310, 80, 240, 29);
 
         jLabel9.setBackground(new java.awt.Color(0, 0, 0));
         jLabel9.setFont(new java.awt.Font("Tahoma", 1, 17)); // NOI18N
@@ -212,9 +198,21 @@ Thread hilo;
 
         user.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
         jPanel3.add(user);
-        user.setBounds(210, 0, 180, 50);
+        user.setBounds(0, 0, 610, 50);
 
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 610, 360));
+
+        Fecha.setBackground(new java.awt.Color(0, 0, 0));
+        Fecha.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        Fecha.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        Fecha.setText("DD/MM/YYYY");
+        jPanel1.add(Fecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 0, 190, 60));
+
+        Reloj.setBackground(new java.awt.Color(0, 0, 0));
+        Reloj.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        Reloj.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        Reloj.setText("00:00:00");
+        jPanel1.add(Reloj, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 0, 160, 60));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

@@ -459,7 +459,7 @@ user.setText(usuarioname);
         Registro_productos.setBackground(new java.awt.Color(135, 193, 193));
         Registro_productos.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         Registro_productos.setForeground(new java.awt.Color(204, 0, 0));
-        Registro_productos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/user022.png"))); // NOI18N
+        Registro_productos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/Prodcuts2.png"))); // NOI18N
         Registro_productos.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         Registro_productos.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         Registro_productos.addActionListener(new java.awt.event.ActionListener() {
