@@ -24,6 +24,7 @@ public class Envio_email extends javax.swing.JFrame {
         send_message = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         regresar = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -41,12 +42,12 @@ public class Envio_email extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 17)); // NOI18N
         jLabel1.setText("Para :");
         jPanel1.add(jLabel1);
-        jLabel1.setBounds(20, 60, 60, 30);
+        jLabel1.setBounds(30, 80, 60, 30);
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 17)); // NOI18N
         jLabel2.setText("Asunto :");
         jPanel1.add(jLabel2);
-        jLabel2.setBounds(20, 100, 80, 30);
+        jLabel2.setBounds(30, 120, 80, 30);
 
         para.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         para.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -55,7 +56,7 @@ public class Envio_email extends javax.swing.JFrame {
             }
         });
         jPanel1.add(para);
-        para.setBounds(110, 60, 460, 30);
+        para.setBounds(120, 80, 460, 30);
 
         asunto.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         asunto.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -70,7 +71,7 @@ public class Envio_email extends javax.swing.JFrame {
             }
         });
         jPanel1.add(asunto);
-        asunto.setBounds(110, 100, 460, 30);
+        asunto.setBounds(120, 120, 460, 30);
 
         emailsend.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         emailsend.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/enviar.png"))); // NOI18N
@@ -83,23 +84,23 @@ public class Envio_email extends javax.swing.JFrame {
             }
         });
         jPanel1.add(emailsend);
-        emailsend.setBounds(120, 180, 171, 63);
+        emailsend.setBounds(130, 200, 171, 63);
 
         File.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         jPanel1.add(File);
-        File.setBounds(160, 140, 410, 30);
+        File.setBounds(170, 160, 410, 30);
 
         send_message.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         send_message.setForeground(new java.awt.Color(204, 0, 0));
         send_message.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         send_message.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jPanel1.add(send_message);
-        send_message.setBounds(50, 250, 510, 30);
+        send_message.setBounds(60, 270, 510, 30);
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 17)); // NOI18N
         jLabel4.setText("Archivo :");
         jPanel1.add(jLabel4);
-        jLabel4.setBounds(20, 140, 110, 30);
+        jLabel4.setBounds(30, 160, 110, 30);
 
         regresar.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         regresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/salir-flecha-derecha (1).png"))); // NOI18N
@@ -112,7 +113,12 @@ public class Envio_email extends javax.swing.JFrame {
             }
         });
         jPanel1.add(regresar);
-        regresar.setBounds(350, 180, 171, 63);
+        regresar.setBounds(360, 200, 171, 63);
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel3.setText("Dos correos separados por punto y coma (;)   EJEMP: (xx@gmail.com;xx@hotmail.com)");
+        jPanel1.add(jLabel3);
+        jLabel3.setBounds(100, 50, 490, 20);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -120,15 +126,15 @@ public class Envio_email extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 611, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 596, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 290, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -200,6 +206,7 @@ Controladorventa.noduplicar_envio_email=false;        // TODO add your handling 
     public static javax.swing.JButton emailsend;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     public static javax.swing.JPanel jPanel1;
     public static javax.swing.JTextField para;

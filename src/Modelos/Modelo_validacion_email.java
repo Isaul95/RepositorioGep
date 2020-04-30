@@ -9,12 +9,10 @@ import javax.mail.Transport;
 import javax.swing.JLabel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
-
 /*        USER: atencionacliente@alkhemy.com
           PASS: Julio.oceguera2
           USER: julio.oceguera@alkhemy.com
           PASS: Julio.oceguera2                     */
-
 public class Modelo_validacion_email implements Runnable{
     JTextField correo;
     JPasswordField contrasena;
@@ -33,8 +31,8 @@ public class Modelo_validacion_email implements Runnable{
     public void run() {
         Properties props = new Properties();
 
-        final String usuario = "julio.oceguera@alkhemy.com"; // isaulhernandez@gepsof.com
-        final String pass = "Julio.oceguera2"; // Isaul.hernandez952
+        final String usuario = "atencionacliente@alkhemy.com"; // isaulhernandez@gepsof.com
+        final String pass = "Julio.oceguera2"; // Isaul.
 
         props.put("mail.transport.protocol", "smtp");
         props.put("mail.smtp.host", "sh-pro10.hostgator.mx");
