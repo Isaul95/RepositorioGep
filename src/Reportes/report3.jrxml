@@ -68,7 +68,12 @@ where v.id_venta = $P{parameter1} and v.estado_venta='Realizada' and v.fecha_rep
 		</groupFooter>
 	</group>
 	<background>
-		<band splitType="Stretch"/>
+		<band height="802" splitType="Stretch">
+			<image hAlign="Center" vAlign="Middle">
+				<reportElement x="0" y="0" width="555" height="802"/>
+				<imageExpression class="java.lang.String"><![CDATA["C:\\Users\\cachorra\\Documents\\NetBeansProjects\\Proyecto ALKIMIA\\RepositorioGep\\src\\Reportes\\logoAlk.jpg"]]></imageExpression>
+			</image>
+		</band>
 	</background>
 	<title>
 		<band height="185" splitType="Stretch">
