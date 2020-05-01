@@ -122,7 +122,7 @@ public class Modeloexistencias extends Controladorexistencias {
         try {
             Connection ca = cc.conexion();
             sent = ca.createStatement();
-            rs = sent.executeQuery("SELECT p.nombre,f.nombre_archivo, p.fecha_ingreso from archivos f inner join pacientes p on p.id_paciente = f.id_paciente"); // se ejecuta la sentencia dentro del parentesis
+            rs = sent.executeQuery("SELECT p.nombre,f.nombre_archivo, p.fecha_ingreso from archivos f inner join pacientes p on p.id_paciente = f.id_paciente where f.estado_archivo='Realizado'"); // se ejecuta la sentencia dentro del parentesis
             while (rs.next()) {
                 datos[0] = rs.getString(1);
                 datos[1] = rs.getString(2);
@@ -161,9 +161,9 @@ public class Modeloexistencias extends Controladorexistencias {
             Connection ca = cc.conexion();
             sent = ca.createStatement();
             if (textoabuscar.equals("")) {
-              rs = sent.executeQuery("SELECT p.nombre,f.nombre_archivo, p.fecha_ingreso from archivos f inner join pacientes p on p.id_paciente = f.id_paciente"); // se ejecuta la sentencia dentro del parentesis
+              rs = sent.executeQuery("SELECT p.nombre,f.nombre_archivo, p.fecha_ingreso from archivos f inner join pacientes p on p.id_paciente = f.id_paciente where f.estado_archivo='Realizado'"); // se ejecuta la sentencia dentro del parentesis
             } else {
-                rs = sent.executeQuery("SELECT p.nombre,f.nombre_archivo, p.fecha_ingreso from archivos f inner join pacientes p on p.id_paciente = f.id_paciente where p.nombre LIKE '%" + textoabuscar + "%' "); // se ejecuta la sentencia dentro del parentesis
+                rs = sent.executeQuery("SELECT p.nombre,f.nombre_archivo, p.fecha_ingreso from archivos f inner join pacientes p on p.id_paciente = f.id_paciente where f.estado_archivo='Realizado' and p.nombre LIKE '%" + textoabuscar + "%' "); // se ejecuta la sentencia dentro del parentesis
             }
             while (rs.next()) {
                 datos[0] = rs.getString(1);

@@ -114,7 +114,7 @@ Capturar_resultados.genetrar_Pdf.setEnabled(false);}
             input = new FileInputStream(new File(file));
             
              Connection ca= cc.conexion(); //la insersion a la tabla ventas
-                String sql = "INSERT INTO ARCHIVOS (nombre_archivo,archivo,id_paciente)  VALUES (?,?,?)";
+                String sql = "INSERT INTO ARCHIVOS (nombre_archivo,archivo,id_paciente,estado_archivo)  VALUES (?,?,?,'Realizado')";
                 PreparedStatement pst = ca.prepareCall(sql); //hasta aqui vamos
                pst.setString(1,nombre_archivo);
                 pst.setBinaryStream(2, input);

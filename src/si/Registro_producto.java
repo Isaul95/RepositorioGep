@@ -225,11 +225,9 @@ public class Registro_producto extends javax.swing.JFrame {
         if (cbLog.isSelected()) {
                      tipodecategoria.setEnabled(false);
             jLabel8.setEnabled(false);
-            System.out.println("Logging is enabled");
         } else {
             tipodecategoria.setEnabled(true);
             jLabel8.setEnabled(true);
-            System.out.println("Logging is disabled");
         }
     }//GEN-LAST:event_nuevacategoriaActionPerformed
    
