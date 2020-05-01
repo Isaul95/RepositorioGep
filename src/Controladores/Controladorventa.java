@@ -33,7 +33,7 @@ public static float variablepago, piezassuficientes, cantidadporerrordeusuario,
  public static short  id_paciente,id_producto, ciclofor,fila,id_usuario, id_de_la_venta_incrementable,totalcomprobacion, primerventa;//SI SE OCUPAN   
  
     public static String  fechadesde="",fechahasta="", fechaparaventasdesde="", fechaparaventashasta="", fecha_nacimiento="";
-public static String nombredepiezaseleccionada="",nombre_paciente="", edad_paciente="",sexo_paciente;
+public static String nombredepiezaseleccionada="",nombre_paciente="", edad_paciente="",sexo_paciente, medico;
 public static String estadoinactivo="Inactivo", estadoactivo="Activo", NoP="",
          estadorealizado="Realizada", estadoenturno="En turno";
 

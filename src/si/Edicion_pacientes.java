@@ -44,6 +44,8 @@ public class Edicion_pacientes extends javax.swing.JFrame{
         calendar_fecha_nacimiento_edicion = new com.toedter.calendar.JDateChooser();
         guardarcambios_paciente = new javax.swing.JButton();
         user_nombre_edicion1 = new javax.swing.JTextField();
+        jLabel75 = new javax.swing.JLabel();
+        medico_edicion = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -73,19 +75,19 @@ public class Edicion_pacientes extends javax.swing.JFrame{
             }
         });
         jPanel2.add(Corte_btncancelar);
-        Corte_btncancelar.setBounds(480, 250, 160, 60);
+        Corte_btncancelar.setBounds(480, 300, 160, 60);
 
         jLabel74.setBackground(new java.awt.Color(0, 0, 0));
         jLabel74.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel74.setText("Nombre:");
         jPanel2.add(jLabel74);
-        jLabel74.setBounds(30, 30, 77, 24);
+        jLabel74.setBounds(30, 80, 77, 24);
 
         jLabel79.setBackground(new java.awt.Color(0, 0, 0));
         jLabel79.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel79.setText("Edad:");
         jPanel2.add(jLabel79);
-        jLabel79.setBounds(30, 70, 66, 32);
+        jLabel79.setBounds(30, 120, 66, 32);
 
         user_edad_edicion.setBackground(new java.awt.Color(135, 193, 193));
         user_edad_edicion.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
@@ -96,32 +98,32 @@ public class Edicion_pacientes extends javax.swing.JFrame{
             }
         });
         jPanel2.add(user_edad_edicion);
-        user_edad_edicion.setBounds(130, 70, 180, 40);
+        user_edad_edicion.setBounds(130, 120, 180, 40);
 
         user_sexo_edicion.setBackground(new java.awt.Color(135, 193, 193));
         user_sexo_edicion.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         user_sexo_edicion.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Masculino", "Femenino" }));
         user_sexo_edicion.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
         jPanel2.add(user_sexo_edicion);
-        user_sexo_edicion.setBounds(130, 120, 180, 50);
+        user_sexo_edicion.setBounds(130, 170, 180, 50);
 
         jLabel78.setBackground(new java.awt.Color(0, 0, 0));
         jLabel78.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel78.setText("Sexo:");
         jPanel2.add(jLabel78);
-        jLabel78.setBounds(30, 130, 52, 24);
+        jLabel78.setBounds(30, 180, 52, 24);
 
         jLabel77.setBackground(new java.awt.Color(0, 0, 0));
         jLabel77.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel77.setText("Fecha de nacimiento:");
         jPanel2.add(jLabel77);
-        jLabel77.setBounds(30, 200, 189, 24);
+        jLabel77.setBounds(30, 250, 189, 24);
 
         calendar_fecha_nacimiento_edicion.setBackground(new java.awt.Color(206, 231, 235));
         calendar_fecha_nacimiento_edicion.setForeground(new java.awt.Color(255, 0, 0));
         calendar_fecha_nacimiento_edicion.setFont(new java.awt.Font("Tahoma", 1, 17)); // NOI18N
         jPanel2.add(calendar_fecha_nacimiento_edicion);
-        calendar_fecha_nacimiento_edicion.setBounds(250, 190, 270, 40);
+        calendar_fecha_nacimiento_edicion.setBounds(250, 240, 270, 40);
 
         guardarcambios_paciente.setBackground(new java.awt.Color(255, 255, 255));
         guardarcambios_paciente.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
@@ -134,7 +136,7 @@ public class Edicion_pacientes extends javax.swing.JFrame{
             }
         });
         jPanel2.add(guardarcambios_paciente);
-        guardarcambios_paciente.setBounds(20, 250, 270, 60);
+        guardarcambios_paciente.setBounds(20, 300, 270, 60);
 
         user_nombre_edicion1.setBackground(new java.awt.Color(135, 193, 193));
         user_nombre_edicion1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
@@ -146,10 +148,28 @@ public class Edicion_pacientes extends javax.swing.JFrame{
             }
         });
         jPanel2.add(user_nombre_edicion1);
-        user_nombre_edicion1.setBounds(130, 20, 460, 40);
+        user_nombre_edicion1.setBounds(130, 70, 460, 40);
+
+        jLabel75.setBackground(new java.awt.Color(0, 0, 0));
+        jLabel75.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jLabel75.setText("Medico:");
+        jPanel2.add(jLabel75);
+        jLabel75.setBounds(30, 30, 70, 24);
+
+        medico_edicion.setBackground(new java.awt.Color(135, 193, 193));
+        medico_edicion.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        medico_edicion.setToolTipText("");
+        medico_edicion.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 1, true));
+        medico_edicion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                medico_edicionActionPerformed(evt);
+            }
+        });
+        jPanel2.add(medico_edicion);
+        medico_edicion.setBounds(130, 20, 460, 40);
 
         jPanel1.add(jPanel2);
-        jPanel2.setBounds(10, 50, 650, 480);
+        jPanel2.setBounds(10, 50, 650, 370);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -164,8 +184,8 @@ public class Edicion_pacientes extends javax.swing.JFrame{
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 387, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 426, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         jPanel1.getAccessibleContext().setAccessibleName("Datos del cliente");
@@ -195,6 +215,10 @@ public class Edicion_pacientes extends javax.swing.JFrame{
     private void user_nombre_edicion1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_user_nombre_edicion1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_user_nombre_edicion1ActionPerformed
+
+    private void medico_edicionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_medico_edicionActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_medico_edicionActionPerformed
 
     /**
      * @param args the command line arguments
@@ -239,11 +263,13 @@ public class Edicion_pacientes extends javax.swing.JFrame{
     public static com.toedter.calendar.JDateChooser calendar_fecha_nacimiento_edicion;
     public static javax.swing.JButton guardarcambios_paciente;
     private javax.swing.JLabel jLabel74;
+    private javax.swing.JLabel jLabel75;
     private javax.swing.JLabel jLabel77;
     private javax.swing.JLabel jLabel78;
     private javax.swing.JLabel jLabel79;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    public static javax.swing.JTextField medico_edicion;
     public static javax.swing.JTextField user_edad_edicion;
     public static javax.swing.JTextField user_nombre_edicion1;
     public static javax.swing.JComboBox user_sexo_edicion;

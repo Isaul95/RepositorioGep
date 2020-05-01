@@ -6,6 +6,7 @@
 package Modelos;
 import static Controladores.Controladorgastos.pass;
 import static Controladores.Controladorgastos.pass2;
+import static Controladores.Controladorgastos.pass3;
 import static Controladores.Controladorgastos.validarFormulariotexto;
 import Controladores.Controladorinventarioventas;
 import static Controladores.Controladorinventarioventas.cambioticket;
@@ -446,9 +447,10 @@ borrarventasenestadoenturnoporerrordeusuario_que_no_coincidenconlafechadehoy();/
                         else {
                                          pass = Controladorventa.validarFormulario_paciente(nucleo.user_edad.getText());
                    pass2 = validarFormulariotexto_paciente(nucleo.user_nombre.getText());
+                   pass3 = validarFormulariotexto_paciente(nucleo.medico.getText());
                 try{
                      String fecha_paciente= Controladorventa.fecha_de_nacimiento_del_paciente();
-          if (pass && pass2 &&!fecha_paciente.equalsIgnoreCase("")) {//ESTO ES PARA VALIDAR QUE SE TENGAN TODOS LOS DATOS DEL CLIENTE
+          if (pass && pass2 &&pass3&&!fecha_paciente.equalsIgnoreCase("")) {//ESTO ES PARA VALIDAR QUE SE TENGAN TODOS LOS DATOS DEL CLIENTE
                  tablaventaactiva=false;
                             nucleo.cambiocombobox.setText(String.valueOf(cambio=variablepago-Float.parseFloat(nucleo.total.getText())));
                             block_unlock=true;
@@ -481,11 +483,11 @@ borrarventasenestadoenturnoporerrordeusuario_que_no_coincidenconlafechadehoy();/
                                 try{
                                   obtener_id_paciente();
                              
-                                  nombre_paciente=nucleo.user_nombre.getText(); edad_paciente=nucleo.user_edad.getText();   sexo_paciente=nucleo.user_sexo.getSelectedItem().toString();
+                                  nombre_paciente=nucleo.user_nombre.getText(); edad_paciente=nucleo.user_edad.getText();   sexo_paciente=nucleo.user_sexo.getSelectedItem().toString(); medico = nucleo.medico.getText();
                                   if(Integer.parseInt(edad_paciente)==1)
                                       edad_paciente=edad_paciente+" año.";
                                   else edad_paciente=edad_paciente+" años.";
-                                  PreparedStatement ps3 = ca.prepareStatement ("UPDATE pacientes SET nombre='"+nombre_paciente+"',fecha_nacimiento='"+Controladorventa.fecha_de_nacimiento_del_paciente()+"',edad='"+edad_paciente+"',sexo='"+sexo_paciente+"'WHERE id_paciente='"+id_paciente+"'");
+                                  PreparedStatement ps3 = ca.prepareStatement ("UPDATE pacientes SET nombre='"+nombre_paciente+"',fecha_nacimiento='"+Controladorventa.fecha_de_nacimiento_del_paciente()+"',edad='"+edad_paciente+"',sexo='"+sexo_paciente+"',medico='"+medico+"'WHERE id_paciente='"+id_paciente+"'");
  int resultado = ps3.executeUpdate();
                                      if(resultado>0){
                                               Modeloventa.asignar_id_paciente(); //Inserta el id_del paciente para no tener error con la llave foranea
@@ -518,8 +520,9 @@ if(variablepago<Float.parseFloat(nucleo.subtotal.getText())){ // comprueba que l
                         else {
                   pass = Controladorventa.validarFormulario_paciente(nucleo.user_edad.getText());
                    pass2 = validarFormulariotexto_paciente(nucleo.user_nombre.getText());
+                    pass3 = validarFormulariotexto_paciente(nucleo.medico.getText());
                           try{      String fecha_paciente= Controladorventa.fecha_de_nacimiento_del_paciente();
-          if (pass && pass2 &&!fecha_paciente.equalsIgnoreCase("")) {//ESTO ES PARA VALIDAR QUE SE TENGAN TODOS LOS DATOS DEL CLIENTE
+          if (pass && pass2 &&pass3&&!fecha_paciente.equalsIgnoreCase("")) {//ESTO ES PARA VALIDAR QUE SE TENGAN TODOS LOS DATOS DEL CLIENTE
                         tablaventaactiva=false;
                             nucleo.cambiocombobox.setText(String.valueOf(cambio=variablepago-sumadeimportesenturno));
                             block_unlock=true;
@@ -552,11 +555,11 @@ if(variablepago<Float.parseFloat(nucleo.subtotal.getText())){ // comprueba que l
                                 try{
                                   obtener_id_paciente();
                              
-                                  nombre_paciente=nucleo.user_nombre.getText(); edad_paciente=nucleo.user_edad.getText();   sexo_paciente=nucleo.user_sexo.getSelectedItem().toString();
+                                  nombre_paciente=nucleo.user_nombre.getText(); edad_paciente=nucleo.user_edad.getText();   sexo_paciente=nucleo.user_sexo.getSelectedItem().toString(); medico = nucleo.medico.getText();
                                              if(Integer.parseInt(edad_paciente)==1)
                                       edad_paciente=edad_paciente+" año.";
                                   else edad_paciente=edad_paciente+" años.";
-                                  PreparedStatement ps3 = ca.prepareStatement ("UPDATE pacientes SET nombre='"+nombre_paciente+"',fecha_nacimiento='"+Controladorventa.fecha_de_nacimiento_del_paciente()+"',edad='"+edad_paciente+"',sexo='"+sexo_paciente+"'WHERE id_paciente='"+id_paciente+"'");
+                                  PreparedStatement ps3 = ca.prepareStatement ("UPDATE pacientes SET nombre='"+nombre_paciente+"',fecha_nacimiento='"+Controladorventa.fecha_de_nacimiento_del_paciente()+"',edad='"+edad_paciente+"',sexo='"+sexo_paciente+"',medico='"+medico+"'WHERE id_paciente='"+id_paciente+"'");
  int resultado = ps3.executeUpdate();
                                      if(resultado>0){
                                                Modeloventa.asignar_id_paciente(); //Inserta el id_del paciente para no tener error con la llave foranea

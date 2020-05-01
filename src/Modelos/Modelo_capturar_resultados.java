@@ -42,7 +42,7 @@ static ResultSet rs;
         modeloT.addColumn("Estudio");
         modeloT.addColumn("Resultado");
         try { Connection ca= cc.conexion(); // CONEXION DB 
-         String sSQL = "select pacientes.nombre, pacientes.edad, pacientes.sexo, pacientes.fecha_nacimiento, venta.fecha_reporte, venta.hora, descripcion_de_venta.nombre_producto, descripcion_de_venta.resultado from venta INNER JOIN descripcion_de_venta on venta.id_venta = descripcion_de_venta.id_venta inner join pacientes on descripcion_de_venta.id_paciente = pacientes.id_paciente WHERE descripcion_de_venta.estado = 'Realizada' and descripcion_de_venta.id_venta ="+id_venta;
+         String sSQL = "select pacientes.nombre, pacientes.edad, pacientes.sexo, pacientes.fecha_nacimiento, venta.fecha_reporte, venta.hora, descripcion_de_venta.nombre_producto, descripcion_de_venta.resultado, pacientes.medico from venta INNER JOIN descripcion_de_venta on venta.id_venta = descripcion_de_venta.id_venta inner join pacientes on descripcion_de_venta.id_paciente = pacientes.id_paciente WHERE descripcion_de_venta.estado = 'Realizada' and descripcion_de_venta.id_venta ="+id_venta;
         PreparedStatement ps = ca.prepareStatement(sSQL);       
         try (ResultSet rs = ps.executeQuery(sSQL)) {
             while (rs.next()) {
@@ -53,6 +53,7 @@ static ResultSet rs;
                  Capturar_resultados.fecha_hora_ingreso.setText(rs.getString(5)+" "+rs.getString(6));//Se almacena la fecha de nacimiento del paciente
                 columna[0] = rs.getString(7);
                  columna[1] = rs.getString(8);
+                 Capturar_resultados.medico.setText(rs.getString(9));//Se almacena el nombre del paciente
                 
                 modeloT.addRow(columna);
             }        TableColumnModel columnModel =  tablaD.getColumnModel();

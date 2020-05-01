@@ -111,6 +111,8 @@ user.setText(usuarioname);
         Registro_user = new javax.swing.JButton();
         reimprimirventa = new javax.swing.JCheckBox();
         Registro_productos = new javax.swing.JButton();
+        jLabel83 = new javax.swing.JLabel();
+        medico = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -204,7 +206,7 @@ user.setText(usuarioname);
 
         jLabel78.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         jLabel78.setText("Sexo:");
-        venta.add(jLabel78, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 480, 90, -1));
+        venta.add(jLabel78, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 550, 90, -1));
 
         user_edad.setBackground(new java.awt.Color(135, 193, 193));
         user_edad.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
@@ -215,22 +217,22 @@ user.setText(usuarioname);
                 user_edadActionPerformed(evt);
             }
         });
-        venta.add(user_edad, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 520, 90, 30));
+        venta.add(user_edad, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 550, 90, 30));
 
         jLabel79.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         jLabel79.setText("Fecha de nac.");
-        venta.add(jLabel79, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 570, 160, -1));
+        venta.add(jLabel79, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 610, 160, -1));
 
         user_sexo.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         user_sexo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Masculino", "Femenino" }));
         user_sexo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(135, 193, 193)));
-        venta.add(user_sexo, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 520, 110, 30));
+        venta.add(user_sexo, new org.netbeans.lib.awtextra.AbsoluteConstraints(1050, 550, 110, 30));
 
         calendar_fecha_nacimiento.setBackground(new java.awt.Color(135, 193, 193));
         calendar_fecha_nacimiento.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(135, 193, 193)));
         calendar_fecha_nacimiento.setForeground(new java.awt.Color(255, 255, 255));
         calendar_fecha_nacimiento.setFont(new java.awt.Font("Tahoma", 1, 17)); // NOI18N
-        venta.add(calendar_fecha_nacimiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 610, 240, 50));
+        venta.add(calendar_fecha_nacimiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 600, 240, 50));
 
         descuento.setBackground(new java.awt.Color(135, 193, 193));
         descuento.setFont(new java.awt.Font("Arial Black", 1, 23)); // NOI18N
@@ -313,11 +315,11 @@ user.setText(usuarioname);
 
         jLabel81.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         jLabel81.setText("Edad:");
-        venta.add(jLabel81, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 480, 70, -1));
+        venta.add(jLabel81, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 550, 70, -1));
 
         jLabel82.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         jLabel82.setText("Nombre:");
-        venta.add(jLabel82, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 400, 100, -1));
+        venta.add(jLabel82, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 440, 100, -1));
 
         jPanel10.setBackground(new java.awt.Color(135, 193, 193));
         jPanel10.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "   Venta   ", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Arial", 1, 20))); // NOI18N
@@ -469,6 +471,21 @@ user.setText(usuarioname);
         });
         venta.add(Registro_productos, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 420, 40, 50));
 
+        jLabel83.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        jLabel83.setText("Medico:");
+        venta.add(jLabel83, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 490, 100, -1));
+
+        medico.setBackground(new java.awt.Color(135, 193, 193));
+        medico.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        medico.setForeground(new java.awt.Color(0, 0, 0));
+        medico.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        medico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                medicoActionPerformed(evt);
+            }
+        });
+        venta.add(medico, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 490, 380, 30));
+
         getContentPane().add(venta, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1220, 670));
 
         pack();
@@ -551,6 +568,10 @@ user.setText(usuarioname);
     private void Registro_productosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Registro_productosActionPerformed
             if(Controladorventa.noduplicar_nuevo_producto==false){new Registro_producto().setVisible(true);} 
     }//GEN-LAST:event_Registro_productosActionPerformed
+
+    private void medicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_medicoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_medicoActionPerformed
  private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {                                         
 // MODIFICAR   new ProductosExternos().setVisible(true);        
     }                                           /**
@@ -617,11 +638,13 @@ user.setText(usuarioname);
     private javax.swing.JLabel jLabel80;
     private javax.swing.JLabel jLabel81;
     private javax.swing.JLabel jLabel82;
+    private javax.swing.JLabel jLabel83;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     public static javax.swing.JLabel labeldescuento;
+    public static javax.swing.JTextField medico;
     public static javax.swing.JTextField monto;
     private javax.swing.JLabel prueba;
     public static javax.swing.JCheckBox reimprimirventa;

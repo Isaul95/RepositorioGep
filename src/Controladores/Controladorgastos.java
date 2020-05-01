@@ -10,7 +10,7 @@ import ticket.TikectGasto;
 public class Controladorgastos {
       public static int  id_usuario=Integer.parseInt(SI_Inicio.iduser.getText());
      public static String  buscap = "";
-     public static  boolean pass=false, pass2=false;
+     public static  boolean pass=false, pass2=false, pass3=false;
      public static  TikectGasto tikectGastos;
     public static void busquedadegastos(){
        Modelogastos.mostrartodoslosproductosenexistenciasporbusqueda(Gastos.busquedagastos1.getText());

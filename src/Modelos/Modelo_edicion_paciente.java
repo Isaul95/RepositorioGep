@@ -41,7 +41,7 @@ public class Modelo_edicion_paciente  {
                           if(Integer.parseInt(Controlador_edicion_paciente.edad_paraedicion)==1)
                                       Controlador_edicion_paciente.edad_paraedicion=Controlador_edicion_paciente.edad_paraedicion+" año.";
                                   else Controlador_edicion_paciente.edad_paraedicion=Controlador_edicion_paciente.edad_paraedicion+" años.";
-                    PreparedStatement ps3 = ca.prepareStatement ("UPDATE pacientes SET nombre='"+ Edicion_pacientes.user_nombre_edicion1.getText()+"',fecha_nacimiento='"+Controlador_edicion_paciente.fecha_de_nacimiento_del_paciente()+"',edad='"+Controlador_edicion_paciente.edad_paraedicion+"',sexo='"+Edicion_pacientes.user_sexo_edicion.getSelectedItem().toString()+"',dato_auxiliar='"+Controlador_edicion_paciente.exito+"'WHERE dato_auxiliar='"+Controlador_edicion_paciente.editar+"'");
+                    PreparedStatement ps3 = ca.prepareStatement ("UPDATE pacientes SET nombre='"+ Edicion_pacientes.user_nombre_edicion1.getText()+"',fecha_nacimiento='"+Controlador_edicion_paciente.fecha_de_nacimiento_del_paciente()+"',edad='"+Controlador_edicion_paciente.edad_paraedicion+"',sexo='"+Edicion_pacientes.user_sexo_edicion.getSelectedItem().toString()+"',dato_auxiliar='"+Controlador_edicion_paciente.exito+"',medico='"+Edicion_pacientes.medico_edicion.getText()+"'WHERE dato_auxiliar='"+Controlador_edicion_paciente.editar+"'");
  int resultado = ps3.executeUpdate();
                 if(resultado>0){
                      JOptionPane.showMessageDialog(null, "Paciente editado con exito","Paciente editado",JOptionPane.OK_OPTION);
@@ -66,6 +66,7 @@ public class Modelo_edicion_paciente  {
                                          Statement sent  =(Statement)ca.createStatement();
                                          ResultSet  rs = sent.executeQuery("select * from pacientes where dato_auxiliar = 'Editar'");
                                             if(rs.next()){
+                                                Edicion_pacientes.medico_edicion.setText(rs.getString("medico"));
                                                       Edicion_pacientes.user_nombre_edicion1.setText(rs.getString("nombre"));
                                                       Controlador_edicion_paciente.palabra = rs.getString("edad").split(" ");
                                                       
