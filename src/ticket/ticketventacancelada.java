@@ -13,7 +13,7 @@ public class ticketventacancelada {
                ArrayList piezas, 
                ArrayList precio, 
                ArrayList importe, 
-               float subtotal, float total, float pago, float cambio, float descuento, int numerodeventa) {
+               float subtotal, float total, float pago, float cambio, float descuento, int numerodeventa, String deudor, String tipo_de_venta) {
        
         Date date = new Date();
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -26,7 +26,7 @@ public class ticketventacancelada {
 String impra = "alkhemy"; // Nombre de la impresora
 
         // Se llama al metodo para imprimir una cadena
-         auxs+= "TICKET VENTA CANCELADA\n\n";          System.out.println("TICKET VENTA CANCELADA\n\n");
+         auxs+= "TICKET DE VENTA "+tipo_de_venta.toUpperCase()+"\n\n";          System.out.println("TICKET DE VENTA "+tipo_de_venta.toUpperCase()+"\n\n");
              auxs+= "LABORATORIO \n"; System.out.println("LABORATORIO\n");
        //  auxs+= "PROP.JOSE MIGUEL CASTREZANA B.\n";  System.out.println("PROP.JOSE MIGUEL CASTREZANA B.\n");
         auxs+= "AL-KHEMY\n"; System.out.println("AL-KHEMY\n");         
@@ -38,6 +38,10 @@ String impra = "alkhemy"; // Nombre de la impresora
          
        auxs+= "Fecha: " + dateFormat.format(date) + " Hora: " + hourFormat.format(date) + "\n";  System.out.println("Fecha: " + dateFormat.format(date) + " Hora: " + hourFormat.format(date) + "\n");
        auxs+= String.format("Venta: "+"%-20s", numerodeventa); System.out.println(String.format("Venta: "+"%-20s", numerodeventa));
+       if(!deudor.equalsIgnoreCase("")){
+       auxs+= String.format("A nombre de:  "+"%-20s", deudor); System.out.println(String.format("A nombre de:   "+"%-20s", deudor));
+       auxs+= "\n";    
+       }
        System.out.println("\n==============================\n");            auxs+= "\n==============================\n";              
                      auxs+= "Descrip  Cant  Precio  Importe\n";   System.out.println("Descrip  Cant  Precio  Importe\n");       
          auxs+= "\n==============================\n";   System.out.println("\n==============================\n");                 

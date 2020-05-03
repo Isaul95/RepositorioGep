@@ -113,6 +113,8 @@ user.setText(usuarioname);
         Registro_productos = new javax.swing.JButton();
         jLabel83 = new javax.swing.JLabel();
         medico = new javax.swing.JTextField();
+        ventacredito = new javax.swing.JCheckBox();
+        ventas_acredito = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -202,7 +204,7 @@ user.setText(usuarioname);
 
         jLabel76.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         jLabel76.setText("Datos del paciente:");
-        venta.add(jLabel76, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 370, 290, -1));
+        venta.add(jLabel76, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 400, 290, -1));
 
         jLabel78.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         jLabel78.setText("Sexo:");
@@ -404,7 +406,7 @@ user.setText(usuarioname);
                 AgregarGastosActionPerformed(evt);
             }
         });
-        venta.add(AgregarGastos, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, 40, 50));
+        venta.add(AgregarGastos, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, 40, 50));
 
         inventarioventas.setBackground(new java.awt.Color(135, 193, 193));
         inventarioventas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/simbolodolar.png"))); // NOI18N
@@ -413,7 +415,7 @@ user.setText(usuarioname);
                 inventarioventasActionPerformed(evt);
             }
         });
-        venta.add(inventarioventas, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, 40, -1));
+        venta.add(inventarioventas, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 40, -1));
 
         Cortedecaja.setBackground(new java.awt.Color(135, 193, 193));
         Cortedecaja.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -424,7 +426,7 @@ user.setText(usuarioname);
                 CortedecajaActionPerformed(evt);
             }
         });
-        venta.add(Cortedecaja, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 230, 40, 50));
+        venta.add(Cortedecaja, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 270, 40, 50));
 
         Existencias.setBackground(new java.awt.Color(135, 193, 193));
         Existencias.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -437,7 +439,7 @@ user.setText(usuarioname);
                 ExistenciasActionPerformed(evt);
             }
         });
-        venta.add(Existencias, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 290, 40, 50));
+        venta.add(Existencias, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 330, 40, 50));
 
         Registro_user.setBackground(new java.awt.Color(135, 193, 193));
         Registro_user.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -450,13 +452,13 @@ user.setText(usuarioname);
                 Registro_userActionPerformed(evt);
             }
         });
-        venta.add(Registro_user, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 350, 40, 50));
+        venta.add(Registro_user, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 390, 40, 50));
 
         reimprimirventa.setBackground(new java.awt.Color(135, 193, 193));
         reimprimirventa.setFont(new java.awt.Font("Dialog", 1, 20)); // NOI18N
         reimprimirventa.setText("Reimprimirventa");
         reimprimirventa.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
-        venta.add(reimprimirventa, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 70, -1, -1));
+        venta.add(reimprimirventa, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 70, -1, -1));
 
         Registro_productos.setBackground(new java.awt.Color(135, 193, 193));
         Registro_productos.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -469,7 +471,7 @@ user.setText(usuarioname);
                 Registro_productosActionPerformed(evt);
             }
         });
-        venta.add(Registro_productos, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 420, 40, 50));
+        venta.add(Registro_productos, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 460, 40, 50));
 
         jLabel83.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         jLabel83.setText("Medico:");
@@ -479,12 +481,22 @@ user.setText(usuarioname);
         medico.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         medico.setForeground(new java.awt.Color(0, 0, 0));
         medico.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
-        medico.addActionListener(new java.awt.event.ActionListener() {
+        venta.add(medico, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 490, 380, 30));
+
+        ventacredito.setBackground(new java.awt.Color(135, 193, 193));
+        ventacredito.setFont(new java.awt.Font("Dialog", 1, 20)); // NOI18N
+        ventacredito.setText("Venta credito");
+        ventacredito.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        venta.add(ventacredito, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 70, -1, -1));
+
+        ventas_acredito.setBackground(new java.awt.Color(135, 193, 193));
+        ventas_acredito.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/simbolodolar.png"))); // NOI18N
+        ventas_acredito.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                medicoActionPerformed(evt);
+                ventas_acreditoActionPerformed(evt);
             }
         });
-        venta.add(medico, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 490, 380, 30));
+        venta.add(ventas_acredito, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, 40, -1));
 
         getContentPane().add(venta, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1220, 670));
 
@@ -569,9 +581,9 @@ user.setText(usuarioname);
             if(Controladorventa.noduplicar_nuevo_producto==false){new Registro_producto().setVisible(true);} 
     }//GEN-LAST:event_Registro_productosActionPerformed
 
-    private void medicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_medicoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_medicoActionPerformed
+    private void ventas_acreditoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ventas_acreditoActionPerformed
+       if(Controladorventa.noduplicar_vista_de_ventas_a_credito==false){new Ventas_a_credito().setVisible(true);}
+    }//GEN-LAST:event_ventas_acreditoActionPerformed
  private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {                                         
 // MODIFICAR   new ProductosExternos().setVisible(true);        
     }                                           /**
@@ -656,5 +668,7 @@ user.setText(usuarioname);
     public static javax.swing.JTextField user_nombre;
     public static javax.swing.JComboBox user_sexo;
     public static javax.swing.JPanel venta;
+    public static javax.swing.JCheckBox ventacredito;
+    private javax.swing.JButton ventas_acredito;
     // End of variables declaration//GEN-END:variables
 }

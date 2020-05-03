@@ -23,7 +23,6 @@ import si.Inventarioventas;
 import si.SI;
 import si.nucleo;
 import ticket.ticketventacancelada;
-import ticket.ticketventacondescuento;
 
 
 /**

@@ -11,9 +11,6 @@ import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 import si.Existencias;
 import si.nucleo;
-import ticket.ticketventa;
-
-import ticket.ticketventacondescuento;
 //import AppPackage.AnimationClass;
  
 /**
@@ -22,7 +19,6 @@ import ticket.ticketventacondescuento;
  */
 public class Controladorventa{
     //public static AnimationClass animacion= new AnimationClass();
-public static ticketventa mandardatosticketventa;
 public static float cantidaddeproductos=0, cantidadparapollocrudo=0;
 public static float  gastos;
 public static float variablepago, piezassuficientes, cantidadporerrordeusuario, 
@@ -52,7 +48,8 @@ public static ArrayList idsenturno = new ArrayList();
            noduplicar_registro_usuario=false,
            noduplicar_nucleo=false,
            noduplicar_envio_email=false,
-           noduplicar_nuevo_producto=false;
+           noduplicar_nuevo_producto=false,
+           noduplicar_vista_de_ventas_a_credito=false;
 
          
    public static DecimalFormat solodosdecimales = new DecimalFormat("#.##");
@@ -144,7 +141,7 @@ Modeloventa.get_id_usuario();// 255 -280
             next = true;
         } else {
              nucleo.user_edad.setBackground(new Color(135,193,193));
-            JOptionPane.showMessageDialog(null, "No puedes escribir letras, dejar vacio el campo ni meter un 0", "Advertencia", JOptionPane.INFORMATION_MESSAGE);    
+            JOptionPane.showMessageDialog(null, "Solo se permiten numeros", "Complete todos los datos del pacienteAdvertencia", JOptionPane.INFORMATION_MESSAGE);    
         }
         return next;
     }
@@ -196,6 +193,7 @@ nucleo.deletedescuento.setVisible(true);
         nucleo.cambiocombobox.setText("00.00");
         nucleo.descuentocombo.setText("00.00");
         nucleo.total.setText("00.00");
+         nucleo.monto.setText("00.00");
         nucleo.tablaventa.setVisible(false);
         tablaventaactiva=false;
         descuentoactivo=false;
@@ -207,6 +205,8 @@ nucleo.deletedescuento.setVisible(true);
         nucleo.user_edad.setText("");
                 nucleo.user_nombre.setBackground(new Color(135,193,193));
                 nucleo.user_nombre.setText("");
+                nucleo.medico.setBackground(new Color(135,193,193));
+                nucleo.medico.setText("");
              }
  public static boolean validarFormulariotexto(String nombre) { // VALIDACION DE TXTDESCRIPCION
         boolean next = false;      //"^([a-zA-ZÁÉÍÓÚ]{1}[a-zñáéíóú]{1,24}[\\s]*)+$"
@@ -227,7 +227,7 @@ nucleo.deletedescuento.setVisible(true);
             next = true;
         } else {
             nucleo.user_nombre.setBackground(new Color(135,193,193));
-            JOptionPane.showMessageDialog(null, "Solo escribe letras y no puedes dejar vacio el campo");
+            JOptionPane.showMessageDialog(null, "Solo se permiten letras","Complete todos los datos del paciente",JOptionPane.INFORMATION_MESSAGE);
         }
         return next;
     }   
@@ -283,12 +283,20 @@ nucleo.deletedescuento.setVisible(true);
         }
         nucleo.monto.setForeground(new Color(236, 240, 241));
     }public static void montoKeyRealeased(){
-        boolean pass2 = validarFormulario(nucleo.monto.getText());
+        if(nucleo.ventacredito.isSelected()){//Cuando se selecciono una venta  a credito
+            boolean pass2 = validarFormulario(nucleo.monto.getText());
+            if(pass2&&Float.parseFloat(nucleo.monto.getText())<Float.parseFloat(nucleo.subtotal.getText())&&Float.parseFloat(nucleo.descuentocombo.getText())==0){//TEXTO SOLO SEAN NUMERO, EL PAGO NO SEA MAYOR O IGUAL AL SUBTOTAL SINO NO PUEDE SER UNA VENTA A ACREDITO Y EL MONTO DESCUENTO NO PUEDE ESTAR ACTIVO
+                  Controlador_venta_a_credito.agregar_venta_a_credito();
+            }else{
+                JOptionPane.showMessageDialog(null," Ell pago no puede ser mayor al subtotal, No puede haber un descuento","Sugerencia de venta a credito",JOptionPane.INFORMATION_MESSAGE);
+            }
+          
+        }else if(nucleo.ventacredito.isSelected()==false){//Cuando la venta a credito no esta seleccionada
+            boolean pass2 = validarFormulario(nucleo.monto.getText());
             if(pass2){//ESTO VALIDA QUE EL TEXTO ESCRITO NO TENGA INCOHERENCIAS
                 Modeloventa.metodo_de_cobro(Float.parseFloat(nucleo.monto.getText()));
-                nucleo.monto.setText("00.00");
-          
             }
+        }
     }
     public static void tablaventa(){
         //ESTO DESCUENTA UN PRODUCTO A LA VEZ Y LO DEVUELVE A INVENTARIO

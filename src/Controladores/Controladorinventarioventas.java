@@ -18,7 +18,6 @@ import java.util.Calendar;
 import javax.swing.JOptionPane;
 import si.Edicion_pacientes;
 import ticket.ticketventacancelada;
-import ticket.ticketventacondescuento;
 
 
 /**
@@ -27,13 +26,12 @@ import ticket.ticketventacondescuento;
  */
 public class Controladorinventarioventas {
     public static ticketventacancelada mandardatosticketventacancelada;
-       public static ticketventacondescuento mandardatosaticketventacondescuento;  
 
     public static float sumadetotalesdeventasdehoy,
             sumadeimportescreditopendiente,  sumadeimportesparaeltotal, 
             descuentoticket, cambioticket, pagoticket, totalticket, subtotalticket, descuentoenventa;
     public static short conteototaldeventas, id_ventapencredito, id=0,id_paciente_para_modificar;
-    public static String Paciente_a_editar="Editar",creditopagado="Credito-pagado", estadocancelado= "Cancelada", creditopendiente="Credito-pendiente";
+    public static String nombre_deudor="",Paciente_a_editar="Editar",creditopagado="Credito-pagado", estadocancelado= "Cancelada", creditopendiente="Credito-pendiente";
     public static ArrayList importesticket = new ArrayList();
     public static ArrayList preciounitarioticket = new ArrayList();
     public static ArrayList piezastcket = new ArrayList();
