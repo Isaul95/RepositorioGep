@@ -6,6 +6,8 @@
 package Modelos;
 
 import Controladores.Controladorexistencias;
+import Controladores.Controladorinventarioventas;
+import Controladores.Controladorventa;
 import static Modelos.Modeloventa.cc;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -26,7 +28,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 import net.sf.jasperreports.engine.JasperExportManager;
 import static org.codehaus.groovy.runtime.DefaultGroovyMethods.is;
-import si.Existencias;
+import si.Archivos;
 import si.SI;
 import si.nucleo;
 
@@ -112,26 +114,26 @@ public class Modeloexistencias extends Controladorexistencias {
     //DE AQUI EN ADELANTE ES PARA DESCARGAR LOS ARCHIVOS
     
  public static void mostrar_archivos(){
-     Existencias.existenciadeproductos.setVisible(true);    //hace visible la tabla de proveedores 
+     Archivos.existenciadeproductos.setVisible(true);    //hace visible la tabla de proveedores 
         DefaultTableModel modelo = new DefaultTableModel(); // Se crea un objeto para agregar los nombres de las columnas a la tabla
         modelo.addColumn("Paciente");
         modelo.addColumn("Archivo");
         modelo.addColumn("Ingreso");
-        Existencias.existenciadeproductos.setModel(modelo);  // Ya una vez asignado todos los nombres se le envia el objeto a la tabla proveedores
+        Archivos.existenciadeproductos.setModel(modelo);  // Ya una vez asignado todos los nombres se le envia el objeto a la tabla proveedores
         Object[] datos = new Object[3];     //Un arreglo con la cantidad de nombres en las columnas
         try {
             Connection ca = cc.conexion();
             sent = ca.createStatement();
-            rs = sent.executeQuery("SELECT p.nombre,f.nombre_archivo, p.fecha_ingreso from archivos f inner join pacientes p on p.id_paciente = f.id_paciente where f.estado_archivo='Realizado'"); // se ejecuta la sentencia dentro del parentesis
+            rs = sent.executeQuery("SELECT p.nombre,f.nombre_archivo, p.fecha_ingreso from archivos f inner join pacientes p on p.id_paciente = f.id_paciente where f.estado_archivo='Realizada'"); // se ejecuta la sentencia dentro del parentesis
             while (rs.next()) {
                 datos[0] = rs.getString(1);
                 datos[1] = rs.getString(2);
                  datos[2] = rs.getTimestamp("p.fecha_ingreso");
                 modelo.addRow(datos); //se asigna el arreglo  entero a todo el objeto llamado modelo  
             }
-            Existencias.existenciadeproductos.setModel(modelo); // Se vuelve a enviar nuevamente el objeto modelo a la tabla  
+            Archivos.existenciadeproductos.setModel(modelo); // Se vuelve a enviar nuevamente el objeto modelo a la tabla  
             //PARA AJUSTAR EL ANCHO DE LAS TABLAS
-            TableColumnModel columnModel = Existencias.existenciadeproductos.getColumnModel();
+            TableColumnModel columnModel = Archivos.existenciadeproductos.getColumnModel();
             //columnModel.getColumn(0).setPreferredWidth(250);
             
     columnModel.getColumn(0).setMinWidth(300);
@@ -150,20 +152,20 @@ public class Modeloexistencias extends Controladorexistencias {
         }
  }
  public static void mostrararchivosporbusqueda(String textoabuscar) {
-        Existencias.existenciadeproductos.setVisible(true);    //hace visible la tabla de proveedores 
+        Archivos.existenciadeproductos.setVisible(true);    //hace visible la tabla de proveedores 
         DefaultTableModel modelo = new DefaultTableModel(); // Se crea un objeto para agregar los nombres de las columnas a la tabla
         modelo.addColumn("Paciente");
         modelo.addColumn("Archivo");
         modelo.addColumn("Ingreso");
-        Existencias.existenciadeproductos.setModel(modelo);  // Ya una vez asignado todos los nombres se le envia el objeto a la tabla proveedores
+        Archivos.existenciadeproductos.setModel(modelo);  // Ya una vez asignado todos los nombres se le envia el objeto a la tabla proveedores
         Object[] datos = new Object[3];     //Un arreglo con la cantidad de nombres en las columnas
       try {
             Connection ca = cc.conexion();
             sent = ca.createStatement();
             if (textoabuscar.equals("")) {
-              rs = sent.executeQuery("SELECT p.nombre,f.nombre_archivo, p.fecha_ingreso from archivos f inner join pacientes p on p.id_paciente = f.id_paciente where f.estado_archivo='Realizado'"); // se ejecuta la sentencia dentro del parentesis
+              rs = sent.executeQuery("SELECT p.nombre,f.nombre_archivo, p.fecha_ingreso from archivos f inner join pacientes p on p.id_paciente = f.id_paciente where f.estado_archivo='Realizada'"); // se ejecuta la sentencia dentro del parentesis
             } else {
-                rs = sent.executeQuery("SELECT p.nombre,f.nombre_archivo, p.fecha_ingreso from archivos f inner join pacientes p on p.id_paciente = f.id_paciente where f.estado_archivo='Realizado' and p.nombre LIKE '%" + textoabuscar + "%' "); // se ejecuta la sentencia dentro del parentesis
+                rs = sent.executeQuery("SELECT p.nombre,f.nombre_archivo, p.fecha_ingreso from archivos f inner join pacientes p on p.id_paciente = f.id_paciente where f.estado_archivo='Realizada' and p.nombre LIKE '%" + textoabuscar + "%' "); // se ejecuta la sentencia dentro del parentesis
             }
             while (rs.next()) {
                 datos[0] = rs.getString(1);
@@ -171,8 +173,8 @@ public class Modeloexistencias extends Controladorexistencias {
                  datos[2] = rs.getTimestamp("p.fecha_ingreso");
                 modelo.addRow(datos); //se asigna el arreglo  entero a todo el objeto llamado modelo  
             }
-            Existencias.existenciadeproductos.setModel(modelo); // Se vuelve a enviar nuevamente el objeto modelo a la tabla
-            TableColumnModel columnModel = Existencias.existenciadeproductos.getColumnModel();
+            Archivos.existenciadeproductos.setModel(modelo); // Se vuelve a enviar nuevamente el objeto modelo a la tabla
+            TableColumnModel columnModel = Archivos.existenciadeproductos.getColumnModel();
             //columnModel.getColumn(0).setPreferredWidth(250);
             columnModel.getColumn(0).setMaxWidth(400);
     columnModel.getColumn(0).setMinWidth(400);
@@ -221,5 +223,25 @@ public class Modeloexistencias extends Controladorexistencias {
         }catch (IOException ex) {
              Logger.getLogger(Modeloexistencias.class.getName()).log(Level.SEVERE, null, ex);
          }
+ }
+ public static void eliminar_archivo(String nombre_del_archivo){
+       try{Connection ca= cc.conexion(); 
+         int decision=JOptionPane.showConfirmDialog(null,"Archivo a eliminar:\n "+nombre_del_archivo+"\n¿Desea continuar?","Eliminación de archivo",JOptionPane.CANCEL_OPTION);
+                    if(decision==0){ //opción si
+            String sql = "UPDATE archivos set estado_archivo= 'Cancelada' where nombre_archivo= '"+nombre_del_archivo+"' and estado_archivo= '"+Controladorventa.estadorealizado+"' ";
+            sent = ca.createStatement();
+            int n = sent.executeUpdate(sql);
+            if(n>0){
+                mostrar_archivos();
+                JOptionPane.showMessageDialog(null, "Archivo eliminado");
+             }else{
+                 JOptionPane.showMessageDialog(null, "Archivo no eliminado");
+            }
+                    }
+        }catch(Exception e){
+         JOptionPane.showMessageDialog(null, "ERROR EN METODO: borrarventasenestadoenturnoporerrordeusuario_limpiarventa_o_cerrarsesion"+e.getMessage(),"DEVELOPER HELPER", JOptionPane.ERROR_MESSAGE);      
+      }  finally{
+                  cc.getClose();
+             } 
  }
 }

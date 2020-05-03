@@ -4,11 +4,11 @@ import Controladores.Controladorventa;
 import java.awt.event.KeyEvent;
 
 
-public class Existencias extends javax.swing.JFrame{
+public class Archivos extends javax.swing.JFrame{
 
   
 
- public Existencias() {
+ public Archivos() {
         initComponents();
          Controladorventa.noduplicarexistencias=true;
         this.setLocationRelativeTo(null); // CENTRAR FORMULARIO
@@ -18,6 +18,9 @@ public class Existencias extends javax.swing.JFrame{
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        files = new javax.swing.JPopupMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         busqueda = new javax.swing.JTextField();
@@ -26,6 +29,22 @@ public class Existencias extends javax.swing.JFrame{
         existenciadeproductos = new javax.swing.JTable();
         jLabel81 = new javax.swing.JLabel();
         Corte_btncancelar = new javax.swing.JButton();
+
+        jMenuItem1.setText("Descargar");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        files.add(jMenuItem1);
+
+        jMenuItem2.setText("Eliminar archivo");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        files.add(jMenuItem2);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -63,8 +82,6 @@ public class Existencias extends javax.swing.JFrame{
                 return false;
             }
         };
-        existenciadeproductos.setBackground(new java.awt.Color(135, 193, 193));
-        existenciadeproductos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
         existenciadeproductos.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
         existenciadeproductos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -77,12 +94,8 @@ public class Existencias extends javax.swing.JFrame{
 
             }
         ));
+        existenciadeproductos.setComponentPopupMenu(files);
         existenciadeproductos.setRowSelectionAllowed(false);
-        existenciadeproductos.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                existenciadeproductosMouseClicked(evt);
-            }
-        });
         jScrollPane2.setViewportView(existenciadeproductos);
 
         jPanel2.add(jScrollPane2);
@@ -141,9 +154,13 @@ public class Existencias extends javax.swing.JFrame{
          Controladorexistencias.mostrararchivosporbusqueda(busqueda.getText());
     }//GEN-LAST:event_busquedaKeyReleased
 
-    private void existenciadeproductosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_existenciadeproductosMouseClicked
-        Controladorexistencias.descargararchivo();
-    }//GEN-LAST:event_existenciadeproductosMouseClicked
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+         Controladorexistencias.descargararchivo();
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+       Controladorexistencias.eliminar_archivo();
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -162,21 +179,23 @@ public class Existencias extends javax.swing.JFrame{
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Existencias.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Archivos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Existencias.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Archivos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Existencias.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Archivos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Existencias.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Archivos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Existencias().setVisible(true);
+                new Archivos().setVisible(true);
             }
         });
     }
@@ -185,8 +204,11 @@ public class Existencias extends javax.swing.JFrame{
     private javax.swing.JButton Corte_btncancelar;
     private javax.swing.JTextField busqueda;
     public static javax.swing.JTable existenciadeproductos;
+    private javax.swing.JPopupMenu files;
     private javax.swing.JLabel jLabel80;
     private javax.swing.JLabel jLabel81;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane2;

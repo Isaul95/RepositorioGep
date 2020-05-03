@@ -7,7 +7,7 @@ package Controladores;
 
 import Modelos.Modeloexistencias;
 import javax.swing.JOptionPane;
-import si.Existencias;
+import si.Archivos;
 import si.nucleo;
 
 /**
@@ -43,12 +43,21 @@ public class Controladorexistencias {
         Modeloexistencias.mostrararchivosporbusqueda(nombre);
     }
     public static void descargararchivo(){
-          fila =Short.parseShort(String.valueOf(Existencias.existenciadeproductos.getSelectedRow()));
+          fila =Short.parseShort(String.valueOf(Archivos.existenciadeproductos.getSelectedRow()));
  if(fila>=0){// CUANDO UNA CELDA SE SELECCIONO
-            nombredepiezaseleccionada=Existencias.existenciadeproductos.getValueAt(fila,1).toString();
+            nombredepiezaseleccionada=Archivos.existenciadeproductos.getValueAt(fila,1).toString();
     // BOOLEANAS PARA SABER CUALES NO SE VA A REGRESAR
-            System.out.println("Archivo: "+nombredepiezaseleccionada);
             Modeloexistencias.descarga_de_archivo(nombredepiezaseleccionada);
+            JOptionPane.showMessageDialog(null,"Archivo descargado");
+          }else{
+            JOptionPane.showMessageDialog(null,"Por favor, seleccione una fila primero","Aviso",JOptionPane.INFORMATION_MESSAGE);
+        }
+    }
+    public static void eliminar_archivo(){
+        fila =Short.parseShort(String.valueOf(Archivos.existenciadeproductos.getSelectedRow()));
+ if(fila>=0){// CUANDO UNA CELDA SE SELECCIONO
+            nombredepiezaseleccionada=Archivos.existenciadeproductos.getValueAt(fila,1).toString();
+         Modeloexistencias.eliminar_archivo(nombredepiezaseleccionada);
           }else{
             JOptionPane.showMessageDialog(null,"Por favor, seleccione una fila primero","Aviso",JOptionPane.INFORMATION_MESSAGE);
         }

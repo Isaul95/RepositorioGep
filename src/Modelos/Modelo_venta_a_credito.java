@@ -71,7 +71,7 @@ static ResultSet rs;
  }catch(Exception ex){
                             JOptionPane.showMessageDialog(null, "Error en insertarventaacredito venta" + ex.getMessage());
                         }
-                        try{        Modelogastos.insertarengastos("Credito "+nucleo.user_nombre.getText(), sumadeimportesenturno);
+                        try{        Modelogastos.insertarventacondescuentoengastos("Cdo "+nucleo.user_nombre.getText(), sumadeimportesenturno,id_de_la_venta_incrementable);
                     
                             Modeloventa.id_max_de_venta(); 
                             PreparedStatement ps2 = ca.prepareStatement ("UPDATE descripcion_de_venta SET estado= '"+Controladorinventarioventas.creditopendiente+"',nombre_credito='"+nucleo.user_nombre.getText()+"' WHERE id_venta='"+id_de_la_venta_incrementable+"'");
@@ -259,7 +259,7 @@ int decision=JOptionPane.showConfirmDialog(null,"¿Desea continuar?","Estás por
                             Modeloventa.id_max_de_venta();
                             PreparedStatement ps2 = ca.prepareStatement ("UPDATE descripcion_de_venta SET estado= '"+Controladorventa.estadorealizado+"' WHERE id_venta='"+id_venta+"'");
                             int a = ps2.executeUpdate();
-                            if(a>0){Controlador_venta_a_credito.ver_ventas_a_credito();Controlador_venta_a_credito.ocultar_deudas(); Modeloventa.descripciondelosprouductosparaelticketdeventa(id_venta, Controladorventa.estadorealizado);}
+                            if(a>0){eliminar_venta_de_gastos(id_venta);Controlador_venta_a_credito.ver_ventas_a_credito();Controlador_venta_a_credito.ocultar_deudas(); Modeloventa.descripciondelosprouductosparaelticketdeventa(id_venta, Controladorventa.estadorealizado);}
                         }
                         catch(Exception ex){
                             JOptionPane.showMessageDialog(null, "Error en pagarventacredito" + ex.getMessage());
@@ -285,5 +285,18 @@ int decision=JOptionPane.showConfirmDialog(null,"¿Desea continuar?","Estás por
   }
         }catch(NullPointerException NP){//ESTO EVITA QUE EL USUARIO META UN VALOR VACIO
  }
+    }
+    public static void eliminar_venta_de_gastos(int id_venta){
+         try{ Connection ca= cc.conexion();// La suma de todos los importes
+                                        String sql = "delete from egreso where id_venta= '"+id_venta+"'";
+                                           PreparedStatement ps = ca.prepareStatement(sql);
+                                           ps.execute();     
+                                                      }//fin del try-precio del producto
+                                                      catch (Exception e){
+                                                           JOptionPane.showMessageDialog(null, "ERROR EN METODO: eliminar_idventa_sitienedescuento","DEVELOPER HELPER", JOptionPane.ERROR_MESSAGE);       
+                                                      }// fin del precio-catch del producto
+        finally{
+                  cc.getClose();
+             }
     }
  }

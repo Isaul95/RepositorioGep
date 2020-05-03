@@ -9,7 +9,7 @@ import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
-import si.Existencias;
+import si.Archivos;
 import si.nucleo;
 //import AppPackage.AnimationClass;
  

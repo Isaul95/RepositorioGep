@@ -115,11 +115,12 @@ Capturar_resultados.genetrar_Pdf.setEnabled(false);}
             input = new FileInputStream(new File(file));
             
              Connection ca= cc.conexion(); //la insersion a la tabla ventas
-                String sql = "INSERT INTO ARCHIVOS (nombre_archivo,archivo,id_paciente,estado_archivo)  VALUES (?,?,?,'Realizado')";
+                String sql = "INSERT INTO ARCHIVOS (nombre_archivo,archivo,id_paciente,estado_archivo,fecha)  VALUES (?,?,?,'Realizada',?)";
                 PreparedStatement pst = ca.prepareCall(sql); //hasta aqui vamos
                pst.setString(1,nombre_archivo);
                 pst.setBinaryStream(2, input);
                 pst.setInt(3, Controlador_capturar_resultados.id_paciente);
+                pst.setString(4,Controladorventa.fecha());
                 int a=pst.executeUpdate();
                 if(a>0){
                 System.out.println("Archivo insertado");
@@ -157,7 +158,7 @@ Capturar_resultados.genetrar_Pdf.setEnabled(false);}
   public static int activar_boton_pdf(int id_venta){
 try{ Connection ca= cc.conexion();// CUENTA EL TODAL DE CUANTAS VENTAS SE REALIZARON
                                          Statement sent  =(Statement)ca.createStatement();
-                                         ResultSet  rs = sent.executeQuery("select count(*) from descripcion_de_venta dv WHERE  dv.id_venta = '"+id_venta+"' and dv.resultado in ('',null) ");
+                                         ResultSet  rs = sent.executeQuery("select count(*) from descripcion_de_venta dv WHERE  dv.id_venta = '"+id_venta+"' and dv.resultado in ('') ");
                                             if(rs.next()){
                                                       Controlador_capturar_resultados.respuesta_para_activar_el_pdf =Integer.parseInt(String.valueOf(rs.getInt("count(*)")));
                                                       }

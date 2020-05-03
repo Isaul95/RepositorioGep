@@ -542,7 +542,7 @@ user.setText(usuarioname);
     }//GEN-LAST:event_inventarioventasActionPerformed
 
     private void ExistenciasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExistenciasActionPerformed
-        if(Controladorventa.noduplicarexistencias==false){new Existencias().setVisible(true);}
+        if(Controladorventa.noduplicarexistencias==false){new Archivos().setVisible(true);}
     }//GEN-LAST:event_ExistenciasActionPerformed
 
     private void Registro_userActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Registro_userActionPerformed

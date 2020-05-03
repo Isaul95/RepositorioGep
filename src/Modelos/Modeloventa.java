@@ -206,7 +206,7 @@ try{Connection ca= cc.conexion();   // ESTE ES PARA EL UPDATE
                }
    else{
   try{Connection ca= cc.conexion(); //la insersion a la tabla ventas
-                String sql = "INSERT INTO descripcion_de_venta (id_producto,nombre_producto,cantidad,precio_unitario,importe,id_paciente,id_venta,estado, fecha, nombre_credito)  VALUES (?,?,?,?,?,?,?,?,?,?)";
+                String sql = "INSERT INTO descripcion_de_venta (id_producto,nombre_producto,cantidad,precio_unitario,importe,id_paciente,id_venta,estado, fecha, nombre_credito, resultado)  VALUES (?,?,?,?,?,?,?,?,?,?,?)";
                 PreparedStatement pst = ca.prepareCall(sql); //hasta aqui vamos
                  id_y_precio_producto(nombredepieza); 
                 pst.setInt(1,id_producto);
@@ -225,6 +225,7 @@ try{Connection ca= cc.conexion();   // ESTE ES PARA EL UPDATE
                 pst.setString(8, estadoenturno);
                 pst.setString(9, fecha());
                 pst.setString(10, "");
+                pst.setString(11, "");
                 int a=pst.executeUpdate();
                 if(a>0){
                    Controladorventa.accionesdespuesinsertarendescripciondeventaoactualizarenlamismatabla(nombredepieza, cantidaddeproductos);

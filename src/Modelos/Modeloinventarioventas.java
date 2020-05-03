@@ -234,7 +234,7 @@ public static void showidventasporfechas(JTable tablaventas, String fechadesde, 
 public static void la_venta_tiene_descuento_si_o_no(int id_venta){
         try{ Connection ca= cc.conexion();// La suma de todos los importes
                                          Statement sent  =(Statement)ca.createStatement();
-                                         ResultSet  rs = sent.executeQuery("select descuento from venta where fecha_reporte= '"+Controladorventa.fecha()+"' AND id_venta='"+id_venta+"'");
+                                         ResultSet  rs = sent.executeQuery("select descuento from venta where estado_venta = 'Realizada' and fecha_reporte= '"+Controladorventa.fecha()+"' and id_venta='"+id_venta+"'");
                                             if(rs.next()){
                                                       descuentoenventa =rs.getFloat(1);
                                                       }
