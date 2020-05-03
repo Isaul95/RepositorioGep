@@ -444,7 +444,7 @@ user.setText(usuarioname);
         Registro_user.setBackground(new java.awt.Color(135, 193, 193));
         Registro_user.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         Registro_user.setForeground(new java.awt.Color(204, 0, 0));
-        Registro_user.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/user022.png"))); // NOI18N
+        Registro_user.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/plan-de-estudios.png"))); // NOI18N
         Registro_user.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         Registro_user.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         Registro_user.addActionListener(new java.awt.event.ActionListener() {
@@ -490,7 +490,7 @@ user.setText(usuarioname);
         venta.add(ventacredito, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 70, -1, -1));
 
         ventas_acredito.setBackground(new java.awt.Color(135, 193, 193));
-        ventas_acredito.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/simbolodolar.png"))); // NOI18N
+        ventas_acredito.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/egresos1.png"))); // NOI18N
         ventas_acredito.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ventas_acreditoActionPerformed(evt);
