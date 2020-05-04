@@ -5,7 +5,7 @@
 	<parameter name="firma5" class="java.io.InputStream"/>
 	<queryString>
 		<![CDATA[select dv.nombre_producto, p.categoria_estudios, dv.id_paciente, pac.nombre, 
-pac.fecha_nacimiento, pac.edad, pac.sexo, pac.fecha_ingreso, dv.resultado, dp.unidades, 
+pac.fecha_nacimiento, pac.edad, pac.sexo, pac.fecha_ingreso,pac.medico, dv.resultado, dp.unidades, 
 dp.valordereferencia, v.fecha_reporte 
 from venta v 
 inner join descripcion_de_venta dv on v.id_venta = dv.id_venta 
@@ -36,6 +36,9 @@ where v.id_venta = $P{parameter1} and v.estado_venta='Realizada' and v.fecha_rep
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="fecha_ingreso" class="java.sql.Timestamp">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="medico" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="resultado" class="java.lang.String">
@@ -191,13 +194,6 @@ where v.id_venta = $P{parameter1} and v.estado_venta='Realizada' and v.fecha_rep
 				<textFieldExpression class="java.util.Date"><![CDATA[new Date()]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="66" y="95" width="144" height="19"/>
-				<textElement verticalAlignment="Middle">
-					<font size="9" isBold="false"/>
-				</textElement>
-				<text><![CDATA[A QUIEN CORRESPONDA]]></text>
-			</staticText>
-			<staticText>
 				<reportElement x="1" y="126" width="67" height="19"/>
 				<textElement verticalAlignment="Middle">
 					<font size="8" isBold="true"/>
@@ -252,6 +248,11 @@ where v.id_venta = $P{parameter1} and v.estado_venta='Realizada' and v.fecha_rep
 				</textElement>
 				<text><![CDATA[ESTUDIO]]></text>
 			</staticText>
+			<textField>
+				<reportElement x="66" y="96" width="144" height="19"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{medico}]]></textFieldExpression>
+			</textField>
 		</band>
 	</title>
 	<pageHeader>
