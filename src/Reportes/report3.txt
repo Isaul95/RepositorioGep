@@ -2,14 +2,14 @@
 
 
 
-  NOMBREcurso web                      FECHA  2020/05/04
-  MEDICO                               EDAD:  56 años.
-        java web
+  NOMBREta                             FECHA  2020/05/08
+  MEDICO                               EDAD:  5 años.
+        ye
 
-  ID:   35                             SEXO:  Masculino
+  ID:   38                             SEXO:  Masculino
 
 
-  FECHA 3/05/20 03:42                  FECHA  4/05/20 11
+  FECHA 4/05/20 11:40                  FECHA  5/05/20 12
 
 
 
@@ -17,26 +17,24 @@
 
                       QUÍMICA CLÍNICA
 
-  relacion bun/    4      null  cálculo aritmético
+  relacion bun/    23     null  cálculo aritmético
 
-  ácido urico e    5      mg/dL 3.60 - 7.70 Masc 2.50 -
+  colesterol to    4      mg/dL menor a 170.0 normal 200
 
+  colesterol de    5      mg/dL menor a 40.0 factor prin
 
+                      ENDOCRINOLOGIA
 
+  HORMONA ESTIM    6     mUl/mL 3.03 - 8.08 Fem FASE FOL
 
+  PROGESTERONA     7      ng/mL Menor a 0.30 Fem FASE FO
 
+  ESTRADIOL (E2    7      pg/mL 21.00 - 251.00 Fem FASE
 
+                       Sin categoria
 
+  BENZODIACEPIN    8      null  Sin categoria
 
-
-                         A T E N T
-
-                   Q.F.B.  JULIO ENRIQU
-                   RESPONSABLE DE LABO
-
-                   "RAMÓN LÓPEZ RAYON
-
-                          COATEPE
 
 
   Página1
