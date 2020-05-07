@@ -73,7 +73,7 @@ where v.id_venta = $P{parameter1} and v.estado_venta='Realizada' and v.fecha_rep
 	<background>
 		<band height="802" splitType="Stretch">
 			<image scaleImage="FillFrame" onErrorType="Blank">
-				<reportElement x="-20" y="-20" width="596" height="822">
+				<reportElement x="-20" y="-20" width="596" height="816">
 					<property name="net.sf.jasperreports.export.pdf.tag.h1"/>
 				</reportElement>
 				<imageExpression class="java.io.InputStream"><![CDATA[$P{Logo5}]]></imageExpression>
