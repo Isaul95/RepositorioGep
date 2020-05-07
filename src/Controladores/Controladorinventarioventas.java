@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import javax.swing.JOptionPane;
 import si.Edicion_pacientes;
-import ticket.ticketventacancelada;
+import ticket.Tickets_de_venta;
 
 
 /**
@@ -25,7 +25,7 @@ import ticket.ticketventacancelada;
  * @author Alexis
  */
 public class Controladorinventarioventas {
-    public static ticketventacancelada mandardatosticketventacancelada;
+    public static Tickets_de_venta mandardatosticketventacancelada;
 
     public static float sumadetotalesdeventasdehoy,
             sumadeimportescreditopendiente,  sumadeimportesparaeltotal, 

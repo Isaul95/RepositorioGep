@@ -35,7 +35,7 @@ import si.nucleo;
 import si.Gastos;
 import si.SI;
 import si.nucleo;
-import ticket.ticketventacancelada;
+import ticket.Tickets_de_venta;
 /**
  *
  * @author Alexis
@@ -525,7 +525,7 @@ public static void descripciondelosprouductosparaelticketdeventa(int numerodeven
             }
         //    total_pagoycambiopararelticketdeventa(numerodeventa);
          if(!nombre_deudor.isEmpty()){
-               mandardatosticketventacancelada = new ticketventacancelada();
+               mandardatosticketventacancelada = new Tickets_de_venta();
                  mandardatosticketventacancelada.tikectventacancelada(nombreproductoticket, 
                          piezastcket, 
                          preciounitarioticket, 
@@ -534,7 +534,7 @@ public static void descripciondelosprouductosparaelticketdeventa(int numerodeven
               Controladorventa.vaciarlistasdeticket();
          } 
          else{
-               mandardatosticketventacancelada = new ticketventacancelada();
+               mandardatosticketventacancelada = new Tickets_de_venta();
                  mandardatosticketventacancelada.tikectventacancelada(nombreproductoticket, 
                          piezastcket, 
                          preciounitarioticket, 

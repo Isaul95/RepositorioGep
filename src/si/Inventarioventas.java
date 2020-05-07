@@ -106,6 +106,7 @@ public class Inventarioventas extends javax.swing.JFrame {
         buscarventasporfecha.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         buscarventasporfecha.setForeground(new java.awt.Color(255, 0, 0));
         buscarventasporfecha.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/image/magnifier.png"))); // NOI18N
+        buscarventasporfecha.setToolTipText("Buscar");
         buscarventasporfecha.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         buscarventasporfecha.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -118,6 +119,7 @@ public class Inventarioventas extends javax.swing.JFrame {
         cancelarventa.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         cancelarventa.setForeground(new java.awt.Color(255, 0, 0));
         cancelarventa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/cancelar2.png"))); // NOI18N
+        cancelarventa.setToolTipText("Cancelar venta");
         cancelarventa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cancelarventaActionPerformed(evt);

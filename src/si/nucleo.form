@@ -369,6 +369,7 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/si/IconosJava/005-discount.png"/>
             </Property>
+            <Property name="toolTipText" type="java.lang.String" value="Hacer descuento"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="descuentoActionPerformed"/>
@@ -396,6 +397,7 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/si/IconosJava/005-discount.png"/>
             </Property>
+            <Property name="toolTipText" type="java.lang.String" value="Eliminar descuento"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="deletedescuentoActionPerformed"/>
@@ -423,6 +425,7 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/si/IconosJava/cancelar2.png"/>
             </Property>
+            <Property name="toolTipText" type="java.lang.String" value="Borrar toda la venta"/>
             <Property name="horizontalTextPosition" type="int" value="0"/>
             <Property name="verticalAlignment" type="int" value="1"/>
             <Property name="verticalTextPosition" type="int" value="3"/>
@@ -771,6 +774,7 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/si/IconosJava/combustible (1).png"/>
             </Property>
+            <Property name="toolTipText" type="java.lang.String" value="Registrar gastos"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="AgregarGastosActionPerformed"/>
@@ -792,6 +796,7 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/si/IconosJava/simbolodolar.png"/>
             </Property>
+            <Property name="toolTipText" type="java.lang.String" value="Ventas realizadas"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="inventarioventasActionPerformed"/>
@@ -816,6 +821,7 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/si/IconosJava/004-cash register.png"/>
             </Property>
+            <Property name="toolTipText" type="java.lang.String" value="Corte de caja"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="CortedecajaActionPerformed"/>
@@ -843,6 +849,7 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/si/IconosJava/pdf.png"/>
             </Property>
+            <Property name="toolTipText" type="java.lang.String" value="Descargar o eliminar PDF&#xb4;S"/>
             <Property name="horizontalTextPosition" type="int" value="0"/>
             <Property name="verticalTextPosition" type="int" value="3"/>
           </Properties>
@@ -869,6 +876,7 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/si/IconosJava/plan-de-estudios.png"/>
             </Property>
+            <Property name="toolTipText" type="java.lang.String" value="Registrar usuarios"/>
             <Property name="horizontalTextPosition" type="int" value="0"/>
             <Property name="verticalTextPosition" type="int" value="3"/>
           </Properties>
@@ -924,6 +932,7 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/si/IconosJava/Prodcuts2.png"/>
             </Property>
+            <Property name="toolTipText" type="java.lang.String" value="Registrar nuevo producto"/>
             <Property name="horizontalTextPosition" type="int" value="0"/>
             <Property name="verticalTextPosition" type="int" value="3"/>
           </Properties>
@@ -1014,6 +1023,7 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/si/IconosJava/egresos1.png"/>
             </Property>
+            <Property name="toolTipText" type="java.lang.String" value="Ventas a credito"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ventas_acreditoActionPerformed"/>

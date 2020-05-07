@@ -240,6 +240,7 @@ user.setText(usuarioname);
         descuento.setFont(new java.awt.Font("Arial Black", 1, 23)); // NOI18N
         descuento.setForeground(new java.awt.Color(255, 255, 255));
         descuento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/005-discount.png"))); // NOI18N
+        descuento.setToolTipText("Hacer descuento");
         descuento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 descuentoActionPerformed(evt);
@@ -251,6 +252,7 @@ user.setText(usuarioname);
         deletedescuento.setFont(new java.awt.Font("Arial Black", 1, 23)); // NOI18N
         deletedescuento.setForeground(new java.awt.Color(255, 51, 51));
         deletedescuento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/005-discount.png"))); // NOI18N
+        deletedescuento.setToolTipText("Eliminar descuento");
         deletedescuento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 deletedescuentoActionPerformed(evt);
@@ -262,6 +264,7 @@ user.setText(usuarioname);
         cleanall.setFont(new java.awt.Font("Tahoma", 1, 22)); // NOI18N
         cleanall.setForeground(new java.awt.Color(255, 255, 255));
         cleanall.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/cancelar2.png"))); // NOI18N
+        cleanall.setToolTipText("Borrar toda la venta");
         cleanall.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         cleanall.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         cleanall.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -401,6 +404,7 @@ user.setText(usuarioname);
         AgregarGastos.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         AgregarGastos.setForeground(new java.awt.Color(255, 255, 255));
         AgregarGastos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/combustible (1).png"))); // NOI18N
+        AgregarGastos.setToolTipText("Registrar gastos");
         AgregarGastos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 AgregarGastosActionPerformed(evt);
@@ -410,6 +414,7 @@ user.setText(usuarioname);
 
         inventarioventas.setBackground(new java.awt.Color(135, 193, 193));
         inventarioventas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/simbolodolar.png"))); // NOI18N
+        inventarioventas.setToolTipText("Ventas realizadas");
         inventarioventas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 inventarioventasActionPerformed(evt);
@@ -421,6 +426,7 @@ user.setText(usuarioname);
         Cortedecaja.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         Cortedecaja.setForeground(new java.awt.Color(255, 255, 255));
         Cortedecaja.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/004-cash register.png"))); // NOI18N
+        Cortedecaja.setToolTipText("Corte de caja");
         Cortedecaja.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CortedecajaActionPerformed(evt);
@@ -432,6 +438,7 @@ user.setText(usuarioname);
         Existencias.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         Existencias.setForeground(new java.awt.Color(204, 0, 0));
         Existencias.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/pdf.png"))); // NOI18N
+        Existencias.setToolTipText("Descargar o eliminar PDF´S");
         Existencias.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         Existencias.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         Existencias.addActionListener(new java.awt.event.ActionListener() {
@@ -445,6 +452,7 @@ user.setText(usuarioname);
         Registro_user.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         Registro_user.setForeground(new java.awt.Color(204, 0, 0));
         Registro_user.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/plan-de-estudios.png"))); // NOI18N
+        Registro_user.setToolTipText("Registrar usuarios");
         Registro_user.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         Registro_user.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         Registro_user.addActionListener(new java.awt.event.ActionListener() {
@@ -464,6 +472,7 @@ user.setText(usuarioname);
         Registro_productos.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         Registro_productos.setForeground(new java.awt.Color(204, 0, 0));
         Registro_productos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/Prodcuts2.png"))); // NOI18N
+        Registro_productos.setToolTipText("Registrar nuevo producto");
         Registro_productos.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         Registro_productos.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         Registro_productos.addActionListener(new java.awt.event.ActionListener() {
@@ -491,6 +500,7 @@ user.setText(usuarioname);
 
         ventas_acredito.setBackground(new java.awt.Color(135, 193, 193));
         ventas_acredito.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/egresos1.png"))); // NOI18N
+        ventas_acredito.setToolTipText("Ventas a credito");
         ventas_acredito.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ventas_acreditoActionPerformed(evt);

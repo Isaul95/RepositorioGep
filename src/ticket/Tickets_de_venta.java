@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.JOptionPane;
 
-public class ticketventacancelada {    
+public class Tickets_de_venta {    
     
        public void tikectventacancelada(ArrayList nombre, 
                ArrayList piezas, 

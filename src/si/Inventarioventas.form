@@ -179,6 +179,7 @@
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/si/image/magnifier.png"/>
                     </Property>
+                    <Property name="toolTipText" type="java.lang.String" value="Buscar"/>
                     <Property name="horizontalTextPosition" type="int" value="4"/>
                   </Properties>
                   <Events>
@@ -207,6 +208,7 @@
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/si/IconosJava/cancelar2.png"/>
                     </Property>
+                    <Property name="toolTipText" type="java.lang.String" value="Cancelar venta"/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cancelarventaActionPerformed"/>

@@ -22,7 +22,7 @@ import javax.swing.table.TableColumnModel;
 import si.Inventarioventas;
 import si.SI;
 import si.nucleo;
-import ticket.ticketventacancelada;
+import ticket.Tickets_de_venta;
 
 
 /**
