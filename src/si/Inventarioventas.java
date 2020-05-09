@@ -71,6 +71,7 @@ public class Inventarioventas extends javax.swing.JFrame {
         totalventacreditoenturno = new javax.swing.JLabel();
         labelcredito = new javax.swing.JLabel();
         labelnombre = new javax.swing.JLabel();
+        Modifproductos = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -369,6 +370,22 @@ public class Inventarioventas extends javax.swing.JFrame {
         Administrador.add(labelnombre);
         labelnombre.setBounds(620, 520, 130, 50);
 
+        Modifproductos.setBackground(new java.awt.Color(255, 255, 255));
+        Modifproductos.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        Modifproductos.setForeground(new java.awt.Color(204, 0, 0));
+        Modifproductos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/Add1.png"))); // NOI18N
+        Modifproductos.setText("Modificar Productos");
+        Modifproductos.setToolTipText("Productos en Existencia");
+        Modifproductos.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        Modifproductos.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        Modifproductos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ModifproductosActionPerformed(evt);
+            }
+        });
+        Administrador.add(Modifproductos);
+        Modifproductos.setBounds(1090, 380, 170, 93);
+
         javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
         jPanel12.setLayout(jPanel12Layout);
         jPanel12Layout.setHorizontalGroup(
@@ -446,6 +463,10 @@ Controladorinventarioventas.verdescripcionenbaseaventarealizada();
           dispose();
     }//GEN-LAST:event_gastos_btn_backActionPerformed
 
+    private void ModifproductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ModifproductosActionPerformed
+ new Productos_crud().setVisible(true);   
+    }//GEN-LAST:event_ModifproductosActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -483,6 +504,7 @@ Controladorinventarioventas.verdescripcionenbaseaventarealizada();
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JPanel Administrador;
+    private javax.swing.JButton Modifproductos;
     public static javax.swing.JButton buscarventasporfecha;
     public static javax.swing.JButton cancelarventa;
     public static javax.swing.JLabel conteodelasventasrealizadas;

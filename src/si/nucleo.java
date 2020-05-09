@@ -189,6 +189,7 @@ user.setText(usuarioname);
         jButton1.setForeground(new java.awt.Color(255, 0, 0));
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/salir-flecha-derecha (1).png"))); // NOI18N
         jButton1.setText("Salir");
+        jButton1.setToolTipText("Salir del Sistema");
         jButton1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -241,6 +242,7 @@ user.setText(usuarioname);
         Cortedecaja.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         Cortedecaja.setForeground(new java.awt.Color(255, 255, 255));
         Cortedecaja.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/004-cash register.png"))); // NOI18N
+        Cortedecaja.setToolTipText("Corte de Caja");
         Cortedecaja.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CortedecajaActionPerformed(evt);
@@ -252,6 +254,7 @@ user.setText(usuarioname);
         AgregarGastos.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         AgregarGastos.setForeground(new java.awt.Color(255, 255, 255));
         AgregarGastos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/combustible (1).png"))); // NOI18N
+        AgregarGastos.setToolTipText("Gastos");
         AgregarGastos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 AgregarGastosActionPerformed(evt);
@@ -263,6 +266,7 @@ user.setText(usuarioname);
         descuento.setFont(new java.awt.Font("Arial Black", 1, 23)); // NOI18N
         descuento.setForeground(new java.awt.Color(255, 255, 255));
         descuento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/005-discount.png"))); // NOI18N
+        descuento.setToolTipText("Realizar Descuentos");
         descuento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 descuentoActionPerformed(evt);
@@ -274,6 +278,7 @@ user.setText(usuarioname);
         ventaacredito.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
         ventaacredito.setForeground(new java.awt.Color(255, 255, 255));
         ventaacredito.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/dinero (1).png"))); // NOI18N
+        ventaacredito.setToolTipText("Realizar venta a Creditos");
         ventaacredito.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         ventaacredito.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         ventaacredito.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -299,6 +304,7 @@ user.setText(usuarioname);
         cleanall.setFont(new java.awt.Font("Tahoma", 1, 22)); // NOI18N
         cleanall.setForeground(new java.awt.Color(255, 255, 255));
         cleanall.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/cancelar2.png"))); // NOI18N
+        cleanall.setToolTipText("Cancelar Venta");
         cleanall.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         cleanall.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         cleanall.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -346,6 +352,7 @@ user.setText(usuarioname);
         Botoncrudo.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
         Botoncrudo.setForeground(new java.awt.Color(255, 0, 0));
         Botoncrudo.setText("CRUDO");
+        Botoncrudo.setToolTipText("Menu de Crudo");
         Botoncrudo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BotoncrudoActionPerformed(evt);
@@ -357,6 +364,7 @@ user.setText(usuarioname);
         Botoncocido.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
         Botoncocido.setForeground(new java.awt.Color(255, 0, 0));
         Botoncocido.setText("COCIDO");
+        Botoncocido.setToolTipText("Menu de Cocido");
         Botoncocido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BotoncocidoActionPerformed(evt);
@@ -368,6 +376,7 @@ user.setText(usuarioname);
         Botonacompañantes.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
         Botonacompañantes.setForeground(new java.awt.Color(255, 0, 0));
         Botonacompañantes.setText("ACOMPAÑANTES");
+        Botonacompañantes.setToolTipText("Menu de Acompañantes");
         Botonacompañantes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BotonacompañantesActionPerformed(evt);
@@ -384,6 +393,7 @@ user.setText(usuarioname);
         Existencias.setForeground(new java.awt.Color(204, 0, 0));
         Existencias.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/actualizar.png"))); // NOI18N
         Existencias.setText("¿?");
+        Existencias.setToolTipText("Productos en Existencia");
         Existencias.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         Existencias.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         Existencias.addActionListener(new java.awt.event.ActionListener() {
@@ -394,6 +404,7 @@ user.setText(usuarioname);
         jPanel28.add(Existencias, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 80, 90));
 
         inventarioventas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/simbolodolar.png"))); // NOI18N
+        inventarioventas.setToolTipText("Inventario de Ventas");
         inventarioventas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 inventarioventasActionPerformed(evt);
@@ -402,6 +413,7 @@ user.setText(usuarioname);
         jPanel28.add(inventarioventas, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 30, 80, 90));
 
         entradaproductos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/compra.png"))); // NOI18N
+        entradaproductos.setToolTipText("Entrada de Productos");
         entradaproductos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 entradaproductosActionPerformed(evt);

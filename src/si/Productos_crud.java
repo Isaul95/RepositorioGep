@@ -248,6 +248,11 @@ public static   SI cc = new SI();
         jButton1.setText("Regresar");
         jButton1.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         jButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
         agregar_articulo.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 220, 150, 50));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -411,6 +416,10 @@ public static   SI cc = new SI();
           JOptionPane.showMessageDialog(null,"Por favor, seleccione una fila primero","Aviso",JOptionPane.INFORMATION_MESSAGE);
 */         
     }//GEN-LAST:event_tabla_agregarMouseClicked
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments

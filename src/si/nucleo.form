@@ -366,6 +366,7 @@
                   <Image iconType="3" name="/si/IconosJava/salir-flecha-derecha (1).png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Salir"/>
+                <Property name="toolTipText" type="java.lang.String" value="Salir del Sistema"/>
                 <Property name="horizontalAlignment" type="int" value="2"/>
               </Properties>
               <Events>
@@ -430,6 +431,7 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/si/IconosJava/004-cash register.png"/>
                 </Property>
+                <Property name="toolTipText" type="java.lang.String" value="Corte de Caja"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="CortedecajaActionPerformed"/>
@@ -457,6 +459,7 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/si/IconosJava/combustible (1).png"/>
                 </Property>
+                <Property name="toolTipText" type="java.lang.String" value="Gastos"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="AgregarGastosActionPerformed"/>
@@ -484,6 +487,7 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/si/IconosJava/005-discount.png"/>
                 </Property>
+                <Property name="toolTipText" type="java.lang.String" value="Realizar Descuentos"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="descuentoActionPerformed"/>
@@ -511,6 +515,7 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/si/IconosJava/dinero (1).png"/>
                 </Property>
+                <Property name="toolTipText" type="java.lang.String" value="Realizar venta a Creditos"/>
                 <Property name="horizontalTextPosition" type="int" value="0"/>
                 <Property name="verticalAlignment" type="int" value="1"/>
                 <Property name="verticalTextPosition" type="int" value="3"/>
@@ -568,6 +573,7 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/si/IconosJava/cancelar2.png"/>
                 </Property>
+                <Property name="toolTipText" type="java.lang.String" value="Cancelar Venta"/>
                 <Property name="horizontalTextPosition" type="int" value="0"/>
                 <Property name="verticalAlignment" type="int" value="1"/>
                 <Property name="verticalTextPosition" type="int" value="3"/>
@@ -645,6 +651,7 @@
               <Color blue="0" green="0" red="ff" type="rgb"/>
             </Property>
             <Property name="text" type="java.lang.String" value="CRUDO"/>
+            <Property name="toolTipText" type="java.lang.String" value="Menu de Crudo"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BotoncrudoActionPerformed"/>
@@ -667,6 +674,7 @@
               <Color blue="0" green="0" red="ff" type="rgb"/>
             </Property>
             <Property name="text" type="java.lang.String" value="COCIDO"/>
+            <Property name="toolTipText" type="java.lang.String" value="Menu de Cocido"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BotoncocidoActionPerformed"/>
@@ -689,6 +697,7 @@
               <Color blue="0" green="0" red="ff" type="rgb"/>
             </Property>
             <Property name="text" type="java.lang.String" value="ACOMPA&#xd1;ANTES"/>
+            <Property name="toolTipText" type="java.lang.String" value="Menu de Acompa&#xf1;antes"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Botonacompa&#xf1;antesActionPerformed"/>
@@ -738,6 +747,7 @@
                   <Image iconType="3" name="/si/IconosJava/actualizar.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="&#xbf;?"/>
+                <Property name="toolTipText" type="java.lang.String" value="Productos en Existencia"/>
                 <Property name="horizontalTextPosition" type="int" value="0"/>
                 <Property name="verticalTextPosition" type="int" value="3"/>
               </Properties>
@@ -755,6 +765,7 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/si/IconosJava/simbolodolar.png"/>
                 </Property>
+                <Property name="toolTipText" type="java.lang.String" value="Inventario de Ventas"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="inventarioventasActionPerformed"/>
@@ -770,6 +781,7 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/si/IconosJava/compra.png"/>
                 </Property>
+                <Property name="toolTipText" type="java.lang.String" value="Entrada de Productos"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="entradaproductosActionPerformed"/>

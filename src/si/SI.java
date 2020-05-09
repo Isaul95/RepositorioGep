@@ -13,7 +13,7 @@ public class SI {
                   try{
           Class.forName("com.mysql.jdbc.Driver");
           //TEST 
-          conectar= (Connection) DriverManager.getConnection("jdbc:mysql://localhost/inventariostore?autoReconnect=true&useSSL=false","root",MySQLpassword);  
+          conectar= (Connection) DriverManager.getConnection("jdbc:mysql://localhost/inventariostore_prod?autoReconnect=true&useSSL=false","root",MySQLpassword);  
      //PRODUCCIONconectar= (Connection) DriverManager.getConnection("jdbc:mysql://localhost/inventariostore_prod?autoReconnect=true&useSSL=false","root",MySQLpassword);  
      if(conectar!=null){
            System.out.println("Conexión abierta");
