@@ -85,6 +85,7 @@ user.setText(usuarioname);
         Existencias = new javax.swing.JButton();
         inventarioventas = new javax.swing.JButton();
         entradaproductos = new javax.swing.JButton();
+        Modifproductos = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -421,6 +422,20 @@ user.setText(usuarioname);
         });
         jPanel28.add(entradaproductos, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, 80, 100));
 
+        Modifproductos.setBackground(new java.awt.Color(255, 255, 255));
+        Modifproductos.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        Modifproductos.setForeground(new java.awt.Color(204, 0, 0));
+        Modifproductos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/Add1.png"))); // NOI18N
+        Modifproductos.setToolTipText("Modificar productos");
+        Modifproductos.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        Modifproductos.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        Modifproductos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ModifproductosActionPerformed(evt);
+            }
+        });
+        jPanel28.add(Modifproductos, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 140, 80, 100));
+
         venta.add(jPanel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 380, 200, 290));
 
         getContentPane().add(venta, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -3, 898, 750));
@@ -501,6 +516,10 @@ new Inventarioventas().setVisible(true);
     private void tablaventaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaventaMouseClicked
        Controladorventa.tablaventa();
     }//GEN-LAST:event_tablaventaMouseClicked
+
+    private void ModifproductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ModifproductosActionPerformed
+        new Productos_crud().setVisible(true);
+    }//GEN-LAST:event_ModifproductosActionPerformed
  private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {                                         
    new ProductosExternos().setVisible(true);        
     }                                           /**
@@ -546,6 +565,7 @@ new Inventarioventas().setVisible(true);
     public static javax.swing.JButton Cortedecaja;
     private javax.swing.JButton Existencias;
     private javax.swing.JLabel Fecha;
+    private javax.swing.JButton Modifproductos;
     private javax.swing.JLabel Reloj;
     public static javax.swing.JLabel cambiocombobox;
     public static javax.swing.JButton cleanall;

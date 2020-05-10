@@ -1,6 +1,8 @@
 
 package si;
 
+import Controladores.Controladorventa;
+import Modelos.Modeloventa;
 import java.awt.Color;
 import java.awt.Font;
 import java.sql.Connection;
@@ -31,24 +33,16 @@ public static   SI cc = new SI();
   void mostrartablaarticulos(){
         tabla_agregar.setVisible(true);
               DefaultTableModel modelo = new DefaultTableModel();
-    
-    modelo.addColumn("Id_producto");
     modelo.addColumn("Nombre del producto");
-   // modelo.addColumn("Tipo de producto");
      modelo.addColumn("Precio");
-     //modelo.addColumn("Cantidad");
-//     modelo.addColumn("Fecha de caducidad");
-  //  modelo.addColumn("Id del proveedor");
-   // modelo.addColumn("fecha y hora de registro");
     tabla_agregar.setModel(modelo);
-    String []datos = new String[3];    
+    String []datos = new String[2];    
     try {
             Statement st = ca.createStatement();
-            ResultSet rs= st.executeQuery("select id_producto, nombre_producto, precio from  productos");
+            ResultSet rs= st.executeQuery("select nombre_producto, precio from  productos");
             while(rs.next()){
             datos[0]=rs.getString(1);
             datos[1]=rs.getString(2);
-            datos[2]=rs.getString(3);
             
         
             modelo.addRow(datos);
@@ -309,9 +303,8 @@ public static   SI cc = new SI();
         }
         else{
             try{
-                int fila =tabla_agregar.getSelectedRow();
-
-                PreparedStatement ps = ca.prepareStatement ("UPDATE productos SET precio='"+preciop.getText()+"',nombre_producto='"+namep.getText()+"'WHERE id_producto='"+tabla_agregar.getValueAt(fila,0).toString()+"'");
+               Modeloventa.id_producto(namep.getText());
+                PreparedStatement ps = ca.prepareStatement ("UPDATE productos SET precio='"+preciop.getText()+"',nombre_producto='"+namep.getText()+"'WHERE id_producto='"+Controladorventa.id_producto+"'");
                 ps.executeUpdate();
                 JOptionPane.showMessageDialog(null,"Datos modificados correctamente");
                 mostrartablaarticulos();
@@ -399,22 +392,12 @@ public static   SI cc = new SI();
          int fila =tabla_agregar.getSelectedRow();
       if(fila>=0){
              update.setEnabled(true);
-                namep.setText(tabla_agregar.getValueAt(fila,1).toString());
-                preciop.setText(tabla_agregar.getValueAt(fila,2).toString());
+                namep.setText(tabla_agregar.getValueAt(fila,0).toString());
+                preciop.setText(tabla_agregar.getValueAt(fila,1).toString());
          
       }
       else
           JOptionPane.showMessageDialog(null,"Por favor, seleccione una fila primero","Aviso",JOptionPane.INFORMATION_MESSAGE);                                 
-         
-    /*     
-         if(fila>=0){
-             update.setEnabled(true);
-                namep.setText(tabla_agregar.getValueAt(fila,0).toString());
-                preciop.setText(tabla_agregar.getValueAt(fila,1).toString());           
-      }
-      else
-          JOptionPane.showMessageDialog(null,"Por favor, seleccione una fila primero","Aviso",JOptionPane.INFORMATION_MESSAGE);
-*/         
     }//GEN-LAST:event_tabla_agregarMouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
