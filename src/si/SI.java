@@ -10,7 +10,7 @@ public class SI {
  //clase para hacer la conexión a mysql 
    Connection conectar=null;
        public Connection conexion(){
-                  try{
+                  try{//CAMBIOS, MALDITA ZORRA
           Class.forName("com.mysql.jdbc.Driver");
           //TEST 
           conectar= (Connection) DriverManager.getConnection("jdbc:mysql://localhost/inventariostore_alkimia_test?autoReconnect=true&useSSL=false","root",MySQLpassword);  
