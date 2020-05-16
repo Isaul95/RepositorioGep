@@ -48,8 +48,8 @@ public class Modelo_registro_producto extends Controlador_registro_producto{
         try{Connection ca= cc.conexion();
                 String sql = "INSERT INTO descripcion_estudios(unidades,valordereferencia)  VALUES (?,?)";
                 PreparedStatement pst = ca.prepareCall(sql);
-                pst.setString(1,Registro_producto.unidades.getText());
-                pst.setString(2,Registro_producto.valor_referencia.getText());
+                pst.setString(1,Registro_producto.unidades.getText().toUpperCase());
+                pst.setString(2,Registro_producto.valor_referencia.getText().toUpperCase());
                 int a=pst.executeUpdate();
                 if(a>0){
                    // JOptionPane.showMessageDialog(null,"DESCRIPCION ESTUDIO GUARDADO CORRECTAMENTE");
@@ -76,8 +76,8 @@ public class Modelo_registro_producto extends Controlador_registro_producto{
         try{Connection ca= cc.conexion();
                 String sql1 = "INSERT INTO productos (nombre_producto,categoria_estudios,descripcion_estudio,precio,cantidad,fecha_de_caducidad,fecha)  VALUES (?,?,?,?,?,?,?)";
                 PreparedStatement pst1 = ca.prepareCall(sql1);
-                pst1.setString(1,Registro_producto.estudio.getText());
-                pst1.setString(2,categoria);
+                pst1.setString(1,Registro_producto.estudio.getText().toUpperCase());
+                pst1.setString(2,categoria.toUpperCase());
                 pst1.setInt(3, id_descripcion);
                 pst1.setFloat(4, Float.parseFloat(String.valueOf(Registro_producto.precio.getText())));
                 pst1.setFloat(5, 0);

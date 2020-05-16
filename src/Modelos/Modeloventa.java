@@ -603,7 +603,7 @@ public static void llenar_datos_del_paciente_tras_completar_la_venta(){
                                   if(Integer.parseInt(edad_paciente)==1)
                                       edad_paciente=edad_paciente+" año.";
                                   else edad_paciente=edad_paciente+" años.";
-                                  PreparedStatement ps3 = ca.prepareStatement ("UPDATE pacientes SET nombre='"+nombre_paciente+"',fecha_nacimiento='"+Controladorventa.fecha_de_nacimiento_del_paciente()+"',edad='"+edad_paciente+"',sexo='"+sexo_paciente+"',medico='"+medico+"'WHERE id_paciente='"+id_paciente+"'");
+                                  PreparedStatement ps3 = ca.prepareStatement ("UPDATE pacientes SET nombre='"+nombre_paciente.toUpperCase()+"',fecha_nacimiento='"+Controladorventa.fecha_de_nacimiento_del_paciente()+"',edad='"+edad_paciente.toUpperCase()+"',sexo='"+sexo_paciente.toUpperCase()+"',medico='"+medico.toUpperCase()+"'WHERE id_paciente='"+id_paciente+"'");
  int resultado = ps3.executeUpdate();
                                      if(resultado>0){
                                               Modeloventa.asignar_id_paciente(); //Inserta el id_del paciente para no tener error con la llave foranea
