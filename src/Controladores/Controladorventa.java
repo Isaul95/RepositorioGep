@@ -68,6 +68,10 @@ public static ArrayList idsenturno = new ArrayList();
          this.cantidaddeproductos=cantidaddeproductos;
       this.nombredepiezaseleccionada=piezaseleccionada;
         this.cantidadparapollocrudo=cantidaddeproductos;
+      /*  String[] piernafull = {"Muslo", "Pierna"};
+            for (int i = 0; i < piernafull.length; i++) {
+                agregarpiezasaventa(piernafull[i].toString());
+            }*/
                 agregandoaventa(nombredepiezaseleccionada,cantidaddeproductos);
     }
       //CUANDO RECIBE UNA CANTIDAD POR PARTE DE LA CALCULADORA O UN MEDIO O UN CUARTO
