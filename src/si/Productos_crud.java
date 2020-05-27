@@ -39,7 +39,7 @@ public static   SI cc = new SI();
     String []datos = new String[2];    
     try {
             Statement st = ca.createStatement();
-            ResultSet rs= st.executeQuery("select nombre_producto, precio from  productos");
+            ResultSet rs= st.executeQuery("select nombre_producto, precio from  productos where nombre_producto not in ('pollo crudo','Huesito','Medio pollo','Taxi','Pechuga en bisteck')");
             while(rs.next()){
             datos[0]=rs.getString(1);
             datos[1]=rs.getString(2);
