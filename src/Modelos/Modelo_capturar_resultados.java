@@ -158,7 +158,7 @@ Capturar_resultados.genetrar_Pdf.setEnabled(false);}
   public static int activar_boton_pdf(int id_venta){
 try{ Connection ca= cc.conexion();// CUENTA EL TODAL DE CUANTAS VENTAS SE REALIZARON
                                          Statement sent  =(Statement)ca.createStatement();
-                                         ResultSet  rs = sent.executeQuery("select count(*) from descripcion_de_venta dv WHERE  dv.id_venta = '"+id_venta+"' and dv.resultado in ('') ");
+                                         ResultSet  rs = sent.executeQuery("select count(*) from descripcion_de_venta dv WHERE  dv.id_venta = '"+id_venta+"' and dv.resultado in ('') and SUBSTRING(nombre_producto,1,7) not in ('PAQUETE')");
                                             if(rs.next()){
                                                       Controlador_capturar_resultados.respuesta_para_activar_el_pdf =Integer.parseInt(String.valueOf(rs.getInt("count(*)")));
                                                       }
@@ -170,5 +170,60 @@ try{ Connection ca= cc.conexion();// CUENTA EL TODAL DE CUANTAS VENTAS SE REALIZ
                   cc.getClose();
              }
       return Controlador_capturar_resultados.respuesta_para_activar_el_pdf;
+  }
+  public static int  cantidad_de_estudios(int id_venta){
+      int resultado=0;      
+      try{ Connection ca= cc.conexion();// CUENTA EL TODAL DE CUANTAS VENTAS SE REALIZARON
+                                         Statement sent  =(Statement)ca.createStatement();
+                                         ResultSet  rs = sent.executeQuery("select count(nombre_producto) from descripcion_de_venta  WHERE id_venta = '"+id_venta+"' and estado = 'Realizada' ");
+                                            if(rs.next()){
+                                                      resultado =rs.getInt(1);
+                                                      }
+                                                      }//fin del try-precio del producto
+                                                      catch (Exception e){
+                                                           JOptionPane.showMessageDialog(null, "ERROR EN METODO: conteodeventasrealizadasdehoy: "+e.getMessage(),"DEVELOPER HELPER", JOptionPane.ERROR_MESSAGE);      
+                                                      }// fin del precio-catch del producto
+        finally{
+                  cc.getClose();
+             }
+  return resultado;  
+  }
+  public static String  verificandopaquete(int id_venta){
+      String resultado="";      
+      try{ Connection ca= cc.conexion();// CUENTA EL TODAL DE CUANTAS VENTAS SE REALIZARON
+                                         Statement sent  =(Statement)ca.createStatement();
+                                         ResultSet  rs = sent.executeQuery("select nombre_producto from descripcion_de_venta  WHERE id_venta = '"+id_venta+"' and estado = 'Realizada' ");
+                                            if(rs.next()){
+                                                      resultado =rs.getString(1);
+                                                      }
+                                                      }//fin del try-precio del producto
+                                                      catch (Exception e){
+                                                           JOptionPane.showMessageDialog(null, "ERROR EN METODO: conteodeventasrealizadasdehoy: "+e.getMessage(),"DEVELOPER HELPER", JOptionPane.ERROR_MESSAGE);      
+                                                      }// fin del precio-catch del producto
+        finally{
+                  cc.getClose();
+             }
+  return resultado;  
+  }
+  public static void  obtener_id_paciente_nombre_credito_estado_fecha_para_el_paquete(int id_venta){
+      String resultado="";      
+      try{ Connection ca= cc.conexion();// CUENTA EL TODAL DE CUANTAS VENTAS SE REALIZARON
+                                         Statement sent  =(Statement)ca.createStatement();
+                                         ResultSet  rs = sent.executeQuery("select distinct id_paciente, nombre_credito, estado, fecha from descripcion_de_venta  WHERE id_venta = '"+id_venta+"' and estado = 'Realizada' ");
+                                            if(rs.next()){
+                                                id_paciente_para_el_paquete=rs.getInt(1);
+                                                nombre_credito_para_el_paquete = rs.getString(2);
+                                                estado_para_el_paquete = rs.getString(3);
+                                                fecha_para_el_paquete=rs.getString(4);
+                                                
+                                                      resultado =rs.getString(1);
+                                                      }
+                                                      }//fin del try-precio del producto
+                                                      catch (Exception e){
+                                                           JOptionPane.showMessageDialog(null, "ERROR EN METODO: conteodeventasrealizadasdehoy: "+e.getMessage(),"DEVELOPER HELPER", JOptionPane.ERROR_MESSAGE);      
+                                                      }// fin del precio-catch del producto
+        finally{
+                  cc.getClose();
+             }
   }
 }
