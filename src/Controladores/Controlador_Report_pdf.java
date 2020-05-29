@@ -24,7 +24,7 @@ import si.SI;
 import si.nucleo;
 
 public class Controlador_Report_pdf {       
-    private final String logotipo = "/Reportes/MEMBRETE2.png"; //  imagen del Logotipo----- logoAlk.jpg
+    private final String logotipo = "/Reportes/MEMBRETE2.jpg"; //  imagen del Logotipo----- logoAlk.jpg
     private final String firma = "/Reportes/firma.png";      //  imahgen de firma.png
     // con el nom se obtiene la nomenclatura para el guaraddo del archivo pdf
     public static String nom = Capturar_resultados.id_paciente.getText()+"_"+Capturar_resultados.paciente.getText()+".pdf";
