@@ -74,8 +74,10 @@ static ResultSet rs;
                        //      if(pass){ COMENTADA LA VALIDACION
                                    String valor = Capturar_resultados.Jtable_ProductosEntradas.getValueAt(fila, 0).toString();
                             resultado_del_estudio = modeloT.getValueAt(e.getFirstRow(), e.getColumn()).toString();
-                              Modeloventa.id_y_precio_producto(valor); 
-                              String sql = "UPDATE descripcion_de_venta SET resultado='"+resultado_del_estudio+"' WHERE id_producto="+Controladorventa.id_producto+" AND id_venta="+id_venta;            
+                              //Modeloventa.id_y_precio_producto(valor); 
+                              id_producto(valor,id_venta);
+                              System.out.println("ID :"+id_producto+" VENTA "+id_venta);
+                              String sql = "UPDATE descripcion_de_venta SET resultado='"+resultado_del_estudio+"' WHERE id_producto="+id_producto+" AND id_venta="+id_venta;            
                              PreparedStatement pst;
                           try{Connection ca= cc.conexion();
                                pst = ca.prepareStatement(sql);
@@ -226,4 +228,18 @@ try{ Connection ca= cc.conexion();// CUENTA EL TODAL DE CUANTAS VENTAS SE REALIZ
                   cc.getClose();
              }
   }
+   public static void  id_producto(String nombredepieza, int id_venta){
+          try{ Connection ca= cc.conexion();//el id del producto
+                                                      sent  =(Statement)ca.createStatement();
+                                                      rs = sent.executeQuery("select * from descripcion_de_venta where nombre_producto= '"+nombredepieza+"' and id_venta ='"+id_venta+"'");
+                                                      if(rs.next()){
+                                                      id_producto =Short.parseShort(rs.getString("id_producto"));
+                                                      }
+                                                      }//fin del try - id del producto
+                                                      catch (Exception e){
+                                                            JOptionPane.showMessageDialog(null, "Error, id_producto","HELPER DEVELOPER",JOptionPane.INFORMATION_MESSAGE); 
+                                                      } finally{
+                  cc.getClose();
+             }//fin del id-catch del producto
+    }
 }

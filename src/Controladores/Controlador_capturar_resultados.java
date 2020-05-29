@@ -16,7 +16,7 @@ import si.Capturar_resultados;
 
 public class Controlador_capturar_resultados {
     public static float cantidaddesdelatablaeditable;
-    public static int id_a_actualizar_resultados, id_paciente, respuesta_para_activar_el_pdf;
+    public static int id_a_actualizar_resultados, id_paciente, respuesta_para_activar_el_pdf, id_producto;
     public static int id_paciente_para_el_paquete;
     public static String resultado_del_estudio="", nombre_credito_para_el_paquete="", estado_para_el_paquete="", fecha_para_el_paquete="";
     public static List<DESCRIPCION_VENTA> PRODUCTOS = new ArrayList<>();
