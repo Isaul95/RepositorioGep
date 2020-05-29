@@ -24,7 +24,7 @@ public class Controlador_capturar_resultados {
      public static void metodos_al_iniciar_entradasproductos0(int id_venta){
          if(Modelo_capturar_resultados.cantidad_de_estudios(id_venta)==1){//pretendiendo que es un solo estudio
              if(Modelo_capturar_resultados.verificandopaquete(id_venta).substring(0, 7).equalsIgnoreCase("PAQUETE")){//confirmando que sea un paquete
-             Modelo_capturar_resultados.obtener_id_paciente_nombre_credito_estado_fecha_para_el_paquete(id_venta);//OBTENEMOS LOS DATOS FALTANTES PARA ARMAR EL PAQUETE
+                 Modelo_capturar_resultados.obtener_id_paciente_nombre_credito_estado_fecha_para_el_paquete(id_venta);//OBTENEMOS LOS DATOS FALTANTES PARA ARMAR EL PAQUETE
                  Modelo_extrayendo_paquetes.armando_el_paquete(//ya para armar el paquete
                      Modelo_extrayendo_paquetes.id_que_pertencen_a_cada_paquete(//extrayendo los id que pertenecen al paquete
                              Modelo_capturar_resultados.verificandopaquete(id_venta)),//extrayendo el nombre del paquete de acuerdo al id_venta

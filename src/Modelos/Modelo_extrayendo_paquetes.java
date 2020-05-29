@@ -33,7 +33,7 @@ static ResultSet rs;
                                                       }
                                                       }//fin del try-precio del producto
                                                       catch (Exception e){
-                                                           JOptionPane.showMessageDialog(null, "ERROR EN METODO: conteodeventasrealizadasdehoy: "+e.getMessage(),"DEVELOPER HELPER", JOptionPane.ERROR_MESSAGE);      
+                                                           JOptionPane.showMessageDialog(null, "ERROR EN METODO: id_que_pertencen_a_cada_paquete: "+e.getMessage(),"DEVELOPER HELPER", JOptionPane.ERROR_MESSAGE);      
                                                       }// fin del precio-catch del producto
         finally{
                   cc.getClose();
@@ -63,7 +63,7 @@ static ResultSet rs;
                                                       }
                                                       }//fin del try-precio del producto//fin del try-precio del producto
                                                       catch (Exception e){
-                                                           JOptionPane.showMessageDialog(null, "ERROR EN METODO: conteodeventasrealizadasdehoy: "+e.getMessage(),"DEVELOPER HELPER", JOptionPane.ERROR_MESSAGE);      
+                                                           JOptionPane.showMessageDialog(null, "ERROR EN METODO: armando_el_paquete: "+e.getMessage(),"DEVELOPER HELPER", JOptionPane.ERROR_MESSAGE);      
                                                       }// fin del precio-catch del producto
         finally{
                   cc.getClose();
