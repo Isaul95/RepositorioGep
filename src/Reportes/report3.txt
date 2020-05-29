@@ -1,0 +1,114 @@
+
+
+
+
+  NOMBREGGG                            FECHA  2020/05/30
+  MEDICO                               EDAD:  5 AÑOS.
+        FF
+
+  ID:   13                             SEXO:  MASCULINO
+
+
+  FECHA 27/05/20 10:58                 FECHA  29/05/20 0
+
+
+
+      ESTUDIO    RESULT UNIDAD        REFERENCIA
+
+                      QUÍMICA CLÍNICA
+
+                            MENOR A 40.0 FACTOR
+                            PRINCIPAL DE RIESGO DE
+                            CARDIOPATIAS. MAYOR A 60.0
+                            FACTOR NEGATIVO DE RIESGO DE
+                            CARDIOPATIAS
+                            ESPECTOFOTOMETRÍA POR
+                            REFRACTANCIA
+  COLESTEROL DE AL  1  MG/DL
+
+                            65.0 - 130.0 140.0-159.0
+                            LIMITE ALTO 160.0 - 200.0 DE
+                            RIESGO ESPECTOFOTOMETRÍA POR
+                            REFLECTANCIA
+  COLESTEROL DE BA  2  MG/DL
+
+                            30.00 - 50.0 CÁLCULO
+                            ARITMÉTICO
+  COLESTEROL DE MU  3  MG/DL
+
+                            5.00 - 38 MASCULINOB 5.0 -
+                            31 FEMENINO  NADH.CINÉTICO
+                            UV. IFCC REAC. LÍQUIDO
+  ASPARTATO AMINO   4   U/L
+
+                            0.00 - 40.0 MASCULINO 0.00 -
+                            32 FEMENIO
+  ALANINO AMINO TR  5   U/L
+
+                            23.00 - 300.00
+                            ESPCTROFOTOMETRIA POR
+                            REFLECTANCIA
+  LIPASA            6   U/L
+
+                            0.00 - 10.00 MASC
+                            ESPECTROFOTOMETRIA
+  FOSFATASA ÁCIDA   7   U/L
+
+                        INMUNOLOGIA
+
+  Página2
+Todo el proceso analítico ha sído evaluado por controles de
+
+ Garantía de Calídad: Verificación sin costo de todo re
+
+ Su información será manejada correctamente de acuerdo
+
+
+
+                            HOMBRES: 0 - 10
+                            MUJERES 0 -15
+  VELOCIDAD DE SED  8  MM/HR
+
+                            MENOR A 5.00 NEGATIVO
+                            MAYOR A 5.00 POSITIVO
+                            QUIMIOLUMINISCENCIA
+  PÉPTIDO CICLICO   9  U/ML
+
+                      ENDOCRINOLOGIA
+
+                            MENOR AIGUAL 4.11 NEGATIVO
+                            MAYOR A 4.11 POSITIVO
+                            QUIMIOLUMINISCENCIA
+  ANTICUERPOS ANTI  0  UL/ML
+
+                            MENOR A 5.61 NEGATIVO MAYOR
+                            A 5.61 POSITIVO
+                            QUIMIOLUMINISCENCIA
+  ANICUERPOS ANTI   1  UL/ML
+
+             PERFIL DE MARCADORES TUMORALES 3
+
+                            0.00 – 5.00 Fem
+                            5.00 – 50.00 Fem EDAD
+                            GESTACIONAL 0.2 – 1 SEMANAS
+                            50.00 – 500.00 Fem EDAD
+                            GESTACIONAL 1 – 2 SEMANAS
+  BETA GONADOROFIN  2  MUL/M
+
+
+
+
+
+
+
+
+
+  Página2
+Todo el proceso analítico ha sído evaluado por controles de
+
+ Garantía de Calídad: Verificación sin costo de todo re
+
+ Su información será manejada correctamente de acuerdo
+
+
+
