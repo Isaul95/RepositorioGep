@@ -42,9 +42,9 @@ public class Controlador_Report_pdf {
                 parametro.put("Logo5", this.getClass().getResourceAsStream(logotipo));
                 parametro.put("firma5", this.getClass().getResourceAsStream(firma));
 
-                JasperReport reporte = null;
-                String path = "src/Reportes/report3.jasper";                
-                reporte = (JasperReport) JRLoader.loadObject(getClass().getResource("/Reportes/report3.jasper")); // ASI MANDO A LLAMAR LOS REPORTES CON .jasper 
+                JasperReport reporte = null; // String path = "src/Reportes/report3.jasper";
+                String path = "src/Reportes/report1.jasper";                
+                reporte = (JasperReport) JRLoader.loadObject(getClass().getResource("/Reportes/report1.jasper")); // ASI MANDO A LLAMAR LOS REPORTES CON .jasper 
                 // ========================= LLENADO DEL REPORTE  ======================  /
                 //  path --> LA RUTA DEL REPORTE
 //   --> LOS PARAMETROS K SE ENVIAN ALA REPORTE AKI SE RECIBEN IGUAL K CONEXION DB-->(ca) B.D
