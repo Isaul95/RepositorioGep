@@ -22,16 +22,17 @@ import si.Envio_email;
 import static si.Envio_email.emailsend;
 import si.SI;
 import si.nucleo;
-
+ 
 public class Controlador_Report_pdf {       
     private final String logotipo = "/Reportes/MEMBRETE2.jpg"; //  imagen del Logotipo----- logoAlk.jpg
+    private final String logoback2 = "/Reportes/MEMBRETE2.jpg"; // backimage.jpg
     private final String firma = "/Reportes/firma.png";      //  imahgen de firma.png
     // con el nom se obtiene la nomenclatura para el guaraddo del archivo pdf
     public static String nom = Capturar_resultados.id_paciente.getText()+"_"+Capturar_resultados.paciente.getText()+".pdf";
      public void Generacion_PDF_client(){                                           
    // ***********************    REPORTE DE USUARIOS    ************************** 
-        SI cc= new SI();
-        Connection ca= cc.conexion();
+        SI cc= new SI();  
+        Connection ca= cc.conexion();  
  
         int dialogButton = JOptionPane.YES_NO_OPTION;
         int result = JOptionPane.showConfirmDialog(null, "¿Desea Generar Reporte para el usuario?", "REPORTE GENERAL ESTUDIOS",dialogButton);
@@ -40,13 +41,14 @@ public class Controlador_Report_pdf {
                 Map parametro = new HashMap(); // parameter1 <<-- ESTE PARAMETRO VIENE DESDE EL REPORTE SOLO SE ESTA LLAMANDO 
                 parametro.put("parameter1",Capturar_resultados.id_venta.getText()); 
                 parametro.put("Logo5", this.getClass().getResourceAsStream(logotipo));
+                parametro.put("logoback", this.getClass().getResourceAsStream(logoback2));
                 parametro.put("firma5", this.getClass().getResourceAsStream(firma));
-
-                JasperReport reporte = null;
+System.out.println("aki desde controller id" + Capturar_resultados.id_venta.getText());
+                JasperReport reporte = null; // String path = "src/Reportes/report3.jasper";
                 String path = "src/Reportes/report3.jasper";                
                 reporte = (JasperReport) JRLoader.loadObject(getClass().getResource("/Reportes/report3.jasper")); // ASI MANDO A LLAMAR LOS REPORTES CON .jasper 
                 // ========================= LLENADO DEL REPORTE  ======================  /
-                //  path --> LA RUTA DEL REPORTE
+                //  path --> LA RUTA DEL REPORTE 
 //   --> LOS PARAMETROS K SE ENVIAN ALA REPORTE AKI SE RECIBEN IGUAL K CONEXION DB-->(ca) B.D
                 JasperPrint jprint = JasperFillManager.fillReport(reporte, parametro, ca);    
 //JOptionPane.showMessageDialog(null, "juntando nomenclatuta -->>"+Capturar_resultados.id_venta.getText()+"_"+Capturar_resultados.paciente.getText());                
