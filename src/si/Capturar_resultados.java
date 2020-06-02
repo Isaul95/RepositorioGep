@@ -285,7 +285,7 @@ public Capturar_resultados(int id_venta_a_capturar_resultados){
     private void envio_emailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_envio_emailActionPerformed
         if(Controladorventa.noduplicar_envio_email==false){
         new Envio_email().setVisible(true);
-        Envio_email.File.setText(Controlador_Report_pdf.nom);        
+        Envio_email.File.setText(Capturar_resultados.id_paciente.getText()+"_"+Capturar_resultados.paciente.getText()+".pdf");        
         }
     }//GEN-LAST:event_envio_emailActionPerformed
 
