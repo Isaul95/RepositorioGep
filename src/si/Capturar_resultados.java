@@ -274,8 +274,12 @@ public Capturar_resultados(int id_venta_a_capturar_resultados){
 
     private void genetrar_PdfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_genetrar_PdfActionPerformed
         // GENERANDO PDF DE LCIENTES
-      Controlador_Report_pdf n = new Controlador_Report_pdf();
-      n.Generacion_PDF_client(); // llamando el metodo con el obj          
+        if(Modelo_capturar_resultados.HAY_UN_PAQUETE_EN_LA_VENTA(Controlador_capturar_resultados.id_a_actualizar_resultados)){
+            JOptionPane.showMessageDialog(null,"HAY UN PAQUETE EN LA VENTA");
+        }else{
+             Controlador_Report_pdf n = new Controlador_Report_pdf();
+      n.Generacion_PDF_client(); // llamando el metodo con el obj  
+        }
     }//GEN-LAST:event_genetrar_PdfActionPerformed
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed

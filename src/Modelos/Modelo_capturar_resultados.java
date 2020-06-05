@@ -242,4 +242,23 @@ try{ Connection ca= cc.conexion();// CUENTA EL TODAL DE CUANTAS VENTAS SE REALIZ
                   cc.getClose();
              }//fin del id-catch del producto
     }
+   public static boolean HAY_UN_PAQUETE_EN_LA_VENTA(int id_venta){
+       boolean soy_verdad = false;
+              try{ Connection ca= cc.conexion();//el id del producto
+                                                      sent  =(Statement)ca.createStatement();
+                                                      rs = sent.executeQuery("select nombre_producto  from  descripcion_de_venta where nombre_producto LIKE 'PAQUETE%' AND ID_VENTA ='"+id_venta+"'  AND ESTADO ='Realizada'");
+                                                      if(rs.next()){
+                                                          soy_verdad=true;
+                                                
+                                                      }else{
+                                                          soy_verdad=false;
+                                                      }
+                                                      }//fin del try - id del producto
+                                                      catch (Exception e){
+                                                            JOptionPane.showMessageDialog(null, "Error, id_producto","HELPER DEVELOPER",JOptionPane.INFORMATION_MESSAGE); 
+                                                      } finally{
+                  cc.getClose();
+             }//fin del id-catch del producto
+             return soy_verdad;
+   }
 }
