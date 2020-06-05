@@ -1,8 +1,8 @@
 
 package Controladores;
+
 import Modelos.Modelo_capturar_resultados;
 import Modelos.Modelo_proceso_email;
-import java.io.FileNotFoundException;
 import java.sql.Connection;
 import java.util.HashMap;
 import java.util.Map;
@@ -20,17 +20,18 @@ import net.sf.jasperreports.view.JasperViewer;
 import si.Capturar_resultados;
 import static si.Capturar_resultados.envio_email;
 import si.Envio_email;
-import static si.Envio_email.emailsend;
 import si.SI;
 import si.nucleo;
- 
-public class Controlador_Report_pdf {       
-    private final String logotipo = "/Reportes/original.jpg"; //  imagen del Logotipo----- logoAlk.jpg
+
+
+public class Controlador_Report_pdf_paquetes {
+    
+        private final String logotipo = "/Reportes/original.jpg"; //  imagen del Logotipo----- logoAlk.jpg
     private final String logoback2 = "/Reportes/original.jpg"; // backimage.jpg
     private final String firma = "/Reportes/firma.png";      //  imahgen de firma.png
     // con el nom se obtiene la nomenclatura para el guaraddo del archivo pdf
     //public static String nom = Capturar_resultados.id_paciente.getText()+"_"+Capturar_resultados.paciente.getText()+".pdf";
-     public void Generacion_PDF_client(){                                           
+     public void Generacion_PDF_client_paquetes(){                                           
    // ***********************    REPORTE DE USUARIOS    ************************** 
         SI cc= new SI();  
         Connection ca= cc.conexion();  
@@ -46,8 +47,8 @@ public class Controlador_Report_pdf {
                 parametro.put("firma5", this.getClass().getResourceAsStream(firma));
 System.out.println("aki desde controller id" + Capturar_resultados.id_venta.getText());
                 JasperReport reporte = null; // String path = "src/Reportes/report3.jasper";
-                String path = "src/Reportes/report3.jasper";                
-                reporte = (JasperReport) JRLoader.loadObject(getClass().getResource("/Reportes/report3.jasper")); // ASI MANDO A LLAMAR LOS REPORTES CON .jasper 
+                String path = "src/Reportes/report3_1.jasper";                
+                reporte = (JasperReport) JRLoader.loadObject(getClass().getResource("/Reportes/report3_1.jasper")); // ASI MANDO A LLAMAR LOS REPORTES CON .jasper 
                 // ========================= LLENADO DEL REPORTE  ======================  /
                 //  path --> LA RUTA DEL REPORTE 
 //   --> LOS PARAMETROS K SE ENVIAN ALA REPORTE AKI SE RECIBEN IGUAL K CONEXION DB-->(ca) B.D
@@ -72,18 +73,6 @@ System.out.println("aki desde controller id" + Capturar_resultados.id_venta.getT
             }
            
         }   
-     } // fin del metodo      
-          
-         public void btn_Envio_email() {
-        if (Envio_email.para.getText().equals("") || Envio_email.asunto.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "No ha digitado el destinatario y/o el asunto");
-        } else {                        
-                Modelo_proceso_email objeto = new Modelo_proceso_email(Envio_email.para, Envio_email.asunto,/*pantalla_Principal.texto,pantalla_Principal.ruta,*/ Capturar_resultados.id_paciente.getText()+"_"+Capturar_resultados.paciente.getText()+".pdf", Envio_email.send_message);    
-                objeto.start();
-                objeto = null;
-            
-        }
-    }    
+     } // fin del metodo                         
+    
 }
-
-

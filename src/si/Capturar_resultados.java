@@ -6,6 +6,7 @@
 package si;
 import Controladores.Controladorventa;
 import Controladores.Controlador_Report_pdf;
+import Controladores.Controlador_Report_pdf_paquetes;
 import Controladores.Controlador_capturar_resultados;
 import Modelos.Modelo_capturar_resultados;
 import javax.swing.JOptionPane;
@@ -276,9 +277,11 @@ public Capturar_resultados(int id_venta_a_capturar_resultados){
         // GENERANDO PDF DE LCIENTES
         if(Modelo_capturar_resultados.HAY_UN_PAQUETE_EN_LA_VENTA(Controlador_capturar_resultados.id_a_actualizar_resultados)){
             JOptionPane.showMessageDialog(null,"HAY UN PAQUETE EN LA VENTA");
+            Controlador_Report_pdf_paquetes pac = new Controlador_Report_pdf_paquetes();
+            pac.Generacion_PDF_client_paquetes(); // llamando el reporte de paketes
         }else{
              Controlador_Report_pdf n = new Controlador_Report_pdf();
-      n.Generacion_PDF_client(); // llamando el metodo con el obj  
+      n.Generacion_PDF_client(); // llamando el metodo con el obj  reporte  normal
         }
     }//GEN-LAST:event_genetrar_PdfActionPerformed
 
