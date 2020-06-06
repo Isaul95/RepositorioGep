@@ -44,46 +44,15 @@ public class Modelo_registro_producto extends Controlador_registro_producto{
         }
         return lista_llenado_categoria_estudios;
     }
-    public static void registrar_descripcion_producto(){
+    public static void registrar_producto(String categoria){
         try{Connection ca= cc.conexion();
-                String sql = "INSERT INTO descripcion_estudios(unidades,valordereferencia)  VALUES (?,?)";
-                PreparedStatement pst = ca.prepareCall(sql);
-                pst.setString(1,Registro_producto.unidades.getText().toUpperCase());
-                pst.setString(2,Registro_producto.valor_referencia.getText().toUpperCase());
-                int a=pst.executeUpdate();
-                if(a>0){
-                   // JOptionPane.showMessageDialog(null,"DESCRIPCION ESTUDIO GUARDADO CORRECTAMENTE");
-                }
-            } catch(SQLException e)  {
-                //JOptionPane.showMessageDialog(null,"ERROR DE DATOS");
-                JOptionPane.showMessageDialog(null, "Error registrar_descripcion_producto" + e.getMessage());
-            }
-    }
-    public static void obtener_el_ultimo_id_descripcion_producto(){
-            try{ Connection ca= cc.conexion();
-                          sent = ca.createStatement();
-                          ResultSet rs= sent.executeQuery("SELECT  max(id_descripcion) FROM  descripcion_estudios");
-                          if(rs.next()){
-                                   id_descripcion_producto=rs.getShort(1);
-                         }
-                         }catch(Exception a){
-                                JOptionPane.showMessageDialog(null, "Error, obtener_el_ultimo_id_descripcion_producto","HELPER DEVELOPER",JOptionPane.INFORMATION_MESSAGE); 
-                                                     }finally{
-                  cc.getClose();
-             }
-    }
-    public static void registrar_producto(int id_descripcion,String categoria){
-        try{Connection ca= cc.conexion();
-                String sql1 = "INSERT INTO productos (nombre_producto,categoria_estudios,descripcion_estudio,precio,cantidad,fecha_de_caducidad,fecha)  VALUES (?,?,?,?,?,?,?)";
+                String sql1 = "INSERT INTO productos (nombre_producto,categoria_estudios,unidades,valordereferencia,precio)  VALUES (?,?,?,?,?)";
                 PreparedStatement pst1 = ca.prepareCall(sql1);
                 pst1.setString(1,Registro_producto.estudio.getText().toUpperCase());
                 pst1.setString(2,categoria.toUpperCase());
-                pst1.setInt(3, id_descripcion);
-                pst1.setFloat(4, Float.parseFloat(String.valueOf(Registro_producto.precio.getText())));
-                pst1.setFloat(5, 0);
-                pst1.setString(6,"Sin fecha de caducidad");
-                pst1.setString(7,Controladorventa.fecha());
-
+                pst1.setString(3,Registro_producto.unidades.getText().toUpperCase());
+                pst1.setString(4,Registro_producto.valor_referencia.getText().toUpperCase());
+                pst1.setFloat(5, Float.parseFloat(String.valueOf(Registro_producto.precio.getText())));
                 int a=pst1.executeUpdate();
                 if(a>0){
                     JOptionPane.showMessageDialog(null,"PRODUCTO GUARDADO CORRECTAMENTE","EXITO",JOptionPane.INFORMATION_MESSAGE);
@@ -93,5 +62,8 @@ public class Modelo_registro_producto extends Controlador_registro_producto{
                 //JOptionPane.showMessageDialog(null,"ERROR DE DATOS");
                 JOptionPane.showMessageDialog(null, "Error registrar_producto" + e.getMessage());
             }
+        catch(NumberFormatException nE){
+            JOptionPane.showMessageDialog(null, "Verifique que ingresa ccorrectamente los valores en donde corresponden");
+        }
     }
 }

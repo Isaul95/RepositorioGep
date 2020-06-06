@@ -31,9 +31,7 @@ public class Controlador_registro_producto {
                 ||Registro_producto.precio.getText().equals("0")){
             JOptionPane.showMessageDialog(null,"Llene todos los campos de texto antes de guardar cambios","                              AVISO",JOptionPane.INFORMATION_MESSAGE);
         }else{
-            Modelo_registro_producto.registrar_descripcion_producto();
-        Modelo_registro_producto.obtener_el_ultimo_id_descripcion_producto();
-        Modelo_registro_producto.registrar_producto(id_descripcion_producto,Registro_producto.nueva_categoria.getText());
+         Modelo_registro_producto.registrar_producto(Registro_producto.nueva_categoria.getText());
         Modelo_registro_producto.llenarcombotipoproducto();
         RetornarValoresRegistro();
         }
@@ -47,9 +45,7 @@ public class Controlador_registro_producto {
                 ||Registro_producto.precio.getText().equals("0")){
             JOptionPane.showMessageDialog(null,"Llene todos los campos de texto antes de guardar cambios","                              AVISO",JOptionPane.INFORMATION_MESSAGE);
         }else{
-            Modelo_registro_producto.registrar_descripcion_producto();
-        Modelo_registro_producto.obtener_el_ultimo_id_descripcion_producto();
-        Modelo_registro_producto.registrar_producto(id_descripcion_producto,Registro_producto.tipodecategoria.getSelectedItem().toString());
+       Modelo_registro_producto.registrar_producto(Registro_producto.tipodecategoria.getSelectedItem().toString());
         Modelo_registro_producto.llenarcombotipoproducto();
         RetornarValoresRegistro();
         }
