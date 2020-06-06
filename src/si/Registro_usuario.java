@@ -162,7 +162,7 @@ public class Registro_usuario extends javax.swing.JFrame {
 
         jLabel3.setBackground(new java.awt.Color(0, 0, 0));
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel3.setText("Registro Nuevo Usuario");
+        jLabel3.setText("Registrar nuevo usuario");
         jPanel2.add(jLabel3);
         jLabel3.setBounds(210, 10, 230, 30);
 

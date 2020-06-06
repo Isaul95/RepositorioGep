@@ -58,10 +58,10 @@ static ResultSet rs;
                 modeloT.addRow(columna);
             }        TableColumnModel columnModel =  tablaD.getColumnModel();
    // columnModel.getColumn(0).setPreferredWidth(250); columnModel.getColumn(1).setPreferredWidth(50); 
-    columnModel.getColumn(0).setMaxWidth(520);
-    columnModel.getColumn(0).setMinWidth(520);
-    columnModel.getColumn(1).setMaxWidth(120);
-    columnModel.getColumn(1).setMinWidth(120);
+    columnModel.getColumn(0).setMaxWidth(560);
+    columnModel.getColumn(0).setMinWidth(560);
+    columnModel.getColumn(1).setMaxWidth(220);
+    columnModel.getColumn(1).setMinWidth(220);
                         modeloT.addTableModelListener(new TableModelListener(){
                 @Override
                 public void tableChanged(TableModelEvent e) {

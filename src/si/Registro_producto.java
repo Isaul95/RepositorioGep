@@ -57,7 +57,7 @@ public class Registro_producto extends javax.swing.JFrame {
         B_registro = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        tipodecategoria = new javax.swing.JComboBox<String>();
+        tipodecategoria = new javax.swing.JComboBox<>();
         valor_referencia = new javax.swing.JTextField();
         unidades = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
@@ -188,9 +188,9 @@ public class Registro_producto extends javax.swing.JFrame {
 
         jLabel3.setBackground(new java.awt.Color(0, 0, 0));
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel3.setText("Registro Nuevo Usuario");
+        jLabel3.setText("Registrar nuevo producto");
         jPanel2.add(jLabel3);
-        jLabel3.setBounds(210, 10, 230, 30);
+        jLabel3.setBounds(210, 10, 260, 30);
 
         B_cancelar.setBackground(new java.awt.Color(255, 255, 255));
         B_cancelar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N

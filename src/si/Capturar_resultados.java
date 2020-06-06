@@ -9,6 +9,11 @@ import Controladores.Controlador_Report_pdf;
 import Controladores.Controlador_Report_pdf_paquetes;
 import Controladores.Controlador_capturar_resultados;
 import Modelos.Modelo_capturar_resultados;
+import java.awt.Desktop;
+import java.io.File;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 /**
  *
@@ -69,6 +74,7 @@ public Capturar_resultados(int id_venta_a_capturar_resultados){
         id_paciente = new javax.swing.JLabel();
         medico = new javax.swing.JLabel();
         jLabel83 = new javax.swing.JLabel();
+        jLabel87 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -116,7 +122,7 @@ public Capturar_resultados(int id_venta_a_capturar_resultados){
         ));
         jScrollPane2.setViewportView(Jtable_ProductosEntradas);
 
-        jPanel33.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 320, 640, 200));
+        jPanel33.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 320, 770, 200));
 
         fecha_hora_ingreso.setBackground(new java.awt.Color(0, 0, 0));
         fecha_hora_ingreso.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
@@ -128,25 +134,25 @@ public Capturar_resultados(int id_venta_a_capturar_resultados){
         id_venta.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         id_venta.setForeground(new java.awt.Color(102, 102, 102));
         id_venta.setText("idVenta:");
-        jPanel33.add(id_venta, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 50, 120, -1));
+        jPanel33.add(id_venta, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 50, 170, -1));
 
         paciente.setBackground(new java.awt.Color(0, 0, 0));
         paciente.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         paciente.setForeground(new java.awt.Color(102, 102, 102));
         paciente.setText("dbPaciente:");
-        jPanel33.add(paciente, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 80, 430, -1));
+        jPanel33.add(paciente, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 80, 630, -1));
 
         edad.setBackground(new java.awt.Color(0, 0, 0));
         edad.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         edad.setForeground(new java.awt.Color(102, 102, 102));
         edad.setText("dbEdad:");
-        jPanel33.add(edad, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 160, 110, -1));
+        jPanel33.add(edad, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 160, 180, -1));
 
         sexo.setBackground(new java.awt.Color(0, 0, 0));
         sexo.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         sexo.setForeground(new java.awt.Color(102, 102, 102));
         sexo.setText("dbSexo:");
-        jPanel33.add(sexo, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 200, 190, -1));
+        jPanel33.add(sexo, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 200, 270, -1));
 
         fecha_nacimiento.setBackground(new java.awt.Color(0, 0, 0));
         fecha_nacimiento.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
@@ -162,17 +168,17 @@ public Capturar_resultados(int id_venta_a_capturar_resultados){
         jLabel81.setBackground(new java.awt.Color(0, 0, 0));
         jLabel81.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel81.setText("Paciente:");
-        jPanel33.add(jLabel81, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 80, 120, -1));
+        jPanel33.add(jLabel81, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 80, 90, -1));
 
         jLabel82.setBackground(new java.awt.Color(0, 0, 0));
         jLabel82.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel82.setText("Edad:");
-        jPanel33.add(jLabel82, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 160, 80, -1));
+        jPanel33.add(jLabel82, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 160, 60, -1));
 
         jLabel84.setBackground(new java.awt.Color(0, 0, 0));
         jLabel84.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel84.setText("Sexo:");
-        jPanel33.add(jLabel84, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 200, 80, -1));
+        jPanel33.add(jLabel84, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 200, 60, -1));
 
         jLabel85.setBackground(new java.awt.Color(0, 0, 0));
         jLabel85.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
@@ -193,7 +199,7 @@ public Capturar_resultados(int id_venta_a_capturar_resultados){
                 genetrar_PdfActionPerformed(evt);
             }
         });
-        jPanel33.add(genetrar_Pdf, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 530, 170, 60));
+        jPanel33.add(genetrar_Pdf, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 530, 170, 60));
 
         gastos_btn_back.setBackground(new java.awt.Color(255, 255, 255));
         gastos_btn_back.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -205,7 +211,7 @@ public Capturar_resultados(int id_venta_a_capturar_resultados){
                 gastos_btn_backActionPerformed(evt);
             }
         });
-        jPanel33.add(gastos_btn_back, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 530, 170, 60));
+        jPanel33.add(gastos_btn_back, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 30, 140, 40));
 
         envio_email.setBackground(new java.awt.Color(255, 255, 255));
         envio_email.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -216,54 +222,69 @@ public Capturar_resultados(int id_venta_a_capturar_resultados){
                 envio_emailActionPerformed(evt);
             }
         });
-        jPanel33.add(envio_email, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 530, 170, 60));
+        jPanel33.add(envio_email, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 530, 170, 60));
 
         jLabel86.setBackground(new java.awt.Color(0, 0, 0));
         jLabel86.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel86.setText("No. paciente");
-        jPanel33.add(jLabel86, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 50, 120, -1));
+        jPanel33.add(jLabel86, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 50, 120, -1));
 
         id_paciente.setBackground(new java.awt.Color(0, 0, 0));
         id_paciente.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         id_paciente.setForeground(new java.awt.Color(102, 102, 102));
         id_paciente.setText("idVenta:");
-        jPanel33.add(id_paciente, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 50, 120, -1));
+        jPanel33.add(id_paciente, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 50, 160, -1));
 
         medico.setBackground(new java.awt.Color(0, 0, 0));
         medico.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         medico.setForeground(new java.awt.Color(102, 102, 102));
         medico.setText("dbPaciente:");
-        jPanel33.add(medico, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 120, 430, -1));
+        jPanel33.add(medico, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 120, 630, -1));
 
         jLabel83.setBackground(new java.awt.Color(0, 0, 0));
         jLabel83.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel83.setText("Medico:");
-        jPanel33.add(jLabel83, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 120, 120, -1));
+        jPanel33.add(jLabel83, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 120, 80, -1));
+
+        jLabel87.setBackground(new java.awt.Color(255, 153, 153));
+        jLabel87.setFont(new java.awt.Font("Dialog", 1, 21)); // NOI18N
+        jLabel87.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel87.setText("Ruta de archivos: C:/reportes");
+        jLabel87.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel87.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel87MouseClicked(evt);
+            }
+        });
+        jPanel33.add(jLabel87, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 550, 300, -1));
 
         producto_sobrante3.add(jPanel33);
-        jPanel33.setBounds(10, 10, 690, 600);
-
-        agregar_articulo.add(producto_sobrante3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 700, 620));
+        jPanel33.setBounds(10, 10, 810, 600);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 718, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(producto_sobrante3, javax.swing.GroupLayout.PREFERRED_SIZE, 834, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addContainerGap(420, Short.MAX_VALUE)
+                    .addComponent(agregar_articulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(420, Short.MAX_VALUE)))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(14, Short.MAX_VALUE)
+                .addComponent(producto_sobrante3, javax.swing.GroupLayout.PREFERRED_SIZE, 620, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                     .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(agregar_articulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 640, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                    .addContainerGap(10, Short.MAX_VALUE)
-                    .addComponent(agregar_articulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(10, Short.MAX_VALUE)))
         );
 
         pack();
@@ -295,6 +316,14 @@ public Capturar_resultados(int id_venta_a_capturar_resultados){
         Envio_email.File.setText(Capturar_resultados.id_paciente.getText()+"_"+Capturar_resultados.paciente.getText()+".pdf");        
         }
     }//GEN-LAST:event_envio_emailActionPerformed
+
+    private void jLabel87MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel87MouseClicked
+        try {
+            Desktop.getDesktop().open(new File("C:\\reportes"));
+        } catch (IOException ex) {
+            Logger.getLogger(Archivos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jLabel87MouseClicked
 
     /**
      * @param args the command line arguments
@@ -351,6 +380,7 @@ public Capturar_resultados(int id_venta_a_capturar_resultados){
     private javax.swing.JLabel jLabel84;
     private javax.swing.JLabel jLabel85;
     private javax.swing.JLabel jLabel86;
+    private javax.swing.JLabel jLabel87;
     private javax.swing.JPanel jPanel33;
     private javax.swing.JScrollPane jScrollPane2;
     public static javax.swing.JLabel medico;

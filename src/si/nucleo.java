@@ -312,7 +312,7 @@ user.setText(usuarioname);
                 busquedaKeyReleased(evt);
             }
         });
-        venta.add(busqueda, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 450, 250, 30));
+        venta.add(busqueda, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 450, 610, 30));
 
         jLabel80.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         jLabel80.setText("Busqueda de estudios.");

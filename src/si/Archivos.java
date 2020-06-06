@@ -1,7 +1,12 @@
 package si;
 import Controladores.Controladorexistencias;
 import Controladores.Controladorventa;
+import java.awt.Desktop;
 import java.awt.event.KeyEvent;
+import java.io.File;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 public class Archivos extends javax.swing.JFrame{
@@ -73,7 +78,14 @@ public class Archivos extends javax.swing.JFrame{
         busqueda.setBounds(290, 60, 440, 30);
 
         jLabel80.setFont(new java.awt.Font("Dialog", 1, 21)); // NOI18N
-        jLabel80.setText("Ruta de descarga: C:/reportes_descargados");
+        jLabel80.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel80.setText("Ruta de archivos descargados: C:/reportes_descargados");
+        jLabel80.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel80.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel80MouseClicked(evt);
+            }
+        });
         jPanel2.add(jLabel80);
         jLabel80.setBounds(20, 10, 590, 28);
 
@@ -102,9 +114,13 @@ public class Archivos extends javax.swing.JFrame{
         jScrollPane2.setBounds(0, 100, 790, 290);
 
         jLabel81.setFont(new java.awt.Font("Dialog", 1, 22)); // NOI18N
+        jLabel81.setForeground(new java.awt.Color(204, 204, 204));
         jLabel81.setText("Busqueda de estudios.");
         jPanel2.add(jLabel81);
         jLabel81.setBounds(20, 60, 300, 29);
+
+        jPanel1.add(jPanel2);
+        jPanel2.setBounds(10, 50, 800, 390);
 
         Corte_btncancelar.setBackground(new java.awt.Color(255, 255, 255));
         Corte_btncancelar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -116,11 +132,8 @@ public class Archivos extends javax.swing.JFrame{
                 Corte_btncancelarActionPerformed(evt);
             }
         });
-        jPanel2.add(Corte_btncancelar);
-        Corte_btncancelar.setBounds(620, 0, 160, 50);
-
-        jPanel1.add(jPanel2);
-        jPanel2.setBounds(10, 50, 800, 390);
+        jPanel1.add(Corte_btncancelar);
+        Corte_btncancelar.setBounds(650, 0, 160, 40);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -161,6 +174,14 @@ public class Archivos extends javax.swing.JFrame{
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
        Controladorexistencias.eliminar_archivo();
     }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jLabel80MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel80MouseClicked
+     try {
+         Desktop.getDesktop().open(new File("C:\\reportes descargados"));
+     } catch (IOException ex) {
+         Logger.getLogger(Archivos.class.getName()).log(Level.SEVERE, null, ex);
+     }
+    }//GEN-LAST:event_jLabel80MouseClicked
 
     /**
      * @param args the command line arguments
