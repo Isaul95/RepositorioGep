@@ -37,7 +37,7 @@ public class Controlador_Report_pdf_paquetes {
         Connection ca= cc.conexion();  
  
         int dialogButton = JOptionPane.YES_NO_OPTION;
-        int result = JOptionPane.showConfirmDialog(null, "¿Desea Generar Reporte para el usuario?", "REPORTE GENERAL ESTUDIOS",dialogButton);
+        int result = JOptionPane.showConfirmDialog(null, "¿Generar Reporte Paquetes: para el usuario?", "PAQUETE GENERAL DE ESTUDIOS",dialogButton);
         if(result == 0){            
             try {
                 Map parametro = new HashMap(); // parameter1 <<-- ESTE PARAMETRO VIENE DESDE EL REPORTE SOLO SE ESTA LLAMANDO 
