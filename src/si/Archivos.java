@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 
 public class Archivos extends javax.swing.JFrame{
@@ -179,7 +180,7 @@ public class Archivos extends javax.swing.JFrame{
      try {
          Desktop.getDesktop().open(new File("C:\\reportes descargados"));
      } catch (IOException ex) {
-         Logger.getLogger(Archivos.class.getName()).log(Level.SEVERE, null, ex);
+         JOptionPane.showMessageDialog(null,"La carpeta no existe.","Error, verifique",JOptionPane.ERROR_MESSAGE);
      }
     }//GEN-LAST:event_jLabel80MouseClicked
 

@@ -321,7 +321,7 @@ public Capturar_resultados(int id_venta_a_capturar_resultados){
         try {
             Desktop.getDesktop().open(new File("C:\\reportes"));
         } catch (IOException ex) {
-            Logger.getLogger(Archivos.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null,"La carpeta no existe.","Error, verifique",JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jLabel87MouseClicked
 
