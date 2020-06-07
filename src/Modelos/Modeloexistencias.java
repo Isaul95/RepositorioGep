@@ -198,7 +198,7 @@ public class Modeloexistencias extends Controladorexistencias {
                          }
                           guardar_el_archivo_descargado(is,archivo);
                          }catch(Exception a){
-                                       JOptionPane.showMessageDialog(null, "Error, get_id_usuario; SELECT *  FROM  user where nombre_usuario = ","HELPER DEVELOPER",JOptionPane.INFORMATION_MESSAGE); 
+                                       JOptionPane.showMessageDialog(null, "Error, descarga_de_archivo; SELECT archivo  FROM  archivos where nombre_archivo  = ","HELPER DEVELOPER",JOptionPane.INFORMATION_MESSAGE); 
                             }finally{
                             cc.getClose(); 
                            }

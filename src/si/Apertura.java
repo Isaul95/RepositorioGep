@@ -3,6 +3,7 @@ package si;
 import Controladores.Controladorapertura;
 import Controladores.Controladorventa;
 import java.awt.Color;
+import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -48,7 +49,6 @@ public class Apertura extends javax.swing.JFrame implements Runnable{
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        Corte_btnImprimirticket = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         Fecha = new javax.swing.JLabel();
         Reloj = new javax.swing.JLabel();
@@ -73,19 +73,6 @@ public class Apertura extends javax.swing.JFrame implements Runnable{
         jLabel1.setText("Monto para apertura");
         jPanel2.add(jLabel1);
         jLabel1.setBounds(10, 170, 270, 60);
-
-        Corte_btnImprimirticket.setBackground(new java.awt.Color(255, 255, 255));
-        Corte_btnImprimirticket.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        Corte_btnImprimirticket.setForeground(new java.awt.Color(255, 0, 0));
-        Corte_btnImprimirticket.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/casilla-de-verificacion (1).png"))); // NOI18N
-        Corte_btnImprimirticket.setText("Abrir caja");
-        Corte_btnImprimirticket.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Corte_btnImprimirticketActionPerformed(evt);
-            }
-        });
-        jPanel2.add(Corte_btnImprimirticket);
-        Corte_btnImprimirticket.setBounds(10, 270, 250, 70);
 
         jLabel3.setBackground(new java.awt.Color(0, 0, 0));
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
@@ -122,6 +109,11 @@ public class Apertura extends javax.swing.JFrame implements Runnable{
                 montoFocusLost(evt);
             }
         });
+        monto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                montoKeyReleased(evt);
+            }
+        });
         jPanel2.add(monto);
         monto.setBounds(290, 170, 200, 60);
 
@@ -136,7 +128,7 @@ public class Apertura extends javax.swing.JFrame implements Runnable{
             }
         });
         jPanel2.add(Corte_btncancelar);
-        Corte_btncancelar.setBounds(310, 270, 250, 70);
+        Corte_btncancelar.setBounds(170, 300, 250, 70);
 
         user.setBackground(new java.awt.Color(0, 0, 0));
         user.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
@@ -166,10 +158,6 @@ public class Apertura extends javax.swing.JFrame implements Runnable{
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void Corte_btnImprimirticketActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Corte_btnImprimirticketActionPerformed
- Controladorapertura.registrarapertura();this.dispose(); new nucleo().setVisible(true);
-    }//GEN-LAST:event_Corte_btnImprimirticketActionPerformed
-
 
     private void montoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_montoFocusGained
     Controladorapertura.montoFocusGained();
@@ -182,6 +170,13 @@ public class Apertura extends javax.swing.JFrame implements Runnable{
     private void Corte_btncancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Corte_btncancelarActionPerformed
       dispose(); 
     }//GEN-LAST:event_Corte_btncancelarActionPerformed
+
+    private void montoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_montoKeyReleased
+   char tecla = evt.getKeyChar();
+        if(tecla==KeyEvent.VK_ENTER){
+             Controladorapertura.registrarapertura();this.dispose(); new nucleo().setVisible(true);
+        }
+    }//GEN-LAST:event_montoKeyReleased
 
     /**
      * @param args the command line arguments
@@ -220,7 +215,6 @@ public class Apertura extends javax.swing.JFrame implements Runnable{
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton Corte_btnImprimirticket;
     private javax.swing.JButton Corte_btncancelar;
     private javax.swing.JLabel Fecha;
     public static javax.swing.JLabel Reloj;

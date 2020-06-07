@@ -46,7 +46,7 @@ public class SI_Inicio extends javax.swing.JFrame {
     
       String user,estadoinactivo="N", pass;
       short resultopen, aperturahecha, resultadoclose, cierrehecho;
-      short id_usuario=0;
+     public static short id_usuario=0;
       String fechadehoy;
     String []datos = new String[4];
 
@@ -61,13 +61,9 @@ public class SI_Inicio extends javax.swing.JFrame {
         text_user = new javax.swing.JTextField();
         pass_user = new javax.swing.JPasswordField();
         jLabel2 = new javax.swing.JLabel();
-        iduser = new javax.swing.JTextField();
-        usuario = new javax.swing.JButton();
-        pass_user1 = new javax.swing.JPasswordField();
         jSeparator3 = new javax.swing.JSeparator();
         jSeparator4 = new javax.swing.JSeparator();
         jLabel3 = new javax.swing.JLabel();
-        jSeparator5 = new javax.swing.JSeparator();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -139,35 +135,6 @@ public class SI_Inicio extends javax.swing.JFrame {
         jLabel2.setText("Contraseña:");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 320, -1, -1));
 
-        iduser.setBackground(new java.awt.Color(0, 0, 51));
-        iduser.setFont(new java.awt.Font("Tahoma", 3, 18)); // NOI18N
-        iduser.setForeground(new java.awt.Color(255, 255, 255));
-        iduser.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        iduser.setText("Ingresa Usuario");
-        iduser.setBorder(null);
-        iduser.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jPanel1.add(iduser, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 280, 200, -1));
-
-        usuario.setBackground(new java.awt.Color(255, 255, 255));
-        usuario.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
-        usuario.setForeground(new java.awt.Color(255, 0, 51));
-        usuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/casilla-de-verificacion (1).png"))); // NOI18N
-        usuario.setText("ENTRAR");
-        usuario.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                usuarioActionPerformed(evt);
-            }
-        });
-        jPanel1.add(usuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 370, 410, 50));
-
-        pass_user1.setBackground(new java.awt.Color(0, 0, 51));
-        pass_user1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        pass_user1.setForeground(new java.awt.Color(255, 255, 255));
-        pass_user1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        pass_user1.setText("**********");
-        pass_user1.setBorder(null);
-        jPanel1.add(pass_user1, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 320, 200, -1));
-
         jSeparator3.setForeground(new java.awt.Color(0, 0, 0));
         jSeparator3.setCursor(new java.awt.Cursor(java.awt.Cursor.CROSSHAIR_CURSOR));
         jPanel1.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 350, 200, 10));
@@ -179,9 +146,6 @@ public class SI_Inicio extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel3.setText("Usuario:");
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 280, -1, -1));
-
-        jSeparator5.setCursor(new java.awt.Cursor(java.awt.Cursor.CROSSHAIR_CURSOR));
-        jPanel1.add(jSeparator5, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 310, 200, 10));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 900, 430));
 
@@ -228,74 +192,6 @@ public static String fecha(){ /* SE DECARA LA FECHA DEL SISTEMA */
                   cc.getClose();
              }
     }
-    private void usuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usuarioActionPerformed
-        // BOTON DE INGRESO PARA LOS USUARIOS
-     if (text_user.getText().equalsIgnoreCase("Ingresa Usuario") || pass_user.getText().equalsIgnoreCase("********")) { // 
-          JOptionPane.showMessageDialog(null, "Por favor Inserte su Usuario y Contraseña  \nPara Ingresar", "ALERTA", JOptionPane.WARNING_MESSAGE);
-        } else { 
-        user=text_user.getText();
-      pass=pass_user.getText(); //se guardan los datos del usuario
-    try { Connection ca= cc.conexion(); 
-            Statement st = ca.createStatement();
-            ResultSet rs= st.executeQuery( "SELECT * FROM user WHERE username='"+text_user.getText()+"' and  password='"+pass_user.getText()+"'");
-            while(rs.next()){ //ciclo para leer los datos en la variable rs
-            datos[0]=rs.getString("username"); 
-            datos[1]=rs.getString("password");
-            datos[2]=rs.getString("habilitado");
-            id_usuario=rs.getShort("id_usuario");
-            iduser.setText(String.valueOf(id_usuario));
-            }
-                if(datos[2].equalsIgnoreCase("N")){
-                JOptionPane.showMessageDialog(null,"Usuario Inactivo, por favor comunicate con tu administrador para recuperar tu usuario","               Lo sentimos",JOptionPane.WARNING_MESSAGE);
-            }
-            else{
-                    yacerrosistema();
-                     if(resultadoclose>0){
-                  JOptionPane.showMessageDialog(null,"Ya se hizo corte de caja, por lo tanto no se puede abrir hasta el día de mañana"," Espera un momento",JOptionPane.INFORMATION_MESSAGE); //Msg de bienvenida                                                                     
-             }
-              else if(user.equalsIgnoreCase(datos[0])&&pass.equalsIgnoreCase(datos[1])){ //comparacion entre lo escrito por el usuario y lo almacenado en la base de datos
-               yaseabriosistema();
-             if(aperturahecha==0){//Si el valor de apertua es mayo a 0, no se abrirá la ventana de apertura
-                 this.setVisible(false);  
-                              new Apertura().setVisible(true);
-                               this.setIconImage(null);
-             }
-             else{
-             this.setVisible(false);  
-                              nucleo m= new nucleo();
-                               this.setIconImage(null);
-             }
-            
-                }else{
-                    JOptionPane.showMessageDialog(null,"Usuario o Contraseña incorrecto \n Intentelo Nuevamente \n Resta " + (3 - timer) + " Intentos","Error",JOptionPane.WARNING_MESSAGE); //Msg de error
-                     text_user.setText("");
-                     pass_user.setText("");
-                 timer = timer + 1;
-                }
-                 if(timer == 3){
-                       JOptionPane.showMessageDialog(null,"Excedido el número de intentos \n Intentelo mas tarde ","Error de Ingreso",JOptionPane.ERROR_MESSAGE); //Msg de error
-                        try{
-           PreparedStatement ps = ca.prepareStatement ("UPDATE user SET habilitado='"+estadoinactivo+"'WHERE id_usuario='"+id_usuario+"'");
-                ps.executeUpdate();
- JOptionPane.showMessageDialog(null,"Tu usuario ha sido bloqueado, por favor comunicate con tu administrador para recuperar tu usuario","Lo sentimos",JOptionPane.WARNING_MESSAGE);
-        }catch(Exception e){
-            JOptionPane.showMessageDialog(null, "ERROR" + e.getMessage());
-        }finally{
-                  cc.getClose();
-             }  //Procediendo a bloquear usuario
-                       System.exit(0);  //Y ya una vez bloqueado el usuario, el programa se cerrara automaticamente
-                     }
-            }
-                 
-        } catch (SQLException ex) {
-            Logger.getLogger(SI_Inicio.class.getName()).log(Level.SEVERE, null, ex);
-        }
-           finally{
-                  cc.getClose();
-             }
-     }
-    }//GEN-LAST:event_usuarioActionPerformed
-
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
        System.exit(0);   
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -346,7 +242,6 @@ public static String fecha(){ /* SE DECARA LA FECHA DEL SISTEMA */
             datos[1]=rs.getString("password");
             datos[2]=rs.getString("habilitado");
             id_usuario=rs.getShort("id_usuario");
-            iduser.setText(String.valueOf(id_usuario));
             }
                 if(datos[2].equalsIgnoreCase("N")){
                 JOptionPane.showMessageDialog(null,"Usuario Inactivo, por favor comunicate con tu administrador para recuperar tu usuario","               Lo sentimos",JOptionPane.WARNING_MESSAGE);
@@ -375,7 +270,7 @@ public static String fecha(){ /* SE DECARA LA FECHA DEL SISTEMA */
                      pass_user.setText("");
                  timer = timer + 1;
                 }
-                 if(timer == 3){
+              /*   if(timer == 3){
                        JOptionPane.showMessageDialog(null,"Excedido el número de intentos \n Intentelo mas tarde ","Error de Ingreso",JOptionPane.ERROR_MESSAGE); //Msg de error
                         try{
            PreparedStatement ps = ca.prepareStatement ("UPDATE user SET habilitado='"+estadoinactivo+"'WHERE id_usuario='"+id_usuario+"'");
@@ -387,7 +282,7 @@ public static String fecha(){ /* SE DECARA LA FECHA DEL SISTEMA */
                   cc.getClose();
              }  //Procediendo a bloquear usuario
                        System.exit(0);  //Y ya una vez bloqueado el usuario, el programa se cerrara automaticamente
-                     }
+                     }*/
             }
                  
         } catch (SQLException ex) {
@@ -433,7 +328,6 @@ public static String fecha(){ /* SE DECARA LA FECHA DEL SISTEMA */
     }
   
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    public static javax.swing.JTextField iduser;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -442,10 +336,7 @@ public static String fecha(){ /* SE DECARA LA FECHA DEL SISTEMA */
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
-    private javax.swing.JSeparator jSeparator5;
     private javax.swing.JPasswordField pass_user;
-    private javax.swing.JPasswordField pass_user1;
     public static javax.swing.JTextField text_user;
-    public static javax.swing.JButton usuario;
     // End of variables declaration//GEN-END:variables
 }

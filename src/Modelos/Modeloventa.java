@@ -71,12 +71,12 @@ public static void get_id_usuario(){
       try{Connection ca= cc.conexion();// el id del usuario para obtener el id del usuario y comprobar si hay o no algun registro
                          try{ 
                           sent = ca.createStatement();
-                          ResultSet rs= sent.executeQuery("SELECT *  FROM  user where nombre_usuario ='"+nucleo.usuarioname+"'");
+                          ResultSet rs= sent.executeQuery("SELECT *  FROM  user where username ='"+nucleo.usuarioname+"'");
                           if(rs.next()){
                                    id_usuario=Short.parseShort(rs.getString("id_usuario"));
                          }
                          }catch(Exception a){
-                                       JOptionPane.showMessageDialog(null, "Error, get_id_usuario; SELECT *  FROM  user where nombre_usuario = ","HELPER DEVELOPER",JOptionPane.INFORMATION_MESSAGE); 
+                                       JOptionPane.showMessageDialog(null, "Error, get_id_usuario; SELECT *  FROM  user where nombre_usuario = "+a.getMessage(),"HELPER DEVELOPER",JOptionPane.INFORMATION_MESSAGE); 
    }finally{
                   cc.getClose();
              }
@@ -89,7 +89,7 @@ public static void get_id_usuario(){
                          }
                          }
       }catch(Exception w){
-                                       JOptionPane.showMessageDialog(null, "Error, get_id_usuario; INSERT INTO  venta ","HELPER DEVELOPER",JOptionPane.INFORMATION_MESSAGE); 
+                                       JOptionPane.showMessageDialog(null, "Error, get_id_usuario; INSERT INTO  venta "+w.getMessage(),"HELPER DEVELOPER",JOptionPane.INFORMATION_MESSAGE); 
    }finally{
                   cc.getClose();
              }//fin del id del usuario para comprobar si hay o no elementos ya guardados

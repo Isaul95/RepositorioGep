@@ -44,7 +44,7 @@ public class Controladorcortedecaja {
  public static final float pagopollo=20*90, tacos=60, almuerzo=28;//datos para la tabla utilidad
  public static float  totaldedescuentos,diferenciaentablautilidad, utilidades , ventasdeldia, gastosdeldia, montodeapertura, diferencia, diferenciafinal, precio;
  public static short apertura, numerodescuentos;
- public static int  id_usuario=Integer.parseInt(SI_Inicio.iduser.getText());
+ public static int  id_usuario=SI_Inicio.id_usuario;
 
    public static float ticketmonto, ticketventa, ticketgasto, ticketdiferencia;
 

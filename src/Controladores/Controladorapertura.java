@@ -16,7 +16,7 @@ import si.SI_Inicio;
  */
 public class Controladorapertura {
    
-     public static short id_usuario=Short.parseShort(SI_Inicio.iduser.getText());
+     public static short id_usuario=SI_Inicio.id_usuario;
     public static void registrarapertura(){
         Modeloapertura.Guardarapertura();
     }
