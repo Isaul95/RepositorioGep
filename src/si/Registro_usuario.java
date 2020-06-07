@@ -29,7 +29,7 @@ public class Registro_usuario extends javax.swing.JFrame {
   
  //Nombre de algunas variables  //TCC = CAMPO DE TEXTO PARA CONFIRMAR CONTRASEÑA   //CC  = LABEL DE CONFIRMAR CONTRASEÑA
     int resultadoprimerusuario;
-    String estadoactivo="Activo";
+    String estadoactivo="Y";
      // boolean primerusuario; //Obtiene el id del proveedor
            // String datos_proveedores_o_usuarios[]= new String[3];
    Statement sent;  
@@ -50,11 +50,13 @@ public class Registro_usuario extends javax.swing.JFrame {
     
     public void RetornarValoresRegistro(){ /* UN AVEZ K SE INGRESAN LOS DATOS RETORNA LOS VALORES DE LOS PLACEHOLD */
   user_nombre .setText("");
-      user_nombre.setForeground(new Color(135,193,193));
+      user_nombre.setBackground(new Color(135,193,193));
            user_usuario .setText("");
-               user_usuario.setForeground(new Color(135,193,193));
+               user_usuario.setBackground(new Color(135,193,193));
                     user_contra1.setText("");
-                         user_contra1.setForeground(new Color(135,193,193));                       
+                         user_contra1.setBackground(new Color(135,193,193));     
+                          user_contra2.setText("");
+                         user_contra2.setBackground(new Color(135,193,193));    
     }
  /*************** METODO de salida DONDE LE PREGUNTA AL USUARIO SI DESEA REALIZAR OTRA INSERCION DE USUARIO *******************/
     
@@ -72,6 +74,8 @@ public class Registro_usuario extends javax.swing.JFrame {
         user_contra1 = new javax.swing.JPasswordField();
         jLabel4 = new javax.swing.JLabel();
         user_contra2 = new javax.swing.JPasswordField();
+        user_type = new javax.swing.JComboBox();
+        jLabel5 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         B_cancelar = new javax.swing.JButton();
@@ -93,8 +97,8 @@ public class Registro_usuario extends javax.swing.JFrame {
         jLabel2.setBackground(new java.awt.Color(0, 0, 0));
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 17)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel2.setText("Confirme contraseña");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, -1, 23));
+        jLabel2.setText("Tipo de usuario:");
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 210, -1, 23));
 
         jLabel1.setBackground(new java.awt.Color(0, 0, 0));
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 17)); // NOI18N
@@ -132,7 +136,7 @@ public class Registro_usuario extends javax.swing.JFrame {
                 B_registroActionPerformed(evt);
             }
         });
-        jPanel1.add(B_registro, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 200, 140, 40));
+        jPanel1.add(B_registro, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 230, 140, 40));
 
         user_contra1.setBackground(new java.awt.Color(135, 193, 193));
         user_contra1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
@@ -154,7 +158,18 @@ public class Registro_usuario extends javax.swing.JFrame {
         user_contra2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
         jPanel1.add(user_contra2, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 160, 450, -1));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 670, 240));
+        user_type.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        user_type.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Usuario" }));
+        user_type.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(135, 193, 193)));
+        jPanel1.add(user_type, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 210, 190, -1));
+
+        jLabel5.setBackground(new java.awt.Color(0, 0, 0));
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 17)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel5.setText("Confirme contraseña");
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, -1, 23));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 670, 280));
 
         jPanel2.setBackground(new java.awt.Color(135, 193, 193));
         jPanel2.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -201,14 +216,17 @@ public class Registro_usuario extends javax.swing.JFrame {
               if(resultadoprimerusuario!=0){ //si el id resultante de la consulta es diferente de 0 quiere decir que ya hay por lo menos una venta en el sistema
           JOptionPane.showMessageDialog(null,"Usuario ya registrado");
               }
-              else {
+              else {int id_permiso;
                   try{
-                String sql = "INSERT INTO user( nombre, nombre_usuario, contraseña, estado_activo_inactivo)  VALUES (?,?,?,?)";
+                String sql = "INSERT INTO user( nombre, username, password, habilitado, id_permiso)  VALUES (?,?,?,?,?)";
                 PreparedStatement pst = ca.prepareCall(sql);
                 pst.setString(1,user_nombre.getText());
                 pst.setString(2,user_usuario.getText());
                 pst.setString(3,user_contra1.getText());
                 pst.setString(4,estadoactivo);
+                if(Registro_usuario.user_type.getSelectedItem().toString().equalsIgnoreCase("Administrador")){id_permiso=1;}
+                else{id_permiso=2;}
+                 pst.setInt(5,id_permiso);
 
                 int a=pst.executeUpdate();
                 if(a>0){
@@ -282,12 +300,14 @@ public class Registro_usuario extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPasswordField user_contra1;
     private javax.swing.JPasswordField user_contra2;
     private javax.swing.JTextField user_nombre;
+    public static javax.swing.JComboBox user_type;
     private javax.swing.JTextField user_usuario;
     // End of variables declaration//GEN-END:variables
 

@@ -30,7 +30,7 @@ public static float variablepago, piezassuficientes, cantidadporerrordeusuario,
  
     public static String  fechadesde="",fechahasta="", fechaparaventasdesde="", fechaparaventashasta="", fecha_nacimiento="";
 public static String nombredepiezaseleccionada="",nombre_paciente="", edad_paciente="",sexo_paciente, medico;
-public static String estadoinactivo="Inactivo", estadoactivo="Activo", NoP="",
+public static String  NoP="",
          estadorealizado="Realizada", estadoenturno="En turno";
 
  public static ArrayList storage = new ArrayList(); // para guardar los id de cada producto que se ha agregado a la tabla venta

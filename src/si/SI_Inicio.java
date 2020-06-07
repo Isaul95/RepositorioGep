@@ -44,7 +44,7 @@ public class SI_Inicio extends javax.swing.JFrame {
                  pass_user.setForeground(new Color(0, 0, 0));
                 }
     
-      String user,estadoinactivo="Inactivo", pass;
+      String user,estadoinactivo="N", pass;
       short resultopen, aperturahecha, resultadoclose, cierrehecho;
       short id_usuario=0;
       String fechadehoy;
@@ -237,15 +237,15 @@ public static String fecha(){ /* SE DECARA LA FECHA DEL SISTEMA */
       pass=pass_user.getText(); //se guardan los datos del usuario
     try { Connection ca= cc.conexion(); 
             Statement st = ca.createStatement();
-            ResultSet rs= st.executeQuery( "SELECT * FROM user WHERE nombre_usuario='"+text_user.getText()+"' or contraseña='"+pass_user.getText()+"'");
+            ResultSet rs= st.executeQuery( "SELECT * FROM user WHERE username='"+text_user.getText()+"' and  password='"+pass_user.getText()+"'");
             while(rs.next()){ //ciclo para leer los datos en la variable rs
-            datos[0]=rs.getString("nombre_usuario"); 
-            datos[1]=rs.getString("contraseña");
-            datos[2]=rs.getString("estado_activo_inactivo");
+            datos[0]=rs.getString("username"); 
+            datos[1]=rs.getString("password");
+            datos[2]=rs.getString("habilitado");
             id_usuario=rs.getShort("id_usuario");
             iduser.setText(String.valueOf(id_usuario));
             }
-                if(datos[2].equalsIgnoreCase("Inactivo")){
+                if(datos[2].equalsIgnoreCase("N")){
                 JOptionPane.showMessageDialog(null,"Usuario Inactivo, por favor comunicate con tu administrador para recuperar tu usuario","               Lo sentimos",JOptionPane.WARNING_MESSAGE);
             }
             else{
@@ -275,7 +275,7 @@ public static String fecha(){ /* SE DECARA LA FECHA DEL SISTEMA */
                  if(timer == 3){
                        JOptionPane.showMessageDialog(null,"Excedido el número de intentos \n Intentelo mas tarde ","Error de Ingreso",JOptionPane.ERROR_MESSAGE); //Msg de error
                         try{
-           PreparedStatement ps = ca.prepareStatement ("UPDATE user SET estado_activo_inactivo='"+estadoinactivo+"'WHERE id_usuario='"+id_usuario+"'");
+           PreparedStatement ps = ca.prepareStatement ("UPDATE user SET habilitado='"+estadoinactivo+"'WHERE id_usuario='"+id_usuario+"'");
                 ps.executeUpdate();
  JOptionPane.showMessageDialog(null,"Tu usuario ha sido bloqueado, por favor comunicate con tu administrador para recuperar tu usuario","Lo sentimos",JOptionPane.WARNING_MESSAGE);
         }catch(Exception e){
@@ -340,15 +340,15 @@ public static String fecha(){ /* SE DECARA LA FECHA DEL SISTEMA */
       pass=pass_user.getText(); //se guardan los datos del usuario
     try { Connection ca= cc.conexion(); 
             Statement st = ca.createStatement();
-            ResultSet rs= st.executeQuery( "SELECT * FROM user WHERE nombre_usuario='"+text_user.getText()+"' or contraseña='"+pass_user.getText()+"'");
+            ResultSet rs= st.executeQuery( "SELECT * FROM user WHERE username='"+text_user.getText()+"' and password='"+pass_user.getText()+"'");
             while(rs.next()){ //ciclo para leer los datos en la variable rs
-            datos[0]=rs.getString("nombre_usuario"); 
-            datos[1]=rs.getString("contraseña");
-            datos[2]=rs.getString("estado_activo_inactivo");
+            datos[0]=rs.getString("username"); 
+            datos[1]=rs.getString("password");
+            datos[2]=rs.getString("habilitado");
             id_usuario=rs.getShort("id_usuario");
             iduser.setText(String.valueOf(id_usuario));
             }
-                if(datos[2].equals("Inactivo")){
+                if(datos[2].equalsIgnoreCase("N")){
                 JOptionPane.showMessageDialog(null,"Usuario Inactivo, por favor comunicate con tu administrador para recuperar tu usuario","               Lo sentimos",JOptionPane.WARNING_MESSAGE);
             }
             else{
@@ -378,7 +378,7 @@ public static String fecha(){ /* SE DECARA LA FECHA DEL SISTEMA */
                  if(timer == 3){
                        JOptionPane.showMessageDialog(null,"Excedido el número de intentos \n Intentelo mas tarde ","Error de Ingreso",JOptionPane.ERROR_MESSAGE); //Msg de error
                         try{
-           PreparedStatement ps = ca.prepareStatement ("UPDATE user SET estado_activo_inactivo='"+estadoinactivo+"'WHERE id_usuario='"+id_usuario+"'");
+           PreparedStatement ps = ca.prepareStatement ("UPDATE user SET habilitado='"+estadoinactivo+"'WHERE id_usuario='"+id_usuario+"'");
                 ps.executeUpdate();
  JOptionPane.showMessageDialog(null,"Tu usuario ha sido bloqueado, por favor comunicate con tu administrador para recuperar tu usuario","Lo sentimos",JOptionPane.WARNING_MESSAGE);
         }catch(Exception e){
