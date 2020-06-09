@@ -120,6 +120,11 @@ public Capturar_resultados(int id_venta_a_capturar_resultados){
 
             }
         ));
+        Jtable_ProductosEntradas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Jtable_ProductosEntradasMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(Jtable_ProductosEntradas);
 
         jPanel33.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 320, 770, 200));
@@ -324,6 +329,26 @@ public Capturar_resultados(int id_venta_a_capturar_resultados){
             JOptionPane.showMessageDialog(null,"La carpeta no existe.","Error, verifique",JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jLabel87MouseClicked
+
+    private void Jtable_ProductosEntradasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Jtable_ProductosEntradasMouseClicked
+        //Capturar el valor de referencia
+         int fila =Jtable_ProductosEntradas.getSelectedRow();
+           int col =Jtable_ProductosEntradas.getSelectedColumn(); 
+         if(fila>=0 && col==0){
+              if(Controladorventa.noduplicar_capturar_valor_de_referencia==false){
+                  Capturar_referencia a   =new Capturar_referencia(Jtable_ProductosEntradas.getValueAt(fila, 0).toString());
+             new Capturar_referencia().setVisible(true);
+              }
+              else{
+                  System.out.println("Ya se abrio la pestaña"+fila+" col"+col);
+                          
+              }
+         }
+         else{
+                 System.out.println("no es la primer columna"+fila+" col"+col);
+      }
+      
+    }//GEN-LAST:event_Jtable_ProductosEntradasMouseClicked
 
     /**
      * @param args the command line arguments

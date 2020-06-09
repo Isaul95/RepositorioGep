@@ -139,6 +139,9 @@
                       <Table columnCount="0" rowCount="4"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="Jtable_ProductosEntradasMouseClicked"/>
+                  </Events>
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="Jtable_ProductosEntradas = new javax.swing.JTable(){&#xa;public boolean isCellEditable(int filas, int columnas){&#xa;   if(columnas==1){&#xa;    return true;&#xa;    }else{  &#xa;return false;&#xa;}&#xa;}&#xa;};"/>
                     <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>

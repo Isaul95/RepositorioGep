@@ -288,6 +288,9 @@ public static String fecha(){ /* SE DECARA LA FECHA DEL SISTEMA */
         } catch (SQLException ex) {
             Logger.getLogger(SI_Inicio.class.getName()).log(Level.SEVERE, null, ex);
         }
+    catch(NullPointerException NPE ){
+        JOptionPane.showMessageDialog(null, "No se encontró el usuario","Error", JOptionPane.ERROR_MESSAGE);
+    }
            finally{
                   cc.getClose();
              }

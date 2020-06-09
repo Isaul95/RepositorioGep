@@ -612,6 +612,8 @@ public static void llenar_datos_del_paciente_tras_completar_la_venta(){
                                 }
                                 catch(Exception ex){
                                     JOptionPane.showMessageDialog(null, "Error en metodo_de_cobro con desc update pacientes" + ex.getMessage());
-                                }
+                                }finally{
+        cc.getClose();
+    }
 }
 }
