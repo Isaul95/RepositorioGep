@@ -133,7 +133,7 @@ public Capturar_resultados(int id_venta_a_capturar_resultados){
         fecha_hora_ingreso.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         fecha_hora_ingreso.setForeground(new java.awt.Color(102, 102, 102));
         fecha_hora_ingreso.setText("dbFecha_ingreso:");
-        jPanel33.add(fecha_hora_ingreso, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 280, 230, -1));
+        jPanel33.add(fecha_hora_ingreso, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 280, 230, -1));
 
         id_venta.setBackground(new java.awt.Color(0, 0, 0));
         id_venta.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
@@ -163,7 +163,7 @@ public Capturar_resultados(int id_venta_a_capturar_resultados){
         fecha_nacimiento.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         fecha_nacimiento.setForeground(new java.awt.Color(102, 102, 102));
         fecha_nacimiento.setText("dbFecha_nacimiento:");
-        jPanel33.add(fecha_nacimiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 240, 260, -1));
+        jPanel33.add(fecha_nacimiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 240, 260, -1));
 
         jLabel80.setBackground(new java.awt.Color(0, 0, 0));
         jLabel80.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
@@ -187,12 +187,12 @@ public Capturar_resultados(int id_venta_a_capturar_resultados){
 
         jLabel85.setBackground(new java.awt.Color(0, 0, 0));
         jLabel85.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jLabel85.setText("Fecha_nacimiento:");
+        jLabel85.setText("Fecha de nacimiento:");
         jPanel33.add(jLabel85, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 240, 230, -1));
 
         jLabel75.setBackground(new java.awt.Color(0, 0, 0));
         jLabel75.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jLabel75.setText("Fecha_ingreso:");
+        jLabel75.setText("Fecha de ingreso:");
         jPanel33.add(jLabel75, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 280, 230, -1));
 
         genetrar_Pdf.setBackground(new java.awt.Color(255, 255, 255));

@@ -142,11 +142,11 @@ Modeloventa.get_id_usuario();// 255 -280
         boolean next = false;
         Pattern patGastos = Pattern.compile("^[0-9]+([.])?([0-9]+)?$");
         Matcher matGastos = patGastos.matcher(cantidaddelatabla);
-  if (matGastos.matches()&&!cantidaddelatabla.equals("")&&!cantidaddelatabla.equals("0")) {
+  if (!cantidaddelatabla.equals("")&&!cantidaddelatabla.equals("0")) {
             next = true;
         } else {
              nucleo.user_edad.setBackground(new Color(135,193,193));
-            JOptionPane.showMessageDialog(null, "Solo se permiten numeros", "Complete todos los datos del pacienteAdvertencia", JOptionPane.INFORMATION_MESSAGE);    
+            JOptionPane.showMessageDialog(null, "Campo edad del paciente", "Complete todos los datos del pacienteAdvertencia", JOptionPane.INFORMATION_MESSAGE);    
         }
         return next;
     }
@@ -228,11 +228,11 @@ nucleo.deletedescuento.setVisible(true);
         boolean next = false;      //"^([a-zA-ZÁÉÍÓÚ]{1}[a-zñáéíóú]{1,24}[\\s]*)+$"
         Pattern patGastos = Pattern.compile("^[A-Za-z\\s]+$");// ^([a-zA-ZÁÉÍÓÚ]{1}[a-zñáéíóú]{1,24}[\\s]*)+$
         Matcher matGastos = patGastos.matcher(nombre);
-        if (matGastos.matches()&&!nombre.equals("")) {
+        if (!nombre.equals("")) {
             next = true;
         } else {
             nucleo.user_nombre.setBackground(new Color(135,193,193));
-            JOptionPane.showMessageDialog(null, "Solo se permiten letras","Complete todos los datos del paciente",JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Campo nombre del paciente o nombre del medico","Complete todos los datos del paciente",JOptionPane.INFORMATION_MESSAGE);
         }
         return next;
     }   
