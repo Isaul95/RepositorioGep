@@ -17,16 +17,18 @@ import java.awt.event.KeyEvent;
  */
 public class Capturar_referencia extends javax.swing.JFrame {
 public static String producto="";
+public static int id=0;
     /**
      * Creates new form Capturar_referencia
      */
-  public Capturar_referencia(String producto) {
+  public Capturar_referencia(int id,String producto) {
       this.producto=producto;
+      this.id=id;
     }
     public Capturar_referencia() {
         initComponents();
         Controladorventa.noduplicar_capturar_valor_de_referencia=true;
-        referencia_texto.setText( Controlador_capturar_referencia.metodos_al_iniciar(this.producto));
+        referencia_texto.setText( Controlador_capturar_referencia.metodos_al_iniciar(this.producto, this.id));
         nombre_analisis.setText(this.producto);
     }
 
@@ -127,7 +129,7 @@ public static String producto="";
     private void referencia_textoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_referencia_textoKeyReleased
         char tecla = evt.getKeyChar();
         if(tecla==KeyEvent.VK_ENTER){
-        Controlador_capturar_referencia.actualizar_valor_de_referencia();
+        Controlador_capturar_referencia.actualizar_valor_de_referencia(this.id);
         this.setVisible(false);
         Controladorventa.noduplicar_capturar_valor_de_referencia=false;
         }

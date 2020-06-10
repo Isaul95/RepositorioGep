@@ -22,9 +22,16 @@ public class Controlador_capturar_resultados {
     public static List<DESCRIPCION_VENTA> PRODUCTOS = new ArrayList<>();
             
      public static void metodos_al_iniciar_entradasproductos0(int id_venta){
-         if(Modelo_capturar_resultados.cantidad_de_estudios(id_venta)==1){//pretendiendo que es un solo estudio
-             if(Modelo_capturar_resultados.verificandopaquete(id_venta).substring(0, 7).equalsIgnoreCase("PAQUETE")){//confirmando que sea un paquete
-                 Modelo_capturar_resultados.obtener_id_paciente_nombre_credito_estado_fecha_para_el_paquete(id_venta);//OBTENEMOS LOS DATOS FALTANTES PARA ARMAR EL PAQUETE
+        
+             if(Modelo_capturar_resultados.HAY_UN_PAQUETE_EN_LA_VENTA(id_venta)){//confirmando que haya al menos un paquete
+            int a =  Modelo_capturar_resultados.verificar_si_ya_existen_los_id_de_los_analisis_en_la_venta(
+                      Modelo_extrayendo_paquetes.id_que_pertencen_a_cada_paquete(
+                             Modelo_capturar_resultados.verificandopaquete(id_venta))
+                      ,id_venta);
+          
+            if(a==0){
+                Modelo_capturar_resultados.obtener_id_paciente_nombre_credito_estado_fecha_para_el_paquete(id_venta);//OBTENEMOS LOS DATOS FALTANTES PARA ARMAR EL PAQUETE
+                 
                  Modelo_extrayendo_paquetes.armando_el_paquete(//ya para armar el paquete
                      Modelo_extrayendo_paquetes.id_que_pertencen_a_cada_paquete(//extrayendo los id que pertenecen al paquete
                              Modelo_capturar_resultados.verificandopaquete(id_venta)),//extrayendo el nombre del paquete de acuerdo al id_venta
@@ -36,12 +43,15 @@ public class Controlador_capturar_resultados {
                  Modelo_extrayendo_paquetes.insertando_analisis_del_paquete();
                  Modelo_capturar_resultados.TablallenadoparaEntradas(Capturar_resultados.Jtable_ProductosEntradas, id_venta);
                  
+            }else{
+                Modelo_capturar_resultados.TablallenadoparaEntradas(Capturar_resultados.Jtable_ProductosEntradas, id_venta);
+            }
+                 
+                 
              }else{//no es un paquete, pero si un solo estudio
              Modelo_capturar_resultados.TablallenadoparaEntradas(Capturar_resultados.Jtable_ProductosEntradas, id_venta);
          }
-         }else{
-             Modelo_capturar_resultados.TablallenadoparaEntradas(Capturar_resultados.Jtable_ProductosEntradas, id_venta);
-         }
+       
               
       }
      public static void se_puede_habilitar_el_boton(int id_venta){

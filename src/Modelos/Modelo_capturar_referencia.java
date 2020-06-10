@@ -27,12 +27,12 @@ public class Modelo_capturar_referencia {
 static ResultSet rs;  
 
 
-    public static String obtener_el_valor_de_referencia_del_siguiente_producto(String p){
+    public static String obtener_el_valor_de_referencia_del_siguiente_producto(String p, int id){
          String resultado="";
         try{ Connection ca= cc.conexion();// CUENTA EL TODAL DE CUANTAS VENTAS SE REALIZARON
   if(Modelo_capturar_resultados.HAY_UN_PAQUETE_EN_LA_VENTA(Controlador_capturar_resultados.id_a_actualizar_resultados)){
-               sent  =(Statement)ca.createStatement(); rs = sent.executeQuery("select * from paquetes WHERE nombre_producto ='"+p+"'");
-           }else{  sent  =(Statement)ca.createStatement(); rs = sent.executeQuery("select * from productos WHERE nombre_producto ='"+p+"' ");
+               sent  =(Statement)ca.createStatement(); rs = sent.executeQuery("select * from paquetes WHERE nombre_producto ='"+p+"' and id_producto = '"+id+"' ");
+           }else{  sent  =(Statement)ca.createStatement(); rs = sent.executeQuery("select * from productos WHERE nombre_producto ='"+p+"' and id_producto = '"+id+"'  ");
             }
            if (rs.next()) {
                   resultado = rs.getString(5);
@@ -46,17 +46,17 @@ static ResultSet rs;
                   }
      return resultado;
     }
-    public static void actualizandor_valor_de_referencia(){
+    public static void actualizandor_valor_de_referencia(int id){
             try{Connection ca= cc.conexion(); 
             if(Modelo_capturar_resultados.HAY_UN_PAQUETE_EN_LA_VENTA(Controlador_capturar_resultados.id_a_actualizar_resultados)){
-                 PreparedStatement ps3 = ca.prepareStatement ("UPDATE paquetes SET  valordereferencia='"+Capturar_referencia.referencia_texto.getText().toUpperCase()+"'WHERE nombre_producto='"+Capturar_referencia.nombre_analisis.getText()+"'");
+                 PreparedStatement ps3 = ca.prepareStatement ("UPDATE paquetes SET  valordereferencia='"+Capturar_referencia.referencia_texto.getText().toUpperCase()+"'WHERE nombre_producto='"+Capturar_referencia.nombre_analisis.getText()+"' and id_producto = '"+id+"'   ");
             int resultado = ps3.executeUpdate();
             if(resultado>0){
                 JOptionPane.showMessageDialog(null,"El cambio lo visualizará en el pdf o simplemente abriendo esta ventana nuevamente","VALOR DE REFERENCIA ACTUALIZADO",JOptionPane.INFORMATION_MESSAGE);
             }  
             }
              else{   
-                 PreparedStatement ps3 = ca.prepareStatement ("UPDATE productos SET  valordereferencia='"+Capturar_referencia.referencia_texto.getText().toUpperCase()+"'WHERE nombre_producto='"+Capturar_referencia.nombre_analisis.getText()+"'");
+                 PreparedStatement ps3 = ca.prepareStatement ("UPDATE productos SET  valordereferencia='"+Capturar_referencia.referencia_texto.getText().toUpperCase()+"'WHERE nombre_producto='"+Capturar_referencia.nombre_analisis.getText()+"' and id_producto = '"+id+"' ");
                  int resultado = ps3.executeUpdate();
                  if(resultado>0){
                       JOptionPane.showMessageDialog(null,"El cambio lo visualizará en el pdf o simplemente abriendo esta ventana nuevamente","VALOR DE REFERENCIA ACTUALIZADO",JOptionPane.INFORMATION_MESSAGE);

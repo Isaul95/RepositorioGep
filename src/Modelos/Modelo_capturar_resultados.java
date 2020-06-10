@@ -36,13 +36,14 @@ public class Modelo_capturar_resultados extends Controlador_capturar_resultados{
    static Statement sent;  
 static ResultSet rs;  
     public static void TablallenadoparaEntradas(JTable tablaD, int id_venta){ // recibe como parametro 
-           Object[] columna = new Object[2];  //crear un obj con el nombre de colunna
+           Object[] columna = new Object[3];  //crear un obj con el nombre de colunna
             DefaultTableModel modeloT = new DefaultTableModel(); 
                   tablaD.setModel(modeloT);  // add modelo ala tabla 
+                  modeloT.addColumn("");
         modeloT.addColumn("Estudio");
         modeloT.addColumn("Resultado");
         try { Connection ca= cc.conexion(); // CONEXION DB 
-         String sSQL = "select pacientes.nombre, pacientes.edad, pacientes.sexo, pacientes.fecha_nacimiento, venta.fecha_reporte, venta.hora, descripcion_de_venta.nombre_producto, descripcion_de_venta.resultado, pacientes.medico from venta INNER JOIN descripcion_de_venta on venta.id_venta = descripcion_de_venta.id_venta inner join pacientes on descripcion_de_venta.id_paciente = pacientes.id_paciente WHERE descripcion_de_venta.estado = 'Realizada' and descripcion_de_venta.id_venta ="+id_venta;
+         String sSQL = "select pacientes.nombre, pacientes.edad, pacientes.sexo, pacientes.fecha_nacimiento, venta.fecha_reporte, venta.hora, descripcion_de_venta.nombre_producto, descripcion_de_venta.resultado, pacientes.medico,descripcion_de_venta.id_producto from venta INNER JOIN descripcion_de_venta on venta.id_venta = descripcion_de_venta.id_venta inner join pacientes on descripcion_de_venta.id_paciente = pacientes.id_paciente WHERE descripcion_de_venta.estado = 'Realizada' and descripcion_de_venta.id_venta ="+id_venta;
         PreparedStatement ps = ca.prepareStatement(sSQL);       
         try (ResultSet rs = ps.executeQuery(sSQL)) {
             while (rs.next()) {
@@ -51,17 +52,19 @@ static ResultSet rs;
                  Capturar_resultados.sexo.setText(rs.getString(3));//Se almacena la edad del paciente
                  Capturar_resultados.fecha_nacimiento.setText(rs.getString(4));//Se almacena la fecha de nacimiento del paciente
                  Capturar_resultados.fecha_hora_ingreso.setText(rs.getString(5)+" "+rs.getString(6));//Se almacena la fecha de nacimiento del paciente
-                columna[0] = rs.getString(7);
-                 columna[1] = rs.getString(8);
+                columna[0] = rs.getString(10);
+                 columna[1] = rs.getString(7);
                  Capturar_resultados.medico.setText(rs.getString(9));//Se almacena el nombre del paciente
-                
+                columna[2] = rs.getString(8);
                 modeloT.addRow(columna);
             }        TableColumnModel columnModel =  tablaD.getColumnModel();
    // columnModel.getColumn(0).setPreferredWidth(250); columnModel.getColumn(1).setPreferredWidth(50); 
-    columnModel.getColumn(0).setMaxWidth(560);
-    columnModel.getColumn(0).setMinWidth(560);
-    columnModel.getColumn(1).setMaxWidth(220);
-    columnModel.getColumn(1).setMinWidth(220);
+   columnModel.getColumn(0).setMaxWidth(50);
+    columnModel.getColumn(0).setMinWidth(50);
+    columnModel.getColumn(1).setMaxWidth(560);
+    columnModel.getColumn(1).setMinWidth(560);
+    columnModel.getColumn(2).setMaxWidth(220);
+    columnModel.getColumn(2).setMinWidth(220);
                         modeloT.addTableModelListener(new TableModelListener(){
                 @Override
                 public void tableChanged(TableModelEvent e) {
@@ -72,12 +75,12 @@ static ResultSet rs;
                         if(fila>=0){// CUANDO UNA CELDA SE SELECCIONO         
                  //  COMENTADA LA VALIDACION  boolean pass = Controladorventa.validarFormularioparaentradadeproductos(modeloT.getValueAt(e.getFirstRow(), e.getColumn()).toString());
                        //      if(pass){ COMENTADA LA VALIDACION
-                                   String valor = Capturar_resultados.Jtable_ProductosEntradas.getValueAt(fila, 0).toString();
+                              //     String valor = Capturar_resultados.Jtable_ProductosEntradas.getValueAt(fila, 1).toString();
                             resultado_del_estudio = modeloT.getValueAt(e.getFirstRow(), e.getColumn()).toString();
                               //Modeloventa.id_y_precio_producto(valor); 
-                              id_producto(valor,id_venta);
+                              //id_producto(valor,id_venta);
                               System.out.println("ID :"+id_producto+" VENTA "+id_venta);
-                              String sql = "UPDATE descripcion_de_venta SET resultado='"+resultado_del_estudio+"' WHERE id_producto="+id_producto+" AND id_venta="+id_venta;            
+                              String sql = "UPDATE descripcion_de_venta SET resultado='"+resultado_del_estudio+"' WHERE id_producto="+Capturar_resultados.Jtable_ProductosEntradas.getValueAt(fila, 0).toString()+" AND id_venta="+id_venta;            
                              PreparedStatement pst;
                           try{Connection ca= cc.conexion();
                                pst = ca.prepareStatement(sql);
@@ -173,39 +176,24 @@ try{ Connection ca= cc.conexion();// CUENTA EL TODAL DE CUANTAS VENTAS SE REALIZ
              }
       return Controlador_capturar_resultados.respuesta_para_activar_el_pdf;
   }
-  public static int  cantidad_de_estudios(int id_venta){
-      int resultado=0;      
-      try{ Connection ca= cc.conexion();// CUENTA EL TODAL DE CUANTAS VENTAS SE REALIZARON
-                                         Statement sent  =(Statement)ca.createStatement();
-                                         ResultSet  rs = sent.executeQuery("select count(nombre_producto) from descripcion_de_venta  WHERE id_venta = '"+id_venta+"' and estado = 'Realizada' ");
-                                            if(rs.next()){
-                                                      resultado =rs.getInt(1);
-                                                      }
-                                                      }//fin del try-precio del producto
-                                                      catch (Exception e){
-                                                           JOptionPane.showMessageDialog(null, "ERROR EN METODO: conteodeventasrealizadasdehoy: "+e.getMessage(),"DEVELOPER HELPER", JOptionPane.ERROR_MESSAGE);      
-                                                      }// fin del precio-catch del producto
-        finally{
-                  cc.getClose();
-             }
-  return resultado;  
-  }
+ 
   public static String  verificandopaquete(int id_venta){
       String resultado="";      
       try{ Connection ca= cc.conexion();// CUENTA EL TODAL DE CUANTAS VENTAS SE REALIZARON
                                          Statement sent  =(Statement)ca.createStatement();
-                                         ResultSet  rs = sent.executeQuery("select nombre_producto from descripcion_de_venta  WHERE id_venta = '"+id_venta+"' and estado = 'Realizada' ");
-                                            if(rs.next()){
-                                                      resultado =rs.getString(1);
+                                         ResultSet  rs = sent.executeQuery("select nombre_producto from descripcion_de_venta  WHERE id_venta = '"+id_venta+"' and estado = 'Realizada' and nombre_producto like 'PAQUETE%' ");
+                                            while(rs.next()){
+                                                      resultado =resultado+"'"+rs.getString(1)+"'"+",";
+                                                      }System.out.println("CONCATENCAICON "+resultado.substring(0,resultado.length()-1));
                                                       }
-                                                      }//fin del try-precio del producto
+                                                     //fin del try-precio del producto
                                                       catch (Exception e){
                                                            JOptionPane.showMessageDialog(null, "ERROR EN METODO: conteodeventasrealizadasdehoy: "+e.getMessage(),"DEVELOPER HELPER", JOptionPane.ERROR_MESSAGE);      
                                                       }// fin del precio-catch del producto
         finally{
                   cc.getClose();
              }
-  return resultado;  
+  return resultado.substring(0,resultado.length()-1);  
   }
   public static void  obtener_id_paciente_nombre_credito_estado_fecha_para_el_paquete(int id_venta){
       String resultado="";      
@@ -261,4 +249,21 @@ try{ Connection ca= cc.conexion();// CUENTA EL TODAL DE CUANTAS VENTAS SE REALIZ
              }//fin del id-catch del producto
              return soy_verdad;
    }
+   public static int  verificar_si_ya_existen_los_id_de_los_analisis_en_la_venta(String  ID_PRODUCTOS, int ID_VENTA){   
+       int totales=0;
+      try{ Connection ca= cc.conexion();// CUENTA EL TODAL DE CUANTAS VENTAS SE REALIZARON
+                                         Statement sent  =(Statement)ca.createStatement();
+                                         ResultSet  rs = sent.executeQuery("select count(*) from descripcion_de_venta  WHERE id_producto in ("+ID_PRODUCTOS+") and id_venta = '"+ID_VENTA+"' ");
+                                            if(rs.next()){
+                                            totales =rs.getInt(1);
+                                                      }
+                                                      }//fin del try-precio del producto//fin del try-precio del producto
+                                                      catch (Exception e){
+                                                           JOptionPane.showMessageDialog(null, "ERROR EN METODO: armando_el_paquete: "+e.getMessage(),"DEVELOPER HELPER", JOptionPane.ERROR_MESSAGE);      
+                                                      }// fin del precio-catch del producto
+        finally{
+                  cc.getClose();
+             }
+      return totales;
+  }
 }

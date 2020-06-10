@@ -101,7 +101,7 @@ public Capturar_resultados(int id_venta_a_capturar_resultados){
 
         Jtable_ProductosEntradas = new javax.swing.JTable(){
             public boolean isCellEditable(int filas, int columnas){
-                if(columnas==1){
+                if(columnas==2){
                     return true;
                 }else{
                     return false;
@@ -334,9 +334,9 @@ public Capturar_resultados(int id_venta_a_capturar_resultados){
         //Capturar el valor de referencia
          int fila =Jtable_ProductosEntradas.getSelectedRow();
            int col =Jtable_ProductosEntradas.getSelectedColumn(); 
-         if(fila>=0 && col==0){
+         if(fila>=0 && col==1){
               if(Controladorventa.noduplicar_capturar_valor_de_referencia==false){
-                  Capturar_referencia a   =new Capturar_referencia(Jtable_ProductosEntradas.getValueAt(fila, 0).toString());
+                  Capturar_referencia a   =new Capturar_referencia(Integer.parseInt(Jtable_ProductosEntradas.getValueAt(fila, 0).toString()),Jtable_ProductosEntradas.getValueAt(fila, 1).toString());
              new Capturar_referencia().setVisible(true);
               }
               else{

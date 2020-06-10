@@ -27,10 +27,10 @@ static ResultSet rs;
       String resultado="";      
       try{ Connection ca= cc.conexion();// CUENTA EL TODAL DE CUANTAS VENTAS SE REALIZARON
                                          Statement sent  =(Statement)ca.createStatement();
-                                         ResultSet  rs = sent.executeQuery("select analisis from paquetes_id  WHERE nombre_paquete = '"+nombre_del_paquete+"' ");
-                                            if(rs.next()){
-                                                      resultado =rs.getString(1);
-                                                      }
+                                         ResultSet  rs = sent.executeQuery("select analisis from paquetes_id  WHERE nombre_paquete in ("+nombre_del_paquete+")");
+                                            while(rs.next()){
+                                                      resultado =resultado+","+rs.getString(1);
+                                                      }System.out.println("ID_PRODUCTOS: "+resultado.substring(1));
                                                       }//fin del try-precio del producto
                                                       catch (Exception e){
                                                            JOptionPane.showMessageDialog(null, "ERROR EN METODO: id_que_pertencen_a_cada_paquete: "+e.getMessage(),"DEVELOPER HELPER", JOptionPane.ERROR_MESSAGE);      
@@ -38,14 +38,14 @@ static ResultSet rs;
         finally{
                   cc.getClose();
              }
-  return resultado;  
+  return resultado.substring(1);  
   }
  public static void  armando_el_paquete(String  ID_PRODUCTOS, int ID_VENTA, int ID_PACIENTE, String NOMBRE_CREDITO, String ESTADO, String FECHA){   
       DESCRIPCION_VENTA ASIGN; 
        Controlador_capturar_resultados.PRODUCTOS.clear();
       try{ Connection ca= cc.conexion();// CUENTA EL TODAL DE CUANTAS VENTAS SE REALIZARON
                                          Statement sent  =(Statement)ca.createStatement();
-                                         ResultSet  rs = sent.executeQuery("select id_producto, nombre_producto from paquetes WHERE id_producto in  ("+ID_PRODUCTOS+") ");
+                                         ResultSet  rs = sent.executeQuery("select id_producto, nombre_producto from paquetes WHERE id_producto in ("+ID_PRODUCTOS+") ");
                                             while(rs.next()){
                                                 ASIGN = new DESCRIPCION_VENTA(); //SE INICIALIZA SIEMPRE UN NUEVO OBJETO YA QUE SI SE OCUPA UNO SOLO, SOLO SE ALMACENA EL ULTIMO VALOR
                                             ASIGN.setID_PRODUCTO(rs.getInt(1));

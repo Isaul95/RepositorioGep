@@ -13,11 +13,11 @@ import si.Capturar_referencia;
  * @author AsTecI
  */
  public class Controlador_capturar_referencia extends Modelo_capturar_referencia{
-    public static String metodos_al_iniciar(String p){
-        return obtener_el_valor_de_referencia_del_siguiente_producto(p);
+    public static String metodos_al_iniciar(String p, int id){
+        return obtener_el_valor_de_referencia_del_siguiente_producto(p, id);
     }
-    public static void actualizar_valor_de_referencia(){
-        actualizandor_valor_de_referencia();
+    public static void actualizar_valor_de_referencia(int id){
+        actualizandor_valor_de_referencia(id);
         
     }
 }
