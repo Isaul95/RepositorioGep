@@ -29,7 +29,7 @@ public class Controlador_capturar_resultados {
                              Modelo_capturar_resultados.verificandopaquete(id_venta))
                       ,id_venta);
           
-            if(a==0){
+               if(a==0){
                 Modelo_capturar_resultados.obtener_id_paciente_nombre_credito_estado_fecha_para_el_paquete(id_venta);//OBTENEMOS LOS DATOS FALTANTES PARA ARMAR EL PAQUETE
                  
                  Modelo_extrayendo_paquetes.armando_el_paquete(//ya para armar el paquete
@@ -50,7 +50,7 @@ public class Controlador_capturar_resultados {
                  
              }else{//no es un paquete, pero si un solo estudio
              Modelo_capturar_resultados.TablallenadoparaEntradas(Capturar_resultados.Jtable_ProductosEntradas, id_venta);
-         }
+             }
        
               
       }

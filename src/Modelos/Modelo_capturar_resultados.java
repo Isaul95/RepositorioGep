@@ -253,9 +253,9 @@ try{ Connection ca= cc.conexion();// CUENTA EL TODAL DE CUANTAS VENTAS SE REALIZ
        int totales=0;
       try{ Connection ca= cc.conexion();// CUENTA EL TODAL DE CUANTAS VENTAS SE REALIZARON
                                          Statement sent  =(Statement)ca.createStatement();
-                                         ResultSet  rs = sent.executeQuery("select count(*) from descripcion_de_venta  WHERE id_producto in ("+ID_PRODUCTOS+") and id_venta = '"+ID_VENTA+"' ");
-                                            if(rs.next()){
-                                            totales =rs.getInt(1);
+                                         ResultSet  rs = sent.executeQuery("select count(*) from descripcion_de_venta  WHERE id_producto in ("+ID_PRODUCTOS+") and id_venta = '"+ID_VENTA+"' AND nombre_producto not like  'PAQUETE%' ");
+                                         if(rs.next()){
+                                         totales =rs.getInt(1);
                                                       }
                                                       }//fin del try-precio del producto//fin del try-precio del producto
                                                       catch (Exception e){
