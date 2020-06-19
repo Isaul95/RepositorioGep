@@ -6,18 +6,28 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane; 
 public class SI {
-    String MySQLpassword="";//"MNMddm11857";//"tcdrw3tHcq"; //41523129
+    String MySQLpassword="programahtrm5609"; //  remototcdrw3tHcq
  //clase para hacer la conexión a mysql 
    Connection conectar=null;
        public Connection conexion(){
                   try{//CAMBIOS, MALDITA ZORRA
           Class.forName("com.mysql.jdbc.Driver");
+          //TEST 
+       // remoto   conectar= (Connection) DriverManager.getConnection("jdbc:mysql://sql3.freesqldatabase.com:3306/sql3347953?autoReconnect=true&useSSL=false","sql3347953",MySQLpassword);  
 
-          //TEST node54849-alkhemydev2.jl.serv.net.mx
-        //conectar= (Connection) DriverManager.getConnection("jdbc:mysql://sql3.freesqldatabase.com:3306/sql3347953?autoReconnect=true&useSSL=false","sql3347953",MySQLpassword);  
-   conectar= (Connection) DriverManager.getConnection("jdbc:mysql://localhost/inventariostore_alkimia_test?autoReconnect=true&useSSL=false","root",MySQLpassword);  
-     //conectar= (Connection) DriverManager.getConnection("jdbc:mysql://node54849-alkhemydev2.jl.serv.net.mx:3306/inventariostore_alkimia_test","root",MySQLpassword);  
-         
+conectar= (Connection) DriverManager.getConnection("jdbc:mysql://sh-pro10.hostgator.mx:3306/gepsofco_inventariostore_alkimia_test?autoReconnect=true&useSSL=false","gepsofco_Alkhemy",MySQLpassword);  
+
+// la de abajo es la k estaba local conected
+//conectar= (Connection) DriverManager.getConnection("jdbc:mysql://localhost/inventariostore_alkimia_test?autoReconnect=true&useSSL=false","root",MySQLpassword);  
+  
+/*      DATOS CONEXXION AL HOSTGATOR
+DB:    gepsofco_inventariostore_alkimia_test
+user:  gepsofco_Alkhemy	       
+passw:     programahtrm5609
+video de ayuda
+https://www.youtube.com/watch?v=23BNB-FJ5n4
+      */
+
 //PRODUCCIONconectar= (Connection) DriverManager.getConnection("jdbc:mysql://localhost/inventariostore_prod?autoReconnect=true&useSSL=false","root",MySQLpassword);  
      if(conectar!=null){
            System.out.println("Conexión abierta");
@@ -42,3 +52,6 @@ public class SI {
     }
   }
  
+         
+       
+
