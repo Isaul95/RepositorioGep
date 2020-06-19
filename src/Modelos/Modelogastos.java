@@ -134,7 +134,7 @@ public static void insertarventacondescuentoengastos(String nombre, float monto,
                          int a=pst.executeUpdate();
                          if(a>0){   // UPDATE `productoexternoblanca` SET `pieza`=0;
                   }                                                 
-      }catch(Exception w){
+      }catch(Exception w){Controladorventa.sepuedeagregarpaciente=false;
                      JOptionPane.showMessageDialog(null,"insertarengastos"+w);
       }//fin del id del usuario para comprobar si hay o no elementos ya guardados
         finally{cc.getClose();}

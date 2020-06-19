@@ -43,19 +43,24 @@ public class Modeloexistencias extends Controladorexistencias {
     public static ResultSet rs;
 
     public static void mostrartodoslosproductosenexistencias() {
+      
         nucleo.existenciadeproductos.setVisible(true);    //hace visible la tabla de proveedores 
         DefaultTableModel modelo = new DefaultTableModel(); // Se crea un objeto para agregar los nombres de las columnas a la tabla
+        modelo.addColumn("");
         modelo.addColumn("Nombre");
+         modelo.addColumn("Categoria");
         modelo.addColumn("Precio");
         nucleo.existenciadeproductos.setModel(modelo);  // Ya una vez asignado todos los nombres se le envia el objeto a la tabla proveedores
-        String[] datos = new String[2];     //Un arreglo con la cantidad de nombres en las columnas
+        Object[] datos = new Object[4];     //Un arreglo con la cantidad de nombres en las columnas
         try {
             Connection ca = cc.conexion();
             sent = ca.createStatement();
-            rs = sent.executeQuery("select nombre_producto, precio from  productos"); // se ejecuta la sentencia dentro del parentesis
+            rs = sent.executeQuery("select id_producto,nombre_producto, categoria_estudios, precio from paquetes where venta in ('INDIVIDUAL/PAQUETE','PAQUETES') "); // se ejecuta la sentencia dentro del parentesis
             while (rs.next()) {
-                datos[0] = rs.getString(1);
-                datos[1] = "$"+rs.getString(2);
+                datos[0] = rs.getInt(1);
+                datos[1] = rs.getString(2);
+                datos[2] = rs.getString(3);
+                datos[3] = "$"+rs.getString(4);
                 modelo.addRow(datos); //se asigna el arreglo  entero a todo el objeto llamado modelo  
             }
             nucleo.existenciadeproductos.setModel(modelo); // Se vuelve a enviar nuevamente el objeto modelo a la tabla  
@@ -63,11 +68,14 @@ public class Modeloexistencias extends Controladorexistencias {
             TableColumnModel columnModel = nucleo.existenciadeproductos.getColumnModel();
             //columnModel.getColumn(0).setPreferredWidth(250);
              //   columnModel.getColumn(1).setPreferredWidth(5);
-  
-    columnModel.getColumn(0).setMaxWidth(520);
-    columnModel.getColumn(0).setMinWidth(520);
-    columnModel.getColumn(1).setMaxWidth(100);
-    columnModel.getColumn(1).setMinWidth(100);
+  columnModel.getColumn(0).setMaxWidth(10);
+    columnModel.getColumn(0).setMinWidth(10);
+    columnModel.getColumn(1).setMaxWidth(520);
+    columnModel.getColumn(1).setMinWidth(520);
+    columnModel.getColumn(2).setMaxWidth(510);
+    columnModel.getColumn(2).setMinWidth(510);
+    columnModel.getColumn(3).setMaxWidth(70);
+    columnModel.getColumn(3).setMinWidth(70);
         } catch (SQLException ex) {
             Logger.getLogger(nucleo.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(null, "No se pudo mostrar ningun dato porque tu consulta está mal");
@@ -79,30 +87,38 @@ public class Modeloexistencias extends Controladorexistencias {
     public static void mostrartodoslosproductosenexistenciasporbusqueda(String textoabuscar) {
         nucleo.existenciadeproductos.setVisible(true);    //hace visible la tabla de proveedores 
         DefaultTableModel modelo = new DefaultTableModel(); // Se crea un objeto para agregar los nombres de las columnas a la tabla
+        modelo.addColumn("");
         modelo.addColumn("Nombre");
-         modelo.addColumn("Precio");
+         modelo.addColumn("Categoria");
+        modelo.addColumn("Precio");
         nucleo.existenciadeproductos.setModel(modelo);  // Ya una vez asignado todos los nombres se le envia el objeto a la tabla proveedores
-        String[] datos = new String[2];     //Un arreglo con la cantidad de nombres en las columnas
+        Object[] datos = new Object[4];     //Un arreglo con la cantidad de nombres en las columnas
         try {
             Connection ca = cc.conexion();
             sent = ca.createStatement();
             if (textoabuscar.equals("")) {
-                rs = sent.executeQuery("select nombre_producto, precio from  productos"); // se ejecuta la sentencia dentro del parentesis
-            } else {
-                rs = sent.executeQuery("select nombre_producto, precio  from  productos where nombre_producto LIKE '%" + textoabuscar + "%' "); // se ejecuta la sentencia dentro del parentesis
+              rs = sent.executeQuery("select id_producto,nombre_producto, categoria_estudios, precio from paquetes where venta in ('INDIVIDUAL/PAQUETE','PAQUETES') "); // se ejecuta la sentencia dentro del parentesis
+           } else {
+                rs = sent.executeQuery("select id_producto,nombre_producto, categoria_estudios, precio from paquetes where nombre_producto LIKE '%" + textoabuscar + "%' and venta in ('INDIVIDUAL/PAQUETE','PAQUETES') "); // se ejecuta la sentencia dentro del parentesis
             }
             while (rs.next()) {
-                 datos[0] = rs.getString(1);
-                datos[1] = "$"+rs.getString(2);
+                      datos[0] = rs.getInt(1);
+                datos[1] = rs.getString(2);
+                datos[2] = rs.getString(3);
+                datos[3] = "$"+rs.getString(4);
                 modelo.addRow(datos); //se asigna el arreglo  entero a todo el objeto llamado modelo  
             }
             nucleo.existenciadeproductos.setModel(modelo); // Se vuelve a enviar nuevamente el objeto modelo a la tabla
             TableColumnModel columnModel = nucleo.existenciadeproductos.getColumnModel();
            
-    columnModel.getColumn(0).setMaxWidth(520);
-    columnModel.getColumn(0).setMinWidth(520);
-        columnModel.getColumn(1).setMaxWidth(100);
-    columnModel.getColumn(1).setMinWidth(100);
+     columnModel.getColumn(0).setMaxWidth(10);
+    columnModel.getColumn(0).setMinWidth(10);
+    columnModel.getColumn(1).setMaxWidth(520);
+    columnModel.getColumn(1).setMinWidth(520);
+    columnModel.getColumn(2).setMaxWidth(510);
+    columnModel.getColumn(2).setMinWidth(510);
+    columnModel.getColumn(3).setMaxWidth(70);
+    columnModel.getColumn(3).setMinWidth(70);
         } catch (SQLException ex) {
             Logger.getLogger(nucleo.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(null, "No se pudo mostrar  porque tu consulta está mal");

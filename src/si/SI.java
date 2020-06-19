@@ -6,15 +6,19 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane; 
 public class SI {
-    String MySQLpassword=""; //41523129
+    String MySQLpassword="";//"MNMddm11857";//"tcdrw3tHcq"; //41523129
  //clase para hacer la conexión a mysql 
    Connection conectar=null;
        public Connection conexion(){
                   try{//CAMBIOS, MALDITA ZORRA
           Class.forName("com.mysql.jdbc.Driver");
-          //TEST 
-          conectar= (Connection) DriverManager.getConnection("jdbc:mysql://localhost/inventariostore_alkimia_test?autoReconnect=true&useSSL=false","root",MySQLpassword);  
-     //PRODUCCIONconectar= (Connection) DriverManager.getConnection("jdbc:mysql://localhost/inventariostore_prod?autoReconnect=true&useSSL=false","root",MySQLpassword);  
+
+          //TEST node54849-alkhemydev2.jl.serv.net.mx
+        //conectar= (Connection) DriverManager.getConnection("jdbc:mysql://sql3.freesqldatabase.com:3306/sql3347953?autoReconnect=true&useSSL=false","sql3347953",MySQLpassword);  
+   conectar= (Connection) DriverManager.getConnection("jdbc:mysql://localhost/inventariostore_alkimia_test?autoReconnect=true&useSSL=false","root",MySQLpassword);  
+     //conectar= (Connection) DriverManager.getConnection("jdbc:mysql://node54849-alkhemydev2.jl.serv.net.mx:3306/inventariostore_alkimia_test","root",MySQLpassword);  
+         
+//PRODUCCIONconectar= (Connection) DriverManager.getConnection("jdbc:mysql://localhost/inventariostore_prod?autoReconnect=true&useSSL=false","root",MySQLpassword);  
      if(conectar!=null){
            System.out.println("Conexión abierta");
       }
@@ -38,6 +42,3 @@ public class SI {
     }
   }
  
-         
-       
-

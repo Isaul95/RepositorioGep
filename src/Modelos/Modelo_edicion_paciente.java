@@ -77,7 +77,9 @@ public class Modelo_edicion_paciente  {
                                                       }
                                                       }//fin del try-precio del producto
                                                       catch (Exception e){
-                                                           JOptionPane.showMessageDialog(null, "ERROR EN METODO: mostrarusuarioaeditar: "+e.getMessage(),"DEVELOPER HELPER", JOptionPane.ERROR_MESSAGE);      
+                                                            JOptionPane.showMessageDialog(null, "No existe paciente de esta venta para editar ","Por favor verifique", JOptionPane.ERROR_MESSAGE);      
+                                           
+                                                          System.out.println( "ERROR EN METODO: mostrarusuarioaeditar: "+e.getMessage()+"DEVELOPER HELPER");      
                                                       }// fin del precio-catch del producto
         finally{
                   cc.getClose();

@@ -77,13 +77,6 @@ user.setText(usuarioname);
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaventa = new javax.swing.JTable();
         jLabel75 = new javax.swing.JLabel();
-        user_nombre = new javax.swing.JTextField();
-        jLabel76 = new javax.swing.JLabel();
-        jLabel78 = new javax.swing.JLabel();
-        user_edad = new javax.swing.JTextField();
-        jLabel79 = new javax.swing.JLabel();
-        user_sexo = new javax.swing.JComboBox();
-        calendar_fecha_nacimiento = new com.toedter.calendar.JDateChooser();
         descuento = new javax.swing.JButton();
         deletedescuento = new javax.swing.JButton();
         cleanall = new javax.swing.JButton();
@@ -91,8 +84,6 @@ user.setText(usuarioname);
         existenciadeproductos = new javax.swing.JTable();
         busqueda = new javax.swing.JTextField();
         jLabel80 = new javax.swing.JLabel();
-        jLabel81 = new javax.swing.JLabel();
-        jLabel82 = new javax.swing.JLabel();
         jPanel10 = new javax.swing.JPanel();
         cambiocombobox = new javax.swing.JLabel();
         jLabel31 = new javax.swing.JLabel();
@@ -111,10 +102,9 @@ user.setText(usuarioname);
         Registro_user = new javax.swing.JButton();
         reimprimirventa = new javax.swing.JCheckBox();
         Registro_productos = new javax.swing.JButton();
-        jLabel83 = new javax.swing.JLabel();
-        medico = new javax.swing.JTextField();
         ventacredito = new javax.swing.JCheckBox();
         ventas_acredito = new javax.swing.JButton();
+        Registro_paquete = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -191,51 +181,6 @@ user.setText(usuarioname);
         jLabel75.setText("En venta :");
         venta.add(jLabel75, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 60, 120, -1));
 
-        user_nombre.setBackground(new java.awt.Color(135, 193, 193));
-        user_nombre.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        user_nombre.setForeground(new java.awt.Color(0, 0, 0));
-        user_nombre.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
-        user_nombre.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                user_nombreActionPerformed(evt);
-            }
-        });
-        venta.add(user_nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 440, 380, 30));
-
-        jLabel76.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
-        jLabel76.setText("Datos del paciente:");
-        venta.add(jLabel76, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 400, 290, -1));
-
-        jLabel78.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
-        jLabel78.setText("Sexo:");
-        venta.add(jLabel78, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 550, 90, -1));
-
-        user_edad.setBackground(new java.awt.Color(135, 193, 193));
-        user_edad.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        user_edad.setForeground(new java.awt.Color(0, 0, 0));
-        user_edad.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
-        user_edad.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                user_edadActionPerformed(evt);
-            }
-        });
-        venta.add(user_edad, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 550, 90, 30));
-
-        jLabel79.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
-        jLabel79.setText("Fecha de nac.");
-        venta.add(jLabel79, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 610, 160, -1));
-
-        user_sexo.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        user_sexo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Masculino", "Femenino" }));
-        user_sexo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(135, 193, 193)));
-        venta.add(user_sexo, new org.netbeans.lib.awtextra.AbsoluteConstraints(1050, 550, 110, 30));
-
-        calendar_fecha_nacimiento.setBackground(new java.awt.Color(135, 193, 193));
-        calendar_fecha_nacimiento.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(135, 193, 193)));
-        calendar_fecha_nacimiento.setForeground(new java.awt.Color(255, 255, 255));
-        calendar_fecha_nacimiento.setFont(new java.awt.Font("Tahoma", 1, 17)); // NOI18N
-        venta.add(calendar_fecha_nacimiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 600, 240, 50));
-
         descuento.setBackground(new java.awt.Color(135, 193, 193));
         descuento.setFont(new java.awt.Font("Arial Black", 1, 23)); // NOI18N
         descuento.setForeground(new java.awt.Color(255, 255, 255));
@@ -302,7 +247,7 @@ user.setText(usuarioname);
         });
         jScrollPane2.setViewportView(existenciadeproductos);
 
-        venta.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 490, 610, 160));
+        venta.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 490, 1130, 160));
 
         busqueda.setBackground(new java.awt.Color(135, 193, 193));
         busqueda.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
@@ -317,14 +262,6 @@ user.setText(usuarioname);
         jLabel80.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         jLabel80.setText("Busqueda de estudios.");
         venta.add(jLabel80, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 410, 290, -1));
-
-        jLabel81.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
-        jLabel81.setText("Edad:");
-        venta.add(jLabel81, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 550, 70, -1));
-
-        jLabel82.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
-        jLabel82.setText("Nombre:");
-        venta.add(jLabel82, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 440, 100, -1));
 
         jPanel10.setBackground(new java.awt.Color(135, 193, 193));
         jPanel10.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "   Venta   ", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Arial", 1, 20))); // NOI18N
@@ -482,16 +419,6 @@ user.setText(usuarioname);
         });
         venta.add(Registro_productos, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 460, 40, 50));
 
-        jLabel83.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
-        jLabel83.setText("Medico:");
-        venta.add(jLabel83, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 490, 100, -1));
-
-        medico.setBackground(new java.awt.Color(135, 193, 193));
-        medico.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        medico.setForeground(new java.awt.Color(0, 0, 0));
-        medico.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
-        venta.add(medico, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 490, 380, 30));
-
         ventacredito.setBackground(new java.awt.Color(135, 193, 193));
         ventacredito.setFont(new java.awt.Font("Dialog", 1, 20)); // NOI18N
         ventacredito.setText("Venta credito");
@@ -508,6 +435,20 @@ user.setText(usuarioname);
         });
         venta.add(ventas_acredito, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, 40, -1));
 
+        Registro_paquete.setBackground(new java.awt.Color(135, 193, 193));
+        Registro_paquete.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        Registro_paquete.setForeground(new java.awt.Color(204, 0, 0));
+        Registro_paquete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/Prodcuts2.png"))); // NOI18N
+        Registro_paquete.setToolTipText("Registrar nuevo producto");
+        Registro_paquete.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        Registro_paquete.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        Registro_paquete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Registro_paqueteActionPerformed(evt);
+            }
+        });
+        venta.add(Registro_paquete, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 530, 40, 50));
+
         getContentPane().add(venta, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1220, 670));
 
         pack();
@@ -520,14 +461,6 @@ user.setText(usuarioname);
     private void tablaventaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaventaMouseClicked
        Controladorventa.tablaventa();
     }//GEN-LAST:event_tablaventaMouseClicked
-
-    private void user_nombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_user_nombreActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_user_nombreActionPerformed
-
-    private void user_edadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_user_edadActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_user_edadActionPerformed
 
     private void existenciadeproductosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_existenciadeproductosMouseClicked
         Controladorexistencias.mandaraventa();
@@ -571,10 +504,23 @@ user.setText(usuarioname);
         Controladorventa.descuentos();
     }//GEN-LAST:event_descuentoActionPerformed
 
+    private void Registro_productosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Registro_productosActionPerformed
+            if(Controladorventa.noduplicar_nuevo_producto==false){new Registro_producto().setVisible(true);} 
+    }//GEN-LAST:event_Registro_productosActionPerformed
+
+    private void ventas_acreditoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ventas_acreditoActionPerformed
+       if(Controladorventa.noduplicar_vista_de_ventas_a_credito==false){new Ventas_a_credito().setVisible(true);}
+    }//GEN-LAST:event_ventas_acreditoActionPerformed
+
     private void montoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_montoKeyReleased
         char tecla = evt.getKeyChar();
         if(tecla==KeyEvent.VK_ENTER){
             Controladorventa.montoKeyRealeased();
+            if(Controladorventa.sepuedeagregarpaciente==true){//SOLO SE ABRE LA VENTANA DE AGREGAR PACIENTES SI NO HUBO ALGUNA INCONSISTENCIA
+                this.setVisible(false);
+            }else{//CUANDO HUBO ALGUNA INCONSISTENCIA SE REINICIA LA VARIBALE PARA LAS SIGUIENTES EJECUCIONES
+                Controladorventa.sepuedeagregarpaciente=true;
+            }
 
         }
     }//GEN-LAST:event_montoKeyReleased
@@ -587,13 +533,9 @@ user.setText(usuarioname);
         Controladorventa.montoFocusGained();
     }//GEN-LAST:event_montoFocusGained
 
-    private void Registro_productosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Registro_productosActionPerformed
-            if(Controladorventa.noduplicar_nuevo_producto==false){new Registro_producto().setVisible(true);} 
-    }//GEN-LAST:event_Registro_productosActionPerformed
-
-    private void ventas_acreditoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ventas_acreditoActionPerformed
-       if(Controladorventa.noduplicar_vista_de_ventas_a_credito==false){new Ventas_a_credito().setVisible(true);}
-    }//GEN-LAST:event_ventas_acreditoActionPerformed
+    private void Registro_paqueteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Registro_paqueteActionPerformed
+       if(Controladorventa.noduplicar_nuevo_paquete==false){new Registro_paquete().setVisible(true);} 
+    }//GEN-LAST:event_Registro_paqueteActionPerformed
  private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {                                         
 // MODIFICAR   new ProductosExternos().setVisible(true);        
     }                                           /**
@@ -636,11 +578,11 @@ user.setText(usuarioname);
     public static javax.swing.JButton Cortedecaja;
     private javax.swing.JButton Existencias;
     private javax.swing.JLabel Fecha;
+    public static javax.swing.JButton Registro_paquete;
     public static javax.swing.JButton Registro_productos;
     public static javax.swing.JButton Registro_user;
     public static javax.swing.JLabel Reloj;
     private javax.swing.JTextField busqueda;
-    public static com.toedter.calendar.JDateChooser calendar_fecha_nacimiento;
     public static javax.swing.JLabel cambiocombobox;
     public static javax.swing.JButton cleanall;
     public static javax.swing.JButton deletedescuento;
@@ -654,19 +596,12 @@ user.setText(usuarioname);
     private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel75;
-    private javax.swing.JLabel jLabel76;
-    private javax.swing.JLabel jLabel78;
-    private javax.swing.JLabel jLabel79;
     private javax.swing.JLabel jLabel80;
-    private javax.swing.JLabel jLabel81;
-    private javax.swing.JLabel jLabel82;
-    private javax.swing.JLabel jLabel83;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     public static javax.swing.JLabel labeldescuento;
-    public static javax.swing.JTextField medico;
     public static javax.swing.JTextField monto;
     private javax.swing.JLabel prueba;
     public static javax.swing.JCheckBox reimprimirventa;
@@ -674,9 +609,6 @@ user.setText(usuarioname);
     public static javax.swing.JTable tablaventa;
     public static javax.swing.JLabel total;
     private javax.swing.JLabel user;
-    public static javax.swing.JTextField user_edad;
-    public static javax.swing.JTextField user_nombre;
-    public static javax.swing.JComboBox user_sexo;
     public static javax.swing.JPanel venta;
     public static javax.swing.JCheckBox ventacredito;
     private javax.swing.JButton ventas_acredito;

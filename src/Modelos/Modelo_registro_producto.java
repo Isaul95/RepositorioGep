@@ -32,7 +32,7 @@ public class Modelo_registro_producto extends Controlador_registro_producto{
          lista_llenado_categoria_estudios.clear();
         try{Connection ca= cc.conexion();
             sent = (Statement)ca.createStatement();
-            rs= sent.executeQuery("select DISTINCT categoria_estudios from productos where categoria_estudios not in ('Sin categoria')");
+            rs= sent.executeQuery("select DISTINCT categoria_estudios from paquetes");
             while(rs.next()){
                 lista_llenado_categoria_estudios.add(rs.getString("categoria_estudios"));
             }
@@ -46,21 +46,42 @@ public class Modelo_registro_producto extends Controlador_registro_producto{
     }
     public static void registrar_producto(String categoria){
         try{Connection ca= cc.conexion();
-                String sql1 = "INSERT INTO productos (nombre_producto,categoria_estudios,unidades,valordereferencia,precio)  VALUES (?,?,?,?,?)";
+                String sql1 = "INSERT INTO paquetes (nombre_producto,categoria_estudios,unidades,valordereferencia,precio, venta)  VALUES (?,?,?,?,?,?)";
                 PreparedStatement pst1 = ca.prepareCall(sql1);
                 pst1.setString(1,Registro_producto.estudio.getText().toUpperCase());
                 pst1.setString(2,categoria.toUpperCase());
                 pst1.setString(3,Registro_producto.unidades.getText().toUpperCase());
                 pst1.setString(4,Registro_producto.valor_referencia.getText().toUpperCase());
                 pst1.setFloat(5, Float.parseFloat(String.valueOf(Registro_producto.precio.getText())));
+                pst1.setString(6,Registro_producto.tipoventa.getSelectedItem().toString());
                 int a=pst1.executeUpdate();
                 if(a>0){
                     JOptionPane.showMessageDialog(null,"PRODUCTO GUARDADO CORRECTAMENTE","EXITO",JOptionPane.INFORMATION_MESSAGE);
-                    
+                    if(Registro_producto.tipoventa.getSelectedItem().toString().equalsIgnoreCase("PAQUETES")){
+                        registrar_paquete(Registro_producto.estudio.getText().toUpperCase());
+                    }
                 }
             } catch(SQLException e)  {
                 //JOptionPane.showMessageDialog(null,"ERROR DE DATOS");
                 JOptionPane.showMessageDialog(null, "Error registrar_producto" + e.getMessage());
+            }
+        catch(NumberFormatException nE){
+            JOptionPane.showMessageDialog(null, "Verifique que ingresa ccorrectamente los valores en donde corresponden");
+        }
+    }
+     public static void registrar_paquete(String PAQUETE){
+        try{Connection ca= cc.conexion();
+                String sql1 = "INSERT INTO paquetes_id (nombre_paquete)  VALUES (?)";
+                PreparedStatement pst1 = ca.prepareCall(sql1);
+                pst1.setString(1,PAQUETE.toUpperCase());
+                int a=pst1.executeUpdate();
+                if(a>0){
+                    JOptionPane.showMessageDialog(null,"PAQUETE GUARDADO GUARDADO CORRECTAMENTE","EXITO",JOptionPane.INFORMATION_MESSAGE);
+                   
+                }
+            } catch(SQLException e)  {
+                //JOptionPane.showMessageDialog(null,"ERROR DE DATOS");
+                JOptionPane.showMessageDialog(null, "Error registrar_paquete" + e.getMessage());
             }
         catch(NumberFormatException nE){
             JOptionPane.showMessageDialog(null, "Verifique que ingresa ccorrectamente los valores en donde corresponden");

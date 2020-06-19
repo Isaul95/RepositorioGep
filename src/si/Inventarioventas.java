@@ -173,7 +173,7 @@ public class Inventarioventas extends javax.swing.JFrame {
                 editar_pacienteActionPerformed(evt);
             }
         });
-        jPanel23.add(editar_paciente, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 320, 240, -1));
+        jPanel23.add(editar_paciente, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 370, 240, -1));
 
         totalventarealizada.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         totalventarealizada.setText("Total de ésta venta:");

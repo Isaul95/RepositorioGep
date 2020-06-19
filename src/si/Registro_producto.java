@@ -63,6 +63,8 @@ public class Registro_producto extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         nuevacategoria = new javax.swing.JCheckBox();
         nueva_categoria = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
+        tipoventa = new javax.swing.JComboBox<>();
         jPanel2 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         B_cancelar = new javax.swing.JButton();
@@ -103,8 +105,8 @@ public class Registro_producto extends javax.swing.JFrame {
         jLabel7.setBackground(new java.awt.Color(0, 0, 0));
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 17)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel7.setText("Precio:");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 280, 100, 23));
+        jLabel7.setText("Se puede vender mediante:");
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 330, 240, 23));
 
         precio.setBackground(new java.awt.Color(135, 193, 193));
         precio.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
@@ -123,7 +125,7 @@ public class Registro_producto extends javax.swing.JFrame {
                 B_registroActionPerformed(evt);
             }
         });
-        jPanel1.add(B_registro, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 320, 140, 40));
+        jPanel1.add(B_registro, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 350, 140, 40));
 
         jLabel4.setBackground(new java.awt.Color(0, 0, 0));
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 17)); // NOI18N
@@ -180,7 +182,21 @@ public class Registro_producto extends javax.swing.JFrame {
         nueva_categoria.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
         jPanel1.add(nueva_categoria, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 130, 470, -1));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 670, 370));
+        jLabel9.setBackground(new java.awt.Color(0, 0, 0));
+        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 17)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel9.setText("Precio:");
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 280, 100, 23));
+
+        tipoventa.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "PAQUETES", "INDIVIDUAL/PAQUETE", "SOLO EN PAQUETE" }));
+        tipoventa.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                tipoventaItemStateChanged(evt);
+            }
+        });
+        jPanel1.add(tipoventa, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 330, 200, -1));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 670, 400));
 
         jPanel2.setBackground(new java.awt.Color(135, 193, 193));
         jPanel2.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -230,6 +246,12 @@ public class Registro_producto extends javax.swing.JFrame {
             jLabel8.setEnabled(true);
         }
     }//GEN-LAST:event_nuevacategoriaActionPerformed
+
+    private void tipoventaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_tipoventaItemStateChanged
+     if(tipoventa.getSelectedItem().toString().equalsIgnoreCase("SOLO EN PAQUETE")){
+        precio.setText("0");
+     }        else{ precio.setText(precio.getText());}
+    }//GEN-LAST:event_tipoventaItemStateChanged
    
     /**
      * @param args the command line arguments
@@ -283,12 +305,14 @@ public class Registro_producto extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     public static javax.swing.JTextField nueva_categoria;
     public static javax.swing.JCheckBox nuevacategoria;
     public static javax.swing.JTextField precio;
     public static javax.swing.JComboBox<String> tipodecategoria;
+    public static javax.swing.JComboBox<String> tipoventa;
     public static javax.swing.JTextField unidades;
     public static javax.swing.JTextField valor_referencia;
     // End of variables declaration//GEN-END:variables

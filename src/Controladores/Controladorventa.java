@@ -9,6 +9,8 @@ import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
+import si.Agregar_paciente;
+import static si.Agregar_paciente.user_edad;
 import si.Archivos;
 import si.nucleo;
 //import AppPackage.AnimationClass;
@@ -19,15 +21,15 @@ import si.nucleo;
  */
 public class Controladorventa{
     //public static AnimationClass animacion= new AnimationClass();
-public static float cantidaddeproductos=0, cantidadparapollocrudo=0;
-public static float  gastos;
+public static float cantidaddeproductos=0;
+public static float  preciopiezaseleccionada,gastos;
 public static float variablepago, piezassuficientes, cantidadporerrordeusuario, 
            NoPcantidad=0, cantidadenventa,  cantidadenventasumada ,
            cantidadpolloenDB, porcentaje, importe,cambio,precio, 
            NoPimporte=0,sumadeimportesenturno;
    
  public static short  id_paciente,id_producto, ciclofor,fila,id_usuario, id_de_la_venta_incrementable,totalcomprobacion, primerventa;//SI SE OCUPAN   
- 
+ public static int idpiezaseleccionada=0;
     public static String  fechadesde="",fechahasta="", fechaparaventasdesde="", fechaparaventashasta="", fecha_nacimiento="";
 public static String nombredepiezaseleccionada="",nombre_paciente="", edad_paciente="",sexo_paciente, medico;
 public static String  NoP="",
@@ -40,7 +42,7 @@ public static ArrayList idsenturno = new ArrayList();
 
 //DATA MAX FULL VERSION
   public static boolean 
-          descuentoactivo=false, block_unlock=true,tablaventaactiva=false;
+          descuentoactivo=false, block_unlock=true,tablaventaactiva=false, sepuedeagregarpaciente=true;
    public static boolean noduplicarcrudo=false, noduplicarcocido=false, noduplicaracompañantes=false, 
             noduplicarexistencias=false, noduplicarcorte=false, noduplicarinventarioventas=false,
            noduplicargastos=false, noduplicarexternos=false, noduplicar_edicionpaciente=false, 
@@ -49,6 +51,7 @@ public static ArrayList idsenturno = new ArrayList();
            noduplicar_nucleo=false,
            noduplicar_envio_email=false,
            noduplicar_nuevo_producto=false,
+           noduplicar_nuevo_paquete=false,
            noduplicar_vista_de_ventas_a_credito=false,
            noduplicar_capturar_valor_de_referencia=false;
 
@@ -65,35 +68,25 @@ public static ArrayList idsenturno = new ArrayList();
   
   }
      //CUANDO RECIBE LA CANTIDAD POR DEFAULT DE 1
-   public Controladorventa(String piezaseleccionada, int cantidaddeproductos){
-         this.cantidaddeproductos=cantidaddeproductos;
-      this.nombredepiezaseleccionada=piezaseleccionada;
-        this.cantidadparapollocrudo=cantidaddeproductos;
-      /*  String[] piernafull = {"Muslo", "Pierna"};
-            for (int i = 0; i < piernafull.length; i++) {
-                agregarpiezasaventa(piernafull[i].toString());
-            }*/
-                agregandoaventa(nombredepiezaseleccionada,cantidaddeproductos);
+   public Controladorventa(int idpiezaseleccionada,String piezaseleccionada, int cantidaddeproductos, float preciopiezaseleccionada){
+       this.idpiezaseleccionada=idpiezaseleccionada;
+       this.nombredepiezaseleccionada=piezaseleccionada;  
+       this.cantidaddeproductos=cantidaddeproductos;
+       this.preciopiezaseleccionada=preciopiezaseleccionada;
+                agregandoaventa(idpiezaseleccionada,nombredepiezaseleccionada,cantidaddeproductos,preciopiezaseleccionada);
     }
-      //CUANDO RECIBE UNA CANTIDAD POR PARTE DE LA CALCULADORA O UN MEDIO O UN CUARTO
-  public Controladorventa(float cantidaddeproductos, String piezaseleccionada){
-      this.cantidaddeproductos=cantidaddeproductos;
-      this.nombredepiezaseleccionada=piezaseleccionada;
-      this.cantidadparapollocrudo=cantidaddeproductos;
-     agregandoaventa(nombredepiezaseleccionada, cantidaddeproductos);
-  }
    public static String fecha(){ /* SE DECARA LA FECHA DEL SISTEMA */
         Date fecha=new Date();
         SimpleDateFormat formatoFecha= new SimpleDateFormat("YYYY/MM/dd");
         return formatoFecha.format(fecha);
     }
    //INICIO DE AGREGANDO A VENTA
-    public void agregandoaventa(String nombredepiezaseleccionada, float cantidaddeproductos) {
-            agregarpiezasaventa(nombredepiezaseleccionada);
+    public void agregandoaventa(int idpiezaseleccionada,String nombredepiezaseleccionada, float cantidaddeproductos, float preciopiezaseleccionada) {
+            agregarpiezasaventa(idpiezaseleccionada,nombredepiezaseleccionada,cantidaddeproductos,preciopiezaseleccionada);
     }//FIN DE AGREGANDO AVENTA
     
     //INICIO DE AGREGARPIEZASAVENTA
-    public void agregarpiezasaventa(String nombredepieza){
+    public void agregarpiezasaventa(int idpiezaseleccionada,String nombredepiezaseleccionada, float cantidaddeproductos, float preciopiezaseleccionada){
          /* ******************** BOTON DE ADD NUEVO PRODUCTO PARA SU VENTA ******************** */
           Modeloventa.primer_ventadelsistema(); // 482 - 498   Comprueba que ya haya por lo menos un id registrado en la base o en su defecto que no lo haya
        // si hay piezas suficientes para agregar el articulo a la venta       
@@ -102,7 +95,7 @@ public static ArrayList idsenturno = new ArrayList();
              Modeloventa.asignar_id_paciente(); //Inserta el id_del paciente para no tener error con la llave foranea
               block_unlock=false;   //se desactiva la condicion que indica que ya no se agregue otro id venta ya que aún no se ha concluido la primer venta
           
-              Modeloventa.comprobar_registro(nombredepieza,cantidaddeproductos); // esto es para agregar los productos a la tabla de descripcion de venta y 
+              Modeloventa.comprobar_registro(idpiezaseleccionada,nombredepiezaseleccionada,cantidaddeproductos,preciopiezaseleccionada); // esto es para agregar los productos a la tabla de descripcion de venta y 
            
           // ya una vez concluida la venta el mismo metodo agregará dicho resultado total de la venta (a la tabla venta, bueno solo los resultados 
             // correspondientes como lo son; total, pago y cambio)
@@ -113,7 +106,7 @@ public static ArrayList idsenturno = new ArrayList();
 Modeloventa.get_id_usuario();// 255 -280
  Modeloventa.asignar_id_paciente(); //Inserta el id_del paciente para no tener error con la llave foranea
               block_unlock=false;   
-               Modeloventa.comprobar_registro(nombredepieza, cantidaddeproductos); // esto es para agregar los productos a la tabla de descripcion de venta y 
+               Modeloventa.comprobar_registro(idpiezaseleccionada,nombredepiezaseleccionada,cantidaddeproductos,preciopiezaseleccionada); // esto es para agregar los productos a la tabla de descripcion de venta y 
            
            }
             
@@ -134,6 +127,7 @@ Modeloventa.get_id_usuario();// 255 -280
   if (matGastos.matches()&&!cantidaddelatabla.equals("")&&!cantidaddelatabla.equals("0")) {
             next = true;
         } else {
+      Controladorventa.sepuedeagregarpaciente=false;
             JOptionPane.showMessageDialog(null, "No puedes escribir letras, dejar vacio el campo ni meter un 0", "Advertencia", JOptionPane.INFORMATION_MESSAGE);    
         }
         return next;
@@ -142,11 +136,11 @@ Modeloventa.get_id_usuario();// 255 -280
         boolean next = false;
         Pattern patGastos = Pattern.compile("^[0-9]+([.])?([0-9]+)?$");
         Matcher matGastos = patGastos.matcher(cantidaddelatabla);
-  if (!cantidaddelatabla.equals("")&&!cantidaddelatabla.equals("0")) {
+  if (matGastos.matches()&&!cantidaddelatabla.equals("")&&!cantidaddelatabla.equals("0")) {
             next = true;
         } else {
-             nucleo.user_edad.setBackground(new Color(135,193,193));
-            JOptionPane.showMessageDialog(null, "Campo edad del paciente", "Complete todos los datos del pacienteAdvertencia", JOptionPane.INFORMATION_MESSAGE);    
+             Agregar_paciente.user_edad.setBackground(new Color(135,193,193));
+            JOptionPane.showMessageDialog(null, "Solo debe llevar numeros y no debe estar vacio", "Campo edad del paciente,", JOptionPane.INFORMATION_MESSAGE);    
         }
         return next;
     }
@@ -189,7 +183,7 @@ nucleo.deletedescuento.setVisible(true);
       //  descuentodepollo();  
      Modeloventa.get_id_usuario();
                             Modeloventa.mostrartabladeventas();
-                                    limpiardatosdeventa(); //Los datos que aparecen en la venta se mostraran
+                               limpiardatosdeventa(); //Los datos que aparecen en la venta se mostraran
                                 descuentoactivo=false;
                             //    storage.clear();    
     }
@@ -204,14 +198,14 @@ nucleo.deletedescuento.setVisible(true);
         descuentoactivo=false;
     } 
              public static void limpiardatospaciente(){
-                     nucleo.calendar_fecha_nacimiento.cleanup();//limpia el calendario de la fecha del paciente
-        nucleo.calendar_fecha_nacimiento.setDate(null);
-        nucleo.user_edad.setBackground(new Color(135,193,193));
-        nucleo.user_edad.setText("");
-                nucleo.user_nombre.setBackground(new Color(135,193,193));
-                nucleo.user_nombre.setText("");
-                nucleo.medico.setBackground(new Color(135,193,193));
-                nucleo.medico.setText("");
+                     Agregar_paciente.calendar_fecha_nacimiento.cleanup();//limpia el calendario de la fecha del paciente
+        Agregar_paciente.calendar_fecha_nacimiento.setDate(null);
+        Agregar_paciente.user_edad.setBackground(new Color(135,193,193));
+        Agregar_paciente.user_edad.setText("");
+                Agregar_paciente.user_nombre.setBackground(new Color(135,193,193));
+                Agregar_paciente.user_nombre.setText("");
+                Agregar_paciente.medico.setBackground(new Color(135,193,193));
+                Agregar_paciente.medico.setText("");
              }
  public static boolean validarFormulariotexto(String nombre) { // VALIDACION DE TXTDESCRIPCION
         boolean next = false;      //"^([a-zA-ZÁÉÍÓÚ]{1}[a-zñáéíóú]{1,24}[\\s]*)+$"
@@ -231,7 +225,7 @@ nucleo.deletedescuento.setVisible(true);
         if (!nombre.equals("")) {
             next = true;
         } else {
-            nucleo.user_nombre.setBackground(new Color(135,193,193));
+            Agregar_paciente.user_nombre.setBackground(new Color(135,193,193));
             JOptionPane.showMessageDialog(null, "Campo nombre del paciente o nombre del medico","Complete todos los datos del paciente",JOptionPane.INFORMATION_MESSAGE);
         }
         return next;
@@ -255,7 +249,7 @@ nucleo.deletedescuento.setVisible(true);
      Modeloventa.id_max_de_venta();
                 // descuentodepollo();
             Modeloventa.borrarventasenestadoenturnoporerrordeusuario_limpiarventa_o_cerrarsesion();
-          limpiardatosdeventa();  //limpia en su mayoria los campos de texto que pertenezcan al apartado venta
+         limpiardatosdeventa();  //limpia en su mayoria los campos de texto que pertenezcan al apartado venta
                 nucleo.tablaventa.setVisible(false); //Desaparece la tabla
                storage.clear();
     }//BOTON CERRAR SESION, PERO COMPRUEBA SI HAY UNA VENTA PEN PARA CANCELAR EN CASO DE SALIR  public void eliminarhuesito(int id){
@@ -287,19 +281,22 @@ nucleo.deletedescuento.setVisible(true);
             nucleo.monto.setText("00.00");
         }
         nucleo.monto.setForeground(new Color(236, 240, 241));
-    }public static void montoKeyRealeased(){
+    }
+    public static void montoKeyRealeased(){
         if(nucleo.ventacredito.isSelected()){//Cuando se selecciono una venta  a credito
             boolean pass2 = validarFormulario(nucleo.monto.getText());
             if(pass2&&Float.parseFloat(nucleo.monto.getText())<Float.parseFloat(nucleo.subtotal.getText())&&Float.parseFloat(nucleo.descuentocombo.getText())==0){//TEXTO SOLO SEAN NUMERO, EL PAGO NO SEA MAYOR O IGUAL AL SUBTOTAL SINO NO PUEDE SER UNA VENTA A ACREDITO Y EL MONTO DESCUENTO NO PUEDE ESTAR ACTIVO
                   Controlador_venta_a_credito.agregar_venta_a_credito();
-            }else{
+            }else{//CONDICIONAL
+                Controladorventa.sepuedeagregarpaciente=false;
                 JOptionPane.showMessageDialog(null," Ell pago no puede ser mayor al subtotal, No puede haber un descuento","Sugerencia de venta a credito",JOptionPane.INFORMATION_MESSAGE);
-            }
+        }
           
         }else if(nucleo.ventacredito.isSelected()==false){//Cuando la venta a credito no esta seleccionada
             boolean pass2 = validarFormulario(nucleo.monto.getText());
             if(pass2){//ESTO VALIDA QUE EL TEXTO ESCRITO NO TENGA INCOHERENCIAS
                 Modeloventa.metodo_de_cobro(Float.parseFloat(nucleo.monto.getText()));
+                
             }
         }
     }
@@ -307,9 +304,9 @@ nucleo.deletedescuento.setVisible(true);
         //ESTO DESCUENTA UN PRODUCTO A LA VEZ Y LO DEVUELVE A INVENTARIO
         fila =Short.parseShort(String.valueOf(nucleo.tablaventa.getSelectedRow()));
  if(fila>=0){// CUANDO UNA CELDA SE SELECCIONO
-            nombredepiezaseleccionada=nucleo.tablaventa.getValueAt(fila,0).toString();
+            idpiezaseleccionada=Integer.parseInt(nucleo.tablaventa.getValueAt(fila,0).toString());
     // BOOLEANAS PARA SABER CUALES NO SE VA A REGRESAR
-                Modeloventa.regresarproductos_a_inventario(nombredepiezaseleccionada); //pone en estatus de cancelada la venta inconclusa
+                Modeloventa.regresarproductos_a_inventario(idpiezaseleccionada); //pone en estatus de cancelada la venta inconclusa
                Modeloventa.mostrartabladeventas();
         }else{
             JOptionPane.showMessageDialog(null,"Por favor, seleccione una fila primero","Aviso",JOptionPane.INFORMATION_MESSAGE);
@@ -348,9 +345,9 @@ if(usuario.equals("Administrador")){
 }
     }
    public static String fecha_de_nacimiento_del_paciente(){
-       int año= nucleo.calendar_fecha_nacimiento.getCalendar().get(Calendar.YEAR);
-       int mes= nucleo.calendar_fecha_nacimiento.getCalendar().get(Calendar.MONTH)+1;
-       int dia= nucleo.calendar_fecha_nacimiento.getCalendar().get(Calendar.DAY_OF_MONTH);
+       int año= Agregar_paciente.calendar_fecha_nacimiento.getCalendar().get(Calendar.YEAR);
+       int mes= Agregar_paciente.calendar_fecha_nacimiento.getCalendar().get(Calendar.MONTH)+1;
+       int dia= Agregar_paciente.calendar_fecha_nacimiento.getCalendar().get(Calendar.DAY_OF_MONTH);
        if(dia<10){
            String nuevodia= "0"+dia;
              fecha_nacimiento= año+"/"+mes+"/"+nuevodia;

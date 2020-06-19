@@ -17,6 +17,8 @@ import si.nucleo;
 public class Controladorexistencias {
     public static short fila;
     public static String nombredepiezaseleccionada;
+    public static int idpiezaseleccionada;
+    public static float preciopiezaseleccionada;
     public static void mostrartodoslosproductosenexistencias(String nombre){
         Modeloexistencias.mostrartodoslosproductosenexistenciasporbusqueda(nombre);
     }
@@ -27,9 +29,11 @@ public class Controladorexistencias {
     public static void mandaraventa(){
           fila =Short.parseShort(String.valueOf(nucleo.existenciadeproductos.getSelectedRow()));
  if(fila>=0){// CUANDO UNA CELDA SE SELECCIONO
-            nombredepiezaseleccionada=nucleo.existenciadeproductos.getValueAt(fila,0).toString();
+     idpiezaseleccionada=Integer.parseInt(nucleo.existenciadeproductos.getValueAt(fila,0).toString());
+            nombredepiezaseleccionada=nucleo.existenciadeproductos.getValueAt(fila,1).toString();
+            preciopiezaseleccionada=Float.parseFloat(nucleo.existenciadeproductos.getValueAt(fila,3).toString().substring(1));
     // BOOLEANAS PARA SABER CUALES NO SE VA A REGRESAR
-            Controladorventa manda = new Controladorventa(nombredepiezaseleccionada,1);   
+            Controladorventa manda = new Controladorventa(idpiezaseleccionada,nombredepiezaseleccionada,1,preciopiezaseleccionada);   
         }else{
             JOptionPane.showMessageDialog(null,"Por favor, seleccione una fila primero","Aviso",JOptionPane.INFORMATION_MESSAGE);
         }

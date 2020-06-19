@@ -34,6 +34,7 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
+import si.Agregar_paciente;
 import si.Inventarioventas;
 import si.SI;
 import si.Ventas_a_credito;
@@ -54,14 +55,20 @@ static ResultSet rs;
      //ESTO VALIDA QUE EL TEXTO ESCRITO NO TENGA INCOHERENCIAS
                     int decision=JOptionPane.showConfirmDialog(null,"¿Desea continuar?","Estás por agregar una venta a credito",JOptionPane.CANCEL_OPTION);
                     if(decision==0){ //opción si
-                        pass = Controladorventa.validarFormulario_paciente(nucleo.user_edad.getText());
-                   pass2 = validarFormulariotexto_paciente(nucleo.user_nombre.getText());
-                   pass3 = validarFormulariotexto_paciente(nucleo.medico.getText());
-                try{
-                     String fecha_paciente= Controladorventa.fecha_de_nacimiento_del_paciente();
-          if (pass && pass2 &&pass3&&!fecha_paciente.equalsIgnoreCase("")) {
-              //ESTO ES PARA VALIDAR QUE SE TENGAN TODOS LOS DATOS DEL CLIENTE
-                        try{
+                         new Agregar_paciente().setVisible(true);
+             
+                    } //CUANDO ACEPTA COMPLETAR LA VENTA CREDITO
+                
+            }catch(NullPointerException NP){}
+            finally{cc.getClose();}
+           }//SI EL TOTAL NO ES VACIO
+        else{//CUANDO EL TOTAL ES VACIO,,,,,, CONDICIONAL
+          Controladorventa.sepuedeagregarpaciente=false;
+            JOptionPane.showMessageDialog(null, "Aún no hay productos para hacer una venta a credito");
+        }//CUANDO EL TOTAL ES VACIO
+    }
+    public static void completar_venta_a_credito(){
+      Connection ca= cc.conexion();  try{
                             Modeloventa.comprobar_venta_resagada();//579 - 605 verifica que no haya una venta cancelada
                             Controladorventa.tablaventaactiva=false;
  Modeloventa.id_max_de_venta();
@@ -71,36 +78,26 @@ static ResultSet rs;
  }catch(Exception ex){
                             JOptionPane.showMessageDialog(null, "Error en insertarventaacredito venta" + ex.getMessage());
                         }
-                        try{        Modelogastos.insertarventacondescuentoengastos("Cdo "+nucleo.user_nombre.getText(), sumadeimportesenturno,id_de_la_venta_incrementable);
-                    
+                        try{        
                             Modeloventa.id_max_de_venta(); 
-                            PreparedStatement ps2 = ca.prepareStatement ("UPDATE descripcion_de_venta SET estado= '"+Controladorinventarioventas.creditopendiente+"',nombre_credito='"+nucleo.user_nombre.getText()+"' WHERE id_venta='"+id_de_la_venta_incrementable+"'");
+                            PreparedStatement ps2 = ca.prepareStatement ("UPDATE descripcion_de_venta SET estado= '"+Controladorinventarioventas.creditopendiente+"',nombre_credito='"+Agregar_paciente.user_nombre.getText()+"' WHERE id_venta='"+id_de_la_venta_incrementable+"'");
                             ps2.executeUpdate();
+                               int result = ps2.executeUpdate();
+                                         if(result>0){
+   Modelogastos.insertarventacondescuentoengastos("Cdo "+Agregar_paciente.user_nombre.getText(), sumadeimportesenturno,id_de_la_venta_incrementable);
    Modeloventa.descripciondelosprouductosparaelticketdeventa(id_de_la_venta_incrementable,Controladorinventarioventas.creditopendiente);//DATOS PARA EL TICKET DE VENTA
    Modeloventa.descripciondelosprouductosparaelticketdeventa(id_de_la_venta_incrementable,Controladorinventarioventas.creditopendiente);//DATOS PARA EL TICKET DE VENTA
          Controladorventa.block_unlock=true;
                             Controladorventa.accionesdespuesderealizarcualquierventa();
+                                         }
+
                      }
                         catch(Exception ex){
                             JOptionPane.showMessageDialog(null, "Error en insertarventaacredito update desc" + ex.getMessage());
                         }
                         llenar_datos_del_paciente_tras_completar_la_venta();
-          }else{//CUANDO NO SE LLENAN TODOS LOS DATOS DEL PACIENTE
-                    JOptionPane.showMessageDialog(null,"Complete todos los datos del paciente", "ERROR", JOptionPane.ERROR_MESSAGE);
-          }//CUANDO NO SE LLENAN TODOS LOS DATOS DEL PACIENTE
-                }catch (NullPointerException NPE){//INICIO DEL CATCH
-                              JOptionPane.showMessageDialog(null,"Debes de elegir la fecha de nacimiento del paciente", "ERROR", JOptionPane.ERROR_MESSAGE);
-                  }//FIN DEL CATCH
-                    } //CUANDO ACEPTA COMPLETAR LA VENTA CREDITO
-                
-            }catch(NullPointerException NP){}
-            finally{cc.getClose();}
-  }//SI EL TOTAL NO ES VACIO
-        else{//CUANDO EL TOTAL ES VACIO
-            JOptionPane.showMessageDialog(null, "Aún no hay productos para hacer una venta a credito");
-        }//CUANDO EL TOTAL ES VACIO
+               //FIN DEL CATCH
     }
-    
     public static void ventas_a_credito(){
        Object[] columna = new Object[8];  //crear un obj con el nombre de colunna
              DefaultTableModel modeloTE = new DefaultTableModel(); 

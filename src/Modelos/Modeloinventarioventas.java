@@ -314,6 +314,8 @@ public static void eliminar_idventa_sitienedescuento(float descuento, int id_ven
                                                       }
                                                       }//fin del try-precio del producto
                                                       catch (Exception e){
+                                                          JOptionPane.showMessageDialog(null, "No existe paciente de esta venta para editar ","Por favor verifique", JOptionPane.ERROR_MESSAGE);      
+                                           
                                                            JOptionPane.showMessageDialog(null, "ERROR EN METODO: conteodeventasrealizadasdehoy: "+e.getMessage(),"DEVELOPER HELPER", JOptionPane.ERROR_MESSAGE);      
                                                       }// fin del precio-catch del producto
         finally{
