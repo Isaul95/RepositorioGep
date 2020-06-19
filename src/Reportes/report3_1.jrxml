@@ -15,7 +15,7 @@ from venta v
 inner join descripcion_de_venta dv on v.id_venta = dv.id_venta 
 inner join pacientes pac on dv.id_paciente = pac.id_paciente 
 inner join paquetes p on dv.id_producto = p.id_producto  
-where v.id_venta =$P{parameter1} and v.estado_venta='Realizada' and v.fecha_reporte = curdate() and SUBSTRING(dv.nombre_producto,1,7) not in ('PAQUETE')]]>
+where v.id_venta =$P{parameter1} and v.estado_venta='Realizada' and v.fecha_reporte = curdate() and SUBSTRING(dv.nombre_producto,1,7) not in ('PAQUETE') Order by p.categoria_estudios]]>
 	</queryString>
 	<field name="nombre_producto" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
