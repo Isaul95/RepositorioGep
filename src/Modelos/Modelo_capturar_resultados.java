@@ -36,14 +36,15 @@ public class Modelo_capturar_resultados extends Controlador_capturar_resultados{
    static Statement sent;  
 static ResultSet rs;  
     public static void TablallenadoparaEntradas(JTable tablaD, int id_venta){ // recibe como parametro 
-           Object[] columna = new Object[3];  //crear un obj con el nombre de colunna
+           Object[] columna = new Object[4];  //crear un obj con el nombre de colunna
             DefaultTableModel modeloT = new DefaultTableModel(); 
                   tablaD.setModel(modeloT);  // add modelo ala tabla 
                   modeloT.addColumn("");
         modeloT.addColumn("Estudio");
+         modeloT.addColumn("Categoria");
         modeloT.addColumn("Resultado");
         try { Connection ca= cc.conexion(); // CONEXION DB 
-         String sSQL = "select pacientes.nombre, pacientes.edad, pacientes.sexo, pacientes.fecha_nacimiento, venta.fecha_reporte, venta.hora, descripcion_de_venta.nombre_producto, descripcion_de_venta.resultado, pacientes.medico,descripcion_de_venta.id_producto from venta INNER JOIN descripcion_de_venta on venta.id_venta = descripcion_de_venta.id_venta inner join pacientes on descripcion_de_venta.id_paciente = pacientes.id_paciente WHERE descripcion_de_venta.estado = 'Realizada' and descripcion_de_venta.id_venta ="+id_venta;
+         String sSQL = "select pacientes.nombre, pacientes.edad, pacientes.sexo, pacientes.fecha_nacimiento, venta.fecha_reporte, venta.hora, descripcion_de_venta.nombre_producto, descripcion_de_venta.resultado, pacientes.medico,descripcion_de_venta.id_producto, paquetes.categoria_estudios from venta INNER JOIN descripcion_de_venta on venta.id_venta = descripcion_de_venta.id_venta inner join pacientes on descripcion_de_venta.id_paciente = pacientes.id_paciente inner join paquetes on descripcion_de_venta.id_producto = paquetes.id_producto WHERE descripcion_de_venta.estado = 'Realizada' and descripcion_de_venta.id_venta ="+id_venta;
         PreparedStatement ps = ca.prepareStatement(sSQL);       
         try (ResultSet rs = ps.executeQuery(sSQL)) {
             while (rs.next()) {
@@ -55,7 +56,8 @@ static ResultSet rs;
                 columna[0] = rs.getString(10);
                  columna[1] = rs.getString(7);
                  Capturar_resultados.medico.setText(rs.getString(9));//Se almacena el nombre del paciente
-                columna[2] = rs.getString(8);
+                 columna[2] = rs.getString(11);
+                columna[3] = rs.getString(8);
                 modeloT.addRow(columna);
             }        TableColumnModel columnModel =  tablaD.getColumnModel();
    // columnModel.getColumn(0).setPreferredWidth(250); columnModel.getColumn(1).setPreferredWidth(50); 
@@ -63,8 +65,10 @@ static ResultSet rs;
     columnModel.getColumn(0).setMinWidth(50);
     columnModel.getColumn(1).setMaxWidth(560);
     columnModel.getColumn(1).setMinWidth(560);
-    columnModel.getColumn(2).setMaxWidth(220);
-    columnModel.getColumn(2).setMinWidth(220);
+     columnModel.getColumn(2).setMaxWidth(320);
+    columnModel.getColumn(2).setMinWidth(320);
+    columnModel.getColumn(3).setMaxWidth(220);
+    columnModel.getColumn(3).setMinWidth(220);
                         modeloT.addTableModelListener(new TableModelListener(){
                 @Override
                 public void tableChanged(TableModelEvent e) {

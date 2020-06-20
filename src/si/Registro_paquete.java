@@ -95,6 +95,15 @@ public class Registro_paquete extends javax.swing.JFrame {
         });
         jPanel1.add(paquetes, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 320, 500, -1));
 
+        Tablepaquetes = new javax.swing.JTable(){
+            public boolean isCellEditable(int filas, int columnas){
+                if(columnas!=0){
+                    return true;
+                }else{
+                    return false;
+                }
+            }
+        };
         Tablepaquetes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -123,6 +132,11 @@ public class Registro_paquete extends javax.swing.JFrame {
         jLabel9.setText("Paquetes sin análisis");
         jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 190, 23));
 
+        Tablepaquetessinanalisis = new javax.swing.JTable(){
+            public boolean isCellEditable(int filas, int columnas){
+                return false;
+            }
+        };
         Tablepaquetessinanalisis.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 

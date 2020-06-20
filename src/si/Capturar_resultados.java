@@ -101,7 +101,7 @@ public Capturar_resultados(int id_venta_a_capturar_resultados){
 
         Jtable_ProductosEntradas = new javax.swing.JTable(){
             public boolean isCellEditable(int filas, int columnas){
-                if(columnas==2){
+                if(columnas==3){
                     return true;
                 }else{
                     return false;
@@ -127,7 +127,7 @@ public Capturar_resultados(int id_venta_a_capturar_resultados){
         });
         jScrollPane2.setViewportView(Jtable_ProductosEntradas);
 
-        jPanel33.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 320, 770, 200));
+        jPanel33.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 320, 1150, 200));
 
         fecha_hora_ingreso.setBackground(new java.awt.Color(0, 0, 0));
         fecha_hora_ingreso.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
@@ -139,13 +139,13 @@ public Capturar_resultados(int id_venta_a_capturar_resultados){
         id_venta.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         id_venta.setForeground(new java.awt.Color(102, 102, 102));
         id_venta.setText("idVenta:");
-        jPanel33.add(id_venta, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 50, 170, -1));
+        jPanel33.add(id_venta, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 50, 230, -1));
 
         paciente.setBackground(new java.awt.Color(0, 0, 0));
         paciente.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         paciente.setForeground(new java.awt.Color(102, 102, 102));
         paciente.setText("dbPaciente:");
-        jPanel33.add(paciente, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 80, 630, -1));
+        jPanel33.add(paciente, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 80, 850, -1));
 
         edad.setBackground(new java.awt.Color(0, 0, 0));
         edad.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
@@ -204,7 +204,7 @@ public Capturar_resultados(int id_venta_a_capturar_resultados){
                 genetrar_PdfActionPerformed(evt);
             }
         });
-        jPanel33.add(genetrar_Pdf, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 530, 170, 60));
+        jPanel33.add(genetrar_Pdf, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 530, 170, 60));
 
         gastos_btn_back.setBackground(new java.awt.Color(255, 255, 255));
         gastos_btn_back.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -216,7 +216,7 @@ public Capturar_resultados(int id_venta_a_capturar_resultados){
                 gastos_btn_backActionPerformed(evt);
             }
         });
-        jPanel33.add(gastos_btn_back, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 30, 140, 40));
+        jPanel33.add(gastos_btn_back, new org.netbeans.lib.awtextra.AbsoluteConstraints(1020, 40, 140, 40));
 
         envio_email.setBackground(new java.awt.Color(255, 255, 255));
         envio_email.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -227,24 +227,24 @@ public Capturar_resultados(int id_venta_a_capturar_resultados){
                 envio_emailActionPerformed(evt);
             }
         });
-        jPanel33.add(envio_email, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 530, 170, 60));
+        jPanel33.add(envio_email, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 530, 170, 60));
 
         jLabel86.setBackground(new java.awt.Color(0, 0, 0));
         jLabel86.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel86.setText("No. paciente");
-        jPanel33.add(jLabel86, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 50, 120, -1));
+        jPanel33.add(jLabel86, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 50, 120, -1));
 
         id_paciente.setBackground(new java.awt.Color(0, 0, 0));
         id_paciente.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         id_paciente.setForeground(new java.awt.Color(102, 102, 102));
         id_paciente.setText("idVenta:");
-        jPanel33.add(id_paciente, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 50, 160, -1));
+        jPanel33.add(id_paciente, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 50, 280, -1));
 
         medico.setBackground(new java.awt.Color(0, 0, 0));
         medico.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         medico.setForeground(new java.awt.Color(102, 102, 102));
         medico.setText("dbPaciente:");
-        jPanel33.add(medico, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 120, 630, -1));
+        jPanel33.add(medico, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 120, 850, -1));
 
         jLabel83.setBackground(new java.awt.Color(0, 0, 0));
         jLabel83.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
@@ -264,20 +264,21 @@ public Capturar_resultados(int id_venta_a_capturar_resultados){
         jPanel33.add(jLabel87, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 550, 300, -1));
 
         producto_sobrante3.add(jPanel33);
-        jPanel33.setBounds(10, 10, 810, 600);
+        jPanel33.setBounds(10, 10, 1170, 600);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(producto_sobrante3, javax.swing.GroupLayout.PREFERRED_SIZE, 834, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(producto_sobrante3, javax.swing.GroupLayout.PREFERRED_SIZE, 1188, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                    .addContainerGap(420, Short.MAX_VALUE)
+                    .addContainerGap(600, Short.MAX_VALUE)
                     .addComponent(agregar_articulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(420, Short.MAX_VALUE)))
+                    .addContainerGap(600, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
