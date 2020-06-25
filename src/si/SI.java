@@ -6,21 +6,19 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane; 
 public class SI {
-    //String MySQLpassword="programahtrm5609"; //  remototcdrw3tHcq
-   String MySQLpassword=""; //  remototcdrw3tHcq
+    String MySQLpassword="programahtrm5609"; //  remototcdrw3tHcq
+   //String MySQLpassword=""; //  remototcdrw3tHcq
  
 //clase para hacer la conexión a mysql 
    Connection conectar=null;
        public Connection conexion(){
                   try{//CAMBIOS, MALDITA ZORRA
           Class.forName("com.mysql.jdbc.Driver");
-          //TEST 
-       // remoto   conectar= (Connection) DriverManager.getConnection("jdbc:mysql://sql3.freesqldatabase.com:3306/sql3347953?autoReconnect=true&useSSL=false","sql3347953",MySQLpassword);  
-
-//conectar= (Connection) DriverManager.getConnection("jdbc:mysql://sh-pro10.hostgator.mx:3306/gepsofco_inventariostore_alkimia_test?autoReconnect=true&useSSL=false","gepsofco_Alkhemy",MySQLpassword);  
+          
+conectar= (Connection) DriverManager.getConnection("jdbc:mysql://sh-pro10.hostgator.mx:3306/gepsofco_inventariostore_alkimia_test?autoReconnect=true&useSSL=false","gepsofco_Alkhemy",MySQLpassword);  
 
 // la de abajo es la k estaba local conected
-conectar= (Connection) DriverManager.getConnection("jdbc:mysql://localhost/inventariostore_alkimia_test?autoReconnect=true&useSSL=false","root",MySQLpassword);  
+//conectar= (Connection) DriverManager.getConnection("jdbc:mysql://localhost/inventariostore_alkimia_test?autoReconnect=true&useSSL=false","root",MySQLpassword);  
   
 /*      DATOS CONEXXION AL HOSTGATOR
 DB:    gepsofco_inventariostore_alkimia_test
