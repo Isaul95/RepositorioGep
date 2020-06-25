@@ -60,6 +60,7 @@ public class Inventarioventas extends javax.swing.JFrame {
         conteodelasventasrealizadas = new javax.swing.JLabel();
         opciones = new javax.swing.JLabel();
         busqueda = new javax.swing.JTextField();
+        agregar_nota = new javax.swing.JButton();
         jPanel24 = new javax.swing.JPanel();
         jLabel93 = new javax.swing.JLabel();
         gastos_btn_back = new javax.swing.JButton();
@@ -173,7 +174,7 @@ public class Inventarioventas extends javax.swing.JFrame {
                 editar_pacienteActionPerformed(evt);
             }
         });
-        jPanel23.add(editar_paciente, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 370, 240, -1));
+        jPanel23.add(editar_paciente, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 380, 240, -1));
 
         totalventarealizada.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         totalventarealizada.setText("Total de ésta venta:");
@@ -244,6 +245,18 @@ public class Inventarioventas extends javax.swing.JFrame {
             }
         });
         jPanel23.add(busqueda, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 360, 40));
+
+        agregar_nota.setBackground(new java.awt.Color(255, 255, 255));
+        agregar_nota.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        agregar_nota.setForeground(new java.awt.Color(0, 153, 153));
+        agregar_nota.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/flecha-hacia-la-izquierda (1).png"))); // NOI18N
+        agregar_nota.setText("Agregar/Editar nota");
+        agregar_nota.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                agregar_notaActionPerformed(evt);
+            }
+        });
+        jPanel23.add(agregar_nota, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 330, 240, -1));
 
         Administrador.add(jPanel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 1280, 560));
 
@@ -359,6 +372,11 @@ busqueda.setText("");
          Controladorinventarioventas.mostrarresultadosenlabusquedadenombres(busqueda.getText());
     }//GEN-LAST:event_busquedaKeyReleased
 
+    private void agregar_notaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregar_notaActionPerformed
+   String texto = JOptionPane.showInputDialog("Escribe tu nota para esta venta");
+Modeloinventarioventas.agregar_nota(texto,Controladorinventarioventas.id);
+    }//GEN-LAST:event_agregar_notaActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -396,6 +414,7 @@ busqueda.setText("");
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JPanel Administrador;
+    public static javax.swing.JButton agregar_nota;
     public static javax.swing.JButton buscarventasporfecha;
     public static javax.swing.JTextField busqueda;
     public static javax.swing.JButton cancelarventa;

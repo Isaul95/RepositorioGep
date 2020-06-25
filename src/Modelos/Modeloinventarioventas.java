@@ -335,4 +335,18 @@ public static void eliminar_idventa_sitienedescuento(float descuento, int id_ven
                     cc.getClose();
                 }        
    }
+   public static void agregar_nota(String nota, int id_venta){
+        try{Connection ca= cc.conexion();
+                    PreparedStatement ps = ca.prepareStatement ("UPDATE venta SET nota='"+nota+"' where id_venta= '"+id_venta+"'  ");
+                int resultado = ps.executeUpdate();
+                if(resultado>0){
+                    
+                }
+        }
+            catch (Exception e){ 
+               JOptionPane.showMessageDialog(null, "Error en añadir_respuesta_que_no_se_actualizo" + e.getMessage());
+            }   finally{
+                    cc.getClose();
+                }            
+   }
 }

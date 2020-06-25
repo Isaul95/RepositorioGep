@@ -61,6 +61,7 @@ public class Controladorinventarioventas {
         Inventarioventas.editar_paciente.setVisible(false);
         Inventarioventas.resultado.setVisible(false);
           Inventarioventas.opciones.setVisible(false);
+           Inventarioventas.agregar_nota.setVisible(false);
          
     }
     public static void botonveridventas(){ //INVENTARIOVENTAS
@@ -77,6 +78,7 @@ public class Controladorinventarioventas {
                 Inventarioventas.cancelarventa.setVisible(true);
                  Inventarioventas.editar_paciente.setVisible(true);
         Inventarioventas.resultado.setVisible(true);
+         Inventarioventas.agregar_nota.setVisible(true);
               
   } 
   
@@ -170,6 +172,7 @@ public class Controladorinventarioventas {
                Inventarioventas.cancelarventa.setVisible(false);
   Inventarioventas.editar_paciente.setVisible(false);
         Inventarioventas.resultado.setVisible(false);      
+         Inventarioventas.agregar_nota.setVisible(false);
        
      }
     public static void editar_paciente(short id){
