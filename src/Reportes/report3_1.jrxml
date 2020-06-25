@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c4c60ee2-567c-41a3-8236-ee19d087552e">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="733"/>
 	<parameter name="parameter1" class="java.lang.String"/>
 	<parameter name="Logo5" class="java.io.InputStream"/>
 	<parameter name="firma5" class="java.io.InputStream"/>
@@ -10,7 +10,7 @@
 	<queryString>
 		<![CDATA[select dv.nombre_producto, p.categoria_estudios, dv.id_paciente, pac.nombre, 
 pac.fecha_nacimiento, pac.edad, pac.sexo, pac.fecha_ingreso,pac.medico, dv.resultado, p.unidades, 
-p.valordereferencia, v.fecha_reporte 
+p.valordereferencia, v.fecha_reporte, v.nota
 from venta v 
 inner join descripcion_de_venta dv on v.id_venta = dv.id_venta 
 inner join pacientes pac on dv.id_paciente = pac.id_paciente 
@@ -56,6 +56,9 @@ where v.id_venta =$P{parameter1} and v.estado_venta='Realizada' and v.fecha_repo
 	<field name="fecha_reporte" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
+	<field name="nota" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
 	<group name="categoria_estudios">
 		<groupExpression><![CDATA[$F{categoria_estudios}]]></groupExpression>
 		<groupHeader>
@@ -88,6 +91,12 @@ where v.id_venta =$P{parameter1} and v.estado_venta='Realizada' and v.fecha_repo
 				</reportElement>
 				<imageExpression><![CDATA[$P{Logo5}]]></imageExpression>
 			</image>
+			<textField>
+				<reportElement x="8" y="668" width="545" height="27" uuid="53c48bf0-8e4b-499e-a21c-2f47d29db512">
+					<printWhenExpression><![CDATA[$V{PAGE_NUMBER} == 1]]></printWhenExpression>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{nota}]]></textFieldExpression>
+			</textField>
 			<staticText>
 				<reportElement x="121" y="764" width="196" height="8" uuid="b5200f3e-069a-45da-8bc9-8ed3859f1f4b"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
