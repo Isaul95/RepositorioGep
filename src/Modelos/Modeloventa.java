@@ -421,7 +421,7 @@ borrarventasenestadoenturnoporerrordeusuario_que_no_coincidenconlafechadehoy();/
                             try{Connection ca= cc.conexion();// el id del usuario
                                 id_max_de_venta();
                                
-                                 PreparedStatement ps = ca.prepareStatement ("UPDATE venta SET subtotal='"+solodosdecimales.format(Float.parseFloat(nucleo.subtotal.getText())).replace(",", ".")+"',total='"+solodosdecimales.format(Float.parseFloat(nucleo.total.getText())).replace(",", ".")+"',descuento='"+solodosdecimales.format(Float.parseFloat(nucleo.descuentocombo.getText())).replace(",", ".")+"',pago='"+variablepago+"',cambio='"+solodosdecimales.format(Float.parseFloat(nucleo.cambiocombobox.getText())).replace(",", ".")+"',fecha_reporte='"+fecha()+"',estado_venta='"+estadorealizado+"',hora='"+nucleo.Reloj.getText()+"'WHERE id_venta='"+id_de_la_venta_incrementable+"'");
+                                 PreparedStatement ps = ca.prepareStatement ("UPDATE venta SET subtotal='"+solodosdecimales.format(Float.parseFloat(nucleo.subtotal.getText())).replace(",", ".")+"',total='"+solodosdecimales.format(Float.parseFloat(nucleo.total.getText())).replace(",", ".")+"',descuento='"+solodosdecimales.format(Float.parseFloat(nucleo.descuentocombo.getText())).replace(",", ".")+"',pago='"+variablepago+"',cambio='"+solodosdecimales.format(Float.parseFloat(nucleo.cambiocombobox.getText())).replace(",", ".")+"',fecha_reporte='"+fecha()+"',estado_venta='"+estadorealizado+"',hora='"+nucleo.Reloj.getText()+"' ,nota='' WHERE id_venta='"+id_de_la_venta_incrementable+"'");
   ps.executeUpdate();
                               //ACTUALIZACION EN LA TABLA DESCRIPCION DE VENTA A REALIZADA
                              
@@ -592,8 +592,7 @@ public static void llenar_datos_del_paciente_tras_completar_la_venta_a_credito()
                                     edad_paciente=edad_paciente+" año.";
                                   else edad_paciente=edad_paciente+" años.";
                                   PreparedStatement ps3 = ca.prepareStatement ("UPDATE pacientes SET nombre='"+nombre_paciente.toUpperCase()+"',fecha_nacimiento='"+Controladorventa.fecha_de_nacimiento_del_paciente()+"',edad='"+edad_paciente.toUpperCase()+"',sexo='"+sexo_paciente.toUpperCase()+"',medico='"+medico.toUpperCase()+"'WHERE id_paciente='"+id_paciente+"'");
-                                   // PreparedStatement ps3 = ca.prepareStatement ("UPDATE pacientes SET nombre='Alexis', fecha_nacimiento='2020/02/03',edad=12,sexo='MASCULINO',medico='ALEXISSS' WHERE id_paciente='"+id_paciente+"'");
-                               try{        Modelogastos.insertarventacondescuentoengastos("Cdo "+Agregar_paciente.user_nombre.getText(), sumadeimportesenturno,id_de_la_venta_incrementable);
+                                try{        Modelogastos.insertarventacondescuentoengastos("Cdo "+Agregar_paciente.user_nombre.getText(), sumadeimportesenturno,id_de_la_venta_incrementable);
                     
                             Modeloventa.id_max_de_venta(); 
                             PreparedStatement ps2 = ca.prepareStatement ("UPDATE descripcion_de_venta SET estado= '"+Controladorinventarioventas.creditopendiente+"',nombre_credito='"+Agregar_paciente.user_nombre.getText()+"' WHERE id_venta='"+id_de_la_venta_incrementable+"'");
