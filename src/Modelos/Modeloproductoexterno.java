@@ -274,44 +274,44 @@ public static void nombresypiezas(){
             switch(ProductosExternos.combopieza.getSelectedItem().toString()){
                 case "Pechuga":
                  if(ProductosExternos.combosucursal.getSelectedItem().toString().equals("Blanca")){
-                       piezasenbase(ProductosExternos.combopieza.getSelectedItem().toString());  cantidadnumerica+=piezaendb;  total=Float.parseFloat(String.valueOf(cantidadnumerica*33.00));
+                       piezasenbase(ProductosExternos.combopieza.getSelectedItem().toString());  cantidadnumerica+=piezaendb;  total=Float.parseFloat(String.valueOf(cantidadnumerica*44.00));// HASTA EL 01/06/2020 SE TENIA EL PRECIO DE 33.00
                     updateblanca(cantidadnumerica);
                     }else if(ProductosExternos.combosucursal.getSelectedItem().toString().equals("Zapata")){
-                        piezasenbase(ProductosExternos.combopieza.getSelectedItem().toString());  cantidadnumerica+=piezaendb;  total=Float.parseFloat(String.valueOf(cantidadnumerica*33.00));
+                        piezasenbase(ProductosExternos.combopieza.getSelectedItem().toString());  cantidadnumerica+=piezaendb;  total=Float.parseFloat(String.valueOf(cantidadnumerica*44.00));// HASTA EL 01/06/2020 SE TENIA EL PRECIO DE 33.00
                    updatezapata(cantidadnumerica);
                     }else{
-                           piezasenbase(ProductosExternos.combopieza.getSelectedItem().toString());  cantidadnumerica+=piezaendb;  total=Float.parseFloat(String.valueOf(cantidadnumerica*33.00));
+                           piezasenbase(ProductosExternos.combopieza.getSelectedItem().toString());  cantidadnumerica+=piezaendb;  total=Float.parseFloat(String.valueOf(cantidadnumerica*44.00));// HASTA EL 01/06/2020 SE TENIA EL PRECIO DE 33.00
                     updatecentral(cantidadnumerica); }
                      break;
                 case "Muslo":
                 if(ProductosExternos.combosucursal.getSelectedItem().toString().equals("Blanca")){
-                         piezasenbase(ProductosExternos.combopieza.getSelectedItem().toString());  cantidadnumerica+=piezaendb;  total=Float.parseFloat(String.valueOf(cantidadnumerica*7.50));
+                         piezasenbase(ProductosExternos.combopieza.getSelectedItem().toString());  cantidadnumerica+=piezaendb;  total=Float.parseFloat(String.valueOf(cantidadnumerica*9.50));// HASTA EL 01/06/2020 SE TENIA EL PRECIO DE 7.50
                      updateblanca(cantidadnumerica);
                     }else if(ProductosExternos.combosucursal.getSelectedItem().toString().equals("Zapata")){
-                        piezasenbase(ProductosExternos.combopieza.getSelectedItem().toString());  cantidadnumerica+=piezaendb;  total=Float.parseFloat(String.valueOf(cantidadnumerica*7.50));
+                        piezasenbase(ProductosExternos.combopieza.getSelectedItem().toString());  cantidadnumerica+=piezaendb;  total=Float.parseFloat(String.valueOf(cantidadnumerica*9.50));// HASTA EL 01/06/2020 SE TENIA EL PRECIO DE 7.50
                         updatezapata(cantidadnumerica);   
-                    }else{ piezasenbase(ProductosExternos.combopieza.getSelectedItem().toString());  cantidadnumerica+=piezaendb;  total=Float.parseFloat(String.valueOf(cantidadnumerica*7.50));
+                    }else{ piezasenbase(ProductosExternos.combopieza.getSelectedItem().toString());  cantidadnumerica+=piezaendb;  total=Float.parseFloat(String.valueOf(cantidadnumerica*9.50));// HASTA EL 01/06/2020 SE TENIA EL PRECIO DE 7.50
                     updatecentral(cantidadnumerica); }
                 break;
                         case "Pierna":
-                       if(ProductosExternos.combosucursal.getSelectedItem().toString().equals("Blanca")){     piezasenbase(ProductosExternos.combopieza.getSelectedItem().toString());  cantidadnumerica+=piezaendb;  total=Float.parseFloat(String.valueOf(cantidadnumerica*7.50));
+                       if(ProductosExternos.combosucursal.getSelectedItem().toString().equals("Blanca")){     piezasenbase(ProductosExternos.combopieza.getSelectedItem().toString());  cantidadnumerica+=piezaendb;  total=Float.parseFloat(String.valueOf(cantidadnumerica*9.50));// HASTA EL 01/06/2020 SE TENIA EL PRECIO DE 7.50
                       updateblanca(cantidadnumerica);
-                            }else if(ProductosExternos.combosucursal.getSelectedItem().toString().equals("Zapata")){     piezasenbase(ProductosExternos.combopieza.getSelectedItem().toString());  cantidadnumerica+=piezaendb;  total=Float.parseFloat(String.valueOf(cantidadnumerica*7.50));
+                            }else if(ProductosExternos.combosucursal.getSelectedItem().toString().equals("Zapata")){     piezasenbase(ProductosExternos.combopieza.getSelectedItem().toString());  cantidadnumerica+=piezaendb;  total=Float.parseFloat(String.valueOf(cantidadnumerica*9.50));// HASTA EL 01/06/2020 SE TENIA EL PRECIO DE 7.50
                        updatezapata(cantidadnumerica);   
-                            }else{     piezasenbase(ProductosExternos.combopieza.getSelectedItem().toString());  cantidadnumerica+=piezaendb;  total=Float.parseFloat(String.valueOf(cantidadnumerica*7.50));
+                            }else{     piezasenbase(ProductosExternos.combopieza.getSelectedItem().toString());  cantidadnumerica+=piezaendb;  total=Float.parseFloat(String.valueOf(cantidadnumerica*9.50));// HASTA EL 01/06/2020 SE TENIA EL PRECIO DE 7.50
                      updatecentral(cantidadnumerica);  
                             }
                         break;
                 case "Ala":
-          if(ProductosExternos.combosucursal.getSelectedItem().toString().equals("Blanca")){     piezasenbase(ProductosExternos.combopieza.getSelectedItem().toString());  cantidadnumerica+=piezaendb;  total=Float.parseFloat(String.valueOf(cantidadnumerica*5.00));
+          if(ProductosExternos.combosucursal.getSelectedItem().toString().equals("Blanca")){     piezasenbase(ProductosExternos.combopieza.getSelectedItem().toString());  cantidadnumerica+=piezaendb;  total=Float.parseFloat(String.valueOf(cantidadnumerica*7.00));// HASTA EL 01/06/2020 SE TENIA EL PRECIO DE 5.00
  updateblanca(cantidadnumerica);       
-         }else if(ProductosExternos.combosucursal.getSelectedItem().toString().equals("Zapata")){piezasenbase(ProductosExternos.combopieza.getSelectedItem().toString());  cantidadnumerica+=piezaendb;  total=Float.parseFloat(String.valueOf(cantidadnumerica*5.00));
+         }else if(ProductosExternos.combosucursal.getSelectedItem().toString().equals("Zapata")){piezasenbase(ProductosExternos.combopieza.getSelectedItem().toString());  cantidadnumerica+=piezaendb;  total=Float.parseFloat(String.valueOf(cantidadnumerica*7.00));// HASTA EL 01/06/2020 SE TENIA EL PRECIO DE 5.00
  updatezapata(cantidadnumerica); 
-         }else{piezasenbase(ProductosExternos.combopieza.getSelectedItem().toString());  cantidadnumerica+=piezaendb;  total=Float.parseFloat(String.valueOf(cantidadnumerica*5.00));
+         }else{piezasenbase(ProductosExternos.combopieza.getSelectedItem().toString());  cantidadnumerica+=piezaendb;  total=Float.parseFloat(String.valueOf(cantidadnumerica*7.00));// HASTA EL 01/06/2020 SE TENIA EL PRECIO DE 5.00
          updatecentral(cantidadnumerica);  }
               
                 break;
-                   case "Huacal":
+                  /* case "Huacal":
          if(ProductosExternos.combosucursal.getSelectedItem().toString().equals("Blanca")){piezasenbase(ProductosExternos.combopieza.getSelectedItem().toString());  cantidadnumerica+=piezaendb;  total=Float.parseFloat(String.valueOf(cantidadnumerica*5.00));
                    updateblanca(cantidadnumerica);   
          }else if(ProductosExternos.combosucursal.getSelectedItem().toString().equals("Zapata")){piezasenbase(ProductosExternos.combopieza.getSelectedItem().toString());  cantidadnumerica+=piezaendb;  total=Float.parseFloat(String.valueOf(cantidadnumerica*5.00));
@@ -327,7 +327,7 @@ updatezapata(cantidadnumerica);
                    updatezapata(cantidadnumerica); 
          }else{piezasenbase(ProductosExternos.combopieza.getSelectedItem().toString());  cantidadnumerica+=piezaendb;  total=Float.parseFloat(String.valueOf(cantidadnumerica*2.00));
                      updatecentral(cantidadnumerica);  }
-                break;
+                break;*/
                    default:
                        total=0;
                 piezasenbase(ProductosExternos.combopieza.getSelectedItem().toString());
