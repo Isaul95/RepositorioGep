@@ -311,7 +311,7 @@ public static void nombresypiezas(){
          updatecentral(cantidadnumerica);  }
               
                 break;
-                  /* case "Huacal":
+                 case "Huacal":
          if(ProductosExternos.combosucursal.getSelectedItem().toString().equals("Blanca")){piezasenbase(ProductosExternos.combopieza.getSelectedItem().toString());  cantidadnumerica+=piezaendb;  total=Float.parseFloat(String.valueOf(cantidadnumerica*5.00));
                    updateblanca(cantidadnumerica);   
          }else if(ProductosExternos.combosucursal.getSelectedItem().toString().equals("Zapata")){piezasenbase(ProductosExternos.combopieza.getSelectedItem().toString());  cantidadnumerica+=piezaendb;  total=Float.parseFloat(String.valueOf(cantidadnumerica*5.00));
@@ -327,7 +327,7 @@ updatezapata(cantidadnumerica);
                    updatezapata(cantidadnumerica); 
          }else{piezasenbase(ProductosExternos.combopieza.getSelectedItem().toString());  cantidadnumerica+=piezaendb;  total=Float.parseFloat(String.valueOf(cantidadnumerica*2.00));
                      updatecentral(cantidadnumerica);  }
-                break;*/
+                break;
                    default:
                        total=0;
                 piezasenbase(ProductosExternos.combopieza.getSelectedItem().toString());
