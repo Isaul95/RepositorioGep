@@ -223,7 +223,113 @@ if(NoP.equals("Pechuga en bisteck")&&NoPimporte!=0){ //Si el nombre del producto
             }finally{cc.getClose();}//fin de la insersion a la tabla ventas
         }
     }
-
+public static void insertorupdatemuslocbroas(String nombredepieza, float cantidaddeproductos){
+  obtenerelnombredeproductoylacantidaddelmismo_en_descripcion_deventa("Muslo C/Broas");
+if(NoP.equals("Muslo C/Broas")&&NoPimporte!=0){ //Si el nombre del producto es diferente del estado vacio, en palabras más sencillas; si se encuentra el producto que se quiere agregar para que no se asigne nuevamente  
+    try{Connection ca= cc.conexion();// ESTE ES PARA EL UPDATE
+          obtenerelnombredeproductoylacantidaddelmismo_en_descripcion_deventa("Muslo C/Broas");
+          NoPcantidad=NoPcantidad+cantidaddeproductos;
+                precio_producto("Muslo C/Broas");
+                 System.out.println("PRECIO MUSLOCBROAS "+precio);
+                NoPimporte = NoPcantidad*precio;
+    id_producto(nombredepieza);
+                    id_max_de_venta();
+                 PreparedStatement ps = ca.prepareStatement ("UPDATE descripcion_de_venta SET cantidad='"+NoPcantidad+"',importe = '"+NoPimporte+"'WHERE importe !=0 and id_producto='"+60+"' and id_venta= '"+id_de_la_venta_incrementable+"' and fecha= '"+fecha()+"' and estado= '"+estadoenturno+"' ");
+               int a=  ps.executeUpdate();
+               if(a>0){
+                      Controladorventa.accionesdespuesinsertarendescripciondeventaoactualizarenlamismatabla(nombredepieza,cantidaddeproductos);
+                   
+               }else{
+                   JOptionPane.showMessageDialog(null, " NO SE PUDO ACTIALIZAR");
+               }
+        }//fin del id del usuario//fin del id del usuario
+                 catch(Exception w){
+                     JOptionPane.showMessageDialog(null, "Error en todo el codigo de update de metodo comprobar_registro" + w.getMessage());
+                 }finally{cc.getClose();}//fin del id del usuario
+     }
+       else{
+            try{Connection ca= cc.conexion(); //la insersion a la tabla ventas
+                String sql = "INSERT INTO descripcion_de_venta (id_producto,nombre_producto,cantidad,precio_unitario,importe,id_venta,estado, fecha)  VALUES (?,?,?,?,?,?,?,?)";
+                PreparedStatement pst = ca.prepareCall(sql); //hasta aqui vamos
+              
+                pst.setInt(1,60);
+               pst.setString(2,"Muslo C/Broas");
+                pst.setFloat(3,cantidaddeproductos);            
+                //EL METODO A CONTINUACION VA HACIENDO EL CONTEO DE LAS PIEZAS INDIVIDUALES
+                // PARA UNA VEZ LLEGANDO A UN POLLO ENTERO DESCONTARLO DE LA BASE           
+                 precio_producto("Muslo C/Broas");
+                  System.out.println("PRECIO MUSLOCBROAS "+precio);
+                pst.setFloat(4,precio);
+                importe = (float)cantidaddeproductos*precio;        
+                pst.setFloat(5,importe);
+                id_max_de_venta();
+                pst.setInt(6,(id_de_la_venta_incrementable));
+                pst.setString(7, estadoenturno);
+                pst.setString(8, fecha());
+                int a=pst.executeUpdate();
+                if(a>0){
+                    Controladorventa.accionesdespuesinsertarendescripciondeventaoactualizarenlamismatabla(nombredepieza, cantidaddeproductos);
+                              
+                }else{//CUANDO NO SE PUDO INSERTAR
+                   }
+            }catch(SQLException e)  { //fin de la insersion a la tabla ventas
+                JOptionPane.showMessageDialog(null,"Error de datos por id vacio "+e);
+            }finally{cc.getClose();}//fin de la insersion a la tabla ventas
+        }
+    }
+public static void insertorupdatepiernacbroas(String nombredepieza, float cantidaddeproductos){
+  obtenerelnombredeproductoylacantidaddelmismo_en_descripcion_deventa("Pierna C/Broas");
+if(NoP.equals("Pierna C/Broas")&&NoPimporte!=0){ //Si el nombre del producto es diferente del estado vacio, en palabras más sencillas; si se encuentra el producto que se quiere agregar para que no se asigne nuevamente  
+    try{Connection ca= cc.conexion();// ESTE ES PARA EL UPDATE
+          obtenerelnombredeproductoylacantidaddelmismo_en_descripcion_deventa("Pierna C/Broas");
+          NoPcantidad=NoPcantidad+cantidaddeproductos;
+                precio_producto("Pierna C/Broas");
+                System.out.println("PRECIO PIERNACBROAS "+precio);
+                NoPimporte = NoPcantidad*precio;
+                    id_max_de_venta();
+                 PreparedStatement ps = ca.prepareStatement ("UPDATE descripcion_de_venta SET cantidad='"+NoPcantidad+"',importe = '"+NoPimporte+"'WHERE importe !=0 and id_producto='"+61+"' and id_venta= '"+id_de_la_venta_incrementable+"' and fecha= '"+fecha()+"' and estado= '"+estadoenturno+"' ");
+               int a=  ps.executeUpdate();
+               if(a>0){
+                      Controladorventa.accionesdespuesinsertarendescripciondeventaoactualizarenlamismatabla(nombredepieza,cantidaddeproductos);
+                   
+               }else{
+                   JOptionPane.showMessageDialog(null, " NO SE PUDO ACTIALIZAR");
+               }
+        }//fin del id del usuario//fin del id del usuario
+                 catch(Exception w){
+                     JOptionPane.showMessageDialog(null, "Error en todo el codigo de update de metodo comprobar_registro" + w.getMessage());
+                 }finally{cc.getClose();}//fin del id del usuario
+     }
+       else{
+            try{Connection ca= cc.conexion(); //la insersion a la tabla ventas
+                String sql = "INSERT INTO descripcion_de_venta (id_producto,nombre_producto,cantidad,precio_unitario,importe,id_venta,estado, fecha)  VALUES (?,?,?,?,?,?,?,?)";
+                PreparedStatement pst = ca.prepareCall(sql); //hasta aqui vamos
+                id_producto(nombredepieza); 
+                pst.setInt(1,61);
+               pst.setString(2,"Pierna C/Broas");
+                pst.setFloat(3,cantidaddeproductos);            
+                //EL METODO A CONTINUACION VA HACIENDO EL CONTEO DE LAS PIEZAS INDIVIDUALES
+                // PARA UNA VEZ LLEGANDO A UN POLLO ENTERO DESCONTARLO DE LA BASE           
+                 precio_producto("Pierna C/Broas");
+                  System.out.println("PRECIO PIERNACBROAS "+precio);
+                pst.setFloat(4,precio);
+               importe = (float)cantidaddeproductos*precio;        
+                pst.setFloat(5,importe);
+                id_max_de_venta();
+                pst.setInt(6,(id_de_la_venta_incrementable));
+                pst.setString(7, estadoenturno);
+                pst.setString(8, fecha());
+                int a=pst.executeUpdate();
+                if(a>0){
+                    Controladorventa.accionesdespuesinsertarendescripciondeventaoactualizarenlamismatabla(nombredepieza, cantidaddeproductos);
+                              
+                }else{//CUANDO NO SE PUDO INSERTAR
+                   }
+            }catch(SQLException e)  { //fin de la insersion a la tabla ventas
+                JOptionPane.showMessageDialog(null,"Error de datos por id vacio "+e);
+            }finally{cc.getClose();}//fin de la insersion a la tabla ventas
+        }
+    }
     public static void precio_producto(String nombredepieza){
         try{ Connection ca= cc.conexion();// el precio del producto
                                 sent  =(Statement)ca.createStatement();

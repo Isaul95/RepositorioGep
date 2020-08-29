@@ -52,6 +52,8 @@ this.setLocation(600, 60);
         jButton55 = new javax.swing.JButton();
         bones = new javax.swing.JButton();
         Taxi = new javax.swing.JButton();
+        jButton56 = new javax.swing.JButton();
+        jButton57 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -276,7 +278,31 @@ this.setLocation(600, 60);
             }
         });
         CRUDO.add(Taxi);
-        Taxi.setBounds(230, 510, 170, 70);
+        Taxi.setBounds(10, 0, 70, 40);
+
+        jButton56.setBackground(new java.awt.Color(255, 255, 255));
+        jButton56.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
+        jButton56.setForeground(new java.awt.Color(255, 0, 0));
+        jButton56.setText("Muslo C/Broas");
+        jButton56.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton56ActionPerformed(evt);
+            }
+        });
+        CRUDO.add(jButton56);
+        jButton56.setBounds(230, 510, 160, 50);
+
+        jButton57.setBackground(new java.awt.Color(255, 255, 255));
+        jButton57.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
+        jButton57.setForeground(new java.awt.Color(255, 0, 0));
+        jButton57.setText("Pierna C/Broas");
+        jButton57.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton57ActionPerformed(evt);
+            }
+        });
+        CRUDO.add(jButton57);
+        jButton57.setBounds(430, 510, 150, 50);
 
         jTabbedPane1.addTab("CRUDO", CRUDO);
 
@@ -376,6 +402,16 @@ this.setLocation(600, 60);
         if(masdeunapiezacrudo.isSelected()){  Calculadora enviar = new Calculadora("Taxi","Escribe la cantidad en pesos");  new Calculadora().setVisible(true); }else{   Calculadora enviar = new Calculadora("Taxi","Escribe la cantidad en pesos"); new Calculadora().setVisible(true);   }
     }//GEN-LAST:event_TaxiActionPerformed
 
+    private void jButton56ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton56ActionPerformed
+           if(masdeunapiezacrudo.isSelected()){  Calculadora enviar = new Calculadora("Muslo c/broaster","Escribe la cantidad");  new Calculadora().setVisible(true);     }else{ Controladorventa enviars = new Controladorventa("Muslo c/broaster",1);}
+           
+    }//GEN-LAST:event_jButton56ActionPerformed
+
+    private void jButton57ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton57ActionPerformed
+      if(masdeunapiezacrudo.isSelected()){   Calculadora enviar = new Calculadora("Pierna c/broaster","Escribe la cantidad"); new Calculadora().setVisible(true);   }else{    Controladorventa enviars = new Controladorventa("Pierna c/broaster",1);}
+      
+    }//GEN-LAST:event_jButton57ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -430,6 +466,8 @@ this.setLocation(600, 60);
     private javax.swing.JButton jButton53;
     private javax.swing.JButton jButton54;
     private javax.swing.JButton jButton55;
+    private javax.swing.JButton jButton56;
+    private javax.swing.JButton jButton57;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JCheckBox masdeunapiezacrudo;
     // End of variables declaration//GEN-END:variables

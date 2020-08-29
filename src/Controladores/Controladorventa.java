@@ -48,7 +48,7 @@ public static String[] piezasdemedio = {"Medio pollo","Pechuga", "Muslo","Pierna
   public static boolean soypechugaenbisteck=false, 
           descuentoactivo=false, suficientespiezas=true, block_unlock=true,tablaventaactiva=false;
    public static boolean noduplicarcrudo=false, noduplicarcocido=false, noduplicaracompañantes=false, 
-            noduplicarexistencias=false, noduplicarcorte=false, noduplicargastos=false, noduplicarexternos=false;
+            noduplicarexistencias=false, noduplicarcorte=false, noduplicargastos=false, noduplicarexternos=false, soymuslocbroaster=false,soypiernacbroaster=false;
 
          
    public static DecimalFormat solodosdecimales = new DecimalFormat("#.##");
@@ -154,7 +154,30 @@ public static String[] piezasdemedio = {"Medio pollo","Pechuga", "Muslo","Pierna
             } else {
                 JOptionPane.showMessageDialog(null, "Solo hay " + piezassuficientes + " piezas de Pechuga", "Advertencia", JOptionPane.ERROR_MESSAGE);
            }
-  } else if(!nombredepiezaseleccionada.equals("pollo crudo")||!nombredepiezaseleccionada.equals("Medio pollo")){
+  } 
+        else if (nombredepiezaseleccionada.equals("Muslo c/broaster")) {
+            System.out.println("IF MUSLO CBROASTER");
+              Modeloventa.piezassuficientes("Muslo", cantidaddeproductos);
+                if (suficientespiezas == true) {
+                             System.out.println("SE ACTIVA LA VAR BOOLEAN DE MUSLOCBROAS");
+                soymuslocbroaster=true;
+                System.out.println("MUSLO "+soymuslocbroaster);
+                agregarpiezasaventa("Muslo");
+            } else {
+                JOptionPane.showMessageDialog(null, "Solo hay " + piezassuficientes + " piezas de Muslo", "Advertencia", JOptionPane.ERROR_MESSAGE);
+           }
+  }
+        else if (nombredepiezaseleccionada.equals("Pierna c/broaster")) {
+            System.out.println("IF PIERNA CBROASTER");
+              Modeloventa.piezassuficientes("Pierna", cantidaddeproductos);
+                if (suficientespiezas == true) {
+                    System.out.println("SE ACTIVA LA VAR BOOLEAN DE PIERNACBROAS");
+                soypiernacbroaster=true;
+                agregarpiezasaventa("Pierna");
+            } else {
+                JOptionPane.showMessageDialog(null, "Solo hay " + piezassuficientes + " piezas de Pierna", "Advertencia", JOptionPane.ERROR_MESSAGE);
+           }
+  }else if(!nombredepiezaseleccionada.equals("pollo crudo")||!nombredepiezaseleccionada.equals("Medio pollo")){
             agregarpiezasaventa(nombredepiezaseleccionada);
         }
     }//FIN DE AGREGANDO AVENTA
@@ -172,8 +195,15 @@ public static String[] piezasdemedio = {"Medio pollo","Pechuga", "Muslo","Pierna
         Modeloventa.insertorupdateoverbonnie(nombredepieza, cantidaddeproductos);
           }else if(soypechugaenbisteck==true){
                  Modeloventa.insertorupdatepechugaenbisteck("Pechuga", cantidaddeproductos);
-          } 
+          } else if(soymuslocbroaster==true){
+              System.out.println("IF SOYMUSLO TO INSERT");
+              Modeloventa.insertorupdatemuslocbroas("Muslo", cantidaddeproductos);
+          }else if(soypiernacbroaster==true){
+              System.out.println("IF SOYPIERNA TO INSERT");
+              Modeloventa.insertorupdatepiernacbroas("Pierna", cantidaddeproductos);
+          }
            else{
+              System.out.println("ENTRO AGREGAR NORMAL");
                Modeloventa.comprobar_registro(nombredepieza,cantidaddeproductos); // esto es para agregar los productos a la tabla de descripcion de venta y 
            }   
           // ya una vez concluida la venta el mismo metodo agregará dicho resultado total de la venta (a la tabla venta, bueno solo los resultados 
@@ -189,6 +219,13 @@ Modeloventa.get_id_usuario();// 255 -280
           }else if(soypechugaenbisteck==true){
                  Modeloventa.insertorupdatepechugaenbisteck("Pechuga", cantidaddeproductos);
           }   
+          else if(soymuslocbroaster==true){
+              System.out.println("IF SOYMUSLO TO INSERT");
+              Modeloventa.insertorupdatemuslocbroas("Muslo", cantidaddeproductos);
+          }else if(soypiernacbroaster==true){
+              System.out.println("IF SOYPIERNA TO INSERT");
+              Modeloventa.insertorupdatepiernacbroas("Pierna", cantidaddeproductos);
+          }
              else{
                Modeloventa.comprobar_registro(nombredepieza, cantidaddeproductos); // esto es para agregar los productos a la tabla de descripcion de venta y 
            } 
@@ -212,6 +249,8 @@ Modeloventa.get_id_usuario();// 255 -280
                     //  descuentodepollo();                  
                     Modeloventa.mostrartabladeventas();
                     soypechugaenbisteck=false;
+                    soymuslocbroaster=false;
+                    soypiernacbroaster=false;
                     tablaventaactiva=true;
                NoP="";
  }
