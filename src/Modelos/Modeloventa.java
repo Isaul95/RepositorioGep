@@ -565,46 +565,9 @@ public static void llenar_datos_del_paciente_tras_completar_la_venta(){
                                   obtener_id_paciente();
                               nombre_paciente=Agregar_paciente.user_nombre.getText(); edad_paciente=Agregar_paciente.user_edad.getText();   sexo_paciente=Agregar_paciente.user_sexo.getSelectedItem().toString(); medico = Agregar_paciente.medico.getText();
                                   if(Integer.parseInt(edad_paciente)==1)
-                                    edad_paciente=edad_paciente+" año.";
-                                  else edad_paciente=edad_paciente+" años.";
+                                    edad_paciente=edad_paciente+(Agregar_paciente.user_años_meses.getSelectedItem().toString().equalsIgnoreCase("Años") ? "año." : "mes." );
+                                  else edad_paciente=edad_paciente+(Agregar_paciente.user_años_meses.getSelectedItem().toString().equalsIgnoreCase("Meses") ? "años." : "meses." );
                                   PreparedStatement ps3 = ca.prepareStatement ("UPDATE pacientes SET nombre='"+nombre_paciente.toUpperCase()+"',fecha_nacimiento='"+Controladorventa.fecha_de_nacimiento_del_paciente()+"',edad='"+edad_paciente.toUpperCase()+"',sexo='"+sexo_paciente.toUpperCase()+"',medico='"+medico.toUpperCase()+"'WHERE id_paciente='"+id_paciente+"'");
-                                   // PreparedStatement ps3 = ca.prepareStatement ("UPDATE pacientes SET nombre='Alexis', fecha_nacimiento='2020/02/03',edad=12,sexo='MASCULINO',medico='ALEXISSS' WHERE id_paciente='"+id_paciente+"'");
-                               
-                                int resultado = ps3.executeUpdate();
-                                     if(resultado>0){
-                                              Modeloventa.asignar_id_paciente(); //Inserta el id_del paciente para no tener error con la llave foranea
-                                         limpiardatospaciente(); //Limpia los datos que tengan que ver con el id paciente
-                                         JOptionPane.showMessageDialog(null, "Paciente agregado");
-                                         
-                                     }
-                                }
-                                catch(Exception ex){
-                                    JOptionPane.showMessageDialog(null, "Error en llenar_datos_del_paciente_tras_completar_la_venta" + ex.getMessage());
-                                }finally{
-        cc.getClose();
-    }
-}
-public static void llenar_datos_del_paciente_tras_completar_la_venta_a_credito(){
-    try{Connection ca= cc.conexion(); 
-                                  obtener_id_paciente();
-                              nombre_paciente=Agregar_paciente.user_nombre.getText(); edad_paciente=Agregar_paciente.user_edad.getText();   sexo_paciente=Agregar_paciente.user_sexo.getSelectedItem().toString(); medico = Agregar_paciente.medico.getText();
-                                  if(Integer.parseInt(edad_paciente)==1)
-                                    edad_paciente=edad_paciente+" año.";
-                                  else edad_paciente=edad_paciente+" años.";
-                                  PreparedStatement ps3 = ca.prepareStatement ("UPDATE pacientes SET nombre='"+nombre_paciente.toUpperCase()+"',fecha_nacimiento='"+Controladorventa.fecha_de_nacimiento_del_paciente()+"',edad='"+edad_paciente.toUpperCase()+"',sexo='"+sexo_paciente.toUpperCase()+"',medico='"+medico.toUpperCase()+"'WHERE id_paciente='"+id_paciente+"'");
-                                try{        Modelogastos.insertarventacondescuentoengastos("Cdo "+Agregar_paciente.user_nombre.getText(), sumadeimportesenturno,id_de_la_venta_incrementable);
-                    
-                            Modeloventa.id_max_de_venta(); 
-                            PreparedStatement ps2 = ca.prepareStatement ("UPDATE descripcion_de_venta SET estado= '"+Controladorinventarioventas.creditopendiente+"',nombre_credito='"+Agregar_paciente.user_nombre.getText()+"' WHERE id_venta='"+id_de_la_venta_incrementable+"'");
-                            ps2.executeUpdate();
-   Modeloventa.descripciondelosprouductosparaelticketdeventa(id_de_la_venta_incrementable,Controladorinventarioventas.creditopendiente);//DATOS PARA EL TICKET DE VENTA
-   Modeloventa.descripciondelosprouductosparaelticketdeventa(id_de_la_venta_incrementable,Controladorinventarioventas.creditopendiente);//DATOS PARA EL TICKET DE VENTA
-         Controladorventa.block_unlock=true;
-                            Controladorventa.accionesdespuesderealizarcualquierventa();
-                     }
-                        catch(Exception ex){
-                            JOptionPane.showMessageDialog(null, "Error en insertarventaacredito update desc" + ex.getMessage());
-                        }
                                 int resultado = ps3.executeUpdate();
                                      if(resultado>0){
                                               Modeloventa.asignar_id_paciente(); //Inserta el id_del paciente para no tener error con la llave foranea

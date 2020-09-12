@@ -53,6 +53,7 @@ public class Agregar_paciente extends javax.swing.JFrame{
         calendar_fecha_nacimiento = new com.toedter.calendar.JDateChooser();
         jLabel79 = new javax.swing.JLabel();
         agregar_paciente = new javax.swing.JButton();
+        user_años_meses = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -152,6 +153,12 @@ public class Agregar_paciente extends javax.swing.JFrame{
         });
         jPanel2.add(agregar_paciente);
         agregar_paciente.setBounds(430, 340, 240, 45);
+
+        user_años_meses.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        user_años_meses.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Años", "Meses" }));
+        user_años_meses.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(135, 193, 193)));
+        jPanel2.add(user_años_meses);
+        user_años_meses.setBounds(260, 170, 160, 25);
 
         jPanel1.add(jPanel2);
         jPanel2.setBounds(10, 50, 680, 380);
@@ -266,6 +273,7 @@ public class Agregar_paciente extends javax.swing.JFrame{
     private javax.swing.JPanel jPanel2;
     public static javax.swing.JTextField medico;
     private javax.swing.JLabel user;
+    public static javax.swing.JComboBox user_años_meses;
     public static javax.swing.JTextField user_edad;
     public static javax.swing.JTextField user_nombre;
     public static javax.swing.JComboBox user_sexo;
