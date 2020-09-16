@@ -31,7 +31,7 @@ public class Controlador_Report_Pdf_ReferenciaMayor {
     private final String firma = "/Reportes/firma.png";      //  imahgen de firma.png
     // con el nom se obtiene la nomenclatura para el guaraddo del archivo pdf
     //public static String nom = Capturar_resultados.id_paciente.getText()+"_"+Capturar_resultados.paciente.getText()+".pdf";
-     public void Generacion_PDF_client_referenciaMayor(){                                           
+     public void Generacion_PDF_client_referenciaMayor(String consecutivo){                                           
    // ***********************    REPORTE DE USUARIOS    ************************** 
         SI cc= new SI();  
         Connection ca= cc.conexion();  
@@ -56,11 +56,11 @@ System.out.println("aki desde controller id" + Capturar_resultados.id_venta.getT
 //JOptionPane.showMessageDialog(null, "juntando nomenclatuta -->>"+Capturar_resultados.id_venta.getText()+"_"+Capturar_resultados.paciente.getText());                
 // JasperExportManager es propiedad de jasper el jprint es la k contirnr el docuemto 
 //ya caragdo entonces solo especificas la ruta de donde guardarlo         
-                  System.out.println("ARCHIVO :"+Capturar_resultados.id_paciente.getText()+"_"+Capturar_resultados.paciente.getText()+".pdf");
-  JasperExportManager.exportReportToPdfFile( jprint, "C:/reportes/"+Capturar_resultados.id_paciente.getText()+"_"+Capturar_resultados.paciente.getText()+".pdf");
+                  System.out.println("ARCHIVO :"+Capturar_resultados.id_paciente.getText()+"_"+Capturar_resultados.paciente.getText()+consecutivo+".pdf");
+  JasperExportManager.exportReportToPdfFile( jprint, "C:/reportes/"+Capturar_resultados.id_paciente.getText()+"_"+Capturar_resultados.paciente.getText()+consecutivo+".pdf");
 
   envio_email.setEnabled(true); // se activa el envio email cuando se haya generado el pdf del paciente
-  Modelo_capturar_resultados.subir_archivo(Capturar_resultados.id_paciente.getText()+"_"+Capturar_resultados.paciente.getText()+".pdf", Integer.parseInt(Capturar_resultados.id_venta.getText()));
+  Modelo_capturar_resultados.subir_archivo(Capturar_resultados.id_paciente.getText()+"_"+Capturar_resultados.paciente.getText()+consecutivo+".pdf", Integer.parseInt(Capturar_resultados.id_venta.getText()));
                 // ========================= CREAR LA VISTA DEL REPORTE  ======================  
                 JasperViewer vista = new JasperViewer(jprint, false);
                 // ============= UN CIERRE LA VISTA DEL REPORTE CUANDO SE PRESIONE LA X de cerrar ============  

@@ -138,7 +138,8 @@ Capturar_resultados.genetrar_Pdf.setEnabled(false);}
                JOptionPane.showMessageDialog(null,"Archivo no insertado");  
                 }
             }catch(SQLException e)  { //fin de la insersion a la tabla ventas
-                    JOptionPane.showMessageDialog(null, "Error, subir_archivo  INSERT INTO"+e.getMessage(),"HELPER DEVELOPER",JOptionPane.INFORMATION_MESSAGE);                  
+                //RESOLVE THIS
+               //     JOptionPane.showMessageDialog(null, "Error, subir_archivo  INSERT INTO"+e.getMessage(),"HELPER DEVELOPER",JOptionPane.INFORMATION_MESSAGE);                  
               
             } catch (FileNotFoundException ex) {
             Logger.getLogger(Modelo_capturar_resultados.class.getName()).log(Level.SEVERE, null, ex);

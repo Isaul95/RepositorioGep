@@ -306,20 +306,17 @@ public Capturar_resultados(int id_venta_a_capturar_resultados){
           //PDF CON LONGITUDES DE ANALISIS MAYORES O IGUALES A 68
         if(Modelo_capturar_resultados.verificar_estudio_con_longitud_mayor(Integer.valueOf(id_venta.getText()))>=1){
             //AQUÍ VA TU NUEVO PDF
-JOptionPane.showMessageDialog(null, "TOY EN EL METODO: longitud_mayor: PA EL VALOR DE REFERENCIA ");
 //PDF LARGO
             Controlador_Report_Pdf_ReferenciaMayor ref = new Controlador_Report_Pdf_ReferenciaMayor(); 
-            ref.Generacion_PDF_client_referenciaMayor();
+            ref.Generacion_PDF_client_referenciaMayor("_02");
             //PDF CORTO
    if(Modelo_capturar_resultados.verificar_estudio_con_longitud_menor(Integer.valueOf(id_venta.getText()))>=1){
-       JOptionPane.showMessageDialog(null, "PDF NORMAL JUNTO CON VALORES PEQUEÑOS A LOS GRANDES...");
              Controlador_Report_pdf_paquetes pac = new Controlador_Report_pdf_paquetes();
-            pac.Generacion_PDF_client_paquetes(); // llamando el reporte de paketes
+            pac.Generacion_PDF_client_paquetes("_01"); // llamando el reporte de paketes
    }
         }else{//PDF CON LONGITUDES DE ANALISIS MENORES A 68
-JOptionPane.showMessageDialog(null, "PDF NORMAL...");
-             Controlador_Report_pdf_paquetes pac = new Controlador_Report_pdf_paquetes();
-            pac.Generacion_PDF_client_paquetes(); // llamando el reporte de paketes
+            Controlador_Report_pdf_paquetes pac = new Controlador_Report_pdf_paquetes();
+            pac.Generacion_PDF_client_paquetes("_01"); // llamando el reporte de paketes
         }     
     }//GEN-LAST:event_genetrar_PdfActionPerformed
 

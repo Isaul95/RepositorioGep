@@ -564,9 +564,13 @@ public static void llenar_datos_del_paciente_tras_completar_la_venta(){
     try{Connection ca= cc.conexion(); 
                                   obtener_id_paciente();
                               nombre_paciente=Agregar_paciente.user_nombre.getText(); edad_paciente=Agregar_paciente.user_edad.getText();   sexo_paciente=Agregar_paciente.user_sexo.getSelectedItem().toString(); medico = Agregar_paciente.medico.getText();
-                                  if(Integer.parseInt(edad_paciente)==1)
-                                    edad_paciente=edad_paciente+(Agregar_paciente.user_años_meses.getSelectedItem().toString().equalsIgnoreCase("Años") ? "año." : "mes." );
-                                  else edad_paciente=edad_paciente+(Agregar_paciente.user_años_meses.getSelectedItem().toString().equalsIgnoreCase("Meses") ? "años." : "meses." );
+                                      edad_paciente=edad_paciente+" "+
+                                              (Integer.parseInt(edad_paciente)==1 ? 
+                                                     (Agregar_paciente.user_años_meses.getSelectedItem().toString().equalsIgnoreCase("Años") ? "año." : "mes." )
+                                                      :
+                                                     (Agregar_paciente.user_años_meses.getSelectedItem().toString().equalsIgnoreCase("Meses") ? "meses." : "años." ) );
+                                                      
+                           
                                   PreparedStatement ps3 = ca.prepareStatement ("UPDATE pacientes SET nombre='"+nombre_paciente.toUpperCase()+"',fecha_nacimiento='"+Controladorventa.fecha_de_nacimiento_del_paciente()+"',edad='"+edad_paciente.toUpperCase()+"',sexo='"+sexo_paciente.toUpperCase()+"',medico='"+medico.toUpperCase()+"'WHERE id_paciente='"+id_paciente+"'");
                                 int resultado = ps3.executeUpdate();
                                      if(resultado>0){
