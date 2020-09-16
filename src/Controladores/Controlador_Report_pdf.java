@@ -78,7 +78,7 @@ System.out.println("aki desde controller id" + Capturar_resultados.id_venta.getT
         if (Envio_email.para.getText().equals("") || Envio_email.asunto.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "No ha digitado el destinatario y/o el asunto");
         } else {                        
-                Modelo_proceso_email objeto = new Modelo_proceso_email(Envio_email.para, Envio_email.asunto,/*pantalla_Principal.texto,pantalla_Principal.ruta,*/ Capturar_resultados.id_paciente.getText()+"_"+Capturar_resultados.paciente.getText()+".pdf", Envio_email.send_message);    
+                Modelo_proceso_email objeto = new Modelo_proceso_email(Envio_email.para, Envio_email.asunto,/*pantalla_Principal.texto,pantalla_Principal.ruta,*/ Envio_email.File.getText(), Envio_email.send_message);    
                 objeto.start();
                 objeto = null;
             
