@@ -199,6 +199,24 @@ try{ Connection ca= cc.conexion();// CUENTA EL TODAL DE CUANTAS VENTAS SE REALIZ
              }
       return result;
   }
+  public static int verificar_estudio_con_longitud_menor(int id_venta){
+      int result=0;
+try{ Connection ca= cc.conexion();// CUENTA EL TODAL DE CUANTAS VENTAS SE REALIZARON
+                                         Statement sent  =(Statement)ca.createStatement();
+                                        
+                                         ResultSet  rs = sent.executeQuery("select count(*) from descripcion_de_venta dv inner join paquetes p on dv.id_producto = p.id_producto WHERE  dv.id_venta = '"+id_venta+"' and dv.estado = 'Realizada' AND CHAR_LENGTH(p.valordereferencia ) < 68 GROUP BY p.valordereferencia");
+                                            if(rs.next()){
+                                                      result =Integer.parseInt(String.valueOf(rs.getInt("count(*)")));
+                                                      }
+                                                      }//fin del try-precio del producto
+                                                      catch (Exception e){
+                                                           JOptionPane.showMessageDialog(null, "ERROR EN METODO: verificar_estudio_con_longitud_mayor: "+e.getMessage(),"DEVELOPER HELPER", JOptionPane.ERROR_MESSAGE);      
+                                                      }// fin del precio-catch del producto
+        finally{
+                  cc.getClose();
+             }
+      return result;
+  }
  
   public static String  verificandopaquete(int id_venta){
       String resultado="";      

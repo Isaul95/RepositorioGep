@@ -303,14 +303,20 @@ public Capturar_resultados(int id_venta_a_capturar_resultados){
 
     private void genetrar_PdfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_genetrar_PdfActionPerformed
         // GENERANDO PDF DE CLIENTES
-          //PDF CON LONGITUDES DE ANALISIS MAYORES O IGUALES A 80
+          //PDF CON LONGITUDES DE ANALISIS MAYORES O IGUALES A 68
         if(Modelo_capturar_resultados.verificar_estudio_con_longitud_mayor(Integer.valueOf(id_venta.getText()))>=1){
             //AQUÍ VA TU NUEVO PDF
 JOptionPane.showMessageDialog(null, "TOY EN EL METODO: longitud_mayor: PA EL VALOR DE REFERENCIA ");
-            Controlador_Report_Pdf_ReferenciaMayor ref = new Controlador_Report_Pdf_ReferenciaMayor();
+//PDF LARGO
+            Controlador_Report_Pdf_ReferenciaMayor ref = new Controlador_Report_Pdf_ReferenciaMayor(); 
             ref.Generacion_PDF_client_referenciaMayor();
-
-        }else{//PDF CON LONGITUDES DE ANALISIS MENORES A 80
+            //PDF CORTO
+   if(Modelo_capturar_resultados.verificar_estudio_con_longitud_menor(Integer.valueOf(id_venta.getText()))>=1){
+       JOptionPane.showMessageDialog(null, "PDF NORMAL JUNTO CON VALORES PEQUEÑOS A LOS GRANDES...");
+             Controlador_Report_pdf_paquetes pac = new Controlador_Report_pdf_paquetes();
+            pac.Generacion_PDF_client_paquetes(); // llamando el reporte de paketes
+   }
+        }else{//PDF CON LONGITUDES DE ANALISIS MENORES A 68
 JOptionPane.showMessageDialog(null, "PDF NORMAL...");
              Controlador_Report_pdf_paquetes pac = new Controlador_Report_pdf_paquetes();
             pac.Generacion_PDF_client_paquetes(); // llamando el reporte de paketes

@@ -37,8 +37,8 @@ public class Controlador_Report_Pdf_ReferenciaMayor {
         Connection ca= cc.conexion();  
  
         int dialogButton = JOptionPane.YES_NO_OPTION;
-        int result = JOptionPane.showConfirmDialog(null, "¿Generar Reporte Paquetes: para el usuario?", "PAQUETE GENERAL DE ESTUDIOS",dialogButton);
-        if(result == 0){            
+     /*   int result = JOptionPane.showConfirmDialog(null, "¿Generar Reporte Paquetes: para el usuario?", "PAQUETE GENERAL DE ESTUDIOS",dialogButton);
+        if(result == 0){            */
             try {
                 Map parametro = new HashMap(); // parameter1 <<-- ESTE PARAMETRO VIENE DESDE EL REPORTE SOLO SE ESTA LLAMANDO 
                 parametro.put("parameter1",Capturar_resultados.id_venta.getText()); 
@@ -72,7 +72,7 @@ System.out.println("aki desde controller id" + Capturar_resultados.id_venta.getT
                 Logger.getLogger(nucleo.class.getName()).log(Level.SEVERE, null, ex);
             }
            
-        }   
+       // }   
      } // fin del metodo                         
     
 }
