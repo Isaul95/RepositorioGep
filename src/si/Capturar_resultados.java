@@ -326,20 +326,17 @@ public Capturar_resultados(int id_venta_a_capturar_resultados){
 
     private void envio_emailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_envio_emailActionPerformed
         if(Controladorventa.noduplicar_envio_email==false){
-        new Envio_email().setVisible(true);
-      //  Capturar_resultados.id_paciente.getText()+"_"+Capturar_resultados.paciente.getText()+".pdf";
-        Envio_email.File.setText(Capturar_resultados.id_paciente.getText()+"_"+Capturar_resultados.paciente.getText()+".pdf");       
-        
-          if(Modelo_capturar_resultados.verificar_estudio_con_longitud_mayor(Integer.valueOf(id_venta.getText()))>=1){
-            //AQUÍ VA TU NUEVO PDF
+              new Envio_email().setVisible(true);
+           if(Modelo_capturar_resultados.verificar_estudio_con_longitud_mayor(Integer.valueOf(id_venta.getText()))>=1){
 //PDF LARGO
-  Envio_email.File.setText(Capturar_resultados.id_paciente.getText()+"_"+Capturar_resultados.paciente.getText()+"_02"+".pdf");      
+  Envio_email.File.setText(Capturar_resultados.id_paciente.getText()+"_"+Capturar_resultados.paciente.getText()+"_01"+".pdf");      
             //PDF CORTO
    if(Modelo_capturar_resultados.verificar_estudio_con_longitud_menor(Integer.valueOf(id_venta.getText()))>=1){
-   Envio_email.File.setText(Capturar_resultados.id_paciente.getText()+"_"+Capturar_resultados.paciente.getText()+"_01"+".pdf"+","+Capturar_resultados.id_paciente.getText()+"_"+Capturar_resultados.paciente.getText()+"_02"+".pdf");      
+   Envio_email.File.setText(Capturar_resultados.id_paciente.getText()+"_"+Capturar_resultados.paciente.getText()+"_01"+".pdf"+", "+Capturar_resultados.id_paciente.getText()+"_"+Capturar_resultados.paciente.getText()+"_02"+".pdf");         
    }
         }else{//PDF CON LONGITUDES DE ANALISIS MENORES A 68
       Envio_email.File.setText(Capturar_resultados.id_paciente.getText()+"_"+Capturar_resultados.paciente.getText()+"_01"+".pdf");       
+ 
         }     
         }
     }//GEN-LAST:event_envio_emailActionPerformed

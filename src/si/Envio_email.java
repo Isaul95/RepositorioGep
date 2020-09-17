@@ -3,6 +3,8 @@ package si;
 
 import Controladores.Controlador_Report_pdf;
 import Controladores.Controladorventa;
+import Modelos.Modelo_capturar_resultados;
+import static si.Capturar_resultados.id_venta;
 public class Envio_email extends javax.swing.JFrame { 
  
     public Envio_email() {
@@ -154,7 +156,17 @@ public class Envio_email extends javax.swing.JFrame {
 
     private void emailsendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emailsendActionPerformed
         Controlador_Report_pdf enviar = new Controlador_Report_pdf();
-        enviar.btn_Envio_email();             
+        if(Modelo_capturar_resultados.verificar_estudio_con_longitud_mayor(Integer.valueOf(id_venta.getText()))>=1){
+            //ENVIO PDF LARGO
+     enviar.btn_Envio_email(Envio_email.para.getText(),Envio_email.asunto.getText(),Capturar_resultados.id_paciente.getText()+"_"+Capturar_resultados.paciente.getText()+"_02"+".pdf",Envio_email.send_message.getText());  
+            //ENVIO PDF CORTO
+   if(Modelo_capturar_resultados.verificar_estudio_con_longitud_menor(Integer.valueOf(id_venta.getText()))>=1){
+  enviar.btn_Envio_email(Envio_email.para.getText(),Envio_email.asunto.getText(),Capturar_resultados.id_paciente.getText()+"_"+Capturar_resultados.paciente.getText()+"_01"+".pdf",Envio_email.send_message.getText());   
+   
+   }
+        }else{//ENVIO PDF CON LONGITUDES DE ANALISIS MENORES A 68    
+  enviar.btn_Envio_email(Envio_email.para.getText(),Envio_email.asunto.getText(),Envio_email.File.getText(),Envio_email.send_message.getText());  
+        }     
     }//GEN-LAST:event_emailsendActionPerformed
 
     private void regresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_regresarActionPerformed

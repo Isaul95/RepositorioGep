@@ -25,29 +25,27 @@ SELECT CURDATE();   ==>   2020-03-01  SELECT CURTIME();   ==>   14:16:34    */
 // isaulhernandez@gepsof.com       Isaul.
 public class Modelo_proceso_email implements Runnable{
    static String correo= "atencionacliente@laboratoriosalkhemy.com", contrasena= "Atencion.2020", nom, dest, subject, msn, rout;
-    JTextField destinatario, asunto, ruta;
+    String destinatario, asunto, ruta;
     JTextArea mensaje;
-    JLabel estado;
+    String estado;
     String[] vect;
     
-        public Modelo_proceso_email(JTextField valor3, JTextField valor4, /*JTextArea valor5,JTextField valor6, */String valor7,  JLabel valor8) {       
+        public Modelo_proceso_email(String valor3, String valor4, /*JTextArea valor5,JTextField valor6, */String valor7,  String valor8) {       
                    this.destinatario = valor3;  // db save
                    this.asunto = valor4;         // db save      
        this.nom = valor7; // NOMBRE DEL FILE K SE LE DA DE FORMA STATICA
                          this.estado = valor8;
-                      dest = destinatario.getText();    // db save
-                      subject = asunto.getText();        // db save       
+                      dest = destinatario;    // db save
+                      subject = asunto;        // db save       
                           vect = dest.split(";"); // separacion concatencion multiusuariio
     }
                
     @Override
     public void run() {      
         rout = "C:\\reportes\\"+nom;
-        
         if (rout.equals("")) {
         final String usuario = "atencionacliente@laboratoriosalkhemy.com"; // @gepsof.com
-        final String pass = "Atencion.2020";       //  Isaul
-           
+        final String pass = "Atencion.2020";       //  Isaul        
             Properties props = new Properties();
             props.put("mail.transport.protocol", "smtp");
             props.put("mail.smtp.host", "sh-pro10.hostgator.mx");
@@ -56,7 +54,6 @@ public class Modelo_proceso_email implements Runnable{
             props.put("mail.smtp.starttls.enable", "true");
             props.put("mail.smtp.auth", "true");
             props.put("mail.smtp.port", "587");
-
             Session session = Session.getInstance(props,
                     new javax.mail.Authenticator() {
                         protected PasswordAuthentication getPasswordAuthentication() {
@@ -64,9 +61,8 @@ public class Modelo_proceso_email implements Runnable{
                         }
                     });
             session.setDebug(false);
-
             try {
-                estado.setText("Enviando Mensaje");
+                Envio_email.send_message.setText("Enviando Mensaje");
                 for (int i = 0; i < vect.length; i++) {
                     Message message = new MimeMessage(session);
                     message.setFrom(new InternetAddress(usuario));
@@ -75,14 +71,13 @@ public class Modelo_proceso_email implements Runnable{
                     Transport.send(message);
                 }
                 JOptionPane.showMessageDialog(null,"Mensaje enviado");
-                estado.setText(""); // cuando se se aceptar de Mensaje Enviado se borra el label
-                asunto.setText("");
-                destinatario.setText("");
+                Envio_email.send_message.setText(""); // cuando se se aceptar de Mensaje Enviado se borra el label
+               Envio_email.asunto.setText("");
+                Envio_email.para.setText("");
             } catch (MessagingException e) {               
                 JOptionPane.showMessageDialog(null, "Algo salio mal compruebe la conexion a internet");
             }
         } else {
-
             Properties props = new Properties();
             props.setProperty("mail.smtp.host", "sh-pro10.hostgator.mx");
             props.setProperty("mail.smtp.starttls.enable", "true");
@@ -91,9 +86,8 @@ public class Modelo_proceso_email implements Runnable{
             Session session = Session.getDefaultInstance(props);
             session.setDebug(false);
             BodyPart texto = new MimeBodyPart();
-
             try {
-                estado.setText("Enviando Mensaje");
+                Envio_email.send_message.setText("Enviando Mensaje");
                 for (int i = 0; i < vect.length; i++) {
                     //texto.setText(msn);
                     BodyPart adjunto = new MimeBodyPart();
@@ -121,13 +115,13 @@ public class Modelo_proceso_email implements Runnable{
         nb.guardar();   //aki es donde una vez k pase el mensaje de enviado correctamente se captura enn la base de datos de lo contrario no se captura
    }                
    envio_email.setEnabled(false); // blokear el boton despues de enviar el email de la venta Envio_Email
-                estado.setText(""); // cuando se se aceptar de Mensaje Enviado se borra el label
-                asunto.setText("");
-                destinatario.setText("");                              
+                 Envio_email.send_message.setText(""); // cuando se se aceptar de Mensaje Enviado se borra el label
+               Envio_email.asunto.setText("");
+                Envio_email.para.setText("");                    
             } catch (MessagingException ex) {                   
            JOptionPane.showMessageDialog(null, "Algo salio mal compruebe la conexion a internet \n y/o el Dirección de correo es INVALIDA");
             Envio_email.para.setBackground(Color.red);
-           estado.setText("Favor de ingresar una dirección de correo VALIDA...!!!");
+           Envio_email.send_message.setText("Favor de ingresar una dirección de correo VALIDA...!!!");
             }
         }                        
     }            
