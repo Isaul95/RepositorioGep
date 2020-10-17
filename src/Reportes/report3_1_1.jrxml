@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c4c60ee2-567c-41a3-8236-ee19d087552e">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="12"/>
+	<property name="ireport.y" value="797"/>
 	<parameter name="parameter1" class="java.lang.String"/>
 	<parameter name="Logo5" class="java.io.InputStream"/>
 	<parameter name="firma5" class="java.io.InputStream"/>
@@ -157,13 +157,6 @@ Order by p.categoria_estudios,dv.id_producto ASC]]>
 				<reportElement x="254" y="657" width="126" height="85" uuid="831c01ff-1f50-429a-bfc3-60c5753a02ec"/>
 				<imageExpression><![CDATA[$P{firma5}]]></imageExpression>
 			</image>
-			<staticText>
-				<reportElement x="54" y="570" width="152" height="19" uuid="a28e8f9d-ed50-40f2-bf29-5208555b0218"/>
-				<textElement verticalAlignment="Middle">
-					<font size="8" isBold="true"/>
-				</textElement>
-				<text><![CDATA[ESTE ES EL NEW OTRO PDF ]]></text>
-			</staticText>
 		</band>
 	</background>
 	<title>

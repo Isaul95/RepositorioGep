@@ -45,7 +45,7 @@ public static ArrayList idsenturno = new ArrayList();
           descuentoactivo=false, block_unlock=true,tablaventaactiva=false, sepuedeagregarpaciente=true;
    public static boolean noduplicarcrudo=false, noduplicarcocido=false, noduplicaracompañantes=false, 
             noduplicarexistencias=false, noduplicarcorte=false, noduplicarinventarioventas=false,
-           noduplicargastos=false, noduplicarexternos=false, noduplicar_edicionpaciente=false, 
+           noduplicargastos=false,noduplicarcultivos=false, noduplicarexternos=false, noduplicar_edicionpaciente=false, 
            noduplicar_capturaresultados=false,
            noduplicar_registro_usuario=false,
            noduplicar_nucleo=false,

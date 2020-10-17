@@ -18,7 +18,8 @@ public class Controladorgastos {
     public static void insercionengastos(){
           // ABRE NUEVA VENTANA PARA Registro de Gastos
           if (Gastos.txtdescripcionq.getText().isEmpty() || Gastos.txtmonto1.getText().isEmpty()) {
-         Gastos.txtdescripcionq.setBackground(Color.red);Gastos.txtmonto1.setBackground(Color.red);
+         Gastos.txtdescripcionq.setBackground(Color.red);
+         Gastos.txtmonto1.setBackground(Color.red);
           } else {             
                    pass = Controladorventa.validarFormulario(Gastos.txtmonto1.getText());
                    pass2 = validarFormulariotexto(Gastos.txtdescripcionq.getText());
