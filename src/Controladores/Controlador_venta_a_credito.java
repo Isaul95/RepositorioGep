@@ -31,6 +31,7 @@ public class Controlador_venta_a_credito {
         if(fila>=0){//Inventarioventas.ventasacreditopendiente.getValueAt(fila,0).toString()
             mostrar_deudas();
               Ventas_a_credito.idventa.setText(String.valueOf(Ventas_a_credito.tabla_ventas_a_credito.getValueAt(fila, 0)));
+                Ventas_a_credito.deudor.setText(String.valueOf(Ventas_a_credito.tabla_ventas_a_credito.getValueAt(fila, 1)));
               Ventas_a_credito.total.setText(String.valueOf(Ventas_a_credito.tabla_ventas_a_credito.getValueAt(fila, 4)));
               Ventas_a_credito.abono.setText(String.valueOf(Ventas_a_credito.tabla_ventas_a_credito.getValueAt(fila, 5)));
               Ventas_a_credito.pendiente.setText(String.valueOf(Ventas_a_credito.tabla_ventas_a_credito.getValueAt(fila, 6))); 
@@ -48,7 +49,8 @@ public class Controlador_venta_a_credito {
             Ventas_a_credito.pendiente.setVisible(false);
             Ventas_a_credito.labelabono.setVisible(false);
             Ventas_a_credito.abono.setVisible(false);
-            
+            Ventas_a_credito.deudor.setVisible(false);
+         
    }
    public static void mostrar_deudas(){
        Ventas_a_credito.idventa.setVisible(true);
@@ -59,8 +61,9 @@ public class Controlador_venta_a_credito {
             Ventas_a_credito.pendiente.setVisible(true);
                 Ventas_a_credito.labelabono.setVisible(true);
             Ventas_a_credito.abono.setVisible(true);
+            Ventas_a_credito.deudor.setVisible(true);
    }
-   public static void pagar_venta(float total, float pago_abono, float cambio_pendiente, int id_venta){
-       Modelo_venta_a_credito.cerrar_o_abonar_venta_a_credito(total,pago_abono,cambio_pendiente,id_venta);
+   public static void pagar_venta(float total, float pago_abono, float cambio_pendiente, int id_venta, String deudor){
+       Modelo_venta_a_credito.cerrar_o_abonar_venta_a_credito(total,pago_abono,cambio_pendiente,id_venta,deudor);
    }
 }

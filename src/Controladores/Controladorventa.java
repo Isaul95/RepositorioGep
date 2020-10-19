@@ -45,7 +45,7 @@ public static ArrayList idsenturno = new ArrayList();
           descuentoactivo=false, block_unlock=true,tablaventaactiva=false, sepuedeagregarpaciente=true;
    public static boolean noduplicarcrudo=false, noduplicarcocido=false, noduplicaracompañantes=false, 
             noduplicarexistencias=false, noduplicarcorte=false, noduplicarinventarioventas=false,
-           noduplicargastos=false,noduplicarcultivos=false, noduplicarexternos=false, noduplicar_edicionpaciente=false, 
+           noduplicargastos=false, noduplicarexternos=false, noduplicar_edicionpaciente=false, 
            noduplicar_capturaresultados=false,
            noduplicar_registro_usuario=false,
            noduplicar_nucleo=false,
@@ -53,7 +53,10 @@ public static ArrayList idsenturno = new ArrayList();
            noduplicar_nuevo_producto=false,
            noduplicar_nuevo_paquete=false,
            noduplicar_vista_de_ventas_a_credito=false,
-           noduplicar_capturar_valor_de_referencia=false;
+           noduplicarcultivos=false,
+           noduplicar_capturar_valor_de_referencia=false,
+           noduplicar_inventario_pagos=false,
+           noduplicat_utilidades;
 
          
    public static DecimalFormat solodosdecimales = new DecimalFormat("#.##");

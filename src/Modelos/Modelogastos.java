@@ -126,7 +126,7 @@ public static void insertarventacondescuentoengastos(String nombre, float monto,
    String sql = "INSERT INTO  egreso(cantidad, tipo, fecha, total, usuario, id_venta)  VALUES (?,?,?,?,?,?)";
                          PreparedStatement pst = ca.prepareCall(sql); 
                          pst.setInt(1,0);
-                         pst.setString(2,nombre);
+                         pst.setString(2,nombre.toUpperCase());
                          pst.setString(3,Controladorventa.fecha());
                          pst.setFloat(4,monto);
                          pst.setInt(5,Controladorgastos.id_usuario);
@@ -139,4 +139,24 @@ public static void insertarventacondescuentoengastos(String nombre, float monto,
       }//fin del id del usuario para comprobar si hay o no elementos ya guardados
         finally{cc.getClose();}
     }
+
+public static void insertarpagocomoabono(String nombre, float monto, int idventa){
+        try{ Connection ca= cc.conexion(); // CONEXION DB // el id del usuario para obtener el id del usuario y comprobar si hay o no algun registro
+   String sql = "INSERT INTO  pagos(nombre, monto, id_venta, fecha,hora)  VALUES (?,?,?,?,?)";
+                         PreparedStatement pst = ca.prepareCall(sql); 
+                         pst.setString(1,nombre.toUpperCase());
+                         pst.setFloat(2,monto);
+                         pst.setInt(3,idventa);
+                         pst.setString(4,Controladorventa.fecha());
+                         pst.setString(5,nucleo.Reloj.getText());
+                       
+                         int a=pst.executeUpdate();
+                         if(a>0){   // UPDATE `productoexternoblanca` SET `pieza`=0;
+                  }                                                 
+      }catch(Exception w){Controladorventa.sepuedeagregarpaciente=false;
+                     JOptionPane.showMessageDialog(null,"insertarpagocomoabono"+w);
+      }//fin del id del usuario para comprobar si hay o no elementos ya guardados
+        finally{cc.getClose();}
+    }
+
 }

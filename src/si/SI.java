@@ -6,7 +6,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane; 
 public class SI {
- //  String MySQLpassword="programahtrm5609"; //  remototcdrw3tHcq
+//   String MySQLpassword="programahtrm5609"; //  remototcdrw3tHcq
  String MySQLpassword=""; //  remototcdrw3tHcq
  
 //clase para hacer la conexión a mysql 

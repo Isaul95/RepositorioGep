@@ -307,7 +307,7 @@ public Capturar_resultados(int id_venta_a_capturar_resultados){
         if (Modelo_capturar_resultados.verificar_estudio_con_longitud_mayor(Integer.valueOf(id_venta.getText())) >= 1) {
             //AQUÍ VA TU NUEVO PDF
 //    PDF LARGO
-            Controlador_Report_Pdf_ReferenciaMayor ref = new Controlador_Report_Pdf_ReferenciaMayor();
+            Controlador_Report_Pdf_ReferenciaMayor ref = new Controlador_Report_Pdf_ReferenciaMayor(); 
             ref.Generacion_PDF_client_referenciaMayor("_02");
 //    PDF CORTO
             if (Modelo_capturar_resultados.verificar_estudio_con_longitud_menor(Integer.valueOf(id_venta.getText())) >= 1) {
@@ -365,7 +365,7 @@ public Capturar_resultados(int id_venta_a_capturar_resultados){
 
     private void Jtable_ProductosEntradasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Jtable_ProductosEntradasMouseClicked
         //Capturar el valor de referencia
-         int fila =Jtable_ProductosEntradas.getSelectedRow(); 
+         int fila =Jtable_ProductosEntradas.getSelectedRow();
            int col =Jtable_ProductosEntradas.getSelectedColumn(); 
          if(fila>=0 && col==1){
               if(Controladorventa.noduplicar_capturar_valor_de_referencia==false){

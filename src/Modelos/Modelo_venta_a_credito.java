@@ -84,7 +84,8 @@ static ResultSet rs;
                             ps2.executeUpdate();
                                int result = ps2.executeUpdate();
                                          if(result>0){
-   Modelogastos.insertarventacondescuentoengastos("Cdo "+Agregar_paciente.user_nombre.getText(), sumadeimportesenturno,id_de_la_venta_incrementable);
+   Modelogastos.insertarventacondescuentoengastos("Cdo "+Agregar_paciente.user_nombre.getText(), Float.parseFloat((solodosdecimales.format(Float.parseFloat(nucleo.subtotal.getText())-Float.parseFloat(nucleo.monto.getText())).replace(",", "."))),id_de_la_venta_incrementable);
+   Modelogastos.insertarpagocomoabono("Pago "+Agregar_paciente.user_nombre.getText(), Float.parseFloat(solodosdecimales.format(Float.parseFloat(nucleo.monto.getText())).replace(",", ".")),id_de_la_venta_incrementable);
    Modeloventa.descripciondelosprouductosparaelticketdeventa(id_de_la_venta_incrementable,Controladorinventarioventas.creditopendiente);//DATOS PARA EL TICKET DE VENTA
    Modeloventa.descripciondelosprouductosparaelticketdeventa(id_de_la_venta_incrementable,Controladorinventarioventas.creditopendiente);//DATOS PARA EL TICKET DE VENTA
          Controladorventa.block_unlock=true;
@@ -234,7 +235,7 @@ static ResultSet rs;
         }
 }
     
-    public static void cerrar_o_abonar_venta_a_credito(float total, float pago_abono, float cambio_pendiente, int id_venta){
+    public static void cerrar_o_abonar_venta_a_credito(float total, float pago_abono, float cambio_pendiente, int id_venta, String Deudor){
          DecimalFormat solodosdecimales = new DecimalFormat("#.##");
     try{
             boolean pass2 = Controladorventa.validarFormulario(Controlador_venta_a_credito.pagodeventacredito= JOptionPane.showInputDialog(null,"Escriba el monto de pago","Pagando venta a credito", JOptionPane.INFORMATION_MESSAGE));
@@ -245,7 +246,7 @@ int decision=JOptionPane.showConfirmDialog(null,"¿Desea continuar?","Estás por
                         try{Connection ca= cc.conexion();
                         Controlador_venta_a_credito.nuevopago =Float.parseFloat(Controlador_venta_a_credito.pagodeventacredito)+pago_abono;
                         Controlador_venta_a_credito.nuevocambio=Controlador_venta_a_credito.nuevopago-total;
-                            PreparedStatement ps = ca.prepareStatement ("UPDATE venta SET descuento='"+ 0+"',pago='"+solodosdecimales.format(Controlador_venta_a_credito.nuevopago).replace(",", ".")+"',cambio='"+solodosdecimales.format(Controlador_venta_a_credito.nuevocambio).replace(",", ".")+"',fecha_reporte='"+Controladorventa.fecha()+"',estado_venta='"+Controladorventa.estadorealizado+"'WHERE id_venta='"+id_venta+"'");
+                            PreparedStatement ps = ca.prepareStatement ("UPDATE venta SET descuento='"+ 0+"',pago='"+solodosdecimales.format(Controlador_venta_a_credito.nuevopago).replace(",", ".")+"',cambio='"+solodosdecimales.format(Controlador_venta_a_credito.nuevocambio).replace(",", ".")+"',estado_venta='"+Controladorventa.estadorealizado+"'WHERE id_venta='"+id_venta+"'");
                             ps.executeUpdate();
                         }catch(Exception ex){
                             JOptionPane.showMessageDialog(null, "Error en pagarventacredito" + ex.getMessage());
@@ -256,7 +257,13 @@ int decision=JOptionPane.showConfirmDialog(null,"¿Desea continuar?","Estás por
                             Modeloventa.id_max_de_venta();
                             PreparedStatement ps2 = ca.prepareStatement ("UPDATE descripcion_de_venta SET estado= '"+Controladorventa.estadorealizado+"' WHERE id_venta='"+id_venta+"'");
                             int a = ps2.executeUpdate();
-                            if(a>0){eliminar_venta_de_gastos(id_venta);Controlador_venta_a_credito.ver_ventas_a_credito();Controlador_venta_a_credito.ocultar_deudas(); Modeloventa.descripciondelosprouductosparaelticketdeventa(id_venta, Controladorventa.estadorealizado);}
+                            if(a>0){
+                            eliminar_venta_de_gastos_del_mismo_dia(id_venta);
+                            Modelogastos.insertarpagocomoabono("Pago "+Deudor.toUpperCase(), Float.parseFloat(solodosdecimales.format(Float.parseFloat(Controlador_venta_a_credito.pagodeventacredito)).replace(",", ".")),id_venta);
+                            Controlador_venta_a_credito.ver_ventas_a_credito();
+                            Controlador_venta_a_credito.ocultar_deudas(); 
+                            Modeloventa.descripciondelosprouductosparaelticketdeventa(id_venta, Controladorventa.estadorealizado);
+                            }
                         }
                         catch(Exception ex){
                             JOptionPane.showMessageDialog(null, "Error en pagarventacredito" + ex.getMessage());
@@ -267,10 +274,11 @@ int decision=JOptionPane.showConfirmDialog(null,"¿Desea continuar?","Estás por
                         try{Connection ca= cc.conexion();
                         Controlador_venta_a_credito.nuevopago =Float.parseFloat(Controlador_venta_a_credito.pagodeventacredito)+pago_abono;
                         Controlador_venta_a_credito.nuevocambio=total-Controlador_venta_a_credito.nuevopago;
-                            PreparedStatement ps = ca.prepareStatement ("UPDATE venta SET descuento='"+ 0+"',pago='"+solodosdecimales.format(Controlador_venta_a_credito.nuevopago).replace(",", ".")+"',cambio='"+solodosdecimales.format(Controlador_venta_a_credito.nuevocambio).replace(",", ".")+"',fecha_reporte='"+Controladorventa.fecha()+"'WHERE id_venta='"+id_venta+"'");
+                            PreparedStatement ps = ca.prepareStatement ("UPDATE venta SET descuento='"+ 0+"',pago='"+solodosdecimales.format(Controlador_venta_a_credito.nuevopago).replace(",", ".")+"',cambio='"+solodosdecimales.format(Controlador_venta_a_credito.nuevocambio).replace(",", ".")+"'WHERE id_venta='"+id_venta+"'");
                             int a=ps.executeUpdate();
                              if(a>0){
                                  Controlador_venta_a_credito.ver_ventas_a_credito();Controlador_venta_a_credito.ocultar_deudas();
+                                  Modelogastos.insertarpagocomoabono("Pago "+Deudor.toUpperCase(), Float.parseFloat(solodosdecimales.format(Float.parseFloat(Controlador_venta_a_credito.pagodeventacredito)).replace(",", ".")),id_venta);
                              }
                         }catch(Exception ex){
                             JOptionPane.showMessageDialog(null, "Error en pagarventacredito" + ex.getMessage());
@@ -283,17 +291,18 @@ int decision=JOptionPane.showConfirmDialog(null,"¿Desea continuar?","Estás por
         }catch(NullPointerException NP){//ESTO EVITA QUE EL USUARIO META UN VALOR VACIO
  }
     }
-    public static void eliminar_venta_de_gastos(int id_venta){
+    public static void eliminar_venta_de_gastos_del_mismo_dia(int id_venta){
          try{ Connection ca= cc.conexion();// La suma de todos los importes
-                                        String sql = "delete from egreso where id_venta= '"+id_venta+"'";
+                                        String sql = "delete from egreso where id_venta= '"+id_venta+"' and fecha ='"+Controladorventa.fecha()+"'";
                                            PreparedStatement ps = ca.prepareStatement(sql);
                                            ps.execute();     
                                                       }//fin del try-precio del producto
                                                       catch (Exception e){
-                                                           JOptionPane.showMessageDialog(null, "ERROR EN METODO: eliminar_idventa_sitienedescuento","DEVELOPER HELPER", JOptionPane.ERROR_MESSAGE);       
+                                                           JOptionPane.showMessageDialog(null, "ERROR EN METODO: eliminar_venta_de_gastos_del_mismo_dia","DEVELOPER HELPER", JOptionPane.ERROR_MESSAGE);       
                                                       }// fin del precio-catch del producto
         finally{
                   cc.getClose();
              }
     }
+  
  }
