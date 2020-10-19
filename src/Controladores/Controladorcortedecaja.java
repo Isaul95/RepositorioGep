@@ -41,14 +41,15 @@ public class Controladorcortedecaja {
   
     public static  ArrayList columna1 = new ArrayList(); 
           public static   ArrayList columna2 = new ArrayList();     
- public static final float pagopollo=20*90, tacos=60, almuerzo=28;//datos para la tabla utilidad
- public static float  totaldedescuentos,diferenciaentablautilidad, utilidades , ventasdeldia, gastosdeldia, montodeapertura, diferencia, diferenciafinal, precio;
+          public static ArrayList columna3 = new ArrayList();
+ public static float  totaldedescuentos, utilidades , ventasdeldia, gastosdeldia, pagosdeldia,montodeapertura, diferencia, diferenciafinal, precio,diferenciaparavista;
  public static short apertura, numerodescuentos;
  public static int  id_usuario=SI_Inicio.id_usuario;
 
    public static float ticketmonto, ticketventa, ticketgasto, ticketdiferencia;
 
       public static ArrayList totalcdesc = new ArrayList();     public static ArrayList venta = new ArrayList();      
+      public static String hora_apertura="";
     public static void montoFocusLost(){                               
         // *********************   CAJA DE TEXTO DE PAGOO *********
         if(Cortecaja.monto.getText().trim().equals("")){
@@ -74,12 +75,13 @@ public class Controladorcortedecaja {
             Modelocortedecaja.ventaseneldia();
         Modelocortedecaja.metodogastosdeldia();
         Modelocortedecaja.aperturadeldia();
-        Modelocortedecaja.total_numeros_y_descuentos();
-           Cortecaja.numerosdescuentos.setText(String.valueOf(numerodescuentos));
-           Cortecaja.totaldescuentos.setText(String.valueOf("$"+totaldedescuentos));
+        Modelocortedecaja.pagosdeldia();
+           Cortecaja.horadeinicio.setText(hora_apertura);
         Cortecaja.aperturacantidad.setText(String.valueOf(montodeapertura));
         Cortecaja.Ventasfortoday1.setText(String.valueOf(ventasdeldia));
         Cortecaja.Gastosfromtoday.setText(String.valueOf(gastosdeldia));
-      
+        Cortecaja.pagos.setText(String.valueOf(pagosdeldia));
+        diferenciaparavista=ventasdeldia-gastosdeldia;
+      Cortecaja.monto_a_entregar.setText(String.valueOf((gastosdeldia>ventasdeldia ? "Gastos altos" :diferenciaparavista)));
      }
 }

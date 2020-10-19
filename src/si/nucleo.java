@@ -105,6 +105,8 @@ user.setText(usuarioname);
         ventacredito = new javax.swing.JCheckBox();
         ventas_acredito = new javax.swing.JButton();
         Registro_paquete = new javax.swing.JButton();
+        pagos = new javax.swing.JButton();
+        utilidades = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -449,6 +451,34 @@ user.setText(usuarioname);
         });
         venta.add(Registro_paquete, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 530, 40, 50));
 
+        pagos.setBackground(new java.awt.Color(135, 193, 193));
+        pagos.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        pagos.setForeground(new java.awt.Color(204, 0, 0));
+        pagos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/simbolo-del-dolar-americano (1).png"))); // NOI18N
+        pagos.setToolTipText("Pagos");
+        pagos.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        pagos.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        pagos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pagosActionPerformed(evt);
+            }
+        });
+        venta.add(pagos, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 600, 40, 50));
+
+        utilidades.setBackground(new java.awt.Color(135, 193, 193));
+        utilidades.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        utilidades.setForeground(new java.awt.Color(204, 0, 0));
+        utilidades.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/casilla-de-verificacion (1).png"))); // NOI18N
+        utilidades.setToolTipText("Utilidades");
+        utilidades.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        utilidades.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        utilidades.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                utilidadesActionPerformed(evt);
+            }
+        });
+        venta.add(utilidades, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 340, 40, 50));
+
         getContentPane().add(venta, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1220, 670));
 
         pack();
@@ -536,6 +566,14 @@ user.setText(usuarioname);
     private void Registro_paqueteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Registro_paqueteActionPerformed
        if(Controladorventa.noduplicar_nuevo_paquete==false){new Registro_paquete().setVisible(true);} 
     }//GEN-LAST:event_Registro_paqueteActionPerformed
+
+    private void pagosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pagosActionPerformed
+         if(Controladorventa.noduplicar_inventario_pagos==false){new inventariopagos().setVisible(true);;}  
+    }//GEN-LAST:event_pagosActionPerformed
+
+    private void utilidadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_utilidadesActionPerformed
+          if(Controladorventa.noduplicat_utilidades==false){new utilidades().setVisible(true);;}  
+    }//GEN-LAST:event_utilidadesActionPerformed
  private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {                                         
 // MODIFICAR   new ProductosExternos().setVisible(true);        
     }                                           /**
@@ -603,12 +641,14 @@ user.setText(usuarioname);
     private javax.swing.JScrollPane jScrollPane2;
     public static javax.swing.JLabel labeldescuento;
     public static javax.swing.JTextField monto;
+    public static javax.swing.JButton pagos;
     private javax.swing.JLabel prueba;
     public static javax.swing.JCheckBox reimprimirventa;
     public static javax.swing.JLabel subtotal;
     public static javax.swing.JTable tablaventa;
     public static javax.swing.JLabel total;
     private javax.swing.JLabel user;
+    public static javax.swing.JButton utilidades;
     public static javax.swing.JPanel venta;
     public static javax.swing.JCheckBox ventacredito;
     private javax.swing.JButton ventas_acredito;

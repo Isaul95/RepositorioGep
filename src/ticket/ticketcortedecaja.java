@@ -8,7 +8,7 @@ import java.util.Date;
 import javax.swing.JOptionPane;
 
  public class ticketcortedecaja{
-  public void ticketcortedecaja(float monto, float gasto, float venta , float diferencia, float ventasmenosgastos, float totaldepagos, int numerodedescuentos, float totaldescuentos) {
+  public void ticketcortedecaja(String hora_inicio_sesion,float monto, float gasto, float venta , float diferencia, float ventasmenosgastos, float totaldepagos) {
      Date date = new Date();
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         DateFormat hourFormat = new SimpleDateFormat("HH:mm:ss");                
@@ -31,27 +31,17 @@ import javax.swing.JOptionPane;
         auxs+= "TEL:(723) 14-502-62\n"; System.out.println("TEL:(723) 14-502-62\n"); 
         
         auxs+= "Fecha: " + dateFormat.format(date) + " Hora: " + hourFormat.format(date) + "\n";  System.out.println("Fecha: " + dateFormat.format(date) + " Hora: " + hourFormat.format(date) + "\n");
-        auxs+= "\n==============================\n";  System.out.println("\n==============================\n");            
-         auxs+= "SE HICIERON:     "+numerodedescuentos+" DESCUENTOS"+"\n";             System.out.println("SE HICIERON:     "+numerodedescuentos+" DESCUENTOS"+"\n");  
-         auxs+= "DANDO UN TOTAL DE:     $"+totaldescuentos+"\n";             System.out.println("DANDO UN TOTAL DE:     $"+totaldescuentos+"\n");  
+        auxs+= "\n==============================\n";  System.out.println("\n==============================\n");   
+        auxs+= "INICIO DE SESIÓN: "+hora_inicio_sesion+"\n";             System.out.println("INICIO DE SESIÓN: "+hora_inicio_sesion+"\n");   
          auxs+= "TOTAL DE VENTAS:     $"+venta+"\n";             System.out.println("TOTAL DE VENTAS:     $"+venta+"\n");      
           auxs+= "+"+"\n";      System.out.println("+"+"\n");
-          auxs+= "TOTAL DE PAGOS:      $"+totaldepagos+"\n";      System.out.println("TOTAL DE PAGOS:      $"+totaldepagos+"\n");
-          auxs+= "-"+"\n";      System.out.println("-"+"\n");
           auxs+= "TOTAL DE GASTOS      $"+gasto+"\n";             System.out.println("TOTAL DE GASTOS      $"+gasto+"\n");        
           auxs+= "="+"\n";      System.out.println("="+"\n");
-          auxs+= "TOTAL DE EFECTIVO:   $"+ventasmenosgastos+"\n"; System.out.println("TOTAL DE EFECTIVO:   $"+ventasmenosgastos+"\n");                   
+          auxs+= "EN FISICO:   $"+ventasmenosgastos+"\n"; System.out.println("EN FISICO:   $"+ventasmenosgastos+"\n");                   
           auxs+= "="+"\n";      System.out.println("="+"\n");
-          auxs+= "TOTAL DE ENTREGADO:  $"+monto+"\n";             System.out.println("TOTAL DE ENTREGADO:  $"+monto+"\n"); 
+          auxs+= "ENTREGADO:  $"+monto+"\n";             System.out.println("ENTREGADO:  $"+monto+"\n"); 
         auxs+= "\n==============================\n";  System.out.println("\n==============================\n");       
-        if(diferencia>0){
-         auxs+= "SOBRO LA CANTIDAD DE: $ "+String.format("%.2f", diferencia)+"\n";   System.out.println("DIFERENCIA: $ "+String.format("%.2f", diferencia)+"\n");           
-        //PENDIENTE CORREGIR EL METODO DIFERENCIA
-        }else if(diferencia<0){
-          auxs+= "HACE FALTA LA CANTIDAD DE: $ "+String.format("%.2f", diferencia)+"\n";   System.out.println("DIFERENCIA: $ "+String.format("%.2f", diferencia)+"\n");           
-        }else{
-        auxs+= "TODO ESTÁ EN ORDEN:  "+String.format("%.2f", diferencia)+"\n";   System.out.println("DIFERENCIA: $ "+String.format("%.2f", diferencia)+"\n");           
-                   }  
+        
          auxs+= "\n\n\n"; // SALTOS PARA K NO LO CORTE LUEGO
        try {
             impServicio.printCadena(impra, auxs);

@@ -11,6 +11,7 @@ import javax.swing.JOptionPane;
 import si.Cortecaja;
 import si.SI;
 import ticket.ListaGastos;
+import ticket.Listapagos;
 import ticket.Listaventascondescuento;
 import ticket.ticketcortedecaja;
 
@@ -24,22 +25,16 @@ public class Modelocortedecaja extends Controladorcortedecaja{
   public static ResultSet rs;    
   public static PreparedStatement ps;
  public static void llenar_tabla_utilidad(float gastosdeldia, float ventasdeldia){
-    diferenciaentablautilidad=(0+tacos-0-almuerzo);
- utilidades=(ventasdeldia+0+0+tacos-0-pagopollo-almuerzo);
+ pagosdeldia();
+  utilidades=((ventasdeldia+pagosdeldia)-gastosdeldia);
  try{Connection ca= cc.conexion(); //la insersion a la tabla ventas
-                String sql = "INSERT INTO  utilidad(totaldeventas,pagos,totaldevolucioncrudo,totalprocesados,pagopollo,tacos,utilidad,almuerzo, diferencia, gastos, fecha)  VALUES (?,?,?,?,?,?,?,?,?,?,?)";
-                 ps = ca.prepareCall(sql); //hasta aqui vamos
-               ps.setDouble(1, Double.parseDouble(solodosdecimales.format(ventasdeldia).replace(",", ".")));
-               ps.setDouble(2,Double.parseDouble(solodosdecimales.format(0).replace(",", ".")));
-                ps.setDouble(3, Double.parseDouble(solodosdecimales.format(0).replace(",", ".")));
-                ps.setDouble(4,Double.parseDouble(solodosdecimales.format(0).replace(",", ".")));
-                ps.setDouble(5, pagopollo);
-                ps.setDouble(6, tacos);
-                ps.setDouble(7, Double.parseDouble(solodosdecimales.format(utilidades).replace(",", ".")));
-                ps.setDouble(8, almuerzo);
-                ps.setDouble(9, Double.parseDouble(solodosdecimales.format(diferenciaentablautilidad).replace(",", ".")));
-                ps.setDouble(10, Double.parseDouble(solodosdecimales.format(gastosdeldia).replace(",", ".")));  
-                ps.setString(11, Controladorventa.fecha());
+                String sql = "INSERT INTO  utilidad(totaldeventas,pagos,gastos,utilidad, fecha)  VALUES (?,?,?,?,?)";
+               ps = ca.prepareCall(sql); //hasta aqui vamos
+               ps.setDouble(1, Double.parseDouble(solodosdecimales.format(ventasdeldia).replace(",", ".")));//TOTAL DE VENTAS
+               ps.setDouble(2,Double.parseDouble(solodosdecimales.format(pagosdeldia).replace(",", ".")));//PAGOS
+               ps.setDouble(3, Double.parseDouble(solodosdecimales.format(gastosdeldia).replace(",", ".")));  
+                ps.setDouble(4, Double.parseDouble(solodosdecimales.format(utilidades).replace(",", ".")));
+                ps.setString(5, Controladorventa.fecha());
                 int a=ps.executeUpdate();
                 if(a>0){           
                     }
@@ -62,9 +57,9 @@ public class Modelocortedecaja extends Controladorcortedecaja{
 public static void ventaseneldia(){
         try{  Connection ca= cc.conexion();// La suma de todos los importes
                                          Statement sent  =(Statement)ca.createStatement();
-                                         ResultSet  rs = sent.executeQuery("select SUM(importe) from descripcion_de_venta where estado in ('Realizada') and fecha= '"+Controladorventa.fecha()+"' ");
+                                         ResultSet  rs = sent.executeQuery("select SUM(total) from venta where estado_venta in ('Realizada') and fecha_reporte= '"+Controladorventa.fecha()+"' ");
                                             while(rs.next()){
-                                                      ventasdeldia =Float.parseFloat(rs.getString("SUM(importe)"));
+                                                      ventasdeldia =Float.parseFloat(rs.getString("SUM(total)"));
                                                       }
                                                       }//fin del try-precio del producto
                                                       catch (Exception e){
@@ -83,6 +78,52 @@ public static void metodogastosdeldia(){
                                                       }finally{cc.getClose();}// fin del precio-catch del producto
 
 }
+public static void pagosdeldia(){
+        try{  Connection ca= cc.conexion();// La suma de todos los importes    
+                                         Statement sent  =(Statement)ca.createStatement();
+ ResultSet  rs = sent.executeQuery("select SUM(monto) from pagos  where fecha= '"+Controladorventa.fecha()+"' ");
+ 
+ /*VENTA DE $100 A CREDITO FECHA 1 OCTUBRE DE LA VENTA
+ FIRST CASE
+ VENTAS $500 - GASTOS $200  
+ DÍA 1 SE DEJAN $20 - 1 OCTUBRE - CREDITO PENDIENTE
+ 
+ VENTAS $500 - GASTOS $200   
+ DÍA 2 SE DEJAN $20 - 2 OCTUBRE - CREDITO PENDIENTE
+
+ VENTAS $500 - GASTOS $200   
+ DÍA 3 SE DEJAN $20 - 3 OCTUBRE- CREDITO PENDIENTE
+
+ VENTAS $500 - GASTOS $200  
+DÍA 4 SE DEJAN $20 - 4 OCTUBRE- CREDITO PENDIENTE
+
+ VENTAS $500 - GASTOS $200  
+ DÍA 5 SE DEJAN $20 - 5 OCTUBRE- REALIZADA
+ 
+ SECOND CASE
+  VENTAS $500 - GASTOS $200  
+  DÍA 1 SE DEJAN $20 - 1 OCTUBRE - CREDITO PENDIENTE
+ 
+  VENTAS $500 - GASTOS $200  
+  DÍA 1 SE DEJAN $20 - 1 OCTUBRE- CREDITO PENDIENTE
+ 
+  VENTAS $500 - GASTOS $200  
+  DÍA 1 SE DEJAN $20 - 1 OCTUBRE- CREDITO PENDIENTE
+ 
+  VENTAS $500 - GASTOS $200  
+  DÍA 1 SE DEJAN $20 - 1 OCTUBRE- CREDITO PENDIENTE
+ 
+  VENTAS $500 - GASTOS $200  
+  DÍA 1 SE DEJAN $20 - 1 OCTUBRE- REALIZADA
+ */
+                                            while(rs.next()){
+                                                      pagosdeldia =Float.parseFloat(rs.getString("SUM(monto)"));
+                                                      }
+                                                      }//fin del try-precio del producto
+                                                      catch (Exception e){
+                                                      }finally{cc.getClose();}// fin del precio-catch del producto
+
+}
     public static void aperturadeldia(){
         try{  Connection ca= cc.conexion();// La suma de todos los importes    
                                          Statement sent  =(Statement)ca.createStatement();
@@ -90,11 +131,33 @@ public static void metodogastosdeldia(){
                                             while(rs.next()){
                                                       apertura =rs.getShort("id_apertura");
                                                       montodeapertura= rs.getFloat("monto");
+                                                      hora_apertura=rs.getString("hora");
                                                       }
                                                       }//fin del try-precio del producto
                                                       catch (Exception e){
                                                       }finally{cc.getClose();}// fin del precio-catch del producto    
     }
+    public static void Listadepagosdeldia(){ // recibe como parametro                          
+        try {Connection ca= cc.conexion();
+                
+            sent  = (Statement)ca.createStatement();
+           rs = sent.executeQuery("select * from pagos where fecha = CURDATE()");
+            while (rs.next()) {                
+                             Controladorcortedecaja.columna1.add(rs.getString(2));
+                             Controladorcortedecaja.columna2.add(rs.getFloat(3));
+                             Controladorcortedecaja.columna3.add(rs.getString(6));
+                             
+            }            
+              if(!Controladorcortedecaja.columna1.isEmpty()){ //Si las listas no estan vacias imprime las ventas con desccuento
+           Listapagos Ticketpagos  = new Listapagos();       
+            Ticketpagos.Listapagos(Controladorcortedecaja.columna1,Controladorcortedecaja.columna2,columna3); 
+      }else{
+                             System.out.println("No hay pagos el día de hoy");
+                         }
+    } catch (Exception e) {
+       JOptionPane.showMessageDialog(null, "ERROR EN METODO: Listadepagosdeldia"+e.getMessage(),"DEVELOPER HELPER", JOptionPane.ERROR_MESSAGE);      
+      }finally{cc.getClose();}
+}
    public static void ListadeGastosAlHacerCorteCaja(){ // recibe como parametro                          
         try {Connection ca= cc.conexion();
                 
@@ -110,7 +173,7 @@ public static void metodogastosdeldia(){
        JOptionPane.showMessageDialog(null, "ERROR EN METODO: ListadeGastosAlHacerCorteCaja","DEVELOPER HELPER", JOptionPane.ERROR_MESSAGE);      
       }finally{cc.getClose();}
 }
-  public static void obteniendolosvaloresdelcortedecajadeldiadehoyparaelticket(int numerodedescuentos, float totaldescuentos){
+  public static void obteniendolosvaloresdelcortedecajadeldiadehoyparaelticket(String horainiciosesion){
       try{Connection ca= cc.conexion();//SOLO SE LLAMA A LA CANTIDAD PORQUE EN EL TICKET YA SE DEFINIRÁN LOS NOMBRES DE CADA ARTICULO
                       sent  = (Statement)ca.createStatement();
                       rs = sent.executeQuery("select monto_entregado, gastos, ventas, diferencia from cortes where fecha=  '"+Controladorventa.fecha()+"' ");
@@ -121,7 +184,7 @@ public static void metodogastosdeldia(){
                              ticketdiferencia=rs.getFloat(4);
                          }                 
    tikectcorte = new ticketcortedecaja();     
-   tikectcorte.ticketcortedecaja(ticketmonto, ticketgasto, ticketventa, Float.parseFloat(solodosdecimales.format(ticketdiferencia).replace(",", ".")), Float.parseFloat(solodosdecimales.format(ventasmenosgastos).replace(",", ".")), Float.parseFloat(solodosdecimales.format(0)), numerodedescuentos, totaldescuentos);  
+   tikectcorte.ticketcortedecaja(horainiciosesion,ticketmonto, ticketgasto, ticketventa, Float.parseFloat(solodosdecimales.format(ticketdiferencia).replace(",", ".")), Float.parseFloat(solodosdecimales.format(ventasmenosgastos).replace(",", ".")), Float.parseFloat(solodosdecimales.format(0)));  
       }catch(Exception e){                   JOptionPane.showMessageDialog(null, "ERROR EN METODO: obteniendolosvaloresdelcortedecajadeldiadehoyparaelticket","DEVELOPER HELPER", JOptionPane.ERROR_MESSAGE);                                                 
       }finally{cc.getClose();}
  }
@@ -155,9 +218,8 @@ public static void metodogastosdeldia(){
           try{ Connection ca= cc.conexion();//la insersion a la tabla ventas
               metodogastosdeldia();
               aperturadeldia();
-             ventasmenosgastos=Float.parseFloat(Cortecaja.Ventasfortoday1.getText())-gastosdeldia+0; 
-                 diferencia=Float.parseFloat(Cortecaja.monto.getText())-ventasmenosgastos;
-                  diferenciafinal=montodeapertura-diferencia;              
+             ventasmenosgastos=Float.parseFloat(Cortecaja.Ventasfortoday1.getText())-gastosdeldia; 
+                 diferencia=Float.parseFloat(Cortecaja.monto.getText())-ventasmenosgastos; 
     String sql = "INSERT INTO  cortes(id_apertura, monto_entregado, gastos, ventas, diferencia, fecha, hora, usuario)  VALUES (?,?,?,?,?,?,?,?)";
                 PreparedStatement pst = ca.prepareCall(sql); //hasta aqui vamos
                 pst.setInt(1,apertura);
@@ -170,13 +232,16 @@ public static void metodogastosdeldia(){
                 pst.setInt(8,id_usuario);
                 int a=pst.executeUpdate();
                 if(a>0){
-             //PRIMERO SE REGISTRAN LOS PRODUCTOS SOBRANTES TANTO LOS COCIDOS COMO LOS CRUDOS 
-             //LUEGO AQUI SE PUEDE REALIZAR CADA TICKET CORRESPONDIENTE (ESTOS SON LOS 5 TICKET)
+             //LUEGO AQUI SE PUEDE REALIZAR CADA TICKET CORRESPONDIENTE (ESTOS SON LOS 3 TICKET)
 ListadeGastosAlHacerCorteCaja();  // TOCKET DE LISTA DE GASTOS
- total_numeros_y_descuentos();    
- /*sii*/obteniendolosvaloresdelcortedecajadeldiadehoyparaelticket(numerodescuentos, totaldedescuentos);//LOS DATOS DEL TICKET CORTE DE CAJA                                                      
-  ventascondescuento();
-        //  llenar_tabla_utilidad(gastosdeldia, ventasdeldia); //  omitido
+ //total_numeros_y_descuentos(); //ESTO ES LA INFORMACIÓN QUE SE MANDA EN EL METODO DE ABAJO   
+ obteniendolosvaloresdelcortedecajadeldiadehoyparaelticket(hora_apertura);//LOS DATOS DEL TICKET CORTE DE CAJA                                                      
+  ventascondescuento(); // SE GENERA EL TICKET DE VENTAS CON DESCUENTO EN CASO DE HABER VENTAS C/DESC
+  Controladorcortedecaja.columna1.clear();
+  Controladorcortedecaja.columna2.clear();
+  Controladorcortedecaja.columna3.clear();
+  Listadepagosdeldia();
+        llenar_tabla_utilidad(gastosdeldia, ventasdeldia); //  omitido
    JOptionPane.showMessageDialog(null,"Nos vemos pronto","Saliendo del sistema...",JOptionPane.INFORMATION_MESSAGE);
             System.exit(0);
                 }

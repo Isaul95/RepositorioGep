@@ -7,6 +7,7 @@ package si;
 
 import Controladores.Controlador_venta_a_credito;
 import Controladores.Controladorventa;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -48,6 +49,7 @@ public class Ventas_a_credito extends javax.swing.JFrame {
         labelpendiente = new javax.swing.JLabel();
         abono = new javax.swing.JLabel();
         labelabono = new javax.swing.JLabel();
+        deudor = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -128,42 +130,46 @@ public class Ventas_a_credito extends javax.swing.JFrame {
         pendiente.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         pendiente.setForeground(new java.awt.Color(0, 0, 0));
         pendiente.setText("Venta");
-        jPanel1.add(pendiente, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 290, 110, 30));
+        jPanel1.add(pendiente, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 340, 110, 30));
 
         labelventa.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         labelventa.setForeground(new java.awt.Color(0, 0, 0));
         labelventa.setText("Venta");
-        jPanel1.add(labelventa, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 290, 60, 30));
+        jPanel1.add(labelventa, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 340, 60, 30));
 
         idventa.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         idventa.setForeground(new java.awt.Color(0, 0, 0));
         idventa.setText("Venta");
-        jPanel1.add(idventa, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 290, 60, 30));
+        jPanel1.add(idventa, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 340, 60, 30));
 
         labeltotal.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         labeltotal.setForeground(new java.awt.Color(0, 0, 0));
         labeltotal.setText("Total original");
-        jPanel1.add(labeltotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 290, 130, 30));
+        jPanel1.add(labeltotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 340, 130, 30));
 
         total.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         total.setForeground(new java.awt.Color(0, 0, 0));
         total.setText("Venta");
-        jPanel1.add(total, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 290, 100, 30));
+        jPanel1.add(total, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 340, 100, 30));
 
         labelpendiente.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         labelpendiente.setForeground(new java.awt.Color(0, 0, 0));
         labelpendiente.setText("Pendiente");
-        jPanel1.add(labelpendiente, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 290, 110, 30));
+        jPanel1.add(labelpendiente, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 340, 110, 30));
 
         abono.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         abono.setForeground(new java.awt.Color(0, 0, 0));
         abono.setText("Abono");
-        jPanel1.add(abono, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 290, 100, 30));
+        jPanel1.add(abono, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 340, 100, 30));
 
         labelabono.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         labelabono.setForeground(new java.awt.Color(0, 0, 0));
         labelabono.setText("Abono");
-        jPanel1.add(labelabono, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 290, 60, 30));
+        jPanel1.add(labelabono, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 340, 60, 30));
+
+        deudor.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        deudor.setForeground(new java.awt.Color(0, 0, 0));
+        jPanel1.add(deudor, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 300, 780, 30));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -178,8 +184,8 @@ public class Ventas_a_credito extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 379, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
@@ -190,7 +196,18 @@ public class Ventas_a_credito extends javax.swing.JFrame {
     }//GEN-LAST:event_busquedaKeyReleased
 
     private void veridventasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_veridventasActionPerformed
-       Controlador_venta_a_credito.pagar_venta(Float.parseFloat(total.getText().substring(1)),Float.parseFloat(abono.getText().substring(1)),Float.parseFloat(pendiente.getText().substring(1)),Integer.parseInt(idventa.getText()));
+     try{
+         if(Float.parseFloat(total.getText().substring(1))==0&&
+                 Float.parseFloat(abono.getText().substring(1))==0&&
+                         Float.parseFloat(pendiente.getText().substring(1))==0&&Integer.parseInt(idventa.getText())==0&&deudor.getText().isEmpty()){
+               JOptionPane.showMessageDialog(null, "Seleccione una fila de la tabla por favor.");
+         }   else{
+                   Controlador_venta_a_credito.pagar_venta(Float.parseFloat(total.getText().substring(1)),Float.parseFloat(abono.getText().substring(1)),Float.parseFloat(pendiente.getText().substring(1)),Integer.parseInt(idventa.getText()),deudor.getText());
+         }
+     }catch(NumberFormatException NFE){
+         JOptionPane.showMessageDialog(null, "Seleccione una fila de la tabla por favor.");
+     }
+    
     }//GEN-LAST:event_veridventasActionPerformed
 
     private void gastos_btn_backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gastos_btn_backActionPerformed
@@ -243,6 +260,7 @@ public class Ventas_a_credito extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JLabel abono;
     public static javax.swing.JTextField busqueda;
+    public static javax.swing.JLabel deudor;
     private javax.swing.JButton gastos_btn_back;
     public static javax.swing.JLabel idventa;
     private javax.swing.JLabel jLabel93;
