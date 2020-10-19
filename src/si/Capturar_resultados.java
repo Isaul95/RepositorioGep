@@ -316,19 +316,20 @@ public Capturar_resultados(int id_venta_a_capturar_resultados){
             }                    // activarVistaParaCapturadeCultivos
         }
         
-        /*  else if(Modelo_capturar_resultados.activarVistaParaCapturadeCultivos(Integer.valueOf(id_venta.getText()))>=1){
+          else if(Modelo_capturar_resultados.activarVistaParaCapturadeCultivos(Integer.valueOf(id_venta.getText()))>=1){
             JOptionPane.showMessageDialog(null, "Toy enyrando en el valor de resultadi igual a => +");
-            }   */
+            new Muestra_de_Cultivos().setVisible(true);
+            }   
         
         else{//PDF CON LONGITUDES DE ANALISIS MENORES A 68
             Controlador_Report_pdf_paquetes pac = new Controlador_Report_pdf_paquetes();
             pac.Generacion_PDF_client_paquetes("_01"); // llamando el reporte de paketes
             JOptionPane.showMessageDialog(null, "Toy en el pdf corto...");
             
-            if(Modelo_capturar_resultados.activarVistaParaCapturadeCultivos(Integer.valueOf(id_venta.getText()))>=1){
+         /*   if(Modelo_capturar_resultados.activarVistaParaCapturadeCultivos(Integer.valueOf(id_venta.getText()))>=1){
             JOptionPane.showMessageDialog(null, "Toy enyrando en el valor de resultadi igual a => +");
             new Muestra_de_Cultivos().setVisible(true);
-            }
+            } */
             
         }     
     }//GEN-LAST:event_genetrar_PdfActionPerformed

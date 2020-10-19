@@ -1,17 +1,25 @@
 package si;
 import Controladores.Controlador_Estudios_Cultivos;
+import Controladores.Controlador_capturar_resultados;
 import Controladores.Controladorventa;
-import java.awt.event.KeyEvent;
-import javax.swing.JTable;
-
 
 public class Captura_Resultados_Cultivos extends javax.swing.JFrame {
-
+public static String producto="";
     public Captura_Resultados_Cultivos() {
         initComponents();
         Controladorventa.noduplicarcultivos = true;
+         id_venta.setText(String.valueOf(Controlador_capturar_resultados.id_a_actualizar_resultados));
+         nombre_estudio.setText(this.producto);
         Modelos.Modelo_Cultivos.LlenarTabladeResultadosInterpretaciones(jTableInterpretaciones); // Se inicializa la tablla con los datos precargados
         this.setLocationRelativeTo(null); // CENTRAR FORMULARIO  
+    }
+
+   /* Captura_Resultados_Cultivos(int parseInt, String toString) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    } */
+
+    Captura_Resultados_Cultivos(String producto) {
+       this.producto=producto;
     }
              
     @SuppressWarnings("unchecked")
@@ -28,6 +36,9 @@ public class Captura_Resultados_Cultivos extends javax.swing.JFrame {
         gastos_btn_back = new javax.swing.JButton();
         ComboResultados = new javax.swing.JComboBox<>();
         GuardarDatosCultivos = new javax.swing.JButton();
+        jLabel80 = new javax.swing.JLabel();
+        id_venta = new javax.swing.JLabel();
+        nombre_estudio = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -97,7 +108,7 @@ public class Captura_Resultados_Cultivos extends javax.swing.JFrame {
         gastos_btn_back.setBounds(500, 20, 150, 50);
 
         ComboResultados.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        ComboResultados.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "S= Susceptible", "R= Resistente", "I = Intermedio" }));
+        ComboResultados.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Susceptible", "Resistente", "Intermedio" }));
         jPanel2.add(ComboResultados);
         ComboResultados.setBounds(20, 110, 250, 40);
 
@@ -109,10 +120,29 @@ public class Captura_Resultados_Cultivos extends javax.swing.JFrame {
             }
         });
         jPanel2.add(GuardarDatosCultivos);
-        GuardarDatosCultivos.setBounds(310, 110, 120, 40);
+        GuardarDatosCultivos.setBounds(290, 80, 120, 40);
+
+        jLabel80.setBackground(new java.awt.Color(0, 0, 0));
+        jLabel80.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jLabel80.setText("Venta:");
+        jPanel2.add(jLabel80);
+        jLabel80.setBounds(460, 90, 58, 24);
+
+        id_venta.setBackground(new java.awt.Color(0, 0, 0));
+        id_venta.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        id_venta.setForeground(new java.awt.Color(102, 102, 102));
+        id_venta.setText("idVenta:");
+        jPanel2.add(id_venta);
+        id_venta.setBounds(540, 90, 74, 24);
+
+        nombre_estudio.setBackground(new java.awt.Color(0, 0, 0));
+        nombre_estudio.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        nombre_estudio.setText("Estudio");
+        jPanel2.add(nombre_estudio);
+        nombre_estudio.setBounds(390, 130, 250, 30);
 
         jPanel1.add(jPanel2);
-        jPanel2.setBounds(10, 50, 660, 410);
+        jPanel2.setBounds(10, 50, 670, 400);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -120,15 +150,15 @@ public class Captura_Resultados_Cultivos extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 685, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 741, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 467, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 497, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
@@ -190,12 +220,15 @@ public class Captura_Resultados_Cultivos extends javax.swing.JFrame {
     public static javax.swing.JComboBox<String> ComboResultados;
     public static javax.swing.JButton GuardarDatosCultivos;
     private javax.swing.JButton gastos_btn_back;
+    public static javax.swing.JLabel id_venta;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel80;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     public static javax.swing.JTable jTableInterpretaciones;
+    public static javax.swing.JLabel nombre_estudio;
     public static javax.swing.JTextField txtdescripcionq;
     // End of variables declaration//GEN-END:variables
 }

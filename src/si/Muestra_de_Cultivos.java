@@ -1,10 +1,14 @@
 package si;
+import Controladores.Controlador_Report_pdf_cultivos;
+import Controladores.Controlador_Report_pdf_paquetes;
 import Controladores.Controlador_capturar_resultados;
 import Controladores.Controladorgastos;
 import Controladores.Controladorventa;
+import Modelos.Modelo_capturar_resultados;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
+import static si.Capturar_resultados.Jtable_ProductosEntradas;
 import static si.Capturar_resultados.id_venta;
 
 
@@ -29,6 +33,7 @@ Modelos.Modelo_Cultivos.LlenarTablaCultivos(jTableMuestraCultivos); // Se manda 
         jLabel80 = new javax.swing.JLabel();
         id_venta = new javax.swing.JLabel();
         gastos_btn_back = new javax.swing.JButton();
+        genetrar_Pdf = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -105,6 +110,18 @@ Modelos.Modelo_Cultivos.LlenarTablaCultivos(jTableMuestraCultivos); // Se manda 
         jPanel1.add(gastos_btn_back);
         gastos_btn_back.setBounds(390, 280, 150, 50);
 
+        genetrar_Pdf.setBackground(new java.awt.Color(255, 255, 255));
+        genetrar_Pdf.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        genetrar_Pdf.setIcon(new javax.swing.ImageIcon(getClass().getResource("/si/IconosJava/pdf.png"))); // NOI18N
+        genetrar_Pdf.setText("Generar PDF");
+        genetrar_Pdf.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                genetrar_PdfActionPerformed(evt);
+            }
+        });
+        jPanel1.add(genetrar_Pdf);
+        genetrar_Pdf.setBounds(70, 281, 155, 60);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -134,9 +151,29 @@ Modelos.Modelo_Cultivos.LlenarTablaCultivos(jTableMuestraCultivos); // Se manda 
     }//GEN-LAST:event_gastos_btn_backActionPerformed
 
     private void jTableMuestraCultivosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableMuestraCultivosMousePressed
+        int fila =jTableMuestraCultivos.getSelectedRow(); 
+           int col =jTableMuestraCultivos.getSelectedColumn(); 
+        if(fila>=0 || col==1){
+           Captura_Resultados_Cultivos a   =new Captura_Resultados_Cultivos(jTableMuestraCultivos.getValueAt(fila, 0).toString());
         JOptionPane.showMessageDialog(null, "Me estas presionando soy la fila");
         new Captura_Resultados_Cultivos().setVisible(true);
+        }
     }//GEN-LAST:event_jTableMuestraCultivosMousePressed
+
+    private void genetrar_PdfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_genetrar_PdfActionPerformed
+        // GENERANDO PDF DE CLIENTES               
+          if(Modelo_capturar_resultados.activarVistaParaCapturadeCultivos(Integer.valueOf(id_venta.getText()))>=1){
+              //Controlador_Report_pdf_paquetes pac = new Controlador_Report_pdf_paquetes();
+            //pac.Generacion_PDF_client_paquetes("_01");
+            
+            Controlador_Report_pdf_cultivos rc = new Controlador_Report_pdf_cultivos();
+              rc.Generacion_PDF_cultivos();
+              
+              JOptionPane.showMessageDialog(null, "Toy enyrando en el valor de resultadi igual a => +");
+                new Muestra_de_Cultivos().setVisible(true);
+            }
+       
+    }//GEN-LAST:event_genetrar_PdfActionPerformed
 
     /**
      * @param args the command line arguments
@@ -180,6 +217,7 @@ Modelos.Modelo_Cultivos.LlenarTablaCultivos(jTableMuestraCultivos); // Se manda 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton gastos_btn_back;
+    public static javax.swing.JButton genetrar_Pdf;
     public static javax.swing.JLabel id_venta;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel80;

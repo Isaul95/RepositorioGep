@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="aa5fb59b-8859-43be-804a-6a14cf4db97c">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString language="SQL">
+		<![CDATA[select rc.nombre_medicina, rc.resultados, rc.estudio, dv.id_paciente, pac.nombre, pac.fecha_nacimiento, pac.edad, pac.sexo, pac.fecha_ingreso,pac.medico, dv.resultado, v.fecha_reporte, v.nota from venta v 
+inner join descripcion_de_venta dv on v.id_venta = dv.id_venta 
+inner join pacientes pac on dv.id_paciente = pac.id_paciente 
+inner join resultados_cultivos rc on dv.id_venta = rc.id_venta 
+where v.id_venta = 517 and v.estado_venta='Realizada' 
+and SUBSTRING(dv.nombre_producto,1,7) not in ('PAQUETE')
+Order by rc.nombre_medicina]]>
+	</queryString>
+	<field name="nombre_medicina" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="resultados" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="estudio" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="id_paciente" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nombre" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="fecha_nacimiento" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="edad" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="sexo" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="fecha_ingreso" class="java.sql.Timestamp">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="medico" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="resultado" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="fecha_reporte" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nota" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<group name="estudio">
+		<groupExpression><![CDATA[$F{estudio}]]></groupExpression>
+		<groupHeader>
+			<band height="50">
+				<textField>
+					<reportElement x="258" y="26" width="100" height="20" uuid="13edf4a1-32f0-45ff-9ced-a52b713d8690"/>
+					<textFieldExpression><![CDATA[$F{estudio}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="3" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="96" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="99" splitType="Stretch">
+			<staticText>
+				<reportElement x="18" y="79" width="100" height="20" uuid="3f2aa174-7c29-4ff3-93ef-e5afbccf2c8f"/>
+				<text><![CDATA[nombre_medicina]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="283" y="79" width="100" height="20" uuid="8f0b5d26-774e-4507-82ae-110ebefb1d60"/>
+				<text><![CDATA[estudio]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="18" y="16" width="100" height="20" uuid="b9995ae2-1b94-4d22-b9c2-6856ecd0cd1b"/>
+				<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="161" y="28" width="100" height="20" uuid="8813c854-73d8-40f8-bc90-afb0f0144f82"/>
+				<textFieldExpression><![CDATA[$F{edad}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="322" y="30" width="100" height="20" uuid="7a489fca-00c0-4ab9-99c1-1a718af0c845"/>
+				<textFieldExpression><![CDATA[$F{medico}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch">
+			<textField>
+				<reportElement x="28" y="38" width="100" height="20" uuid="00c1e3d1-03b1-462d-a49c-ca67e4632177"/>
+				<textFieldExpression><![CDATA[$F{nombre_medicina}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="283" y="35" width="100" height="20" uuid="084b256e-3717-44c8-a611-bb235f312691"/>
+				<textFieldExpression><![CDATA[$F{estudio}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+</jasperReport>

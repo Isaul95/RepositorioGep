@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="f37e25e7-36ee-42c2-a614-709103a2ed05">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="Logo5" class="java.io.InputStream"/>
+	<parameter name="firma5" class="java.io.InputStream"/>
+	<parameter name="logoback" class="java.io.InputStream"/>
+	<parameter name="parameter1" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select rc.nombre_medicina, rc.resultados, rc.estudio, dv.id_paciente, pac.nombre, pac.fecha_nacimiento, pac.edad, pac.sexo, pac.fecha_ingreso,pac.medico, dv.resultado, v.fecha_reporte, v.nota from venta v 
+inner join descripcion_de_venta dv on v.id_venta = dv.id_venta 
+inner join pacientes pac on dv.id_paciente = pac.id_paciente 
+inner join resultados_cultivos rc on dv.id_venta = rc.id_venta 
+where v.id_venta = $P{parameter1} and v.estado_venta='Realizada' 
+and SUBSTRING(dv.nombre_producto,1,7) not in ('PAQUETE')
+Order by rc.nombre_medicina]]>
+	</queryString>
+	<field name="nombre_medicina" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="resultados" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="estudio" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="id_paciente" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nombre" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="fecha_nacimiento" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="edad" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="sexo" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="fecha_ingreso" class="java.sql.Timestamp">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="medico" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="resultado" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="fecha_reporte" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nota" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<group name="nombre_producto">
+		<groupExpression><![CDATA[$F{nombre_producto}]]></groupExpression>
+		<groupHeader>
+			<band height="18"/>
+		</groupHeader>
+	</group>
+	<background>
+		<band height="802" splitType="Stretch">
+			<image scaleImage="FillFrame" isUsingCache="true" onErrorType="Blank" evaluationTime="Page">
+				<reportElement x="-19" y="-20" width="596" height="816" uuid="67ec5d9f-1c7a-43d1-b94d-c23fc9513ce2">
+					<property name="net.sf.jasperreports.export.pdf.tag.h1"/>
+				</reportElement>
+				<imageExpression><![CDATA[$P{logoback}]]></imageExpression>
+			</image>
+			<image scaleImage="FillFrame" isUsingCache="true" onErrorType="Blank">
+				<reportElement x="-20" y="-20" width="596" height="816" uuid="23b30fc4-0269-4f4f-8d7f-764e9f137b67">
+					<property name="net.sf.jasperreports.export.pdf.tag.h1"/>
+					<printWhenExpression><![CDATA[$V{PAGE_NUMBER} == 1]]></printWhenExpression>
+				</reportElement>
+				<imageExpression><![CDATA[$P{Logo5}]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement x="8" y="668" width="545" height="27" uuid="dfc35ff8-0458-4512-96db-ca6df65d93e9">
+					<printWhenExpression><![CDATA[$V{PAGE_NUMBER} == 1]]></printWhenExpression>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{nota}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="121" y="764" width="196" height="8" uuid="01a9183b-dbc2-454b-a607-3b99d990a691"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nota: los valores de referencia fuera de rango fueron verificados.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="-20" y="782" width="593" height="8" uuid="57e8c0ce-066f-4d3a-a615-76ccaf678db8"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="6" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Todo el proceso analítico ha sído evaluado por controles de calidad,empleando herramientas estadisticas aplicables a laboratorios clínicos que aseguran la correcta emision de nuestros resultados.                      ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="-20" y="788" width="552" height="8" uuid="bf2178d9-b008-474c-9d10-3f77329844df"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="6" isBold="false"/>
+				</textElement>
+				<text><![CDATA[ Garantía de Calídad: Verificación sin costo de todo resultado imprevisto en un plazo de 3 días, previa solicitud escrita del médico tratante.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="-20" y="794" width="552" height="8" uuid="626112a2-6b13-4dab-93e1-5920433f6199"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="6" isBold="false"/>
+				</textElement>
+				<text><![CDATA[ Su información será manejada correctamente de acuerdo a lo establecido en la LFPDPPP.]]></text>
+			</staticText>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement key="textField" x="9" y="759" width="60" height="19" forecolor="#FFFFFF" backcolor="#FFFFFF" uuid="e92f8c30-a789-41b7-8b0d-d8ef9ac5cc07"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Página " + $V{PAGE_NUMBER} + " de "]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report" pattern="" isBlankWhenNull="false">
+				<reportElement key="textField" x="72" y="759" width="34" height="19" forecolor="#FFFFFF" backcolor="#FFFFFF" uuid="a059595c-afb4-4c5e-8a56-e1a1f2fc23f1"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["" + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<image hAlign="Center" vAlign="Middle" isUsingCache="true" onErrorType="Blank">
+				<reportElement x="254" y="657" width="126" height="85" uuid="36861f30-c1b5-428d-8056-26ff569b2ccc"/>
+				<imageExpression><![CDATA[$P{firma5}]]></imageExpression>
+			</image>
+		</band>
+	</background>
+	<title>
+		<band height="3" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="83" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="91" splitType="Stretch">
+			<textField>
+				<reportElement x="446" y="2" width="108" height="19" uuid="1b1914e6-481e-488f-bcd1-92c64ca90f9f"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fecha_nacimiento}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="378" y="49" width="68" height="19" uuid="5e77db3f-6142-4858-8e20-614a8c8256b9"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[FECHA DE IMP:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="66" y="19" width="285" height="19" uuid="2eaf6c1c-4f4d-45c2-8a98-da70ea0b1785"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{medico}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="378" y="18" width="68" height="19" uuid="e6854e64-9350-4184-8aaf-3d21fb1dab53"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[EDAD:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="49" width="67" height="19" uuid="e8523d99-fcb2-4dfb-b901-1d02ad7e9bd6"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[FECHA DE ING:]]></text>
+			</staticText>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement key="textField" x="446" y="49" width="108" height="19" forecolor="#000000" backcolor="#FFFFFF" uuid="5a1c3c3e-14ba-44d8-b1d7-d97fbbe81c2a"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="1" y="34" width="67" height="19" uuid="478d6989-af2c-475b-9f5b-f7d0b2a9f4c9"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ID:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="18" width="67" height="19" uuid="a890c4e7-761e-49bc-bad6-b42addcb541a"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[MEDICO:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="378" y="2" width="68" height="19" uuid="32f7d35d-b64c-4272-b791-32bd062e8701"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[FECHA NAC:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="378" y="34" width="68" height="19" uuid="c9123116-bdd4-4fa0-a7a3-a7d935c2ad91"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SEXO:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="446" y="18" width="107" height="19" uuid="323cee38-d570-403e-8e03-60993d71b713"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{edad}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="66" y="2" width="285" height="19" uuid="38baf4d4-9285-4f2f-97a7-c0395f40388a"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="66" y="49" width="142" height="19" uuid="f7c32e1d-e053-44b6-a0e6-77dd8c4b3c29"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fecha_ingreso}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="66" y="34" width="142" height="20" uuid="d18e29ff-90bf-4782-8fd5-8f56da37ade3"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{id_paciente}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="446" y="34" width="108" height="19" uuid="9984c6ff-3722-47d5-adad-e39fffc765b7"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{sexo}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="1" y="2" width="67" height="19" uuid="ba9c1158-405e-4b41-926c-f05885d9540e"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[NOMBRE:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="305" y="72" width="250" height="15" uuid="6d93ae48-4b51-45e7-98db-c58528a1dab3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[REFERENCIA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="72" width="177" height="15" uuid="7eccbaed-c1da-4e17-a14f-73902e2163f1"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ESTUDIO]]></text>
+			</staticText>
+			<line>
+				<reportElement x="1" y="70" width="555" height="1" uuid="5a0c46f9-bea6-48c9-984c-db92bd985398"/>
+			</line>
+			<staticText>
+				<reportElement x="178" y="72" width="65" height="15" uuid="7371a3b6-9e22-437b-bbe9-848bae18d055"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[RESULTADO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="243" y="72" width="61" height="15" uuid="ccfb6052-5faf-49b2-b8e2-fb3ce4fce290"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[UNIDAD]]></text>
+			</staticText>
+			<line>
+				<reportElement x="1" y="88" width="555" height="1" uuid="1cb592d8-baa9-4eae-b21d-80ef5b9ae1a6"/>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="23" splitType="Stretch">
+			<textField>
+				<reportElement x="276" y="2" width="90" height="14" uuid="870df762-9761-4b9a-864e-16afb4c234ae"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{resultado}]]></textFieldExpression>
+			</textField>
+			<line direction="BottomUp">
+				<reportElement key="line" x="1" y="18" width="554" height="1" forecolor="#6699FF" uuid="8dcd2d7b-4304-4d84-9665-542040b19a73"/>
+				<graphicElement>
+					<pen lineWidth="1.0" lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement x="128" y="2" width="144" height="14" uuid="cd148c23-9e42-4fc9-94e8-ee0a8a86e184"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nombre_medicina}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="124" splitType="Stretch"/>
+	</pageFooter>
+</jasperReport>

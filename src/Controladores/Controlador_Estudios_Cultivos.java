@@ -6,9 +6,11 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 import si.Captura_Resultados_Cultivos;
+import static si.Capturar_resultados.id_venta;
 import si.Gastos;
 import si.Muestra_de_Cultivos;
 import si.SI_Inicio;
+import static si.Ventas_a_credito.idventa;
 import ticket.TikectGasto;
 
 public class Controlador_Estudios_Cultivos {
@@ -54,7 +56,7 @@ public class Controlador_Estudios_Cultivos {
         } else{
             String item = Captura_Resultados_Cultivos.ComboResultados.getSelectedItem().toString(); 
         JOptionPane.showMessageDialog(null, "El valor selected es:" +item);
-            
+                      Captura_Resultados_Cultivos.nombre_estudio.getText();
             Modelo_Cultivos.inserciondeResultadosdeCultivos(Captura_Resultados_Cultivos.txtdescripcionq.getText(), item);
             Modelo_Cultivos.LlenarTabladeResultadosInterpretaciones(Captura_Resultados_Cultivos.jTableInterpretaciones);
             limpiar(); // limpia las cajas txt
