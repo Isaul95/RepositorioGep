@@ -42,6 +42,7 @@ public class Controladorcortedecaja {
     public static  ArrayList columna1 = new ArrayList(); 
           public static   ArrayList columna2 = new ArrayList();     
           public static ArrayList columna3 = new ArrayList();
+          public static ArrayList columna4 = new ArrayList();
  public static float  totaldedescuentos, utilidades , ventasdeldia, gastosdeldia, pagosdeldia,montodeapertura, diferencia, diferenciafinal, precio,diferenciaparavista;
  public static short apertura, numerodescuentos;
  public static int  id_usuario=SI_Inicio.id_usuario;
@@ -67,6 +68,11 @@ public class Controladorcortedecaja {
     }  
      public static void botoncorte(){
          Modelocortedecaja.hacercorte();
+     }
+     public static void vaciarcolumnas(){
+         columna1.clear();
+  columna2.clear();
+  columna3.clear();
      }
      public static void metodosalabrircortedecaja(){
          //ventas en el dìa
