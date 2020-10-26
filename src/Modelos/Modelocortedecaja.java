@@ -10,9 +10,11 @@ import java.sql.Statement;
 import javax.swing.JOptionPane;
 import si.Cortecaja;
 import si.SI;
+import ticket.Descuentosdeldia;
 import ticket.ListaGastos;
 import ticket.Listapagos;
 import ticket.Listaventascondescuento;
+import ticket.Ventasdeldia;
 import ticket.ticketcortedecaja;
 
 /**
@@ -166,10 +168,61 @@ DÍA 4 SE DEJAN $20 - 4 OCTUBRE- CREDITO PENDIENTE
             while (rs.next()) {                
                              Controladorcortedecaja.columna1.add(rs.getString(1));
                              Controladorcortedecaja.columna2.add(rs.getFloat(2));
-            }            ListaGastos TicketGastosAll ; 
+            }            if(!columna2.isEmpty()){
+                ListaGastos TicketGastosAll ; 
         TicketGastosAll = new ListaGastos();          
   TicketGastosAll.ListaGastos(Controladorcortedecaja.columna1,Controladorcortedecaja.columna2); 
+            }else{
+                System.out.println("No hay gastos para hoy");
+            }
     } catch (Exception e) {
+       JOptionPane.showMessageDialog(null, "ERROR EN METODO: ListadeGastosAlHacerCorteCaja","DEVELOPER HELPER", JOptionPane.ERROR_MESSAGE);      
+      }finally{cc.getClose();}
+}
+    public static void ListadeventasAlHacerCorteCaja(){ // recibe como parametro                          
+        try {Connection ca= cc.conexion();
+            sent  = (Statement)ca.createStatement();
+           rs = sent.executeQuery("SELECT CONCAT( v.id_venta ,p.nombre ) , v.total\n" +
+                                               "FROM venta v\n" +
+                                               "INNER JOIN descripcion_de_venta dv ON dv.id_venta = v.id_venta\n" +
+                                               "INNER JOIN pacientes p ON p.id_paciente = dv.id_paciente where v.fecha_reporte = CURDATE() and  v.estado_venta = 'Realizada' and descuento = 0");
+            while (rs.next()) {                
+                             Controladorcortedecaja.columna1.add(rs.getString(1));
+                             Controladorcortedecaja.columna2.add(rs.getFloat(2));
+            }           if(!Controladorcortedecaja.columna2.isEmpty()){
+                 Ventasdeldia Ventasdeldia ; 
+        Ventasdeldia = new Ventasdeldia();          
+  Ventasdeldia.Listadeventas(Controladorcortedecaja.columna1,Controladorcortedecaja.columna2); 
+            }else{
+                System.out.println("No hay ventas el día de hoy");
+            }
+    } catch (Exception e) {
+       JOptionPane.showMessageDialog(null, "ERROR EN METODO: ListadeGastosAlHacerCorteCaja","DEVELOPER HELPER", JOptionPane.ERROR_MESSAGE);      
+      }finally{cc.getClose();}
+}
+        public static void Listadeventascondescuento(){ // recibe como parametro                          
+        try {Connection ca= cc.conexion();
+            sent  = (Statement)ca.createStatement();
+           rs = sent.executeQuery("SELECT CONCAT( v.id_venta, p.nombre ) , v.subtotal, v.descuento, v.total FROM venta v\n" +
+"INNER JOIN descripcion_de_venta dv ON dv.id_venta = v.id_venta\n" +
+"INNER JOIN pacientes p ON p.id_paciente = dv.id_paciente\n" +
+"WHERE v.fecha_reporte = CURDATE( )\n" +
+"AND v.estado_venta = 'Realizada' and v.descuento > 0");
+            while (rs.next()) {                
+                             Controladorcortedecaja.columna1.add(rs.getString(1));
+                             Controladorcortedecaja.columna2.add(rs.getFloat(2));
+                             Controladorcortedecaja.columna3.add(rs.getFloat(3));
+                             Controladorcortedecaja.columna4.add(rs.getFloat(4));
+            }  
+                  if(!Controladorcortedecaja.columna3.isEmpty()){ //Si las listas no estan vacias imprime las ventas con desccuento
+                    Descuentosdeldia descuentosdeldia ; 
+        descuentosdeldia = new Descuentosdeldia();          
+  descuentosdeldia.Listadedescuentos(Controladorcortedecaja.columna1,Controladorcortedecaja.columna2,Controladorcortedecaja.columna3,Controladorcortedecaja.columna4); 
+    
+      }else{
+                             System.out.println("No hay ventas con descuento");
+                         }
+       } catch (Exception e) {
        JOptionPane.showMessageDialog(null, "ERROR EN METODO: ListadeGastosAlHacerCorteCaja","DEVELOPER HELPER", JOptionPane.ERROR_MESSAGE);      
       }finally{cc.getClose();}
 }
@@ -236,11 +289,13 @@ DÍA 4 SE DEJAN $20 - 4 OCTUBRE- CREDITO PENDIENTE
 ListadeGastosAlHacerCorteCaja();  // TOCKET DE LISTA DE GASTOS
  //total_numeros_y_descuentos(); //ESTO ES LA INFORMACIÓN QUE SE MANDA EN EL METODO DE ABAJO   
  obteniendolosvaloresdelcortedecajadeldiadehoyparaelticket(hora_apertura);//LOS DATOS DEL TICKET CORTE DE CAJA                                                      
-  ventascondescuento(); // SE GENERA EL TICKET DE VENTAS CON DESCUENTO EN CASO DE HABER VENTAS C/DESC
-  Controladorcortedecaja.columna1.clear();
-  Controladorcortedecaja.columna2.clear();
-  Controladorcortedecaja.columna3.clear();
-  Listadepagosdeldia();
+//ventascondescuento(); // SE GENERA EL TICKET DE VENTAS CON DESCUENTO EN CASO DE HABER VENTAS C/DESC
+ vaciarcolumnas();
+ Listadepagosdeldia();
+ vaciarcolumnas();
+ ListadeventasAlHacerCorteCaja();
+ vaciarcolumnas();
+ Listadeventascondescuento();
         llenar_tabla_utilidad(gastosdeldia, ventasdeldia); //  omitido
    JOptionPane.showMessageDialog(null,"Nos vemos pronto","Saliendo del sistema...",JOptionPane.INFORMATION_MESSAGE);
             System.exit(0);
