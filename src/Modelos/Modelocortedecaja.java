@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
 import si.Cortecaja;
+import si.Inventarioventas;
 import si.SI;
 import ticket.Descuentosdeldia;
 import ticket.ListaGastos;
@@ -56,10 +57,23 @@ public class Modelocortedecaja extends Controladorcortedecaja{
                                                       catch (Exception e){
                                                       }finally{cc.getClose();}// fin del precio-catch del producto    
     }//PENDIENTE
+   
+   public static void ventaseneldiaparainventarioventas(){
+        try{  Connection ca= cc.conexion();// La suma de todos los importes
+                                         Statement sent  =(Statement)ca.createStatement();
+                                         ResultSet  rs = sent.executeQuery("select SUM(total) from venta where estado_venta in ('"+Inventarioventas.tipos_de_venta.getSelectedItem().toString()+"') and fecha_reporte= '"+Controladorventa.fecha()+"' ");
+                                            while(rs.next()){
+                                                      ventasdeldia =Float.parseFloat(rs.getString("SUM(total)"));
+                                                      }
+                                                      }//fin del try-precio del producto
+                                                      catch (Exception e){
+                                                      }finally{cc.getClose();}// fin del precio-catch del producto
+    
+}
 public static void ventaseneldia(){
         try{  Connection ca= cc.conexion();// La suma de todos los importes
                                          Statement sent  =(Statement)ca.createStatement();
-                                         ResultSet  rs = sent.executeQuery("select SUM(total) from venta where estado_venta in ('Realizada') and fecha_reporte= '"+Controladorventa.fecha()+"' ");
+                                         ResultSet  rs = sent.executeQuery("select SUM(total) from venta where estado_venta not in ('Cancelada') and fecha_reporte= '"+Controladorventa.fecha()+"' ");
                                             while(rs.next()){
                                                       ventasdeldia =Float.parseFloat(rs.getString("SUM(total)"));
                                                       }
@@ -182,10 +196,10 @@ DÍA 4 SE DEJAN $20 - 4 OCTUBRE- CREDITO PENDIENTE
     public static void ListadeventasAlHacerCorteCaja(){ // recibe como parametro                          
         try {Connection ca= cc.conexion();
             sent  = (Statement)ca.createStatement();
-           rs = sent.executeQuery("SELECT CONCAT( v.id_venta ,p.nombre ) , v.total\n" +
+           rs = sent.executeQuery("SELECT DISTINCT CONCAT( v.id_venta ,p.nombre ) , v.total\n" +
                                                "FROM venta v\n" +
                                                "INNER JOIN descripcion_de_venta dv ON dv.id_venta = v.id_venta\n" +
-                                               "INNER JOIN pacientes p ON p.id_paciente = dv.id_paciente where v.fecha_reporte = CURDATE() and  v.estado_venta = 'Realizada' and descuento = 0");
+                                               "INNER JOIN pacientes p ON p.id_paciente = dv.id_paciente where v.fecha_reporte = CURDATE() and  v.estado_venta not in  ('Cancelada') and descuento = 0");
             while (rs.next()) {                
                              Controladorcortedecaja.columna1.add(rs.getString(1));
                              Controladorcortedecaja.columna2.add(rs.getFloat(2));
@@ -203,11 +217,11 @@ DÍA 4 SE DEJAN $20 - 4 OCTUBRE- CREDITO PENDIENTE
         public static void Listadeventascondescuento(){ // recibe como parametro                          
         try {Connection ca= cc.conexion();
             sent  = (Statement)ca.createStatement();
-           rs = sent.executeQuery("SELECT CONCAT( v.id_venta, p.nombre ) , v.subtotal, v.descuento, v.total FROM venta v\n" +
+           rs = sent.executeQuery("SELECT DISTINCT CONCAT( v.id_venta, p.nombre ) , v.subtotal, v.descuento, v.total FROM venta v\n" +
 "INNER JOIN descripcion_de_venta dv ON dv.id_venta = v.id_venta\n" +
 "INNER JOIN pacientes p ON p.id_paciente = dv.id_paciente\n" +
 "WHERE v.fecha_reporte = CURDATE( )\n" +
-"AND v.estado_venta = 'Realizada' and v.descuento > 0");
+"AND v.estado_venta not in  ('Cancelada') and v.descuento > 0");
             while (rs.next()) {                
                              Controladorcortedecaja.columna1.add(rs.getString(1));
                              Controladorcortedecaja.columna2.add(rs.getFloat(2));
@@ -226,7 +240,7 @@ DÍA 4 SE DEJAN $20 - 4 OCTUBRE- CREDITO PENDIENTE
        JOptionPane.showMessageDialog(null, "ERROR EN METODO: ListadeGastosAlHacerCorteCaja","DEVELOPER HELPER", JOptionPane.ERROR_MESSAGE);      
       }finally{cc.getClose();}
 }
-  public static void obteniendolosvaloresdelcortedecajadeldiadehoyparaelticket(String horainiciosesion){
+  public static void obteniendolosvaloresdelcortedecajadeldiadehoyparaelticket(String horainiciosesion, float montoapertura){
       try{Connection ca= cc.conexion();//SOLO SE LLAMA A LA CANTIDAD PORQUE EN EL TICKET YA SE DEFINIRÁN LOS NOMBRES DE CADA ARTICULO
                       sent  = (Statement)ca.createStatement();
                       rs = sent.executeQuery("select monto_entregado, gastos, ventas, diferencia from cortes where fecha=  '"+Controladorventa.fecha()+"' ");
@@ -237,7 +251,7 @@ DÍA 4 SE DEJAN $20 - 4 OCTUBRE- CREDITO PENDIENTE
                              ticketdiferencia=rs.getFloat(4);
                          }                 
    tikectcorte = new ticketcortedecaja();     
-   tikectcorte.ticketcortedecaja(horainiciosesion,ticketmonto, ticketgasto, ticketventa, Float.parseFloat(solodosdecimales.format(ticketdiferencia).replace(",", ".")), Float.parseFloat(solodosdecimales.format(ventasmenosgastos).replace(",", ".")), Float.parseFloat(solodosdecimales.format(0)));  
+   tikectcorte.ticketcortedecaja(montoapertura,horainiciosesion,ticketmonto, ticketgasto, ticketventa, Float.parseFloat(solodosdecimales.format(ticketdiferencia).replace(",", ".")), Float.parseFloat(solodosdecimales.format(ventasmenosgastos).replace(",", ".")), Float.parseFloat(solodosdecimales.format(0)));  
       }catch(Exception e){                   JOptionPane.showMessageDialog(null, "ERROR EN METODO: obteniendolosvaloresdelcortedecajadeldiadehoyparaelticket","DEVELOPER HELPER", JOptionPane.ERROR_MESSAGE);                                                 
       }finally{cc.getClose();}
  }
@@ -288,13 +302,13 @@ DÍA 4 SE DEJAN $20 - 4 OCTUBRE- CREDITO PENDIENTE
              //LUEGO AQUI SE PUEDE REALIZAR CADA TICKET CORRESPONDIENTE (ESTOS SON LOS 3 TICKET)
 ListadeGastosAlHacerCorteCaja();  // TOCKET DE LISTA DE GASTOS
  //total_numeros_y_descuentos(); //ESTO ES LA INFORMACIÓN QUE SE MANDA EN EL METODO DE ABAJO   
- obteniendolosvaloresdelcortedecajadeldiadehoyparaelticket(hora_apertura);//LOS DATOS DEL TICKET CORTE DE CAJA                                                      
+ obteniendolosvaloresdelcortedecajadeldiadehoyparaelticket(hora_apertura,montodeapertura);//LOS DATOS DEL TICKET CORTE DE CAJA                                                      
 //ventascondescuento(); // SE GENERA EL TICKET DE VENTAS CON DESCUENTO EN CASO DE HABER VENTAS C/DESC
  vaciarcolumnas();
  Listadepagosdeldia();
  vaciarcolumnas();
- ListadeventasAlHacerCorteCaja();
- vaciarcolumnas();
+// ListadeventasAlHacerCorteCaja();
+ //vaciarcolumnas();
  Listadeventascondescuento();
         llenar_tabla_utilidad(gastosdeldia, ventasdeldia); //  omitido
    JOptionPane.showMessageDialog(null,"Nos vemos pronto","Saliendo del sistema...",JOptionPane.INFORMATION_MESSAGE);

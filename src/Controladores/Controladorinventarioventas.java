@@ -91,7 +91,7 @@ public class Controladorinventarioventas {
                 id=Short.parseShort(Inventarioventas.jTable2.getValueAt(fila,0).toString());
                 Modeloinventarioventas.descripciondeproductosenbasealnumerodeventa(id);
                   mostrarloscomponentes();    
-                         Inventarioventas.labelbusqueda.setVisible(false);
+                         //Inventarioventas.showsellsby.setVisible(false);
                     Inventarioventas.busqueda.setVisible(false);
             }
         }
@@ -99,13 +99,19 @@ public class Controladorinventarioventas {
         JOptionPane.showMessageDialog(null,"Por favor, seleccione una fila primero","Aviso",JOptionPane.INFORMATION_MESSAGE);
         }
      public static void botoncancelarventa(short id){
-            Modeloinventarioventas.status_cancelado(id); //Cancela venta: se refiera a poner el estado "Cancelada" tando a la tabla venta y descripcion_de_venta que correspondan a èste ID
+         if(!Inventarioventas.tipos_de_venta.getSelectedItem().toString().equalsIgnoreCase("Cancelada")&& 
+                 !Inventarioventas.tipos_de_venta.getSelectedItem().toString().equalsIgnoreCase("Credito-pendiente")){
+                      Modeloinventarioventas.status_cancelado(id); //Cancela venta: se refiera a poner el estado "Cancelada" tando a la tabla venta y descripcion_de_venta que correspondan a èste ID
         Modeloinventarioventas.llenartablaidventasconidrealizados(); //Carga nuevamente las ventas por ID
        ocultarloscomponentes();
  Modeloinventarioventas.la_venta_tiene_descuento_si_o_no((int)id);
          Modeloinventarioventas.eliminar_idventa_sitienedescuento(descuentoenventa,(int)id);
   Controladorventa.storage.clear();
   Modeloinventarioventas.impresiondeventacancelada(id);
+         }else{
+             JOptionPane.showMessageDialog(null, "No se puede cancelar una venta con estado Cancelada o Credito-pendiente","Revise las ventas que se muestran",JOptionPane.INFORMATION_MESSAGE);
+         }   
+
         }
      
  
@@ -162,8 +168,8 @@ public class Controladorinventarioventas {
     public static void metodos_al_iniciar_inventarioventas(){
    Modeloinventarioventas.totalyconteodeventasrealizadasdehoy(); // CUANTAS VENTAS SE REALIZARON? 5 O 60 O XX
                   Modeloinventarioventas.llenartablaidventasconidrealizados();
-                        Modelocortedecaja.ventaseneldia();// PARA LA SUMA DE LOS TOTALES DE LA VENTA
-      Inventarioventas.ventaseneldiasumadas.setText(String.valueOf(ventasdeldia));// VIENE DEL METODO ventaseneldiaREALIZADAS()
+                  Modelocortedecaja.ventaseneldiaparainventarioventas();// PARA LA SUMA DE LOS TOTALES DE LA VENTA              
+                  Inventarioventas.ventaseneldiasumadas.setText(String.valueOf(ventasdeldia));// VIENE DEL METODO ventaseneldiaREALIZADAS()
                         Inventarioventas.conteodelasventasrealizadas.setText(String.valueOf(conteototaldeventas)); // VIENE DEL METODO totalventasxdia(); ES UN CONTEO DE VENTAS
                Inventarioventas.totalventarealizada.setVisible(false);
     Inventarioventas.labelparaeltotal.setVisible(false);
@@ -178,9 +184,18 @@ public class Controladorinventarioventas {
     public static void editar_paciente(short id){
         //PRIMERO SE EDITA EL CAMPO AUXILIAR PARA HACERLE SABER QUE ESE DATO SE VA A MODIFICAR EN LA PROXIMA VENTANA
           if(Controladorventa.noduplicar_edicionpaciente==false){ 
-          Modeloinventarioventas.indicar_el_paciente_a_actualizar(Short.parseShort(String.valueOf(id)));
+                 if(!Inventarioventas.tipos_de_venta.getSelectedItem().toString().equalsIgnoreCase("Cancelada")&& 
+                 !Inventarioventas.tipos_de_venta.getSelectedItem().toString().equalsIgnoreCase("Credito-pendiente")){
+                        Modeloinventarioventas.indicar_el_paciente_a_actualizar(Short.parseShort(String.valueOf(id)));
      new Edicion_pacientes().setVisible(true);
+                 }else{
+             JOptionPane.showMessageDialog(null, "No se puede editar el paciente para una venta con estado Cancelada o Credito-pendiente","Revise las ventas que se muestran",JOptionPane.INFORMATION_MESSAGE);
+         }  
           }
-        
+    }
+    public static void verventasenbasealtipo(){
+          Controladorinventarioventas.botonveridventas();
+  Inventarioventas.showsellsby.setVisible(true);
+                    Inventarioventas.busqueda.setVisible(true);
     }
 }

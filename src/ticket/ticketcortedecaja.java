@@ -8,7 +8,7 @@ import java.util.Date;
 import javax.swing.JOptionPane;
 
  public class ticketcortedecaja{
-  public void ticketcortedecaja(String hora_inicio_sesion,float monto, float gasto, float venta , float diferencia, float ventasmenosgastos, float totaldepagos) {
+  public void ticketcortedecaja(float montoapertura, String hora_inicio_sesion,float monto, float gasto, float venta , float diferencia, float ventasmenosgastos, float totaldepagos) {
      Date date = new Date();
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         DateFormat hourFormat = new SimpleDateFormat("HH:mm:ss");                
@@ -33,11 +33,12 @@ import javax.swing.JOptionPane;
         auxs+= "Fecha: " + dateFormat.format(date) + " Hora: " + hourFormat.format(date) + "\n";  System.out.println("Fecha: " + dateFormat.format(date) + " Hora: " + hourFormat.format(date) + "\n");
         auxs+= "\n==============================\n";  System.out.println("\n==============================\n");   
         auxs+= "INICIO DE SESIÓN: "+hora_inicio_sesion+"\n";             System.out.println("INICIO DE SESIÓN: "+hora_inicio_sesion+"\n");   
-         auxs+= "TOTAL DE VENTAS:     $"+venta+"\n";             System.out.println("TOTAL DE VENTAS:     $"+venta+"\n");      
+         auxs+= "APERTURA:     $"+montoapertura+"\n";             System.out.println("APERTURA:      $"+montoapertura+"\n");  
+        auxs+= "TOTAL DE VENTAS:     $"+venta+"\n";             System.out.println("TOTAL DE VENTAS:     $"+venta+"\n");      
           auxs+= "+"+"\n";      System.out.println("+"+"\n");
           auxs+= "TOTAL DE GASTOS      $"+gasto+"\n";             System.out.println("TOTAL DE GASTOS      $"+gasto+"\n");        
           auxs+= "="+"\n";      System.out.println("="+"\n");
-          auxs+= "EN FISICO:   $"+ventasmenosgastos+"\n"; System.out.println("EN FISICO:   $"+ventasmenosgastos+"\n");                   
+          auxs+= "TOTAL EN CAJA:   $"+ventasmenosgastos+"\n"; System.out.println("EN FISICO:   $"+ventasmenosgastos+"\n");                   
           auxs+= "="+"\n";      System.out.println("="+"\n");
           auxs+= "ENTREGADO:  $"+monto+"\n";             System.out.println("ENTREGADO:  $"+monto+"\n"); 
         auxs+= "\n==============================\n";  System.out.println("\n==============================\n");       

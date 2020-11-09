@@ -45,7 +45,7 @@ public static void llenartablaidventasconidrealizados(){ // recibe como parametr
         modeloTE.addColumn("Fecha");
     Inventarioventas.jTable2.setModel(modeloTE);  // add modelo ala tabla         
         try {  Connection ca= cc.conexion(); // CONEXION DB 
-             String sSQL = "SELECT distinct venta.id_venta, pacientes.nombre,venta.subtotal, venta.descuento,venta.total,venta.fecha_reporte FROM venta inner join descripcion_de_venta on venta.id_venta = descripcion_de_venta.id_venta inner join pacientes on descripcion_de_venta.id_paciente = pacientes.id_paciente WHERE venta.estado_venta in('Realizada') AND venta.fecha_reporte = '"+Controladorventa.fecha()+"' ";
+             String sSQL = "SELECT distinct venta.id_venta, pacientes.nombre,venta.subtotal, venta.descuento,venta.total,venta.fecha_reporte FROM venta inner join descripcion_de_venta on venta.id_venta = descripcion_de_venta.id_venta inner join pacientes on descripcion_de_venta.id_paciente = pacientes.id_paciente WHERE venta.estado_venta in('"+Inventarioventas.tipos_de_venta.getSelectedItem().toString()+"') AND venta.fecha_reporte = '"+Controladorventa.fecha()+"' ";
         PreparedStatement ps = ca.prepareStatement(sSQL);       
         ResultSet rs = ps.executeQuery(sSQL);
             while (rs.next()) {
@@ -102,10 +102,10 @@ public static void consultarlosresultadosenlabusquedadenombres(String contexto){
                 
             }*/
             if (contexto.equals("")) {
-                             String sSQL = "SELECT distinct venta.id_venta, pacientes.nombre,venta.subtotal, venta.descuento , venta.total,venta.fecha_reporte FROM venta inner join descripcion_de_venta on venta.id_venta = descripcion_de_venta.id_venta inner join pacientes on descripcion_de_venta.id_paciente = pacientes.id_paciente WHERE venta.estado_venta in('Realizada') AND venta.fecha_reporte = '"+Controladorventa.fecha()+"' ";
+                             String sSQL = "SELECT distinct venta.id_venta, pacientes.nombre,venta.subtotal, venta.descuento , venta.total,venta.fecha_reporte FROM venta inner join descripcion_de_venta on venta.id_venta = descripcion_de_venta.id_venta inner join pacientes on descripcion_de_venta.id_paciente = pacientes.id_paciente WHERE venta.estado_venta in('"+Inventarioventas.tipos_de_venta.getSelectedItem().toString()+"') AND venta.fecha_reporte = '"+Controladorventa.fecha()+"' ";
                 rs = sent.executeQuery(sSQL); // se ejecuta la sentencia dentro del parentesis
             } else {
-                              String sSQLcontesto = "SELECT distinct venta.id_venta, pacientes.nombre,venta.subtotal, venta.descuento,venta.total ,venta.fecha_reporte FROM venta inner join descripcion_de_venta on venta.id_venta = descripcion_de_venta.id_venta inner join pacientes on descripcion_de_venta.id_paciente = pacientes.id_paciente WHERE venta.estado_venta in('Realizada') AND  pacientes.nombre LIKE '%" + contexto + "%'";
+                              String sSQLcontesto = "SELECT distinct venta.id_venta, pacientes.nombre,venta.subtotal, venta.descuento,venta.total ,venta.fecha_reporte FROM venta inner join descripcion_de_venta on venta.id_venta = descripcion_de_venta.id_venta inner join pacientes on descripcion_de_venta.id_paciente = pacientes.id_paciente WHERE venta.estado_venta in('"+Inventarioventas.tipos_de_venta.getSelectedItem().toString()+"') AND  pacientes.nombre LIKE '%" + contexto + "%'";
                
                 rs = sent.executeQuery(sSQLcontesto); // se ejecuta la sentencia dentro del parentesis
             }
@@ -157,15 +157,15 @@ public static void showidventasporfechas(JTable tablaventas, String fechadesde, 
         modeloT.addColumn("Total");     
         modeloT.addColumn("Fecha");
     try {        
-           String sSQL = "SELECT distinct venta.id_venta, pacientes.nombre,venta.subtotal, venta.descuento,venta.total,venta.fecha_reporte FROM venta inner join descripcion_de_venta on venta.id_venta = descripcion_de_venta.id_venta inner join pacientes on descripcion_de_venta.id_paciente = pacientes.id_paciente WHERE venta.estado_venta='Realizada' AND venta.fecha_reporte BETWEEN '"+fechadesde+"' AND '"+fechahasta+ "' ";
+           String sSQL = "SELECT distinct venta.id_venta, pacientes.nombre,venta.subtotal, venta.descuento,venta.total,venta.fecha_reporte FROM venta inner join descripcion_de_venta on venta.id_venta = descripcion_de_venta.id_venta inner join pacientes on descripcion_de_venta.id_paciente = pacientes.id_paciente WHERE venta.estado_venta='"+Inventarioventas.tipos_de_venta.getSelectedItem().toString()+"' AND venta.fecha_reporte BETWEEN '"+fechadesde+"' AND '"+fechahasta+ "' ";
         PreparedStatement ps = ca.prepareStatement(sSQL);       
         try (ResultSet rs = ps.executeQuery(sSQL)) {
             while (rs.next()) {
                 columna[0] = rs.getString(1);
                   columna[1] = rs.getString(2);
-                columna[2] = "$"+String.valueOf(rs.getInt(3));
-                 columna[3] = "$"+String.valueOf(rs.getInt(4));
-                columna[4] = "$"+String.valueOf(rs.getInt(5));
+                columna[2] = "$"+String.valueOf(rs.getFloat(3));
+                 columna[3] = "$"+String.valueOf(rs.getFloat(4));
+                columna[4] = "$"+String.valueOf(rs.getFloat(5));
                    columna[5] = rs.getString(6);
                 modeloT.addRow(columna);
             }
@@ -203,7 +203,7 @@ public static void showidventasporfechas(JTable tablaventas, String fechadesde, 
         modeloT.addColumn("Precio");
         modeloT.addColumn("Importe");
             Inventarioventas.jTable2.setModel(modeloT);  // add modelo ala tabla 
-      try { String sSQL = "SELECT distinct dv.nombre_producto, dv.cantidad, dv.precio_unitario, dv.importe, v.total FROM descripcion_de_venta dv inner join venta v on dv.id_venta = v.id_venta WHERE dv.estado='Realizada' AND dv.id_venta = '"+numerodeventa+"' ";
+      try { String sSQL = "SELECT distinct dv.nombre_producto, dv.cantidad, dv.precio_unitario, dv.importe, v.total FROM descripcion_de_venta dv inner join venta v on dv.id_venta = v.id_venta WHERE dv.estado=('"+Inventarioventas.tipos_de_venta.getSelectedItem().toString()+"') AND dv.id_venta = '"+numerodeventa+"' ";
         PreparedStatement ps = ca.prepareStatement(sSQL);       
         ResultSet rs = ps.executeQuery(sSQL);
             while (rs.next()) {
@@ -265,7 +265,7 @@ public static void eliminar_idventa_sitienedescuento(float descuento, int id_ven
      public static void totalyconteodeventasrealizadasdehoy(){
         try{ Connection ca= cc.conexion();// CUENTA EL TODAL DE CUANTAS VENTAS SE REALIZARON
                                          Statement sent  =(Statement)ca.createStatement();
-                                         ResultSet  rs = sent.executeQuery("SELECT SUM(total), COUNT(id_venta) FROM venta WHERE fecha_reporte = '"+Controladorventa.fecha()+"' AND estado_venta='Realizada'");
+                                         ResultSet  rs = sent.executeQuery("SELECT SUM(total), COUNT(id_venta) FROM venta WHERE fecha_reporte = '"+Controladorventa.fecha()+"' AND estado_venta= '"+Inventarioventas.tipos_de_venta.getSelectedItem().toString()+"' ");
                                             if(rs.next()){
                                                       conteototaldeventas =Short.parseShort(String.valueOf(rs.getInt("COUNT(id_venta)")));
                                                       sumadetotalesdeventasdehoy = rs.getFloat("SUM(total)");
@@ -303,7 +303,7 @@ public static void eliminar_idventa_sitienedescuento(float descuento, int id_ven
                 }    
   }
    public static void reimpresiondeventa(int numerodeventa){
-       Modeloventa.descripciondelosprouductosparaelticketdeventa(numerodeventa,Controladorventa.estadorealizado);
+       Modeloventa.descripciondelosprouductosparaelticketdeventa(numerodeventa,Inventarioventas.tipos_de_venta.getSelectedItem().toString());
     }
    public static void indicar_el_paciente_a_actualizar(int id){
       try{ Connection ca= cc.conexion();// CUENTA EL TODAL DE CUANTAS VENTAS SE REALIZARON

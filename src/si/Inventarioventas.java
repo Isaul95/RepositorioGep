@@ -53,7 +53,7 @@ public class Inventarioventas extends javax.swing.JFrame {
         jScrollPane5 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
         jLabel103 = new javax.swing.JLabel();
-        labelbusqueda = new javax.swing.JLabel();
+        showsellsby = new javax.swing.JLabel();
         jLabel63 = new javax.swing.JLabel();
         jLabel96 = new javax.swing.JLabel();
         ventaseneldiasumadas = new javax.swing.JLabel();
@@ -61,6 +61,8 @@ public class Inventarioventas extends javax.swing.JFrame {
         opciones = new javax.swing.JLabel();
         busqueda = new javax.swing.JTextField();
         agregar_nota = new javax.swing.JButton();
+        tipos_de_venta = new javax.swing.JComboBox();
+        labelbusqueda1 = new javax.swing.JLabel();
         jPanel24 = new javax.swing.JPanel();
         jLabel93 = new javax.swing.JLabel();
         gastos_btn_back = new javax.swing.JButton();
@@ -203,15 +205,15 @@ public class Inventarioventas extends javax.swing.JFrame {
         });
         jScrollPane5.setViewportView(jTable2);
 
-        jPanel23.add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 910, 410));
+        jPanel23.add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 220, 910, 310));
 
         jLabel103.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel103.setText("Buscar por fecha");
         jPanel23.add(jLabel103, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 40, 180, 50));
 
-        labelbusqueda.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        labelbusqueda.setText("Buscar por nombre");
-        jPanel23.add(labelbusqueda, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 180, 50));
+        showsellsby.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        showsellsby.setText("Mostrar ventas por:");
+        jPanel23.add(showsellsby, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, 180, 50));
 
         jLabel63.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel63.setText("Ventas realizadas:");
@@ -257,6 +259,20 @@ public class Inventarioventas extends javax.swing.JFrame {
             }
         });
         jPanel23.add(agregar_nota, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 330, 240, -1));
+
+        tipos_de_venta.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        tipos_de_venta.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Realizada", "Credito-pendiente", "Cancelada" }));
+        tipos_de_venta.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(135, 193, 193)));
+        tipos_de_venta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tipos_de_ventaActionPerformed(evt);
+            }
+        });
+        jPanel23.add(tipos_de_venta, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 160, 350, -1));
+
+        labelbusqueda1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        labelbusqueda1.setText("Buscar por nombre");
+        jPanel23.add(labelbusqueda1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 180, 50));
 
         Administrador.add(jPanel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 1280, 560));
 
@@ -323,15 +339,13 @@ public class Inventarioventas extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void veridventasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_veridventasActionPerformed
-       Controladorinventarioventas.botonveridventas();
-  Inventarioventas.labelbusqueda.setVisible(true);
-                    Inventarioventas.busqueda.setVisible(true);
+     Controladorinventarioventas.verventasenbasealtipo();
     }//GEN-LAST:event_veridventasActionPerformed
 
     private void buscarventasporfechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarventasporfechaActionPerformed
     Controladorinventarioventas.botonbuscarventas_porfecha();
          Controladorinventarioventas.ocultarloscomponentes();
-          Inventarioventas.labelbusqueda.setVisible(true);
+       
                     Inventarioventas.busqueda.setVisible(true);
     }//GEN-LAST:event_buscarventasporfechaActionPerformed
 
@@ -354,10 +368,14 @@ busqueda.setText("");
 
     private void resultadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resultadoActionPerformed
         if(Controladorventa.noduplicar_capturaresultados==false){ 
-            Capturar_resultados  mandar_id_venta= new Capturar_resultados(Controladorinventarioventas.id);//Mandamos el id de la venta del cual se le van a completar los resultados de los estudios ya capturados
+            if(!Inventarioventas.tipos_de_venta.getSelectedItem().toString().equalsIgnoreCase("Cancelada")&& 
+                 !Inventarioventas.tipos_de_venta.getSelectedItem().toString().equalsIgnoreCase("Credito-pendiente")){
+                  Capturar_resultados  mandar_id_venta= new Capturar_resultados(Controladorinventarioventas.id);//Mandamos el id de la venta del cual se le van a completar los resultados de los estudios ya capturados
         new Capturar_resultados().setVisible(true);
+            }else{
+             JOptionPane.showMessageDialog(null, "No se puede capturar resultados para una venta con estado Cancelada o Credito-pendiente","Revise las ventas que se muestran",JOptionPane.INFORMATION_MESSAGE);
+         }  
         }
-       
     }//GEN-LAST:event_resultadoActionPerformed
 
     private void editar_pacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editar_pacienteActionPerformed
@@ -373,9 +391,18 @@ busqueda.setText("");
     }//GEN-LAST:event_busquedaKeyReleased
 
     private void agregar_notaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregar_notaActionPerformed
-   String texto = JOptionPane.showInputDialog("Escribe tu nota para esta venta");
-Modeloinventarioventas.agregar_nota(texto,Controladorinventarioventas.id);
+if(!Inventarioventas.tipos_de_venta.getSelectedItem().toString().equalsIgnoreCase("Cancelada")&& 
+                 !Inventarioventas.tipos_de_venta.getSelectedItem().toString().equalsIgnoreCase("Credito-pendiente")){
+    String texto = JOptionPane.showInputDialog("Escribe tu nota para esta venta");
+    Modeloinventarioventas.agregar_nota(texto,Controladorinventarioventas.id);
+}else{
+             JOptionPane.showMessageDialog(null, "No se puede agregar una nota para una venta con estado Cancelada o Credito-pendiente","Revise las ventas que se muestran",JOptionPane.INFORMATION_MESSAGE);
+         }  
     }//GEN-LAST:event_agregar_notaActionPerformed
+
+    private void tipos_de_ventaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tipos_de_ventaActionPerformed
+         Controladorinventarioventas.metodos_al_iniciar_inventarioventas();
+    }//GEN-LAST:event_tipos_de_ventaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -435,10 +462,12 @@ Modeloinventarioventas.agregar_nota(texto,Controladorinventarioventas.id);
     private javax.swing.JPanel jPanel24;
     private javax.swing.JScrollPane jScrollPane5;
     public static javax.swing.JTable jTable2;
-    public static javax.swing.JLabel labelbusqueda;
+    public static javax.swing.JLabel labelbusqueda1;
     public static javax.swing.JLabel labelparaeltotal;
     public static javax.swing.JLabel opciones;
     public static javax.swing.JButton resultado;
+    public static javax.swing.JLabel showsellsby;
+    public static javax.swing.JComboBox tipos_de_venta;
     public static javax.swing.JLabel totalventarealizada;
     public static javax.swing.JLabel ventaseneldiasumadas;
     public static javax.swing.JButton veridventas;
