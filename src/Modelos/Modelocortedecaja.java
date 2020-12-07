@@ -97,7 +97,7 @@ public static void metodogastosdeldia(){
 public static void pagosdeldia(){
         try{  Connection ca= cc.conexion();// La suma de todos los importes    
                                          Statement sent  =(Statement)ca.createStatement();
- ResultSet  rs = sent.executeQuery("select SUM(monto) from pagos  where fecha= '"+Controladorventa.fecha()+"' ");
+ ResultSet  rs = sent.executeQuery("select SUM(monto) from pagos  inner join venta on pagos.id_venta = venta.id_venta where pagos.fecha != venta.fecha_reporte and pagos.fecha= '"+Controladorventa.fecha()+"' ");
  
  /*VENTA DE $100 A CREDITO FECHA 1 OCTUBRE DE LA VENTA
  FIRST CASE

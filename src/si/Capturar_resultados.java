@@ -254,7 +254,6 @@ public Capturar_resultados(int id_venta_a_capturar_resultados){
 
         jLabel87.setBackground(new java.awt.Color(255, 153, 153));
         jLabel87.setFont(new java.awt.Font("Dialog", 1, 21)); // NOI18N
-        jLabel87.setForeground(new java.awt.Color(0, 0, 0));
         jLabel87.setText("Ruta de archivos: C:/reportes");
         jLabel87.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel87.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -303,7 +302,7 @@ public Capturar_resultados(int id_venta_a_capturar_resultados){
 
     private void genetrar_PdfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_genetrar_PdfActionPerformed
         // GENERANDO PDF DE CLIENTES
-          //PDF CON LONGITUDES DE ANALISIS MAYORES O IGUALES A 68
+           //PDF CON LONGITUDES DE ANALISIS MAYORES O IGUALES A 68
         if(Modelo_capturar_resultados.verificar_estudio_con_longitud_mayor(Integer.valueOf(id_venta.getText()))>=1){
             //AQUÍ VA TU NUEVO PDF
 //PDF LARGO
@@ -359,7 +358,7 @@ public Capturar_resultados(int id_venta_a_capturar_resultados){
              new Capturar_referencia().setVisible(true);
               }
               else{
-                  System.out.println("Ya se abrio la pestaña"+fila+" col"+col);
+                  System.out.println("Ya se abrio la pestaña"+fila+" col"+col);                    
                           
               }
          }
