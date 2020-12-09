@@ -113,7 +113,7 @@ static ResultSet rs;
         modeloTE.addColumn("Fecha");
     Ventas_a_credito.tabla_ventas_a_credito.setModel(modeloTE);  // add modelo ala tabla         
         try {  Connection ca= cc.conexion(); // CONEXION DB 
-             String sSQL = "SELECT distinct venta.id_venta, pacientes.nombre,venta.subtotal, venta.descuento,venta.total, venta.pago, venta.cambio,venta.fecha_reporte FROM venta inner join descripcion_de_venta on venta.id_venta = descripcion_de_venta.id_venta inner join pacientes on descripcion_de_venta.id_paciente = pacientes.id_paciente WHERE venta.estado_venta in('Credito-pendiente') AND venta.fecha_reporte = '"+Controladorventa.fecha()+"' ";
+             String sSQL = "SELECT distinct venta.id_venta, pacientes.nombre,venta.subtotal, venta.descuento,venta.total, venta.pago, venta.cambio,venta.fecha_reporte FROM venta inner join descripcion_de_venta on venta.id_venta = descripcion_de_venta.id_venta inner join pacientes on descripcion_de_venta.id_paciente = pacientes.id_paciente WHERE venta.estado_venta in('Credito-pendiente')  ";
         PreparedStatement ps = ca.prepareStatement(sSQL);       
         ResultSet rs = ps.executeQuery(sSQL);
             while (rs.next()) {
@@ -181,7 +181,7 @@ static ResultSet rs;
                 
             }*/
             if (contexto.equals("")) {
-                             String sSQL = "SELECT distinct venta.id_venta, pacientes.nombre,venta.subtotal, venta.descuento , venta.total, venta.pago, venta.cambio,venta.fecha_reporte FROM venta inner join descripcion_de_venta on venta.id_venta = descripcion_de_venta.id_venta inner join pacientes on descripcion_de_venta.id_paciente = pacientes.id_paciente WHERE venta.estado_venta in('Credito-pendiente') AND venta.fecha_reporte = '"+Controladorventa.fecha()+"' ";
+                             String sSQL = "SELECT distinct venta.id_venta, pacientes.nombre,venta.subtotal, venta.descuento , venta.total, venta.pago, venta.cambio,venta.fecha_reporte FROM venta inner join descripcion_de_venta on venta.id_venta = descripcion_de_venta.id_venta inner join pacientes on descripcion_de_venta.id_paciente = pacientes.id_paciente WHERE venta.estado_venta in('Credito-pendiente') ";
                 rs = sent.executeQuery(sSQL); // se ejecuta la sentencia dentro del parentesis
             } else {
                               String sSQLcontesto = "SELECT distinct venta.id_venta, pacientes.nombre,venta.subtotal, venta.descuento,venta.total , venta.pago, venta.cambio,venta.fecha_reporte FROM venta inner join descripcion_de_venta on venta.id_venta = descripcion_de_venta.id_venta inner join pacientes on descripcion_de_venta.id_paciente = pacientes.id_paciente WHERE venta.estado_venta in('Credito-pendiente') AND  pacientes.nombre LIKE '%" + contexto + "%'";
@@ -258,7 +258,11 @@ int decision=JOptionPane.showConfirmDialog(null,"¿Desea continuar?","Estás por
                             PreparedStatement ps2 = ca.prepareStatement ("UPDATE descripcion_de_venta SET estado= '"+Controladorventa.estadorealizado+"' WHERE id_venta='"+id_venta+"'");
                             int a = ps2.executeUpdate();
                             if(a>0){
-                            eliminar_venta_de_gastos_del_mismo_dia(id_venta);
+                                //ELIMINAR SI TODOS SUS PAGOS EN LA TABLA PAGOS SON DEL MISMO DÍA, SINO AHÍ SE QUEDA EN GASTOS
+                            if(conteodepagos(id_venta)>0){
+                                eliminar_venta_de_gastos_del_mismo_dia(id_venta);
+                            }
+                                
                             Modelogastos.insertarpagocomoabono("Pago "+Deudor.toUpperCase(), Float.parseFloat(solodosdecimales.format(Float.parseFloat(Controlador_venta_a_credito.pagodeventacredito)).replace(",", ".")),id_venta);
                             Controlador_venta_a_credito.ver_ventas_a_credito();
                             Controlador_venta_a_credito.ocultar_deudas(); 
@@ -304,5 +308,20 @@ int decision=JOptionPane.showConfirmDialog(null,"¿Desea continuar?","Estás por
                   cc.getClose();
              }
     }
-  
+  public static int conteodepagos(int id_venta){
+try{ Connection ca= cc.conexion();// CUENTA EL TODAL DE CUANTAS VENTAS SE REALIZARON
+                                         Statement sent  =(Statement)ca.createStatement();
+                                         ResultSet  rs = sent.executeQuery("select count(*) from pagos inner join venta on pagos.id_venta = venta.id_venta where pagos.fecha = venta.fecha_reporte and pagos.id_venta = '"+id_venta+"'");
+                                            if(rs.next()){
+                                                      Controladorventa.conteodepagos =Integer.parseInt(String.valueOf(rs.getInt("count(*)")));
+                                                      }
+                                                      }//fin del try-precio del producto
+                                                      catch (Exception e){
+                                                           JOptionPane.showMessageDialog(null, "ERROR EN METODO: activar_boton_pdf: "+e.getMessage(),"DEVELOPER HELPER", JOptionPane.ERROR_MESSAGE);      
+                                                      }// fin del precio-catch del producto
+        finally{
+                  cc.getClose();
+             }
+      return Controladorventa.conteodepagos;
+  }
  }
