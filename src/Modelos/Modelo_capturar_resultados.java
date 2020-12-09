@@ -182,12 +182,41 @@ try{ Connection ca= cc.conexion();// CUENTA EL TODAL DE CUANTAS VENTAS SE REALIZ
       return Controlador_capturar_resultados.respuesta_para_activar_el_pdf;
   }
   
+  
+     
+    //  ==========     =========================     ================        ============
+    
+  
+  public static int activarVistaCapturadeCultivos(int id_venta){
+try{ Connection ca= cc.conexion();// CUENTA EL TODAL DE CUANTAS VENTAS SE REALIZARON
+                                         Statement sent  =(Statement)ca.createStatement();
+                                         ResultSet  rs = sent.executeQuery("select count(*) from descripcion_de_venta dv WHERE  dv.id_venta = '"+id_venta+"' and dv.resultado in ('POSITIVO') and SUBSTRING(nombre_producto,1,7) not in ('PAQUETE')");
+                                            if(rs.next()){
+                                                      Controlador_capturar_resultados.respuesta_para_activar_el_pdf =Integer.parseInt(String.valueOf(rs.getInt("count(*)")));
+                                                      }
+                                                      }//fin del try-precio del producto
+                                                      catch (Exception e){
+                                                           JOptionPane.showMessageDialog(null, "ERROR EN METODO: activar_boton_pdf: "+e.getMessage(),"DEVELOPER HELPER", JOptionPane.ERROR_MESSAGE);      
+                                                      }// fin del precio-catch del producto
+        finally{
+                  cc.getClose();
+             }
+      return Controlador_capturar_resultados.respuesta_para_activar_el_pdf;
+  }
+    
+    
+    
+    // ======= ============       ================0 ============ ================== ======
+  
+  
+  
+  
   public static int verificar_estudio_con_longitud_mayor(int id_venta){
       int result=0;
 try{ Connection ca= cc.conexion();// CUENTA EL TODAL DE CUANTAS VENTAS SE REALIZARON
                                          Statement sent  =(Statement)ca.createStatement();
                                         
-                                         ResultSet  rs = sent.executeQuery("select count(*) from descripcion_de_venta dv inner join paquetes p on dv.id_producto = p.id_producto WHERE  dv.id_venta = '"+id_venta+"' and dv.estado = 'Realizada' AND CHAR_LENGTH(p.valordereferencia ) >= 68 GROUP BY p.valordereferencia");
+                                         ResultSet  rs = sent.executeQuery("select count(*) from descripcion_de_venta dv inner join paquetes p on dv.id_producto = p.id_producto WHERE  dv.id_venta = '"+id_venta+"' and dv.estado = 'Realizada' AND CHAR_LENGTH(p.valordereferencia ) >= 68 AND dv.resultado != 'POSITIVO' and p.valordereferencia not in ('--')");
                                             if(rs.next()){
                                                       result =Integer.parseInt(String.valueOf(rs.getInt("count(*)")));
                                                       }
@@ -204,8 +233,10 @@ try{ Connection ca= cc.conexion();// CUENTA EL TODAL DE CUANTAS VENTAS SE REALIZ
       int result=0;
 try{ Connection ca= cc.conexion();// CUENTA EL TODAL DE CUANTAS VENTAS SE REALIZARON
                                          Statement sent  =(Statement)ca.createStatement();
-                                        
-                                         ResultSet  rs = sent.executeQuery("select count(*) from descripcion_de_venta dv inner join paquetes p on dv.id_producto = p.id_producto WHERE  dv.id_venta = '"+id_venta+"' and dv.estado = 'Realizada' AND CHAR_LENGTH(p.valordereferencia ) < 68 GROUP BY p.valordereferencia");
+                                         //PARA LOS PDF CON + Y SUS VALORES DE REFEREMCOA SEAM PEQUEÑOS
+                                        //select count(*) from descripcion_de_venta dv inner join paquetes p on dv.id_producto = p.id_producto WHERE dv.id_venta = 2 and dv.estado = 'Realizada' AND dv.resultado != '+' AND CHAR_LENGTH(p.valordereferencia ) < 60 and p.valordereferencia not in ('')
+                                        ResultSet  rs = sent.executeQuery("select count(*) from descripcion_de_venta dv inner join paquetes p on dv.id_producto = p.id_producto WHERE dv.id_venta = '"+id_venta+"' and dv.estado = 'Realizada'  AND CHAR_LENGTH(p.valordereferencia ) < 60 AND dv.resultado != 'POSITIVO' and p.valordereferencia not in ('--')");
+//ResultSet  rs = sent.executeQuery("select count(*) from descripcion_de_venta dv inner join paquetes p on dv.id_producto = p.id_producto WHERE  dv.id_venta = '"+id_venta+"' and dv.estado = 'Realizada' AND CHAR_LENGTH(p.valordereferencia ) < 68 GROUP BY p.valordereferencia AND dv.resultado != '+'");
                                             if(rs.next()){
                                                       result =Integer.parseInt(String.valueOf(rs.getInt("count(*)")));
                                                       }
@@ -308,4 +339,11 @@ try{ Connection ca= cc.conexion();// CUENTA EL TODAL DE CUANTAS VENTAS SE REALIZ
              }
       return totales;
   }
+   
+   
+   
+   
+   
+   
+   
 }

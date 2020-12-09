@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package si;
+import Controladores.Controlador_Estudios_Cultivos;
 import Controladores.Controlador_Report_Pdf_ReferenciaMayor;
 import Controladores.Controladorventa;
 import Controladores.Controlador_Report_pdf;
@@ -304,34 +305,12 @@ public Capturar_resultados(int id_venta_a_capturar_resultados){
     private void genetrar_PdfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_genetrar_PdfActionPerformed
         // GENERANDO PDF DE CLIENTES
           //PDF CON LONGITUDES DE ANALISIS MAYORES O IGUALES A 68
-        if (Modelo_capturar_resultados.verificar_estudio_con_longitud_mayor(Integer.valueOf(id_venta.getText())) >= 1) {
-            //AQUÍ VA TU NUEVO PDF
-//    PDF LARGO
-            Controlador_Report_Pdf_ReferenciaMayor ref = new Controlador_Report_Pdf_ReferenciaMayor(); 
-            ref.Generacion_PDF_client_referenciaMayor("_02");
-//    PDF CORTO
-            if (Modelo_capturar_resultados.verificar_estudio_con_longitud_menor(Integer.valueOf(id_venta.getText())) >= 1) {
-                Controlador_Report_pdf_paquetes pac = new Controlador_Report_pdf_paquetes();
-                pac.Generacion_PDF_client_paquetes("_01"); // llamando el reporte de paketes
-            }                    // activarVistaParaCapturadeCultivos
-        }
-        
-          else if(Modelo_capturar_resultados.activarVistaParaCapturadeCultivos(Integer.valueOf(id_venta.getText()))>=1){
-            JOptionPane.showMessageDialog(null, "Toy enyrando en el valor de resultadi igual a => +");
-            new Muestra_de_Cultivos().setVisible(true);
-            }   
-        
-        else{//PDF CON LONGITUDES DE ANALISIS MENORES A 68
-            Controlador_Report_pdf_paquetes pac = new Controlador_Report_pdf_paquetes();
-            pac.Generacion_PDF_client_paquetes("_01"); // llamando el reporte de paketes
-            JOptionPane.showMessageDialog(null, "Toy en el pdf corto...");
-            
-         /*   if(Modelo_capturar_resultados.activarVistaParaCapturadeCultivos(Integer.valueOf(id_venta.getText()))>=1){
-            JOptionPane.showMessageDialog(null, "Toy enyrando en el valor de resultadi igual a => +");
-            new Muestra_de_Cultivos().setVisible(true);
-            } */
-            
-        }     
+          
+           Controlador_Estudios_Cultivos.activarpdfcultivos();
+          
+          
+       
+          
     }//GEN-LAST:event_genetrar_PdfActionPerformed
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed

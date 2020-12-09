@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c4c60ee2-567c-41a3-8236-ee19d087552e">
 	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="192"/>
 	<parameter name="parameter1" class="java.lang.String"/>
 	<parameter name="Logo5" class="java.io.InputStream"/>
 	<parameter name="firma5" class="java.io.InputStream"/>
@@ -16,7 +16,7 @@ inner join descripcion_de_venta dv on v.id_venta = dv.id_venta
 inner join pacientes pac on dv.id_paciente = pac.id_paciente 
 inner join paquetes p on dv.id_producto = p.id_producto  
 where v.id_venta =$P{parameter1} and v.estado_venta='Realizada' and SUBSTRING(dv.nombre_producto,1,7) not in ('PAQUETE')
-AND CHAR_LENGTH(p.valordereferencia ) < 68 
+AND CHAR_LENGTH(p.valordereferencia ) < 68 AND dv.resultado != 'POSITIVO'
 Order by p.categoria_estudios,dv.id_producto ASC]]>
 	</queryString>
 	<field name="nombre_producto" class="java.lang.String">

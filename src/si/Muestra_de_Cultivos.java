@@ -1,16 +1,10 @@
 package si;
+import Controladores.Controlador_Report_Pdf_ReferenciaMayor;
 import Controladores.Controlador_Report_pdf_cultivos;
 import Controladores.Controlador_Report_pdf_paquetes;
 import Controladores.Controlador_capturar_resultados;
-import Controladores.Controladorgastos;
 import Controladores.Controladorventa;
 import Modelos.Modelo_capturar_resultados;
-import java.awt.Color;
-import java.awt.event.KeyEvent;
-import javax.swing.JOptionPane;
-import static si.Capturar_resultados.Jtable_ProductosEntradas;
-import static si.Capturar_resultados.id_venta;
-
 
 public class Muestra_de_Cultivos extends javax.swing.JFrame { 
     public Muestra_de_Cultivos() {
@@ -44,7 +38,7 @@ Modelos.Modelo_Cultivos.LlenarTablaCultivos(jTableMuestraCultivos); // Se manda 
         });
 
         jPanel1.setBackground(new java.awt.Color(135, 193, 193));
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "ESTUDIOS (Cultivo de heridas)", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Serif", 1, 24))); // NOI18N
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "CULTIVOS", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Serif", 1, 24))); // NOI18N
         jPanel1.setLayout(null);
 
         jPanel2.setBackground(new java.awt.Color(135, 193, 193));
@@ -79,23 +73,23 @@ Modelos.Modelo_Cultivos.LlenarTablaCultivos(jTableMuestraCultivos); // Se manda 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 17)); // NOI18N
         jLabel2.setText("Lista de estudios:");
         jPanel2.add(jLabel2);
-        jLabel2.setBounds(240, 0, 180, 29);
+        jLabel2.setBounds(290, 10, 180, 29);
 
         jLabel80.setBackground(new java.awt.Color(0, 0, 0));
         jLabel80.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel80.setText("Venta:");
         jPanel2.add(jLabel80);
-        jLabel80.setBounds(0, 0, 58, 24);
+        jLabel80.setBounds(40, 10, 58, 24);
 
         id_venta.setBackground(new java.awt.Color(0, 0, 0));
         id_venta.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         id_venta.setForeground(new java.awt.Color(102, 102, 102));
         id_venta.setText("idVenta:");
         jPanel2.add(id_venta);
-        id_venta.setBounds(80, 0, 74, 24);
+        id_venta.setBounds(120, 10, 74, 24);
 
         jPanel1.add(jPanel2);
-        jPanel2.setBounds(10, 40, 570, 240);
+        jPanel2.setBounds(10, 40, 570, 230);
 
         gastos_btn_back.setBackground(new java.awt.Color(255, 255, 255));
         gastos_btn_back.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -108,7 +102,7 @@ Modelos.Modelo_Cultivos.LlenarTablaCultivos(jTableMuestraCultivos); // Se manda 
             }
         });
         jPanel1.add(gastos_btn_back);
-        gastos_btn_back.setBounds(390, 280, 150, 50);
+        gastos_btn_back.setBounds(400, 270, 150, 50);
 
         genetrar_Pdf.setBackground(new java.awt.Color(255, 255, 255));
         genetrar_Pdf.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -120,7 +114,7 @@ Modelos.Modelo_Cultivos.LlenarTablaCultivos(jTableMuestraCultivos); // Se manda 
             }
         });
         jPanel1.add(genetrar_Pdf);
-        genetrar_Pdf.setBounds(70, 281, 155, 60);
+        genetrar_Pdf.setBounds(50, 270, 155, 60);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -128,14 +122,14 @@ Modelos.Modelo_Cultivos.LlenarTablaCultivos(jTableMuestraCultivos); // Se manda 
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 587, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 577, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -154,24 +148,46 @@ Modelos.Modelo_Cultivos.LlenarTablaCultivos(jTableMuestraCultivos); // Se manda 
         int fila =jTableMuestraCultivos.getSelectedRow(); 
            int col =jTableMuestraCultivos.getSelectedColumn(); 
         if(fila>=0 || col==1){
-           Captura_Resultados_Cultivos a   =new Captura_Resultados_Cultivos(jTableMuestraCultivos.getValueAt(fila, 0).toString());
-        JOptionPane.showMessageDialog(null, "Me estas presionando soy la fila");
-        new Captura_Resultados_Cultivos().setVisible(true);
+        Captura_Bacterias a = new Captura_Bacterias(jTableMuestraCultivos.getValueAt(fila,0).toString());                
+        new Captura_Bacterias().setVisible(true);
         }
     }//GEN-LAST:event_jTableMuestraCultivosMousePressed
 
     private void genetrar_PdfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_genetrar_PdfActionPerformed
         // GENERANDO PDF DE CLIENTES               
-          if(Modelo_capturar_resultados.activarVistaParaCapturadeCultivos(Integer.valueOf(id_venta.getText()))>=1){
+          if(Modelo_capturar_resultados.activarVistaCapturadeCultivos(Integer.valueOf(id_venta.getText()))>=1){
               //Controlador_Report_pdf_paquetes pac = new Controlador_Report_pdf_paquetes();
             //pac.Generacion_PDF_client_paquetes("_01");
             
             Controlador_Report_pdf_cultivos rc = new Controlador_Report_pdf_cultivos();
               rc.Generacion_PDF_cultivos();
               
-              JOptionPane.showMessageDialog(null, "Toy enyrando en el valor de resultadi igual a => +");
-                new Muestra_de_Cultivos().setVisible(true);
+              //JOptionPane.showMessageDialog(null, "Toy enyrando en el valor de resultadi igual a => +");
+              
+              
+               if (Modelo_capturar_resultados.verificar_estudio_con_longitud_mayor(Integer.valueOf(Capturar_resultados.id_venta.getText())) >= 1) {
+            //AQUÍ VA TU NUEVO PDF
+            
+//    PDF LARGO
+//JOptionPane.showMessageDialog(null, "Se genera pdf de largos porque hay cultivos y largos");
+            Controlador_Report_Pdf_ReferenciaMayor ref = new Controlador_Report_Pdf_ReferenciaMayor(); 
+            ref.Generacion_PDF_client_referenciaMayor("_02");
+//    PDF CORTO
+            if (Modelo_capturar_resultados.verificar_estudio_con_longitud_menor(Integer.valueOf(Capturar_resultados.id_venta.getText())) >= 1) {
+                Controlador_Report_pdf_paquetes pac = new Controlador_Report_pdf_paquetes();
+                pac.Generacion_PDF_client_paquetes("_01"); // llamando el reporte de paketes
+               // JOptionPane.showMessageDialog(null, "Se genera pdf de cortos porque  hubo cultivos y hay estudio largo");
+            }                    // activarVistaParaCapturadeCultivos
+        }        
+                     
+               else if(Modelo_capturar_resultados.verificar_estudio_con_longitud_menor(Integer.valueOf(id_venta.getText()))>=1){//PDF CON LONGITUDES DE ANALISIS MENORES A 68
+            Controlador_Report_pdf_paquetes pac = new Controlador_Report_pdf_paquetes();
+            pac.Generacion_PDF_client_paquetes("_01"); // llamando el reporte de paketes
+            //JOptionPane.showMessageDialog(null, "Toy en el pdf corto...");                     
+        } 
+                            
             }
+           
        
     }//GEN-LAST:event_genetrar_PdfActionPerformed
 
