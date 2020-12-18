@@ -7,7 +7,7 @@ import si.Captura_Resultados_Cultivos;
 import si.Capturar_resultados;
 import si.Muestra_de_Cultivos;
 import si.SI_Inicio;
-import ticket.TikectGasto;
+//import ticket.TikectGasto;
 
 public class Controlador_Estudios_Cultivos {
       public static int  id_usuario=SI_Inicio.id_usuario;
