@@ -155,7 +155,7 @@ Modelos.Modelo_Cultivos.LlenarTablaCultivos(jTableMuestraCultivos); // Se manda 
 
     private void genetrar_PdfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_genetrar_PdfActionPerformed
         // GENERANDO PDF DE CLIENTES               
-          if(Modelo_capturar_resultados.activarVistaCapturadeCultivos(Integer.valueOf(id_venta.getText()))>=1){
+          if(Modelo_capturar_resultados.activarVistaParaCapturadeCultivosxx(Integer.valueOf(id_venta.getText()))>=1){
               //Controlador_Report_pdf_paquetes pac = new Controlador_Report_pdf_paquetes();
             //pac.Generacion_PDF_client_paquetes("_01");
             
