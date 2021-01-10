@@ -187,7 +187,7 @@ try{ Connection ca= cc.conexion();// CUENTA EL TODAL DE CUANTAS VENTAS SE REALIZ
     //  ==========     =========================     ================        ============
     
   
-  public static int activarVistaCapturadeCultivos(int id_venta){
+  public static int activarVistaParaCapturadeCultivosxx(int id_venta){
 try{ Connection ca= cc.conexion();// CUENTA EL TODAL DE CUANTAS VENTAS SE REALIZARON
                                          Statement sent  =(Statement)ca.createStatement();
                                          ResultSet  rs = sent.executeQuery("select count(*) from descripcion_de_venta dv WHERE  dv.id_venta = '"+id_venta+"' and dv.resultado in ('POSITIVO') and SUBSTRING(nombre_producto,1,7) not in ('PAQUETE')");

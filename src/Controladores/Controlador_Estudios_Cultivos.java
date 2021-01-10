@@ -35,7 +35,7 @@ public class Controlador_Estudios_Cultivos {
     }
     
     public static void activarpdfcultivos(){            
-    if(Modelo_capturar_resultados.activarVistaCapturadeCultivos(Integer.valueOf(Capturar_resultados.id_venta.getText())) >=1){
+    if(Modelo_capturar_resultados.activarVistaParaCapturadeCultivosxx(Integer.valueOf(Capturar_resultados.id_venta.getText())) >=1){
             //JOptionPane.showMessageDialog(null, "Toy enyrando en el valor de resultadi igual a => +");
             new Muestra_de_Cultivos().setVisible(true);
             }
