@@ -41,14 +41,14 @@ public class Modelo_edicion_paciente  {
                           if(Integer.parseInt(Controlador_edicion_paciente.edad_paraedicion)==1)
                                       Controlador_edicion_paciente.edad_paraedicion=Controlador_edicion_paciente.edad_paraedicion+" año.";
                                   else Controlador_edicion_paciente.edad_paraedicion=Controlador_edicion_paciente.edad_paraedicion+" años.";
-                    PreparedStatement ps3 = ca.prepareStatement ("UPDATE pacientes SET nombre='"+ Edicion_pacientes.user_nombre_edicion1.getText()+"',fecha_nacimiento='"+Controlador_edicion_paciente.fecha_de_nacimiento_del_paciente()+"',edad='"+Controlador_edicion_paciente.edad_paraedicion+"',sexo='"+Edicion_pacientes.user_sexo_edicion.getSelectedItem().toString()+"',dato_auxiliar='"+Controlador_edicion_paciente.exito+"',medico='"+Edicion_pacientes.medico_edicion.getText()+"'WHERE dato_auxiliar='"+Controlador_edicion_paciente.editar+"'");
+                    PreparedStatement ps3 = ca.prepareStatement ("UPDATE pacientes SET nombre='"+ Edicion_pacientes.user_nombre_edicion1.getText()+"',fecha_nacimiento='"+Controlador_edicion_paciente.fecha_de_nacimiento_del_paciente()+"',edad='"+Controlador_edicion_paciente.edad_paraedicion+"',sexo='"+Edicion_pacientes.user_sexo_edicion.getSelectedItem().toString()+"',dato_auxiliar='"+Controlador_edicion_paciente.exito+"',medico='"+Edicion_pacientes.medico_edicion.getText()+"',telefono='"+Edicion_pacientes.user_telefono_edicion.getText()+"'WHERE dato_auxiliar='"+Controlador_edicion_paciente.editar+"'");
  int resultado = ps3.executeUpdate();
                 if(resultado>0){
                      JOptionPane.showMessageDialog(null, "Paciente editado con exito","Paciente editado",JOptionPane.OK_OPTION);
                 }
         }
             catch (Exception e){ 
-               JOptionPane.showMessageDialog(null, "Error en status_cancelado update venta" + e.getMessage());
+               JOptionPane.showMessageDialog(null, "Error en actualizar_paciente update paciente" + e.getMessage());
             }   finally{
                     cc.getClose();
                 }      
@@ -74,6 +74,7 @@ public class Modelo_edicion_paciente  {
                                                       java.util.Date fechaParseada= new SimpleDateFormat("yyyy/MM/dd").parse(rs.getString("fecha_nacimiento"));
                                                      Edicion_pacientes.calendar_fecha_nacimiento_edicion.setDate(fechaParseada);
                                                      Edicion_pacientes.user_sexo_edicion.setSelectedItem(rs.getString("sexo"));
+                                                     Edicion_pacientes.user_telefono_edicion.setText(rs.getString("telefono"));
                                                       }
                                                       }//fin del try-precio del producto
                                                       catch (Exception e){

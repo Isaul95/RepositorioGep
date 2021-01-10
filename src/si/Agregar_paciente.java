@@ -54,6 +54,8 @@ public class Agregar_paciente extends javax.swing.JFrame{
         jLabel79 = new javax.swing.JLabel();
         agregar_paciente = new javax.swing.JButton();
         user_años_meses = new javax.swing.JComboBox();
+        jLabel84 = new javax.swing.JLabel();
+        user_telefono = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -114,9 +116,9 @@ public class Agregar_paciente extends javax.swing.JFrame{
         user_edad.setBounds(150, 170, 90, 26);
 
         jLabel81.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
-        jLabel81.setText("Edad:");
+        jLabel81.setText("Telefono");
         jPanel2.add(jLabel81);
-        jLabel81.setBounds(20, 160, 66, 32);
+        jLabel81.setBounds(360, 210, 110, 32);
 
         jLabel78.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         jLabel78.setText("Sexo:");
@@ -160,6 +162,18 @@ public class Agregar_paciente extends javax.swing.JFrame{
         jPanel2.add(user_años_meses);
         user_años_meses.setBounds(260, 170, 160, 25);
 
+        jLabel84.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        jLabel84.setText("Edad:");
+        jPanel2.add(jLabel84);
+        jLabel84.setBounds(20, 160, 66, 32);
+
+        user_telefono.setBackground(new java.awt.Color(135, 193, 193));
+        user_telefono.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        user_telefono.setForeground(new java.awt.Color(0, 0, 0));
+        user_telefono.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        jPanel2.add(user_telefono);
+        user_telefono.setBounds(480, 220, 190, 26);
+
         jPanel1.add(jPanel2);
         jPanel2.setBounds(10, 50, 680, 380);
 
@@ -200,8 +214,6 @@ public class Agregar_paciente extends javax.swing.JFrame{
                    pass3 = validarFormulariotexto_paciente(medico.getText());
                      String fecha_paciente= Controladorventa.fecha_de_nacimiento_del_paciente();
                    if (pass && pass2 &&pass3&&!fecha_paciente.equalsIgnoreCase("")) {
-                      
-                        
                       if(nucleo.ventacredito.isSelected()){
                           Modelo_venta_a_credito.completar_venta_a_credito();
                           this.setVisible(false);
@@ -269,6 +281,7 @@ public class Agregar_paciente extends javax.swing.JFrame{
     private javax.swing.JLabel jLabel81;
     private javax.swing.JLabel jLabel82;
     private javax.swing.JLabel jLabel83;
+    private javax.swing.JLabel jLabel84;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     public static javax.swing.JTextField medico;
@@ -277,5 +290,6 @@ public class Agregar_paciente extends javax.swing.JFrame{
     public static javax.swing.JTextField user_edad;
     public static javax.swing.JTextField user_nombre;
     public static javax.swing.JComboBox user_sexo;
+    public static javax.swing.JTextField user_telefono;
     // End of variables declaration//GEN-END:variables
 }
