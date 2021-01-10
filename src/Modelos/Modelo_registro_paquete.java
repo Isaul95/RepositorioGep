@@ -14,6 +14,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 import si.Registro_paquete;
@@ -107,13 +110,13 @@ public class Modelo_registro_paquete extends Controlador_registro_paquete{
     }
      
        public static void mostrartodoslosproductosdelpaquete(String paquete) {
-        Registro_paquete.Tablepaquetes.setVisible(true);    //hace visible la tabla de proveedores 
+        Registro_paquete.Jtable_Tablepaquetes.setVisible(true);    //hace visible la tabla de proveedores 
         DefaultTableModel modelo = new DefaultTableModel(); // Se crea un objeto para agregar los nombres de las columnas a la tabla
         modelo.addColumn("");
         modelo.addColumn("Nombre");
          modelo.addColumn("Unidades");
         modelo.addColumn("Valor");
-        Registro_paquete.Tablepaquetes.setModel(modelo);  // Ya una vez asignado todos los nombres se le envia el objeto a la tabla proveedores
+        Registro_paquete.Jtable_Tablepaquetes.setModel(modelo);  // Ya una vez asignado todos los nombres se le envia el objeto a la tabla proveedores
         Object[] datos = new Object[4];     //Un arreglo con la cantidad de nombres en las columnas
         try {
             Connection ca = cc.conexion();
@@ -126,11 +129,9 @@ public class Modelo_registro_paquete extends Controlador_registro_paquete{
                 datos[3] = rs.getString(4);
                 modelo.addRow(datos); //se asigna el arreglo  entero a todo el objeto llamado modelo  
             }
-            Registro_paquete.Tablepaquetes.setModel(modelo); // Se vuelve a enviar nuevamente el objeto modelo a la tabla  
+            Registro_paquete.Jtable_Tablepaquetes.setModel(modelo); // Se vuelve a enviar nuevamente el objeto modelo a la tabla  
             //PARA AJUSTAR EL ANCHO DE LAS TABLAS
-            TableColumnModel columnModel = Registro_paquete.Tablepaquetes.getColumnModel();
-            //columnModel.getColumn(0).setPreferredWidth(250);
-             //   columnModel.getColumn(1).setPreferredWidth(5);
+            TableColumnModel columnModel = Registro_paquete.Jtable_Tablepaquetes.getColumnModel();
   columnModel.getColumn(0).setMaxWidth(10);
     columnModel.getColumn(0).setMinWidth(10);
     columnModel.getColumn(1).setMaxWidth(450);
@@ -139,6 +140,35 @@ public class Modelo_registro_paquete extends Controlador_registro_paquete{
     columnModel.getColumn(2).setMinWidth(100);
     columnModel.getColumn(3).setMaxWidth(800);
     columnModel.getColumn(3).setMinWidth(800);
+    modelo.addTableModelListener(new TableModelListener(){
+                @Override
+                public void tableChanged(TableModelEvent e) {
+                    int fila =Registro_paquete.Jtable_Tablepaquetes.getSelectedRow();
+                    int col =Registro_paquete.Jtable_Tablepaquetes.getSelectedColumn();            
+                    int id_producto = Integer.valueOf(Registro_paquete.Jtable_Tablepaquetes.getValueAt(fila, 0).toString());
+                    if(e.getType() == TableModelEvent.UPDATE){
+                        if(fila>=0){// CUANDO UNA CELDA SE SELECCIONO        
+                            String nombre_producto = modelo.getValueAt(fila, 1).toString();
+                            String unidades = modelo.getValueAt(fila, 2).toString();
+                            String valor_de_referencia = modelo.getValueAt(fila, 3).toString();
+                            
+                              String sql = "UPDATE paquetes SET nombre_producto='"+nombre_producto+"',unidades = '"+unidades+"',valordereferencia = '"+valor_de_referencia+"' WHERE id_producto="+id_producto;            
+              PreparedStatement pst;
+                          try{Connection ca= cc.conexion();
+                               pst = ca.prepareStatement(sql);
+                               int rows = pst.executeUpdate();
+                          if(rows>=1){
+                             System.out.println("Se actualiza el id_producto: "+id_producto);
+                          }
+                         } catch (SQLException ex) {
+                               JOptionPane.showMessageDialog(null, "ERROR EN METODO: tableChanged"+ex.getMessage(),"DEVELOPER HELPER", JOptionPane.ERROR_MESSAGE);      
+                           }finally{cc.getClose();}
+      
+                             }                             
+                    }
+   }
+
+            });
         } catch (SQLException ex) {
           
             JOptionPane.showMessageDialog(null, "No se pudo mostrar ningun dato porque tu consulta está mal");
@@ -197,6 +227,35 @@ public class Modelo_registro_paquete extends Controlador_registro_paquete{
     columnModel.getColumn(2).setMinWidth(100);
     columnModel.getColumn(3).setMaxWidth(800);
     columnModel.getColumn(3).setMinWidth(800);
+    
+     modelo.addTableModelListener(new TableModelListener(){
+                @Override
+                public void tableChanged(TableModelEvent e) {
+                    int fila =Registro_paquete.Tablepaquetessinanalisis.getSelectedRow();
+                    int col =Registro_paquete.Tablepaquetessinanalisis.getSelectedColumn();            
+                    int id_producto = Integer.valueOf(Registro_paquete.Tablepaquetessinanalisis.getValueAt(fila, 0).toString());
+                    if(e.getType() == TableModelEvent.UPDATE){
+                        if(fila>=0){// CUANDO UNA CELDA SE SELECCIONO        
+                            String nombre_producto = modelo.getValueAt(fila, 1).toString();
+                            String unidades = modelo.getValueAt(fila, 2).toString();
+                            String valor_de_referencia = modelo.getValueAt(fila, 3).toString();
+                            
+                              String sql = "UPDATE paquetes SET nombre_producto='"+nombre_producto+"',unidades = '"+unidades+"',valordereferencia = '"+valor_de_referencia+"' WHERE id_producto="+id_producto;            
+              PreparedStatement pst;
+                          try{Connection ca= cc.conexion();
+                               pst = ca.prepareStatement(sql);
+                               int rows = pst.executeUpdate();
+                          if(rows>=1){
+                             System.out.println("Se actualiza el id_producto: "+id_producto);
+                          }
+                         } catch (SQLException ex) {
+                               JOptionPane.showMessageDialog(null, "ERROR EN METODO: tableChanged"+ex.getMessage(),"DEVELOPER HELPER", JOptionPane.ERROR_MESSAGE);      
+                           }finally{cc.getClose();}
+      
+                             }                             
+                    }
+   }
+            });
         } catch (SQLException ex) {
           
             JOptionPane.showMessageDialog(null, "No se pudo mostrar ningun dato porque tu consulta está mal, mostrartodoslosanalisis_sinpaquete");
@@ -222,4 +281,6 @@ public class Modelo_registro_paquete extends Controlador_registro_paquete{
                   cc.getClose();
              }//fin del id del usuario
 }
-}
+    
+       }
+

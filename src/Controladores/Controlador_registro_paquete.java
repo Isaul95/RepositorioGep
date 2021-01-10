@@ -10,6 +10,7 @@ import Modelos.Modelo_registro_producto;
 import java.awt.Color;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import si.Registro_paquete;
 import static si.Registro_paquete.Tablepaquetessinanalisis;
 import si.Registro_producto;
 import static si.nucleo.Registro_paquete;
@@ -25,7 +26,7 @@ public class Controlador_registro_paquete {
         Modelo_registro_paquete.llenarcombodepaquetes();
         Modelo_registro_paquete.llenarcombodepaquetessinproductos();
         Modelo_registro_paquete.mostrartodoslosanalisis_sinpaquete(Modelo_registro_paquete.analisis_ya_registrados());
-    
+        
         
     }
     

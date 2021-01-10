@@ -53,14 +53,15 @@ public class Registro_paquete extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
-        paquetes = new javax.swing.JComboBox<>();
+        paquetes = new javax.swing.JComboBox<String>();
         jScrollPane1 = new javax.swing.JScrollPane();
-        Tablepaquetes = new javax.swing.JTable();
-        paquetes_sinproducto = new javax.swing.JComboBox<>();
+        Jtable_Tablepaquetes = new javax.swing.JTable();
+        paquetes_sinproducto = new javax.swing.JComboBox<String>();
         jLabel9 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         Tablepaquetessinanalisis = new javax.swing.JTable();
         agregartodos1 = new javax.swing.JButton();
+        editar_productos = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         B_cancelar = new javax.swing.JButton();
@@ -95,7 +96,7 @@ public class Registro_paquete extends javax.swing.JFrame {
         });
         jPanel1.add(paquetes, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 320, 500, -1));
 
-        Tablepaquetes = new javax.swing.JTable(){
+        Jtable_Tablepaquetes = new javax.swing.JTable(){
             public boolean isCellEditable(int filas, int columnas){
                 if(columnas!=0){
                     return true;
@@ -104,7 +105,7 @@ public class Registro_paquete extends javax.swing.JFrame {
                 }
             }
         };
-        Tablepaquetes.setModel(new javax.swing.table.DefaultTableModel(
+        Jtable_Tablepaquetes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -112,7 +113,7 @@ public class Registro_paquete extends javax.swing.JFrame {
 
             }
         ));
-        jScrollPane1.setViewportView(Tablepaquetes);
+        jScrollPane1.setViewportView(Jtable_Tablepaquetes);
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 370, 1290, 210));
 
@@ -134,7 +135,11 @@ public class Registro_paquete extends javax.swing.JFrame {
 
         Tablepaquetessinanalisis = new javax.swing.JTable(){
             public boolean isCellEditable(int filas, int columnas){
-                return false;
+                if(columnas!=0){
+                    return true;
+                }else{
+                    return false;
+                }
             }
         };
         Tablepaquetessinanalisis.setModel(new javax.swing.table.DefaultTableModel(
@@ -159,6 +164,17 @@ public class Registro_paquete extends javax.swing.JFrame {
             }
         });
         jPanel1.add(agregartodos1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1160, 20, -1, 40));
+
+        editar_productos.setBackground(new java.awt.Color(255, 255, 255));
+        editar_productos.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        editar_productos.setForeground(new java.awt.Color(204, 0, 0));
+        editar_productos.setText("Editar productos");
+        editar_productos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editar_productosActionPerformed(evt);
+            }
+        });
+        jPanel1.add(editar_productos, new org.netbeans.lib.awtextra.AbsoluteConstraints(1150, 310, -1, 40));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 1300, 610));
 
@@ -213,6 +229,10 @@ public class Registro_paquete extends javax.swing.JFrame {
     JOptionPane.showMessageDialog(null, "No hay análisis que agregar","Por favor verifique",JOptionPane.ERROR_MESSAGE);
      }
     }//GEN-LAST:event_agregartodos1ActionPerformed
+
+    private void editar_productosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editar_productosActionPerformed
+       if(Controladorventa.noduplicar_edicion_productos==false){new Crud_productos().setVisible(true);}
+    }//GEN-LAST:event_editar_productosActionPerformed
    
     /**
      * @param args the command line arguments
@@ -261,9 +281,10 @@ public class Registro_paquete extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton B_cancelar;
-    public static javax.swing.JTable Tablepaquetes;
+    public static javax.swing.JTable Jtable_Tablepaquetes;
     public static javax.swing.JTable Tablepaquetessinanalisis;
     private javax.swing.JButton agregartodos1;
+    private javax.swing.JButton editar_productos;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
