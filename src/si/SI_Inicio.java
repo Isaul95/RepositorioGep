@@ -1,5 +1,6 @@
 package si;
 import Controladores.Controladorventa;
+import static Modelos.Modelo_registro_paquete.sent;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
@@ -246,12 +247,66 @@ public static String fecha(){ /* SE DECARA LA FECHA DEL SISTEMA */
                 if(datos[2].equalsIgnoreCase("N")){
                 JOptionPane.showMessageDialog(null,"Usuario Inactivo, por favor comunicate con tu administrador para recuperar tu usuario","               Lo sentimos",JOptionPane.WARNING_MESSAGE);
             }
-            else{
+            else{  //USUARIO ACTIVO 
                     yacerrosistema();
-                     if(resultadoclose>0){
+                     if(resultadoclose>0&&!text_user.getText().equalsIgnoreCase("Administrador")){
                   JOptionPane.showMessageDialog(null,"Ya se hizo corte de caja, por lo tanto no se puede abrir hasta el día de mañana"," Espera un momento",JOptionPane.INFORMATION_MESSAGE); //Msg de bienvenida                                                                     
+             } else if(resultadoclose>0&&text_user.getText().equalsIgnoreCase("Administrador")){
+                  JOptionPane.showMessageDialog(null,"Se eliminar el corte registrado, ¡Se abre sistema!"," Espera un momento",JOptionPane.INFORMATION_MESSAGE); //Msg de bienvenida                                                                     
+              eliminar_corte();
+                  loggearte();
              }
-              else if(user.equals(datos[0])&&pass.equals(datos[1])){ //comparacion entre lo escrito por el usuario y lo almacenado en la base de datos
+             else{
+                 loggearte();
+             }
+            }// FIN DE USUARIO ACTIVO
+                 
+        } catch (SQLException ex) {
+            Logger.getLogger(SI_Inicio.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    catch(NullPointerException NPE ){
+        JOptionPane.showMessageDialog(null, "No se encontró el usuario","Error", JOptionPane.ERROR_MESSAGE);
+    }
+           finally{
+                  cc.getClose();
+             }
+     }
+        }
+    }//GEN-LAST:event_pass_userKeyReleased
+public  void eliminar_corte (){
+        try{ Connection ca= cc.conexion();// La suma de todos los importes
+                                        String sql = "delete from cortes where id_corte = '"+id_max_corte()+"' and fecha = '"+Controladorventa.fecha()+"'  ";
+                                           PreparedStatement ps = ca.prepareStatement(sql);
+                                           ps.execute();     
+                                                      }//fin del try-precio del producto
+                                                      catch (Exception e){
+                                                           JOptionPane.showMessageDialog(null, "ERROR EN METODO: eliminar_corte","DEVELOPER HELPER", JOptionPane.ERROR_MESSAGE);       
+                                                      }// fin del precio-catch del producto
+        finally{
+                  cc.getClose();
+             }
+    }
+public  int id_max_corte(){
+     int id = 0;
+                        try{ Connection ca= cc.conexion();
+                          sent = ca.createStatement();
+                          ResultSet rs= sent.executeQuery("SELECT  max(id_corte) FROM  cortes");
+                          if(rs.next()){
+                                   id=rs.getShort(1);
+                         }
+                         }catch(Exception a){
+                                JOptionPane.showMessageDialog(null, "Error, id_max_corte","HELPER DEVELOPER",JOptionPane.INFORMATION_MESSAGE); 
+                                                     }finally{
+                  cc.getClose();
+             }
+                        return id;
+  }
+
+
+public void loggearte(){
+    
+//LO DE ABAJO ES QUE AÚN NO SE CIERRA SISTEMA
+             if(user.equals(datos[0])&&pass.equals(datos[1])){ //comparacion entre lo escrito por el usuario y lo almacenado en la base de datos
                yaseabriosistema();
              if(aperturahecha==0){//Si el valor de apertua es mayo a 0, no se abrirá la ventana de apertura
                  this.setVisible(false);  
@@ -283,21 +338,7 @@ public static String fecha(){ /* SE DECARA LA FECHA DEL SISTEMA */
              }  //Procediendo a bloquear usuario
                        System.exit(0);  //Y ya una vez bloqueado el usuario, el programa se cerrara automaticamente
                      }*/
-            }
-                 
-        } catch (SQLException ex) {
-            Logger.getLogger(SI_Inicio.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    catch(NullPointerException NPE ){
-        JOptionPane.showMessageDialog(null, "No se encontró el usuario","Error", JOptionPane.ERROR_MESSAGE);
-    }
-           finally{
-                  cc.getClose();
-             }
-     }
-        }
-    }//GEN-LAST:event_pass_userKeyReleased
-
+}
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
