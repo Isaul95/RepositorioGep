@@ -163,10 +163,10 @@ public static void nombredeproductoylacantidaddelmismo_en_descripcion_deventapar
                           sent = ca.createStatement();
                           ResultSet rs= sent.executeQuery("SELECT  max(id_venta) FROM  venta");
                           if(rs.next()){
-                                   id_de_la_venta_incrementable=rs.getShort(1);
+                                   id_de_la_venta_incrementable=rs.getLong(1);
                          }
                          }catch(Exception a){
-                                JOptionPane.showMessageDialog(null, "Error, id_max_de_venta","HELPER DEVELOPER",JOptionPane.INFORMATION_MESSAGE); 
+                                JOptionPane.showMessageDialog(null, "Error, id_max_de_venta"+a.getMessage(),"HELPER DEVELOPER",JOptionPane.INFORMATION_MESSAGE); 
                                                      }finally{
                   cc.getClose();
              }
@@ -209,7 +209,7 @@ if(NoP.equals("Pechuga en bisteck")&&NoPimporte!=0){ //Si el nombre del producto
                      importe = (float)cantidaddeproductos*precio;        
                 pst.setFloat(5,importe);
                 id_max_de_venta();
-                pst.setInt(6,(id_de_la_venta_incrementable));
+                pst.setLong(6,(id_de_la_venta_incrementable));
                 pst.setString(7, estadoenturno);
                 pst.setString(8, fecha());
                 int a=pst.executeUpdate();
@@ -263,7 +263,7 @@ if(NoP.equals("Muslo C/Broas")&&NoPimporte!=0){ //Si el nombre del producto es d
                 importe = (float)cantidaddeproductos*precio;        
                 pst.setFloat(5,importe);
                 id_max_de_venta();
-                pst.setInt(6,(id_de_la_venta_incrementable));
+                pst.setLong(6,(id_de_la_venta_incrementable));
                 pst.setString(7, estadoenturno);
                 pst.setString(8, fecha());
                 int a=pst.executeUpdate();
@@ -316,7 +316,7 @@ if(NoP.equals("Pierna C/Broas")&&NoPimporte!=0){ //Si el nombre del producto es 
                importe = (float)cantidaddeproductos*precio;        
                 pst.setFloat(5,importe);
                 id_max_de_venta();
-                pst.setInt(6,(id_de_la_venta_incrementable));
+                pst.setLong(6,(id_de_la_venta_incrementable));
                 pst.setString(7, estadoenturno);
                 pst.setString(8, fecha());
                 int a=pst.executeUpdate();
@@ -404,7 +404,7 @@ try{Connection ca= cc.conexion();   // ESTE ES PARA EL UPDATE
              }else{ importe = (float)cantidaddeproductos*precio;}
                 pst.setFloat(5,importe);
                id_max_de_venta();
-                pst.setInt(6,(id_de_la_venta_incrementable));
+                pst.setLong(6,(id_de_la_venta_incrementable));
                 pst.setString(7, estadoenturno);
                 pst.setString(8, fecha());
                 int a=pst.executeUpdate();
@@ -422,7 +422,7 @@ try{Connection ca= cc.conexion();   // ESTE ES PARA EL UPDATE
   }
    public static void verificar_id_ingresadoalsistema(){ //verifica que haya o no una venta que fue cancelada previamente en la sesio anterior
         id_max_de_venta();
-    int id_para_comprobacion = id_de_la_venta_incrementable, id=0;
+    long id_para_comprobacion = id_de_la_venta_incrementable, id=0;
         try {Connection ca= cc.conexion();
              sent = ca.createStatement();   
              rs = sent.executeQuery("select * from venta where id_venta= '"+id_para_comprobacion+"'");
@@ -454,7 +454,7 @@ try{Connection ca= cc.conexion();   // ESTE ES PARA EL UPDATE
     }
    public static void comprobar_venta_resagada(){ //verifica que haya o no una venta que fue cancelada previamente en la sesio anterior
         id_max_de_venta();
-    int id_para_comprobacion = id_de_la_venta_incrementable;
+    long id_para_comprobacion = id_de_la_venta_incrementable;
         try {Connection ca= cc.conexion();
              sent = ca.createStatement();   
              rs = sent.executeQuery("select * from venta where id_venta= '"+id_para_comprobacion+"'");
@@ -510,7 +510,7 @@ if(NoP.equals(nombredepieza)){ //Si el nombre del producto es diferente del esta
                 importe = (float)1*cantidaddeproductos;     
                 pst.setFloat(5,importe);
                 id_max_de_venta();
-                pst.setInt(6,(id_de_la_venta_incrementable));
+                pst.setLong(6,(id_de_la_venta_incrementable));
                 pst.setString(7, estadoenturno);
                 pst.setString(8, fecha());
                 int a=pst.executeUpdate();
@@ -802,7 +802,7 @@ if(variablepago<Float.parseFloat(nucleo.subtotal.getText())){ // comprueba que l
                 JOptionPane.showMessageDialog(null,"No tiene valor la cantidad recibida","!Espera!",JOptionPane.INFORMATION_MESSAGE);
 }
     }
-public static void descripciondelosprouductosparaelticketdeventa(int numerodeventa){
+public static void descripciondelosprouductosparaelticketdeventa(long numerodeventa){
          try {Connection ca= cc.conexion();
                  String sSQL = "SELECT nombre_producto, cantidad, precio_unitario, importe FROM descripcion_de_venta WHERE estado='Realizada' AND id_venta = '"+numerodeventa+"' ";  
         PreparedStatement ps = ca.prepareStatement(sSQL);       
@@ -843,7 +843,7 @@ public static void descripciondelosprouductosparaelticketdeventa(int numerodeven
                   cc.getClose();
              }
     }
-public static void total_pagoycambiopararelticketdeventa(int id){ // recibe como parametro 
+public static void total_pagoycambiopararelticketdeventa(long id){ // recibe como parametro 
          Object[] columna = new Object[5];  //crear un obj con el nombre de colunna
         try {Connection ca= cc.conexion();
          String sSQL = "SELECT subtotal, total, pago, cambio, descuento FROM venta WHERE estado_venta='"+estadorealizado+"' AND fecha_reporte = '"+fecha()+"' and id_venta='"+id+"' ";
@@ -971,7 +971,7 @@ public static void acciones_despues_de_regresaroagregaraventa(){
                             nucleo.total.setText(String.valueOf(sumadeimportesenturno));
                      }
 }
-public static void obtenerlosiddelavebta_enturno_o_venta_cancelada(String estadodelaventa, int id_enturno_o_cancelado){
+public static void obtenerlosiddelavebta_enturno_o_venta_cancelada(String estadodelaventa, long id_enturno_o_cancelado){
                 try{Connection ca= cc.conexion();
                 sent  =(Statement)ca.createStatement(); 
                      rs = sent.executeQuery("select id_producto from descripcion_de_venta where estado='"+estadodelaventa+"'and id_venta='"+id_enturno_o_cancelado+"'and fecha='"+fecha()+"'  ");       
@@ -984,7 +984,7 @@ public static void obtenerlosiddelavebta_enturno_o_venta_cancelada(String estado
                 }
 }
 
-public static void regresarproductos_a_inventariodescontandotodaslaspiezas(String estadodelaventa, int id_enturno_o_cancelado){ // este metodo devuelve los productos que fueron agregados a la venta y posteriormente fueron cancelados
+public static void regresarproductos_a_inventariodescontandotodaslaspiezas(String estadodelaventa, long id_enturno_o_cancelado){ // este metodo devuelve los productos que fueron agregados a la venta y posteriormente fueron cancelados
    obtenerlosiddelavebta_enturno_o_venta_cancelada(estadodelaventa, id_enturno_o_cancelado);
                 for(ciclofor=0;ciclofor<=storage.size()-1;ciclofor++){
                     if(storage.get(ciclofor).toString().equals("57")){ 
@@ -1010,7 +1010,7 @@ JOptionPane.showMessageDialog(null, "Error en regresarproductos_a_inventariodesc
                  //PENDIENTE EL REGRESO DE POLLO A INVENTARIO 
                 }//fin del ciclo for              
 }
-public static void cantidadenventasumadecantidadesfinales(String estadoventa, int pieza, int id_enturno_o_cancelado){
+public static void cantidadenventasumadecantidadesfinales(String estadoventa, int pieza, long id_enturno_o_cancelado){
     id_max_de_venta();  //Cantidad en venta
                 try{Connection ca= cc.conexion();
                 sent  =(Statement)ca.createStatement(); 

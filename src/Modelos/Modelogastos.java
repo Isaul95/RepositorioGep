@@ -102,7 +102,7 @@ public static void insertarengastos(String nombre, float monto){
       }//fin del id del usuario para comprobar si hay o no elementos ya guardados
         finally{cc.getClose();}
     }
-public static void insertarventacondescuentoengastos(String nombre, float monto, int idventa){
+public static void insertarventacondescuentoengastos(String nombre, float monto, long idventa){
         try{ Connection ca= cc.conexion(); // CONEXION DB // el id del usuario para obtener el id del usuario y comprobar si hay o no algun registro
    String sql = "INSERT INTO  egreso(cantidad, tipo, fecha, total, usuario, id_venta)  VALUES (?,?,?,?,?,?)";
                          PreparedStatement pst = ca.prepareCall(sql); 
@@ -111,7 +111,7 @@ public static void insertarventacondescuentoengastos(String nombre, float monto,
                          pst.setString(3,Controladorventa.fecha());
                          pst.setFloat(4,monto);
                          pst.setInt(5,Controladorgastos.id_usuario);
-                          pst.setInt(6,idventa);
+                          pst.setLong(6,idventa);
                          int a=pst.executeUpdate();
                          if(a>0){   // UPDATE `productoexternoblanca` SET `pieza`=0;
                   }                                                 

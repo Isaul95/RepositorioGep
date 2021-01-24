@@ -437,7 +437,7 @@ try {Connection ca= cc.conexion();
                   cc.getClose();
              }
     }
-   public static void total_pagoycambiopararelticketdeventacredito(int id){ // recibe como parametro 
+   public static void total_pagoycambiopararelticketdeventacredito(long id){ // recibe como parametro 
          Object[] columna = new Object[5];  //crear un obj con el nombre de colunna
         try {Connection ca= cc.conexion();
          String sSQL = "SELECT subtotal, total, pago, cambio, descuento FROM venta WHERE estado_venta='"+creditopendiente+"' AND fecha_reporte = '"+Controladorventa.fecha()+"' and id_venta='"+id+"' ";
@@ -456,7 +456,7 @@ try {Connection ca= cc.conexion();
                   cc.getClose();
              }
 }
-   public static void descripciondelosprouductosparaelticketdeventacredito(int numerodeventa){
+   public static void descripciondelosprouductosparaelticketdeventacredito(long numerodeventa){
          String nombre="";
                 try {Connection ca= cc.conexion();
                  String sSQL = "SELECT nombre_producto, cantidad, precio_unitario, importe, nombre_credito FROM descripcion_de_venta WHERE estado='Credito-pendiente' AND id_venta = '"+numerodeventa+"' ";  

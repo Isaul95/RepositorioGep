@@ -11,7 +11,7 @@ public class ticketventacredito {
                ArrayList piezas, 
                ArrayList precio, 
                ArrayList importe, 
-                float subtotal, float total, float pago, float cambio, int numerodeventa) {
+                float subtotal, float total, float pago, float cambio, long numerodeventa) {
        
         Date date = new Date();
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");

@@ -28,8 +28,8 @@ public static float variablepago, piezassuficientes, cantidadporerrordeusuario,
            cantidadpolloenDB, porcentaje, importe,cambio,precio, 
            NoPimporte=0,sumadeimportesenturno;
    
- public static short  id_producto, ciclofor,fila,id_usuario, id_de_la_venta_incrementable,totalcomprobacion, primerventa;//SI SE OCUPAN   
- 
+ public static short  id_producto, ciclofor,fila,id_usuario,totalcomprobacion, primerventa;//SI SE OCUPAN   
+ public static long id_de_la_venta_incrementable;
     public static String  fechadesde="",fechahasta="", fechaparaventasdesde="", fechaparaventashasta="";
 public static String nombredepiezaseleccionada="";
 public static String estadoinactivo="Inactivo", estadoactivo="Activo", NoP="",
