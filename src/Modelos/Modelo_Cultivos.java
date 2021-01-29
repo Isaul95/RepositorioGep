@@ -29,8 +29,8 @@ public class Modelo_Cultivos {
         modeloT.addColumn("Estudios");
         modeloT.addColumn("Categoria");        
         try {
-            Connection ca = cc.conexion(); 
-         String sSQL = "select distinct descripcion_de_venta.nombre_producto, descripcion_de_venta.resultado, paquetes.categoria_estudios from venta INNER JOIN descripcion_de_venta on venta.id_venta = descripcion_de_venta.id_venta inner join paquetes on descripcion_de_venta.id_producto = paquetes.id_producto WHERE descripcion_de_venta.estado = 'Realizada' and fecha = curdate() and descripcion_de_venta.resultado = 'POSITIVO' and descripcion_de_venta.id_venta = '"+Muestra_de_Cultivos.id_venta.getText()+"'";  
+            Connection ca = cc.conexion();                                                                                                                                                                                                                                                                                                                         // and fecha = curdate()
+         String sSQL = "select distinct descripcion_de_venta.nombre_producto, descripcion_de_venta.resultado, paquetes.categoria_estudios from venta INNER JOIN descripcion_de_venta on venta.id_venta = descripcion_de_venta.id_venta inner join paquetes on descripcion_de_venta.id_producto = paquetes.id_producto WHERE descripcion_de_venta.estado = 'Realizada' and descripcion_de_venta.resultado = 'POSITIVO' and descripcion_de_venta.id_venta = '"+Muestra_de_Cultivos.id_venta.getText()+"'";  
 PreparedStatement ps = ca.prepareStatement(sSQL);
             try (ResultSet rs = ps.executeQuery(sSQL)) {
                 while (rs.next()) {
