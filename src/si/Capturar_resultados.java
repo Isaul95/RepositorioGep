@@ -298,14 +298,13 @@ public Capturar_resultados(int id_venta_a_capturar_resultados){
     }// </editor-fold>//GEN-END:initComponents
 
     private void gastos_btn_backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gastos_btn_backActionPerformed
-       dispose();
+       dispose();  
     }//GEN-LAST:event_gastos_btn_backActionPerformed
 
     private void genetrar_PdfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_genetrar_PdfActionPerformed
            // GENERANDO PDF DE CLIENTES
           //PDF CON LONGITUDES DE ANALISIS MAYORES O IGUALES A 68
         if (Modelo_capturar_resultados.verificar_estudio_con_longitud_mayor(Integer.valueOf(id_venta.getText())) >= 1) {
-            //AQUÃ� VA TU NUEVO PDF
 //    PDF LARGO
             Controlador_Report_Pdf_ReferenciaMayor ref = new Controlador_Report_Pdf_ReferenciaMayor();
             ref.Generacion_PDF_client_referenciaMayor("_02");
@@ -319,7 +318,11 @@ public Capturar_resultados(int id_venta_a_capturar_resultados){
           else if(Modelo_capturar_resultados.activarVistaParaCapturadeCultivosxx(Integer.valueOf(id_venta.getText()))>=1){
             //JOptionPane.showMessageDialog(null, "Toy enyrando en el valor de resultadi igual a => +");
             new Muestra_de_Cultivos().setVisible(true);
-            }   
+            } 
+          else if(Modelo_capturar_resultados.activarVistaParaCapturadeCoproparasitoscopico(Integer.valueOf(id_venta.getText()))>=1){
+            JOptionPane.showMessageDialog(null, "Toy enyrando EN EL IF DEL Coproparasitoscopico  ");
+            new Captura_Coproparasitoscopico().setVisible(true);
+            }
         
         else{//PDF CON LONGITUDES DE ANALISIS MENORES A 68
             Controlador_Report_pdf_paquetes pac = new Controlador_Report_pdf_paquetes();
