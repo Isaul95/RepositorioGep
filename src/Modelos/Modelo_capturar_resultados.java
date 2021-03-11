@@ -190,7 +190,7 @@ try{ Connection ca= cc.conexion();// CUENTA EL TODAL DE CUANTAS VENTAS SE REALIZ
   public static int activarVistaParaCapturadeCultivosxx(int id_venta){
 try{ Connection ca= cc.conexion();// CUENTA EL TODAL DE CUANTAS VENTAS SE REALIZARON
                                          Statement sent  =(Statement)ca.createStatement();
-                                         ResultSet  rs = sent.executeQuery("select count(*) from descripcion_de_venta dv WHERE  dv.id_venta = '"+id_venta+"' and dv.resultado in ('POSITIVO') and SUBSTRING(nombre_producto,1,7) not in ('PAQUETE')");
+                                         ResultSet  rs = sent.executeQuery("select count(*) from descripcion_de_venta dv WHERE  dv.id_venta = '"+id_venta+"' and dv.resultado in ('POSITIVO') and SUBSTRING(nombre_producto,1,7) not in ('PAQUETE') AND dv.nombre_producto not in ('COPROPARASITOSCOPICO 1','COPROPARASITOSCOPICO 2','COPROPARASITOSCOPICO 3')");
                                             if(rs.next()){
                                                       Controlador_capturar_resultados.respuesta_para_activar_el_pdf =Integer.parseInt(String.valueOf(rs.getInt("count(*)")));
                                                       }
@@ -208,7 +208,7 @@ try{ Connection ca= cc.conexion();// CUENTA EL TODAL DE CUANTAS VENTAS SE REALIZ
   public static int activarVistaParaCapturadeCoproparasitoscopico(int id_venta){
 try{ Connection ca= cc.conexion();// CUENTA EL TODAL DE CUANTAS VENTAS SE REALIZARON
                                          Statement sent  =(Statement)ca.createStatement();
-                                         ResultSet  rs = sent.executeQuery("select count(*) from descripcion_de_venta dv WHERE  dv.id_venta = '"+id_venta+"' and dv.resultado in ('NEGATIVO') and SUBSTRING(nombre_producto,1,7) not in ('PAQUETE')");
+                                         ResultSet  rs = sent.executeQuery("select count(*) from descripcion_de_venta dv WHERE  dv.id_venta = '"+id_venta+"' and dv.resultado in ('NEGATIVO') and SUBSTRING(nombre_producto,1,7) not in ('PAQUETE') AND dv.nombre_producto in ('COPROPARASITOSCOPICO 1','COPROPARASITOSCOPICO 2','COPROPARASITOSCOPICO 3') ");
                                             if(rs.next()){
                                                       Controlador_capturar_resultados.respuesta_para_activar_el_pdf =Integer.parseInt(String.valueOf(rs.getInt("count(*)")));
                                                       }
@@ -217,7 +217,7 @@ try{ Connection ca= cc.conexion();// CUENTA EL TODAL DE CUANTAS VENTAS SE REALIZ
                                                            JOptionPane.showMessageDialog(null, "ERROR EN METODO: activar_boton_pdf: "+e.getMessage(),"DEVELOPER HELPER", JOptionPane.ERROR_MESSAGE);      
                                                       }// fin del precio-catch del producto
         finally{
-                  cc.getClose();
+                  cc.getClose(); 
              }
       return Controlador_capturar_resultados.respuesta_para_activar_el_pdf;
   }
@@ -232,7 +232,7 @@ try{ Connection ca= cc.conexion();// CUENTA EL TODAL DE CUANTAS VENTAS SE REALIZ
 try{ Connection ca= cc.conexion();// CUENTA EL TODAL DE CUANTAS VENTAS SE REALIZARON
                                          Statement sent  =(Statement)ca.createStatement();
                                         
-                                         ResultSet  rs = sent.executeQuery("select count(*) from descripcion_de_venta dv inner join paquetes p on dv.id_producto = p.id_producto WHERE  dv.id_venta = '"+id_venta+"' and dv.estado = 'Realizada' AND CHAR_LENGTH(p.valordereferencia ) >= 68 AND dv.resultado != 'POSITIVO' and p.valordereferencia not in ('--')");
+                                         ResultSet  rs = sent.executeQuery("select count(*) from descripcion_de_venta dv inner join paquetes p on dv.id_producto = p.id_producto WHERE  dv.id_venta = '"+id_venta+"' and dv.estado = 'Realizada' AND CHAR_LENGTH(p.valordereferencia ) >= 68 AND dv.resultado != 'POSITIVO' and p.valordereferencia not in ('--') AND dv.nombre_producto not in ('COPROPARASITOSCOPICO 1','COPROPARASITOSCOPICO 2','COPROPARASITOSCOPICO 3')");
                                             if(rs.next()){
                                                       result =Integer.parseInt(String.valueOf(rs.getInt("count(*)")));
                                                       }
@@ -251,7 +251,7 @@ try{ Connection ca= cc.conexion();// CUENTA EL TODAL DE CUANTAS VENTAS SE REALIZ
                                          Statement sent  =(Statement)ca.createStatement();
                                          //PARA LOS PDF CON + Y SUS VALORES DE REFEREMCOA SEAM PEQUEÑOS
                                         //select count(*) from descripcion_de_venta dv inner join paquetes p on dv.id_producto = p.id_producto WHERE dv.id_venta = 2 and dv.estado = 'Realizada' AND dv.resultado != '+' AND CHAR_LENGTH(p.valordereferencia ) < 60 and p.valordereferencia not in ('')
-                                        ResultSet  rs = sent.executeQuery("select count(*) from descripcion_de_venta dv inner join paquetes p on dv.id_producto = p.id_producto WHERE dv.id_venta = '"+id_venta+"' and dv.estado = 'Realizada'  AND CHAR_LENGTH(p.valordereferencia ) < 60 AND dv.resultado != 'POSITIVO' and p.valordereferencia not in ('--')");
+                                        ResultSet  rs = sent.executeQuery("select count(*) from descripcion_de_venta dv inner join paquetes p on dv.id_producto = p.id_producto WHERE dv.id_venta = '"+id_venta+"' and dv.estado = 'Realizada'  AND CHAR_LENGTH(p.valordereferencia ) < 60 AND dv.resultado != 'POSITIVO' and p.valordereferencia not in ('--') AND dv.nombre_producto not in ('COPROPARASITOSCOPICO 1','COPROPARASITOSCOPICO 2','COPROPARASITOSCOPICO 3')");
 //ResultSet  rs = sent.executeQuery("select count(*) from descripcion_de_venta dv inner join paquetes p on dv.id_producto = p.id_producto WHERE  dv.id_venta = '"+id_venta+"' and dv.estado = 'Realizada' AND CHAR_LENGTH(p.valordereferencia ) < 68 GROUP BY p.valordereferencia AND dv.resultado != '+'");
                                             if(rs.next()){
                                                       result =Integer.parseInt(String.valueOf(rs.getInt("count(*)")));
