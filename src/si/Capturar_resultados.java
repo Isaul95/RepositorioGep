@@ -361,6 +361,15 @@ public Capturar_resultados(int id_venta_a_capturar_resultados){
             } 
             
             }
+          /*
+Isaul hdz
+Fechas: 03-09-2022
+Agregar conteo celular es otro estudio nuevo
+Activar vita de conteo celular....          
+*/
+        else if(Modelo_capturar_resultados.activarVistaParaCaptura_ConteoCelular(Integer.valueOf(id_venta.getText()))>=1){
+          new Captura_Conteo_Celular().setVisible(true);
+        }
                       //*****************************PDF Coproparasitoscopico
           
         else{//PDF CON LONGITUDES DE ANALISIS MENORES A 68

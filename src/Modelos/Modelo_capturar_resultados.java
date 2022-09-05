@@ -221,6 +221,29 @@ try{ Connection ca= cc.conexion();// CUENTA EL TODAL DE CUANTAS VENTAS SE REALIZ
              }
       return Controlador_capturar_resultados.respuesta_para_activar_el_pdf;
   }
+  
+  /*
+Isaul hdz
+Fechas: 03-09-2022
+  Agregar conteo celular es otro estudio nuevo
+*/
+    public static int activarVistaParaCaptura_ConteoCelular(int id_venta){
+try{ Connection ca= cc.conexion();// CUENTA EL TODAL DE CUANTAS VENTAS SE REALIZARON
+                                         Statement sent  =(Statement)ca.createStatement();
+// ResultSet  rs = sent.executeQuery("select count(*) from descripcion_de_venta dv WHERE  dv.id_venta = '"+id_venta+"' and dv.resultado in ('NEGATIVO') and SUBSTRING(nombre_producto,1,7) not in ('PAQUETE') AND dv.nombre_producto in ('COPROPARASITOSCOPICO 1','COPROPARASITOSCOPICO 2','COPROPARASITOSCOPICO 3') ");
+   ResultSet  rs = sent.executeQuery("select count(*) from descripcion_de_venta dv WHERE  dv.id_venta = '"+id_venta+"' and dv.resultado in ('CONTEO') and SUBSTRING(nombre_producto,1,7) not in ('PAQUETE') AND dv.nombre_producto in ('CONTEO CELULAR') ");
+                                            if(rs.next()){
+                                                      Controlador_capturar_resultados.respuesta_para_activar_el_pdf =Integer.parseInt(String.valueOf(rs.getInt("count(*)")));
+                                                      }
+                                                      }//fin del try-precio del producto
+                                                      catch (Exception e){
+                                                           JOptionPane.showMessageDialog(null, "ERROR EN METODO: activar_boton_pdf: "+e.getMessage(),"DEVELOPER HELPER", JOptionPane.ERROR_MESSAGE);      
+                                                      }// fin del precio-catch del producto
+        finally{
+                  cc.getClose(); 
+             }
+      return Controlador_capturar_resultados.respuesta_para_activar_el_pdf;
+  }
     
     // ======= ============       ================0 ============ ================== ======
   
