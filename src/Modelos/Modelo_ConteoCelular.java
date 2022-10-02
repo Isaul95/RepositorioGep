@@ -128,6 +128,28 @@ PreparedStatement ps = ca.prepareStatement(sSQL);
         }        
     }
     
+    
+    public static void inserciondeObservacionesDeConteoCelular(String conteo1, String conteo2){
+        try {                        
+            Connection ca = cc.conexion(); 
+            String sql = "INSERT INTO observaciones_conteocelular(tipo_observaciones, valor_obs, id_venta) VALUES (?,?,?)";
+            PreparedStatement pst = ca.prepareCall(sql);
+            
+            pst.setString(1, conteo1);
+            pst.setString(2, conteo2);            
+            pst.setInt(3,Controlador_capturar_resultados.id_a_actualizar_resultados);                                   
+                        
+            int a = pst.executeUpdate();            
+            if (a > 0) {   
+            }
+        } catch (Exception w) {
+            JOptionPane.showMessageDialog(null, "captura de Resultados De Conteo Celular" + w);
+        }
+        finally {
+            cc.getClose();
+        }        
+    }
+    
     public static void LlenarTablaConteo(JTable tablaD) {
           Object[] columna = new Object[2];
         DefaultTableModel modeloT = new DefaultTableModel();
@@ -143,23 +165,50 @@ PreparedStatement ps = ca.prepareStatement(sSQL);
                 while (rs.next()) {
                     columna[0] = rs.getString("dato_resultado");
                     columna[1] = rs.getString("valor_conteo");                    
-                    //columna[2] = rs.getString("valor_referencia");
                     modeloT.addRow(columna);
                 }
             }
             TableColumnModel columnModel = tablaD.getColumnModel();
-            columnModel.getColumn(0).setMinWidth(140);
-            columnModel.getColumn(0).setMaxWidth(140);
-            columnModel.getColumn(1).setMinWidth(300);
-            columnModel.getColumn(1).setMaxWidth(300);           
-            //columnModel.getColumn(2).setMinWidth(140);
-            //columnModel.getColumn(2).setMaxWidth(140);
+            columnModel.getColumn(0).setMinWidth(240);
+            columnModel.getColumn(0).setMaxWidth(240);
+            columnModel.getColumn(1).setMinWidth(150);
+            columnModel.getColumn(1).setMaxWidth(150);           
             
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e, "LlenarTabladeBacterias", JOptionPane.PLAIN_MESSAGE);
         } finally {
             cc.getClose();
-        }
-        
+        }        
     }
+    
+
+    public static void LlenarTabladeObservaciones(JTable tablaD) {
+        Object[] columna = new Object[2];
+        DefaultTableModel modeloT = new DefaultTableModel();
+        tablaD.setModel(modeloT);       
+        modeloT.addColumn("Tipo");
+        modeloT.addColumn("Observaciones");
+        try {              
+            Connection ca = cc.conexion(); 
+            String sSQL = "SELECT tipo_observaciones, valor_obs FROM observaciones_conteocelular where id_venta ='"+Captura_Conteo_Celular.id_venta.getText()+"'";
+            PreparedStatement ps = ca.prepareStatement(sSQL);
+            try (ResultSet rs = ps.executeQuery(sSQL)) {
+                while (rs.next()) {
+                    columna[0] = rs.getString("tipo_observaciones");
+                    columna[1] = rs.getString("valor_obs");                    
+                    modeloT.addRow(columna);
+                }
+            }
+            TableColumnModel columnModel = tablaD.getColumnModel();
+            columnModel.getColumn(0).setMinWidth(170);
+            columnModel.getColumn(0).setMaxWidth(170);
+            columnModel.getColumn(1).setMinWidth(600);
+            columnModel.getColumn(1).setMaxWidth(600);                       
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e, "LlenarTabladeBacterias", JOptionPane.PLAIN_MESSAGE);
+        } finally {
+            cc.getClose();
+        }
+    }
+  
 }

@@ -1,6 +1,6 @@
 package Controladores;
+
 import Modelos.Modelo_ConteoCelular;
-import Modelos.Modelo_Coproparasitoscopico;
 import Modelos.Modelo_Cultivos;
 import Modelos.Modelo_capturar_resultados;
 import javax.swing.JOptionPane;
@@ -14,26 +14,12 @@ public class Controlador_Captura_ConteoCeular {
       public static int  id_usuario=SI_Inicio.id_usuario;
      public static String  buscap = "";
      public static  boolean pass=false, pass2=false, pass3=false;
-    // public static  TikectGasto tikectGastos;
-    /* public static void busquedadegastos(){
-       Modelogastos.mostrartodoslosproductosenexistenciasporbusqueda(Gastos.busquedagastos1.getText());
-    }  */            
+         
     public static void PrecargaTablaDeEstudiosCultivos(){  // jTableMuestraCultivos                
        Modelo_Cultivos.LlenarTablaCultivos(Muestra_de_Cultivos.jTableMuestraCultivos);
     }
       
-    public static void insertResultadosCultivos(){        
-        if (Captura_Resultados_Cultivos.txtdescripcionq.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Se debe de ingresar el antimicrobiano.");
-        } else{
-            String item = Captura_Resultados_Cultivos.ComboResultados.getSelectedItem().toString(); 
-        //JOptionPane.showMessageDialog(null, "El valor selected es:" +item);
-                      Captura_Resultados_Cultivos.nombre_estudio.getText();            
-    Modelo_Cultivos.inserciondeResultadosdeCultivos(Captura_Resultados_Cultivos.txtdescripcionq.getText(), item, Captura_Resultados_Cultivos.txt_bacteria.getText(), Captura_Resultados_Cultivos.txt_porcentaje.getText());            
-            Modelo_Cultivos.LlenarTabladeResultadosInterpretaciones(Captura_Resultados_Cultivos.jTableInterpretaciones);
-            limpiar(); // limpia las cajas txt
-        }                
-    }
+
     
     public static void activarpdfcultivos(){            
     if(Modelo_capturar_resultados.activarVistaParaCapturadeCultivosxx(Integer.valueOf(Capturar_resultados.id_venta.getText())) >=1){
@@ -63,25 +49,39 @@ public class Controlador_Captura_ConteoCeular {
     }
     }
                        
-      public static void limpiar(){     /*====  VACIAR CAMPOS */        
-            Captura_Resultados_Cultivos.txtdescripcionq.setText(null);            
-         }  
+    
       
       public static void limpiarTxtConteos(){                 
-            Captura_Conteo_Celular.txtConteo1.setText(null);
             Captura_Conteo_Celular.txtConteo2.setText(null);
          }  
+      public static void limpiarTxtObsrvacionesConteos(){                 
+            Captura_Conteo_Celular.txtConteo3.setText(null);
+         } 
 
-    public static void insertResultadosDeConteoCelular2022() {
-        if (Captura_Conteo_Celular.txtConteo1.getText().isEmpty() || Captura_Conteo_Celular.txtConteo2.getText().isEmpty()) {
+    public static void insertResultadosDeConteoCelular2022() { // ---------------------
+        String itemEstudios = Captura_Conteo_Celular.ComboEstudios.getSelectedItem().toString();         
+        if (Captura_Conteo_Celular.txtConteo2.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Debe llenar los campos vacios.");
-        } else{ 
-        //String item = Captura_Conteo_Celular.ComboResultados2.getSelectedItem().toString(); 
-        //String result = Captura_Conteo_Celular.ComboResultadoCoproparasitos.getSelectedItem().toString(); 
-        
-        Modelo_ConteoCelular.inserciondeResultadosDeConteoCelular(Captura_Conteo_Celular.txtConteo1.getText(),Captura_Conteo_Celular.txtConteo2.getText());
-        Modelo_ConteoCelular.LlenarTablaConteo(Captura_Conteo_Celular.jTableCoproparasitos);
+        }else if(itemEstudios.equals("---------------------")){
+            JOptionPane.showMessageDialog(null, "La opción elegida no es la correcta.");
+        }else{         
+        Modelo_ConteoCelular.inserciondeResultadosDeConteoCelular(itemEstudios,Captura_Conteo_Celular.txtConteo2.getText());
+        Modelo_ConteoCelular.LlenarTablaConteo(Captura_Conteo_Celular.jTableCelulas);
         limpiarTxtConteos();
+        }
+    }
+    
+    // Se guardan las observaciones del estudio
+     public static void insertObservacionesDeConteoCelular2022() { // ---------------------
+        String itemObsrvaciones = Captura_Conteo_Celular.ComboEstudios.getSelectedItem().toString();         
+        if(Captura_Conteo_Celular.txtConteo3.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Debe llenar los campos vacios.");
+        }else if(itemObsrvaciones.equals("---------------------")){
+            JOptionPane.showMessageDialog(null, "La opción elegida no es la correcta.");
+        }else{         
+        Modelo_ConteoCelular.inserciondeObservacionesDeConteoCelular(itemObsrvaciones,Captura_Conteo_Celular.txtConteo3.getText());
+        Modelo_ConteoCelular.LlenarTabladeObservaciones(Captura_Conteo_Celular.jTableObse);
+        limpiarTxtObsrvacionesConteos();
         }
     }
 }

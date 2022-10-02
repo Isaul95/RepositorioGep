@@ -39,7 +39,7 @@ public class Controlador_Report_pdf_ConteoCelular {
                 parametro.put("Logo5", this.getClass().getResourceAsStream(logotipo));
                 parametro.put("logoback", this.getClass().getResourceAsStream(logoback2));
                 parametro.put("firma5", this.getClass().getResourceAsStream(firma));
-System.out.println("aki desde controller Muestra_de_CultivoXXX PARASITOSs id" + Captura_Conteo_Celular.id_venta.getText());
+
                 JasperReport reporte = null; // String path = "src/Reportes/report3.jasper";
                 //String path = "src/Reportes/reporte_coproparasitos.jasper";                
                 reporte = (JasperReport) JRLoader.loadObject(getClass().getResource("/Reportes/reporte_conteocelular.jasper")); // ASI MANDO A LLAMAR LOS REPORTES CON .jasper 

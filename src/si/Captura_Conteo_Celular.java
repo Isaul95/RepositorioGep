@@ -1,19 +1,20 @@
 package si;
 import Controladores.Controlador_Captura_ConteoCeular;
-import Controladores.Controlador_Estudios_Coproparasitoscopico;
 import Controladores.Controlador_Report_pdf_ConteoCelular;
-import Controladores.Controlador_Report_pdf_Coproparasitos;
 import Controladores.Controlador_capturar_resultados;
 import Controladores.Controladorventa;
+import javax.swing.JOptionPane;
 
 public class Captura_Conteo_Celular extends javax.swing.JFrame {
 public static String producto="";
    
     public Captura_Conteo_Celular() {
         initComponents();
+        GuardarObservaciones.setEnabled(false); // observaciones btn no editable al inicio
+        txtConteo3.setVisible(false); // observaciones TXT no editable al inicio
         Controladorventa.noduplicarcultivos = true;
          id_venta.setText(String.valueOf(Controlador_capturar_resultados.id_a_actualizar_resultados));         
-        this.setLocationRelativeTo(null); // CENTRAR FORMULARIO  
+        this.setLocationRelativeTo(null); // CENTRAR FORMULARIO          
     }    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -25,13 +26,18 @@ public static String producto="";
         txtConteo2 = new javax.swing.JTextField();
         jLabel83 = new javax.swing.JLabel();
         GuardarDatosCultivos = new javax.swing.JButton();
-        txtConteo1 = new javax.swing.JTextField();
+        jLabel84 = new javax.swing.JLabel();
+        txtConteo3 = new javax.swing.JTextField();
+        GuardarObservaciones = new javax.swing.JButton();
+        ComboEstudios = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTableCoproparasitos = new javax.swing.JTable();
+        jTableCelulas = new javax.swing.JTable();
         gastos_btn_back = new javax.swing.JButton();
         jLabel82 = new javax.swing.JLabel();
         id_venta = new javax.swing.JLabel();
         genetrar_Pdf = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTableObse = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -50,50 +56,76 @@ public static String producto="";
 
         jLabel81.setBackground(new java.awt.Color(0, 0, 0));
         jLabel81.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
-        jLabel81.setText("Valor (%):");
+        jLabel81.setText("Observaciones:");
         jPanel2.add(jLabel81);
-        jLabel81.setBounds(10, 130, 190, 21);
+        jLabel81.setBounds(10, 260, 170, 21);
 
         txtConteo2.setBackground(new java.awt.Color(135, 193, 193));
         txtConteo2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         txtConteo2.setToolTipText("");
         txtConteo2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 1, true));
         jPanel2.add(txtConteo2);
-        txtConteo2.setBounds(10, 160, 180, 40);
+        txtConteo2.setBounds(10, 120, 180, 40);
 
         jLabel83.setBackground(new java.awt.Color(0, 0, 0));
         jLabel83.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
-        jLabel83.setText("Celula:");
+        jLabel83.setText("Célula:");
         jPanel2.add(jLabel83);
-        jLabel83.setBounds(10, 30, 260, 21);
+        jLabel83.setBounds(10, 10, 190, 21);
 
         GuardarDatosCultivos.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        GuardarDatosCultivos.setText("Guardar");
+        GuardarDatosCultivos.setText("Capturar célula");
         GuardarDatosCultivos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 GuardarDatosCultivosActionPerformed(evt);
             }
         });
         jPanel2.add(GuardarDatosCultivos);
-        GuardarDatosCultivos.setBounds(20, 240, 170, 50);
+        GuardarDatosCultivos.setBounds(10, 170, 180, 40);
 
-        txtConteo1.setBackground(new java.awt.Color(135, 193, 193));
-        txtConteo1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        txtConteo1.setToolTipText("");
-        txtConteo1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 1, true));
-        jPanel2.add(txtConteo1);
-        txtConteo1.setBounds(10, 70, 180, 40);
+        jLabel84.setBackground(new java.awt.Color(0, 0, 0));
+        jLabel84.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
+        jLabel84.setText("Valor (%):");
+        jPanel2.add(jLabel84);
+        jLabel84.setBounds(10, 90, 190, 21);
+
+        txtConteo3.setBackground(new java.awt.Color(135, 193, 193));
+        txtConteo3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        txtConteo3.setToolTipText("");
+        txtConteo3.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 1, true));
+        jPanel2.add(txtConteo3);
+        txtConteo3.setBounds(10, 300, 220, 40);
+
+        GuardarObservaciones.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        GuardarObservaciones.setText("Capturar observaciones");
+        GuardarObservaciones.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                GuardarObservacionesActionPerformed(evt);
+            }
+        });
+        jPanel2.add(GuardarObservaciones);
+        GuardarObservaciones.setBounds(10, 360, 200, 40);
+
+        ComboEstudios.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        ComboEstudios.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Blastos", "Promielocitos", "Mielocitos", "Metamielocitos", "Bandas", "Segmentados", "Linfocitos", "Células plasmáticas", "Promonocitos", "Monocitos", "Eosinófilos", "Basófilos", "---------------------", "obs.blanca", "obs.roja", "obs.plaquetas" }));
+        ComboEstudios.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                ComboEstudiosItemStateChanged(evt);
+            }
+        });
+        jPanel2.add(ComboEstudios);
+        ComboEstudios.setBounds(10, 40, 230, 40);
 
         jPanel1.add(jPanel2);
-        jPanel2.setBounds(10, 50, 240, 310);
+        jPanel2.setBounds(20, 60, 250, 450);
 
-        jTableCoproparasitos = new javax.swing.JTable(){
+        jTableCelulas = new javax.swing.JTable(){
             public boolean isCellEditable(int filas, int columnas){
                 return false;
             }
         };
-        jTableCoproparasitos.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jTableCoproparasitos.setModel(new javax.swing.table.DefaultTableModel(
+        jTableCelulas.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
+        jTableCelulas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -101,11 +133,12 @@ public static String producto="";
 
             }
         ));
-        jTableCoproparasitos.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jScrollPane1.setViewportView(jTableCoproparasitos);
+        jTableCelulas.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jScrollPane1.setViewportView(jTableCelulas);
+        jTableCelulas.getAccessibleContext().setAccessibleParent(jScrollPane2);
 
         jPanel1.add(jScrollPane1);
-        jScrollPane1.setBounds(260, 110, 440, 190);
+        jScrollPane1.setBounds(290, 100, 410, 170);
 
         gastos_btn_back.setBackground(new java.awt.Color(255, 255, 255));
         gastos_btn_back.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -118,20 +151,20 @@ public static String producto="";
             }
         });
         jPanel1.add(gastos_btn_back);
-        gastos_btn_back.setBounds(590, 40, 150, 50);
+        gastos_btn_back.setBounds(800, 480, 150, 50);
 
         jLabel82.setBackground(new java.awt.Color(0, 0, 0));
         jLabel82.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel82.setText("Venta:");
         jPanel1.add(jLabel82);
-        jLabel82.setBounds(260, 60, 58, 24);
+        jLabel82.setBounds(780, 60, 58, 24);
 
         id_venta.setBackground(new java.awt.Color(0, 0, 0));
         id_venta.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         id_venta.setForeground(new java.awt.Color(102, 102, 102));
         id_venta.setText("idVenta:");
         jPanel1.add(id_venta);
-        id_venta.setBounds(340, 60, 74, 24);
+        id_venta.setBounds(860, 60, 74, 24);
 
         genetrar_Pdf.setBackground(new java.awt.Color(255, 255, 255));
         genetrar_Pdf.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -143,7 +176,22 @@ public static String producto="";
             }
         });
         jPanel1.add(genetrar_Pdf);
-        genetrar_Pdf.setBounds(530, 320, 230, 50);
+        genetrar_Pdf.setBounds(600, 480, 160, 50);
+
+        jTableObse.setFont(new java.awt.Font("Dialog", 1, 15)); // NOI18N
+        jTableObse.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        jTableObse.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jScrollPane2.setViewportView(jTableObse);
+
+        jPanel1.add(jScrollPane2);
+        jScrollPane2.setBounds(290, 300, 680, 150);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -151,15 +199,15 @@ public static String producto="";
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 781, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 981, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 379, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 555, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         jPanel1.getAccessibleContext().setAccessibleName("Captura Coproparasitos");
@@ -181,14 +229,31 @@ public static String producto="";
     }//GEN-LAST:event_GuardarDatosCultivosActionPerformed
 
     private void genetrar_PdfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_genetrar_PdfActionPerformed
-        // GENERANDO PDF DE CLIENTES
-       
+        // GENERANDO PDF DE CLIENTES       
     Controlador_Report_pdf_ConteoCelular cc = new Controlador_Report_pdf_ConteoCelular();
-     cc.Generacion_PDF_ConteoCelular();
-
-          
-
+     cc.Generacion_PDF_ConteoCelular();         
     }//GEN-LAST:event_genetrar_PdfActionPerformed
+
+    private void GuardarObservacionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardarObservacionesActionPerformed
+        Controlador_Captura_ConteoCeular.insertObservacionesDeConteoCelular2022();      
+    }//GEN-LAST:event_GuardarObservacionesActionPerformed
+
+    private void ComboEstudiosItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_ComboEstudiosItemStateChanged
+        String itemEstudio = ComboEstudios.getSelectedItem().toString();
+        if(itemEstudio.equals("obs.blanca") || itemEstudio.equals("obs.roja") || itemEstudio.equals("obs.plaquetas")){
+            GuardarDatosCultivos.setEnabled(false);
+            GuardarObservaciones.setEnabled(true);
+            txtConteo3.setVisible(true); // setEditable txtConteo3= observaciones
+            txtConteo2.setVisible(false); // txtConteo2 = valor %
+        }else if(itemEstudio.equals("---------------------")){
+            JOptionPane.showMessageDialog(null, "No es una opción...");
+        }else{
+            GuardarDatosCultivos.setEnabled(true);
+            GuardarObservaciones.setEnabled(false);
+            txtConteo3.setVisible(false); // setEditable txtConteo3= observaciones
+            txtConteo2.setVisible(true); // txtConteo2 = valor %
+        }
+    }//GEN-LAST:event_ComboEstudiosItemStateChanged
 
     /**
      * @param args the command line arguments
@@ -291,18 +356,23 @@ public static String producto="";
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public static javax.swing.JComboBox<String> ComboEstudios;
     public static javax.swing.JButton GuardarDatosCultivos;
+    public static javax.swing.JButton GuardarObservaciones;
     private javax.swing.JButton gastos_btn_back;
     public static javax.swing.JButton genetrar_Pdf;
     public static javax.swing.JLabel id_venta;
     private javax.swing.JLabel jLabel81;
     private javax.swing.JLabel jLabel82;
     private javax.swing.JLabel jLabel83;
+    private javax.swing.JLabel jLabel84;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    public static javax.swing.JTable jTableCoproparasitos;
-    public static javax.swing.JTextField txtConteo1;
+    private javax.swing.JScrollPane jScrollPane2;
+    public static javax.swing.JTable jTableCelulas;
+    public static javax.swing.JTable jTableObse;
     public static javax.swing.JTextField txtConteo2;
+    public static javax.swing.JTextField txtConteo3;
     // End of variables declaration//GEN-END:variables
 }
