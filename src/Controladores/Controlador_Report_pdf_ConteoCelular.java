@@ -42,7 +42,7 @@ public class Controlador_Report_pdf_ConteoCelular {
 
                 JasperReport reporte = null; // String path = "src/Reportes/report3.jasper";
                 //String path = "src/Reportes/reporte_coproparasitos.jasper";                
-                reporte = (JasperReport) JRLoader.loadObject(getClass().getResource("/Reportes/reporte_conteocelular.jasper")); // ASI MANDO A LLAMAR LOS REPORTES CON .jasper 
+                reporte = (JasperReport) JRLoader.loadObject(getClass().getResource("/Reportes/report_pdfConteoCelular.jasper")); // ASI MANDO A LLAMAR LOS REPORTES CON .jasper 
                 // ========================= LLENADO DEL REPORTE  ======================  /
                 //  path --> LA RUTA DEL REPORTE 
 //   --> LOS PARAMETROS K SE ENVIAN ALA REPORTE AKI SE RECIBEN IGUAL K CONEXION DB-->(ca) B.D
